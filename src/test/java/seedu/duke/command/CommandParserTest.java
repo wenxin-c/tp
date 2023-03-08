@@ -3,38 +3,39 @@ package seedu.duke.command;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 public class CommandParserTest {
 
 
     @Test
-    public void parseUserInput_ValidInput() {
+    public void parseUserInput_validInput() {
         // The following commands should be able to pass
-        String[] VALID_COMMAND_INPUTS = {
-                "mainCommand",
-                "mainCommand payload",
-                "main --arg1 pay1",
-                "main --arg1 pay1 --arg2",
-                "main --arg1 pay1 --arg2 --arg3 pay3",
+        String[] validCommandInputs = {
+            "mainCommand",
+            "mainCommand payload",
+            "main --arg1 pay1",
+            "main --arg1 pay1 --arg2",
+            "main --arg1 pay1 --arg2 --arg3 pay3",
         };
 
         // The following tests check if adversarial inputs are processed correctly
-        String[] VALID_TRICKY_INPUTS = {
-                "mainCommand pay--load",
-                "mainCommand --argument1 payload--",
-                "  mainCommand --arg--1 pay1 --arg2 pay2",
+        String[] validTrickyInputs = {
+            "mainCommand pay--load",
+            "mainCommand --argument1 payload--",
+            "  mainCommand --arg--1 pay1 --arg2 pay2",
         };
 
         CommandParser parser = new CommandParser();
-        for (String validCommand : VALID_COMMAND_INPUTS) {
+        for (String validCommand : validCommandInputs) {
             try {
                 parser.parseUserInput(validCommand);
             } catch (BadCommandException exception) {
                 fail("CommandParser threw exception on valid input:\n" + exception);
             }
         }
-        for (String validCommand : VALID_TRICKY_INPUTS) {
+        for (String validCommand : validTrickyInputs) {
             try {
                 parser.parseUserInput(validCommand);
             } catch (BadCommandException exception) {
@@ -76,7 +77,7 @@ public class CommandParserTest {
     }
 
     @Test
-    public void parseUserInput_NoMainArgument_exceptionThrown() {
+    public void parseUserInput_noMainArgument_exceptionThrown() {
         CommandParser parser = new CommandParser();
         // Test on empty user input without padding
         String command = "--arg1 payload";
@@ -92,14 +93,14 @@ public class CommandParserTest {
     }
 
     @Test
-    public void getMainArgumentTest(){
+    public void getMainArgumentTest() {
         CommandParser parser = new CommandParser();
         String target = "mainCommand";
         String command = "mainCommand payload --argument payload1";
         try {
             String result1 = parser.getMainArgument(command);
             assertEquals(target, result1);
-        } catch(BadCommandException exception) {
+        } catch (BadCommandException exception) {
             fail(exception.getMessage());
         }
     }

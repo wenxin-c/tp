@@ -59,7 +59,7 @@ public class CommandParser {
         //    So, check for "--" prefix
 
         String[] cleanCommands = new String[commands.length];
-        for (int i=0; i<commands.length; ++i) {
+        for (int i = 0; i < commands.length; ++i) {
             String currentCommand = commands[i];
             // Case 1 check
             if (currentCommand.startsWith(" ") || currentCommand.length() == 0) {
