@@ -97,6 +97,13 @@ public class CommandParser {
         return payload;
     }
 
+    /**
+     * Takes in raw user input and splits it into Argument-Payload pairs
+     *
+     * @param userInput Raw user input from stdin in string form
+     * @return HashMap mapping a Argument (key) to a Payload (value)
+     * @throws BadCommandException when command is empty or is problematic
+     */
     public HashMap<String, String> parseUserInput(String userInput) throws BadCommandException {
         if (userInput.length() == 0) {
             throw new BadCommandException(ERROR_EMPTY_COMMAND);
@@ -111,7 +118,17 @@ public class CommandParser {
         return argumentPayload;
     }
 
-    // Returns the main argument (action)
+    /**
+     * Takes in a string and returns the inferred "Main Argument"
+     * <br>
+     * Practically, this is the <b>First</b> argument of any command string.
+     * For example, <code>"hb add --name foobar"</code> <br>
+     * Has main argument "hb"
+     *
+     * @param userInput Any string input representing a command
+     * @return the inferred Main Argument
+     * @throws BadCommandException when String is empty
+     */
     public String getMainArgument(String userInput) throws BadCommandException {
         userInput = userInput.strip();
         String[] parameters = userInput.split(" ");
