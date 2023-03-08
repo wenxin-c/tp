@@ -23,6 +23,7 @@ import java.util.HashMap;
 public class CommandParser {
 
     private static final String ARGUMENT_DELIMITER = " --";
+    private static final String UNPADDED_DELIMITER = "--";
     private static final String PAYLOAD_DELIMITER = " ";
 
     // Message string constants for errors and ui
@@ -39,10 +40,39 @@ public class CommandParser {
 
     }
 
-    private String[] splitIntoCommands(String fullCommandString) {
+    private String[] splitIntoCommands(String fullCommandString) throws BadCommandException {
         // Perform a string length sanity check
-        assert fullCommandString.length() > 0;
-        return fullCommandString.split(ARGUMENT_DELIMITER);
+        fullCommandString = fullCommandString.strip();
+        if (fullCommandString.length() == 0) {
+            throw new BadCommandException(ERROR_EMPTY_COMMAND);
+        }
+
+        String[] commands = fullCommandString.split(ARGUMENT_DELIMITER, -1);
+        // Adversarial user input check
+        // There are 2 possible adversarial inputs that should be checked for
+        // 1. Whitespace/Empty Arguments: `cmd payload -- payload1 -- `
+        //    Split renders it as ["cmd payload", " payload1", ""]
+        //    " payload1" will cause issues with rendering
+        //    So, check for empty commands and whitespace prefix
+        // 2. Missing main argument: `--argument payload`
+        //    Split renders this as ["--argument payload"]
+        //    So, check for "--" prefix
+
+        String[] cleanCommands = new String[commands.length];
+        for (int i=0; i<commands.length; ++i) {
+            String currentCommand = commands[i];
+            // Case 1 check
+            if (currentCommand.startsWith(" ") || currentCommand.length() == 0) {
+                throw new BadCommandException(ERROR_EMPTY_ARGUMENT);
+            }
+            currentCommand = currentCommand.strip();
+            // Case 2 check
+            if (currentCommand.startsWith(UNPADDED_DELIMITER)) {
+                throw new BadCommandException(ERROR_EMPTY_COMMAND);
+            }
+            cleanCommands[i] = currentCommand;
+        }
+        return cleanCommands;
     }
 
     private String getArgumentFromCommand(String commandString) throws BadCommandException {
@@ -79,6 +109,16 @@ public class CommandParser {
             argumentPayload.put(argument, payload);
         }
         return argumentPayload;
+    }
+
+    // Returns the main argument (action)
+    public String getMainArgument(String userInput) throws BadCommandException {
+        userInput = userInput.strip();
+        String[] parameters = userInput.split(" ");
+        if (parameters.length == 0) {
+            throw new BadCommandException(ERROR_EMPTY_COMMAND);
+        }
+        return parameters[0];
     }
 
 }
