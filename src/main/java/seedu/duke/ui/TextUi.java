@@ -17,7 +17,6 @@ public class TextUi {
      * @return user input command with leading/dangling whitespace being removed
      */
     public static String getCommand() {
-
         String inputLine;
         String userCommand;
         inputLine = SCANNER.nextLine();
