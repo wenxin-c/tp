@@ -11,10 +11,17 @@ import java.util.Scanner;
  */
 public class TextUi {
     private static final Scanner SCANNER = new Scanner(System.in);
-    private String separator = "-";
     private static final String ALERT_SEPARATOR = "!!!!!!----------!!!!!!!----------!!!!!!!";
     private static final String INDENTATION_SPACES = "    ";
     private static final int DEFAULT_SEPARATOR_LENGTH = 40;
+    private String separator = "-";
+
+    /**
+     * Print spaces before output message for better formatting.
+     */
+    public static void printIndentation() {
+        System.out.print(INDENTATION_SPACES);
+    }
 
     /**
      * Read user's input command and return back the command string.<br/>
@@ -44,13 +51,6 @@ public class TextUi {
             System.out.print(separator);
         }
         System.out.print(System.lineSeparator());
-    }
-
-    /**
-     * Print spaces before output message for better formatting.
-     */
-    public static void printIndentation() {
-        System.out.print(INDENTATION_SPACES);
     }
 
     /**
