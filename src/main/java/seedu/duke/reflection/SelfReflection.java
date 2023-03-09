@@ -15,6 +15,8 @@ public class SelfReflection {
     private static final String GREETING_MESSAGE = "Welcome to WellNUS++ Self Reflection section:D\n" +
             "Feel very occupied and cannot find time to self reflect?\n" +
             "No worries, this section will give you the opportunity to reflect and improve on yourself!!\n";
+
+    // Questions are adopted from website: https://www.usa.edu/blog/self-discovery-questions/
     private static final String[] QUESTIONS =
             {"What are three of my most cherished personal values?",
             "What is my purpose in life?",
