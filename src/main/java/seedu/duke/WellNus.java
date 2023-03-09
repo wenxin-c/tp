@@ -1,6 +1,8 @@
 
 package seedu.duke;
 
+import seedu.duke.atomichabit.atomichabit.AtomicHabitManager;
+
 import java.util.Scanner;
 
 public class WellNus {
@@ -21,9 +23,6 @@ public class WellNus {
 
         Scanner in = new Scanner(System.in);
         System.out.println("Hello " + in.nextLine());
-
-
-
         AtomicHabitManager atomicHabitManager = new AtomicHabitManager();
         atomicHabitManager.run();
     }

@@ -1,4 +1,4 @@
-package seedu.duke;
+package seedu.duke.atomichabit.atomichabit;
 
 import java.util.ArrayList;
 

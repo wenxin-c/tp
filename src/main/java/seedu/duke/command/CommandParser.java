@@ -93,7 +93,7 @@ public class CommandParser {
     private String getPayloadFromCommand(String commandString) {
         String[] words = commandString.split(PAYLOAD_DELIMITER);
         String payload = "";
-        for (int i = 0; i < words.length; ++i) {
+        for (int i = 1; i < words.length; ++i) {
             payload = payload.concat(words[i]);
             if (i != words.length - 1) {
                 payload = payload.concat(PAYLOAD_DELIMITER);

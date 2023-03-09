@@ -1,4 +1,4 @@
-package seedu.duke;
+package seedu.duke.atomichabit.command;
 
 public class CommandResult {
     private final String feedbackToUser;

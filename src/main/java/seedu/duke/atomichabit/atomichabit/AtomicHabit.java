@@ -1,4 +1,4 @@
-package seedu.duke;
+package seedu.duke.atomichabit.atomichabit;
 
 public class AtomicHabit {
     protected String description;
