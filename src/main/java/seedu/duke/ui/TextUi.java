@@ -6,16 +6,33 @@ import java.util.Scanner;
  * UI class for reading user inputs and printing outputs
  */
 public class TextUi {
+    private static final Scanner SCANNER = new Scanner(System.in);
     private static final String SEPARATOR = "-";
     private static final String INDENTATION_SPACES = "    ";
 
     /**
      * Read user's input command and return back the command string.<br/>
+     * This is for usage. <br/>
      *
      * @return user input command with leading/dangling whitespace being removed
      */
     public static String getCommand() {
-        Scanner readInput = new Scanner(System.in);
+
+        String inputLine;
+        String userCommand;
+        inputLine = SCANNER.nextLine();
+        userCommand = inputLine.trim();
+        return userCommand;
+    }
+
+    /**
+     * Read test input command and return back the command string.<br/>
+     * For JUnit testing purpose only.
+     *
+     * @param readInput scanner object with System.in being overwritten in test
+     * @return user input command with leading/dangling whitespace being removed
+     */
+    public static String getCommand(Scanner readInput) {
         String inputLine;
         String userCommand;
         inputLine = readInput.nextLine();

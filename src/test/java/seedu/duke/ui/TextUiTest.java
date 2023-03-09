@@ -7,6 +7,7 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.io.PrintStream;
+import java.util.Scanner;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.duke.ui.TextUi.getCommand;
@@ -25,9 +26,10 @@ class TextUiTest {
     @Test
     void getCommand_trimSpace_success() {
         InputStream sysInBackup = System.in;
-        ByteArrayInputStream in = new ByteArrayInputStream(" My string ".getBytes());
+        ByteArrayInputStream in = new ByteArrayInputStream((" My string "+System.lineSeparator()).getBytes());
         System.setIn(in);
-        String command = getCommand();
+        Scanner readLine = new Scanner(System.in);
+        String command = getCommand(readLine);
         assertEquals("My string", command);
         System.setIn(sysInBackup);
     }
