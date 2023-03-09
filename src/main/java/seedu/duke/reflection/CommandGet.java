@@ -5,7 +5,7 @@ import java.util.Random;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public class GetCommand extends Command{
+public class CommandGet extends Command{
     private static final int NUM_OF_RANDOM_QUESTIONS = 5;
     private static final ReflectUi REFLECT_UI = new ReflectUi();
 

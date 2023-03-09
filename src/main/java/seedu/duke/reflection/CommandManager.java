@@ -26,7 +26,7 @@ public class CommandManager {
         setArgumentPayload(inputCommand);
         switch (commandType) {
         case "get":
-            GetCommand getQuestionsCmd = new GetCommand();
+            CommandGet getQuestionsCmd = new CommandGet();
             getQuestionsCmd.printRandomReflectQuestions();
             break;
         default:
