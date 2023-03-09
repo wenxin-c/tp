@@ -19,7 +19,7 @@ public class TextUi {
     /**
      * Print spaces before output message for better formatting.
      */
-    public static void printIndentation() {
+    public void printIndentation() {
         System.out.print(INDENTATION_SPACES);
     }
 
