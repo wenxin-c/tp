@@ -6,11 +6,19 @@ import java.util.HashMap;
  * A CommandParser processes user input from a defined format <p>
  * <p><br>
  * Each user input via console consists of: <br>
- * 1. COMMANDS - A Argument and Payload pairs <br>
- * 2. ARGUMENTS - String representing the action/parameters of the command <br>
- * 3. PAYLOADS - value of the action/parameters <br>
- * In short, user input is a list of commands, each command containing arguments and payloads. <br>
- * <br>
+ * <ol>
+ * <li>COMMANDS - A Argument and Payload pairs </li><br>
+ * <li>ARGUMENTS - String representing the action/parameters of the command </li><br>
+ * <li>PAYLOADS - value of the action/parameters </li><br>
+ * </ol>
+ * <p>
+ * In short, user input is a list of commands, each command containing arguments and payloads. <br><br>
+ * Further, we define the FIRST command to be the MAIN command of any given user input. <br>
+ * So, <code>"deadline work on CS2113 --by Sunday"</code> has <code>"deadline work on CS2113"</code>
+ * as the main command <br><br>
+ * Each command (argument-payload pair) except for the main command MUST
+ * be delimited by <code>" --"</code> (whitespace intentional)
+ * <br><br>
  * For example, a given user input: <code>"deadline work on CS2113 --by Sunday"</code>
  * <li>Has commands ["deadline work on CS2113", "by Sunday"]</li>
  * <li>Has arguments ["deadline", "by"]</li>
