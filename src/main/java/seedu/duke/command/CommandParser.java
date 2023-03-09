@@ -32,7 +32,7 @@ public class CommandParser {
     private static final String PAYLOAD_DELIMITER = " ";
 
     // Message string constants for errors and ui
-    private static final String ERROR_EMPTY_COMMAND = "Command length is empty.";
+    private static final String ERROR_EMPTY_COMMAND = "Command is empty!";
     private static final String ERROR_EMPTY_ARGUMENT = "Command is missing an argument!";
 
     /**
