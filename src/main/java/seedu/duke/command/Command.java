@@ -7,11 +7,11 @@ import java.util.Map;
  * Superclass for all supported commands in Duke.<br>
  *
  * Each Command is initialised with the arguments issued
- *   by the user. Execute the specified Command by calling
- *   execute().<br>
+ *     by the user. Execute the specified Command by calling
+ *     execute().<br>
  *
  * Child classes must provide the static isValidCommand() method for checking whether a set of
- *   arguments are valid for a given command.
+ *     arguments are valid for a given command.
  */
 public abstract class Command {
     private static final String ARGUMENT_DELIMITER = "--";
@@ -28,7 +28,7 @@ public abstract class Command {
 
     /**
      * Identifies this Command's keyword. Override this in subclasses so
-     *   toString() returns the correct String representation.
+     *     toString() returns the correct String representation.
      *
      * @return String Keyword of this Command
      */
@@ -43,7 +43,7 @@ public abstract class Command {
 
     /**
      * Identifies the feature that this Command is associated with. Override
-     *   this in subclasses so toString() returns the correct String representation.
+     *     this in subclasses so toString() returns the correct String representation.
      *
      * @return String Keyword for the feature associated with this Command
      */
@@ -54,10 +54,10 @@ public abstract class Command {
      *
      * @return String All supported arguments for this Command
      */
-     protected abstract String getSupportedCommandArguments();
+    protected abstract String getSupportedCommandArguments();
 
     /**
-     * Executes the specified command from the user.
+     * Executes the specified command from the user.<br>
      *
      * May throw Exceptions if command fails.
      */
@@ -65,10 +65,10 @@ public abstract class Command {
 
     /**
      * Very basic specialised toString() method for commands that returns
-     *   a formatted list of all arguments issued by the user.
+     *     a formatted list of all arguments issued by the user.
      *
      * @return String Representation of this Command that includes all
-     *   given arguments
+     *     given arguments
      */
     @Override
     public String toString() {
