@@ -8,7 +8,6 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 public class CommandParserTest {
 
-
     @Test
     public void parseUserInput_validInput() {
         // The following commands should be able to pass
