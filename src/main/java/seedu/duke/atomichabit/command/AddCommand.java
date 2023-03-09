@@ -15,6 +15,11 @@ public class AddCommand extends Command{
         this.description = description;
     }
 
+    /**
+     *
+     * @param atomicHabitList
+     * @return
+     */
     @Override
     public CommandResult execute(AtomicHabitList atomicHabitList) {
         AtomicHabit habit = new AtomicHabit(description);

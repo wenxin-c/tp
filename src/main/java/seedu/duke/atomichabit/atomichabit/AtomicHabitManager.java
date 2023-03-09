@@ -13,11 +13,18 @@ public class AtomicHabitManager {
 
     private static Scanner myScanner = new Scanner(System.in);
 
+    /**
+     * Method to be called by MainManager when user wishes to utilise atomichabits
+     */
     public void run() {
         start();
         runCommands();
     }
 
+    /**
+     * Requests user for input
+     * @return user input in a String
+     */
     public static String takeInput() {
         String line = myScanner.nextLine();
         return line;
@@ -27,6 +34,9 @@ public class AtomicHabitManager {
         habitList = new AtomicHabitList();
     }
 
+    /**
+     * Continuously runs different user commands if not exit
+     */
     private void runCommands() {
         boolean isExit = false;
         while (!isExit) {
@@ -38,6 +48,11 @@ public class AtomicHabitManager {
         }
     }
 
+    /**
+     * Method that returns a command to be executed after parsing the user input
+     * to identify which command to return
+     * @return specific command to be executed by method runCommands
+     */
     private Command returnCommand() {
         userInput = takeInput();
         HashMap<String,String> parsedInputs = new HashMap<>();
