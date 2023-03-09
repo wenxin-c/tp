@@ -16,9 +16,6 @@ import java.util.HashMap;
  * <li>Has arguments ["deadline", "by"]</li>
  * <li>Has payloads ["work on CS2113", ["Sunday"]</li>
  * <br>
- * Further, we define the FIRST command to be the MAIN command of any given user input. <br>
- * So, <code>"deadline work on CS2113 --by Sunday"</code> has <code>"deadline work on CS2113"</code>
- * as the main command
  */
 public class CommandParser {
 
@@ -47,7 +44,7 @@ public class CommandParser {
             throw new BadCommandException(ERROR_EMPTY_COMMAND);
         }
 
-        String[] commands = fullCommandString.split(ARGUMENT_DELIMITER, -1);
+        String[] rawCommands = fullCommandString.split(ARGUMENT_DELIMITER, -1);
         // Adversarial user input check
         // There are 2 possible adversarial inputs that should be checked for
         // 1. Whitespace/Empty Arguments: `cmd payload -- payload1 -- `
@@ -58,13 +55,14 @@ public class CommandParser {
         //    Split renders this as ["--argument payload"]
         //    So, check for "--" prefix
 
-        String[] cleanCommands = new String[commands.length];
-        for (int i = 0; i < commands.length; ++i) {
-            String currentCommand = commands[i];
+        String[] cleanCommands = new String[rawCommands.length];
+        for (int i = 0; i < rawCommands.length; ++i) {
+            String currentCommand = rawCommands[i];
             // Case 1 check
             if (currentCommand.startsWith(" ") || currentCommand.length() == 0) {
                 throw new BadCommandException(ERROR_EMPTY_ARGUMENT);
             }
+            // Strip command of whitespace to clean input
             currentCommand = currentCommand.strip();
             // Case 2 check
             if (currentCommand.startsWith(UNPADDED_DELIMITER)) {
