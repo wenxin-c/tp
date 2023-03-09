@@ -1,7 +1,8 @@
-package tools;
+package seedu.duke.tools;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import seedu.duke.tools.UI;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;

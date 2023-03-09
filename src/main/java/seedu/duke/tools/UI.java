@@ -1,4 +1,4 @@
-package tools;
+package seedu.duke.tools;
 
 import java.util.Scanner;
 
