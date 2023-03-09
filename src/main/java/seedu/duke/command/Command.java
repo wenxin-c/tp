@@ -75,7 +75,7 @@ public abstract class Command {
      *
      * Example:
      * For the <code>hb add</code> command, toString() will output
-     *     <code>hb [add] [--name] <habit name></code>
+     *     <code>hb [add] [--name] &lt;habit name&gt;</code>
      *
      * @return String Representation of this Command that includes all
      *     given arguments
