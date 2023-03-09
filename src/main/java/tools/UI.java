@@ -37,14 +37,14 @@ public class UI {
     public static void drawLineSeparator(String feature, int length) {
         String chosenSeparator;
 
-        if (feature.equalsIgnoreCase("a")){
+        if (feature.equalsIgnoreCase("a")) {
             chosenSeparator = ATOMIC_SEPARATOR;
-        }else if(feature.equalsIgnoreCase("r")){
+        }else if(feature.equalsIgnoreCase("r")) {
             chosenSeparator = REFLECT_SEPARATOR;
         }else{
             chosenSeparator = MAIN_SEPARATOR;
         }
-        for (int i=0; i<length; i+=1){
+        for (int i=0; i<length; i+=1) {
             System.out.print(chosenSeparator);
         }
         System.out.print('\n');
