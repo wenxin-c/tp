@@ -6,7 +6,6 @@ import java.util.Scanner;
  * UI class for reading user inputs and printing outputs
  */
 public class TextUi {
-    private static final Scanner SCANNER = new Scanner(System.in);
     private static final String SEPARATOR = "-";
     private static final String INDENTATION_SPACES = "    ";
 
@@ -16,9 +15,10 @@ public class TextUi {
      * @return user input command with leading/dangling whitespace being removed
      */
     public static String getCommand() {
+        Scanner readInput = new Scanner(System.in);
         String inputLine;
         String userCommand;
-        inputLine = SCANNER.nextLine();
+        inputLine = readInput.nextLine();
         userCommand = inputLine.trim();
         return userCommand;
     }
