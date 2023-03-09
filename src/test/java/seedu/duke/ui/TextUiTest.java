@@ -32,6 +32,7 @@ class TextUiTest {
         String command = getCommand(readLine);
         assertEquals("My string", command);
         System.setIn(sysInBackup);
+        readLine.close();
     }
 
     @Test
