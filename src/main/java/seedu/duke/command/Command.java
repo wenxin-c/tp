@@ -16,10 +16,15 @@ import java.util.Map;
 public abstract class Command {
     private static final String ARGUMENT_DELIMITER = "--";
     private static final String DELIMITER_FOR_WORDS = " ";
+    private static final String WEIRD_ARGUMENTS_GIVEN = "Weird arguments given for command, cannot continue";
     // Key: An argument's name. Value: An argument's provided value from the user
     private final HashMap<String, String> arguments;
 
-    public Command(HashMap<String, String> arguments) {
+    public Command(HashMap<String, String> arguments) throws BadCommandException {
+        // Explicit null check to prevent later code from attempting to call methods on a null reference
+        if (arguments == null) {
+            throw new BadCommandException(Command.WEIRD_ARGUMENTS_GIVEN);
+        }
         this.arguments = arguments;
     }
 
