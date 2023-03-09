@@ -1,3 +1,4 @@
+
 package seedu.duke;
 
 import java.util.Scanner;
@@ -6,6 +7,7 @@ public class WellNus {
     /**
      * Main entry-point for the java.duke.Duke application.
      */
+
     public static void main(String[] args) {
         String logo = "\n" +
                 ",--.   ,--.       ,--.,--.,--.  ,--.,--. ,--. ,---.     |  |        |  |     \n" +
@@ -19,5 +21,11 @@ public class WellNus {
 
         Scanner in = new Scanner(System.in);
         System.out.println("Hello " + in.nextLine());
+
+
+
+        AtomicHabitManager atomicHabitManager = new AtomicHabitManager();
+        atomicHabitManager.run();
     }
 }
+
