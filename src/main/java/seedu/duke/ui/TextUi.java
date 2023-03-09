@@ -10,10 +10,10 @@ import java.util.Scanner;
  * This is to accommodate to the uniqueness of each feature.
  */
 public class TextUi {
-    private final static Scanner SCANNER = new Scanner(System.in);
-    private final static String ALERT_SEPARATOR = "!!!!!!----------!!!!!!!----------!!!!!!!";
-    private final static String INDENTATION_SPACES = "    ";
-    private final static int DEFAULT_SEPARATOR_LENGTH = 40;
+    private static final String ALERT_SEPARATOR = "!!!!!!----------!!!!!!!----------!!!!!!!";
+    private static final String INDENTATION_SPACES = "    ";
+    private static final int DEFAULT_SEPARATOR_LENGTH = 40;
+    private static final Scanner SCANNER = new Scanner(System.in);
     private String separator = "-";
 
     /**
