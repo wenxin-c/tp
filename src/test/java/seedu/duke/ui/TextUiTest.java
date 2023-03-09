@@ -13,10 +13,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 //Test methods associated with TextUi class
 class TextUiTest {
-    private final ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
     private static final String DEFAULT_SEPARATOR = "----------------------------------------";
     private static final String ALERT_SEPARATOR = "!!!!!!----------!!!!!!!----------!!!!!!!";
     private static final TextUi UI = new TextUi();
+    private final ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
 
     /**
      * Read test input command and return back the command string.<br/>
