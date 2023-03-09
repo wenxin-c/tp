@@ -40,7 +40,7 @@ class TextUiTest {
     }
 
     @Test
-    void printErrorFor_ArithmeticException_success() {
+    void printErrorFor_arithmeticException_success() {
         try {
             int result = 2/0;
         } catch (ArithmeticException exception) {
