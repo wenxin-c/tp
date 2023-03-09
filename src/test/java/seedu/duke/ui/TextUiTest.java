@@ -10,23 +10,38 @@ import java.io.PrintStream;
 import java.util.Scanner;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static seedu.duke.ui.TextUi.getCommand;
-import static seedu.duke.ui.TextUi.printErrorFor;
-import static seedu.duke.ui.TextUi.printOutputMessage;
 
-
+//Test methods associated with TextUi class
 class TextUiTest {
     private final ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
+    private static final String DEFAULT_SEPARATOR = "----------------------------------------";
+    private static final String ALERT_SEPARATOR = "!!!!!!----------!!!!!!!----------!!!!!!!";
+    private static final TextUi UI = new TextUi();
+
+    /**
+     * Read test input command and return back the command string.<br/>
+     * For JUnit testing purpose only.
+     *
+     * @param readInput scanner object with System.in being overwritten in test
+     * @return user input command with leading/dangling whitespace being removed
+     */
+    public static String getCommand(Scanner readInput) {
+        String inputLine = readInput.nextLine();
+        String userCommand = inputLine.trim();
+        return userCommand;
+    }
 
     @BeforeEach
     public void setUp() {
         System.setOut(new PrintStream(outputStreamCaptor));
     }
 
+    //Test whether removal of leading/dangling space is successful
     @Test
     void getCommand_trimSpace_success() {
         InputStream sysInBackup = System.in;
-        ByteArrayInputStream in = new ByteArrayInputStream((" My string "+System.lineSeparator()).getBytes());
+        ByteArrayInputStream in = new ByteArrayInputStream((" My string " +
+                System.lineSeparator()).getBytes());
         System.setIn(in);
         Scanner readLine = new Scanner(System.in);
         String command = getCommand(readLine);
@@ -35,37 +50,34 @@ class TextUiTest {
         readLine.close();
     }
 
+    //Test whether default line separator is properly drawn
     @Test
     void printSeparator_defaultVersion_success() {
-        int numOfChar = 5;
-        TextUi.printSeparator(numOfChar);
-        assertEquals("-----", outputStreamCaptor.toString().trim());
+        UI.printSeparator();
+        assertEquals(DEFAULT_SEPARATOR, outputStreamCaptor.toString().trim());
     }
 
+    //Test whether exception message will properly printed with correct format
     @Test
     void printErrorFor_arithmeticException_success() {
         try {
-            int result = 2/0;
+            int result = 2 / 0;
         } catch (ArithmeticException exception) {
-            printErrorFor(exception);
+            UI.printErrorFor(exception);
         }
-        assertEquals("--------------------"+
-                    "--------------------"+System.lineSeparator()+
-                    "    / by zero"+System.lineSeparator()+
-                    "--------------------"+
-                    "--------------------",
-                    outputStreamCaptor.toString().trim());
+        assertEquals(ALERT_SEPARATOR + System.lineSeparator() +
+                "    / by zero" + System.lineSeparator() + ALERT_SEPARATOR,
+                outputStreamCaptor.toString().trim());
     }
 
+    //Test whether messages will be properly printed with correct format
     @Test
     void printOutputMessage_greeting_success() {
         String greeting = "How are you?";
-        printOutputMessage(greeting);
-        assertEquals("--------------------" +
-                "--------------------" + System.lineSeparator()+
-                "    How are you?" + System.lineSeparator() +
-                "--------------------" +
-                "--------------------", outputStreamCaptor.toString().trim());
+        UI.printOutputMessage(greeting);
+        assertEquals(DEFAULT_SEPARATOR + System.lineSeparator() +
+                "    How are you?" + System.lineSeparator() + DEFAULT_SEPARATOR,
+                outputStreamCaptor.toString().trim());
     }
 
 }

@@ -1,14 +1,20 @@
 package seedu.duke.ui;
 
+import java.nio.BufferOverflowException;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 /**
- * UI class for reading user inputs and printing outputs
+ * TextUI class for reading user inputs and printing outputs.<br/>
+ * Subclasses of TextUI class can override separator, printErrorFor and printOutputMessage.<br/>
+ * This is to accommodate to the uniqueness of each feature.
  */
 public class TextUi {
     private static final Scanner SCANNER = new Scanner(System.in);
-    private static final String SEPARATOR = "-";
+    private String separator = "-";
+    private static final String ALERT_SEPARATOR = "!!!!!!----------!!!!!!!----------!!!!!!!";
     private static final String INDENTATION_SPACES = "    ";
+    private static final int DEFAULT_SEPARATOR_LENGTH = 40;
 
     /**
      * Read user's input command and return back the command string.<br/>
@@ -16,41 +22,29 @@ public class TextUi {
      *
      * @return user input command with leading/dangling whitespace being removed
      */
-    public static String getCommand() {
-        String inputLine;
-        String userCommand;
-        inputLine = SCANNER.nextLine();
-        userCommand = inputLine.trim();
-        return userCommand;
-    }
-
-    /**
-     * Read test input command and return back the command string.<br/>
-     * For JUnit testing purpose only.
-     *
-     * @param readInput scanner object with System.in being overwritten in test
-     * @return user input command with leading/dangling whitespace being removed
-     */
-    public static String getCommand(Scanner readInput) {
-        String inputLine;
-        String userCommand;
-        inputLine = readInput.nextLine();
-        userCommand = inputLine.trim();
+    public String getCommand() {
+        String userCommand = "";
+        try {
+            String inputLine = SCANNER.nextLine();
+            userCommand = inputLine.trim();
+        } catch (BufferOverflowException bufferOverFlowException) {
+            printErrorFor(bufferOverFlowException);
+        } catch (NoSuchElementException noElementException) {
+            printErrorFor(noElementException);
+        }
         return userCommand;
     }
 
     /**
      * Print line separators for output lines.<br/>
      * Each subclass inherited from this class can override this method to vary the interface.<br/>
-     *
-     * @param numOfChars determine the length of separation line to accommodate for different length of output
      */
-    public static void printSeparator(int numOfChars) {
-        for (int i=0; i<numOfChars; ++i) {
-            System.out.print(SEPARATOR);
+    public void printSeparator() {
+        for (int i = 0; i < DEFAULT_SEPARATOR_LENGTH; i += 1) {
+            System.out.print(separator);
         }
         System.out.print(System.lineSeparator());
-    };
+    }
 
     /**
      * Print spaces before output message for better formatting.
@@ -60,29 +54,29 @@ public class TextUi {
     }
 
     /**
-     * Print exception message.
+     * Print exception message.<br/>
      * Can override to accommodate to other customised error messages.
      *
      * @param exception the exception being thrown in the program
      */
-    public static void printErrorFor(Exception exception) {
-        printSeparator(40);
+    public void printErrorFor(Exception exception) {
+        System.out.println(ALERT_SEPARATOR);
         printIndentation();
         System.out.println(exception.getMessage());
-        printSeparator(40);
+        System.out.println(ALERT_SEPARATOR);
     }
 
     /**
-     * Print exception message.
+     * Print exception message.<br/>
      * Can override to accommodate to other customised error messages.
      *
      * @param message the exception being thrown in the program
      */
-    public static void printOutputMessage(String message) {
-        printSeparator(40);
+    public void printOutputMessage(String message) {
+        printSeparator();
         printIndentation();
         System.out.println(message);
-        printSeparator(40);
+        printSeparator();
     }
 }
 
