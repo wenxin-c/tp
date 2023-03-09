@@ -16,6 +16,7 @@ import java.util.Map;
 public abstract class Command {
     private static final String ARGUMENT_DELIMITER = "--";
     private static final String DELIMITER_FOR_WORDS = " ";
+    // Key: An argument's name. Value: An argument's provided value from the user
     private final HashMap<String, String> arguments;
 
     public Command(HashMap<String, String> arguments) {
@@ -65,7 +66,11 @@ public abstract class Command {
 
     /**
      * Very basic specialised toString() method for commands that returns
-     *     a formatted list of all arguments issued by the user.
+     *     a formatted list of all arguments issued by the user.<br>
+     *
+     * Example:
+     * For the <code>hb add</code> command, toString() will output
+     *     <code>hb [add] [--name] <habit name></code>
      *
      * @return String Representation of this Command that includes all
      *     given arguments
