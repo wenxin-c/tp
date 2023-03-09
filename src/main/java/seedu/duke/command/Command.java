@@ -14,7 +14,6 @@ import java.util.Map;
  *   arguments are valid for a given command.
  */
 public abstract class Command {
-    // Command is abstract, it has no command keyword of its own
     private static final String ARGUMENT_DELIMITER = "--";
     private static final String DELIMITER_FOR_WORDS = " ";
     private final HashMap<String, String> arguments;
