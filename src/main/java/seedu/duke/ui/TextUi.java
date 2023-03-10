@@ -5,7 +5,7 @@ import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 /**
- * TextUI class for reading user inputs and printing outputs.<br/>
+ * TextUi class for reading user inputs and printing outputs.<br/>
  * <br/>
  * Subclasses of TextUI class can override separator, printErrorFor and printOutputMessage.<br/>
  * This is to accommodate to the uniqueness of each feature.
@@ -92,8 +92,8 @@ public class TextUi {
      * @param message Output message to be printed
      */
     private void printMultiLineMessage(String message) {
-        String[] newLineMessage = splitOutputMessage(message);
-        for (String msg : newLineMessage) {
+        String[] newLineMessages = splitOutputMessage(message);
+        for (String msg : newLineMessages) {
             printIndentation();
             System.out.println(msg);
         }

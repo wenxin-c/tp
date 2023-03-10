@@ -19,6 +19,8 @@ class TextUiTest {
     private static final String TEST_OUTPUT_MSG_TWO = "World";
     private static final String INDENTATION = "    ";
     private static final TextUi UI = new TextUi();
+    private static final int TEST_NUMERATOR = 2;
+    private static final int TEST_DENOMINATOR = 0;
     private final ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
 
     /**
@@ -64,7 +66,7 @@ class TextUiTest {
     @Test
     void printErrorFor_arithmeticException_success() {
         try {
-            int result = 2 / 0;
+            int result = TEST_NUMERATOR / TEST_DENOMINATOR;
         } catch (ArithmeticException exception) {
             UI.printErrorFor(exception);
         }
