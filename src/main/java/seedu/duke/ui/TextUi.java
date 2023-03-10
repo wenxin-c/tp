@@ -1,7 +1,6 @@
 package seedu.duke.ui;
 
 import java.nio.BufferOverflowException;
-import java.util.ArrayList;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
