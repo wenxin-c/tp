@@ -32,7 +32,7 @@ public class AtomicHabitTest {
         AtomicHabitManager atomicHabitManager = new AtomicHabitManager();
         String command = "sleep";
         Assertions.assertThrows(AtomicHabitException.class, () -> {
-        atomicHabitManager.testInvalidCommand(command);
+            atomicHabitManager.testInvalidCommand(command);
         }, "The following is an invalid command:\n" + command);
     }
 }
