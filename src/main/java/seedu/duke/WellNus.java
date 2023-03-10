@@ -9,7 +9,6 @@ public class WellNus {
     /**
      * Main entry-point for the java.duke.Duke application.
      */
-
     public static void main(String[] args) {
         String logo = "\n" +
                 ",--.   ,--.       ,--.,--.,--.  ,--.,--. ,--. ,---.     |  |        |  |     \n" +

@@ -2,7 +2,6 @@ package seedu.duke.atomichabit;
 
 import org.junit.jupiter.api.Test;
 
-
 public class AtomicHabitTest {
 
     /**

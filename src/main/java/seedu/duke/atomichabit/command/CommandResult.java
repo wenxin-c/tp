@@ -5,7 +5,6 @@ public class CommandResult {
 
     /**
      * Constructor to be executed when class is initialized.
-     *
      * @param feedbackToUser feedback to be printed to user
      */
     public CommandResult(String feedbackToUser) {
@@ -14,7 +13,6 @@ public class CommandResult {
 
     /**
      * Retrieves the private String feedbackToUser.
-     *
      * @return String to be printed as output to user
      */
     public String getCommandResult() {
