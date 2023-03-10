@@ -4,9 +4,9 @@ import seedu.duke.atomichabit.feature.AtomicHabit;
 import seedu.duke.atomichabit.feature.AtomicHabitList;
 
 public class AddCommand extends Command {
+    public static final String COMMAND_WORD = "add";
     private static final String FEEDBACK_STRING_ONE = "Yay! You have added a new habit:";
     private static final String FEEDBACK_STRING_TWO = " was successfully added";
-    public static final String COMMAND_WORD = "add";
     private String description;
 
     public AddCommand(String description) {
@@ -24,8 +24,7 @@ public class AddCommand extends Command {
         atomicHabits.addAtomicHabit(habit);
         return new CommandResult(FEEDBACK_STRING_ONE
                                                 + System.lineSeparator() + "'"
-                                                + habit + "'"
-                                                + FEEDBACK_STRING_TWO);
+                                                + habit + "'" + FEEDBACK_STRING_TWO);
     }
 }
 
