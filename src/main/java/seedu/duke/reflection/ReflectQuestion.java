@@ -8,12 +8,9 @@ import java.util.ArrayList;
  * Attribute isLike is to keep track of whether a user likes this question or not.
  */
 public class ReflectQuestion {
-    public static ArrayList<ReflectQuestion> getQuestions() {
-        return questions;
-    }
-
     private static ArrayList<ReflectQuestion> questions = new ArrayList<>();
     private String questionDescription;
+
     private boolean isLike;
 
     public ReflectQuestion (String questionDescription) {
@@ -21,10 +18,25 @@ public class ReflectQuestion {
         this.isLike = false;
     }
 
+    public static ArrayList<ReflectQuestion> getQuestions() {
+        return questions;
+    }
+
+    public void setLike() {
+        isLike = true;
+    }
+
     public String getQuestionDescription() {
         return this.questionDescription;
     }
 
+    /**
+     * Return a string of whether a particular question is liked by user.<br/>
+     * If true, then "yes"<br/>
+     * Else, then "no"<br/>
+     *
+     * @return string "true" or "false"
+     */
     public String getLikeStatus() {
         String likeStatus = (isLike ? "true" : "false");
         return likeStatus;

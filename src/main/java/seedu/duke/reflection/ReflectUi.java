@@ -2,6 +2,9 @@ package seedu.duke.reflection;
 
 import java.util.Scanner;
 
+/**
+ * This section is to be updated with main UI class
+ */
 public class ReflectUi {
     private static final int DEFAULT_SEPARATOR_LENGTH = 40;
     private static final Scanner SCANNER = new Scanner(System.in);

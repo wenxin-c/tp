@@ -4,6 +4,9 @@ import seedu.duke.command.BadCommandException;
 
 import java.util.NoSuchElementException;
 
+/**
+ * The main body of self reflect section.
+ */
 public class SelfReflection {
     private static final String LOGO = "\n" +
             "╭━━━┳━━━┳╮╱╱╭━━━╮╭━━━┳━━━┳━━━┳╮╱╱╭━━━┳━━━┳━━━━┳━━┳━━━┳━╮╱╭╮\n" +
@@ -28,9 +31,20 @@ public class SelfReflection {
             "What is something that brings me joy?",
             "When is the last time I gave back to others?",
             "What matters to me most right now?"};
-    private static final String Question_TWO = "\n";
     private static final ReflectUi UI = new ReflectUi();
 
+    private static boolean isExit = false;
+
+    /**
+     * Method to be called to exit reflection section.
+     */
+    public static void setIsExit() {
+        SelfReflection.isExit = true;
+    }
+
+    /**
+     * Print greeting logo and message.
+     */
     private static void greet() {
         UI.printOutputMessage(LOGO);
         UI.printOutputMessage(GREETING_MESSAGE);
@@ -53,17 +67,19 @@ public class SelfReflection {
      * Finally listen to and execute user commands.
      */
     public void run() {
-        boolean exit = false;
         greet();
         setUpQuestions();
-        while (!exit) {
+        while (!isExit) {
             try {
                 String inputCommand = UI.readInput();
                 CommandManager.execute(inputCommand);
             } catch (NoSuchElementException noSuchElement) {
+                // To be changed to UI printErrorFor
                 System.out.println("No such element");
-            } catch (BadCommandException e) {
+            } catch (BadCommandException badCommand) {
                 System.out.println("Empty command");
+            } catch (InvalidCommandException invalidCommand) {
+                System.out.println("Invalid command");
             }
         }
     }
