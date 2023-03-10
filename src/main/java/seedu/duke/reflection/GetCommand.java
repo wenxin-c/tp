@@ -12,11 +12,11 @@ public class GetCommand extends Command{
     /**
      * Get a random set of 5 reflection questions.
      *
-     * @return the selected sets of random questions
+     * @return The selected sets of random questions
      */
-    private ArrayList<ReflectQuestion> getRandomQuestions() {
+    public ArrayList<ReflectQuestion> getRandomQuestions() {
         ArrayList<ReflectQuestion> selectedQuestions = new ArrayList<>();
-        ArrayList<ReflectQuestion> questions = ReflectQuestion.getQuestions();
+        ArrayList<ReflectQuestion> questions = QuestionManager.getQuestions();
         Set<Integer> fiveRandomNumbers = generateRandomNumbers(questions.size());
         for (int index : fiveRandomNumbers) {
             selectedQuestions.add(questions.get(index));
@@ -26,10 +26,11 @@ public class GetCommand extends Command{
 
     /**
      * Generate an array of 5 random numbers, <br/>
-     * each number num: num >= 0 and num <= (maxSize - 1)
+     * <br/>
+     * Each number num: num >= 0 and num <= (maxSize - 1)
      *
-     * @param maxSize number of questions available to be chosen
-     * @return array of 5 random numbers
+     * @param maxSize Number of questions available to be chosen
+     * @return Array of 5 random numbers
      */
     private Set<Integer> generateRandomNumbers(int maxSize) {
         Set<Integer> randomNumbers = new Random().ints(0, maxSize - 1)
@@ -43,7 +44,7 @@ public class GetCommand extends Command{
     /**
      * Convert all five questions to a single string to be printed.
      *
-     * @return single string that consists of all questions
+     * @return Single string that consists of all questions
      */
     private String convertQuestionsToString() {
         ArrayList selectedQuestions = getRandomQuestions();
@@ -64,4 +65,6 @@ public class GetCommand extends Command{
         REFLECT_UI.printOutputMessage(outputString);
     }
 }
+
+
 

@@ -4,30 +4,22 @@ import java.util.ArrayList;
 
 /**
  * ReflectQuestion class is used to create reflect question objects.<br/>
+ * <br/>
  * The static attribute questions is used to keep track all the questions created. <br/>
  * Attribute isLike is to keep track of whether a user likes this question or not.
  */
 public class ReflectQuestion {
-    private static ArrayList<ReflectQuestion> questions = new ArrayList<>();
-    private String questionDescription;
-
-    private boolean isLike;
 
     public ReflectQuestion (String questionDescription) {
         this.questionDescription = questionDescription;
         this.isLike = false;
     }
 
-    public static ArrayList<ReflectQuestion> getQuestions() {
-        return questions;
-    }
-
+    /**
+     * Change like status to true.
+     */
     public void setLike() {
         isLike = true;
-    }
-
-    public String getQuestionDescription() {
-        return this.questionDescription;
     }
 
     /**
@@ -43,13 +35,12 @@ public class ReflectQuestion {
     }
 
     /**
-     * Add new reflect question object into the list.<br/>
-     * This method is more for developer usage at this stage as unders are not allowed to add their own questions. <br/>
+     * Get the description of question.
      *
-     * @param question newly created reflect question to be added into the list
+     * @return Question description
      */
-    public static void addReflectQuestion(ReflectQuestion question) {
-        questions.add(question);
+    public String getQuestionDescription() {
+        return this.questionDescription;
     }
 
     /**
@@ -62,6 +53,11 @@ public class ReflectQuestion {
         return "[" + (isLike ? "LIKE" : " ") + "]" + questionDescription;
     }
 
+    private String questionDescription;
+    private boolean isLike;
 }
+
+
+
 
 
