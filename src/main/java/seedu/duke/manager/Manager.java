@@ -95,6 +95,7 @@ public abstract class Manager {
     protected abstract void setSupportedFeatureManagers();
 
     /**
+     * Checks if the feature is supported by this Manager
      *
      * @param featureName Name of the feature to query
      * @return true if featureName exists under supportedFeatures, else false
