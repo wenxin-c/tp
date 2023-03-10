@@ -13,19 +13,41 @@ import java.util.HashMap;
  * Each manager is in charge of 'managing' exactly one feature. <br>
  * For example, <i>hb</i> and <i>reflect</i>. <br>
  * <br>
+ * <p>
+ * Each feature consists of multiple <code>MainCommands</code>,
+ * stored in <code>supportedCommands</code> <br>
+ * <br>
+ * <p>
+ * Each manager may also support entering other features
+ * via <code>Manager</code> (event drivers),
+ * stored in <code>supportedManagers</code> <br>
+ * <br>
+ * <p>
  * The manager should run an event driver (infinite loop) and is in charge
- * of a Feature's input, output, 'business' logic and graceful termination
+ * of a Feature's input, output, 'business' logic and graceful termination.
  */
 public abstract class Manager {
 
     private final CommandParser commandParser;
-    private ArrayList<Command> argumentList;
+
+    // For this Manager's feature, what command
+    private ArrayList<Command> supportedCommands;
+
+    // For this Manager's feature, what features (event driver) does it support?
+    private ArrayList<Manager> supportedManagers;
 
     /**
-     * Construct a feature Manager to handle control flow for the given feature.
+     * Construct a feature Manager to handle control flow for the given feature. <br>
+     * <br>
+     * Internally, it sets up the following for convenience:
+     * <li>CommandParser</li>
+     * <li>Supported Commands</li>
+     * <li>Supported Features</li>
      */
     public Manager() {
         this.commandParser = new CommandParser();
+        setSupportedCommands();
+        setSupportedFeatureManagers();
     }
 
     /**
@@ -59,17 +81,70 @@ public abstract class Manager {
     public abstract String getFullDescription();
 
     /**
-     * Utility function to set a list of main arguments the feature supports
+     * Utility function to set a list of main commands the feature supports <br>
+     * <br>
+     * This implementation registers the commands that are accepted by this Manager
      */
-    public abstract void setArgumentList();
+    protected abstract void setSupportedCommands();
+
+    /**
+     * Utility function to set a list of main commands the feature supports <br>
+     * <br>
+     * This implementation registers the features that are accepted by this Manager
+     */
+    protected abstract void setSupportedFeatureManagers();
+
+    /**
+     *
+     * @param featureName Name of the feature to query
+     * @return true if featureName exists under supportedFeatures, else false
+     * @throws NullPointerException is featureName is null
+     */
+    public boolean isSupportedFeature(String featureName) throws NullPointerException {
+        // Sanity check for valid feature name variable
+        if (featureName == null) {
+            throw new NullPointerException("featureName cannot be null!");
+        }
+
+        for (Manager manager : supportedManagers) {
+            String featureKeyword = manager.getFeatureName();
+            if (featureName.equals(featureKeyword)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Utility function to get a string array of
+     * all the supported commands' descriptions
+     *
+     * @return ArrayList of each command's full description
+     */
+    public ArrayList<String> getCommandDescriptions() {
+        ArrayList<String> descriptions = new ArrayList<>();
+        for (Command command : supportedCommands) {
+            descriptions.add(command.toString());
+        }
+        return descriptions;
+    }
 
     /**
      * Utility function to get a list of main arguments the feature supports
      *
      * @return <code>ArrayList</code> of <code>Command</code>s
      */
-    public ArrayList<Command> getArgumentList() {
-        return argumentList;
+    public ArrayList<Command> getSupportedCommands() {
+        return supportedCommands;
+    }
+
+    /**
+     * Utility function to get a list of main arguments the feature supports
+     *
+     * @return <code>ArrayList</code> of <code>Manager</code>s
+     */
+    public ArrayList<Manager> getSupportedFeatureManagers() {
+        return supportedManagers;
     }
 
     /**
