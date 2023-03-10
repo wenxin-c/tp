@@ -1,5 +1,7 @@
 package seedu.duke.command;
 
+import seedu.duke.exception.BadCommandException;
+
 import java.util.HashMap;
 
 /**
