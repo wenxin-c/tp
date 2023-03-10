@@ -93,6 +93,5 @@ class TextUiTest {
                 + System.lineSeparator() + DEFAULT_SEPARATOR),
                 outputStreamCaptor.toString().trim());
     }
-
 }
 
