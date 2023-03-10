@@ -1,13 +1,12 @@
-package seedu.duke.atomichabit.atomichabit;
+package seedu.duke.atomichabit.feature;
 
 public class AtomicHabit {
-    protected String description;
-
-    protected int count;
+    private String description;
+    private int count;
 
     public AtomicHabit(String description) {
         this.description = description;
-        count = 0;
+        this.count = 0;
     }
 
     public String getDescription() {
@@ -22,5 +21,5 @@ public class AtomicHabit {
     public String toString() {
         return getDescription();
     }
-
 }
+

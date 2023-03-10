@@ -1,23 +1,23 @@
-package seedu.duke.atomichabit.atomichabit;
+package seedu.duke.atomichabit.feature;
+
 import java.util.HashMap;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 import seedu.duke.atomichabit.command.*;
 import seedu.duke.command.BadCommandException;
 import seedu.duke.command.CommandParser;
+
 public class AtomicHabitManager {
     private final CommandParser parser = new CommandParser();
-    private final String HABIT_DIVIDER = "—---------------------------------------------------------------";
     private AtomicHabitList habitList;
-    private static String userInput;
-
-    private static Scanner myScanner = new Scanner(System.in);
+    private static final Scanner myScanner = new Scanner(System.in);
 
     /**
-     * Method to be called by MainManager when user wishes to utilise atomichabits
+     * Method to be called by MainManager when user wishes to utilise atomichabit feature
+     * To be expanded on with the inclusion of UI/Game class
      */
     public void run() {
-        start();
         runCommands();
     }
 
@@ -26,12 +26,17 @@ public class AtomicHabitManager {
      * @return user input in a String
      */
     public static String takeInput() {
-        String line = myScanner.nextLine();
-        return line;
+        String nextCommand = "";
+        try {
+            nextCommand = myScanner.nextLine();
+        }catch (NoSuchElementException e) {
+            System.out.println(e.getMessage());
+        }
+        return nextCommand;
     }
 
-    private void start() {
-        habitList = new AtomicHabitList();
+    public AtomicHabitManager() {
+        this.habitList = new AtomicHabitList();
     }
 
     /**
@@ -54,18 +59,18 @@ public class AtomicHabitManager {
      * @return specific command to be executed by method runCommands
      */
     private Command returnCommand() {
-        userInput = takeInput();
-        HashMap<String,String> parsedInputs = new HashMap<>();
+        String userInput = takeInput();
+        HashMap<String, String> parsedInputs = new HashMap<>();
         try {
              parsedInputs = parser.parseUserInput(userInput);
-        }catch(BadCommandException e) {
-            System.out.println(e.getMessage());
+        } catch (BadCommandException error) {
+            System.out.println(error.getMessage());
         }
         String commandAction = "";
         try {
             commandAction = parser.getMainArgument(userInput);
-        }catch (BadCommandException e) {
-            System.out.println(e.getMessage());
+        } catch (BadCommandException error) {
+            System.out.println(error.getMessage());
         }
         switch (commandAction) {
         case AddCommand.COMMAND_WORD:
@@ -78,5 +83,5 @@ public class AtomicHabitManager {
             return new InvalidCommand();
         }
     }
-
 }
+

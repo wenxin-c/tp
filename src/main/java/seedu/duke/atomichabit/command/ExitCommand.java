@@ -1,6 +1,6 @@
 package seedu.duke.atomichabit.command;
 
-import seedu.duke.atomichabit.atomichabit.AtomicHabitList;
+import seedu.duke.atomichabit.feature.AtomicHabitList;
 
 public class ExitCommand extends Command {
     public static final String COMMAND_WORD = "exit";
@@ -12,7 +12,7 @@ public class ExitCommand extends Command {
      * @return CommandResult which is a exit message to user
      */
     @Override
-    public CommandResult execute(AtomicHabitList atomicHabitList) {
+    public CommandResult execute(AtomicHabitList atomicHabits) {
         return new CommandResult(MESSAGE_EXIT);
     }
 
@@ -26,4 +26,5 @@ public class ExitCommand extends Command {
         return command instanceof ExitCommand;
     }
 }
+
 

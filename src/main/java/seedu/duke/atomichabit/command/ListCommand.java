@@ -1,7 +1,7 @@
 package seedu.duke.atomichabit.command;
 
-import seedu.duke.atomichabit.atomichabit.AtomicHabit;
-import seedu.duke.atomichabit.atomichabit.AtomicHabitList;
+import seedu.duke.atomichabit.feature.AtomicHabit;
+import seedu.duke.atomichabit.feature.AtomicHabitList;
 
 public class ListCommand extends Command{
 
@@ -10,14 +10,15 @@ public class ListCommand extends Command{
     private final String FIRST_STRING = "Here are all the habits in your list:";
     public static final String COMMAND_WORD = "list";
     @Override
-    public CommandResult execute(AtomicHabitList atomicHabitList) {
+    public CommandResult execute(AtomicHabitList atomicHabits) {
         int taskNo = 1;
-        String list = FIRST_STRING + LINE_SEPARATOR;
-        for(AtomicHabit ab : atomicHabitList.getAllHabits()) {
-            list += taskNo + DOT + ab + " " + "[" + ab.getCount() + "]" + LINE_SEPARATOR;
+        String formattedStringOfHabits = FIRST_STRING + LINE_SEPARATOR;
+        for (AtomicHabit ab : atomicHabits.getAllHabits()) {
+            formattedStringOfHabits += taskNo + DOT + ab + " " + "[" + ab.getCount() + "]" + LINE_SEPARATOR;
             taskNo += 1;
         }
-        return new CommandResult(list.substring(0,list.length() - 1));
+        return new CommandResult(formattedStringOfHabits.substring(0,formattedStringOfHabits.length() - 1));
     }
 
 }
+
