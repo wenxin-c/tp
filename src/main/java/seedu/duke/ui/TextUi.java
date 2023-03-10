@@ -49,7 +49,7 @@ public class TextUi {
      * At this moment we can only use length == 1 separator for consistency of length of line separator.<br/>
      * This will be improved on in the future to allow for more patterns.
      *
-     * @param separator Length == 1 stirng
+     * @param separator Length == 1 string
      */
     public void setSeparator(String separator) {
         this.separator = separator;
@@ -103,7 +103,8 @@ public class TextUi {
      * Print exception message with length > 0.<br/>
      * <br/>
      * 0 or more lines of messages are accepted but lineSeparator() must be added in message string.<br/>
-     * Can override to accommodate to other customised error messages.
+     * Can override to accommodate to other customised error messages.<br/>
+     * Can improve on what will be printed for empty message in the future.
      *
      * @param exception The exception being thrown in the program
      */
