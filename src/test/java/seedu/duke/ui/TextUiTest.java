@@ -11,7 +11,7 @@ import java.util.Scanner;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-//Test methods associated with TextUi class
+// Test methods associated with TextUi class
 class TextUiTest {
     private static final String DEFAULT_SEPARATOR = "----------------------------------------";
     private static final String ALERT_SEPARATOR = "!!!!!!----------!!!!!!!----------!!!!!!!";
@@ -25,8 +25,8 @@ class TextUiTest {
      * Read test input command and return back the command string.<br/>
      * For JUnit testing purpose only.
      *
-     * @param readInput scanner object with System.in being overwritten in test
-     * @return user input command with leading/dangling whitespace being removed
+     * @param readInput Scanner object with System.in being overwritten in test
+     * @return User input command with leading/dangling whitespace being removed
      */
     public static String getCommand(Scanner readInput) {
         String inputLine = readInput.nextLine();
@@ -39,12 +39,12 @@ class TextUiTest {
         System.setOut(new PrintStream(outputStreamCaptor));
     }
 
-    //Test whether removal of leading/dangling space is successful
+    // Test whether removal of leading/dangling space is successful
     @Test
     void getCommand_trimSpace_success() {
         InputStream sysInBackup = System.in;
-        ByteArrayInputStream in = new ByteArrayInputStream((" My string " +
-                System.lineSeparator()).getBytes());
+        ByteArrayInputStream in = new ByteArrayInputStream((" My string "
+                + System.lineSeparator()).getBytes());
         System.setIn(in);
         Scanner readLine = new Scanner(System.in);
         String command = getCommand(readLine);
@@ -53,14 +53,14 @@ class TextUiTest {
         readLine.close();
     }
 
-    //Test whether default line separator is properly drawn
+    // Test whether default line separator is properly drawn
     @Test
     void printSeparator_defaultVersion_success() {
         UI.printSeparator();
         assertEquals(DEFAULT_SEPARATOR, outputStreamCaptor.toString().trim());
     }
 
-    //Test whether exception message will properly printed with correct format
+    // Test whether exception message will properly printed with correct format
     @Test
     void printErrorFor_arithmeticException_success() {
         try {
@@ -68,28 +68,29 @@ class TextUiTest {
         } catch (ArithmeticException exception) {
             UI.printErrorFor(exception);
         }
-        assertEquals(ALERT_SEPARATOR + System.lineSeparator() +
-                "    / by zero" + System.lineSeparator() + ALERT_SEPARATOR,
+        assertEquals(ALERT_SEPARATOR + System.lineSeparator()
+                + INDENTATION + "/ by zero" + System.lineSeparator() + ALERT_SEPARATOR,
                 outputStreamCaptor.toString().trim());
     }
 
-    //Test whether messages will be properly printed with correct format
+    // Test whether messages will be properly printed with correct format
     @Test
     void printOutputMessage_greeting_success() {
         String greeting = "How are you?";
         UI.printOutputMessage(greeting);
-        assertEquals(DEFAULT_SEPARATOR + System.lineSeparator() +
-                INDENTATION + "How are you?" + System.lineSeparator() + DEFAULT_SEPARATOR,
+        assertEquals(DEFAULT_SEPARATOR + System.lineSeparator()
+                + INDENTATION + "How are you?" + System.lineSeparator() + DEFAULT_SEPARATOR,
                 outputStreamCaptor.toString().trim());
     }
 
-    //Test whether multi-line message can be printed with correct indentation
+    // Test whether multi-line message can be printed with correct indentation
     @Test
     void printMultiLineMessage_twoLines_success() {
         String multiLineOutput = TEST_OUTPUT_MSG_ONE + System.lineSeparator() + TEST_OUTPUT_MSG_TWO;
         UI.printOutputMessage(multiLineOutput);
-        assertEquals((DEFAULT_SEPARATOR + System.lineSeparator() + INDENTATION + "Hello" + System.lineSeparator() +
-                        INDENTATION + "World" + System.lineSeparator() + DEFAULT_SEPARATOR),
+        assertEquals((DEFAULT_SEPARATOR + System.lineSeparator() + INDENTATION + "Hello"
+                + System.lineSeparator() + INDENTATION + "World"
+                + System.lineSeparator() + DEFAULT_SEPARATOR),
                 outputStreamCaptor.toString().trim());
     }
 

@@ -6,6 +6,7 @@ import java.util.Scanner;
 
 /**
  * TextUI class for reading user inputs and printing outputs.<br/>
+ * <br/>
  * Subclasses of TextUI class can override separator, printErrorFor and printOutputMessage.<br/>
  * This is to accommodate to the uniqueness of each feature.
  */
@@ -13,8 +14,8 @@ public class TextUi {
     private static final String ALERT_SEPARATOR = "!!!!!!----------!!!!!!!----------!!!!!!!";
     private static final String INDENTATION_SPACES = "    ";
     private static final int DEFAULT_SEPARATOR_LENGTH = 40;
+    private static final int EMPTY_MESSAGE = 0;
     private static final Scanner SCANNER = new Scanner(System.in);
-
     private String separator = "-";
 
     /**
@@ -27,7 +28,7 @@ public class TextUi {
     /**
      * Read user's input command and return back the command string.<br/>
      *
-     * @return user input command with leading/dangling whitespace being removed
+     * @return User input command with leading/dangling whitespace being removed
      */
     public String getCommand() {
         String userCommand = "";
@@ -44,10 +45,11 @@ public class TextUi {
 
     /**
      * Customise separators for each feature.<br/>
-     * At this moment we can only use length == 1 separator for consistency of length of line separator.
+     * <br/>
+     * At this moment we can only use length == 1 separator for consistency of length of line separator.<br/>
      * This will be improved on in the future to allow for more patterns.
      *
-     * @param separator length == 1 stirng
+     * @param separator Length == 1 stirng
      */
     public void setSeparator(String separator) {
         this.separator = separator;
@@ -55,7 +57,8 @@ public class TextUi {
 
     /**
      * Print line separators for output lines.<br/>
-     * Each subclass inherited from this class can override this method to vary the interface.<br/>
+     * <br/>
+     * Each subclass inherited from this class can override this method to vary the interface.
      */
     public void printSeparator() {
         for (int i = 0; i < DEFAULT_SEPARATOR_LENGTH; i += 1) {
@@ -66,11 +69,12 @@ public class TextUi {
 
     /**
      * Split a message string to a string array using System.lineSeparator().<br/>
+     * <br/>
      * This is to help indent each new line during output.<br/>
      * Each line of string will be trimmed to remove leading/dangling whitespace.
      *
-     * @param message message to be printed
-     * @return messages that are split using lineSeparator
+     * @param message Message to be printed
+     * @return Messages that are split using lineSeparator
      */
     private String[] splitOutputMessage(String message) {
         String[] newLineMessages = message.trim().split(System.lineSeparator());
@@ -82,9 +86,10 @@ public class TextUi {
 
     /**
      * Print each new line of message on a separate line with indentation being added.<br/>
+     * <br/>
      * Output message with one line is also accepted.
      *
-     * @param message output message to be printed
+     * @param message Output message to be printed
      */
     private void printMultiLineMessage(String message) {
         String[] newLineMessage = splitOutputMessage(message);
@@ -96,15 +101,16 @@ public class TextUi {
 
     /**
      * Print exception message with length > 0.<br/>
+     * <br/>
      * 0 or more lines of messages are accepted but lineSeparator() must be added in message string.<br/>
      * Can override to accommodate to other customised error messages.
      *
-     * @param exception the exception being thrown in the program
+     * @param exception The exception being thrown in the program
      */
     public void printErrorFor(Exception exception) {
         System.out.println(ALERT_SEPARATOR);
         String exceptionMsg = exception.getMessage();
-        if (exceptionMsg.length() > 0) {
+        if (exceptionMsg.length() > EMPTY_MESSAGE) {
             printMultiLineMessage(exceptionMsg);
         }
         System.out.println(ALERT_SEPARATOR);
@@ -112,14 +118,15 @@ public class TextUi {
 
     /**
      * Print output message with length > 0.<br/>
+     * <br/>
      * 0 or more lines of messages are accepted but lineSeparator() must be added in message string.<br/>
      * Can override to accommodate to other customised error messages.
      *
-     * @param message the exception being thrown in the program
+     * @param message The exception being thrown in the program
      */
     public void printOutputMessage(String message) {
         printSeparator();
-        if (message.length() > 0) {
+        if (message.length() > EMPTY_MESSAGE) {
             printMultiLineMessage(message);
         }
         printSeparator();
