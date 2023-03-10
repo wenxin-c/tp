@@ -93,6 +93,7 @@ public class CommandParser {
     private String getPayloadFromCommand(String commandString) {
         String[] words = commandString.split(PAYLOAD_DELIMITER);
         String payload = "";
+        // Ignore the first word (Main Command), so start from 1
         for (int i = 1; i < words.length; ++i) {
             payload = payload.concat(words[i]);
             if (i != words.length - 1) {
