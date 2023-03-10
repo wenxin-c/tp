@@ -3,7 +3,9 @@ package seedu.duke.command;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 public class CommandParserTest {
 
@@ -104,7 +106,7 @@ public class CommandParserTest {
     }
 
     /**
-     *  Test that getMainArgument works for valid whitespace padded input
+     * Test that getMainArgument works for valid whitespace padded input
      */
     @Test
     public void getMainArgumentTest_paddedInput_success() {
@@ -120,7 +122,7 @@ public class CommandParserTest {
     }
 
     /**
-     *  Test that getMainArgument works for valid \n, \t padded input
+     * Test that getMainArgument works for valid \n, \t padded input
      */
     @Test
     public void getMainArgumentTest_specialWhitespace_success() {
@@ -136,7 +138,7 @@ public class CommandParserTest {
     }
 
     /**
-     *  Test that getMainArgument throws exception for empty input
+     * Test that getMainArgument throws exception for empty input
      */
     @Test
     public void getMainArgument_emptyInput_throwsException() {
@@ -147,7 +149,7 @@ public class CommandParserTest {
     }
 
     /**
-     *  Test that getMainArgument throws exception for whitespace-only input
+     * Test that getMainArgument throws exception for whitespace-only input
      */
     @Test
     public void getMainArgument_whiteSpacedInput_throwsException() {
