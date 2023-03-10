@@ -15,6 +15,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class TextUiTest {
     private static final String DEFAULT_SEPARATOR = "----------------------------------------";
     private static final String ALERT_SEPARATOR = "!!!!!!----------!!!!!!!----------!!!!!!!";
+    private static final String TEST_OUTPUT_MSG_ONE = "Hello ";
+    private static final String TEST_OUTPUT_MSG_TWO = "World";
+    private static final String INDENTATION = "    ";
     private static final TextUi UI = new TextUi();
     private final ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
 
@@ -76,7 +79,17 @@ class TextUiTest {
         String greeting = "How are you?";
         UI.printOutputMessage(greeting);
         assertEquals(DEFAULT_SEPARATOR + System.lineSeparator() +
-                "    How are you?" + System.lineSeparator() + DEFAULT_SEPARATOR,
+                INDENTATION + "How are you?" + System.lineSeparator() + DEFAULT_SEPARATOR,
+                outputStreamCaptor.toString().trim());
+    }
+
+    //Test whether multi-line message can be printed with correct indentation
+    @Test
+    void printMultiLineMessage_twoLines_success() {
+        String multiLineOutput = TEST_OUTPUT_MSG_ONE + System.lineSeparator() + TEST_OUTPUT_MSG_TWO;
+        UI.printOutputMessage(multiLineOutput);
+        assertEquals((DEFAULT_SEPARATOR + System.lineSeparator() + INDENTATION + "Hello" + System.lineSeparator() +
+                        INDENTATION + "World" + System.lineSeparator() + DEFAULT_SEPARATOR),
                 outputStreamCaptor.toString().trim());
     }
 
