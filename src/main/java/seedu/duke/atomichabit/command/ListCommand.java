@@ -4,11 +4,11 @@ import seedu.duke.atomichabit.feature.AtomicHabit;
 import seedu.duke.atomichabit.feature.AtomicHabitList;
 
 public class ListCommand extends Command{
-
+    public static final String COMMAND_WORD = "list";
     private static final String LINE_SEPARATOR = System.lineSeparator();
     private static final String DOT = ".";
     private static final String FIRST_STRING = "Here are all the habits in your list:";
-    public static final String COMMAND_WORD = "list";
+
     @Override
     public CommandResult execute(AtomicHabitList atomicHabits) {
         int taskNo = 1;

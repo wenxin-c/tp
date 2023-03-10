@@ -4,15 +4,23 @@ import java.util.HashMap;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
-import seedu.duke.atomichabit.command.*;
+import seedu.duke.atomichabit.command.Command;
+import seedu.duke.atomichabit.command.AddCommand;
+import seedu.duke.atomichabit.command.CommandResult;
+import seedu.duke.atomichabit.command.ExitCommand;
+import seedu.duke.atomichabit.command.ListCommand;
 import seedu.duke.atomichabit.exception.AtomicHabitException;
 import seedu.duke.command.BadCommandException;
 import seedu.duke.command.CommandParser;
 
 public class AtomicHabitManager {
+    private static final Scanner myScanner = new Scanner(System.in);
     private final CommandParser parser = new CommandParser();
     private AtomicHabitList habitList;
-    private static final Scanner myScanner = new Scanner(System.in);
+
+    public AtomicHabitManager() {
+        this.habitList = new AtomicHabitList();
+    }
 
     /**
      * Method to be called by MainManager when user wishes to utilise atomichabit feature
@@ -34,10 +42,6 @@ public class AtomicHabitManager {
             System.out.println(e.getMessage());
         }
         return nextCommand;
-    }
-
-    public AtomicHabitManager() {
-        this.habitList = new AtomicHabitList();
     }
 
     /**
@@ -67,7 +71,7 @@ public class AtomicHabitManager {
         String userInput = takeInput();
         HashMap<String, String> parsedInputs = new HashMap<>();
         try {
-             parsedInputs = parser.parseUserInput(userInput);
+            parsedInputs = parser.parseUserInput(userInput);
         } catch (BadCommandException error) {
             System.out.println(error.getMessage());
         }
