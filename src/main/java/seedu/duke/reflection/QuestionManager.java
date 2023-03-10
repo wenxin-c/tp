@@ -3,6 +3,8 @@ package seedu.duke.reflection;
 import java.util.ArrayList;
 
 public class QuestionManager {
+    private static ArrayList<ReflectQuestion> questions = new ArrayList<>();
+
     /**
      * Get all the reflection questions in the list.
      *
@@ -28,8 +30,6 @@ public class QuestionManager {
     public static void addReflectQuestion(ReflectQuestion question) {
         questions.add(question);
     }
-
-    private static ArrayList<ReflectQuestion> questions = new ArrayList<>();
 }
 
 

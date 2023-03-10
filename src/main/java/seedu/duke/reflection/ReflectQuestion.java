@@ -1,7 +1,5 @@
 package seedu.duke.reflection;
 
-import java.util.ArrayList;
-
 /**
  * ReflectQuestion class is used to create reflect question objects.<br/>
  * <br/>
@@ -9,6 +7,8 @@ import java.util.ArrayList;
  * Attribute isLike is to keep track of whether a user likes this question or not.
  */
 public class ReflectQuestion {
+    private String questionDescription;
+    private boolean isLike;
 
     public ReflectQuestion (String questionDescription) {
         this.questionDescription = questionDescription;
@@ -52,9 +52,6 @@ public class ReflectQuestion {
     public String toString() {
         return "[" + (isLike ? "LIKE" : " ") + "]" + questionDescription;
     }
-
-    private String questionDescription;
-    private boolean isLike;
 }
 
 

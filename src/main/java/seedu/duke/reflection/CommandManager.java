@@ -7,6 +7,13 @@ import java.util.HashMap;
 
 public class CommandManager {
 
+    private static final CommandParser parser = new CommandParser();
+    private static String commandType;
+    private static HashMap<String, String> argumentPayload;
+    private static final String GET_COMMAND = "get";
+    private static final String RETURN_MAIN = "return";
+    private static final String EXIT_COMMAND = "exit";
+
     /**
      * Set command argument and payload pairs.
      *
@@ -69,13 +76,6 @@ public class CommandManager {
             break;
         }
     }
-
-    private static final CommandParser parser = new CommandParser();
-    private static String commandType;
-    private static HashMap<String, String> argumentPayload;
-    private static final String GET_COMMAND = "get";
-    private static final String RETURN_MAIN = "return";
-    private static final String EXIT_COMMAND = "exit";
 }
 
 

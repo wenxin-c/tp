@@ -8,30 +8,13 @@ import java.util.NoSuchElementException;
  * The main body of self reflect section.
  */
 public class SelfReflection {
-    /**
-     * Method to be called to exit reflection section.
-     */
-    public static void setIsExit() {
-        SelfReflection.isExit = true;
-    }
-
-    /**
-     * Load the questions list with pre-defined reflect questions.
-     */
-    public static void setUpQuestions() {
-        for (int i = 0; i < QUESTIONS.length; i += 1) {
-            ReflectQuestion newQuestion = new ReflectQuestion(QUESTIONS[i]);
-            QuestionManager.addReflectQuestion(newQuestion);
-        }
-    }
-
-    private static final String LOGO = "\n" +
-            "   _____ ______ _      ______   _____  ______ ______ _      ______ _____ _______ _____ ____  _   _ \n" +
-            "  / ____|  ____| |    |  ____| |  __ \\|  ____|  ____| |    |  ____/ ____|__   __|_   _/ __ \\| \\ | |\n" +
-            " | (___ | |__  | |    | |__    | |__) | |__  | |__  | |    | |__ | |       | |    | || |  | |  \\| |\n" +
-            "  \\___ \\|  __| | |    |  __|   |  _  /|  __| |  __| | |    |  __|| |       | |    | || |  | | . ` |\n" +
-            "  ____) | |____| |____| |      | | \\ \\| |____| |    | |____| |___| |____   | |   _| || |__| | |\\  |\n" +
-            " |_____/|______|______|_|      |_|  \\_\\______|_|    |______|______\\_____|  |_|  |_____\\____/|_| \\_|\n";
+    private static final String LOGO = "\n"
+            + "  _____ ______ _      ______   _____  ______ ______ _      ______ _____ _______ _____ ____  _   _ \n" +
+            " / ____|  ____| |    |  ____| |  __ \\|  ____|  ____| |    |  ____/ ____|__   __|_   _/ __ \\| \\ | |\n" +
+            "| (___ | |__  | |    | |__    | |__) | |__  | |__  | |    | |__ | |       | |    | || |  | |  \\| |\n" +
+            " \\___ \\|  __| | |    |  __|   |  _  /|  __| |  __| | |    |  __|| |       | |    | || |  | | . ` |\n" +
+            " ____) | |____| |____| |      | | \\ \\| |____| |    | |____| |___| |____   | |   _| || |__| | |\\  |\n" +
+            "|_____/|______|______|_|      |_|  \\_\\______|_|    |______|______\\_____|  |_|  |_____\\____/|_| \\_|\n";
 
     private static final String GREETING_MESSAGE = "Welcome to WellNUS++ Self Reflection section:D\n" +
             "Feel very occupied and cannot find time to self reflect?\n" +
@@ -53,6 +36,23 @@ public class SelfReflection {
     private static final ReflectUi UI = new ReflectUi();
 
     private static boolean isExit = false;
+
+    /**
+     * Method to be called to exit reflection section.
+     */
+    public static void setIsExit() {
+        SelfReflection.isExit = true;
+    }
+
+    /**
+     * Load the questions list with pre-defined reflect questions.
+     */
+    public static void setUpQuestions() {
+        for (int i = 0; i < QUESTIONS.length; i += 1) {
+            ReflectQuestion newQuestion = new ReflectQuestion(QUESTIONS[i]);
+            QuestionManager.addReflectQuestion(newQuestion);
+        }
+    }
 
     /**
      * Print greeting logo and message.
