@@ -5,6 +5,7 @@ import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 import seedu.duke.atomichabit.command.*;
+import seedu.duke.atomichabit.exception.AtomicHabitException;
 import seedu.duke.command.BadCommandException;
 import seedu.duke.command.CommandParser;
 
@@ -45,11 +46,15 @@ public class AtomicHabitManager {
     private void runCommands() {
         boolean isExit = false;
         while (!isExit) {
-            Command command = returnCommand();
-            CommandResult result = command.execute(habitList);
-            String feedback = result.getCommandResult();
-            System.out.println(feedback);
-            isExit = ExitCommand.isExit(command);
+            try {
+                Command command = returnCommand();
+                CommandResult result = command.execute(habitList);
+                String feedback = result.getCommandResult();
+                System.out.println(feedback);
+                isExit = ExitCommand.isExit(command);
+            } catch (AtomicHabitException error) {
+                System.out.println(error.getMessage());
+            }
         }
     }
 
@@ -58,7 +63,7 @@ public class AtomicHabitManager {
      * to identify which command to return
      * @return specific command to be executed by method runCommands
      */
-    private Command returnCommand() {
+    private Command returnCommand() throws AtomicHabitException {
         String userInput = takeInput();
         HashMap<String, String> parsedInputs = new HashMap<>();
         try {
@@ -80,8 +85,32 @@ public class AtomicHabitManager {
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
         default:
-            return new InvalidCommand();
+            throw new AtomicHabitException("Invalid command! Please" +
+                    "enter a valid command");
+        }
+    }
+
+    /**
+     * Method to test for exception handling of invalid command using JUnit
+     * @param userCommand command identified after parsing through userInput
+     * @return Command according to userInput
+     * @throws AtomicHabitException
+     */
+
+    public Command testInvalidCommand (String userCommand) throws AtomicHabitException {
+        switch (userCommand) {
+        case AddCommand.COMMAND_WORD:
+            return new AddCommand("testing");
+        case ListCommand.COMMAND_WORD:
+            return new ListCommand();
+        case ExitCommand.COMMAND_WORD:
+            return new ExitCommand();
+        default:
+            throw new AtomicHabitException("Invalid command! Please" +
+                    "enter a valid command");
         }
     }
 }
+
+
 

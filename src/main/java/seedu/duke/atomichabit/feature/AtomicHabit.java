@@ -6,7 +6,7 @@ public class AtomicHabit {
 
     public AtomicHabit(String description) {
         this.description = description;
-        this.count = 0;
+        this.count = 1;
     }
 
     public String getDescription() {
