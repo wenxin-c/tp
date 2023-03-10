@@ -5,13 +5,12 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
 class SelfReflectionTest {
-    private final ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
     private static final String DEFAULT_SEPARATOR = "========================================";
     private static final String LOGO = "\n"
             + "  _____ ______ _      ______   _____  ______ ______ _      ______ _____ _______ _____ ____  _   _ \n" +
@@ -24,6 +23,7 @@ class SelfReflectionTest {
     private static final String GREETING_MESSAGE = "Welcome to WellNUS++ Self Reflection section:D\n" +
             "Feel very occupied and cannot find time to self reflect?\n" +
             "No worries, this section will give you the opportunity to reflect and improve on yourself!!";
+    private final ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
 
     @BeforeEach
     public void setUp() {

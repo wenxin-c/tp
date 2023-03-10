@@ -5,7 +5,8 @@ import seedu.duke.command.BadCommandException;
 
 import java.util.HashMap;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class CommandManagerTest {
     private static final String EMPTY_STRING = "";
