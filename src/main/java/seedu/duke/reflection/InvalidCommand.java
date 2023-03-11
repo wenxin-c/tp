@@ -1,6 +1,5 @@
 package seedu.duke.reflection;
 
-import seedu.duke.command.Command;
 import seedu.duke.exception.InvalidCommandException;
 
 /**

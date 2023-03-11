@@ -15,7 +15,8 @@ public class ExitCommand extends Command {
     private static final ReflectUi UI = new ReflectUi();
     private static final int ARGUMENT_PAYLOAD_SIZE = 1;
     private static final String INVALID_COMMAND_MSG = "Command is invalid.";
-    private static final String INVALID_COMMAND_NOTES = "Please check the available commands and the format of commands.";
+    private static final String INVALID_COMMAND_NOTES = "Please check the available commands "
+            + "and the format of commands.";
     private HashMap<String, String> argumentPayload;
     public ExitCommand(HashMap<String, String> arguments) throws BadCommandException {
         super(arguments);

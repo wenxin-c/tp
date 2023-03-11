@@ -1,10 +1,5 @@
 package seedu.duke.reflection;
 
-import seedu.duke.exception.BadCommandException;
-import seedu.duke.exception.InvalidCommandException;
-
-import java.util.NoSuchElementException;
-
 /**
  * The main body of self reflect section.
  */
@@ -18,7 +13,8 @@ public class SelfReflection {
             "|_____/|______|______|_|      |_|  \\_\\______|_|    |______|______\\_____|  |_|  |_____\\____/|_| \\_|\n";
     private static final String GREETING_MESSAGE = "Welcome to WellNUS++ Self Reflection section:D"
             + System.lineSeparator() + "Feel very occupied and cannot find time to self reflect?"
-            + System.lineSeparator() + "No worries, this section will give you the opportunity to reflect and improve on yourself!!";
+            + System.lineSeparator() + "No worries, this section will give you the opportunity to reflect "
+            + "and improve on yourself!!";
 
     // Questions are adopted from website: https://www.usa.edu/blog/self-discovery-questions/
     private static final String[] QUESTIONS =

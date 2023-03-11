@@ -21,13 +21,14 @@ public class ReflectionManager extends Manager {
     private static final String INVALID_COMMAND_MESSAGE = "Please enter a valid command.";
     private static final String EMPTY_COMMAND_MESSAGE = "The command is empty, please check your input.";
     private static final ReflectUi UI = new ReflectUi();
-    private String commandType;
-    private HashMap<String, String>argumentPayload;
 
     // I need to set this as static if I want to set it to true if ExitCommand object.
-    // If I create another object in ExitCommand, the corresponding isExit will be for a new object, not the one we intend to terminate.
+    // If I create another object in ExitCommand, the corresponding isExit will be for a new object,
+    // not the one we intend to terminate.
     // Anyone has other ideas??
     private static boolean isExit;
+    private String commandType;
+    private HashMap<String, String>argumentPayload;
 
     public ReflectionManager() {
         this.isExit = false;
