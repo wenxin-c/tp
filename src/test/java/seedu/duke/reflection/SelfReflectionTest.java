@@ -23,7 +23,8 @@ class SelfReflectionTest {
 
     private static final String GREETING_MESSAGE = "    Welcome to WellNUS++ Self Reflection section:D"
             + System.lineSeparator() + "    Feel very occupied and cannot find time to self reflect?"
-            + System.lineSeparator() + "    No worries, this section will give you the opportunity to reflect and improve on yourself!!";
+            + System.lineSeparator() + "    No worries, this section will give you the opportunity to reflect "
+            + "and improve on yourself!!";
     private final ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
 
     @BeforeEach
@@ -33,14 +34,14 @@ class SelfReflectionTest {
 
     // Test whether greeting message and logo are printed properly.
     // Buggy test, unknown invisible errors
-//    @Test
-//    void greet_output_success() {
-//        SelfReflection.greet();
-//        assertEquals( DEFAULT_SEPARATOR + System.lineSeparator() + LOGO
-//                + System.lineSeparator() + DEFAULT_SEPARATOR + System.lineSeparator() + GREETING_MESSAGE
-//                + System.lineSeparator() + DEFAULT_SEPARATOR,
-//                outputStreamCaptor.toString().trim());
-//    }
+    //@Test
+    //void greet_output_success() {
+    //    SelfReflection.greet();
+    //    assertEquals( DEFAULT_SEPARATOR + System.lineSeparator() + LOGO
+    //            + System.lineSeparator() + DEFAULT_SEPARATOR + System.lineSeparator() + GREETING_MESSAGE
+    //            + System.lineSeparator() + DEFAULT_SEPARATOR,
+    //            outputStreamCaptor.toString().trim());
+    //}
 
     // Test the correct number of questions are loaded into the list
     @Test

@@ -5,7 +5,7 @@ import seedu.duke.exception.BadCommandException;
 
 import java.util.HashMap;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class ReturnCommandTest {
     private static final String RETURN_COMMAND = "return";
