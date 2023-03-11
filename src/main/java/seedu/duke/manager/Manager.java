@@ -28,13 +28,13 @@ import java.util.HashMap;
  */
 public abstract class Manager {
 
-    protected final CommandParser commandParser;
+    protected CommandParser commandParser;
 
     // For this Manager's feature, what commands exist?
-    protected final ArrayList<Command> supportedCommands;
+    protected ArrayList<Command> supportedCommands;
 
     // For this Manager's feature, what features (event driver) does it support?
-    protected final ArrayList<Manager> supportedManagers;
+    protected ArrayList<Manager> supportedManagers;
 
     /**
      * Construct a feature Manager to handle control flow for the given feature. <br>
