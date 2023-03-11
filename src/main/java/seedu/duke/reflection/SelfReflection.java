@@ -35,7 +35,6 @@ public class SelfReflection {
         "What matters to me most right now?"};
 
     private static final ReflectUi UI = new ReflectUi();
-
     private static boolean isExit = false;
 
     /**
@@ -76,7 +75,7 @@ public class SelfReflection {
         while (!isExit) {
             try {
                 String inputCommand = UI.getCommand();
-                CommandManager.execute(inputCommand);
+                ReflectionManager.execute(inputCommand);
             } catch (NoSuchElementException noSuchElement) {
                 UI.printErrorFor(noSuchElement);
             } catch (BadCommandException badCommand) {

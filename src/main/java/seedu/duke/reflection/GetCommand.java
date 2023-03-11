@@ -1,13 +1,25 @@
 package seedu.duke.reflection;
 
+import seedu.duke.command.Command;
+import seedu.duke.exception.BadCommandException;
+
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Random;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public class GetCommand extends Command{
+public class GetCommand extends Command {
     private static final int NUM_OF_RANDOM_QUESTIONS = 5;
+    private static final String FEATURE_NAME = "Self Reflection";
+    private static final String COMMAND_KEYWORD = "get";
+    private static final String FULL_DESCRIPTION = "";
+    private static final String ARGUMENT = "";
     private static final ReflectUi REFLECT_UI = new ReflectUi();
+
+    public GetCommand(HashMap<String, String> arguments) throws BadCommandException {
+        super(arguments);
+    }
 
     /**
      * Get a random set of 5 reflection questions.
@@ -53,6 +65,31 @@ public class GetCommand extends Command{
             questionString += (Integer.toString(i+1) + selectedQuestions.get(i).toString() + System.lineSeparator());
         }
         return questionString;
+    }
+
+    /**
+     * To check, this keyword refers to command itself or with a short description?
+     *
+     * @return
+     */
+    @Override
+    protected String getCommandKeyword() {
+        return COMMAND_KEYWORD;
+    }
+
+    @Override
+    protected String getDetailedDescription() {
+        return FULL_DESCRIPTION;
+    }
+
+    @Override
+    protected String getFeatureKeyword() {
+        return FEATURE_NAME;
+    }
+
+    @Override
+    protected String getSupportedCommandArguments() {
+        return ARGUMENT;
     }
 
     /**
