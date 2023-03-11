@@ -1,6 +1,6 @@
 package seedu.duke.manager;
 
-import seedu.duke.command.BadCommandException;
+import seedu.duke.exception.BadCommandException;
 import seedu.duke.command.Command;
 import seedu.duke.command.CommandParser;
 
