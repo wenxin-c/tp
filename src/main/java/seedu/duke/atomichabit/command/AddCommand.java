@@ -15,6 +15,7 @@ public class AddCommand extends Command {
 
     /**
      * Method to execute adding of an atomic habit feature into atomicHabitList
+     *
      * @param atomicHabits
      * @return CommandResult that contains feedback to the user
      */
@@ -23,8 +24,8 @@ public class AddCommand extends Command {
         AtomicHabit habit = new AtomicHabit(description);
         atomicHabits.addAtomicHabit(habit);
         return new CommandResult(FEEDBACK_STRING_ONE
-                                                + System.lineSeparator() + "'"
-                                                + habit + "'" + FEEDBACK_STRING_TWO);
+                + System.lineSeparator() + "'"
+                + habit + "'" + FEEDBACK_STRING_TWO);
     }
 }
 

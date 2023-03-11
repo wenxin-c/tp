@@ -34,13 +34,14 @@ public class AtomicHabitManager {
 
     /**
      * Requests user for input
+     *
      * @return user input in a String
      */
     public static String takeInput() {
         String nextCommand = "";
         try {
             nextCommand = myScanner.nextLine();
-        }catch (NoSuchElementException e) {
+        } catch (NoSuchElementException e) {
             System.out.println(e.getMessage());
         }
         return nextCommand;
@@ -67,6 +68,7 @@ public class AtomicHabitManager {
     /**
      * Method that returns a command to be executed after parsing the user input
      * to identify which command to return
+     *
      * @return specific command to be executed by method runCommands
      */
     private Command returnCommand() throws AtomicHabitException {
@@ -98,12 +100,13 @@ public class AtomicHabitManager {
 
     /**
      * Method to test for exception handling of invalid command using JUnit
+     *
      * @param userCommand command identified after parsing through userInput
      * @return Command according to userInput
      * @throws AtomicHabitException
      */
 
-    public Command testInvalidCommand (String userCommand) throws AtomicHabitException {
+    public Command testInvalidCommand(String userCommand) throws AtomicHabitException {
         switch (userCommand) {
         case AddCommand.COMMAND_WORD:
             return new AddCommand("testing");

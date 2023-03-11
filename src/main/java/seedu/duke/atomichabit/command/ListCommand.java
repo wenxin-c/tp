@@ -3,7 +3,7 @@ package seedu.duke.atomichabit.command;
 import seedu.duke.atomichabit.feature.AtomicHabit;
 import seedu.duke.atomichabit.feature.AtomicHabitList;
 
-public class ListCommand extends Command{
+public class ListCommand extends Command {
     public static final String COMMAND_WORD = "list";
     private static final String LINE_SEPARATOR = System.lineSeparator();
     private static final String DOT = ".";
@@ -17,7 +17,7 @@ public class ListCommand extends Command{
             formattedStringOfHabits += taskNo + DOT + habit + " " + "[" + habit.getCount() + "]" + LINE_SEPARATOR;
             taskNo += 1;
         }
-        return new CommandResult(formattedStringOfHabits.substring(0,formattedStringOfHabits.length() - 1));
+        return new CommandResult(formattedStringOfHabits.substring(0, formattedStringOfHabits.length() - 1));
     }
 
 }
