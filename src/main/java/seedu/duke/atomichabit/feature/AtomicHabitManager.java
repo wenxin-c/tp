@@ -12,10 +12,12 @@ import seedu.duke.atomichabit.command.ListCommand;
 import seedu.duke.exception.AtomicHabitException;
 import seedu.duke.command.CommandParser;
 import seedu.duke.exception.BadCommandException;
+import seedu.duke.ui.TextUi;
 
 public class AtomicHabitManager {
     private static final Scanner myScanner = new Scanner(System.in);
     private final CommandParser parser = new CommandParser();
+    private final TextUi ui = new TextUi();
     private AtomicHabitList habitList;
 
     public AtomicHabitManager() {
@@ -54,10 +56,10 @@ public class AtomicHabitManager {
                 Command command = returnCommand();
                 CommandResult result = command.execute(habitList);
                 String feedback = result.getCommandResult();
-                System.out.println(feedback);
+                ui.printOutputMessage(feedback);
                 isExit = ExitCommand.isExit(command);
             } catch (AtomicHabitException error) {
-                System.out.println(error.getMessage());
+                ui.printErrorFor(error);
             }
         }
     }
