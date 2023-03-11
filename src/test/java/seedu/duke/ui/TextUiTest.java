@@ -13,11 +13,17 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 // Test methods associated with TextUi class
 class TextUiTest {
-    private static final String DEFAULT_SEPARATOR = "----------------------------------------";
-    private static final String ALERT_SEPARATOR = "!!!!!!----------!!!!!!!----------!!!!!!!";
+    private static final String DEFAULT_SEPARATOR = "----------------------------------------"
+            + "--------------------";
+    private static final String ALERT_SEPARATOR = "!!!!!!-------!!!!!--------!!!!!!!------!!!!!"
+            + "---------!!!!!!!";
     private static final String TEST_OUTPUT_MSG_ONE = "Hello ";
     private static final String TEST_OUTPUT_MSG_TWO = "World";
     private static final String INDENTATION = "    ";
+    private static final String ARITHMETIC_EXCEPTION_MSG_ONE = "Please check your arithmetic equation!!";
+    private static final String ARITHMETIC_EXCEPTION_MSG_TWO = "E.g. Denominator is 0 in division.";
+    private static final String ERROR_MESSAGE_LABEL = "Error Message:";
+    private static final String EXTRA_MESSAGE_LABEL = "Note:";
     private static final TextUi UI = new TextUi();
     private static final int TEST_NUMERATOR = 2;
     private static final int TEST_DENOMINATOR = 0;
@@ -65,13 +71,17 @@ class TextUiTest {
     // Test whether exception message will properly printed with correct format
     @Test
     void printErrorFor_arithmeticException_success() {
+        String errorMsg = ARITHMETIC_EXCEPTION_MSG_ONE + System.lineSeparator() + ARITHMETIC_EXCEPTION_MSG_TWO;
         try {
             int result = TEST_NUMERATOR / TEST_DENOMINATOR;
         } catch (ArithmeticException exception) {
-            UI.printErrorFor(exception);
+            UI.printErrorFor(exception, errorMsg);
         }
-        assertEquals(ALERT_SEPARATOR + System.lineSeparator()
-                + INDENTATION + "/ by zero" + System.lineSeparator() + ALERT_SEPARATOR,
+        assertEquals(ALERT_SEPARATOR + System.lineSeparator() + ERROR_MESSAGE_LABEL
+                + System.lineSeparator() + INDENTATION + "/ by zero" + System.lineSeparator()
+                + EXTRA_MESSAGE_LABEL + System.lineSeparator() + INDENTATION + ARITHMETIC_EXCEPTION_MSG_ONE
+                + System.lineSeparator() + INDENTATION + ARITHMETIC_EXCEPTION_MSG_TWO + System.lineSeparator()
+                + ALERT_SEPARATOR,
                 outputStreamCaptor.toString().trim());
     }
 
