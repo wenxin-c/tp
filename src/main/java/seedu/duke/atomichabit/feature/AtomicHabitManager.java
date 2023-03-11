@@ -92,7 +92,7 @@ public class AtomicHabitManager {
             return new ExitCommand();
         default:
             throw new AtomicHabitException("Invalid command! Please" +
-                    "enter a valid command");
+                    " enter a valid command");
         }
     }
 
