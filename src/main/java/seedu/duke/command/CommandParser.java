@@ -1,5 +1,7 @@
 package seedu.duke.command;
 
+import seedu.duke.exception.BadCommandException;
+
 import java.util.HashMap;
 
 /**
@@ -138,10 +140,10 @@ public class CommandParser {
      */
     public String getMainArgument(String userInput) throws BadCommandException {
         userInput = userInput.strip();
-        String[] parameters = userInput.split(" ");
-        if (parameters.length == 0) {
+        if (userInput.length() == 0) {
             throw new BadCommandException(ERROR_EMPTY_COMMAND);
         }
+        String[] parameters = userInput.split(" ");
         return parameters[0];
     }
 

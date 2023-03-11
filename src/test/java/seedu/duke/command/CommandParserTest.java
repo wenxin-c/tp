@@ -2,7 +2,9 @@ package seedu.duke.command;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import seedu.duke.exception.BadCommandException;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
@@ -102,6 +104,60 @@ public class CommandParserTest {
         } catch (BadCommandException exception) {
             fail(exception.getMessage());
         }
+    }
+
+    /**
+     * Test that getMainArgument works for valid whitespace padded input
+     */
+    @Test
+    public void getMainArgumentTest_paddedInput_success() {
+        CommandParser parser = new CommandParser();
+        String target = "mainCommand";
+        String command = "   mainCommand payload --argument payload1";
+        try {
+            String result1 = parser.getMainArgument(command);
+            assertEquals(target, result1);
+        } catch (BadCommandException exception) {
+            fail(exception.getMessage());
+        }
+    }
+
+    /**
+     * Test that getMainArgument works for valid \n, \t padded input
+     */
+    @Test
+    public void getMainArgumentTest_specialWhitespace_success() {
+        CommandParser parser = new CommandParser();
+        String target = "mainCommand";
+        String command = "\n \t mainCommand payload --argument payload1";
+        try {
+            String result1 = parser.getMainArgument(command);
+            assertEquals(target, result1);
+        } catch (BadCommandException exception) {
+            fail(exception.getMessage());
+        }
+    }
+
+    /**
+     * Test that getMainArgument throws exception for empty input
+     */
+    @Test
+    public void getMainArgument_emptyInput_throwsException() {
+        CommandParser parser = new CommandParser();
+        assertThrows(BadCommandException.class, () -> {
+            parser.getMainArgument("");
+        }, "Expected error throw from empty user input");
+    }
+
+    /**
+     * Test that getMainArgument throws exception for whitespace-only input
+     */
+    @Test
+    public void getMainArgument_whiteSpacedInput_throwsException() {
+        CommandParser parser = new CommandParser();
+        assertThrows(BadCommandException.class, () -> {
+            parser.getMainArgument(" \n \t ");
+        }, "Expected error throw from white-spaced user input");
     }
 
 }
