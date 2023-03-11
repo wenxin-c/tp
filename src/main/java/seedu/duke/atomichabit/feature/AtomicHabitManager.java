@@ -60,7 +60,7 @@ public class AtomicHabitManager {
                 ui.printOutputMessage(feedback);
                 isExit = ExitCommand.isExit(command);
             } catch (AtomicHabitException exception) {
-                ui.printErrorFor(exception);
+                ui.printErrorFor(exception, "Check user guide for valid commands!");
             }
         }
     }
