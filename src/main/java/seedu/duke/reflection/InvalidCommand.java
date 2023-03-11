@@ -1,5 +1,7 @@
 package seedu.duke.reflection;
 
+import seedu.duke.exception.InvalidCommandException;
+
 public class InvalidCommand extends Command {
     private static final String INVALID_COMMAND_MESSAGE = "Sorry this command is invalid.";
 

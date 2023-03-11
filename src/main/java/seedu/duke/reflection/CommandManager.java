@@ -1,7 +1,8 @@
 package seedu.duke.reflection;
 
-import seedu.duke.command.BadCommandException;
+import seedu.duke.exception.BadCommandException;
 import seedu.duke.command.CommandParser;
+import seedu.duke.exception.InvalidCommandException;
 
 import java.util.HashMap;
 

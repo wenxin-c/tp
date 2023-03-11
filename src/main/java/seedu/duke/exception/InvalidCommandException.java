@@ -1,4 +1,4 @@
-package seedu.duke.reflection;
+package seedu.duke.exception;
 
 /**
  * Exception caused by invalid command.

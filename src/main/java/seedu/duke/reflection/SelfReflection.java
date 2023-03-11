@@ -1,6 +1,7 @@
 package seedu.duke.reflection;
 
-import seedu.duke.command.BadCommandException;
+import seedu.duke.exception.BadCommandException;
+import seedu.duke.exception.InvalidCommandException;
 
 import java.util.NoSuchElementException;
 
@@ -74,15 +75,14 @@ public class SelfReflection {
         setUpQuestions();
         while (!isExit) {
             try {
-                String inputCommand = UI.readInput();
+                String inputCommand = UI.getCommand();
                 CommandManager.execute(inputCommand);
             } catch (NoSuchElementException noSuchElement) {
-                // To be changed to UI printErrorFor
-                System.out.println("No such element");
+                UI.printErrorFor(noSuchElement);
             } catch (BadCommandException badCommand) {
-                System.out.println("Empty command");
+                UI.printErrorFor(badCommand);
             } catch (InvalidCommandException invalidCommand) {
-                System.out.println("Invalid command");
+                UI.printErrorFor(invalidCommand);
             }
         }
     }
