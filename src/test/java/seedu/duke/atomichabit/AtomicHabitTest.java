@@ -20,8 +20,12 @@ public class AtomicHabitTest {
     public void addHabit_correct_output() {
         habitList = new AtomicHabitList();
         String payload = "junit test";
-        String expectedOutput = "Yay! You have added a new habit:" + System.lineSeparator() + "'" +
-                payload + "'" + " was successfully added";
+        String expectedOutput = "Yay! You have added a new habit:"
+                                + System.lineSeparator()
+                                + "'"
+                                + payload
+                                + "'"
+                                + " was successfully added";
         Command command = new AddCommand(payload);
         Assertions.assertEquals(expectedOutput,command.execute(habitList).getCommandResult());
     }
@@ -33,7 +37,8 @@ public class AtomicHabitTest {
         String command = "sleep";
         Assertions.assertThrows(AtomicHabitException.class, () -> {
             atomicHabitManager.testInvalidCommand(command);
-        }, "The following is an invalid command:\n" + command);
+        }, "The following is an invalid command:\n"
+                    + command);
     }
 }
 

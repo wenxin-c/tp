@@ -41,8 +41,8 @@ public class AtomicHabitManager {
         String nextCommand = "";
         try {
             nextCommand = myScanner.nextLine();
-        } catch (NoSuchElementException e) {
-            System.out.println(e.getMessage());
+        } catch (NoSuchElementException exception) {
+            System.out.println(exception.getMessage());
         }
         return nextCommand;
     }
@@ -59,8 +59,8 @@ public class AtomicHabitManager {
                 String feedback = result.getCommandResult();
                 ui.printOutputMessage(feedback);
                 isExit = ExitCommand.isExit(command);
-            } catch (AtomicHabitException error) {
-                ui.printErrorFor(error);
+            } catch (AtomicHabitException exception) {
+                ui.printErrorFor(exception);
             }
         }
     }
@@ -76,14 +76,14 @@ public class AtomicHabitManager {
         HashMap<String, String> parsedInputs = new HashMap<>();
         try {
             parsedInputs = parser.parseUserInput(userInput);
-        } catch (BadCommandException error) {
-            System.out.println(error.getMessage());
+        } catch (BadCommandException exception) {
+            System.out.println(exception.getMessage());
         }
         String commandAction = "";
         try {
             commandAction = parser.getMainArgument(userInput);
-        } catch (BadCommandException error) {
-            System.out.println(error.getMessage());
+        } catch (BadCommandException exception) {
+            System.out.println(exception.getMessage());
         }
         switch (commandAction) {
         case AddCommand.COMMAND_WORD:
@@ -93,8 +93,8 @@ public class AtomicHabitManager {
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
         default:
-            throw new AtomicHabitException("Invalid command! Please" +
-                    " enter a valid command");
+            throw new AtomicHabitException("Invalid command! Please"
+                                            + " enter a valid command");
         }
     }
 
@@ -115,8 +115,8 @@ public class AtomicHabitManager {
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
         default:
-            throw new AtomicHabitException("Invalid command! Please" +
-                    "enter a valid command");
+            throw new AtomicHabitException("Invalid command! Please"
+                                            + " enter a valid command");
         }
     }
 }
