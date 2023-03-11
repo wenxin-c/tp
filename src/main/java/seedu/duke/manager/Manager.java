@@ -28,13 +28,13 @@ import java.util.HashMap;
  */
 public abstract class Manager {
 
-    private final CommandParser commandParser;
+    protected CommandParser commandParser;
 
-    // For this Manager's feature, what command
-    private ArrayList<Command> supportedCommands;
+    // For this Manager's feature, what commands exist?
+    protected ArrayList<Command> supportedCommands;
 
     // For this Manager's feature, what features (event driver) does it support?
-    private ArrayList<Manager> supportedManagers;
+    protected ArrayList<Manager> supportedManagers;
 
     /**
      * Construct a feature Manager to handle control flow for the given feature. <br>
@@ -46,8 +46,8 @@ public abstract class Manager {
      */
     public Manager() {
         this.commandParser = new CommandParser();
-        setSupportedCommands();
-        setSupportedFeatureManagers();
+        this.supportedCommands = new ArrayList<>();
+        this.supportedManagers = new ArrayList<>();
     }
 
     /**
@@ -83,14 +83,16 @@ public abstract class Manager {
     /**
      * Utility function to set a list of main commands the feature supports <br>
      * <br>
-     * This implementation registers the commands that are accepted by this Manager
+     * Suggested implementation: <br>
+     * <code> this.supportedCommands.add([cmd1, cmd2, ...]); </code>
      */
     protected abstract void setSupportedCommands();
 
     /**
      * Utility function to set a list of main commands the feature supports <br>
      * <br>
-     * This implementation registers the features that are accepted by this Manager
+     * Suggested implementation: <br>
+     * <code> this.supportedManagers.add([mgr1, mgr2, ...]); </code>
      */
     protected abstract void setSupportedFeatureManagers();
 
@@ -151,7 +153,9 @@ public abstract class Manager {
     /**
      * runEventDriver is the entry point into a feature's driver loop <br>
      * <br>
-     * Its implementation MUST include the following:
+     * This should be the part that contains the infinite loop and switch cases,
+     * but it is up to the implementer. <br>
+     * Its implementation should include the following:
      * <li>A way to terminate runEventDriver</li>
      * <li>A way to read input from console</li>
      */
