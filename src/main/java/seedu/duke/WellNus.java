@@ -21,3 +21,4 @@ public class WellNus {
         System.out.println("Hello " + in.nextLine());
     }
 }
+
