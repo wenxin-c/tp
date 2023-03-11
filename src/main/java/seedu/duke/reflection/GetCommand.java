@@ -2,6 +2,7 @@ package seedu.duke.reflection;
 
 import seedu.duke.command.Command;
 import seedu.duke.exception.BadCommandException;
+import seedu.duke.exception.InvalidCommandException;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -14,11 +15,32 @@ public class GetCommand extends Command {
     private static final String FEATURE_NAME = "Self Reflection";
     private static final String COMMAND_KEYWORD = "get";
     private static final String FULL_DESCRIPTION = "";
-    private static final String ARGUMENT = "";
-    private static final ReflectUi REFLECT_UI = new ReflectUi();
+    private static final String ARGUMENT = "get";
+    private static final String PAYLOAD = "";
+    private static final int ARGUMENT_PAYLOAD_SIZE = 1;
+    private static final String INVALID_COMMAND_MSG = "Command is invalid.";
+    private static final String INVALID_COMMAND_NOTES = "Please check the available commands and the format of commands.";
+    private static final ReflectUi UI = new ReflectUi();
+    private HashMap<String, String> argumentPayload;
 
     public GetCommand(HashMap<String, String> arguments) throws BadCommandException {
         super(arguments);
+        this.argumentPayload = getArguments();
+    }
+
+    /**
+     * Entry point to this command.<br/>
+     * Trigger the generation of five random questions and print to users.<br/>
+     */
+    @Override
+    public void execute() {
+        try {
+            validateCommand();
+        } catch (InvalidCommandException invalidCommandException) {
+            UI.printErrorFor(invalidCommandException, INVALID_COMMAND_NOTES);
+        }
+        String outputString = convertQuestionsToString();
+        UI.printOutputMessage(outputString);
     }
 
     /**
@@ -26,14 +48,74 @@ public class GetCommand extends Command {
      *
      * @return The selected sets of random questions
      */
-    public ArrayList<ReflectQuestion> getRandomQuestions() {
-        ArrayList<ReflectQuestion> selectedQuestions = new ArrayList<>();
-        ArrayList<ReflectQuestion> questions = QuestionManager.getQuestions();
+    public ArrayList<ReflectionQuestion> getRandomQuestions() {
+        ArrayList<ReflectionQuestion> selectedQuestions = new ArrayList<>();
+        ArrayList<ReflectionQuestion> questions = QuestionManager.getQuestions();
         Set<Integer> fiveRandomNumbers = generateRandomNumbers(questions.size());
         for (int index : fiveRandomNumbers) {
             selectedQuestions.add(questions.get(index));
         }
         return selectedQuestions;
+    }
+
+    /**
+     * Get the command itself.
+     *
+     * @return Command: get
+     */
+    @Override
+    protected String getCommandKeyword() {
+        return COMMAND_KEYWORD;
+    }
+
+    /**
+     * Only one supported argument for get command.
+     *
+     * @return Argument: get
+     */
+    @Override
+    protected String getSupportedCommandArguments() {
+        return ARGUMENT;
+    }
+
+    /**
+     * Get detailed description of a get command.
+     * FULL_DESCRIPTION is not completed yet.
+     *
+     * @return Full description of get command
+     */
+    @Override
+    protected String getDetailedDescription() {
+        return FULL_DESCRIPTION;
+    }
+
+    /**
+     * Get the name of the feature in which this get command is generated.
+     *
+     * @return Self reflection
+     */
+    @Override
+    protected String getFeatureKeyword() {
+        return FEATURE_NAME;
+    }
+
+    /**
+     * Validate the command and return a boolean value.<br/>
+     * <br/>
+     * Conditions for command to be valid:<br/>
+     * <li>Only one argument-payload pair
+     * <li>The pair contains key: get
+     * <li>Payload is empty
+     * Whichever mismatch will cause the command to be invalid.
+     */
+    protected void validateCommand() throws InvalidCommandException {
+        if (argumentPayload.size() != ARGUMENT_PAYLOAD_SIZE) {
+            throw new InvalidCommandException(INVALID_COMMAND_MSG);
+        } else if (!argumentPayload.containsKey(COMMAND_KEYWORD)) {
+            throw new InvalidCommandException(INVALID_COMMAND_MSG);
+        } else if (!argumentPayload.get(COMMAND_KEYWORD).equals(PAYLOAD)){
+            throw new InvalidCommandException(INVALID_COMMAND_MSG);
+        }
     }
 
     /**
@@ -65,41 +147,6 @@ public class GetCommand extends Command {
             questionString += (Integer.toString(i+1) + selectedQuestions.get(i).toString() + System.lineSeparator());
         }
         return questionString;
-    }
-
-    /**
-     * To check, this keyword refers to command itself or with a short description?
-     *
-     * @return
-     */
-    @Override
-    protected String getCommandKeyword() {
-        return COMMAND_KEYWORD;
-    }
-
-    @Override
-    protected String getDetailedDescription() {
-        return FULL_DESCRIPTION;
-    }
-
-    @Override
-    protected String getFeatureKeyword() {
-        return FEATURE_NAME;
-    }
-
-    @Override
-    protected String getSupportedCommandArguments() {
-        return ARGUMENT;
-    }
-
-    /**
-     * Entry point to this command.<br/>
-     * Trigger the generation of five random questions and print to users.<br/>
-     */
-    @Override
-    public void execute() {
-        String outputString = convertQuestionsToString();
-        REFLECT_UI.printOutputMessage(outputString);
     }
 }
 

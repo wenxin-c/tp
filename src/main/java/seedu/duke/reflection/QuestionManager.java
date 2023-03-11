@@ -3,14 +3,14 @@ package seedu.duke.reflection;
 import java.util.ArrayList;
 
 public class QuestionManager {
-    private static ArrayList<ReflectQuestion> questions = new ArrayList<>();
+    private static ArrayList<ReflectionQuestion> questions = new ArrayList<>();
 
     /**
      * Get all the reflection questions in the list.
      *
      * @return All refection questions in ArrayList
      */
-    public static ArrayList<ReflectQuestion> getQuestions() {
+    public static ArrayList<ReflectionQuestion> getQuestions() {
         return questions;
     }
 
@@ -27,7 +27,7 @@ public class QuestionManager {
      *
      * @param question newly created reflect question to be added into the list
      */
-    public static void addReflectQuestion(ReflectQuestion question) {
+    public static void addReflectQuestion(ReflectionQuestion question) {
         questions.add(question);
     }
 }

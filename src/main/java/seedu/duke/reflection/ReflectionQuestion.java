@@ -6,11 +6,11 @@ package seedu.duke.reflection;
  * The static attribute questions is used to keep track all the questions created. <br/>
  * Attribute isLike is to keep track of whether a user likes this question or not.
  */
-public class ReflectQuestion {
+public class ReflectionQuestion {
     private String questionDescription;
     private boolean isLike;
 
-    public ReflectQuestion (String questionDescription) {
+    public ReflectionQuestion(String questionDescription) {
         this.questionDescription = questionDescription;
         this.isLike = false;
     }

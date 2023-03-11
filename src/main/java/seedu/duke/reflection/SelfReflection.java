@@ -9,17 +9,16 @@ import java.util.NoSuchElementException;
  * The main body of self reflect section.
  */
 public class SelfReflection {
-    private static final String LOGO = "\n"
-            + "  _____ ______ _      ______   _____  ______ ______ _      ______ _____ _______ _____ ____  _   _ \n" +
+    private static final String LOGO =
+            "  _____ ______ _      ______   _____  ______ ______ _      ______ _____ _______ _____ ____  _   _ \n" +
             " / ____|  ____| |    |  ____| |  __ \\|  ____|  ____| |    |  ____/ ____|__   __|_   _/ __ \\| \\ | |\n" +
             "| (___ | |__  | |    | |__    | |__) | |__  | |__  | |    | |__ | |       | |    | || |  | |  \\| |\n" +
             " \\___ \\|  __| | |    |  __|   |  _  /|  __| |  __| | |    |  __|| |       | |    | || |  | | . ` |\n" +
             " ____) | |____| |____| |      | | \\ \\| |____| |    | |____| |___| |____   | |   _| || |__| | |\\  |\n" +
             "|_____/|______|______|_|      |_|  \\_\\______|_|    |______|______\\_____|  |_|  |_____\\____/|_| \\_|\n";
-
-    private static final String GREETING_MESSAGE = "Welcome to WellNUS++ Self Reflection section:D\n" +
-            "Feel very occupied and cannot find time to self reflect?\n" +
-            "No worries, this section will give you the opportunity to reflect and improve on yourself!!";
+    private static final String GREETING_MESSAGE = "Welcome to WellNUS++ Self Reflection section:D"
+            + System.lineSeparator() + "Feel very occupied and cannot find time to self reflect?"
+            + System.lineSeparator() + "No worries, this section will give you the opportunity to reflect and improve on yourself!!";
 
     // Questions are adopted from website: https://www.usa.edu/blog/self-discovery-questions/
     private static final String[] QUESTIONS =
@@ -35,21 +34,18 @@ public class SelfReflection {
         "What matters to me most right now?"};
 
     private static final ReflectUi UI = new ReflectUi();
-    private static boolean isExit = false;
 
-    /**
-     * Method to be called to exit reflection section.
-     */
-    public static void setIsExit() {
-        SelfReflection.isExit = true;
+    public SelfReflection() {
+        setUpQuestions();
     }
 
     /**
-     * Load the questions list with pre-defined reflect questions.
+     * Load the questions list with pre-defined reflect questions.<br/>
+     * This method is called in constructor so to create a new object to set up questions.
      */
-    public static void setUpQuestions() {
+    private static void setUpQuestions() {
         for (int i = 0; i < QUESTIONS.length; i += 1) {
-            ReflectQuestion newQuestion = new ReflectQuestion(QUESTIONS[i]);
+            ReflectionQuestion newQuestion = new ReflectionQuestion(QUESTIONS[i]);
             QuestionManager.addReflectQuestion(newQuestion);
         }
     }
@@ -58,34 +54,11 @@ public class SelfReflection {
      * Print greeting logo and message.
      */
     public static void greet() {
-        UI.printOutputMessage(LOGO);
+        UI.printLogo(LOGO);
         UI.printOutputMessage(GREETING_MESSAGE);
     }
-
-    /**
-     * High level framework of self reflection section.<br/>
-     * <br/>
-     * It first prints out greeting messages.<br/>
-     * Then setting up the reflection questions.<br/>
-     * Finally listen to and execute user commands.
-     */
-    public void run() {
-        greet();
-        setUpQuestions();
-        while (!isExit) {
-            try {
-                String inputCommand = UI.getCommand();
-                ReflectionManager.execute(inputCommand);
-            } catch (NoSuchElementException noSuchElement) {
-                UI.printErrorFor(noSuchElement);
-            } catch (BadCommandException badCommand) {
-                UI.printErrorFor(badCommand);
-            } catch (InvalidCommandException invalidCommand) {
-                UI.printErrorFor(invalidCommand);
-            }
-        }
-    }
 }
+
 
 
 

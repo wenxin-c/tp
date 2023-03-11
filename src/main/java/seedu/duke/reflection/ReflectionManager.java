@@ -1,31 +1,63 @@
 package seedu.duke.reflection;
 
-import seedu.duke.command.Command;
 import seedu.duke.exception.BadCommandException;
-import seedu.duke.command.CommandParser;
 import seedu.duke.exception.InvalidCommandException;
 import seedu.duke.manager.Manager;
 
-import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.NoSuchElementException;
 
 public class ReflectionManager extends Manager {
     private static final String FEATURE_NAME = "Self Reflection";
     private static final String BRIEF_DESCRIPTION = "Users can get a random set of questions to reflect on.";
     private static final String FULL_DESCRIPTION = "";
-    private static String commandType;
-    private static HashMap<String, String> argumentPayload;
     private static final String GET_COMMAND = "get";
+    private static final String GET_PAYLOAD = "";
     private static final String RETURN_MAIN = "return";
+    private static final String RETURN_PAYLOAD = "";
     private static final String EXIT_COMMAND = "exit";
-    private static final CommandParser parser;
-    private ArrayList<Command> supportedCommands;
-    private ArrayList<Manager> supportedManagers;
+    private static final String EXIT_PAYLOAD = "";
+    private static final String NO_ELEMENT_MESSAGE = "There is no new line of input, please key in inputs.";
+    private static final String INVALID_COMMAND_MESSAGE = "Please enter a valid command.";
+    private static final String EMPTY_COMMAND_MESSAGE = "The command is empty, please check your input.";
+    private static final ReflectUi UI = new ReflectUi();
+    private String commandType;
+    private HashMap<String, String>argumentPayload;
+
+    // I need to set this as static if I want to set it to true if ExitCommand object.
+    // If I create another object in ExitCommand, the corresponding isExit will be for a new object, not the one we intend to terminate.
+    // Anyone has other ideas??
+    private static boolean isExit;
 
     public ReflectionManager() {
-        this.parser = getCommandParser();
-        this.supportedCommands = getSupportedCommands();
-        this.supportedManagers = getSupportedFeatureManagers();
+        this.isExit = false;
+    }
+
+    public HashMap<String, String> getArgumentPayload() {
+        return argumentPayload;
+    }
+
+    public String getCommandType() {
+        return commandType;
+    }
+
+    /**
+     * Method to be called to change self reflection status.
+     * <br/>
+     * True: self reflection exit<br/>
+     * False: self reflection status reset<br/>
+     */
+    public static void setIsExit(boolean status) {
+        isExit = status;
+    }
+
+    /**
+     * Get self reflection exit status.
+     *
+     * @return Exit status
+     */
+    public static boolean getIsExit() {
+        return isExit;
     }
 
     /**
@@ -60,24 +92,37 @@ public class ReflectionManager extends Manager {
         return FULL_DESCRIPTION;
     }
 
+    /**
+     * Set up the set of command-payload pair supported by self reflection.<br/>
+     * <li>Command: get, Payload: ""
+     * <li>Command: exit, Payload: ""
+     * <li>Command: return, Payload: ""
+     */
     @Override
     protected void setSupportedCommands() {
-        supportedCommands.add();
+        try {
+            HashMap<String, String> getCmdArgumentPayload = new HashMap<>();
+            getCmdArgumentPayload.put(GET_COMMAND, GET_PAYLOAD);
+            GetCommand getCmd = new GetCommand(getCmdArgumentPayload);
+            HashMap<String, String> returnCmdArgumentPayload = new HashMap<>();
+            returnCmdArgumentPayload.put(RETURN_MAIN, RETURN_PAYLOAD);
+            GetCommand returnCmd = new GetCommand(returnCmdArgumentPayload);
+            HashMap<String, String> exitCmdArgumentPayload = new HashMap<>();
+            exitCmdArgumentPayload.put(EXIT_COMMAND, EXIT_PAYLOAD);
+            GetCommand exitCmd = new GetCommand(exitCmdArgumentPayload);
+            supportedCommands.add(getCmd);
+            supportedCommands.add(returnCmd);
+            supportedCommands.add(exitCmd);
+        } catch (BadCommandException badCommandException) {
+            UI.printErrorFor(badCommandException, EMPTY_COMMAND_MESSAGE);
+        }
     }
 
+    /**
+     * Not implementing at this moment.
+     */
     @Override
     protected void setSupportedFeatureManagers() {
-
-    }
-
-    @Override
-    public void runEventDriver() {
-        SelfReflection selfReflection = new SelfReflection();
-        selfReflection.run();
-    }
-
-    @Override
-    public void validateCommand(HashMap<String, String> commandMap) {
 
     }
 
@@ -87,8 +132,8 @@ public class ReflectionManager extends Manager {
      * @param inputCommand Read from user input
      * @throws BadCommandException Empty command
      */
-    public static void setArgumentPayload(String inputCommand) throws BadCommandException {
-        argumentPayload = parser.parseUserInput(inputCommand);
+    public void setArgumentPayload(String inputCommand) throws BadCommandException {
+        argumentPayload = commandParser.parseUserInput(inputCommand);
     }
 
     /**
@@ -97,17 +142,41 @@ public class ReflectionManager extends Manager {
      * @param inputCommand Read from user input
      * @throws BadCommandException Empty command
      */
-    public static void setCommandType(String inputCommand) throws BadCommandException {
-        String mainArgument = parser.getMainArgument(inputCommand);
+    public void setCommandType(String inputCommand) throws BadCommandException {
+        String mainArgument = commandParser.getMainArgument(inputCommand);
         commandType = mainArgument;
     }
 
-    public static String getCommandType() {
-        return commandType;
+    /**
+     * High level framework of self reflection section.<br/>
+     * <br/>
+     * It first prints out greeting messages.<br/>
+     * Then listen to and execute user commands.
+     */
+    @Override
+    public void runEventDriver() {
+        setIsExit(false);
+        SelfReflection.greet();
+        while (!isExit) {
+            try {
+                String inputCommand = UI.getCommand();
+                setCommandType(inputCommand);
+                setArgumentPayload(inputCommand);
+                execute();
+            } catch (NoSuchElementException noSuchElement) {
+                UI.printErrorFor(noSuchElement, NO_ELEMENT_MESSAGE);
+            } catch (BadCommandException badCommand) {
+                UI.printErrorFor(badCommand, EMPTY_COMMAND_MESSAGE);
+            } catch (InvalidCommandException invalidCommand) {
+                UI.printErrorFor(invalidCommand, INVALID_COMMAND_MESSAGE);
+            }
+        }
     }
 
-    public static HashMap<String, String> getArgumentPayload() {
-        return argumentPayload;
+    // To be moved to command, leave it here atm for overriding abstract class purpose.
+    @Override
+    public void validateCommand(HashMap<String, String> commandMap) {
+
     }
 
     /**
@@ -118,23 +187,20 @@ public class ReflectionManager extends Manager {
      * <li>Return back main interface<br/>
      * <li>Exit program<br/>
      *
-     * @param inputCommand Read from user input
      * @throws BadCommandException Empty command
      */
-    public static void execute(String inputCommand) throws BadCommandException, InvalidCommandException {
-        setCommandType(inputCommand);
-        setArgumentPayload(inputCommand);
+    public void execute() throws BadCommandException, InvalidCommandException {
         switch (commandType) {
         case GET_COMMAND:
-            GetCommand getQuestionsCmd = new GetCommand();
+            GetCommand getQuestionsCmd = new GetCommand(argumentPayload);
             getQuestionsCmd.execute();
             break;
         case RETURN_MAIN:
-            ReturnCommand returnCmd = new ReturnCommand();
+            ReturnCommand returnCmd = new ReturnCommand(argumentPayload);
             returnCmd.execute();
             break;
         case EXIT_COMMAND:
-            ExitCommand exitCmd = new ExitCommand();
+            ExitCommand exitCmd = new ExitCommand(argumentPayload);
             exitCmd.execute();
             break;
         default:
