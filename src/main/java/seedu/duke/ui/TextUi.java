@@ -11,10 +11,17 @@ import java.util.Scanner;
  * This is to accommodate to the uniqueness of each feature.
  */
 public class TextUi {
-    private static final String ALERT_SEPARATOR = "!!!!!!----------!!!!!!!----------!!!!!!!";
+    private static final String ALERT_SEPARATOR = "!!!!!!-------!!!!!--------!!!!!!!------!!!!!"
+            + "---------!!!!!!!";
     private static final String INDENTATION_SPACES = "    ";
-    private static final int DEFAULT_SEPARATOR_LENGTH = 40;
+    private static final int DEFAULT_SEPARATOR_LENGTH = 60;
     private static final int EMPTY_MESSAGE = 0;
+    private static final String ERROR_MESSAGE_LABEL = "Error Message:";
+    private static final String EXTRA_MESSAGE_LABEL = "Note:";
+    private static final String NO_INPUT_ELEMENT_MSG = "There is no new line of element,"
+            + "please key in your input!!";
+    private static final String BUFFER_OVERFLOW_MSG = "Your input is too long,"
+            + "please shorten it!!";
     private static final Scanner SCANNER = new Scanner(System.in);
     private String separator = "-";
 
@@ -36,9 +43,9 @@ public class TextUi {
             String inputLine = SCANNER.nextLine();
             userCommand = inputLine.trim();
         } catch (BufferOverflowException bufferOverFlowException) {
-            printErrorFor(bufferOverFlowException);
+            printErrorFor(bufferOverFlowException, BUFFER_OVERFLOW_MSG);
         } catch (NoSuchElementException noElementException) {
-            printErrorFor(noElementException);
+            printErrorFor(noElementException, NO_INPUT_ELEMENT_MSG);
         }
         return userCommand;
     }
@@ -100,19 +107,25 @@ public class TextUi {
     }
 
     /**
-     * Print exception message with length > 0.<br/>
+     * Print exception message with length > 0 and additional notes.<br/>
      * <br/>
-     * 0 or more lines of messages are accepted but lineSeparator() must be added in message string.<br/>
+     * 0 or more lines of messages are accepted, but lineSeparator() must be added
+     * if you wish to have certain message to start on a new line.<br/>
+     * Error messages and additional notes will be printed on separate lines with labels.<br/>
      * Can override to accommodate to other customised error messages.<br/>
      * Can improve on what will be printed for empty message in the future.
      *
      * @param exception The exception being thrown in the program
+     * @param additionalMessage Suggestions or notes that help users figure out what causes error
      */
-    public void printErrorFor(Exception exception) {
+    public void printErrorFor(Exception exception, String additionalMessage) {
         System.out.println(ALERT_SEPARATOR);
         String exceptionMsg = exception.getMessage();
         if (exceptionMsg.length() > EMPTY_MESSAGE) {
+            System.out.println(ERROR_MESSAGE_LABEL);
             printMultiLineMessage(exceptionMsg);
+            System.out.println(EXTRA_MESSAGE_LABEL);
+            printMultiLineMessage(additionalMessage);
         }
         System.out.println(ALERT_SEPARATOR);
     }
@@ -120,7 +133,8 @@ public class TextUi {
     /**
      * Print output message with length > 0.<br/>
      * <br/>
-     * 0 or more lines of messages are accepted but lineSeparator() must be added in message string.<br/>
+     * 0 or more lines of messages are accepted, but lineSeparator() must be added
+     * if you wish to have certain message to start on a new line.<br/>
      * Can override to accommodate to other customised error messages.
      *
      * @param message The exception being thrown in the program
