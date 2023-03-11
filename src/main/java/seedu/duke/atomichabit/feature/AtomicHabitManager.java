@@ -9,9 +9,9 @@ import seedu.duke.atomichabit.command.AddCommand;
 import seedu.duke.atomichabit.command.CommandResult;
 import seedu.duke.atomichabit.command.ExitCommand;
 import seedu.duke.atomichabit.command.ListCommand;
-import seedu.duke.atomichabit.exception.AtomicHabitException;
-import seedu.duke.command.BadCommandException;
+import seedu.duke.exception.AtomicHabitException;
 import seedu.duke.command.CommandParser;
+import seedu.duke.exception.BadCommandException;
 
 public class AtomicHabitManager {
     private static final Scanner myScanner = new Scanner(System.in);

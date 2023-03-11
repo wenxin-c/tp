@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.duke.atomichabit.command.AddCommand;
 import seedu.duke.atomichabit.command.Command;
-import seedu.duke.atomichabit.exception.AtomicHabitException;
+import seedu.duke.exception.AtomicHabitException;
 import seedu.duke.atomichabit.feature.AtomicHabitList;
 import seedu.duke.atomichabit.feature.AtomicHabitManager;
 
