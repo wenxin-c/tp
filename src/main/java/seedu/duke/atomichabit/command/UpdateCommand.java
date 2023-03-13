@@ -30,10 +30,11 @@ public class UpdateCommand extends Command {
             int index = Integer.parseInt(indexString) - 1;
             AtomicHabit habit = atomicHabits.getHabitByIndex(index);
             habit.setCount(DEFAULT_INCREMENT);
-            String StringOfUpdatedHabit = indexString + DOT + habit + " " + "[" + habit.getCount() + "]" + LINE_SEPARATOR;
+            String stringOfUpdatedHabit = indexString + DOT + habit + " " + "[" + habit.getCount() + "]"
+                    + LINE_SEPARATOR;
             return new CommandResult(FEEDBACK_STRING
                     + LINE_SEPARATOR
-                    + StringOfUpdatedHabit);
+                    + stringOfUpdatedHabit);
         } catch (NumberFormatException e) {
             throw new AtomicHabitException(FEEDBACK_INDEX_NOT_INTEGER_ERROR);
         } catch (IndexOutOfBoundsException e) {
