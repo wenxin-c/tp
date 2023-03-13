@@ -7,7 +7,7 @@ import wellnus.ui.TextUi;
 import java.util.Scanner;
 
 public class WellNus {
-    private static final String BYE_MESSAGE = "Thank you for using WellNus++! See you again soon Dx";
+    private static final String BYE_MESSAGE = "Thank you for using WellNUS++! See you again soon Dx";
     private static final String GREETING_MESSAGE = "Very good day to you! Welcome to ";
     private static final String NEWLINE = System.lineSeparator();
     private final TextUi textUi;
