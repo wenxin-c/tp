@@ -35,6 +35,6 @@ class GetCommandTest {
         HashMap<String,String> getCmdArgumentPayload = reflectManager.getArgumentPayload();
         GetCommand get = new GetCommand(getCmdArgumentPayload);
         assertThrows(BadCommandException.class,
-                () -> get.validateCommand());
+                () -> get.validateCommand(getCmdArgumentPayload));
     }
 }

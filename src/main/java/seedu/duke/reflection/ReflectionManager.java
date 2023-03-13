@@ -171,12 +171,6 @@ public class ReflectionManager extends Manager {
         }
     }
 
-    // To be moved to command, leave it here atm for overriding abstract class purpose.
-    @Override
-    public void validateCommand(HashMap<String, String> commandMap) {
-
-    }
-
     /**
      * Decide which command to create based on command type.<br/>
      * <br/>

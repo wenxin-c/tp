@@ -70,7 +70,7 @@ public class ReturnCommand extends Command {
     @Override
     public void execute() {
         try {
-            validateCommand();
+            validateCommand(this.argumentPayload);
         } catch (BadCommandException invalidCommandException) {
             UI.printErrorFor(invalidCommandException, INVALID_COMMAND_NOTES);
         }
@@ -86,12 +86,13 @@ public class ReturnCommand extends Command {
      * <li>Payload is empty
      * Whichever mismatch will cause the command to be invalid.
      */
-    protected void validateCommand() throws BadCommandException {
-        if (argumentPayload.size() != ARGUMENT_PAYLOAD_SIZE) {
+    @Override
+    public void validateCommand(HashMap<String, String> commandMap) throws BadCommandException {
+        if (commandMap.size() != ARGUMENT_PAYLOAD_SIZE) {
             throw new BadCommandException(INVALID_COMMAND_MSG);
-        } else if (!argumentPayload.containsKey(COMMAND_KEYWORD)) {
+        } else if (!commandMap.containsKey(COMMAND_KEYWORD)) {
             throw new BadCommandException(INVALID_COMMAND_MSG);
-        } else if (!argumentPayload.get(COMMAND_KEYWORD).equals(PAYLOAD)){
+        } else if (!commandMap.get(COMMAND_KEYWORD).equals(PAYLOAD)){
             throw new BadCommandException(INVALID_COMMAND_MSG);
         }
     }
