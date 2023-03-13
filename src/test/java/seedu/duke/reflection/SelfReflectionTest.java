@@ -45,3 +45,4 @@ class SelfReflectionTest {
         assertEquals(10, fullArrayLength);
     }
 }
+

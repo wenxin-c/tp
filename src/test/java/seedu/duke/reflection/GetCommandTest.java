@@ -38,3 +38,4 @@ class GetCommandTest {
                 () -> get.validateCommand(getCmdArgumentPayload));
     }
 }
+

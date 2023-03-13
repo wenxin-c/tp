@@ -21,7 +21,7 @@ class ReflectionManagerTest {
         ReflectionManager reflectionManager = new ReflectionManager();
         reflectionManager.setCommandType(INVALID_COMMAND);
         assertThrows(BadCommandException.class,
-                reflectionManager::executeCommand);
+                reflectionManager::executeCommands);
     }
 
     // Test whether exceptions are thrown for empty string, buggy at this moment, to be fixed.
@@ -53,5 +53,4 @@ class ReflectionManagerTest {
         assertEquals(true, supportedCommands.get(0) instanceof GetCommand);
     }
 }
-
 

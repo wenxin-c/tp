@@ -162,7 +162,7 @@ public class ReflectionManager extends Manager {
                 String inputCommand = UI.getCommand();
                 setCommandType(inputCommand);
                 setArgumentPayload(inputCommand);
-                executeCommand();
+                executeCommands();
             } catch (NoSuchElementException noSuchElement) {
                 UI.printErrorFor(noSuchElement, NO_ELEMENT_MESSAGE);
             } catch (BadCommandException badCommand) {
@@ -181,7 +181,7 @@ public class ReflectionManager extends Manager {
      *
      * @throws BadCommandException Empty command
      */
-    public void executeCommand() throws BadCommandException {
+    public void executeCommands() throws BadCommandException {
         switch (commandType) {
         case GET_COMMAND:
             GetCommand getQuestionsCmd = new GetCommand(argumentPayload);
@@ -200,6 +200,4 @@ public class ReflectionManager extends Manager {
         }
     }
 }
-
-
 
