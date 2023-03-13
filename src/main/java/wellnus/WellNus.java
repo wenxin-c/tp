@@ -18,8 +18,26 @@ public class WellNus {
         this.mainManager = new MainManager();
     }
 
+    private static String getWellNusLogo() {
+        return NEWLINE
+                + ",--.   ,--.       ,--.,--.,--.  ,--.,--. ,--. ,---.     |  |        |  |     " + NEWLINE
+                + "|  |   |  | ,---. |  ||  ||  ,'.|  ||  | |  |'   .-',---|  |---.,---|  |---. " + NEWLINE
+                + "|  |.'.|  || .-. :|  ||  ||  |' '  ||  | |  |`.  `-.'---|  |---''---|  |---' " + NEWLINE
+                + "|   ,'.   |\\   --.|  ||  ||  | `   |'  '-'  '.-'    |   |  |        |  |     " + NEWLINE
+                + "'--'   '--' `----'`--'`--'`--'  `--' `-----' `-----'    `--'        `--'     " + NEWLINE;
+    }
+
     private void byeUser() {
         this.getTextUi().printOutputMessage(WellNus.BYE_MESSAGE);
+    }
+
+    private void executeUserCommands() {
+        try {
+            this.getMainManager().runEventDriver();
+        } catch (BadCommandException badCommandException) {
+            String NO_ADDITIONAL_MSG = "";
+            this.getTextUi().printErrorFor(badCommandException, NO_ADDITIONAL_MSG);
+        }
     }
 
     private MainManager getMainManager() {
@@ -30,27 +48,9 @@ public class WellNus {
         return this.textUi;
     }
 
-    private static String getWellnusLogo() {
-        return NEWLINE
-                + ",--.   ,--.       ,--.,--.,--.  ,--.,--. ,--. ,---.     |  |        |  |     " + NEWLINE
-                + "|  |   |  | ,---. |  ||  ||  ,'.|  ||  | |  |'   .-',---|  |---.,---|  |---. " + NEWLINE
-                + "|  |.'.|  || .-. :|  ||  ||  |' '  ||  | |  |`.  `-.'---|  |---''---|  |---' " + NEWLINE
-                + "|   ,'.   |\\   --.|  ||  ||  | `   |'  '-'  '.-'    |   |  |        |  |     " + NEWLINE
-                + "'--'   '--' `----'`--'`--'`--'  `--' `-----' `-----'    `--'        `--'     " + NEWLINE;
-    }
-
     private void greet() {
         this.getTextUi().printOutputMessage(WellNus.GREETING_MESSAGE + WellNus.NEWLINE
-                + WellNus.getWellnusLogo());
-    }
-
-    private void executeUserCommands() {
-        try {
-            this.getMainManager().runEventDriver();
-        } catch (BadCommandException badCommandException) {
-            String NO_ADDITIONAL_MSG = "";
-            this.getTextUi().printErrorFor(badCommandException, NO_ADDITIONAL_MSG);
-        }
+                + WellNus.getWellNusLogo());
     }
 
     /**
