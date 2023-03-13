@@ -2,6 +2,8 @@ package wellnus.manager;
 
 import wellnus.command.Command;
 import wellnus.command.CommandParser;
+import wellnus.exception.BadCommandException;
+
 import java.util.ArrayList;
 
 /**
@@ -156,6 +158,6 @@ public abstract class Manager {
      * <li>A way to terminate runEventDriver</li>
      * <li>A way to read input from console</li>
      */
-    public abstract void runEventDriver();
+    public abstract void runEventDriver() throws BadCommandException;
 
 }
