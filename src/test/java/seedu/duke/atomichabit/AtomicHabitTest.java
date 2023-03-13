@@ -77,7 +77,8 @@ public class AtomicHabitTest {
     }
 
     /**
-     * Test UpdateCommand to throw {@link AtomicHabitException} when an out-of-bounds index is given to the UpdateCommand
+     * Test UpdateCommand to throw {@link AtomicHabitException} when an out-of-bounds index is given
+     * to the UpdateCommand
      */
     @Test
     public void updateHabit_indexOutOfBounds_atomicHabitExceptionThrown() throws AtomicHabitException {
