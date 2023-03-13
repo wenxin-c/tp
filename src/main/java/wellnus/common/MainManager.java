@@ -28,6 +28,33 @@ public class MainManager extends Manager {
                 + "traditional Graphical User Interface(GUI) apps.";
     }
 
+    private void executeCommands() throws BadCommandException {
+        boolean isExit = false;
+        CommandParser parser = new CommandParser();
+        do {
+            String nextCommand = this.getTextUi().getCommand();
+            String featureKeyword = parser.getMainArgument(nextCommand);
+            HashMap<String, String> arguments = parser.parseUserInput(nextCommand);
+            boolean isFeatureCommand = false;
+            for (Manager featureManager : super.getSupportedFeatureManagers()) {
+                if (featureManager.isSupportedFeature(featureKeyword)) {
+                    isFeatureCommand = true;
+                    break;
+                }
+            }
+            // TODO: Uncomment this once isSupportedFeature() is properly implemented
+            /*
+            if (!isFeatureCommand && !this.isSupportedFeature(featureKeyword)) {
+                throw new BadCommandException(MainManager.INVALID_COMMAND_MESSAGE);
+            }
+             */
+            // TODO: Replace with Command subclass once those changes are merged
+            if (featureKeyword.equals("exit")) {
+                isExit = true;
+            }
+        } while (!isExit);
+    }
+
     private TextUi getTextUi() {
         return this.textUi;
     }
@@ -76,31 +103,8 @@ public class MainManager extends Manager {
      */
     @Override
     public void runEventDriver() throws BadCommandException {
-        boolean isExit = false;
-        CommandParser parser = new CommandParser();
         this.greet();
-        do {
-            String nextCommand = this.getTextUi().getCommand();
-            String featureKeyword = parser.getMainArgument(nextCommand);
-            HashMap<String, String> arguments = parser.parseUserInput(nextCommand);
-            boolean isFeatureCommand = false;
-            for (Manager featureManager : super.getSupportedFeatureManagers()) {
-                if (featureManager.isSupportedFeature(featureKeyword)) {
-                    isFeatureCommand = true;
-                    break;
-                }
-            }
-            // TODO: Uncomment this once isSupportedFeature() is properly implemented
-            /*
-            if (!isFeatureCommand && !this.isSupportedFeature(featureKeyword)) {
-                throw new BadCommandException(MainManager.INVALID_COMMAND_MESSAGE);
-            }
-             */
-            // TODO: Replace with Command subclass once those changes are merged
-            if (featureKeyword.equals("exit")) {
-                isExit = true;
-            }
-        } while (!isExit);
+        this.executeCommands();
     }
 
     /**
