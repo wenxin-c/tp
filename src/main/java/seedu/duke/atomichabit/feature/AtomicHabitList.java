@@ -27,5 +27,9 @@ public class AtomicHabitList {
     public ArrayList<AtomicHabit> getAllHabits() {
         return allAtomicHabits;
     }
+
+    public AtomicHabit getHabitByIndex(int index) {
+        return allAtomicHabits.get(index);
+    }
 }
 

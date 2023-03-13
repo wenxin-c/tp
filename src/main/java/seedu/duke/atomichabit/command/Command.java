@@ -1,6 +1,7 @@
 package seedu.duke.atomichabit.command;
 
 import seedu.duke.atomichabit.feature.AtomicHabitList;
+import seedu.duke.exception.AtomicHabitException;
 
 public abstract class Command {
     /**
@@ -9,7 +10,7 @@ public abstract class Command {
      * @param atomicHabits
      * @return CommandResult which contains information to be printed to user
      */
-    public abstract CommandResult execute(AtomicHabitList atomicHabits);
+    public abstract CommandResult execute(AtomicHabitList atomicHabits) throws AtomicHabitException;
 }
 
 

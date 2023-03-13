@@ -13,21 +13,22 @@ import seedu.duke.atomichabit.feature.AtomicHabitManager;
 
 public class AtomicHabitTest {
     private AtomicHabitList habitList;
+
     /**
      * Test AddCommand with a standard payload to check output printed
      */
     @Test
-    public void addHabit_correct_output() {
+    public void addHabit_correct_output() throws AtomicHabitException {
         habitList = new AtomicHabitList();
         String payload = "junit test";
         String expectedOutput = "Yay! You have added a new habit:"
-                                + System.lineSeparator()
-                                + "'"
-                                + payload
-                                + "'"
-                                + " was successfully added";
+                + System.lineSeparator()
+                + "'"
+                + payload
+                + "'"
+                + " was successfully added";
         Command command = new AddCommand(payload);
-        Assertions.assertEquals(expectedOutput,command.execute(habitList).getCommandResult());
+        Assertions.assertEquals(expectedOutput, command.execute(habitList).getCommandResult());
     }
 
     @Test
@@ -38,7 +39,7 @@ public class AtomicHabitTest {
         Assertions.assertThrows(AtomicHabitException.class, () -> {
             atomicHabitManager.testInvalidCommand(command);
         }, "The following is an invalid command:\n"
-                    + command);
+                + command);
     }
 }
 
