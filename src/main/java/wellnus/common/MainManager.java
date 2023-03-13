@@ -13,8 +13,8 @@ import java.util.Optional;
 public class MainManager extends Manager {
     private static final String GREETING_MESSAGE = "Enter a command to start using WellNUS++! Try 'help' "
             + "if you're new, or just unsure.";
-    private static final String INVALID_COMMAND_MESSAGE = "Don't recognise that command, perhaps consult "
-            + "'help' for guidance?";
+    private static final String INVALID_COMMAND_MESSAGE = "Don't recognise that command?";
+    private static final String INVALID_COMMAND_ADDITIONAL_MESSAGE = "Try 'help' for some guidance";
     private static final String WELLNUS_FEATURE_NAME = "";
     private final TextUi textUi;
 
@@ -46,7 +46,8 @@ public class MainManager extends Manager {
                 if (featureManager.isEmpty() && !this.isSupportedCommand(featureKeyword)) {
                     BadCommandException badCommandException =
                             new BadCommandException(MainManager.INVALID_COMMAND_MESSAGE);
-                    this.getTextUi().printErrorFor(badCommandException, NO_ADDITIONAL_MESSAGE);
+                    this.getTextUi().printErrorFor(badCommandException,
+                            MainManager.INVALID_COMMAND_ADDITIONAL_MESSAGE);
                 }
                 // TODO: Replace with Command subclass once those changes are merged
                 if (featureKeyword.equals("exit")) {
