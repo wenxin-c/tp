@@ -3,7 +3,6 @@ package seedu.duke.reflection;
 import org.junit.jupiter.api.Test;
 import seedu.duke.command.Command;
 import seedu.duke.exception.BadCommandException;
-import seedu.duke.exception.InvalidCommandException;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -21,8 +20,8 @@ class ReflectionManagerTest {
     void execution_invalidCommand_expectException() throws BadCommandException {
         ReflectionManager reflectionManager = new ReflectionManager();
         reflectionManager.setCommandType(INVALID_COMMAND);
-        assertThrows(InvalidCommandException.class,
-                reflectionManager::execute);
+        assertThrows(BadCommandException.class,
+                reflectionManager::executeCommand);
     }
 
     // Test whether exceptions are thrown for empty string, buggy at this moment, to be fixed.

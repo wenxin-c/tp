@@ -2,7 +2,6 @@ package seedu.duke.reflection;
 
 import seedu.duke.command.Command;
 import seedu.duke.exception.BadCommandException;
-import seedu.duke.exception.InvalidCommandException;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -37,7 +36,7 @@ public class GetCommand extends Command {
     public void execute() {
         try {
             validateCommand();
-        } catch (InvalidCommandException invalidCommandException) {
+        } catch (BadCommandException invalidCommandException) {
             UI.printErrorFor(invalidCommandException, INVALID_COMMAND_NOTES);
         }
         String outputString = convertQuestionsToString();
@@ -51,7 +50,7 @@ public class GetCommand extends Command {
      */
     public ArrayList<ReflectionQuestion> getRandomQuestions() {
         ArrayList<ReflectionQuestion> selectedQuestions = new ArrayList<>();
-        ArrayList<ReflectionQuestion> questions = QuestionManager.getQuestions();
+        ArrayList<ReflectionQuestion> questions = SelfReflection.getQuestions();
         Set<Integer> fiveRandomNumbers = generateRandomNumbers(questions.size());
         for (int index : fiveRandomNumbers) {
             selectedQuestions.add(questions.get(index));
@@ -109,13 +108,13 @@ public class GetCommand extends Command {
      * <li>Payload is empty
      * Whichever mismatch will cause the command to be invalid.
      */
-    protected void validateCommand() throws InvalidCommandException {
+    protected void validateCommand() throws BadCommandException {
         if (argumentPayload.size() != ARGUMENT_PAYLOAD_SIZE) {
-            throw new InvalidCommandException(INVALID_COMMAND_MSG);
+            throw new BadCommandException(INVALID_COMMAND_MSG);
         } else if (!argumentPayload.containsKey(COMMAND_KEYWORD)) {
-            throw new InvalidCommandException(INVALID_COMMAND_MSG);
+            throw new BadCommandException(INVALID_COMMAND_MSG);
         } else if (!argumentPayload.get(COMMAND_KEYWORD).equals(PAYLOAD)){
-            throw new InvalidCommandException(INVALID_COMMAND_MSG);
+            throw new BadCommandException(INVALID_COMMAND_MSG);
         }
     }
 

@@ -2,7 +2,6 @@ package seedu.duke.reflection;
 
 import org.junit.jupiter.api.Test;
 import seedu.duke.exception.BadCommandException;
-import seedu.duke.exception.InvalidCommandException;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -25,7 +24,7 @@ class GetCommandTest {
         SelfReflection selfReflection = new SelfReflection();
         ArrayList<ReflectionQuestion> selectedQuestions = get.getRandomQuestions();
         assertEquals(EXPECTED_ARRAY_LENGTH, selectedQuestions.size());
-        QuestionManager.clearQuestions();
+        SelfReflection.clearQuestions();
     }
 
     // Test whether command is validated properly.
@@ -35,7 +34,7 @@ class GetCommandTest {
         reflectManager.setArgumentPayload(GET_COMMAND_WRONG_FORMAT);
         HashMap<String,String> getCmdArgumentPayload = reflectManager.getArgumentPayload();
         GetCommand get = new GetCommand(getCmdArgumentPayload);
-        assertThrows(InvalidCommandException.class,
+        assertThrows(BadCommandException.class,
                 () -> get.validateCommand());
     }
 }

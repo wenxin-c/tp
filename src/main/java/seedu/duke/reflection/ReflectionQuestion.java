@@ -8,30 +8,9 @@ package seedu.duke.reflection;
  */
 public class ReflectionQuestion {
     private String questionDescription;
-    private boolean isLike;
 
     public ReflectionQuestion(String questionDescription) {
         this.questionDescription = questionDescription;
-        this.isLike = false;
-    }
-
-    /**
-     * Change like status to true.
-     */
-    public void setLike() {
-        isLike = true;
-    }
-
-    /**
-     * Return a string of whether a particular question is liked by user.<br/>
-     * If true, then "yes"<br/>
-     * Else, then "no"<br/>
-     *
-     * @return string "true" or "false"
-     */
-    public String getLikeStatus() {
-        String likeStatus = (isLike ? "true" : "false");
-        return likeStatus;
     }
 
     /**
@@ -50,7 +29,7 @@ public class ReflectionQuestion {
      */
     @Override
     public String toString() {
-        return "[" + (isLike ? "LIKE" : " ") + "]" + questionDescription;
+        return questionDescription;
     }
 }
 

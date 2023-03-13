@@ -1,7 +1,6 @@
 package seedu.duke.reflection;
 
 import seedu.duke.exception.BadCommandException;
-import seedu.duke.exception.InvalidCommandException;
 import seedu.duke.manager.Manager;
 
 import java.util.HashMap;
@@ -18,8 +17,8 @@ public class ReflectionManager extends Manager {
     private static final String EXIT_COMMAND = "exit";
     private static final String EXIT_PAYLOAD = "";
     private static final String NO_ELEMENT_MESSAGE = "There is no new line of input, please key in inputs.";
-    private static final String INVALID_COMMAND_MESSAGE = "Please enter a valid command.";
-    private static final String EMPTY_COMMAND_MESSAGE = "The command is empty, please check your input.";
+    private static final String INVALID_COMMAND_MESSAGE = "Please check the available commands "
+            + "and enter a valid command.";
     private static final ReflectUi UI = new ReflectUi();
 
     // I need to set this as static if I want to set it to true if ExitCommand object.
@@ -115,7 +114,7 @@ public class ReflectionManager extends Manager {
             supportedCommands.add(returnCmd);
             supportedCommands.add(exitCmd);
         } catch (BadCommandException badCommandException) {
-            UI.printErrorFor(badCommandException, EMPTY_COMMAND_MESSAGE);
+            UI.printErrorFor(badCommandException, INVALID_COMMAND_MESSAGE);
         }
     }
 
@@ -163,13 +162,11 @@ public class ReflectionManager extends Manager {
                 String inputCommand = UI.getCommand();
                 setCommandType(inputCommand);
                 setArgumentPayload(inputCommand);
-                execute();
+                executeCommand();
             } catch (NoSuchElementException noSuchElement) {
                 UI.printErrorFor(noSuchElement, NO_ELEMENT_MESSAGE);
             } catch (BadCommandException badCommand) {
-                UI.printErrorFor(badCommand, EMPTY_COMMAND_MESSAGE);
-            } catch (InvalidCommandException invalidCommand) {
-                UI.printErrorFor(invalidCommand, INVALID_COMMAND_MESSAGE);
+                UI.printErrorFor(badCommand, INVALID_COMMAND_MESSAGE);
             }
         }
     }
@@ -190,7 +187,7 @@ public class ReflectionManager extends Manager {
      *
      * @throws BadCommandException Empty command
      */
-    public void execute() throws BadCommandException, InvalidCommandException {
+    public void executeCommand() throws BadCommandException {
         switch (commandType) {
         case GET_COMMAND:
             GetCommand getQuestionsCmd = new GetCommand(argumentPayload);
@@ -205,9 +202,7 @@ public class ReflectionManager extends Manager {
             exitCmd.execute();
             break;
         default:
-            InvalidCommand invalidCmd = new InvalidCommand();
-            invalidCmd.alertError();
-            break;
+            throw new BadCommandException(INVALID_COMMAND_MESSAGE);
         }
     }
 }

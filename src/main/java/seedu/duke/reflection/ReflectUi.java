@@ -8,14 +8,10 @@ import seedu.duke.ui.TextUi;
 public class ReflectUi extends TextUi {
     private static final String SEPARATOR = "=";
 
-    public ReflectUi() {
-        redefineSeparator();
-    }
-
     /**
      * Call setSeparator() method inherited from TextUi superclass to re-define separator.
      */
-    private void redefineSeparator() {
+    public ReflectUi() {
         setSeparator(SEPARATOR);
     }
 

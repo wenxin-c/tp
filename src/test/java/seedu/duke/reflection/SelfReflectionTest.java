@@ -32,31 +32,16 @@ class SelfReflectionTest {
         System.setOut(new PrintStream(outputStreamCaptor));
     }
 
-    // Test whether greeting message and logo are printed properly.
-    // Buggy test, unknown invisible errors
-    //@Test
-    //void greet_output_success() {
-    //    SelfReflection.greet();
-    //    assertEquals( DEFAULT_SEPARATOR + System.lineSeparator() + LOGO
-    //            + System.lineSeparator() + DEFAULT_SEPARATOR + System.lineSeparator() + GREETING_MESSAGE
-    //            + System.lineSeparator() + DEFAULT_SEPARATOR,
-    //            outputStreamCaptor.toString().trim());
-    //}
-
     // Test the correct number of questions are loaded into the list
     @Test
     void setUpQuestions_checkArrayLength_success() {
-        QuestionManager.clearQuestions();
-        ArrayList<ReflectionQuestion> questions = QuestionManager.getQuestions();
+        SelfReflection.clearQuestions();
+        ArrayList<ReflectionQuestion> questions = SelfReflection.getQuestions();
         int emptyArrayLength = questions.size();
         SelfReflection selfReflection = new SelfReflection();
         int fullArrayLength = questions.size();
-        QuestionManager.clearQuestions();
+        SelfReflection.clearQuestions();
         assertEquals(0, emptyArrayLength);
         assertEquals(10, fullArrayLength);
     }
 }
-
-
-
-
