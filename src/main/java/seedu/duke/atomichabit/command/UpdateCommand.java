@@ -11,6 +11,7 @@ public class UpdateCommand extends Command {
     private static final String FEEDBACK_STRING = "The following habit has been incremented! Keep up the good work!";
     private static final String FEEDBACK_INDEX_NOT_INTEGER_ERROR = "Invalid index! Please enter an integer";
     private static final String FEEDBACK_INDEX_OUT_OF_BOUNDS_ERROR = "Index out of Range! Please enter a valid index";
+    private static final int INDEX_OFFSET = 1;
     private static final String LINE_SEPARATOR = System.lineSeparator();
     private String indexString;
 
@@ -27,7 +28,7 @@ public class UpdateCommand extends Command {
     @Override
     public CommandResult execute(AtomicHabitList atomicHabits) throws AtomicHabitException {
         try {
-            int index = Integer.parseInt(indexString) - 1;
+            int index = Integer.parseInt(indexString) - INDEX_OFFSET;
             AtomicHabit habit = atomicHabits.getHabitByIndex(index);
             habit.setCount(DEFAULT_INCREMENT);
             String stringOfUpdatedHabit = indexString + DOT + habit + " " + "[" + habit.getCount() + "]"
