@@ -5,7 +5,10 @@ import wellnus.exception.BadCommandException;
 import wellnus.manager.Manager;
 import wellnus.ui.TextUi;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Optional;
 
 public class MainManager extends Manager {
     private static final String GREETING_MESSAGE = "Enter a command to start using WellNUS++! Try 'help' "
@@ -37,24 +40,28 @@ public class MainManager extends Manager {
             String nextCommand = this.getTextUi().getCommand();
             String featureKeyword = parser.getMainArgument(nextCommand);
             HashMap<String, String> arguments = parser.parseUserInput(nextCommand);
-            boolean isFeatureCommand = false;
-            for (Manager featureManager : super.getSupportedFeatureManagers()) {
-                if (featureManager.isSupportedFeature(featureKeyword)) {
-                    isFeatureCommand = true;
-                    break;
-                }
-            }
-            // TODO: Uncomment this once isSupportedFeature() is properly implemented
-            /*
-            if (!isFeatureCommand && !this.isSupportedFeature(featureKeyword)) {
+            Optional<Manager> featureManager = this.getManagerFor(featureKeyword);
+            if (featureManager.isEmpty() && !this.isSupportedCommand(featureKeyword)) {
                 throw new BadCommandException(MainManager.INVALID_COMMAND_MESSAGE);
             }
-             */
             // TODO: Replace with Command subclass once those changes are merged
             if (featureKeyword.equals("exit")) {
                 isExit = true;
             }
         } while (!isExit);
+    }
+
+    private Optional<Manager> getManagerFor(String featureKeyword) {
+        for (Manager featureManager : this.getSupportedFeatureManagers()) {
+            if (featureManager.getFeatureName().equals(featureKeyword)) {
+                return Optional.of(featureManager);
+            }
+        }
+        return Optional.empty();
+    }
+
+    private List<Manager> getSupportedFeatureManagers() {
+        return new ArrayList<>();
     }
 
     private TextUi getTextUi() {
@@ -63,6 +70,12 @@ public class MainManager extends Manager {
 
     private void greet() {
         this.getTextUi().printOutputMessage(MainManager.GREETING_MESSAGE);
+    }
+
+    private boolean isSupportedCommand(String commandKeyword) {
+        // TODO: Implement proper, extensible logic for checking command validity
+        //     when all Command subclasses are defined
+        return commandKeyword.equals("exit");
     }
 
     /**
