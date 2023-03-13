@@ -8,8 +8,10 @@ import wellnus.ui.TextUi;
 import java.util.HashMap;
 
 public class MainManager extends Manager {
-    private static final String GREETING_MESSAGE = "Enter a command to start using WellNUS++! Try 'help' if you're new, or just unsure.";
-    private static final String INVALID_COMMAND_MESSAGE = "Don't recognise that command, perhaps consult 'help' for guidance?";
+    private static final String GREETING_MESSAGE = "Enter a command to start using WellNUS++! Try 'help' "
+            + "if you're new, or just unsure.";
+    private static final String INVALID_COMMAND_MESSAGE = "Don't recognise that command, perhaps consult "
+            + "'help' for guidance?";
     private static final String WELLNUS_FEATURE_NAME = "";
     private final TextUi textUi;
 

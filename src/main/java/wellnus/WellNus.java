@@ -4,7 +4,6 @@ import wellnus.common.MainManager;
 import wellnus.exception.BadCommandException;
 import wellnus.ui.TextUi;
 
-import java.util.Scanner;
 
 public class WellNus {
     private static final String BYE_MESSAGE = "Thank you for using WellNUS++! See you again soon Dx";
