@@ -1,8 +1,11 @@
 package wellnus;
 
+import wellnus.ui.TextUi;
+
 import java.util.Scanner;
 
 public class WellNus {
+    private static final String GREETING_MESSAGE = "Very good day to you! Welcome to ";
     private static final String NEWLINE = System.lineSeparator();
 
     private static String getWellnusLogo() {
@@ -18,8 +21,9 @@ public class WellNus {
      * Main entry-point for the java.duke.Duke application.
      */
     public static void main(String[] args) {
-        System.out.println("Hello from" + System.lineSeparator());
-        System.out.println(WellNus.getWellnusLogo());
+        TextUi textUi = new TextUi();
+        textUi.printOutputMessage(WellNus.GREETING_MESSAGE + WellNus.NEWLINE
+                + WellNus.getWellnusLogo());
     }
 
 }
