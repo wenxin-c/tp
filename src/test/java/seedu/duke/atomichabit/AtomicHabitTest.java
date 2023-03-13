@@ -19,7 +19,7 @@ public class AtomicHabitTest {
      * Test AddCommand with a standard payload to check output printed
      */
     @Test
-    public void addHabit_CheckOutput_Success() throws AtomicHabitException {
+    public void addHabit_checkOutput_success() throws AtomicHabitException {
         habitList = new AtomicHabitList();
         String payload = "junit test";
         String expectedOutput = "Yay! You have added a new habit:"
@@ -36,7 +36,7 @@ public class AtomicHabitTest {
      * Test AddCommand to throw {@link AtomicHabitException} when an invalid command is given to the AtomicHabitManager
      */
     @Test
-    public void addHabit_InvalidCommand_AtomicHabitExceptionThrown() {
+    public void addHabit_invalidCommand_atomicHabitExceptionThrown() {
         // Test false command by user
         AtomicHabitManager atomicHabitManager = new AtomicHabitManager();
         String command = "sleep";
@@ -50,8 +50,8 @@ public class AtomicHabitTest {
      * Test UpdateCommand with a standard payload and default increment to check output printed
      */
     @Test
-    public void updateHabit_CheckOutput_Success() throws AtomicHabitException {
-        addHabit_CheckOutput_Success();
+    public void updateHabit_checkOutput_success() throws AtomicHabitException {
+        addHabit_checkOutput_success();
         String payload = "junit test";
         String habitIndex = "1";
         Command updateCommand = new UpdateCommand(habitIndex);
@@ -66,9 +66,9 @@ public class AtomicHabitTest {
      * Test UpdateCommand to throw {@link AtomicHabitException} when a non-integer index is given to the UpdateCommand
      */
     @Test
-    public void updateHabit_IndexNotInteger_AtomicHabitExceptionThrown() throws AtomicHabitException {
+    public void updateHabit_indexNotInteger_atomicHabitExceptionThrown() throws AtomicHabitException {
         // Test false command by user
-        addHabit_CheckOutput_Success();
+        addHabit_checkOutput_success();
         String habitIndex = "a";
         Command updateCommand = new UpdateCommand(habitIndex);
         Assertions.assertThrows(AtomicHabitException.class, () -> {
@@ -80,13 +80,19 @@ public class AtomicHabitTest {
      * Test UpdateCommand to throw {@link AtomicHabitException} when an out-of-bounds index is given to the UpdateCommand
      */
     @Test
-    public void updateHabit_IndexOutOfBounds_AtomicHabitExceptionThrown() throws AtomicHabitException {
+    public void updateHabit_indexOutOfBounds_atomicHabitExceptionThrown() throws AtomicHabitException {
         // Test false command by user
-        addHabit_CheckOutput_Success();
-        String habitIndex = "1000";
-        Command updateCommand = new UpdateCommand(habitIndex);
+        addHabit_checkOutput_success();
+        String largeHabitIndex = "100000000";
+        Command updateCommandForLargeIndex = new UpdateCommand(largeHabitIndex);
         Assertions.assertThrows(AtomicHabitException.class, () -> {
-            updateCommand.execute(habitList);
+            updateCommandForLargeIndex.execute(habitList);
+        });
+
+        String negativeHabitIndex = "-100000000";
+        Command updateCommandForNegativeIndex = new UpdateCommand(negativeHabitIndex);
+        Assertions.assertThrows(AtomicHabitException.class, () -> {
+            updateCommandForNegativeIndex.execute(habitList);
         });
     }
 }
