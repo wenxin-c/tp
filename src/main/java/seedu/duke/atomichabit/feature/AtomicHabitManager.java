@@ -117,9 +117,11 @@ public class AtomicHabitManager {
             return new ListCommand();
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
+        case UpdateCommand.COMMAND_WORD:
+            return new UpdateCommand("1");
         default:
             throw new AtomicHabitException("Invalid command! Please"
-                                            + " enter a valid command");
+                    + " enter a valid command");
         }
     }
 }
