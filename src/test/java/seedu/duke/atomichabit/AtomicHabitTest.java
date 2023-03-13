@@ -17,7 +17,7 @@ public class AtomicHabitTest {
      * Test AddCommand with a standard payload to check output printed
      */
     @Test
-    public void addHabit_correct_output() {
+    public void addHabit_correct_output() throws AtomicHabitException{
         habitList = new AtomicHabitList();
         String payload = "junit test";
         String expectedOutput = "Yay! You have added a new habit:"

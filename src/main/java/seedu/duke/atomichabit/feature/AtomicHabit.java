@@ -24,6 +24,10 @@ public class AtomicHabit {
         return count;
     }
 
+    public void setCount(int increment){
+        count += increment;
+    }
+
     @Override
     public String toString() {
         return getDescription();

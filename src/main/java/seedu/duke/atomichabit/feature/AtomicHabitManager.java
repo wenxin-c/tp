@@ -4,11 +4,7 @@ import java.util.HashMap;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
-import seedu.duke.atomichabit.command.Command;
-import seedu.duke.atomichabit.command.AddCommand;
-import seedu.duke.atomichabit.command.CommandResult;
-import seedu.duke.atomichabit.command.ExitCommand;
-import seedu.duke.atomichabit.command.ListCommand;
+import seedu.duke.atomichabit.command.*;
 import seedu.duke.exception.AtomicHabitException;
 import seedu.duke.command.CommandParser;
 import seedu.duke.exception.BadCommandException;
@@ -90,11 +86,13 @@ public class AtomicHabitManager {
             return new AddCommand(parsedInputs.get(commandAction));
         case ListCommand.COMMAND_WORD:
             return new ListCommand();
+        case UpdateCommand.COMMAND_WORD:
+            return new UpdateCommand(parsedInputs.get(commandAction));
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
         default:
             throw new AtomicHabitException("Invalid command! Please"
-                                            + " enter a valid command");
+                    + " enter a valid command");
         }
     }
 
