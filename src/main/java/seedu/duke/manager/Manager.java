@@ -1,11 +1,9 @@
 package seedu.duke.manager;
 
-import seedu.duke.exception.BadCommandException;
 import seedu.duke.command.Command;
 import seedu.duke.command.CommandParser;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 /**
  * Manager is the superclass for all WellNUS++ event drivers <br>

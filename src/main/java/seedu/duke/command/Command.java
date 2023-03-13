@@ -79,8 +79,7 @@ public abstract class Command {
      * For the <code>hb add</code> command, toString() will output
      * <code>hb [add] [--name] &lt;habit name&gt;</code>
      *
-     * @return String Representation of this Command that includes all
-     * given arguments
+     * @return String Representation of this Command that includes all given arguments
      */
     @Override
     public String toString() {
