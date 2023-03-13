@@ -3,7 +3,7 @@ package seedu.duke.atomichabit.feature;
 import java.util.ArrayList;
 
 public class AtomicHabitList {
-    private ArrayList<AtomicHabit> allAtomicHabits;
+    private final ArrayList<AtomicHabit> allAtomicHabits;
 
     public AtomicHabitList() {
         allAtomicHabits = new ArrayList<>();

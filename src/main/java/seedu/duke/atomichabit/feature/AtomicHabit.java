@@ -1,7 +1,7 @@
 package seedu.duke.atomichabit.feature;
 
 public class AtomicHabit {
-    private String description;
+    private final String description;
     private int count;
 
     /**
