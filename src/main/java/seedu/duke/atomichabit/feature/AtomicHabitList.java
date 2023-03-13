@@ -12,7 +12,7 @@ public class AtomicHabitList {
     /**
      * Method to add atomicHabit to list containing all habits
      *
-     * @param atomicHabit
+     * @param atomicHabit New atomic habit to add into the list that this class manages
      */
 
     public void addAtomicHabit(AtomicHabit atomicHabit) {
