@@ -4,7 +4,12 @@ import java.util.HashMap;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
-import seedu.duke.atomichabit.command.*;
+import seedu.duke.atomichabit.command.Command;
+import seedu.duke.atomichabit.command.AddCommand;
+import seedu.duke.atomichabit.command.CommandResult;
+import seedu.duke.atomichabit.command.ExitCommand;
+import seedu.duke.atomichabit.command.ListCommand;
+import seedu.duke.atomichabit.command.UpdateCommand;
 import seedu.duke.exception.AtomicHabitException;
 import seedu.duke.command.CommandParser;
 import seedu.duke.exception.BadCommandException;
