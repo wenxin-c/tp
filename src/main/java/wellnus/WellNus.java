@@ -1,16 +1,29 @@
 package wellnus;
 
+import wellnus.common.MainManager;
+import wellnus.exception.BadCommandException;
 import wellnus.ui.TextUi;
 
 import java.util.Scanner;
 
 public class WellNus {
+    private static final String BYE_MESSAGE = "Thank you for using WellNus++! See you again soon Dx";
     private static final String GREETING_MESSAGE = "Very good day to you! Welcome to ";
     private static final String NEWLINE = System.lineSeparator();
     private final TextUi textUi;
+    private final MainManager mainManager;
 
     public WellNus() {
         this.textUi = new TextUi();
+        this.mainManager = new MainManager();
+    }
+
+    private void byeUser() {
+        this.getTextUi().printOutputMessage(WellNus.BYE_MESSAGE);
+    }
+
+    private MainManager getMainManager() {
+        return this.mainManager;
     }
 
     private TextUi getTextUi() {
@@ -31,6 +44,15 @@ public class WellNus {
                 + WellNus.getWellnusLogo());
     }
 
+    private void executeUserCommands() {
+        try {
+            this.getMainManager().runEventDriver();
+        } catch (BadCommandException badCommandException) {
+            String NO_ADDITIONAL_MSG = "";
+            this.getTextUi().printErrorFor(badCommandException, NO_ADDITIONAL_MSG);
+        }
+    }
+
     /**
      * Executes the WellNus application and provides the user with our features.
      *
@@ -42,6 +64,8 @@ public class WellNus {
 
     public void start() {
         this.greet();
+        this.executeUserCommands();
+        this.byeUser();
     }
 
 }
