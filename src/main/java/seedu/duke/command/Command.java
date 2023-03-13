@@ -22,11 +22,9 @@ public abstract class Command {
     // Key: An argument's name. Value: An argument's provided value from the user
     private final HashMap<String, String> arguments;
 
-    public Command(HashMap<String, String> arguments) throws BadCommandException {
-        // Explicit null check to prevent later code from attempting to call methods on a null reference
-        if (arguments == null) {
-            throw new BadCommandException(Command.WEIRD_ARGUMENTS_GIVEN);
-        }
+    public Command(HashMap<String, String> arguments) {
+        // Arguments should never be null, or later code will call methods on a null reference
+        assert arguments != null : WEIRD_ARGUMENTS_GIVEN;
         this.arguments = arguments;
     }
 
