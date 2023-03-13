@@ -32,7 +32,9 @@ public class WellNus {
     }
 
     /**
-     * Main entry-point for the java.duke.Duke application.
+     * Executes the WellNus application and provides the user with our features.
+     *
+     * @param args Commandline arguments passed to the WellNus Java ARchive
      */
     public static void main(String[] args) {
         new WellNus().start();
