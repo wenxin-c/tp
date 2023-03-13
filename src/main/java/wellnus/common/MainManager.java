@@ -33,20 +33,27 @@ public class MainManager extends Manager {
                 + "traditional Graphical User Interface(GUI) apps.";
     }
 
-    private void executeCommands() throws BadCommandException {
+    private void executeCommands() {
         boolean isExit = false;
         CommandParser parser = new CommandParser();
         do {
-            String nextCommand = this.getTextUi().getCommand();
-            String featureKeyword = parser.getMainArgument(nextCommand);
-            HashMap<String, String> arguments = parser.parseUserInput(nextCommand);
-            Optional<Manager> featureManager = this.getManagerFor(featureKeyword);
-            if (featureManager.isEmpty() && !this.isSupportedCommand(featureKeyword)) {
-                throw new BadCommandException(MainManager.INVALID_COMMAND_MESSAGE);
-            }
-            // TODO: Replace with Command subclass once those changes are merged
-            if (featureKeyword.equals("exit")) {
-                isExit = true;
+            String NO_ADDITIONAL_MESSAGE = "";
+            try {
+                String nextCommand = this.getTextUi().getCommand();
+                String featureKeyword = parser.getMainArgument(nextCommand);
+                HashMap<String, String> arguments = parser.parseUserInput(nextCommand);
+                Optional<Manager> featureManager = this.getManagerFor(featureKeyword);
+                if (featureManager.isEmpty() && !this.isSupportedCommand(featureKeyword)) {
+                    BadCommandException badCommandException =
+                            new BadCommandException(MainManager.INVALID_COMMAND_MESSAGE);
+                    this.getTextUi().printErrorFor(badCommandException, NO_ADDITIONAL_MESSAGE);
+                }
+                // TODO: Replace with Command subclass once those changes are merged
+                if (featureKeyword.equals("exit")) {
+                    isExit = true;
+                }
+            } catch (BadCommandException badCommandException) {
+                this.getTextUi().printErrorFor(badCommandException, NO_ADDITIONAL_MESSAGE);
             }
         } while (!isExit);
     }
@@ -117,7 +124,7 @@ public class MainManager extends Manager {
      * @throws BadCommandException If an unrecognised command was issued by the user
      */
     @Override
-    public void runEventDriver() throws BadCommandException {
+    public void runEventDriver() {
         this.greet();
         this.executeCommands();
     }

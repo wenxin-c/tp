@@ -31,12 +31,7 @@ public class WellNus {
     }
 
     private void executeUserCommands() {
-        try {
-            this.getMainManager().runEventDriver();
-        } catch (BadCommandException badCommandException) {
-            String NO_ADDITIONAL_MSG = "";
-            this.getTextUi().printErrorFor(badCommandException, NO_ADDITIONAL_MSG);
-        }
+        this.getMainManager().runEventDriver();
     }
 
     private MainManager getMainManager() {
