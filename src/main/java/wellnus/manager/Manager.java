@@ -32,21 +32,16 @@ public abstract class Manager {
     // For this Manager's feature, what commands exist?
     protected ArrayList<Command> supportedCommands;
 
-    // For this Manager's feature, what features (event driver) does it support?
-    protected ArrayList<Manager> supportedManagers;
-
     /**
      * Construct a feature Manager to handle control flow for the given feature. <br>
      * <br>
      * Internally, it sets up the following for convenience:
      * <li>CommandParser</li>
      * <li>Supported Commands</li>
-     * <li>Supported Features</li>
      */
     public Manager() {
         this.commandParser = new CommandParser();
         this.supportedCommands = new ArrayList<>();
-        this.supportedManagers = new ArrayList<>();
     }
 
     /**
@@ -96,28 +91,6 @@ public abstract class Manager {
     protected abstract void setSupportedFeatureManagers();
 
     /**
-     * Checks if the feature is supported by this Manager
-     *
-     * @param featureName Name of the feature to query
-     * @return true if featureName exists under supportedFeatures, else false
-     * @throws NullPointerException is featureName is null
-     */
-    public boolean isSupportedFeature(String featureName) throws NullPointerException {
-        // Sanity check for valid feature name variable
-        if (featureName == null) {
-            throw new NullPointerException("featureName cannot be null!");
-        }
-
-        for (Manager manager : supportedManagers) {
-            String featureKeyword = manager.getFeatureName();
-            if (featureName.equals(featureKeyword)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    /**
      * Utility function to get a string array of
      * all the supported commands' descriptions
      *
@@ -138,15 +111,6 @@ public abstract class Manager {
      */
     public ArrayList<Command> getSupportedCommands() {
         return supportedCommands;
-    }
-
-    /**
-     * Utility function to get a list of main arguments the feature supports
-     *
-     * @return <code>ArrayList</code> of <code>Manager</code>s
-     */
-    public ArrayList<Manager> getSupportedFeatureManagers() {
-        return supportedManagers;
     }
 
     /**
