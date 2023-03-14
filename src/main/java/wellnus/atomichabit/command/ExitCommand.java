@@ -1,6 +1,5 @@
 package wellnus.atomichabit.command;
 
-import wellnus.atomichabit.feature.AtomicHabitList;
 import wellnus.atomichabit.feature.AtomicHabitManager;
 import wellnus.command.Command;
 import wellnus.exception.BadCommandException;
