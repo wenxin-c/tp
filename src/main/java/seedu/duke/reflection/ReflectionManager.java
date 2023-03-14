@@ -24,7 +24,6 @@ public class ReflectionManager extends Manager {
     // I need to set this as static if I want to set it to true if ExitCommand object.
     // If I create another object in ExitCommand, the corresponding isExit will be for a new object,
     // not the one we intend to terminate.
-    // Anyone has other ideas??
     private static boolean isExit;
     private String commandType;
     private HashMap<String, String> argumentPayload;
@@ -42,7 +41,7 @@ public class ReflectionManager extends Manager {
     }
 
     /**
-     * Method to be called to change self reflection status.
+     * TODO: Method to be called to change self reflection status.
      * <br/>
      * True: self reflection exit<br/>
      * False: self reflection status reset<br/>
@@ -54,7 +53,7 @@ public class ReflectionManager extends Manager {
     }
 
     /**
-     * Get self reflection exit status.
+     * TODO: Get self reflection exit status.
      *
      * @return Exit status
      */
@@ -63,7 +62,7 @@ public class ReflectionManager extends Manager {
     }
 
     /**
-     * Get Self Reflection feature name.
+     * TODO: Get Self Reflection feature name.
      *
      * @return Self Reflection feature name
      */
@@ -73,7 +72,7 @@ public class ReflectionManager extends Manager {
     }
 
     /**
-     * Get a summary of description of self reflection feature.
+     * TODO: Get a summary of description of self reflection feature.
      *
      * @return Brief description of self reflection
      */
@@ -83,9 +82,9 @@ public class ReflectionManager extends Manager {
     }
 
     /**
-     * Get a full description of self reflection feature.
+     * TODO: Get a full description of self reflection feature.
      * <br/>
-     * FULL_DESCRIPTION is not completed yet!
+     * TODO: FULL_DESCRIPTION is not completed yet!
      *
      * @return Full description of self reflection
      */
@@ -95,7 +94,7 @@ public class ReflectionManager extends Manager {
     }
 
     /**
-     * Set up the set of command-payload pair supported by self reflection.<br/>
+     * TODO: Set up the set of command-payload pair supported by self reflection.<br/>
      * <li>Command: get, Payload: ""
      * <li>Command: exit, Payload: ""
      * <li>Command: return, Payload: ""
@@ -121,7 +120,7 @@ public class ReflectionManager extends Manager {
     }
 
     /**
-     * Set command argument and payload pairs.
+     * TODO: Set command argument and payload pairs.
      *
      * @param inputCommand Read from user input
      * @throws BadCommandException If an invalid command was given
@@ -131,7 +130,7 @@ public class ReflectionManager extends Manager {
     }
 
     /**
-     * Get the main command type to determine which command to create.
+     * TODO: Get the main command type to determine which command to create.
      *
      * @param inputCommand Read from user input
      * @throws BadCommandException If an invalid command was given
@@ -142,7 +141,7 @@ public class ReflectionManager extends Manager {
     }
 
     /**
-     * High level framework of self reflection section.<br/>
+     * TODO: High level framework of self reflection section.<br/>
      * <br/>
      * It first prints out greeting messages.<br/>
      * Then listen to and execute user commands.
@@ -166,7 +165,7 @@ public class ReflectionManager extends Manager {
     }
 
     /**
-     * Decide which command to create based on command type.<br/>
+     * TODO: Decide which command to create based on command type.<br/>
      * <br/>
      * Commands available at this moment are:
      * <li>Get a random set of reflection questions<br/>

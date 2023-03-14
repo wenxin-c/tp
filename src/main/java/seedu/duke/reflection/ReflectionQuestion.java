@@ -11,7 +11,7 @@ public class ReflectionQuestion {
     }
 
     /**
-     * Get the description of question.
+     * TODO: Get the description of question.
      *
      * @return Question description
      */
@@ -20,7 +20,7 @@ public class ReflectionQuestion {
     }
 
     /**
-     * Convert each reflect question to a string to be printed
+     * TODO: Convert each reflect question to a string to be printed
      *
      * @return Question description with its status
      */

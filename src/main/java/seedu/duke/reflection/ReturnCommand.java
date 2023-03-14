@@ -24,7 +24,7 @@ public class ReturnCommand extends Command {
     }
 
     /**
-     * Get the command itself.
+     * TODO: Get the command itself.
      *
      * @return Command: return
      */
@@ -34,8 +34,8 @@ public class ReturnCommand extends Command {
     }
 
     /**
-     * Get detailed description of a return command.
-     * FULL_DESCRIPTION is not completed yet.
+     * TODO: Get detailed description of a return command.
+     * TODO: FULL_DESCRIPTION is not completed yet.
      *
      * @return Full description of return command
      */
@@ -45,7 +45,7 @@ public class ReturnCommand extends Command {
     }
 
     /**
-     * Get the name of the feature in which this return command is generated.
+     * TODO: Get the name of the feature in which this return command is generated.
      *
      * @return Self reflection
      */
@@ -55,7 +55,7 @@ public class ReturnCommand extends Command {
     }
 
     /**
-     * Only one supported argument for exit command.
+     * TODO: Only one supported argument for exit command.
      *
      * @return Argument: return
      */
@@ -65,7 +65,7 @@ public class ReturnCommand extends Command {
     }
 
     /**
-     * Return back to WellNUS++ main interface
+     * TODO: Return back to WellNUS++ main interface
      */
     @Override
     public void execute() {
@@ -78,7 +78,7 @@ public class ReturnCommand extends Command {
     }
 
     /**
-     * Validate the command and return a boolean value.<br/>
+     * TODO: Validate the command and return a boolean value.<br/>
      * <br/>
      * Conditions for command to be valid:<br/>
      * <li>Only one argument-payload pair

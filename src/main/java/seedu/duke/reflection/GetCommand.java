@@ -30,7 +30,7 @@ public class GetCommand extends Command {
     }
 
     /**
-     * Entry point to this command.<br/>
+     * TODO: Entry point to this command.<br/>
      * Trigger the generation of five random questions and print to users.<br/>
      */
     @Override
@@ -45,7 +45,7 @@ public class GetCommand extends Command {
     }
 
     /**
-     * Get a random set of 5 reflection questions.
+     * TODO: Get a random set of 5 reflection questions.
      *
      * @return The selected sets of random questions
      */
@@ -60,7 +60,7 @@ public class GetCommand extends Command {
     }
 
     /**
-     * Get the command itself.
+     * TODO: Get the command itself.
      *
      * @return Command: get
      */
@@ -70,7 +70,7 @@ public class GetCommand extends Command {
     }
 
     /**
-     * Only one supported argument for get command.
+     * TODO: Only one supported argument for get command.
      *
      * @return Argument: get
      */
@@ -80,8 +80,8 @@ public class GetCommand extends Command {
     }
 
     /**
-     * Get detailed description of a get command.
-     * FULL_DESCRIPTION is not completed yet.
+     * TODO: Get detailed description of a get command.
+     * TODO: FULL_DESCRIPTION is not completed yet.
      *
      * @return Full description of get command
      */
@@ -91,7 +91,7 @@ public class GetCommand extends Command {
     }
 
     /**
-     * Get the name of the feature in which this get command is generated.
+     * TODO: Get the name of the feature in which this get command is generated.
      *
      * @return Self reflection
      */
@@ -101,7 +101,7 @@ public class GetCommand extends Command {
     }
 
     /**
-     * Validate the command and return a boolean value.<br/>
+     * TODO: Validate the command and return a boolean value.<br/>
      * <br/>
      * Conditions for command to be valid:<br/>
      * <li>Only one argument-payload pair
@@ -121,7 +121,7 @@ public class GetCommand extends Command {
     }
 
     /**
-     * Generate an array of 5 random numbers, <br/>
+     * TODO: Generate an array of 5 random numbers, <br/>
      * <br/>
      * Each number num: num >= 0 and num <= (maxSize - 1)
      *
@@ -138,7 +138,7 @@ public class GetCommand extends Command {
     }
 
     /**
-     * Convert all five questions to a single string to be printed.
+     * TODO: Convert all five questions to a single string to be printed.
      *
      * @return Single string that consists of all questions
      */

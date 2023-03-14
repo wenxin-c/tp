@@ -9,7 +9,7 @@ public class ReflectUi extends TextUi {
     private static final String SEPARATOR = "=";
 
     /**
-     * Call setSeparator() method inherited from TextUi superclass to re-define separator.
+     * TODO: Call setSeparator() method inherited from TextUi superclass to re-define separator.
      */
     public ReflectUi() {
         setSeparator(SEPARATOR);
@@ -20,7 +20,7 @@ public class ReflectUi extends TextUi {
     }
 
     /**
-     * Print greeting logo.
+     * TODO: Print greeting logo.
      *
      * @param logo Greeting logo
      */
