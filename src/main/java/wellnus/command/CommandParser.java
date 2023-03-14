@@ -146,5 +146,4 @@ public class CommandParser {
         String[] parameters = userInput.split(" ");
         return parameters[0];
     }
-
 }
