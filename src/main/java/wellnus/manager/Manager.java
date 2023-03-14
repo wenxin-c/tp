@@ -83,14 +83,6 @@ public abstract class Manager {
     protected abstract void setSupportedCommands();
 
     /**
-     * Utility function to set a list of main commands the feature supports <br>
-     * <br>
-     * Suggested implementation: <br>
-     * <code> this.supportedManagers.add([mgr1, mgr2, ...]); </code>
-     */
-    protected abstract void setSupportedFeatureManagers();
-
-    /**
      * Utility function to get a string array of
      * all the supported commands' descriptions
      *
