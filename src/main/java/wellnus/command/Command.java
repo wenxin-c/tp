@@ -1,6 +1,7 @@
 package wellnus.command;
 
 import wellnus.exception.BadCommandException;
+import wellnus.exception.WellNusException;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -66,8 +67,10 @@ public abstract class Command {
      * Executes the specified command from the user.<br>
      * <p>
      * May throw Exceptions if command fails.
+     *
+     * @throws WellNusException If command fails
      */
-    public abstract void execute();
+    public abstract void execute() throws WellNusException;
 
     /**
      * Very basic specialised toString() method for commands that returns
