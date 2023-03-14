@@ -1,5 +1,6 @@
 package wellnus.common;
 
+import wellnus.atomichabit.feature.AtomicHabitManager;
 import wellnus.command.CommandParser;
 import wellnus.exception.BadCommandException;
 import wellnus.manager.Manager;
@@ -18,9 +19,13 @@ public class MainManager extends Manager {
     private static final String INVALID_FEATURE_KEYWORD_MESSAGE = "Feature keyword can't be empty dear";
     private static final String WELLNUS_FEATURE_NAME = "";
     private final TextUi textUi;
+    private ArrayList<Manager> featureManagers;
 
     public MainManager() {
+        super();
         this.textUi = new TextUi();
+        this.featureManagers = new ArrayList<>();
+        this.setSupportedFeatureManagers();
     }
 
     private static String getBriefAppDescription() {
@@ -56,6 +61,13 @@ public class MainManager extends Manager {
                     this.getTextUi().printErrorFor(badCommandException,
                             MainManager.INVALID_COMMAND_ADDITIONAL_MESSAGE);
                 }
+                featureManager.ifPresent((manager) -> {
+                    try {
+                        manager.runEventDriver();
+                    } catch (BadCommandException badCommandException) {
+                        this.getTextUi().printErrorFor(badCommandException, NO_ADDITIONAL_MESSAGE);
+                    }
+                });
                 // TODO: Replace with Command subclass once those changes are merged
                 if (featureKeyword.equals("exit")) {
                     isExit = true;
@@ -78,7 +90,7 @@ public class MainManager extends Manager {
     }
 
     private List<Manager> getSupportedFeatureManagers() {
-        return new ArrayList<>();
+        return this.featureManagers;
     }
 
     private TextUi getTextUi() {
@@ -158,8 +170,9 @@ public class MainManager extends Manager {
      * <code> this.supportedManagers.add([mgr1, mgr2, ...]); </code>
      */
     protected void setSupportedFeatureManagers() {
+        this.getSupportedFeatureManagers().add(new AtomicHabitManager());
         // TODO: Implement once all Managers are in
-        // e.g. super.getSupportedFeatureManagers().add(new AtomicHabitManager());
+        // e.g. this.getSupportedFeatureManagers().add(new AtomicHabitManager());
     }
 
 }
