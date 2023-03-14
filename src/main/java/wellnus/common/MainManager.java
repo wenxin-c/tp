@@ -33,6 +33,12 @@ public class MainManager extends Manager {
                 + "traditional Graphical User Interface(GUI) apps.";
     }
 
+    /**
+     * Continuously reads user's commands and executes those that are supported
+     *     by WellNUS++ until the `exit` command is given.<br>
+     *
+     * If an unrecognised command is given, a warning is printed on the user's screen.
+     */
     private void executeCommands() {
         boolean isExit = false;
         CommandParser parser = new CommandParser();
