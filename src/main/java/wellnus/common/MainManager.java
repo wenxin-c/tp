@@ -15,6 +15,7 @@ public class MainManager extends Manager {
             + "if you're new, or just unsure.";
     private static final String INVALID_COMMAND_MESSAGE = "Don't recognise that command?";
     private static final String INVALID_COMMAND_ADDITIONAL_MESSAGE = "Try 'help' for some guidance";
+    private static final String INVALID_FEATURE_KEYWORD_MESSAGE = "Feature keyword can't be empty dear";
     private static final String WELLNUS_FEATURE_NAME = "";
     private final TextUi textUi;
 
@@ -66,6 +67,8 @@ public class MainManager extends Manager {
     }
 
     private Optional<Manager> getManagerFor(String featureKeyword) {
+        assert (featureKeyword != null && !featureKeyword.isBlank())
+                : MainManager.INVALID_FEATURE_KEYWORD_MESSAGE;
         for (Manager featureManager : this.getSupportedFeatureManagers()) {
             if (featureManager.getFeatureName().equals(featureKeyword)) {
                 return Optional.of(featureManager);
