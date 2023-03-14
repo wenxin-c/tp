@@ -137,7 +137,7 @@ public class MainManager extends Manager {
     }
 
     /**
-     * Utility function to set a list of main commands the feature supports <br>
+     * Returns a list of basic commands supported by WellNUS++(e.g. <code>help</code>) <br>
      * <br>
      * Suggested implementation: <br>
      * <code> this.supportedCommands.add([cmd1, cmd2, ...]); </code>
@@ -149,12 +149,11 @@ public class MainManager extends Manager {
     }
 
     /**
-     * Utility function to set a list of main commands the feature supports <br>
+     * Returns a list of features supported by WellNUS++ <br>
      * <br>
      * Suggested implementation: <br>
      * <code> this.supportedManagers.add([mgr1, mgr2, ...]); </code>
      */
-    @Override
     protected void setSupportedFeatureManagers() {
         // TODO: Implement once all Managers are in
         // e.g. super.getSupportedFeatureManagers().add(new AtomicHabitManager());
