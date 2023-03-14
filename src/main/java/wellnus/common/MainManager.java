@@ -128,9 +128,7 @@ public class MainManager extends Manager {
      * Executes the basic commands(e.g. <code>help</code>) as well as any feature-specific
      *     commands, which are delegated to the corresponding features' Managers.<br>
      * <br>
-     * This method will keep reading the user's command until the exit command is given.<br>
-     *
-     * @throws BadCommandException If an unrecognised command was issued by the user
+     * This method will keep reading the user's command until the exit command is given.
      */
     @Override
     public void runEventDriver() {
