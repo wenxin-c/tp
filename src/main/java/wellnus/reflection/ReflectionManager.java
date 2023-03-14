@@ -21,9 +21,7 @@ public class ReflectionManager extends Manager {
             + "and enter a valid command.";
     private static final ReflectUi UI = new ReflectUi();
 
-    // I need to set this as static if I want to set it to true if ExitCommand object.
-    // If I create another object in ExitCommand, the corresponding isExit will be for a new object,
-    // not the one we intend to terminate.
+    // This attribute should be set as static to avoid confusion if a new object is created.
     private static boolean isExit;
     private String commandType;
     private HashMap<String, String> argumentPayload;
