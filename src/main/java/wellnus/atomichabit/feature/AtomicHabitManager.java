@@ -19,7 +19,7 @@ public class AtomicHabitManager {
     private static final Scanner myScanner = new Scanner(System.in);
     private final CommandParser parser = new CommandParser();
     private final TextUi ui = new TextUi();
-    private AtomicHabitList habitList;
+    private final AtomicHabitList habitList;
 
     public AtomicHabitManager() {
         this.habitList = new AtomicHabitList();
@@ -110,16 +110,20 @@ public class AtomicHabitManager {
      */
 
     public Command testInvalidCommand(String userCommand) throws AtomicHabitException {
+        String descriptionTest = "testing";
+        String indexTest = "1";
+        String invalidCommandErrorMessage = "Invalid command! Please enter a valid command";
         switch (userCommand) {
         case AddCommand.COMMAND_WORD:
-            return new AddCommand("testing");
+            return new AddCommand(descriptionTest);
         case ListCommand.COMMAND_WORD:
             return new ListCommand();
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
+        case UpdateCommand.COMMAND_WORD:
+            return new UpdateCommand(indexTest);
         default:
-            throw new AtomicHabitException("Invalid command! Please"
-                                            + " enter a valid command");
+            throw new AtomicHabitException(invalidCommandErrorMessage);
         }
     }
 }

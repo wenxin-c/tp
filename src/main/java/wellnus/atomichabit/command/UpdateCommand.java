@@ -30,7 +30,7 @@ public class UpdateCommand extends Command {
         try {
             int index = Integer.parseInt(indexString) - INDEX_OFFSET;
             AtomicHabit habit = atomicHabits.getHabitByIndex(index);
-            habit.setCount(DEFAULT_INCREMENT);
+            habit.increaseCount(DEFAULT_INCREMENT);
             String stringOfUpdatedHabit = indexString + DOT + habit + " " + "[" + habit.getCount() + "]"
                     + LINE_SEPARATOR;
             return new CommandResult(FEEDBACK_STRING

@@ -24,7 +24,7 @@ public class AtomicHabit {
         return count;
     }
 
-    public void setCount(int increment){
+    public void increaseCount(int increment) {
         count += increment;
     }
 
