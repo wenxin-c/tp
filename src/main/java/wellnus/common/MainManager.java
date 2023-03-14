@@ -119,6 +119,8 @@ public class MainManager extends Manager {
      */
     @Override
     public String getFullDescription() {
+        // TODO: Call other feature's Managers to build a complete full description of WellNUS++.
+        //     getLongAppDescription() is an overall app description, it doesn't include features.
         return MainManager.getLongAppDescription();
     }
 
