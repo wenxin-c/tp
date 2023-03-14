@@ -1,4 +1,4 @@
-package seedu.duke.reflection;
+package wellnus.reflection;
 
 import java.util.ArrayList;
 

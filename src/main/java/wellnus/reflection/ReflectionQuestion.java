@@ -1,4 +1,4 @@
-package seedu.duke.reflection;
+package wellnus.reflection;
 
 /**
  * ReflectQuestion class is used to create reflect question objects.

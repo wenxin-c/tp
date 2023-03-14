@@ -1,8 +1,8 @@
-package seedu.duke.reflection;
+package wellnus.reflection;
 
 import org.junit.jupiter.api.Test;
-import seedu.duke.command.Command;
-import seedu.duke.exception.BadCommandException;
+import wellnus.command.Command;
+import wellnus.exception.BadCommandException;
 
 import java.util.ArrayList;
 import java.util.HashMap;

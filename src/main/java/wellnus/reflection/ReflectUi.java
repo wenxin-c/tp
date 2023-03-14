@@ -1,6 +1,6 @@
-package seedu.duke.reflection;
+package wellnus.reflection;
 
-import seedu.duke.ui.TextUi;
+import wellnus.ui.TextUi;
 
 /**
  * This section is to be updated with main UI class
@@ -15,16 +15,16 @@ public class ReflectUi extends TextUi {
         setSeparator(SEPARATOR);
     }
 
-    public void printLogo(String logo) {
+    private void printLogo(String logo) {
         System.out.print(logo);
     }
 
     /**
-     * TODO: Print greeting logo.
+     * TODO: Print greeting logo with separator.
      *
      * @param logo Greeting logo
      */
-    public void printLogoWithSeparator(String logo) {
+    protected void printLogoWithSeparator(String logo) {
         printSeparator();
         printLogo(logo);
     }

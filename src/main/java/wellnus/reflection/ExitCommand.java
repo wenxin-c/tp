@@ -1,15 +1,15 @@
-package seedu.duke.reflection;
+package wellnus.reflection;
 
-import seedu.duke.command.Command;
-import seedu.duke.exception.BadCommandException;
+import wellnus.command.Command;
+import wellnus.exception.BadCommandException;
 
 import java.util.HashMap;
 
-public class ReturnCommand extends Command {
+public class ExitCommand extends Command {
     private static final String FEATURE_NAME = "Self Reflection";
-    private static final String COMMAND_KEYWORD = "return";
+    private static final String COMMAND_KEYWORD = "exit";
     private static final String FULL_DESCRIPTION = "";
-    private static final String ARGUMENT = "return";
+    private static final String ARGUMENT = "exit";
     private static final String PAYLOAD = "";
     private static final ReflectUi UI = new ReflectUi();
     private static final int ARGUMENT_PAYLOAD_SIZE = 1;
@@ -18,7 +18,7 @@ public class ReturnCommand extends Command {
             + "and the format of commands.";
     private HashMap<String, String> argumentPayload;
 
-    public ReturnCommand(HashMap<String, String> arguments) throws BadCommandException {
+    public ExitCommand(HashMap<String, String> arguments) throws BadCommandException {
         super(arguments);
         this.argumentPayload = getArguments();
     }
@@ -26,7 +26,7 @@ public class ReturnCommand extends Command {
     /**
      * TODO: Get the command itself.
      *
-     * @return Command: return
+     * @return Command: exit
      */
     @Override
     protected String getCommandKeyword() {
@@ -34,10 +34,10 @@ public class ReturnCommand extends Command {
     }
 
     /**
-     * TODO: Get detailed description of a return command.
-     * TODO: FULL_DESCRIPTION is not completed yet.
+     * TODO: Get detailed description of an exit command.
+     * FULL_DESCRIPTION is not completed yet.
      *
-     * @return Full description of return command
+     * @return Full description of exit command
      */
     @Override
     protected String getDetailedDescription() {
@@ -45,7 +45,7 @@ public class ReturnCommand extends Command {
     }
 
     /**
-     * TODO: Get the name of the feature in which this return command is generated.
+     * TODO: Get the name of the feature in which this exit command is generated.
      *
      * @return Self reflection
      */
@@ -57,7 +57,7 @@ public class ReturnCommand extends Command {
     /**
      * TODO: Only one supported argument for exit command.
      *
-     * @return Argument: return
+     * @return Argument: exit
      */
     @Override
     protected String getSupportedCommandArguments() {
@@ -65,7 +65,7 @@ public class ReturnCommand extends Command {
     }
 
     /**
-     * TODO: Return back to WellNUS++ main interface
+     * TODO: Add exit method after main manager is merged.
      */
     @Override
     public void execute() {
@@ -74,7 +74,6 @@ public class ReturnCommand extends Command {
         } catch (BadCommandException invalidCommandException) {
             UI.printErrorFor(invalidCommandException, INVALID_COMMAND_NOTES);
         }
-        ReflectionManager.setIsExit(true);
     }
 
     /**
@@ -82,7 +81,7 @@ public class ReturnCommand extends Command {
      * <br/>
      * Conditions for command to be valid:<br/>
      * <li>Only one argument-payload pair
-     * <li>The pair contains key: return
+     * <li>The pair contains key: exit
      * <li>Payload is empty
      * Whichever mismatch will cause the command to be invalid.
      */

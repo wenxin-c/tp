@@ -1,7 +1,7 @@
-package seedu.duke.reflection;
+package wellnus.reflection;
 
-import seedu.duke.exception.BadCommandException;
-import seedu.duke.manager.Manager;
+import wellnus.exception.BadCommandException;
+import wellnus.manager.Manager;
 
 import java.util.HashMap;
 import java.util.NoSuchElementException;
@@ -141,7 +141,7 @@ public class ReflectionManager extends Manager {
     }
 
     /**
-     * TODO: High level framework of self reflection section.<br/>
+     * TODO: Main entry point of self reflection section.<br/>
      * <br/>
      * It first prints out greeting messages.<br/>
      * Then listen to and execute user commands.
