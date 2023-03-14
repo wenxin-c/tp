@@ -3,7 +3,6 @@ package wellnus;
 import wellnus.common.MainManager;
 import wellnus.ui.TextUi;
 
-
 public class WellNus {
     private static final String BYE_MESSAGE = "Thank you for using WellNUS++! See you again soon Dx";
     private static final String GREETING_MESSAGE = "Very good day to you! Welcome to ";
