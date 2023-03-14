@@ -10,7 +10,7 @@ import wellnus.ui.TextUi;
 import java.util.HashMap;
 
 public class ListCommand extends Command {
-    public static final String COMMAND_KEYWORD = "list";
+    private static final String COMMAND_KEYWORD = "list";
     private static final String COMMAND_DETAILED_DESCRIPTION = "";
     private static final String COMMAND_INVALID_ARGUMENTS_MESSAGE = "Invalid command, expected 'hb list'";
     private static final String COMMAND_SUPPORTED_ARGUMENTS = "";

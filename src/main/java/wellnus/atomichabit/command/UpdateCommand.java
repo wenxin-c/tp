@@ -12,7 +12,7 @@ import wellnus.ui.TextUi;
 import java.util.HashMap;
 
 public class UpdateCommand extends Command {
-    public static final String COMMAND_KEYWORD = "update";
+    private static final String COMMAND_KEYWORD = "update";
     private static final String COMMAND_DETAILED_DESCRIPTION = "";
     private static final String COMMAND_INDEX_ARGUMENT = "i";
     private static final String COMMAND_SUPPORTED_ARGUMENTS = "--i <i>";
@@ -24,7 +24,8 @@ public class UpdateCommand extends Command {
     private static final String FEEDBACK_INDEX_OUT_OF_BOUNDS_ERROR = "Index out of Range! Please enter a valid index";
     private static final int INDEX_OFFSET = 1;
     private static final String LINE_SEPARATOR = System.lineSeparator();
-    private static final String UPDATE_INVALID_ARGUMENTS_MESSAGE = "Invalid arguments for updating, no update shall be performed.";
+    private static final String UPDATE_INVALID_ARGUMENTS_MESSAGE = "Invalid arguments for updating, no update shall "
+            + "be performed.";
     private final AtomicHabitList atomicHabits;
     private final CommandParser parser;
     private final TextUi textUi;

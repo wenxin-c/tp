@@ -12,7 +12,7 @@ import java.util.HashMap;
 
 public class AddCommand extends Command {
     private static final String COMMAND_DETAILED_DESCRIPTION = "";
-    public static final String COMMAND_KEYWORD = "add";
+    private static final String COMMAND_KEYWORD = "add";
     private static final String COMMAND_INVALID_ARGUMENTS_MESSAGE = "Wrong arguments given to 'hb add'!";
     private static final String COMMAND_NAME_ARGUMENT = "name";
     private static final int COMMAND_NUM_OF_ARGUMENTS = 2;

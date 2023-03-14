@@ -1,23 +1,20 @@
 package wellnus.atomichabit.feature;
 
 import java.util.HashMap;
-import java.util.NoSuchElementException;
-import java.util.Scanner;
 
 import wellnus.atomichabit.command.AddCommand;
-import wellnus.atomichabit.command.CommandResult;
 import wellnus.atomichabit.command.ExitCommand;
 import wellnus.atomichabit.command.ListCommand;
 import wellnus.atomichabit.command.UpdateCommand;
 import wellnus.command.Command;
 import wellnus.exception.AtomicHabitException;
-import wellnus.command.CommandParser;
 import wellnus.exception.BadCommandException;
 import wellnus.exception.WellNusException;
 import wellnus.manager.Manager;
 import wellnus.ui.TextUi;
 
 public class AtomicHabitManager extends Manager {
+    public static final String FEATURE_NAME = "hb";
     private static final String ADD_COMMAND_KEYWORD = "add";
     private static final String ATOMIC_HABIT_GREET = "Welcome to the atomic habits feature!";
     private static final String EXIT_COMMAND_KEYWORD = "exit";
@@ -31,7 +28,6 @@ public class AtomicHabitManager extends Manager {
     private static final String UPDATE_COMMAND_KEYWORD = "update";
     private final TextUi textUi;
     private final AtomicHabitList habitList;
-    public static final String FEATURE_NAME = "hb";
 
     public AtomicHabitManager() {
         this.habitList = new AtomicHabitList();

@@ -10,7 +10,8 @@ import java.util.HashMap;
 
 public class ExitCommand extends Command {
     private static final int COMMAND_NUM_OF_ARGUMENTS = 1;
-    private static final String COMMAND_INVALID_ARGUMENTS_MESSAGE = "That is not a valid exit command for atomic habits!";
+    private static final String COMMAND_INVALID_ARGUMENTS_MESSAGE = "That is not a valid exit command for "
+            + "atomic habits!";
     private static final String COMMAND_INVALID_COMMAND_MESSAGE = "Wrong command given for exit!";
     private static final String COMMAND_KEYWORD = "exit";
     private static final String COMMAND_DETAILED_DESCRIPTION = "";
