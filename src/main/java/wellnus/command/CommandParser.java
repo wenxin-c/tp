@@ -3,6 +3,8 @@ package wellnus.command;
 import wellnus.exception.BadCommandException;
 
 import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * A CommandParser processes user input from a defined format <p>
@@ -36,6 +38,9 @@ public class CommandParser {
     // Message string constants for errors and ui
     private static final String ERROR_EMPTY_COMMAND = "Command is empty!";
     private static final String ERROR_EMPTY_ARGUMENT = "Command is missing an argument!";
+    private static final Logger logger = Logger.getLogger("CommandParserLogger");
+    private static final String LOG_STR_EMPTY_INPUT = "Input string is empty. This should be properly handled";
+    private static final String LOG_EMPTY_ARG = "Argument is empty. This should be properly handled";
 
     /**
      * Constructs an instance of CommandParser. <br>
@@ -53,6 +58,7 @@ public class CommandParser {
         // Perform a string length sanity check
         fullCommandString = fullCommandString.strip();
         if (fullCommandString.length() == 0) {
+            logger.log(Level.INFO, LOG_STR_EMPTY_INPUT);
             throw new BadCommandException(ERROR_EMPTY_COMMAND);
         }
 
@@ -72,12 +78,14 @@ public class CommandParser {
             String currentCommand = rawCommands[i];
             // Case 1 check
             if (currentCommand.startsWith(" ") || currentCommand.length() == 0) {
+                logger.log(Level.INFO, LOG_EMPTY_ARG);
                 throw new BadCommandException(ERROR_EMPTY_ARGUMENT);
             }
             // Strip command of whitespace to clean input
             currentCommand = currentCommand.strip();
             // Case 2 check
             if (currentCommand.startsWith(UNPADDED_DELIMITER)) {
+                logger.log(Level.INFO, LOG_EMPTY_ARG);
                 throw new BadCommandException(ERROR_EMPTY_COMMAND);
             }
             cleanCommands[i] = currentCommand;
@@ -91,6 +99,7 @@ public class CommandParser {
         String[] words = commandString.split(PAYLOAD_DELIMITER);
         // Bad input checks
         if (words.length == 0) {
+            logger.log(Level.INFO, LOG_STR_EMPTY_INPUT);
             throw new BadCommandException(ERROR_EMPTY_ARGUMENT);
         }
         return words[0];
@@ -123,6 +132,7 @@ public class CommandParser {
         assert userInput != null : "userInput should not be null";
 
         if (userInput.length() == 0) {
+            logger.log(Level.INFO, LOG_STR_EMPTY_INPUT);
             throw new BadCommandException(ERROR_EMPTY_COMMAND);
         }
         HashMap<String, String> argumentPayload = new HashMap<>();
@@ -151,6 +161,7 @@ public class CommandParser {
 
         userInput = userInput.strip();
         if (userInput.length() == 0) {
+            logger.log(Level.INFO, LOG_STR_EMPTY_INPUT);
             throw new BadCommandException(ERROR_EMPTY_COMMAND);
         }
         String[] parameters = userInput.split(" ");
