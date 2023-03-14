@@ -42,7 +42,7 @@ public class SelfReflection {
     }
 
     /**
-     * TODO: Load the questions list with pre-defined reflect questions.<br/>
+     * Load the questions list with pre-defined reflect questions.<br/>
      * This method is called in constructor so to create a new object to set up questions.
      */
     private static void setUpQuestions() {
@@ -53,7 +53,7 @@ public class SelfReflection {
     }
 
     /**
-     * TODO: Print greeting logo and message.
+     * Print greeting logo and message.
      */
     public static void greet() {
         UI.printLogoWithSeparator(LOGO);
@@ -61,7 +61,7 @@ public class SelfReflection {
     }
 
     /**
-     * TODO: Get all the reflection questions in the list.
+     * Get all the reflection questions in the list.
      *
      * @return All refection questions in ArrayList
      */
@@ -70,14 +70,14 @@ public class SelfReflection {
     }
 
     /**
-     * TODO: Remove all questions in the list.
+     * Remove all questions in the list.
      */
     public static void clearQuestions() {
         questions.clear();
     }
 
     /**
-     * TODO: Add new reflect question object into the list.<br/>
+     * Add new reflect question object into the list.<br/>
      * This method is more for developer usage at this stage as users are not allowed to add their own questions. <br/>
      *
      * @param question Newly created reflect question to be added into the list

@@ -24,7 +24,7 @@ public class ExitCommand extends Command {
     }
 
     /**
-     * TODO: Get the command itself.
+     * Get the command itself.
      *
      * @return Command: exit
      */
@@ -34,8 +34,8 @@ public class ExitCommand extends Command {
     }
 
     /**
-     * TODO: Get detailed description of an exit command.
-     * FULL_DESCRIPTION is not completed yet.
+     * Get detailed description of an exit command.
+     * TODO: FULL_DESCRIPTION is not completed yet.
      *
      * @return Full description of exit command
      */
@@ -45,7 +45,7 @@ public class ExitCommand extends Command {
     }
 
     /**
-     * TODO: Get the name of the feature in which this exit command is generated.
+     * Get the name of the feature in which this exit command is generated.
      *
      * @return Self reflection
      */
@@ -55,7 +55,7 @@ public class ExitCommand extends Command {
     }
 
     /**
-     * TODO: Only one supported argument for exit command.
+     * Only one supported argument for exit command.
      *
      * @return Argument: exit
      */
@@ -65,7 +65,7 @@ public class ExitCommand extends Command {
     }
 
     /**
-     * TODO: Add exit method after main manager is merged.
+     * Add exit method after main manager is merged.
      */
     @Override
     public void execute() {
@@ -77,7 +77,7 @@ public class ExitCommand extends Command {
     }
 
     /**
-     * TODO: Validate the command and return a boolean value.<br/>
+     * Validate the command and return a boolean value.<br/>
      * <br/>
      * Conditions for command to be valid:<br/>
      * <li>Only one argument-payload pair

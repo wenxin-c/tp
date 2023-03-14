@@ -41,7 +41,7 @@ public class ReflectionManager extends Manager {
     }
 
     /**
-     * TODO: Method to be called to change self reflection status.
+     * Method to be called to change self reflection status.
      * <br/>
      * True: self reflection exit<br/>
      * False: self reflection status reset<br/>
@@ -53,7 +53,7 @@ public class ReflectionManager extends Manager {
     }
 
     /**
-     * TODO: Get self reflection exit status.
+     * Get self reflection exit status.
      *
      * @return Exit status
      */
@@ -62,7 +62,7 @@ public class ReflectionManager extends Manager {
     }
 
     /**
-     * TODO: Get Self Reflection feature name.
+     * Get Self Reflection feature name.
      *
      * @return Self Reflection feature name
      */
@@ -72,7 +72,7 @@ public class ReflectionManager extends Manager {
     }
 
     /**
-     * TODO: Get a summary of description of self reflection feature.
+     * Get a summary of description of self reflection feature.
      *
      * @return Brief description of self reflection
      */
@@ -82,8 +82,7 @@ public class ReflectionManager extends Manager {
     }
 
     /**
-     * TODO: Get a full description of self reflection feature.
-     * <br/>
+     * Get a full description of self reflection feature.<br/>
      * TODO: FULL_DESCRIPTION is not completed yet!
      *
      * @return Full description of self reflection
@@ -94,7 +93,7 @@ public class ReflectionManager extends Manager {
     }
 
     /**
-     * TODO: Set up the set of command-payload pair supported by self reflection.<br/>
+     * Set up the set of command-payload pair supported by self reflection.<br/>
      * <li>Command: get, Payload: ""
      * <li>Command: exit, Payload: ""
      * <li>Command: return, Payload: ""
@@ -120,7 +119,7 @@ public class ReflectionManager extends Manager {
     }
 
     /**
-     * TODO: Set command argument and payload pairs.
+     * Set command argument and payload pairs.
      *
      * @param inputCommand Read from user input
      * @throws BadCommandException If an invalid command was given
@@ -130,7 +129,7 @@ public class ReflectionManager extends Manager {
     }
 
     /**
-     * TODO: Get the main command type to determine which command to create.
+     * Get the main command type to determine which command to create.
      *
      * @param inputCommand Read from user input
      * @throws BadCommandException If an invalid command was given
@@ -141,7 +140,7 @@ public class ReflectionManager extends Manager {
     }
 
     /**
-     * TODO: Main entry point of self reflection section.<br/>
+     * Main entry point of self reflection section.<br/>
      * <br/>
      * It first prints out greeting messages.<br/>
      * Then listen to and execute user commands.
@@ -165,7 +164,7 @@ public class ReflectionManager extends Manager {
     }
 
     /**
-     * TODO: Decide which command to create based on command type.<br/>
+     * Decide which command to create based on command type.<br/>
      * <br/>
      * Commands available at this moment are:
      * <li>Get a random set of reflection questions<br/>
