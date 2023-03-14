@@ -42,7 +42,7 @@ public class MainManager extends Manager {
     private void executeCommands() {
         boolean isExit = false;
         CommandParser parser = new CommandParser();
-        do {
+        while (!isExit) {
             String NO_ADDITIONAL_MESSAGE = "";
             try {
                 String nextCommand = this.getTextUi().getCommand();
@@ -62,7 +62,7 @@ public class MainManager extends Manager {
             } catch (BadCommandException badCommandException) {
                 this.getTextUi().printErrorFor(badCommandException, NO_ADDITIONAL_MESSAGE);
             }
-        } while (!isExit);
+        }
     }
 
     private Optional<Manager> getManagerFor(String featureKeyword) {
