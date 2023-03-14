@@ -48,6 +48,8 @@ public class CommandParser {
     }
 
     private String[] splitIntoCommands(String fullCommandString) throws BadCommandException {
+        assert fullCommandString != null : "fullCommandString should not be null";
+
         // Perform a string length sanity check
         fullCommandString = fullCommandString.strip();
         if (fullCommandString.length() == 0) {
@@ -84,6 +86,8 @@ public class CommandParser {
     }
 
     private String getArgumentFromCommand(String commandString) throws BadCommandException {
+        assert commandString != null : "commandString should not be null";
+
         String[] words = commandString.split(PAYLOAD_DELIMITER);
         // Bad input checks
         if (words.length == 0) {
@@ -93,6 +97,8 @@ public class CommandParser {
     }
 
     private String getPayloadFromCommand(String commandString) {
+        assert commandString != null : "commandString should not be null";
+
         String[] words = commandString.split(PAYLOAD_DELIMITER);
         String payload = "";
         // Ignore the first word (Main Command), so start from 1
@@ -114,6 +120,8 @@ public class CommandParser {
      * @throws BadCommandException when command is empty or is problematic
      */
     public HashMap<String, String> parseUserInput(String userInput) throws BadCommandException {
+        assert userInput != null : "userInput should not be null";
+
         if (userInput.length() == 0) {
             throw new BadCommandException(ERROR_EMPTY_COMMAND);
         }
@@ -139,6 +147,8 @@ public class CommandParser {
      * @throws BadCommandException when String is empty
      */
     public String getMainArgument(String userInput) throws BadCommandException {
+        assert userInput != null : "userInput should not be null";
+
         userInput = userInput.strip();
         if (userInput.length() == 0) {
             throw new BadCommandException(ERROR_EMPTY_COMMAND);
