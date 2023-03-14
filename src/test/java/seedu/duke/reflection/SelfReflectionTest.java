@@ -25,6 +25,9 @@ class SelfReflectionTest {
             + System.lineSeparator() + "    Feel very occupied and cannot find time to self reflect?"
             + System.lineSeparator() + "    No worries, this section will give you the opportunity to reflect "
             + "and improve on yourself!!";
+    private static final int EMPTY_ARRAY_LENGTH = 0;
+    private static final int FULL_ARRAY_LENGTH = 10;
+
     private final ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
 
     @BeforeEach
@@ -41,8 +44,8 @@ class SelfReflectionTest {
         SelfReflection selfReflection = new SelfReflection();
         int fullArrayLength = questions.size();
         SelfReflection.clearQuestions();
-        assertEquals(0, emptyArrayLength);
-        assertEquals(10, fullArrayLength);
+        assertEquals(EMPTY_ARRAY_LENGTH, emptyArrayLength);
+        assertEquals(FULL_ARRAY_LENGTH, fullArrayLength);
     }
 }
 

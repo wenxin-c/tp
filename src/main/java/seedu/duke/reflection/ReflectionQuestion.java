@@ -1,10 +1,7 @@
 package seedu.duke.reflection;
 
 /**
- * ReflectQuestion class is used to create reflect question objects.<br/>
- * <br/>
- * The static attribute questions is used to keep track all the questions created. <br/>
- * Attribute isLike is to keep track of whether a user likes this question or not.
+ * ReflectQuestion class is used to create reflect question objects.
  */
 public class ReflectionQuestion {
     private String questionDescription;
@@ -23,9 +20,9 @@ public class ReflectionQuestion {
     }
 
     /**
-     * Covert each reflect question to a string to be printed
+     * Convert each reflect question to a string to be printed
      *
-     * @return question description with its status
+     * @return Question description with its status
      */
     @Override
     public String toString() {

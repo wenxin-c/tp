@@ -17,6 +17,7 @@ public class GetCommand extends Command {
     private static final String ARGUMENT = "get";
     private static final String PAYLOAD = "";
     private static final int ARGUMENT_PAYLOAD_SIZE = 1;
+    private static final int MIN_SIZE = 0;
     private static final String INVALID_COMMAND_MSG = "Command is invalid.";
     private static final String INVALID_COMMAND_NOTES = "Please check the available commands "
             + "and the format of commands.";
@@ -128,7 +129,7 @@ public class GetCommand extends Command {
      * @return Array of 5 random numbers
      */
     private Set<Integer> generateRandomNumbers(int maxSize) {
-        Set<Integer> randomNumbers = new Random().ints(0, maxSize - 1)
+        Set<Integer> randomNumbers = new Random().ints(MIN_SIZE, maxSize - 1)
                 .distinct()
                 .limit(NUM_OF_RANDOM_QUESTIONS)
                 .boxed()
@@ -145,7 +146,8 @@ public class GetCommand extends Command {
         ArrayList selectedQuestions = getRandomQuestions();
         String questionString = "";
         for (int i = 0; i < selectedQuestions.size(); i += 1) {
-            questionString += (Integer.toString(i+1) + selectedQuestions.get(i).toString() + System.lineSeparator());
+            questionString += (Integer.toString(i + 1) + selectedQuestions.get(i).toString()
+                    + System.lineSeparator());
         }
         return questionString;
     }

@@ -15,14 +15,18 @@ public class ReflectUi extends TextUi {
         setSeparator(SEPARATOR);
     }
 
+    public void printLogo(String logo) {
+        System.out.print(logo);
+    }
+
     /**
      * Print greeting logo.
      *
      * @param logo Greeting logo
      */
-    public void printLogo(String logo) {
+    public void printLogoWithSeparator(String logo) {
         printSeparator();
-        System.out.print(logo);
+        printLogo(logo);
     }
 }
 

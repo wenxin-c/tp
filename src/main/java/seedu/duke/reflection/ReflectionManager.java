@@ -27,10 +27,10 @@ public class ReflectionManager extends Manager {
     // Anyone has other ideas??
     private static boolean isExit;
     private String commandType;
-    private HashMap<String, String>argumentPayload;
+    private HashMap<String, String> argumentPayload;
 
     public ReflectionManager() {
-        this.isExit = false;
+        isExit = false;
     }
 
     public HashMap<String, String> getArgumentPayload() {
@@ -46,6 +46,8 @@ public class ReflectionManager extends Manager {
      * <br/>
      * True: self reflection exit<br/>
      * False: self reflection status reset<br/>
+     *
+     * @param status Whether the feature exit or not exit
      */
     public static void setIsExit(boolean status) {
         isExit = status;
@@ -119,18 +121,10 @@ public class ReflectionManager extends Manager {
     }
 
     /**
-     * Not implementing at this moment.
-     */
-    @Override
-    protected void setSupportedFeatureManagers() {
-
-    }
-
-    /**
      * Set command argument and payload pairs.
      *
      * @param inputCommand Read from user input
-     * @throws BadCommandException Empty command
+     * @throws BadCommandException If an invalid command was given
      */
     public void setArgumentPayload(String inputCommand) throws BadCommandException {
         argumentPayload = commandParser.parseUserInput(inputCommand);
@@ -140,7 +134,7 @@ public class ReflectionManager extends Manager {
      * Get the main command type to determine which command to create.
      *
      * @param inputCommand Read from user input
-     * @throws BadCommandException Empty command
+     * @throws BadCommandException If an invalid command was given
      */
     public void setCommandType(String inputCommand) throws BadCommandException {
         String mainArgument = commandParser.getMainArgument(inputCommand);
@@ -179,7 +173,7 @@ public class ReflectionManager extends Manager {
      * <li>Return back main interface<br/>
      * <li>Exit program<br/>
      *
-     * @throws BadCommandException Empty command
+     * @throws BadCommandException If an invalid command was given
      */
     public void executeCommands() throws BadCommandException {
         switch (commandType) {

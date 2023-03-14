@@ -56,7 +56,7 @@ public class SelfReflection {
      * Print greeting logo and message.
      */
     public static void greet() {
-        UI.printLogo(LOGO);
+        UI.printLogoWithSeparator(LOGO);
         UI.printOutputMessage(GREETING_MESSAGE);
     }
 
@@ -80,7 +80,7 @@ public class SelfReflection {
      * Add new reflect question object into the list.<br/>
      * This method is more for developer usage at this stage as under are not allowed to add their own questions. <br/>
      *
-     * @param question newly created reflect question to be added into the list
+     * @param question Newly created reflect question to be added into the list
      */
     public static void addReflectQuestion(ReflectionQuestion question) {
         questions.add(question);

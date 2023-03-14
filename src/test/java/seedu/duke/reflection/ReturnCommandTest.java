@@ -10,6 +10,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class ReturnCommandTest {
     private static final String RETURN_COMMAND = "return";
     private static final String RETURN_COMMAND_WRONG_FORMAT = "return back";
+    private static final boolean IS_NOT_EXIT = false;
+    private static final boolean IS_EXIT = true;
 
     // Test whether ReturnCommand execute() method can terminate self reflection or not.
     @Test
@@ -19,7 +21,7 @@ class ReturnCommandTest {
         HashMap<String, String> returnArgumentPayload = reflectionManager.getArgumentPayload();
         ReturnCommand returnCmd = new ReturnCommand(returnArgumentPayload);
         returnCmd.execute();
-        assertEquals(true, reflectionManager.getIsExit());
+        assertEquals(IS_EXIT, reflectionManager.getIsExit());
     }
 
     // Test whether isExit is false for a new ReflectionManager object after exiting from previous one.
@@ -31,7 +33,7 @@ class ReturnCommandTest {
         ReturnCommand returnCmd = new ReturnCommand(returnArgumentPayload);
         returnCmd.execute();
         ReflectionManager newReflectionManager = new ReflectionManager();
-        assertEquals(false, newReflectionManager.getIsExit());
+        assertEquals(IS_NOT_EXIT, newReflectionManager.getIsExit());
     }
 
     // Test whether wrong format command exception is caught or not.
@@ -43,7 +45,7 @@ class ReturnCommandTest {
         ReturnCommand returnCmd = new ReturnCommand(returnArgumentPayload);
         returnCmd.execute();
         ReflectionManager newReflectionManager = new ReflectionManager();
-        assertEquals(false, newReflectionManager.getIsExit());
+        assertEquals(IS_NOT_EXIT, newReflectionManager.getIsExit());
     }
 }
 

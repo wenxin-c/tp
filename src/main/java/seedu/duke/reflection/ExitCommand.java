@@ -17,6 +17,7 @@ public class ExitCommand extends Command {
     private static final String INVALID_COMMAND_NOTES = "Please check the available commands "
             + "and the format of commands.";
     private HashMap<String, String> argumentPayload;
+
     public ExitCommand(HashMap<String, String> arguments) throws BadCommandException {
         super(arguments);
         this.argumentPayload = getArguments();
@@ -33,7 +34,7 @@ public class ExitCommand extends Command {
     }
 
     /**
-     * Get detailed description of an exit command.
+     * TODO: Get detailed description of an exit command.
      * FULL_DESCRIPTION is not completed yet.
      *
      * @return Full description of exit command
