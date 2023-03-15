@@ -131,7 +131,8 @@ public class HelpCommand extends Command {
             throw new BadCommandException(COMMAND_INVALID_KEYWORD_MESSAGE);
         }
         String featureKeyword = arguments.get(HelpCommand.COMMAND_KEYWORD);
-        if (!this.getMainManager().isSupportedFeature(featureKeyword)) {
+        boolean isFeatureSupported = this.getMainManager().isSupportedFeature(featureKeyword);
+        if (!featureKeyword.isBlank() && !isFeatureSupported) {
             throw new BadCommandException(String.format(HelpCommand.UNKNOWN_FEATURE_MESSAGE,
                     featureKeyword));
         }
