@@ -19,7 +19,7 @@ public class AddCommand extends Command {
     private static final String COMMAND_SUPPORTED_ARGUMENTS = "";
     private static final String COMMAND_WRONG_KEYWORD_MESSAGE = "Wrong command issued by the user, expected 'hb add'?";
     private static final String FEEDBACK_STRING_ONE = "Yay! You have added a new habit:";
-    private static final String FEEDBACK_STRING_TWO = " was successfully added";
+    private static final String FEEDBACK_STRING_TWO = "was successfully added";
     private final AtomicHabitList atomicHabits;
     private final CommandParser commandParser;
     private final TextUi textUi;
