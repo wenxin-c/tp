@@ -1,13 +1,11 @@
 package wellnus.command;
 
-import wellnus.WellNus;
 import wellnus.common.MainManager;
 import wellnus.exception.BadCommandException;
 import wellnus.manager.Manager;
 import wellnus.ui.TextUi;
 
 import java.util.HashMap;
-import java.util.Optional;
 
 /**
  * Implementation of WellNus' <code>help</code> command. Explains to the user what commands are supported
@@ -25,9 +23,9 @@ public class HelpCommand extends Command {
     private static final String NO_FEATURE_KEYWORD = "";
     // TODO: Refactor this out as an atribute/method in MainManager instead
     private static final String UNKNOWN_FEATURE_MESSAGE = "Unsupported feature '%s'";
-    public static final String COMMAND_KEYWORD = "help";
     private final MainManager mainManager;
     private final TextUi textUi;
+    public static final String COMMAND_KEYWORD = "help";
 
     public HelpCommand(HashMap<String, String> arguments, MainManager mainManager)
             throws BadCommandException {

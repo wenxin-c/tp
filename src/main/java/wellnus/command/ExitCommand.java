@@ -11,8 +11,8 @@ public class ExitCommand extends Command {
     private static final String COMMAND_INVALID_COMMAND_MESSAGE = "Invalid exit command given!";
     private static final String FEATURE_KEYWORD = "";
     private static final String GOODBYE_MESSAGE = "Thank you for using WellNUS++! Come back soon!";
-    public static final String COMMAND_KEYWORD = "exit";
     private final TextUi textUi;
+    public static final String COMMAND_KEYWORD = "exit";
 
     public ExitCommand(HashMap<String, String> arguments) throws BadCommandException {
         super(arguments);
