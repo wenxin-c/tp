@@ -18,8 +18,11 @@ public class UpdateCommand extends Command {
     private static final String LINE_SEPARATOR = System.lineSeparator();
     private static final String REGEX_INTEGER_ONLY_PATTERN = "\\s*-?\\d+\\s*";
     private static final Logger logger = Logger.getLogger("UpdateAtomicHabitLogger");
-    private static final String LOG_STR_INPUT_NOT_INTEGER = "Input string is not an integer. This should be properly handled";
-    private static final String LOG_INDEX_OUT_OF_BOUNDS = "Input index is out of bounds. This should be properly handled";
+    private static final String LOG_STR_INPUT_NOT_INTEGER = "Input string is not an integer."
+            + "This should be properly handled";
+
+    private static final String LOG_INDEX_OUT_OF_BOUNDS = "Input index is out of bounds."
+            + "This should be properly handled";
     private String indexString;
 
     public UpdateCommand(String indexString) {
@@ -39,8 +42,11 @@ public class UpdateCommand extends Command {
             int index = Integer.parseInt(indexString.trim()) - INDEX_OFFSET;
             AtomicHabit habit = atomicHabits.getHabitByIndex(index);
             habit.increaseCount(DEFAULT_INCREMENT);
-            String stringOfUpdatedHabit = indexString + DOT + habit + " " + "[" + habit.getCount() + "]" + LINE_SEPARATOR;
-            return new CommandResult(FEEDBACK_STRING + LINE_SEPARATOR + stringOfUpdatedHabit);
+            String stringOfUpdatedHabit = indexString + DOT + habit + " " + "[" + habit.getCount() + "]"
+                    + LINE_SEPARATOR;
+            return new CommandResult(FEEDBACK_STRING
+                    + LINE_SEPARATOR
+                    + stringOfUpdatedHabit);
         } catch (NumberFormatException e) {
             logger.log(Level.INFO, LOG_STR_INPUT_NOT_INTEGER);
             throw new AtomicHabitException(FEEDBACK_INDEX_NOT_INTEGER_ERROR);
