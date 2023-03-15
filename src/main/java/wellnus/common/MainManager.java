@@ -31,7 +31,6 @@ public class MainManager extends Manager {
         super();
         this.featureManagers = new ArrayList<>();
         this.textUi = new TextUi();
-        this.featureManagers = new ArrayList<>();
         this.setSupportedFeatureManagers();
     }
 
