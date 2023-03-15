@@ -19,11 +19,6 @@ public class ReflectUi extends TextUi {
         System.out.print(logo);
     }
 
-    /**
-     * Print greeting logo with separator.
-     *
-     * @param logo Greeting logo
-     */
     protected void printLogoWithSeparator(String logo) {
         printSeparator();
         printLogo(logo);

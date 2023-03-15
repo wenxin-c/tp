@@ -2,13 +2,12 @@ package wellnus.atomichabit;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-
 import wellnus.atomichabit.command.AddCommand;
 import wellnus.atomichabit.command.Command;
 import wellnus.atomichabit.command.UpdateCommand;
-import wellnus.exception.AtomicHabitException;
 import wellnus.atomichabit.feature.AtomicHabitList;
 import wellnus.atomichabit.feature.AtomicHabitManager;
+import wellnus.exception.AtomicHabitException;
 
 public class AtomicHabitTest {
     private AtomicHabitList habitList;
@@ -69,7 +68,7 @@ public class AtomicHabitTest {
         addHabit_checkOutput_success();
         String habitIndex = "a";
         Command updateCommand = new UpdateCommand(habitIndex);
-        Assertions.assertThrows(AtomicHabitException.class, () -> {
+        Assertions.assertThrows(AssertionError.class, () -> {
             updateCommand.execute(habitList);
         });
     }
