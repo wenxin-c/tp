@@ -15,8 +15,10 @@ import java.util.HashMap;
 public class UpdateCommand extends Command {
     private static final String COMMAND_KEYWORD = "update";
     private static final String COMMAND_DETAILED_DESCRIPTION = "";
-    private static final String COMMAND_INDEX_ARGUMENT = "i";
-    private static final String COMMAND_SUPPORTED_ARGUMENTS = "--i <i>";
+    private static final String COMMAND_INCREMENT_ARGUMENT = "inc";
+    private static final String COMMAND_INDEX_ARGUMENT = "id";
+    private static final int COMMAND_MIN_NUM_OF_ARGUMENTS = 2;
+    private static final String COMMAND_SUPPORTED_ARGUMENTS = "--id <index> --inc <increment>";
     private static final String COMMAND_INVALID_COMMAND_MESSAGE = "Wrong command issued, expected 'hb update'?";
     private static final String DOT = ".";
     private static final int DEFAULT_INCREMENT = 1;
@@ -59,16 +61,21 @@ public class UpdateCommand extends Command {
     }
 
     private int getIncrementCountFrom(HashMap<String, String> arguments)
-            throws BadCommandException {
+            throws BadCommandException, NumberFormatException {
+        if (!arguments.containsKey(UpdateCommand.COMMAND_INCREMENT_ARGUMENT)) {
+            throw new BadCommandException(UpdateCommand.UPDATE_INVALID_ARGUMENTS_MESSAGE);
+        }
+        String incrementCountString = arguments.get(UpdateCommand.COMMAND_INCREMENT_ARGUMENT);
+        return Integer.parseInt(incrementCountString);
+    }
+
+    private int getIndexFrom(HashMap<String, String> arguments)
+            throws BadCommandException, NumberFormatException {
         if (!arguments.containsKey(UpdateCommand.COMMAND_INDEX_ARGUMENT)) {
             throw new BadCommandException(UpdateCommand.UPDATE_INVALID_ARGUMENTS_MESSAGE);
         }
-        String incrementCountString = arguments.get(UpdateCommand.COMMAND_INDEX_ARGUMENT);
-        try {
-            return Integer.parseInt(incrementCountString);
-        } catch (NumberFormatException numberFormatException) {
-            throw new BadCommandException(UpdateCommand.UPDATE_INVALID_ARGUMENTS_MESSAGE);
-        }
+        String indexString = arguments.get(UpdateCommand.COMMAND_INDEX_ARGUMENT);
+        return Integer.parseInt(indexString);
     }
 
     /**
@@ -129,18 +136,14 @@ public class UpdateCommand extends Command {
             return;
         }
         try {
-            String userInput = getTextUi().getCommand();
-            HashMap<String, String> newArguments = parser.parseUserInput(userInput);
-            int incrementCount = this.getIncrementCountFrom(newArguments);
-            String habitIndexString = parser.getMainArgument(userInput);
-            int index = Integer.parseInt(habitIndexString) - INDEX_OFFSET;
-            AtomicHabit habit = getAtomicHabits().getHabitByIndex(index);
-            if (incrementCount > DEFAULT_INCREMENT) {
-                habit.increaseCount(incrementCount);
-            } else {
-                habit.increaseCount(DEFAULT_INCREMENT);
+            int incrementCount = DEFAULT_INCREMENT;
+            if (super.getArguments().containsKey(UpdateCommand.COMMAND_INCREMENT_ARGUMENT)) {
+                incrementCount = this.getIncrementCountFrom(super.getArguments());
             }
-            String stringOfUpdatedHabit = habitIndexString + DOT + habit + " " + "[" + habit.getCount() + "]"
+            int index = this.getIndexFrom(super.getArguments()) - INDEX_OFFSET;
+            AtomicHabit habit = getAtomicHabits().getHabitByIndex(index);
+            habit.increaseCount(incrementCount);
+            String stringOfUpdatedHabit = (index + 1) + DOT + habit + " " + "[" + habit.getCount() + "]"
                     + LINE_SEPARATOR;
             getTextUi().printOutputMessage(FEEDBACK_STRING + LINE_SEPARATOR
                     + stringOfUpdatedHabit);
@@ -167,6 +170,18 @@ public class UpdateCommand extends Command {
         String commandKeyword = arguments.get(AtomicHabitManager.FEATURE_NAME);
         if (!commandKeyword.equals(UpdateCommand.COMMAND_KEYWORD)) {
             throw new BadCommandException(UpdateCommand.COMMAND_INVALID_COMMAND_MESSAGE);
+        }
+        if (arguments.size() < UpdateCommand.COMMAND_MIN_NUM_OF_ARGUMENTS) {
+            throw new BadCommandException(UpdateCommand.COMMAND_INVALID_COMMAND_MESSAGE);
+        }
+        if (!arguments.containsKey(UpdateCommand.COMMAND_INDEX_ARGUMENT)) {
+            throw new BadCommandException(UpdateCommand.COMMAND_INVALID_COMMAND_MESSAGE);
+        }
+        if (arguments.containsKey(UpdateCommand.COMMAND_INCREMENT_ARGUMENT)) {
+            String incrementString = arguments.get(COMMAND_INCREMENT_ARGUMENT);
+            if (incrementString.isBlank()) {
+                throw new BadCommandException(UpdateCommand.COMMAND_INVALID_COMMAND_MESSAGE);
+            }
         }
     }
 
