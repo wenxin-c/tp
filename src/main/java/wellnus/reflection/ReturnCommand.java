@@ -16,11 +16,16 @@ public class ReturnCommand extends Command {
     private static final String INVALID_COMMAND_MSG = "Command is invalid.";
     private static final String INVALID_COMMAND_NOTES = "Please check the available commands "
             + "and the format of commands.";
+    private static final String EMPTY_ARGUMENT_PAYLOAD_ASSERTION = "The argument-payload pair cannot be empty!";
+    private static final String COMMAND_KEYWORD_ASSERTION = "The key should be return.";
+    private static final String COMMAND_PAYLOAD_ASSERTION = "The payload should be empty.";
+
     private HashMap<String, String> argumentPayload;
 
     public ReturnCommand(HashMap<String, String> arguments) throws BadCommandException {
         super(arguments);
         this.argumentPayload = getArguments();
+        assert !argumentPayload.isEmpty() : EMPTY_ARGUMENT_PAYLOAD_ASSERTION;
     }
 
     /**
@@ -74,6 +79,8 @@ public class ReturnCommand extends Command {
         } catch (BadCommandException invalidCommandException) {
             UI.printErrorFor(invalidCommandException, INVALID_COMMAND_NOTES);
         }
+        assert argumentPayload.containsKey(COMMAND_KEYWORD) : COMMAND_KEYWORD_ASSERTION;
+        assert argumentPayload.get(COMMAND_KEYWORD).equals(PAYLOAD) : COMMAND_PAYLOAD_ASSERTION;
         ReflectionManager.setIsExit(true);
     }
 
@@ -92,7 +99,7 @@ public class ReturnCommand extends Command {
             throw new BadCommandException(INVALID_COMMAND_MSG);
         } else if (!commandMap.containsKey(COMMAND_KEYWORD)) {
             throw new BadCommandException(INVALID_COMMAND_MSG);
-        } else if (!commandMap.get(COMMAND_KEYWORD).equals(PAYLOAD)) {
+        } else if (!(commandMap.get(COMMAND_KEYWORD).equals(PAYLOAD))) {
             throw new BadCommandException(INVALID_COMMAND_MSG);
         }
     }
