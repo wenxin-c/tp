@@ -4,17 +4,15 @@ package wellnus.reflection;
  * ReflectQuestion class is used to create reflect question objects.
  */
 public class ReflectionQuestion {
+    private static final int EMPTY_QUESTION = 0;
+    private static final String EMPTY_QUESTION_MSG = "Question description cannot be empty.";
     private String questionDescription;
 
     public ReflectionQuestion(String questionDescription) {
+        assert questionDescription.length() > EMPTY_QUESTION : EMPTY_QUESTION_MSG;
         this.questionDescription = questionDescription;
     }
 
-    /**
-     * Get the description of question.
-     *
-     * @return Question description
-     */
     public String getQuestionDescription() {
         return this.questionDescription;
     }

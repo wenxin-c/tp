@@ -3,7 +3,6 @@ package wellnus.atomichabit;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
 import wellnus.atomichabit.command.AddCommand;
 import wellnus.atomichabit.command.UpdateCommand;
 import wellnus.command.Command;
@@ -14,9 +13,7 @@ import wellnus.atomichabit.feature.AtomicHabitManager;
 import wellnus.exception.WellNusException;
 import wellnus.ui.TextUi;
 
-import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.InputStream;
 import java.io.PrintStream;
 import java.util.HashMap;
 
