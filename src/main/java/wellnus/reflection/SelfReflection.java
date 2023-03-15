@@ -27,16 +27,16 @@ public class SelfReflection {
 
     // Questions are adopted from website: https://www.usa.edu/blog/self-discovery-questions/
     private static final String[] QUESTIONS = {
-            "What are three of my most cherished personal values?",
-            "What is my purpose in life?",
-            "What is my personality type?",
-            "Did I make time for myself this week?",
-            "Am I making time for my social life?",
-            "What scares me the most right now?",
-            "What is something I find inspiring?",
-            "What is something that brings me joy?",
-            "When is the last time I gave back to others?",
-            "What matters to me most right now?"
+        "What are three of my most cherished personal values?",
+        "What is my purpose in life?",
+        "What is my personality type?",
+        "Did I make time for myself this week?",
+        "Am I making time for my social life?",
+        "What scares me the most right now?",
+        "What is something I find inspiring?",
+        "What is something that brings me joy?",
+        "When is the last time I gave back to others?",
+        "What matters to me most right now?"
     };
 
     // TODO: To be changed/updated at later stages
