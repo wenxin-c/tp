@@ -12,7 +12,6 @@ import java.util.HashMap;
  *   by WellNus and how to use each command.
  */
 public class HelpCommand extends Command {
-    public static final String COMMAND_KEYWORD = "help";
     private static final String BAD_COMMAND_MESSAGE = "Invalid arguments given for %s command";
     private static final String BAD_COMMAND_ADVICE_MESSAGE = "Try 'help' for a list of "
             + "commands/features supported by WellNUS++";
@@ -24,6 +23,7 @@ public class HelpCommand extends Command {
     private static final String NO_FEATURE_KEYWORD = "";
     // TODO: Refactor this out as an atribute/method in MainManager instead
     private static final String UNKNOWN_FEATURE_MESSAGE = "Unsupported feature '%s'";
+    public static final String COMMAND_KEYWORD = "help";
     private final MainManager mainManager;
     private final TextUi textUi;
 
