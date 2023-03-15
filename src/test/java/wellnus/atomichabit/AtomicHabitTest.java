@@ -95,14 +95,13 @@ public class AtomicHabitTest {
         addHabit_checkOutput_success();
         String payload = "junit test";
         String habitIndex = "1";
-        String testIndexCommand = habitIndex + System.lineSeparator();
-        ByteArrayInputStream inputStream = new ByteArrayInputStream(testIndexCommand.getBytes());
-        HashMap<String, String> arguments = parser.parseUserInput(UPDATE_HABIT_COMMAND);
-        Command updateCommand = new UpdateCommand(inputStream, arguments, habitList);
+        String testUpdateCommand = String.format("%s --id %s", UPDATE_HABIT_COMMAND, habitIndex)
+                + System.lineSeparator();
+        HashMap<String, String> arguments = parser.parseUserInput(testUpdateCommand);
+        Command updateCommand = new UpdateCommand(arguments, habitList);
         String expectedUpdateHabitOutput = "The following habit has been incremented! Keep up the good work!"
                 + System.lineSeparator()
-                + habitIndex + "." + payload + " " + "[2]"
-                + System.lineSeparator();
+                + habitIndex + "." + payload + " " + "[2]";
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outputStream));
         updateCommand.execute();
@@ -117,10 +116,10 @@ public class AtomicHabitTest {
         // Test false command by user
         addHabit_checkOutput_success();
         String habitIndex = "a";
-        String testIndexCommand = habitIndex + System.lineSeparator();
-        ByteArrayInputStream inputStream = new ByteArrayInputStream(testIndexCommand.getBytes());
-        HashMap<String, String> arguments = parser.parseUserInput(UPDATE_HABIT_COMMAND);
-        Command updateCommand = new UpdateCommand(inputStream, arguments, habitList);
+        String testIndexCommand = String.format("%s --id %s", UPDATE_HABIT_COMMAND, habitIndex)
+                + System.lineSeparator();
+        HashMap<String, String> arguments = parser.parseUserInput(testIndexCommand);
+        Command updateCommand = new UpdateCommand(arguments, habitList);
         Assertions.assertThrows(AtomicHabitException.class, updateCommand::execute);
     }
 
@@ -134,13 +133,16 @@ public class AtomicHabitTest {
         addHabit_checkOutput_success();
         String largeHabitIndex = "100000000" + System.lineSeparator();
         String negativeHabitIndex = "-100000000" + System.lineSeparator();
-        HashMap<String, String> arguments = parser.parseUserInput(UPDATE_HABIT_COMMAND);
-        String testIndexCommand = largeHabitIndex + negativeHabitIndex;
-        ByteArrayInputStream inputStream = new ByteArrayInputStream(testIndexCommand.getBytes());
-        Command updateCommandForLargeIndex = new UpdateCommand(inputStream, arguments, habitList);
+        String testLargeIndexCommand = String.format("%s --id %s", UPDATE_HABIT_COMMAND, largeHabitIndex)
+                + System.lineSeparator();
+        String testNegativeIndexCommand = String.format("%s --id %s", UPDATE_HABIT_COMMAND, negativeHabitIndex)
+                + System.lineSeparator();
+        HashMap<String, String> arguments = parser.parseUserInput(testLargeIndexCommand);
+        Command updateCommandForLargeIndex = new UpdateCommand(arguments, habitList);
         Assertions.assertThrows(AtomicHabitException.class, updateCommandForLargeIndex::execute);
 
-        Command updateCommandForNegativeIndex = new UpdateCommand(inputStream, arguments, habitList);
+        arguments = parser.parseUserInput(testNegativeIndexCommand);
+        Command updateCommandForNegativeIndex = new UpdateCommand(arguments, habitList);
         Assertions.assertThrows(AtomicHabitException.class, updateCommandForNegativeIndex::execute);
     }
 }
