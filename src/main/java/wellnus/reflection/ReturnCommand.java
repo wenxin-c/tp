@@ -83,7 +83,7 @@ public class ReturnCommand extends Command {
      * <br/>
      * Conditions for command to be valid:<br/>
      * <li>Only one argument-payload pair
-     * <li>The pair contains key: exit
+     * <li>The pair contains key: return
      * <li>Payload is empty
      * Whichever mismatch will cause the command to be invalid.
      *
