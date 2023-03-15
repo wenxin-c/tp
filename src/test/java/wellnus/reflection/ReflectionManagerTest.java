@@ -9,6 +9,7 @@ import java.util.HashMap;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class ReflectionManagerTest {
     private static final String EMPTY_STRING = "";
@@ -24,14 +25,22 @@ class ReflectionManagerTest {
                 reflectionManager::executeCommands);
     }
 
-    // Test whether exceptions are thrown for empty string, buggy at this moment, to be fixed.
+    // Test whether exceptions are thrown for empty string for commandType.
     @Test
-    void getCommandType_emptyString_expectException() {
+    void setCommandType_emptyString_expectException() {
         ReflectionManager reflectionManager = new ReflectionManager();
         String[] input = EMPTY_STRING.split(" ");
         System.out.println(input.length);
         assertThrows(BadCommandException.class,
                 () -> reflectionManager.setCommandType(EMPTY_STRING));
+    }
+
+    // Test whether exceptions are thrown for empty string for argument-payload pairs.
+    @Test
+    void setArgumentPayload_emptyCommand_expectException() {
+        ReflectionManager reflectionManager = new ReflectionManager();
+        assertThrows(BadCommandException.class,
+                () -> reflectionManager.setArgumentPayload(EMPTY_STRING));
     }
 
     // Test whether argument_payload pair is properly generated.
@@ -46,11 +55,12 @@ class ReflectionManagerTest {
 
     // Test whether supported commands are properly set up.
     @Test
-    void setSupportedCommands_checkFirstCommand_expectGetCmd() {
+    void setSupportedCommands_checkCommandTypes_success() {
         ReflectionManager reflectionManager = new ReflectionManager();
-        reflectionManager.setSupportedCommands();
         ArrayList<Command> supportedCommands = reflectionManager.getSupportedCommands();
-        assertEquals(true, supportedCommands.get(0) instanceof GetCommand);
+        assertTrue(supportedCommands.get(0) instanceof GetCommand);
+        assertTrue(supportedCommands.get(1) instanceof ReturnCommand);
+        assertTrue(supportedCommands.get(2) instanceof ExitCommand);
     }
 }
 

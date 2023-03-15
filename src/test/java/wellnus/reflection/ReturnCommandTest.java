@@ -6,6 +6,7 @@ import wellnus.exception.BadCommandException;
 import java.util.HashMap;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class ReturnCommandTest {
     private static final String RETURN_COMMAND = "return";
@@ -38,14 +39,14 @@ class ReturnCommandTest {
 
     // Test whether wrong format command exception is caught or not.
     @Test
-    void execute_checkWrongCmdFormat_expectFalse() throws BadCommandException {
+    void execute_checkWrongCmdFormat_expectException() throws BadCommandException {
         ReflectionManager reflectionManager = new ReflectionManager();
         reflectionManager.setArgumentPayload(RETURN_COMMAND_WRONG_FORMAT);
         HashMap<String, String> returnArgumentPayload = reflectionManager.getArgumentPayload();
         ReturnCommand returnCmd = new ReturnCommand(returnArgumentPayload);
-        returnCmd.execute();
-        ReflectionManager newReflectionManager = new ReflectionManager();
-        assertEquals(IS_NOT_EXIT, newReflectionManager.getIsExit());
+        assertThrows(BadCommandException.class, () -> {
+            returnCmd.validateCommand(returnArgumentPayload);
+        });
     }
 }
 

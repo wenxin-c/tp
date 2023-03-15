@@ -20,7 +20,7 @@ public class SelfReflection {
                     + "|_____/|______|______|_|      |_|  \\_\\______|_|    "
                     + "|______|______\\_____|  |_|  "
                     + "|_____\\____/|_| \\_|\n";
-    private static final String GREETING_MESSAGE = "Welcome to WellNUS++ Self Reflection section:D"
+    private static final String GREETING_MESSAGE = "Welcome to WellNUS++ Self Reflection section :D"
             + System.lineSeparator() + "Feel very occupied and cannot find time to self reflect?"
             + System.lineSeparator() + "No worries, this section will give you the opportunity to reflect "
             + "and improve on yourself!!";
@@ -39,12 +39,16 @@ public class SelfReflection {
         "What matters to me most right now?"
     };
 
+    // TODO: To be changed/updated at later stages
+    private static final int TOTAL_NUM_QUESTIONS = 10;
+    private static final String TOTAL_NUM_QUESTION_ASSERTIONS = "The total number of questions is 10.";
     private static final ReflectUi UI = new ReflectUi();
 
     private static ArrayList<ReflectionQuestion> questions = new ArrayList<>();
 
     public SelfReflection() {
         setUpQuestions();
+        assert questions.size() == TOTAL_NUM_QUESTIONS : TOTAL_NUM_QUESTION_ASSERTIONS;
     }
 
     /**
