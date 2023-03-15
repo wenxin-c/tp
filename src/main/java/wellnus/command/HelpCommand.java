@@ -1,8 +1,13 @@
 package wellnus.command;
 
 import wellnus.WellNus;
+import wellnus.common.MainManager;
+import wellnus.exception.BadCommandException;
+import wellnus.manager.Manager;
+import wellnus.ui.TextUi;
 
 import java.util.HashMap;
+import java.util.Optional;
 
 /**
  * Implementation of WellNus' <code>help</code> command. Explains to the user what commands are supported
@@ -10,18 +15,24 @@ import java.util.HashMap;
  */
 public class HelpCommand extends Command {
     private static final String BAD_COMMAND_MESSAGE = "Invalid arguments given for %s command";
+    private static final String BAD_COMMAND_ADVICE_MESSAGE = "Try 'help' for a list of "
+            + "commands/features supported by WellNUS++";
     private static final String COMMAND_KEYWORD = "help";
     private static final String COMMAND_ARGUMENTS = "<feature>";
     private static final String COMMAND_BRIEF_DESCRIPTION = "Lists ";
     private static final String COMMAND_DETAILED_DESCRIPTION = "";
+    private static final String COMMAND_INVALID_KEYWORD_MESSAGE = "Wrong command for 'help'";
     private static final String NO_FEATURE_KEYWORD = "";
+    // TODO: Refactor this out as an atribute/method in MainManager instead
+    private static final String UNKNOWN_FEATURE_MESSAGE = "Unsupported feature '%s'";
+    private final MainManager mainManager;
+    private final TextUi textUi;
 
-    public HelpCommand(HashMap<String, String> arguments) throws BadCommandException {
+    public HelpCommand(HashMap<String, String> arguments, MainManager mainManager)
+            throws BadCommandException {
         super(arguments);
-        if (!HelpCommand.isValidCommand(arguments)) {
-            throw new BadCommandException(String.format(HelpCommand.BAD_COMMAND_MESSAGE,
-                    HelpCommand.COMMAND_KEYWORD));
-        }
+        this.mainManager = mainManager;
+        this.textUi = new TextUi();
     }
 
     private String getBriefDescription() {
@@ -40,22 +51,25 @@ public class HelpCommand extends Command {
         return featureKeywordIfExists.isBlank();
     }
 
-    private void printBriefHelp() {
-        // TODO: As new commands are added to WellNus, add their help messages below
-        String helpCommandBriefDescription = String.format("%s %s",
-                this.getCommandKeyword(), this.getBriefDescription());
-        // TODO: Change how we print when Ui class becomes available
-        System.out.println(helpCommandBriefDescription);
+    private MainManager getMainManager() {
+        return this.mainManager;
     }
 
-    private void printDetailedHelp() {
-        /* TODO: Similar to printBriefHelp(), add help messages for new commands as they
-         *   are added to WellNus */
-        String helpCommandDetailedDescription = String.format("%s %s %s",
-                this.getCommandKeyword(), this.getSupportedCommandArguments(),
-                this.getDetailedDescription());
-        // TODO: Change how we print when Ui class becomes available
-        System.out.println(helpCommandDetailedDescription);
+    private TextUi getTextUi() {
+        return this.textUi;
+    }
+
+    private void printBriefHelp() {
+        String appBriefDescription = this.getMainManager().getBriefDescription();
+        this.getTextUi().printOutputMessage(appBriefDescription);
+    }
+
+    private void printDetailedHelp(String featureKeyword) {
+        // We already check that the feature is supported in execute(), getManagerFor() cannot return
+        //     an empty Optional
+        Manager featureManager = this.getMainManager().getManagerFor(featureKeyword).get();
+        String helpCommandDetailedDescription = featureManager.getFullDescription();
+        this.getTextUi().printOutputMessage(helpCommandDetailedDescription);
     }
 
     @Override
@@ -79,26 +93,6 @@ public class HelpCommand extends Command {
     }
 
     /**
-     * Checks whether the given arguments are valid for our help command.
-     *
-     * @param arguments Arguments issued by the user
-     * @return boolean Whether arguments issued by the user are valid
-     */
-    public static boolean isValidCommand(HashMap<String, String> arguments) {
-        int NO_ARGUMENTS_LENGTH = 1;
-        boolean INVALID_COMMAND = false;
-        /*
-         * If arguments are given, then we need to be provided the keyword of one
-         *   of WellNus' known features
-         */
-        if (arguments.size() > NO_ARGUMENTS_LENGTH) {
-            String featureKeyword = arguments.get(HelpCommand.COMMAND_KEYWORD);
-            return WellNus.isSupportedFeature(featureKeyword);
-        }
-        return INVALID_COMMAND;
-    }
-
-    /**
      * Executes the issued help command.<br>
      *
      * Prints a brief description of all of WellNus' supported commands if
@@ -109,10 +103,36 @@ public class HelpCommand extends Command {
      */
     @Override
     public void execute() {
+        try {
+            validateCommand(super.getArguments());
+        } catch (BadCommandException badCommandException) {
+            this.getTextUi().printErrorFor(badCommandException,
+                    HelpCommand.BAD_COMMAND_ADVICE_MESSAGE);
+            return;
+        }
         if (isBriefHelp()) {
             this.printBriefHelp();
         } else {
-            this.printDetailedHelp();
+            String featureKeyword = super.getArguments().get(HelpCommand.COMMAND_KEYWORD);
+            this.printDetailedHelp(featureKeyword);
+        }
+    }
+
+    /**
+     * Checks whether the given arguments are valid for our help command.
+     *
+     * @param arguments Argument-Payload map generated by CommandParser using user's command
+     * @throws BadCommandException If the command is invalid
+     */
+    @Override
+    public void validateCommand(HashMap<String, String> arguments) throws BadCommandException {
+        if (!arguments.containsKey(HelpCommand.COMMAND_KEYWORD)) {
+            throw new BadCommandException(COMMAND_INVALID_KEYWORD_MESSAGE);
+        }
+        String featureKeyword = arguments.get(HelpCommand.COMMAND_KEYWORD);
+        if (!this.getMainManager().isSupportedFeature(featureKeyword)) {
+            throw new BadCommandException(String.format(HelpCommand.UNKNOWN_FEATURE_MESSAGE,
+                    featureKeyword));
         }
     }
 }
