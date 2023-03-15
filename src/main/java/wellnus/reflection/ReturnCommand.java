@@ -4,8 +4,11 @@ import wellnus.command.Command;
 import wellnus.exception.BadCommandException;
 
 import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class ReturnCommand extends Command {
+    private static final Logger LOGGER = Logger.getLogger(ReflectionManager.class.getName());
     private static final String FEATURE_NAME = "Self Reflection";
     private static final String COMMAND_KEYWORD = "return";
     private static final String FULL_DESCRIPTION = "";
@@ -72,8 +75,9 @@ public class ReturnCommand extends Command {
     public void execute() {
         try {
             validateCommand(this.argumentPayload);
-        } catch (BadCommandException invalidCommandException) {
-            UI.printErrorFor(invalidCommandException, INVALID_COMMAND_NOTES);
+        } catch (BadCommandException invalidCommand) {
+            LOGGER.log(Level.SEVERE, INVALID_COMMAND_MSG, invalidCommand);
+            UI.printErrorFor(invalidCommand, INVALID_COMMAND_NOTES);
         }
         ReflectionManager.setIsExit(true);
     }

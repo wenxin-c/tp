@@ -5,8 +5,11 @@ import wellnus.manager.Manager;
 
 import java.util.HashMap;
 import java.util.NoSuchElementException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class ReflectionManager extends Manager {
+    private static final Logger LOGGER = Logger.getLogger(ReflectionManager.class.getName());
     private static final String FEATURE_NAME = "Self Reflection";
     private static final String BRIEF_DESCRIPTION = "Users can get a random set of questions to reflect on.";
     private static final String FULL_DESCRIPTION = "";
@@ -99,6 +102,7 @@ public class ReflectionManager extends Manager {
             supportedCommands.add(returnCmd);
             supportedCommands.add(exitCmd);
         } catch (BadCommandException badCommandException) {
+            LOGGER.log(Level.SEVERE, INVALID_COMMAND_MESSAGE, badCommandException);
             UI.printErrorFor(badCommandException, INVALID_COMMAND_MESSAGE);
         }
     }
@@ -141,8 +145,10 @@ public class ReflectionManager extends Manager {
                 setArgumentPayload(inputCommand);
                 executeCommands();
             } catch (NoSuchElementException noSuchElement) {
+                LOGGER.log(Level.SEVERE, NO_ELEMENT_MESSAGE, noSuchElement);
                 UI.printErrorFor(noSuchElement, NO_ELEMENT_MESSAGE);
             } catch (BadCommandException badCommand) {
+                LOGGER.log(Level.SEVERE, INVALID_COMMAND_MESSAGE, badCommand);
                 UI.printErrorFor(badCommand, INVALID_COMMAND_MESSAGE);
             }
         }
