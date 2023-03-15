@@ -66,17 +66,6 @@ public class MainManager extends Manager {
         }
     }
 
-    private Optional<Manager> getManagerFor(String featureKeyword) {
-        assert (featureKeyword != null && !featureKeyword.isBlank())
-                : MainManager.INVALID_FEATURE_KEYWORD_MESSAGE;
-        for (Manager featureManager : this.getSupportedFeatureManagers()) {
-            if (featureManager.getFeatureName().equals(featureKeyword)) {
-                return Optional.of(featureManager);
-            }
-        }
-        return Optional.empty();
-    }
-
     private List<Manager> getSupportedFeatureManagers() {
         return new ArrayList<>();
     }
@@ -125,6 +114,17 @@ public class MainManager extends Manager {
         // TODO: Call other feature's Managers to build a complete full description of WellNUS++.
         //     getLongAppDescription() is an overall app description, it doesn't include features.
         return MainManager.getLongAppDescription();
+    }
+
+    public Optional<Manager> getManagerFor(String featureKeyword) {
+        assert (featureKeyword != null && !featureKeyword.isBlank())
+                : MainManager.INVALID_FEATURE_KEYWORD_MESSAGE;
+        for (Manager featureManager : this.getSupportedFeatureManagers()) {
+            if (featureManager.getFeatureName().equals(featureKeyword)) {
+                return Optional.of(featureManager);
+            }
+        }
+        return Optional.empty();
     }
 
     /**
