@@ -11,9 +11,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class ReflectionQuestionTest {
-    private final ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
     private static final String QUESTION = "How's today?";
     private static final String EMPTY_QUESTION = "";
+    private final ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
 
     @BeforeEach
     public void setUp() {
@@ -37,3 +37,4 @@ class ReflectionQuestionTest {
                 });
     }
 }
+
