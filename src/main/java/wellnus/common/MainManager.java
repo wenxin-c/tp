@@ -1,6 +1,9 @@
 package wellnus.common;
 
+import wellnus.command.Command;
 import wellnus.command.CommandParser;
+import wellnus.command.ExitCommand;
+import wellnus.command.HelpCommand;
 import wellnus.exception.BadCommandException;
 import wellnus.manager.Manager;
 import wellnus.ui.TextUi;
@@ -17,9 +20,11 @@ public class MainManager extends Manager {
     private static final String INVALID_COMMAND_ADDITIONAL_MESSAGE = "Try 'help' for some guidance";
     private static final String INVALID_FEATURE_KEYWORD_MESSAGE = "Feature keyword can't be empty dear";
     private static final String WELLNUS_FEATURE_NAME = "";
+    private ArrayList<Manager> featureManagers;
     private final TextUi textUi;
 
     public MainManager() {
+        this.featureManagers = new ArrayList<>();
         this.textUi = new TextUi();
     }
 
@@ -48,26 +53,61 @@ public class MainManager extends Manager {
             try {
                 String nextCommand = this.getTextUi().getCommand();
                 String featureKeyword = parser.getMainArgument(nextCommand);
-                HashMap<String, String> arguments = parser.parseUserInput(nextCommand);
                 Optional<Manager> featureManager = this.getManagerFor(featureKeyword);
                 if (featureManager.isEmpty() && !this.isSupportedCommand(featureKeyword)) {
                     BadCommandException badCommandException =
                             new BadCommandException(MainManager.INVALID_COMMAND_MESSAGE);
                     this.getTextUi().printErrorFor(badCommandException,
                             MainManager.INVALID_COMMAND_ADDITIONAL_MESSAGE);
+                    continue;
                 }
-                // TODO: Replace with Command subclass once those changes are merged
-                if (featureKeyword.equals("exit")) {
-                    isExit = true;
-                }
+                featureManager.ifPresent((manager) -> {
+                    // TODO: Consider if there's a way to avoid this extra try-catch?
+                    try {
+                        manager.runEventDriver();
+                    } catch (BadCommandException badCommandException) {
+                        this.getTextUi().printErrorFor(badCommandException, NO_ADDITIONAL_MESSAGE);
+                    }
+                });
+                Command mainCommand = this.getMainCommandFor(nextCommand);
+                mainCommand.execute();
+                isExit = ExitCommand.isExit(mainCommand);
             } catch (BadCommandException badCommandException) {
                 this.getTextUi().printErrorFor(badCommandException, NO_ADDITIONAL_MESSAGE);
             }
         }
     }
 
+    /**
+     * Parses the given command String issued by the user and returns the corresponding
+     *     Command object that can execute it.
+     * @param command Command issued by the user
+     * @return Command object that can execute the user's command
+     * @throws BadCommandException If command issued is not supported or invalid
+     */
+    private Command getMainCommandFor(String command) throws BadCommandException {
+        String commandKeyword = getCommandParser().getMainArgument(command);
+        HashMap<String, String> arguments = getCommandParser().parseUserInput(command);
+        switch (commandKeyword) {
+        case HelpCommand.COMMAND_KEYWORD:
+            return new HelpCommand(arguments, this);
+        case ExitCommand.COMMAND_KEYWORD:
+            return new ExitCommand(arguments);
+        default:
+            throw new BadCommandException(MainManager.INVALID_COMMAND_MESSAGE);
+        }
+    }
+
+    private List<String> getSupportedCommandKeywords() {
+        List<String> commandKeywords = new ArrayList<>();
+        // TODO: Consider if there's a better way than exposing a static variable(a helper method?)
+        commandKeywords.add(ExitCommand.COMMAND_KEYWORD);
+        commandKeywords.add(HelpCommand.COMMAND_KEYWORD);
+        return commandKeywords;
+    }
+
     private List<Manager> getSupportedFeatureManagers() {
-        return new ArrayList<>();
+        return this.featureManagers;
     }
 
     private TextUi getTextUi() {
@@ -79,9 +119,13 @@ public class MainManager extends Manager {
     }
 
     private boolean isSupportedCommand(String commandKeyword) {
-        // TODO: Implement proper, extensible logic for checking command validity
-        //     when all Command subclasses are defined
-        return commandKeyword.equals("exit");
+        List<String> cmdKeywords = this.getSupportedCommandKeywords();
+        for (String cmdKeyword : cmdKeywords) {
+            if (commandKeyword.equals(cmdKeyword)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
