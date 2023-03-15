@@ -18,7 +18,8 @@ public class HelpCommand extends Command {
     private static final String BAD_COMMAND_ADVICE_MESSAGE = "Try 'help' for a list of "
             + "commands/features supported by WellNUS++";
     private static final String COMMAND_ARGUMENTS = "<feature>";
-    private static final String COMMAND_BRIEF_DESCRIPTION = "Lists ";
+    private static final String COMMAND_BRIEF_DESCRIPTION = "Lists all features supported by WellNUS++, or all " +
+            "commands supported by a specific feature";
     private static final String COMMAND_DETAILED_DESCRIPTION = "";
     private static final String COMMAND_INVALID_KEYWORD_MESSAGE = "Wrong command for 'help'";
     private static final String NO_FEATURE_KEYWORD = "";
