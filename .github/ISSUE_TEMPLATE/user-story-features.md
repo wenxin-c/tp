@@ -12,7 +12,6 @@ What is the user story this feature aims to achieve?
 Describe it and label the issue accordingly.  
 - Is it a 'Epic' -> A big feature which can be broken down into smaller stories
 - Is it a 'Story' -> A smaller feature
-- Is it an 'Enhancement' -> An enhancement to an existing story
 
 **Is your feature request related to a problem? Please describe.**
 A clear and concise description of what the problem is. Ex. I'm always frustrated when [...]

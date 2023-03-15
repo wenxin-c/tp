@@ -1,6 +1,6 @@
-package seedu.duke.command;
+package wellnus.command;
 
-import seedu.duke.WellNus;
+import wellnus.WellNus;
 
 import java.util.HashMap;
 

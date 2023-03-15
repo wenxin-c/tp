@@ -1,6 +1,6 @@
-package seedu.duke.command;
+package wellnus.exception;
 
-public class BadCommandException extends Exception {
+public class BadCommandException extends WellNusException {
     public BadCommandException(String errorMessage) {
         super(errorMessage);
     }
