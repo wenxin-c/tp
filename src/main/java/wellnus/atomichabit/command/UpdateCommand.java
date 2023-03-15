@@ -9,6 +9,7 @@ import wellnus.exception.AtomicHabitException;
 import wellnus.exception.BadCommandException;
 import wellnus.ui.TextUi;
 
+import java.io.InputStream;
 import java.util.HashMap;
 
 public class UpdateCommand extends Command {
@@ -35,6 +36,14 @@ public class UpdateCommand extends Command {
         this.atomicHabits = atomicHabits;
         this.parser = new CommandParser();
         this.textUi = new TextUi();
+    }
+
+    public UpdateCommand(InputStream inputStream, HashMap<String, String> arguments,
+                AtomicHabitList atomicHabits) {
+        super(arguments);
+        this.atomicHabits = atomicHabits;
+        this.parser = new CommandParser();
+        this.textUi = new TextUi(inputStream);
     }
 
     private AtomicHabitList getAtomicHabits() {
