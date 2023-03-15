@@ -14,8 +14,10 @@ import java.util.List;
 import java.util.Optional;
 
 public class MainManager extends Manager {
+    private static final String EXIT_COMMAND_KEYWORD = "exit";
     private static final String GREETING_MESSAGE = "Enter a command to start using WellNUS++! Try 'help' "
             + "if you're new, or just unsure.";
+    private static final String HELP_COMMAND_KEYWORD = "help";
     private static final String INVALID_COMMAND_MESSAGE = "Don't recognise that command?";
     private static final String INVALID_COMMAND_ADDITIONAL_MESSAGE = "Try 'help' for some guidance";
     private static final String INVALID_FEATURE_KEYWORD_MESSAGE = "Feature keyword can't be empty dear";
@@ -89,9 +91,9 @@ public class MainManager extends Manager {
         String commandKeyword = getCommandParser().getMainArgument(command);
         HashMap<String, String> arguments = getCommandParser().parseUserInput(command);
         switch (commandKeyword) {
-        case HelpCommand.COMMAND_KEYWORD:
+        case MainManager.HELP_COMMAND_KEYWORD:
             return new HelpCommand(arguments, this);
-        case ExitCommand.COMMAND_KEYWORD:
+        case MainManager.EXIT_COMMAND_KEYWORD:
             return new ExitCommand(arguments);
         default:
             throw new BadCommandException(MainManager.INVALID_COMMAND_MESSAGE);
@@ -101,8 +103,8 @@ public class MainManager extends Manager {
     private List<String> getSupportedCommandKeywords() {
         List<String> commandKeywords = new ArrayList<>();
         // TODO: Consider if there's a better way than exposing a static variable(a helper method?)
-        commandKeywords.add(ExitCommand.COMMAND_KEYWORD);
-        commandKeywords.add(HelpCommand.COMMAND_KEYWORD);
+        commandKeywords.add(MainManager.HELP_COMMAND_KEYWORD);
+        commandKeywords.add(MainManager.EXIT_COMMAND_KEYWORD);
         return commandKeywords;
     }
 

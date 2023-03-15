@@ -20,10 +20,10 @@ public class HelpCommand extends Command {
             "commands supported by a specific feature";
     private static final String COMMAND_DETAILED_DESCRIPTION = "";
     private static final String COMMAND_INVALID_KEYWORD_MESSAGE = "Wrong command for 'help'";
+    private static final String COMMAND_KEYWORD = "help";
     private static final String NO_FEATURE_KEYWORD = "";
     // TODO: Refactor this out as an atribute/method in MainManager instead
     private static final String UNKNOWN_FEATURE_MESSAGE = "Unsupported feature '%s'";
-    public static final String COMMAND_KEYWORD = "help";
     private final MainManager mainManager;
     private final TextUi textUi;
 
