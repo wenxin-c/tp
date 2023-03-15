@@ -10,11 +10,6 @@ public class ReflectionQuestion {
         this.questionDescription = questionDescription;
     }
 
-    /**
-     * Get the description of question.
-     *
-     * @return Question description
-     */
     public String getQuestionDescription() {
         return this.questionDescription;
     }
