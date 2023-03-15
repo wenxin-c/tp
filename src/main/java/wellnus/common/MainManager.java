@@ -127,6 +127,10 @@ public class MainManager extends Manager {
         return Optional.empty();
     }
 
+    public boolean isSupportedFeature(String featureKeyword) {
+        return this.getManagerFor(featureKeyword).isPresent();
+    }
+
     /**
      * Executes the basic commands(e.g. <code>help</code>) as well as any feature-specific
      *     commands, which are delegated to the corresponding features' Managers.<br>
