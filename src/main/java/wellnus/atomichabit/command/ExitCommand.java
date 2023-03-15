@@ -116,8 +116,7 @@ public class ExitCommand extends Command {
         if (arguments.size() != ExitCommand.COMMAND_NUM_OF_ARGUMENTS) {
             throw new BadCommandException(ExitCommand.COMMAND_INVALID_ARGUMENTS_MESSAGE);
         }
-        String commandKeyword = arguments.get(AtomicHabitManager.FEATURE_NAME);
-        if (!commandKeyword.equals(ExitCommand.COMMAND_KEYWORD)) {
+        if (!arguments.containsKey(ExitCommand.COMMAND_KEYWORD)) {
             throw new BadCommandException(ExitCommand.COMMAND_INVALID_COMMAND_MESSAGE);
         }
     }

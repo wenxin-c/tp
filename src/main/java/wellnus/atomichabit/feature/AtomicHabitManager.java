@@ -44,10 +44,7 @@ public class AtomicHabitManager extends Manager {
      */
     private Command getCommandFor(String commandString) throws BadCommandException {
         HashMap<String, String> arguments = getCommandParser().parseUserInput(commandString);
-        if (!arguments.containsKey(AtomicHabitManager.FEATURE_NAME)) {
-            throw new BadCommandException(UNKNOWN_COMMAND_MESSAGE);
-        }
-        String commandKeyword = arguments.get(AtomicHabitManager.FEATURE_NAME);
+        String commandKeyword = getCommandParser().getMainArgument(commandString);
         switch (commandKeyword) {
         case ADD_COMMAND_KEYWORD:
             return new AddCommand(arguments, getHabitList());

@@ -109,8 +109,7 @@ public class ListCommand extends Command {
      */
     @Override
     public void validateCommand(HashMap<String, String> arguments) throws BadCommandException {
-        String commandKeyword = arguments.get(AtomicHabitManager.FEATURE_NAME);
-        if (!commandKeyword.equals(ListCommand.COMMAND_KEYWORD)) {
+        if (!arguments.containsKey(ListCommand.COMMAND_KEYWORD)) {
             throw new BadCommandException(ListCommand.COMMAND_INVALID_ARGUMENTS_MESSAGE);
         }
     }
