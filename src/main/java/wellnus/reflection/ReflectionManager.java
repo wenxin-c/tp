@@ -38,23 +38,10 @@ public class ReflectionManager extends Manager {
         return commandType;
     }
 
-    /**
-     * Method to be called to change self reflection status.
-     * <br/>
-     * True: self reflection exit<br/>
-     * False: self reflection status reset<br/>
-     *
-     * @param status Whether the feature exit or not exit
-     */
     public static void setIsExit(boolean status) {
         isExit = status;
     }
 
-    /**
-     * Get self reflection exit status.
-     *
-     * @return Exit status
-     */
     public static boolean getIsExit() {
         return isExit;
     }
@@ -91,7 +78,7 @@ public class ReflectionManager extends Manager {
     }
 
     /**
-     * Set up the set of command-payload pair supported by self reflection.<br/>
+     * Set up the set of command-payload pairs supported by self reflection.<br/>
      * <li>Command: get, Payload: ""
      * <li>Command: exit, Payload: ""
      * <li>Command: return, Payload: ""
@@ -117,7 +104,8 @@ public class ReflectionManager extends Manager {
     }
 
     /**
-     * Set command argument and payload pairs.
+     * Set command argument and payload pairs from user inputs.<br/>
+     * This is to be used to generate command.
      *
      * @param inputCommand Read from user input
      * @throws BadCommandException If an invalid command was given
@@ -127,7 +115,7 @@ public class ReflectionManager extends Manager {
     }
 
     /**
-     * Get the main command type to determine which command to create.
+     * Set the main command type to determine which command to create.
      *
      * @param inputCommand Read from user input
      * @throws BadCommandException If an invalid command was given
@@ -140,8 +128,7 @@ public class ReflectionManager extends Manager {
     /**
      * Main entry point of self reflection section.<br/>
      * <br/>
-     * It first prints out greeting messages.<br/>
-     * Then listen to and execute user commands.
+     * It prints out greeting messages, listen to and execute user commands.
      */
     @Override
     public void runEventDriver() {
