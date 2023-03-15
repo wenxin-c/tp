@@ -13,6 +13,7 @@ public class ReturnCommand extends Command {
     private static final String PAYLOAD = "";
     private static final ReflectUi UI = new ReflectUi();
     private static final int ARGUMENT_PAYLOAD_SIZE = 1;
+    private static final int EMPTY_ARGUMENT_PAYLOAD = 0;
     private static final String INVALID_COMMAND_MSG = "Command is invalid.";
     private static final String INVALID_COMMAND_NOTES = "Please check the available commands "
             + "and the format of commands.";
@@ -25,7 +26,7 @@ public class ReturnCommand extends Command {
     public ReturnCommand(HashMap<String, String> arguments) throws BadCommandException {
         super(arguments);
         this.argumentPayload = getArguments();
-        assert !argumentPayload.isEmpty() : EMPTY_ARGUMENT_PAYLOAD_ASSERTION;
+        assert argumentPayload.size() > EMPTY_ARGUMENT_PAYLOAD : EMPTY_ARGUMENT_PAYLOAD_ASSERTION;
     }
 
     /**

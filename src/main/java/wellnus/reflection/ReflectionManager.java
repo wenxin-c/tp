@@ -1,7 +1,6 @@
 package wellnus.reflection;
 
 import wellnus.exception.BadCommandException;
-import wellnus.exception.EmptyReflectionQuestionException;
 import wellnus.manager.Manager;
 
 import java.util.HashMap;
@@ -20,7 +19,6 @@ public class ReflectionManager extends Manager {
     private static final String NO_ELEMENT_MESSAGE = "There is no new line of input, please key in inputs.";
     private static final String INVALID_COMMAND_MESSAGE = "Please check the available commands "
             + "and enter a valid command.";
-    private static final String EMPTY_QUESTION_MESSAGE = "The reflection question description cannot be empty!!";
     private static final String IS_EXIT_ASSERTION = "isExit should be true after exiting while loop";
     private static final int EMPTY_COMMAND_TYPE = 0;
     private static final String COMMAND_TYPE_ASSERTION = "Command type should have length greater than 0";
@@ -159,8 +157,6 @@ public class ReflectionManager extends Manager {
                 UI.printErrorFor(noSuchElement, NO_ELEMENT_MESSAGE);
             } catch (BadCommandException badCommand) {
                 UI.printErrorFor(badCommand, INVALID_COMMAND_MESSAGE);
-            } catch (EmptyReflectionQuestionException emptyReflectionQuestionException) {
-                UI.printErrorFor(emptyReflectionQuestionException, EMPTY_QUESTION_MESSAGE);
             }
         }
     }
@@ -175,7 +171,7 @@ public class ReflectionManager extends Manager {
      *
      * @throws BadCommandException If an invalid command was given
      */
-    public void executeCommands() throws BadCommandException, EmptyReflectionQuestionException {
+    public void executeCommands() throws BadCommandException {
         assert commandType.length() > EMPTY_COMMAND_TYPE : COMMAND_TYPE_ASSERTION;
         switch (commandType) {
         case GET_COMMAND:

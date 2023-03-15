@@ -2,7 +2,6 @@ package wellnus.reflection;
 
 import org.junit.jupiter.api.Test;
 import wellnus.exception.BadCommandException;
-import wellnus.exception.EmptyReflectionQuestionException;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -33,7 +32,7 @@ class GetCommandTest {
 
     // Test the number of questions being generated
     @Test
-    void getRandomQuestions_checkLength_expectFive() throws BadCommandException, EmptyReflectionQuestionException {
+    void getRandomQuestions_checkLength_expectFive() throws BadCommandException {
         ReflectionManager reflectManager = new ReflectionManager();
         reflectManager.setArgumentPayload(GET_COMMAND);
         HashMap<String, String> getCmdArgumentPayload = reflectManager.getArgumentPayload();
