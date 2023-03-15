@@ -1,10 +1,12 @@
 package wellnus.common;
 
+import wellnus.atomichabit.feature.AtomicHabitManager;
 import wellnus.command.Command;
 import wellnus.command.CommandParser;
 import wellnus.command.ExitCommand;
 import wellnus.command.HelpCommand;
 import wellnus.exception.BadCommandException;
+import wellnus.exception.WellNusException;
 import wellnus.manager.Manager;
 import wellnus.ui.TextUi;
 
@@ -26,8 +28,10 @@ public class MainManager extends Manager {
     private final TextUi textUi;
 
     public MainManager() {
+        super();
         this.featureManagers = new ArrayList<>();
         this.textUi = new TextUi();
+        this.setSupportedFeatureManagers();
     }
 
     private static String getBriefAppDescription() {
@@ -74,8 +78,8 @@ public class MainManager extends Manager {
                 Command mainCommand = this.getMainCommandFor(nextCommand);
                 mainCommand.execute();
                 isExit = ExitCommand.isExit(mainCommand);
-            } catch (BadCommandException badCommandException) {
-                this.getTextUi().printErrorFor(badCommandException, NO_ADDITIONAL_MESSAGE);
+            } catch (WellNusException exception) {
+                this.getTextUi().printErrorFor(exception, NO_ADDITIONAL_MESSAGE);
             }
         }
     }
@@ -208,8 +212,9 @@ public class MainManager extends Manager {
      * <code> this.supportedManagers.add([mgr1, mgr2, ...]); </code>
      */
     protected void setSupportedFeatureManagers() {
+        this.getSupportedFeatureManagers().add(new AtomicHabitManager());
         // TODO: Implement once all Managers are in
-        // e.g. super.getSupportedFeatureManagers().add(new AtomicHabitManager());
+        // e.g. this.getSupportedFeatureManagers().add(new AtomicHabitManager());
     }
 
 }
