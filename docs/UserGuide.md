@@ -1,42 +1,284 @@
-# User Guide
+# WellNUS++ User Guide
+
+```
+,--.   ,--.       ,--.,--.,--.  ,--.,--. ,--. ,---.     |  |        |  |     
+|  |   |  | ,---. |  ||  ||  ,'.|  ||  | |  |'   .-',---|  |---.,---|  |---. 
+|  |.'.|  || .-. :|  ||  ||  |' '  ||  | |  |`.  `-.'---|  |---''---|  |---' 
+|   ,'.   |\\  --.|  ||  ||  | `   |'  '-'  '.-'    |   |  |        |  |     
+'--'   '--' `----'`--'`--'`--'  `--' `-----' `-----'    `--'        `--'     
+```
 
 ## Introduction
 
-{Give a product intro}
+WellNUS++ is a Command Line Interface(CLI) app for NUS Computing students to keep track and improve their physical and
+mental wellness in various aspects. If you can type fast, WellNUS++ can update their wellness progress faster than
+traditional Graphical User Interface(GUI) apps.
+
+## Table of Contents
+
+- [WellNUS++ User Guide](#wellnus-user-guide)
+    - [Quick Start](#quick-start)
+    - [Features](#features)
+        - [Command format](#command-format)
+        - [Viewing help](#viewing-help--help)
+        - [Accessing feature](#accessing-feature--featurename)
+        - [Add new atomic habit](#add-new-atomic-habit--add)
+        - [List all atomic habits](#list-all-atomic-habit--list)
+        - [Update an atomic habit](#update-an-atomic-habit---update)
+        - [Home](#home--home)
+        - [Get reflection questions](#get-reflection-questions--get)
+        - [Exit](#exit--exit)
+    - [FAQ](#faq)
+    - [Command Summary](#command-summary)
 
 ## Quick Start
 
-{Give steps to get started quickly}
+1. Ensure you have Java 11 or above installed in your Computer.
 
-1. Ensure that you have Java 11 or above installed.
-1. Down the latest version of `Duke` from [here](http://link.to/duke).
+2. Download the latest wellnus++.jar from here.
 
-## Features 
+3. Copy the file to the folder you want to use as the home folder for your WellNUS++.
 
-{Give detailed description of each feature}
+4. Open a command terminal, cd into the folder you put the .jar file in, and use the java -jar wellnus++.jar command to
+   run the application.
+   A CLI should appear in a few seconds.
 
-### Adding a todo: `todo`
+## Features
+
+WellNUS++ comes with a variety of features to help you enhance your overall wellness in NUS!
+
+### Command Format
+
 Adds a new item to the list of todo items.
 
 Format: `todo n/TODO_NAME d/DEADLINE`
 
-* The `DEADLINE` can be in a natural language format.
-* The `TODO_NAME` cannot contain punctuation.  
+* Words in UPPER_CASE are the parameters to be supplied by the user.
+  e.g. in add --name NAME is a parameter which can be used as add --name John Doe.
+* Items in square brackets are optional.
+  E.g --name NAME  [--tag TAG] can be used as --name John Doe --tag friend or as --name John Doe.
 
-Example of usage: 
+* Items with … after them can be used multiple times including zero times.
+  e.g. [--tag TAG]… can be used as   (i.e. 0 times), --tag friend, --tag friend, --tag family etc.
 
-`todo n/Write the rest of the User Guide d/next week`
+* Parameters can be in any order.
+  e.g. if the command specifies --name NAME --phone PHONE_NUMBER, --phone PHONE_NUMBER --name NAME is also acceptable.
 
-`todo n/Refactor the User Guide to remove passive voice d/13/04/2020`
+### Viewing help: `help`
+
+Lists all commands available and provide a short description of the application
+
+Format: `help`
+
+* List all commands available in the app and a short description of the app
+* Give a detailed explanation of the parameters and subcommands for a given command
+
+Example of usage:
+
+`help`
+
+Expected outcome:
+
+```
+---------------------------------------------------------------
+We are here to ensure your wellness is taken care of through WellNUS++
+Here are all the commands available for you!
+1. hb - Keep track of your small daily habits and accumulate it to form a larger behaviour
+2. reflect - Introspective questions for your reflection
+3. timer - Offline countdown timer to keep you focused
+4. exit - Exit the program and have your data saved
+--------------------------------------------------------------
+```
+
+### Accessing feature: `FEATURE_NAME`
+
+Access specific feature from main interface by inputting the feature_name
+Feature name can be referenced by calling the help command
+
+Format: `FEATURE_NAME`
+
+* Accesses unique features to utilise their respective actions
+
+Example of usage:
+
+`reflect`
+
+Expected outcome:
+
+```
+---------------------------------------------------------------
+Welcome to WellNUS++ Self Reflection section :D
+Feel very occupied and cannot find time to self reflect?
+No worries, this section will give you the opportunity to reflect and improve on yourself!!
+--------------------------------------------------------------
+```
+
+### Add new atomic habit: `add`
+
+Adds an atomic habit to be tracked by WellNUS++ when accessing atomic habit feature
+
+Format: `add --name ATOMIC_HABIT_NAME `
+
+* ATOMIC_HABIT_NAME is used to uniquely identify each habit(unique and not null)
+
+Example of usage:
+
+`add --name make bed every morning`
+
+Expected outcome:
+
+```
+—---------------------------------------------------------------
+Yay! You have added a new habit…
+“make bed every morning” was successfully added
+—---------------------------------------------------------------
+```
+
+### List all atomic habit: `list`
+
+Shows a list of all atomic habits.
+
+Format: `list`
+
+Example of usage:
+
+`list`
+
+Expected outcome:
+
+```
+—-------------------------------------------------------------
+Here is the current accumulation of your atomic habits!
+Keep up the good work and you will develop a helpful habit in no time
+1.Make Bed every morning [1]
+2.Read for at least 30 minutes every day [3]
+3.Avoid checking phone for the first hour after waking up [2]
+... 
+—--------------------------------------------------------------- 
+```
+
+### Update an atomic habit: `update
+
+Increment the number of times that an atomic habit has been carried out.
+
+Format:
+
+* Step 1: List the current habits using command
+* `list`
+* Step 2: Select the habit to update by entering the index number of the habit HABIT_INDEX according to index of the
+  list output
+  The user can specify the number of increments for the habit count via NUMBER_TO_INCREMENT
+  The default behaviour is to increment the behaviour by 1
+* `update --id HABIT-INDEX [--inc NUMBER_TO_INCREMENT]`
+
+Example of usage:
+
+* `list`
+* `update --1 --inc 2`
+
+Expected outcome:
+
+```
+—---------------------------------------------------------------
+Here is the current accumulation of your atomic habits!
+Keep up the good work and you will develop a helpful habit in no time
+1. Make bed every morning [5]
+2. Read for at least 30 minutes every day [3] 
+—---------------------------------------------------------------
+```
+
+```
+—---------------------------------------------------------------
+The following habit has been incremented! Keep up the good work!
+1. Make bed every morning [7]
+—---------------------------------------------------------------
+```
+
+### Home: `home`
+
+To leave the current feature and return back to main interface
+
+Format: `home`
+
+Example of usage:
+
+`home`
+
+Expected outcome:
+
+```
+—---------------------------------------------------------------
+Thank you for using atomic habits. Do not forget about me!
+—---------------------------------------------------------------
+```
+
+### Get reflection questions: `get`
+
+Ask WellNUS++ to get a set of 5 random introspective questions for users to view
+
+Format: `get`
+
+Example of usage:
+
+`get`
+
+Expected outcome:
+
+```
+—---------------------------------------------------------------
+Here’s some questions for you:
+1. What’s one thing you are grateful for today?
+2. What do I need to change about myself?
+3. Am I letting matters that are out of my control stress me out?
+4. What have you done today?
+5. What is one thing you are proud of today?
+—---------------------------------------------------------------
+```
+
+### Exit: `exit`
+
+To exit the app, data of the current progress will be saved upon exiting the program
+
+Format: `exit`
+
+Example of usage:
+
+`exit`
+
+Expected outcome:
+
+```
+—---------------------------------------------------------------
+Thank you for using WellNUS++! See you again soon Dx
+—---------------------------------------------------------------
+```
 
 ## FAQ
 
-**Q**: How do I transfer my data to another computer? 
+**Q**: Will my data be saved after every update?
 
-**A**: {your answer here}
+**A**: No it is currently not implemented, saving will only be done when you exit the program
+
+**Q**: How can I navigate the program?
+
+**A**: Please type help when you start the program to view all the commands available
+
+**Q**: How do I start the program?
+
+**A**: Please run the JAR file on your local machine
+
+**Q**: Where will my data be stored?
+
+**A**: Your data will be stored in the separate folder with reference from the program directory
 
 ## Command Summary
 
-{Give a 'cheat sheet' of commands here}
-
-* Add todo `todo n/TODO_NAME d/DEADLINE`
+* Help `help`
+* Access feature `reflect`
+* Add habit `add --name make bed`
+* View habit `list`
+* Update habit `list`
+  `update --id 1 [--inc 2]`
+* Return to main interface `home`
+* Get question `get`
+* Exit program `exit`
