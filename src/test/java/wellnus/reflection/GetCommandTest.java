@@ -39,7 +39,6 @@ class GetCommandTest {
         GetCommand get = new GetCommand(getCmdArgumentPayload);
         ArrayList<ReflectionQuestion> selectedQuestions = get.getRandomQuestions();
         assertEquals(EXPECTED_ARRAY_LENGTH, selectedQuestions.size());
-        SelfReflection.clearQuestions();
     }
 
     // Test whether command is validated properly.
