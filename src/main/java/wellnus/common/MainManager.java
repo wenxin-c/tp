@@ -8,6 +8,7 @@ import wellnus.command.HelpCommand;
 import wellnus.exception.BadCommandException;
 import wellnus.exception.WellNusException;
 import wellnus.manager.Manager;
+import wellnus.reflection.ReflectionManager;
 import wellnus.ui.TextUi;
 
 import java.util.ArrayList;
@@ -213,6 +214,7 @@ public class MainManager extends Manager {
      */
     protected void setSupportedFeatureManagers() {
         this.getSupportedFeatureManagers().add(new AtomicHabitManager());
+        this.getSupportedFeatureManagers().add(new ReflectionManager());
         // TODO: Implement once all Managers are in
         // e.g. this.getSupportedFeatureManagers().add(new AtomicHabitManager());
     }
