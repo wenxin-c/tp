@@ -58,7 +58,8 @@ public class GetCommand extends Command {
      */
     public ArrayList<ReflectionQuestion> getRandomQuestions() {
         ArrayList<ReflectionQuestion> selectedQuestions = new ArrayList<>();
-        ArrayList<ReflectionQuestion> questions = SelfReflection.getQuestions();
+        SelfReflection selfReflection = new SelfReflection();
+        ArrayList<ReflectionQuestion> questions = selfReflection.getQuestions();
         Set<Integer> fiveRandomNumbers = generateRandomNumbers(questions.size());
         for (int index : fiveRandomNumbers) {
             selectedQuestions.add(questions.get(index));
