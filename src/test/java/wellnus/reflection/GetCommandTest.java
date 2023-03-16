@@ -37,7 +37,6 @@ class GetCommandTest {
         reflectManager.setArgumentPayload(GET_COMMAND);
         HashMap<String, String> getCmdArgumentPayload = reflectManager.getArgumentPayload();
         GetCommand get = new GetCommand(getCmdArgumentPayload);
-        SelfReflection selfReflection = new SelfReflection();
         ArrayList<ReflectionQuestion> selectedQuestions = get.getRandomQuestions();
         assertEquals(EXPECTED_ARRAY_LENGTH, selectedQuestions.size());
         SelfReflection.clearQuestions();
