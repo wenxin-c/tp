@@ -16,13 +16,11 @@ import wellnus.ui.TextUi;
 public class AtomicHabitManager extends Manager {
     public static final String FEATURE_NAME = "hb";
     private static final String ADD_COMMAND_KEYWORD = "add";
-    private static final String ATOMIC_HABIT_LOGO = "   _____      __                       .__                 ___ ___            ___.     .__    __             \n" +
-            "  /  _  \\   _/  |_    ____     _____   |__|   ____        /   |   \\  _____    \\_ |__   |__| _/  |_    ______ \n" +
-            " /  /_\\  \\  \\   __\\  /  _ \\   /     \\  |  | _/ ___\\      /    ~    \\ \\__  \\    | __ \\  |  | \\   __\\  /  ___/ \n" +
-            "/    |    \\  |  |   (  <_> ) |  Y Y  \\ |  | \\  \\___      \\    Y    /  / __ \\_  | \\_\\ \\ |  |  |  |    \\___ \\  \n" +
-            "\\____|__  /  |__|    \\____/  |__|_|  / |__|  \\___  >      \\___|_  /  (____  /  |___  / |__|  |__|   /____  > \n" +
-            "        \\/                         \\/            \\/             \\/        \\/       \\/                    \\/  \n" +
-            "                                                                                                             \n";
+    private static final String ATOMIC_HABIT_LOGO = "   _    _                _       _  _        _     _  _       \n" +
+            "  /_\\  | |_  ___  _ __  (_) __  | || | __ _ | |__ (_)| |_  ___\n" +
+            " / _ \\ |  _|/ _ \\| '  \\ | |/ _| | __ |/ _` || '_ \\| ||  _|(_-<\n" +
+            "/_/ \\_\\ \\__|\\___/|_|_|_||_|\\__| |_||_|\\__,_||_.__/|_| \\__|/__/\n" +
+            "                                                              \n";
     private static final String ATOMIC_HABIT_GREET = "Welcome to the atomic habits feature!";
     private static final String EXIT_COMMAND_KEYWORD = "exit";
     /*
