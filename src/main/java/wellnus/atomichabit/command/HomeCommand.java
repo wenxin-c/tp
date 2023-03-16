@@ -7,18 +7,18 @@ import wellnus.ui.TextUi;
 
 import java.util.HashMap;
 
-public class ExitCommand extends Command {
+public class HomeCommand extends Command {
     private static final int COMMAND_NUM_OF_ARGUMENTS = 1;
-    private static final String COMMAND_INVALID_ARGUMENTS_MESSAGE = "That is not a valid exit command for "
+    private static final String COMMAND_INVALID_ARGUMENTS_MESSAGE = "That is not a valid home command for "
             + "atomic habits!";
-    private static final String COMMAND_INVALID_COMMAND_MESSAGE = "Wrong command given for exit!";
-    private static final String COMMAND_KEYWORD = "exit";
+    private static final String COMMAND_INVALID_COMMAND_MESSAGE = "Wrong command given for home!";
+    private static final String COMMAND_KEYWORD = "home";
     private static final String COMMAND_DETAILED_DESCRIPTION = "";
     private static final String COMMAND_SUPPORTED_ARGUMENTS = "";
-    private static final String EXIT_MESSAGE = "Thank you for using atomic habits. Do not forget about me!";
+    private static final String HOME_MESSAGE = "Thank you for using atomic habits. Do not forget about me!";
     private final TextUi textUi;
 
-    public ExitCommand(HashMap<String, String> arguments) {
+    public HomeCommand(HashMap<String, String> arguments) {
         super(arguments);
         this.textUi = new TextUi();
     }
@@ -28,13 +28,13 @@ public class ExitCommand extends Command {
     }
 
     /**
-     * Check if a ByeCommand is executed and user wants to exit program
+     * Check if a HomeCommand is executed and user wants to return to home
      *
      * @param command User command
-     * @return true If user wants to exit false if not
+     * @return true If user wants to exit feature false if not
      */
     public static boolean isExit(Command command) {
-        return command instanceof ExitCommand;
+        return command instanceof HomeCommand;
     }
 
     /**
@@ -80,7 +80,7 @@ public class ExitCommand extends Command {
     }
 
     /**
-     * Prints the exit message for the atomic habits feature on the user's screen.
+     * Prints the exit feature message for the atomic habits feature on the user's screen.
      */
     @Override
     public void execute() {
@@ -91,7 +91,7 @@ public class ExitCommand extends Command {
             this.getTextUi().printErrorFor(badCommandException, NO_ADDITIONAL_MESSAGE);
             return;
         }
-        getTextUi().printOutputMessage(EXIT_MESSAGE);
+        getTextUi().printOutputMessage(HOME_MESSAGE);
     }
 
     /**
@@ -113,11 +113,11 @@ public class ExitCommand extends Command {
      */
     @Override
     public void validateCommand(HashMap<String, String> arguments) throws BadCommandException {
-        if (arguments.size() != ExitCommand.COMMAND_NUM_OF_ARGUMENTS) {
-            throw new BadCommandException(ExitCommand.COMMAND_INVALID_ARGUMENTS_MESSAGE);
+        if (arguments.size() != HomeCommand.COMMAND_NUM_OF_ARGUMENTS) {
+            throw new BadCommandException(HomeCommand.COMMAND_INVALID_ARGUMENTS_MESSAGE);
         }
-        if (!arguments.containsKey(ExitCommand.COMMAND_KEYWORD)) {
-            throw new BadCommandException(ExitCommand.COMMAND_INVALID_COMMAND_MESSAGE);
+        if (!arguments.containsKey(HomeCommand.COMMAND_KEYWORD)) {
+            throw new BadCommandException(HomeCommand.COMMAND_INVALID_COMMAND_MESSAGE);
         }
     }
 }

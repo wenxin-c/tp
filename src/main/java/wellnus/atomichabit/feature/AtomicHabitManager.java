@@ -3,7 +3,7 @@ package wellnus.atomichabit.feature;
 import java.util.HashMap;
 
 import wellnus.atomichabit.command.AddCommand;
-import wellnus.atomichabit.command.ExitCommand;
+import wellnus.atomichabit.command.HomeCommand;
 import wellnus.atomichabit.command.ListCommand;
 import wellnus.atomichabit.command.UpdateCommand;
 import wellnus.command.Command;
@@ -22,7 +22,7 @@ public class AtomicHabitManager extends Manager {
             "/_/ \\_\\ \\__|\\___/|_|_|_||_|\\__| |_||_|\\__,_||_.__/|_| \\__|/__/\n" +
             "                                                              \n";
     private static final String ATOMIC_HABIT_GREET = "Welcome to the atomic habits feature!";
-    private static final String EXIT_COMMAND_KEYWORD = "exit";
+    private static final String HOME_COMMAND_KEYWORD = "home";
     /*
      * FEATURE_* variables: Information about this feature to assist the 'help' command
      */
@@ -53,8 +53,8 @@ public class AtomicHabitManager extends Manager {
         switch (commandKeyword) {
         case ADD_COMMAND_KEYWORD:
             return new AddCommand(arguments, getHabitList());
-        case EXIT_COMMAND_KEYWORD:
-            return new ExitCommand(arguments);
+        case HOME_COMMAND_KEYWORD:
+            return new HomeCommand(arguments);
         case LIST_COMMAND_KEYWORD:
             return new ListCommand(arguments, getHabitList());
         case UPDATE_COMMAND_KEYWORD:
@@ -87,7 +87,7 @@ public class AtomicHabitManager extends Manager {
                 String commandString = getTextUi().getCommand();
                 Command command = getCommandFor(commandString);
                 command.execute();
-                isExit = ExitCommand.isExit(command);
+                isExit = HomeCommand.isExit(command);
             } catch (BadCommandException badCommandException) {
                 String NO_ADDITIONAL_MESSAGE = "";
                 getTextUi().printErrorFor(badCommandException, NO_ADDITIONAL_MESSAGE);
@@ -170,9 +170,9 @@ public class AtomicHabitManager extends Manager {
             case LIST_COMMAND_KEYWORD:
                 arguments = getCommandParser().parseUserInput(LIST_COMMAND);
                 return new ListCommand(arguments, new AtomicHabitList());
-            case EXIT_COMMAND_KEYWORD:
+            case HOME_COMMAND_KEYWORD:
                 arguments = getCommandParser().parseUserInput(EXIT_COMMAND);
-                return new ExitCommand(arguments);
+                return new HomeCommand(arguments);
             case UPDATE_COMMAND_KEYWORD:
                 arguments = getCommandParser().parseUserInput(indexTest);
                 return new UpdateCommand(arguments, new AtomicHabitList());
