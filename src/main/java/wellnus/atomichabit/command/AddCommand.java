@@ -15,6 +15,8 @@ public class AddCommand extends Command {
     private static final String COMMAND_KEYWORD = "add";
     private static final String COMMAND_INVALID_ARGUMENTS_MESSAGE = "Wrong arguments given to 'hb add'!";
     private static final String COMMAND_NAME_ARGUMENT = "name";
+    private static final String COMMAND_KEYWORD_ASSERTION = "The key should be add.";
+    private static final String COMMAND_PAYLOAD_ASSERTION = "The payload should not be empty.";
     private static final int COMMAND_NUM_OF_ARGUMENTS = 2;
     private static final String COMMAND_SUPPORTED_ARGUMENTS = "";
     private static final String COMMAND_WRONG_KEYWORD_MESSAGE = "Wrong command issued by the user, expected 'hb add'?";
@@ -47,6 +49,7 @@ public class AddCommand extends Command {
      */
     @Override
     protected String getCommandKeyword() {
+        assert COMMAND_KEYWORD != null : "COMMAND_KEYWORD cannot be null";
         return COMMAND_KEYWORD;
     }
 
@@ -83,7 +86,7 @@ public class AddCommand extends Command {
 
     /**
      * Adds of the new atomic habit into our list of atomic habits.
-     *
+     * <p>
      * After that, print a message telling the user what the new habit added is
      */
     @Override
@@ -95,6 +98,7 @@ public class AddCommand extends Command {
             this.getTextUi().printErrorFor(badCommandException, NO_ADDITIONAL_MESSAGE);
             return;
         }
+        assert super.getArguments().containsKey(COMMAND_KEYWORD) : COMMAND_KEYWORD_ASSERTION;
         String name = super.getArguments().get(AddCommand.COMMAND_NAME_ARGUMENT);
         AtomicHabit habit = new AtomicHabit(name);
         this.getAtomicHabits().addAtomicHabit(habit);
