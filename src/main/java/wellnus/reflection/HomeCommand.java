@@ -81,6 +81,7 @@ public class HomeCommand extends Command {
             validateCommand(this.argumentPayload);
         } catch (BadCommandException invalidCommandException) {
             UI.printErrorFor(invalidCommandException, INVALID_COMMAND_NOTES);
+            return;
         }
         assert argumentPayload.containsKey(COMMAND_KEYWORD) : COMMAND_KEYWORD_ASSERTION;
         assert argumentPayload.get(COMMAND_KEYWORD).equals(PAYLOAD) : COMMAND_PAYLOAD_ASSERTION;
@@ -106,7 +107,7 @@ public class HomeCommand extends Command {
             throw new BadCommandException(INVALID_COMMAND_MSG);
         } else if (!commandMap.containsKey(COMMAND_KEYWORD)) {
             throw new BadCommandException(INVALID_COMMAND_MSG);
-        } else if (!(commandMap.get(COMMAND_KEYWORD).equals(PAYLOAD))) {
+        } else if (!commandMap.get(COMMAND_KEYWORD).equals(PAYLOAD)) {
             throw new BadCommandException(INVALID_COMMAND_MSG);
         }
     }
