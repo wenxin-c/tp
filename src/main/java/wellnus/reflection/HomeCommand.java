@@ -5,32 +5,35 @@ import wellnus.exception.BadCommandException;
 
 import java.util.HashMap;
 
-public class ExitCommand extends Command {
+public class HomeCommand extends Command {
     private static final String FEATURE_NAME = "reflect";
-    private static final String COMMAND_KEYWORD = "exit";
+    private static final String COMMAND_KEYWORD = "home";
     private static final String FULL_DESCRIPTION = "";
-    private static final String ARGUMENT = "exit";
+    private static final String ARGUMENT = "home";
     private static final String PAYLOAD = "";
     private static final ReflectUi UI = new ReflectUi();
     private static final int ARGUMENT_PAYLOAD_SIZE = 1;
+    private static final int EMPTY_ARGUMENT_PAYLOAD = 0;
     private static final String INVALID_COMMAND_MSG = "Command is invalid.";
     private static final String INVALID_COMMAND_NOTES = "Please check the available commands "
             + "and the format of commands.";
     private static final String EMPTY_ARGUMENT_PAYLOAD_ASSERTION = "The argument-payload pair cannot be empty!";
-    private static final String COMMAND_KEYWORD_ASSERTION = "The key should be exit.";
+    private static final String COMMAND_KEYWORD_ASSERTION = "The key should be return.";
     private static final String COMMAND_PAYLOAD_ASSERTION = "The payload should be empty.";
+    private static final String HOME_MESSAGE = "How do you feel after reflecting on yourself?" +
+            System.lineSeparator() + "Hope you have gotten some takeaways from self reflection, see you again!!";
     private HashMap<String, String> argumentPayload;
 
-    public ExitCommand(HashMap<String, String> arguments) throws BadCommandException {
+    public HomeCommand(HashMap<String, String> arguments) throws BadCommandException {
         super(arguments);
         this.argumentPayload = getArguments();
-        assert !argumentPayload.isEmpty() : EMPTY_ARGUMENT_PAYLOAD_ASSERTION;
+        assert argumentPayload.size() > EMPTY_ARGUMENT_PAYLOAD : EMPTY_ARGUMENT_PAYLOAD_ASSERTION;
     }
 
     /**
      * Get the command itself.
      *
-     * @return Command: exit
+     * @return Command: home
      */
     @Override
     protected String getCommandKeyword() {
@@ -38,10 +41,10 @@ public class ExitCommand extends Command {
     }
 
     /**
-     * Get detailed description of an exit command.
+     * Get detailed description of a home command.<br/>
      * TODO: FULL_DESCRIPTION is not completed yet.
      *
-     * @return Full description of exit command
+     * @return Full description of home command
      */
     @Override
     protected String getDetailedDescription() {
@@ -49,9 +52,9 @@ public class ExitCommand extends Command {
     }
 
     /**
-     * Get the name of the feature in which this exit command is generated.
+     * Get the name of the feature in which this home command is generated.
      *
-     * @return Self reflection
+     * @return Feature name: reflect
      */
     @Override
     protected String getFeatureKeyword() {
@@ -59,9 +62,9 @@ public class ExitCommand extends Command {
     }
 
     /**
-     * Only one supported argument for exit command.
+     * Only one supported argument for home command.
      *
-     * @return Argument: exit
+     * @return Argument: home
      */
     @Override
     protected String getSupportedCommandArguments() {
@@ -69,9 +72,8 @@ public class ExitCommand extends Command {
     }
 
     /**
-     * Main entry point of Exit command.<br/>
-     * Validity of command will be checked.
-     * TODO: Add exit method after main manager is merged.
+     * Main entry point of this command.<br/>
+     * Return back to WellNUS++ main interface
      */
     @Override
     public void execute() {
@@ -83,6 +85,8 @@ public class ExitCommand extends Command {
         }
         assert argumentPayload.containsKey(COMMAND_KEYWORD) : COMMAND_KEYWORD_ASSERTION;
         assert argumentPayload.get(COMMAND_KEYWORD).equals(PAYLOAD) : COMMAND_PAYLOAD_ASSERTION;
+        UI.printOutputMessage(HOME_MESSAGE);
+        ReflectionManager.setIsExit(true);
     }
 
     /**
@@ -90,7 +94,7 @@ public class ExitCommand extends Command {
      * <br/>
      * Conditions for command to be valid:<br/>
      * <li>Only one argument-payload pair
-     * <li>The pair contains key: exit
+     * <li>The pair contains key: return
      * <li>Payload is empty
      * Whichever mismatch will cause the command to be invalid.
      *
