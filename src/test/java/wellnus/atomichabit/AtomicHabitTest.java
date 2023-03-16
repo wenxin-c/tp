@@ -18,7 +18,8 @@ import java.io.PrintStream;
 import java.util.HashMap;
 
 public class AtomicHabitTest {
-    private static final String UPDATE_HABIT_COMMAND = "hb update";
+    private static final String ADD_HABIT_COMMAND = "add";
+    private static final String UPDATE_HABIT_COMMAND = "update";
     private final AtomicHabitList habitList;
     private final ByteArrayOutputStream outputStreamCaptor;
     private final CommandParser parser;
@@ -63,7 +64,7 @@ public class AtomicHabitTest {
                 + payload
                 + "'"
                 + " was successfully added";
-        String testCommand = "hb add --name " + payload;
+        String testCommand = String.format("%s --name %s", ADD_HABIT_COMMAND, payload);
         HashMap<String, String> arguments = parser.parseUserInput(testCommand);
         Command command = new AddCommand(arguments, habitList);
         command.execute();

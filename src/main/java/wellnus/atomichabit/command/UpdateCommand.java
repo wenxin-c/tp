@@ -180,8 +180,7 @@ public class UpdateCommand extends Command {
      */
     @Override
     public void validateCommand(HashMap<String, String> arguments) throws BadCommandException {
-        String commandKeyword = arguments.get(AtomicHabitManager.FEATURE_NAME);
-        if (!commandKeyword.equals(UpdateCommand.COMMAND_KEYWORD)) {
+        if (!arguments.containsKey(UpdateCommand.COMMAND_KEYWORD)) {
             throw new BadCommandException(UpdateCommand.COMMAND_INVALID_COMMAND_MESSAGE);
         }
         if (arguments.size() < UpdateCommand.COMMAND_MIN_NUM_OF_ARGUMENTS) {
