@@ -60,6 +60,7 @@ public class MainManager extends Manager {
                 String nextCommand = this.getTextUi().getCommand();
                 String featureKeyword = parser.getMainArgument(nextCommand);
                 Optional<Manager> featureManager = this.getManagerFor(featureKeyword);
+                // User gave a command that's not any feature's keyword nor a recognised main command
                 if (featureManager.isEmpty() && !this.isSupportedCommand(featureKeyword)) {
                     BadCommandException badCommandException =
                             new BadCommandException(MainManager.INVALID_COMMAND_MESSAGE);
@@ -67,6 +68,7 @@ public class MainManager extends Manager {
                             MainManager.INVALID_COMMAND_ADDITIONAL_MESSAGE);
                     continue;
                 }
+                // User issued a feature keyword, pass control to the corresponding feature's Manager
                 featureManager.ifPresent((manager) -> {
                     // TODO: Consider if there's a way to avoid this extra try-catch?
                     try {
@@ -75,6 +77,7 @@ public class MainManager extends Manager {
                         this.getTextUi().printErrorFor(badCommandException, NO_ADDITIONAL_MESSAGE);
                     }
                 });
+                // User issued a main command, e.g. 'help'
                 if (featureManager.isEmpty()) {
                     Command mainCommand = this.getMainCommandFor(nextCommand);
                     mainCommand.execute();
