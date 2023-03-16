@@ -32,6 +32,8 @@ public class HelpCommand extends Command {
     private static final String PADDING = " ";
     private static final String DOT = ".";
     private static final int ONE_OFFSET = 1;
+    private static final int EMPTY_ARG_LENGTH = 0;
+    private static final int EXPECTED_PAYLOAD_SIZE = 1;
     private final TextUi textUi;
 
     public HelpCommand(HashMap<String, String> arguments, MainManager mainManager) throws BadCommandException {
@@ -116,7 +118,7 @@ public class HelpCommand extends Command {
     public void validateCommand(HashMap<String, String> arguments) throws BadCommandException {
         assert arguments.containsKey(COMMAND_KEYWORD) : "HelpCommand's payload map does not contain 'help'!";
         // Check if user put in unnecessary payload or arguments
-        if (arguments.get(COMMAND_KEYWORD).length() > 0 || arguments.size() > 1) {
+        if (arguments.get(COMMAND_KEYWORD).length() > EMPTY_ARG_LENGTH || arguments.size() > EXPECTED_PAYLOAD_SIZE) {
             throw new BadCommandException(BAD_COMMAND_MESSAGE);
         }
     }
