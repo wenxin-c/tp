@@ -120,8 +120,7 @@ public class AddCommand extends Command {
         if (arguments.size() != AddCommand.COMMAND_NUM_OF_ARGUMENTS) {
             throw new BadCommandException(AddCommand.COMMAND_INVALID_ARGUMENTS_MESSAGE);
         }
-        String givenCommandKeyword = arguments.get(AtomicHabitManager.FEATURE_NAME);
-        if (!givenCommandKeyword.equals(AddCommand.COMMAND_KEYWORD)) {
+        if (!arguments.containsKey(AddCommand.COMMAND_KEYWORD)) {
             throw new BadCommandException(AddCommand.COMMAND_WRONG_KEYWORD_MESSAGE);
         }
         String name = arguments.get(AddCommand.COMMAND_NAME_ARGUMENT);
