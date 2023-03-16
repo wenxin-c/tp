@@ -159,7 +159,7 @@ public class GetCommand extends Command {
      * @return Single string that consists of all questions
      */
     private String convertQuestionsToString() {
-        ArrayList selectedQuestions = getRandomQuestions();
+        ArrayList<ReflectionQuestion> selectedQuestions = getRandomQuestions();
         String questionString = "";
         for (int i = 0; i < selectedQuestions.size(); i += 1) {
             questionString += (Integer.toString(i + 1) + selectedQuestions.get(i).toString()
