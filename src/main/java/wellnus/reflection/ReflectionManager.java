@@ -4,7 +4,6 @@ import wellnus.exception.BadCommandException;
 import wellnus.manager.Manager;
 
 import java.util.HashMap;
-import java.util.Locale;
 import java.util.NoSuchElementException;
 
 public class ReflectionManager extends Manager {
