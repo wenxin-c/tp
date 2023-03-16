@@ -49,10 +49,6 @@ WellNUS++ comes with a variety of features to help you enhance your overall well
 
 ### Command Format
 
-Adds a new item to the list of todo items.
-
-Format: `todo n/TODO_NAME d/DEADLINE`
-
 * Words in UPPER_CASE are the parameters to be supplied by the user.
   e.g. in add --name NAME is a parameter which can be used as add --name John Doe.
 * Items in square brackets are optional.
@@ -80,14 +76,21 @@ Example of usage:
 Expected outcome:
 
 ```
----------------------------------------------------------------
-We are here to ensure your wellness is taken care of through WellNUS++
-Here are all the commands available for you!
-1. hb - Keep track of your small daily habits and accumulate it to form a larger behaviour
-2. reflect - Introspective questions for your reflection
-3. timer - Offline countdown timer to keep you focused
-4. exit - Exit the program and have your data saved
---------------------------------------------------------------
+------------------------------------------------------------
+    We are here to ensure your wellness is taken care of through WellNUS++
+    Here are all the commands available for you!
+------------------------------------------------------------
+```
+
+```
+------------------------------------------------------------
+    1. hb - Enter Atomic Habits: Track your small daily habits and nurture it to form a larger behaviour
+    usage: hb
+    2. reflect - Read through introspective questions for your reflection
+    usage: reflect
+    3. exit - Exit WellNUS++
+    usage: exit
+------------------------------------------------------------
 ```
 
 ### Accessing feature: `FEATURE_NAME`
@@ -106,11 +109,11 @@ Example of usage:
 Expected outcome:
 
 ```
----------------------------------------------------------------
-Welcome to WellNUS++ Self Reflection section :D
-Feel very occupied and cannot find time to self reflect?
-No worries, this section will give you the opportunity to reflect and improve on yourself!!
---------------------------------------------------------------
+============================================================
+    Welcome to WellNUS++ Self Reflection section :D
+    Feel very occupied and cannot find time to self reflect?
+    No worries, this section will give you the opportunity to reflect and improve on yourself!!
+============================================================
 ```
 
 ### Add new atomic habit: `add`
@@ -128,10 +131,10 @@ Example of usage:
 Expected outcome:
 
 ```
-—---------------------------------------------------------------
-Yay! You have added a new habit…
-“make bed every morning” was successfully added
-—---------------------------------------------------------------
+------------------------------------------------------------
+    Yay! You have added a new habit:
+    'make bed every morning' was successfully added
+------------------------------------------------------------
 ```
 
 ### List all atomic habit: `list`
@@ -174,7 +177,7 @@ Format:
 Example of usage:
 
 * `list`
-* `update --1 --inc 2`
+* `update --id 1 --inc 2`
 
 Expected outcome:
 
@@ -225,14 +228,13 @@ Example of usage:
 Expected outcome:
 
 ```
-—---------------------------------------------------------------
-Here’s some questions for you:
-1. What’s one thing you are grateful for today?
-2. What do I need to change about myself?
-3. Am I letting matters that are out of my control stress me out?
-4. What have you done today?
-5. What is one thing you are proud of today?
-—---------------------------------------------------------------
+============================================================
+    1.What are three of my most cherished personal values?
+    2.What is my purpose in life?
+    3.What scares me the most right now?
+    4.What is something that brings me joy?
+    5.When is the last time I gave back to others?
+============================================================
 ```
 
 ### Exit: `exit`
@@ -248,9 +250,9 @@ Example of usage:
 Expected outcome:
 
 ```
-—---------------------------------------------------------------
-Thank you for using WellNUS++! See you again soon Dx
-—---------------------------------------------------------------
+============================================================
+    Thank you for using WellNUS++! See you again soon Dx
+============================================================
 ```
 
 ## FAQ
