@@ -75,9 +75,11 @@ public class MainManager extends Manager {
                         this.getTextUi().printErrorFor(badCommandException, NO_ADDITIONAL_MESSAGE);
                     }
                 });
-                Command mainCommand = this.getMainCommandFor(nextCommand);
-                mainCommand.execute();
-                isExit = ExitCommand.isExit(mainCommand);
+                if (featureManager.isEmpty()) {
+                    Command mainCommand = this.getMainCommandFor(nextCommand);
+                    mainCommand.execute();
+                    isExit = ExitCommand.isExit(mainCommand);
+                }
             } catch (WellNusException exception) {
                 this.getTextUi().printErrorFor(exception, NO_ADDITIONAL_MESSAGE);
             }
