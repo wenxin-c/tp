@@ -79,6 +79,7 @@ public class ExitCommand extends Command {
             validateCommand(this.argumentPayload);
         } catch (BadCommandException invalidCommandException) {
             UI.printErrorFor(invalidCommandException, INVALID_COMMAND_NOTES);
+            return;
         }
         assert argumentPayload.containsKey(COMMAND_KEYWORD) : COMMAND_KEYWORD_ASSERTION;
         assert argumentPayload.get(COMMAND_KEYWORD).equals(PAYLOAD) : COMMAND_PAYLOAD_ASSERTION;
