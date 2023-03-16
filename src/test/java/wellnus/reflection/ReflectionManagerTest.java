@@ -59,8 +59,7 @@ class ReflectionManagerTest {
         ReflectionManager reflectionManager = new ReflectionManager();
         ArrayList<Command> supportedCommands = reflectionManager.getSupportedCommands();
         assertTrue(supportedCommands.get(0) instanceof GetCommand);
-        assertTrue(supportedCommands.get(1) instanceof ReturnCommand);
-        assertTrue(supportedCommands.get(2) instanceof ExitCommand);
+        assertTrue(supportedCommands.get(1) instanceof HomeCommand);
     }
 }
 
