@@ -2,75 +2,72 @@ package wellnus.command;
 
 import wellnus.common.MainManager;
 import wellnus.exception.BadCommandException;
-import wellnus.manager.Manager;
 import wellnus.ui.TextUi;
 
 import java.util.HashMap;
 
 /**
  * Implementation of WellNus' <code>help</code> command. Explains to the user what commands are supported
- *   by WellNus and how to use each command.
+ * by WellNus and how to use each command.
  */
 public class HelpCommand extends Command {
-    private static final String BAD_COMMAND_MESSAGE = "Invalid arguments given for %s command";
-    private static final String BAD_COMMAND_ADVICE_MESSAGE = "Try 'help' for a list of "
-            + "commands/features supported by WellNUS++";
+    private static final String BAD_COMMAND_MESSAGE = "help does not take in any arguments!";
     private static final String COMMAND_ARGUMENTS = "<feature>";
-    private static final String COMMAND_BRIEF_DESCRIPTION = "Lists all features supported by WellNUS++, or all " +
-            "commands supported by a specific feature";
     private static final String COMMAND_DETAILED_DESCRIPTION = "";
-    private static final String COMMAND_INVALID_KEYWORD_MESSAGE = "Wrong command for 'help'";
     private static final String COMMAND_KEYWORD = "help";
     private static final String NO_FEATURE_KEYWORD = "";
-    // TODO: Refactor this out as an atribute/method in MainManager instead
-    private static final String UNKNOWN_FEATURE_MESSAGE = "Unsupported feature '%s'";
-    private final MainManager mainManager;
+
+    private static final String HELP_PREAMBLE = "We are here to ensure your wellness"
+                                                    + " is taken care of through WellNUS++\n"
+                                                    + "Here are all the commands available for you!\n";
+    private static final String FEATURE_HABIT = "hb - Enter Atomic Habits: "
+                                                    + "Track your small daily habits and "
+                                                    + "nurture it to form a larger behaviour";
+    private static final String USAGE_HABIT = "\tusage: hb";
+    private static final String FEATURE_REFLECT = "reflect - Read through introspective questions for your reflection";
+    private static final String USAGE_REFLECT = "\tusage: reflect";
+    private static final String COMMAND_EXIT = "exit - Exit WellNUS++";
+    private static final String USAGE_EXIT = "\tusage: exit";
+
+    private static final String PADDING = " ";
+    private static final String DOT = ".";
+    private static final int ONE_OFFSET = 1;
+    private static final int EMPTY_ARG_LENGTH = 0;
+    private static final int EXPECTED_PAYLOAD_SIZE = 1;
     private final TextUi textUi;
 
-    public HelpCommand(HashMap<String, String> arguments, MainManager mainManager)
-            throws BadCommandException {
+    public HelpCommand(HashMap<String, String> arguments, MainManager mainManager) throws BadCommandException {
         super(arguments);
-        this.mainManager = mainManager;
         this.textUi = new TextUi();
-    }
-
-    private String getBriefDescription() {
-        return HelpCommand.COMMAND_BRIEF_DESCRIPTION;
-    }
-
-    /*
-     * Checks the command arguments for this help command to determine if
-     *   the user wants an overall description of WellNus's supported features
-     *   or a detailed description of a specific feature.
-     *
-     * @return boolean Whether the user just wants an overall (brief) description of WellNus's features
-     */
-    private boolean isBriefHelp() {
-        String featureKeywordIfExists = super.getArguments().get(this.getCommandKeyword());
-        return featureKeywordIfExists.isBlank();
-    }
-
-    private MainManager getMainManager() {
-        return this.mainManager;
     }
 
     private TextUi getTextUi() {
         return this.textUi;
     }
 
-    private void printBriefHelp() {
-        String appBriefDescription = this.getMainManager().getBriefDescription();
-        this.getTextUi().printOutputMessage(appBriefDescription);
+    /**
+     * Lists all features available in WellNUS++ and a short description
+     */
+    private void printHelpMessage() {
+        this.getTextUi().printOutputMessage(HELP_PREAMBLE);
+        // Refactor this out if it does not scale well
+        String[] commandDescriptions = {
+            FEATURE_HABIT, FEATURE_REFLECT, COMMAND_EXIT
+        };
+        String[] commandUsages = {
+            USAGE_HABIT, USAGE_REFLECT, USAGE_EXIT
+        };
+        String outputMessage = "";
+        for (int i = 0; i < commandUsages.length; i += 1) {
+            outputMessage = outputMessage.concat(i + ONE_OFFSET + DOT + PADDING);
+            outputMessage = outputMessage.concat(commandDescriptions[i] + System.lineSeparator());
+            outputMessage = outputMessage.concat(commandUsages[i] + System.lineSeparator());
+        }
+        this.getTextUi().printOutputMessage(outputMessage);
     }
 
-    private void printDetailedHelp(String featureKeyword) {
-        // We already check that the feature is supported in execute(), getManagerFor() cannot return
-        //     an empty Optional
-        Manager featureManager = this.getMainManager().getManagerFor(featureKeyword).get();
-        String helpCommandDetailedDescription = featureManager.getFullDescription();
-        this.getTextUi().printOutputMessage(helpCommandDetailedDescription);
-    }
 
+    // TODO: Potential depreciation of the below functions
     @Override
     protected String getCommandKeyword() {
         return HelpCommand.COMMAND_KEYWORD;
@@ -93,28 +90,22 @@ public class HelpCommand extends Command {
 
     /**
      * Executes the issued help command.<br>
-     *
+     * <p>
      * Prints a brief description of all of WellNus' supported commands if
-     *   the basic 'help' command was issued.<br>
-     *
+     * the basic 'help' command was issued.<br>
+     * <p>
      * Prints a detailed description of a specific feature if the specialised
-     *   'help' command was issued.
+     * 'help' command was issued.
      */
     @Override
     public void execute() {
         try {
-            validateCommand(super.getArguments());
-        } catch (BadCommandException badCommandException) {
-            this.getTextUi().printErrorFor(badCommandException,
-                    HelpCommand.BAD_COMMAND_ADVICE_MESSAGE);
+            validateCommand(getArguments());
+        } catch (BadCommandException exception) {
+            getTextUi().printOutputMessage(exception.getMessage());
             return;
         }
-        if (isBriefHelp()) {
-            this.printBriefHelp();
-        } else {
-            String featureKeyword = super.getArguments().get(HelpCommand.COMMAND_KEYWORD);
-            this.printDetailedHelp(featureKeyword);
-        }
+        this.printHelpMessage();
     }
 
     /**
@@ -125,14 +116,10 @@ public class HelpCommand extends Command {
      */
     @Override
     public void validateCommand(HashMap<String, String> arguments) throws BadCommandException {
-        if (!arguments.containsKey(HelpCommand.COMMAND_KEYWORD)) {
-            throw new BadCommandException(COMMAND_INVALID_KEYWORD_MESSAGE);
-        }
-        String featureKeyword = arguments.get(HelpCommand.COMMAND_KEYWORD);
-        boolean isFeatureSupported = this.getMainManager().isSupportedFeature(featureKeyword);
-        if (!featureKeyword.isBlank() && !isFeatureSupported) {
-            throw new BadCommandException(String.format(HelpCommand.UNKNOWN_FEATURE_MESSAGE,
-                    featureKeyword));
+        assert arguments.containsKey(COMMAND_KEYWORD) : "HelpCommand's payload map does not contain 'help'!";
+        // Check if user put in unnecessary payload or arguments
+        if (arguments.get(COMMAND_KEYWORD).length() > EMPTY_ARG_LENGTH || arguments.size() > EXPECTED_PAYLOAD_SIZE) {
+            throw new BadCommandException(BAD_COMMAND_MESSAGE);
         }
     }
 }
