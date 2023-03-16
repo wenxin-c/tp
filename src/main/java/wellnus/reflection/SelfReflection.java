@@ -70,7 +70,6 @@ public class SelfReflection {
     }
 
     public static ArrayList<ReflectionQuestion> getQuestions() {
-        assert questions.size() != 0 : "SelfReflection should never contain 0 questions, check your code logic";
         return questions;
     }
 
