@@ -16,6 +16,13 @@ import wellnus.ui.TextUi;
 public class AtomicHabitManager extends Manager {
     public static final String FEATURE_NAME = "hb";
     private static final String ADD_COMMAND_KEYWORD = "add";
+    private static final String ATOMIC_HABIT_LOGO = "   _____      __                       .__                 ___ ___            ___.     .__    __             \n" +
+            "  /  _  \\   _/  |_    ____     _____   |__|   ____        /   |   \\  _____    \\_ |__   |__| _/  |_    ______ \n" +
+            " /  /_\\  \\  \\   __\\  /  _ \\   /     \\  |  | _/ ___\\      /    ~    \\ \\__  \\    | __ \\  |  | \\   __\\  /  ___/ \n" +
+            "/    |    \\  |  |   (  <_> ) |  Y Y  \\ |  | \\  \\___      \\    Y    /  / __ \\_  | \\_\\ \\ |  |  |  |    \\___ \\  \n" +
+            "\\____|__  /  |__|    \\____/  |__|_|  / |__|  \\___  >      \\___|_  /  (____  /  |___  / |__|  |__|   /____  > \n" +
+            "        \\/                         \\/            \\/             \\/        \\/       \\/                    \\/  \n" +
+            "                                                                                                             \n";
     private static final String ATOMIC_HABIT_GREET = "Welcome to the atomic habits feature!";
     private static final String EXIT_COMMAND_KEYWORD = "exit";
     /*
@@ -36,7 +43,7 @@ public class AtomicHabitManager extends Manager {
 
     /**
      * Parses the given command from the user and determines the correct Command
-     *     subclass that can handle its execution.
+     * subclass that can handle its execution.
      *
      * @param commandString Full command issued by the user
      * @return Command object that can execute the user's command
@@ -71,12 +78,12 @@ public class AtomicHabitManager extends Manager {
     }
 
     private void greet() {
-        getTextUi().printOutputMessage(ATOMIC_HABIT_GREET);
+        getTextUi().printOutputMessage(ATOMIC_HABIT_GREET + System.lineSeparator() + ATOMIC_HABIT_LOGO);
     }
 
     /**
      * Reads user commands continuously and execute those that are supported
-     *     until the exit command is given.
+     * until the exit command is given.
      */
     private void runCommands() {
         boolean isExit = false;
