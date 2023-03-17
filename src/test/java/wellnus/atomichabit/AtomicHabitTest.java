@@ -89,7 +89,7 @@ public class AtomicHabitTest {
      * Test UpdateCommand with a standard payload and default increment to check output printed
      */
     @Test
-    public void updateHabit_checkOutput_success() throws WellNusException {
+    public void updateHabit_checkOutputDefaultIncrement_success() throws WellNusException {
         addHabit_checkOutput_success();
         String payload = "junit test";
         String habitIndex = "1";
@@ -100,6 +100,28 @@ public class AtomicHabitTest {
         String expectedUpdateHabitOutput = "The following habit has been incremented! Keep up the good work!"
                 + System.lineSeparator()
                 + habitIndex + "." + payload + " " + "[2]";
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outputStream));
+        updateCommand.execute();
+        Assertions.assertEquals(expectedUpdateHabitOutput, getMessageFrom(outputStream.toString()));
+    }
+
+    /**
+     * Test UpdateCommand with a standard payload and user-inputted increment to check output printed
+     */
+    @Test
+    public void updateHabit_checkOutputUserInputIncrement_success() throws WellNusException {
+        addHabit_checkOutput_success();
+        String payload = "junit test";
+        String habitIndex = "1";
+        String increment = "3";
+        String testUpdateCommand = String.format("%s --id %s --inc %s", UPDATE_HABIT_COMMAND, habitIndex, increment)
+                + System.lineSeparator();
+        HashMap<String, String> arguments = parser.parseUserInput(testUpdateCommand);
+        Command updateCommand = new UpdateCommand(arguments, habitList);
+        String expectedUpdateHabitOutput = "The following habit has been incremented! Keep up the good work!"
+                + System.lineSeparator()
+                + habitIndex + "." + payload + " " + "[4]";
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outputStream));
         updateCommand.execute();
@@ -142,6 +164,30 @@ public class AtomicHabitTest {
         arguments = parser.parseUserInput(testNegativeIndexCommand);
         Command updateCommandForNegativeIndex = new UpdateCommand(arguments, habitList);
         Assertions.assertThrows(AtomicHabitException.class, updateCommandForNegativeIndex::execute);
+    }
+
+    /**
+     * Test UpdateCommand to print message to indicate the habit has not been incremented
+     * if the user does not input positive number for the increment
+     */
+    @Test
+    public void updateHabit_checkIncrementNotPositive_success() throws WellNusException {
+        addHabit_checkOutput_success();
+        String payload = "junit test";
+        String habitIndex = "1";
+        String increment = "-10";
+        String testUpdateCommand = String.format("%s --id %s --inc %s", UPDATE_HABIT_COMMAND, habitIndex, increment)
+                + System.lineSeparator();
+        HashMap<String, String> arguments = parser.parseUserInput(testUpdateCommand);
+        Command updateCommand = new UpdateCommand(arguments, habitList);
+        String expectedUpdateHabitOutput = "The following habit has not been updated! "
+                + "Enter a positive integer to update your habit!"
+                + System.lineSeparator()
+                + habitIndex + "." + payload + " " + "[1]";
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outputStream));
+        updateCommand.execute();
+        Assertions.assertEquals(expectedUpdateHabitOutput, getMessageFrom(outputStream.toString()));
     }
 }
 
