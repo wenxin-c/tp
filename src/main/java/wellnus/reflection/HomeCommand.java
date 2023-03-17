@@ -1,15 +1,12 @@
 package wellnus.reflection;
 
+import wellnus.command.Command;
+import wellnus.exception.BadCommandException;
+
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import wellnus.command.Command;
-import wellnus.exception.BadCommandException;
-
-/**
- * Home command to return back to WellNUS++ main interface.
- */
 public class HomeCommand extends Command {
     private static final Logger LOGGER = Logger.getLogger("ReflectHomeCommandLogger");
     private static final String FEATURE_NAME = "reflect";
@@ -26,16 +23,10 @@ public class HomeCommand extends Command {
     private static final String EMPTY_ARGUMENT_PAYLOAD_ASSERTION = "The argument-payload pair cannot be empty!";
     private static final String COMMAND_KEYWORD_ASSERTION = "The key should be return.";
     private static final String COMMAND_PAYLOAD_ASSERTION = "The payload should be empty.";
-    private static final String HOME_MESSAGE = "How do you feel after reflecting on yourself?"
-            + System.lineSeparator() + "Hope you have gotten some takeaways from self reflection, see you again!!";
+    private static final String HOME_MESSAGE = "How do you feel after reflecting on yourself?" +
+            System.lineSeparator() + "Hope you have gotten some takeaways from self reflection, see you again!!";
     private HashMap<String, String> argumentPayload;
 
-    /**
-     * Constructor to set up argument-payload pairs for home command.
-     *
-     * @param arguments Argument-payload pair from users
-     * @throws BadCommandException If an invalid command is given
-     */
     public HomeCommand(HashMap<String, String> arguments) throws BadCommandException {
         super(arguments);
         this.argumentPayload = getArguments();

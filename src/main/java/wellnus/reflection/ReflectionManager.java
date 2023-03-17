@@ -1,17 +1,13 @@
 package wellnus.reflection;
 
+import wellnus.exception.BadCommandException;
+import wellnus.manager.Manager;
+
 import java.util.HashMap;
 import java.util.NoSuchElementException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import wellnus.exception.BadCommandException;
-import wellnus.manager.Manager;
-
-/**
- * The manager for self reflection section.<br/>
- * This class oversees the command execution for self reflection section.
- */
 public class ReflectionManager extends Manager {
     private static final Logger LOGGER = Logger.getLogger("ReflectionManagerLogger");
     private static final String FEATURE_NAME = "reflect";
@@ -41,9 +37,6 @@ public class ReflectionManager extends Manager {
     private String commandType;
     private HashMap<String, String> argumentPayload;
 
-    /**
-     * Constructor to set initial isExit status to false and load the reflection questions.
-     */
     public ReflectionManager() {
         setIsExit(INITIAL_EXIT_STATUS);
         setSupportedCommands();
