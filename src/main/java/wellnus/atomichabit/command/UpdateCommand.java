@@ -73,9 +73,8 @@ public class UpdateCommand extends Command {
 
     private int getIncrementCountFrom(HashMap<String, String> arguments)
             throws BadCommandException, NumberFormatException {
-        if (!arguments.containsKey(UpdateCommand.COMMAND_INCREMENT_ARGUMENT)) {
-            throw new BadCommandException(UpdateCommand.UPDATE_INVALID_ARGUMENTS_MESSAGE);
-        }
+        assert arguments.containsKey(UpdateCommand.COMMAND_INCREMENT_ARGUMENT)
+                : "--inc argument missing for 'hb update' command";
         String incrementCountString = arguments.get(UpdateCommand.COMMAND_INCREMENT_ARGUMENT);
         return Integer.parseInt(incrementCountString);
     }
