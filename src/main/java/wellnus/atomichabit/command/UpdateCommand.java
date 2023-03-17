@@ -20,6 +20,7 @@ public class UpdateCommand extends Command {
     private static final String COMMAND_INCREMENT_ARGUMENT = "inc";
     private static final String COMMAND_INDEX_ARGUMENT = "id";
     private static final int COMMAND_MIN_NUM_OF_ARGUMENTS = 2;
+    private static final int COMMAND_MAX_NUM_OF_ARGUMENTS = 3;
     private static final String COMMAND_SUPPORTED_ARGUMENTS = "--id <index> --inc <increment>";
     private static final String COMMAND_INVALID_COMMAND_MESSAGE = "Wrong command issued, expected 'hb update'?";
     private static final String DOT = ".";
@@ -193,9 +194,22 @@ public class UpdateCommand extends Command {
         if (!arguments.containsKey(UpdateCommand.COMMAND_KEYWORD)) {
             throw new BadCommandException(UpdateCommand.COMMAND_INVALID_COMMAND_MESSAGE);
         }
+        if (arguments.get(COMMAND_KEYWORD) != "") {
+            throw new BadCommandException(UpdateCommand.COMMAND_INVALID_COMMAND_MESSAGE);
+        }
         if (arguments.size() < UpdateCommand.COMMAND_MIN_NUM_OF_ARGUMENTS) {
             throw new BadCommandException(UpdateCommand.COMMAND_INVALID_COMMAND_MESSAGE);
         }
+
+        if (arguments.size() > UpdateCommand.COMMAND_MAX_NUM_OF_ARGUMENTS){
+            throw new BadCommandException(UpdateCommand.COMMAND_INVALID_COMMAND_MESSAGE);
+        }
+
+        if (arguments.size() == UpdateCommand.COMMAND_MAX_NUM_OF_ARGUMENTS
+                && !arguments.containsKey(UpdateCommand.COMMAND_INCREMENT_ARGUMENT)){
+            throw new BadCommandException(UpdateCommand.COMMAND_INVALID_COMMAND_MESSAGE);
+        }
+
         if (!arguments.containsKey(UpdateCommand.COMMAND_INDEX_ARGUMENT)) {
             throw new BadCommandException(UpdateCommand.COMMAND_INVALID_COMMAND_MESSAGE);
         }

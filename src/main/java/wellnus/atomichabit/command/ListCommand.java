@@ -11,6 +11,7 @@ import java.util.HashMap;
 
 public class ListCommand extends Command {
     private static final String COMMAND_KEYWORD = "list";
+    private static final int COMMAND_MAX_NUM_OF_ARGUMENTS = 1;
     private static final String COMMAND_DETAILED_DESCRIPTION = "";
     private static final String COMMAND_INVALID_ARGUMENTS_MESSAGE = "Invalid command, expected 'hb list'";
     private static final String COMMAND_SUPPORTED_ARGUMENTS = "";
@@ -111,6 +112,12 @@ public class ListCommand extends Command {
     @Override
     public void validateCommand(HashMap<String, String> arguments) throws BadCommandException {
         if (!arguments.containsKey(ListCommand.COMMAND_KEYWORD)) {
+            throw new BadCommandException(ListCommand.COMMAND_INVALID_ARGUMENTS_MESSAGE);
+        }
+        if (arguments.get(COMMAND_KEYWORD) != "") {
+            throw new BadCommandException(ListCommand.COMMAND_INVALID_ARGUMENTS_MESSAGE);
+        }
+        if (arguments.size() > ListCommand.COMMAND_MAX_NUM_OF_ARGUMENTS) {
             throw new BadCommandException(ListCommand.COMMAND_INVALID_ARGUMENTS_MESSAGE);
         }
     }
