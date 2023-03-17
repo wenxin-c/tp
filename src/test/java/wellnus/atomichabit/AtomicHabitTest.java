@@ -5,11 +5,11 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import wellnus.atomichabit.command.AddCommand;
 import wellnus.atomichabit.command.UpdateCommand;
+import wellnus.atomichabit.feature.AtomicHabitList;
+import wellnus.atomichabit.feature.AtomicHabitManager;
 import wellnus.command.Command;
 import wellnus.command.CommandParser;
 import wellnus.exception.AtomicHabitException;
-import wellnus.atomichabit.feature.AtomicHabitList;
-import wellnus.atomichabit.feature.AtomicHabitManager;
 import wellnus.exception.WellNusException;
 import wellnus.ui.TextUi;
 
