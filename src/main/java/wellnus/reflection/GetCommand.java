@@ -7,9 +7,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 public class GetCommand extends Command {
+    private static final Logger LOGGER = Logger.getLogger("ReflectGetCommandLogger");
     private static final int NUM_OF_RANDOM_QUESTIONS = 5;
     private static final String FEATURE_NAME = "reflect";
     private static final String COMMAND_KEYWORD = "get";
@@ -44,8 +47,9 @@ public class GetCommand extends Command {
     public void execute() {
         try {
             validateCommand(this.argumentPayload);
-        } catch (BadCommandException invalidCommandException) {
-            UI.printErrorFor(invalidCommandException, INVALID_COMMAND_NOTES);
+        } catch (BadCommandException invalidCommand) {
+            LOGGER.log(Level.INFO, INVALID_COMMAND_MSG);
+            UI.printErrorFor(invalidCommand, INVALID_COMMAND_NOTES);
             return;
         }
         assert argumentPayload.containsKey(COMMAND_KEYWORD) : COMMAND_KEYWORD_ASSERTION;
