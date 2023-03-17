@@ -1,5 +1,7 @@
 package wellnus.atomichabit.command;
 
+import java.util.HashMap;
+
 import wellnus.atomichabit.feature.AtomicHabit;
 import wellnus.atomichabit.feature.AtomicHabitList;
 import wellnus.atomichabit.feature.AtomicHabitManager;
@@ -7,8 +9,6 @@ import wellnus.command.Command;
 import wellnus.command.CommandParser;
 import wellnus.exception.BadCommandException;
 import wellnus.ui.TextUi;
-
-import java.util.HashMap;
 
 public class AddCommand extends Command {
     private static final String COMMAND_DETAILED_DESCRIPTION = "";
@@ -22,6 +22,7 @@ public class AddCommand extends Command {
     private static final String COMMAND_WRONG_KEYWORD_MESSAGE = "Wrong command issued by the user, expected 'hb add'?";
     private static final String FEEDBACK_STRING_ONE = "Yay! You have added a new habit:";
     private static final String FEEDBACK_STRING_TWO = "was successfully added";
+    private static final String NO_ADDITIONAL_MESSAGE = "";
     private final AtomicHabitList atomicHabits;
     private final CommandParser commandParser;
     private final TextUi textUi;
@@ -94,7 +95,6 @@ public class AddCommand extends Command {
         try {
             validateCommand(super.getArguments());
         } catch (BadCommandException badCommandException) {
-            String NO_ADDITIONAL_MESSAGE = "";
             this.getTextUi().printErrorFor(badCommandException, NO_ADDITIONAL_MESSAGE);
             return;
         }

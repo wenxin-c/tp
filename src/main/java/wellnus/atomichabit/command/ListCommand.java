@@ -1,5 +1,7 @@
 package wellnus.atomichabit.command;
 
+import java.util.HashMap;
+
 import wellnus.atomichabit.feature.AtomicHabit;
 import wellnus.atomichabit.feature.AtomicHabitList;
 import wellnus.atomichabit.feature.AtomicHabitManager;
@@ -7,15 +9,15 @@ import wellnus.command.Command;
 import wellnus.exception.BadCommandException;
 import wellnus.ui.TextUi;
 
-import java.util.HashMap;
-
 public class ListCommand extends Command {
     private static final String COMMAND_KEYWORD = "list";
     private static final String COMMAND_DETAILED_DESCRIPTION = "";
     private static final String COMMAND_INVALID_ARGUMENTS_MESSAGE = "Invalid command, expected 'hb list'";
     private static final String COMMAND_SUPPORTED_ARGUMENTS = "";
+    private static final int FIRST_CHAR = 0;
     private static final String LINE_SEPARATOR = System.lineSeparator();
     private static final String DOT = ".";
+    private static final String NO_ADDITIONAL_MESSAGE = "";
     private static final String FIRST_STRING = "Here is the current accumulation of your atomic habits!"
             + LINE_SEPARATOR + "Keep up the good work and you will develop a helpful habit in no time";
     private final AtomicHabitList atomicHabits;
@@ -82,7 +84,6 @@ public class ListCommand extends Command {
         try {
             validateCommand(super.getArguments());
         } catch (BadCommandException badCommandException) {
-            String NO_ADDITIONAL_MESSAGE = "";
             this.getTextUi().printErrorFor(badCommandException, NO_ADDITIONAL_MESSAGE);
             return;
         }
@@ -94,7 +95,7 @@ public class ListCommand extends Command {
             stringOfHabitsBuilder.append(currentHabitString).append(LINE_SEPARATOR);
             taskNo += 1;
         }
-        int FIRST_CHAR = 0;
+
         String messageToUser = stringOfHabitsBuilder.substring(FIRST_CHAR,
                 stringOfHabitsBuilder.length() - 1);
         getTextUi().printOutputMessage(messageToUser);

@@ -1,5 +1,10 @@
 package wellnus.atomichabit.command;
 
+import java.io.InputStream;
+import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import wellnus.atomichabit.feature.AtomicHabit;
 import wellnus.atomichabit.feature.AtomicHabitList;
 import wellnus.atomichabit.feature.AtomicHabitManager;
@@ -8,12 +13,6 @@ import wellnus.command.CommandParser;
 import wellnus.exception.AtomicHabitException;
 import wellnus.exception.BadCommandException;
 import wellnus.ui.TextUi;
-
-import java.io.InputStream;
-import java.util.HashMap;
-
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class UpdateCommand extends Command {
     private static final String COMMAND_KEYWORD = "update";
@@ -39,6 +38,7 @@ public class UpdateCommand extends Command {
 
     private static final String LOG_INDEX_OUT_OF_BOUNDS = "Input index is out of bounds."
             + "This should be properly handled";
+    private static final String NO_ADDITIONAL_MESSAGE = "";
     private final AtomicHabitList atomicHabits;
     private String indexString;
     private final CommandParser parser;
@@ -142,7 +142,6 @@ public class UpdateCommand extends Command {
         try {
             validateCommand(super.getArguments());
         } catch (BadCommandException badCommandException) {
-            String NO_ADDITIONAL_MESSAGE = "";
             getTextUi().printErrorFor(badCommandException, NO_ADDITIONAL_MESSAGE);
             return;
         }
@@ -165,7 +164,6 @@ public class UpdateCommand extends Command {
             logger.log(Level.INFO, LOG_INDEX_OUT_OF_BOUNDS);
             throw new AtomicHabitException(FEEDBACK_INDEX_OUT_OF_BOUNDS_ERROR);
         } catch (BadCommandException badCommandException) {
-            String NO_ADDITIONAL_MESSAGE = "";
             getTextUi().printErrorFor(badCommandException, NO_ADDITIONAL_MESSAGE);
         }
     }
