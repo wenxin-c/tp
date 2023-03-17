@@ -171,23 +171,31 @@ public class AtomicHabitTest {
      * if the user does not input positive number for the increment
      */
     @Test
-    public void updateHabit_checkIncrementNotPositive_success() throws WellNusException {
+    public void updateHabit_checkIncrementNotPositive_printErrorMessage() throws WellNusException {
         addHabit_checkOutput_success();
-        String payload = "junit test";
         String habitIndex = "1";
-        String increment = "-10";
-        String testUpdateCommand = String.format("%s --id %s --inc %s", UPDATE_HABIT_COMMAND, habitIndex, increment)
-                + System.lineSeparator();
-        HashMap<String, String> arguments = parser.parseUserInput(testUpdateCommand);
-        Command updateCommand = new UpdateCommand(arguments, habitList);
-        String expectedUpdateHabitOutput = "The following habit has not been updated! "
-                + "Enter a positive integer to update your habit!"
+        String increment = "-1";
+        String error_message = "Increment with minimum of 1 is expected, no update shall be performed.";
+        String warning_separator = "!!!!!!-------!!!!!--------!!!!!!!------!!!!!---------!!!!!!!";
+        String expectedErrorOutput = warning_separator
                 + System.lineSeparator()
-                + habitIndex + "." + payload + " " + "[1]";
+                + "Error Message:"
+                + System.lineSeparator()
+                + error_message
+                + System.lineSeparator()
+                + "Note:"
+                + System.lineSeparator()
+                + System.lineSeparator()
+                + warning_separator;
+
+        String testIndexCommand = String.format("%s --id %s --inc %s", UPDATE_HABIT_COMMAND, habitIndex, increment)
+                + System.lineSeparator();
+        HashMap<String, String> arguments = parser.parseUserInput(testIndexCommand);
+        Command updateCommand = new UpdateCommand(arguments, habitList);
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outputStream));
         updateCommand.execute();
-        Assertions.assertEquals(expectedUpdateHabitOutput, getMessageFrom(outputStream.toString()));
+        Assertions.assertEquals(expectedErrorOutput, getMessageFrom(outputStream.toString()));
     }
 }
 

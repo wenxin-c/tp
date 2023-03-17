@@ -32,8 +32,11 @@ public class UpdateCommand extends Command {
     private static final String FEEDBACK_INDEX_OUT_OF_BOUNDS_ERROR = "Index out of Range! Please enter a valid index";
     private static final int INDEX_OFFSET = 1;
     private static final String LINE_SEPARATOR = System.lineSeparator();
+    private static final int MINIMUM_INCREMENT = 1;
     private static final String UPDATE_INVALID_ARGUMENTS_MESSAGE = "Invalid arguments for updating, no update shall "
             + "be performed.";
+    private static final String UPDATE_INVALID_INCREMENT_COUNT = "Increment with minimum of 1 is expected, no update "
+            + "shall be performed.";
     private static final String REGEX_INTEGER_ONLY_PATTERN = "\\s*-?\\d+\\s*";
     private static final Logger logger = Logger.getLogger("UpdateAtomicHabitLogger");
     private static final String LOG_STR_INPUT_NOT_INTEGER = "Input string is not an integer."
@@ -79,6 +82,9 @@ public class UpdateCommand extends Command {
             throw new BadCommandException(UpdateCommand.UPDATE_INVALID_ARGUMENTS_MESSAGE);
         }
         String incrementCountString = arguments.get(UpdateCommand.COMMAND_INCREMENT_ARGUMENT);
+        if (Integer.parseInt(incrementCountString) < MINIMUM_INCREMENT) {
+            throw new BadCommandException(UpdateCommand.UPDATE_INVALID_INCREMENT_COUNT);
+        }
         return Integer.parseInt(incrementCountString);
     }
 
@@ -156,18 +162,11 @@ public class UpdateCommand extends Command {
             int index = this.getIndexFrom(super.getArguments()) - INDEX_OFFSET;
             AtomicHabit habit = getAtomicHabits().getHabitByIndex(index);
 
-            if (incrementCount > 0) {
-                habit.increaseCount(incrementCount);
-                String stringOfUpdatedHabit = (index + 1) + DOT + habit + " " + "[" + habit.getCount() + "]"
-                        + LINE_SEPARATOR;
-                getTextUi().printOutputMessage(FEEDBACK_STRING + LINE_SEPARATOR
-                        + stringOfUpdatedHabit);
-            } else {
-                String stringOfUpdatedHabit = (index + 1) + DOT + habit + " " + "[" + habit.getCount() + "]"
-                        + LINE_SEPARATOR;
-                getTextUi().printOutputMessage(FEEDBACK_STRING_NO_INCREMENT + LINE_SEPARATOR
-                        + stringOfUpdatedHabit);
-            }
+            habit.increaseCount(incrementCount);
+            String stringOfUpdatedHabit = (index + 1) + DOT + habit + " " + "[" + habit.getCount() + "]"
+                    + LINE_SEPARATOR;
+            getTextUi().printOutputMessage(FEEDBACK_STRING + LINE_SEPARATOR
+                    + stringOfUpdatedHabit);
 
         } catch (NumberFormatException numberFormatException) {
             logger.log(Level.INFO, LOG_STR_INPUT_NOT_INTEGER);
@@ -200,17 +199,14 @@ public class UpdateCommand extends Command {
         if (arguments.size() < UpdateCommand.COMMAND_MIN_NUM_OF_ARGUMENTS) {
             throw new BadCommandException(UpdateCommand.COMMAND_INVALID_COMMAND_MESSAGE);
         }
-
         if (arguments.size() > UpdateCommand.COMMAND_MAX_NUM_OF_ARGUMENTS) {
             throw new BadCommandException(UpdateCommand.COMMAND_INVALID_COMMAND_MESSAGE);
         }
-
-        if (arguments.size() == UpdateCommand.COMMAND_MAX_NUM_OF_ARGUMENTS
-                && !arguments.containsKey(UpdateCommand.COMMAND_INCREMENT_ARGUMENT)) {
+        if (!arguments.containsKey(UpdateCommand.COMMAND_INDEX_ARGUMENT)) {
             throw new BadCommandException(UpdateCommand.COMMAND_INVALID_COMMAND_MESSAGE);
         }
-
-        if (!arguments.containsKey(UpdateCommand.COMMAND_INDEX_ARGUMENT)) {
+        if (arguments.size() == UpdateCommand.COMMAND_MAX_NUM_OF_ARGUMENTS
+                && !arguments.containsKey(UpdateCommand.COMMAND_INCREMENT_ARGUMENT)) {
             throw new BadCommandException(UpdateCommand.COMMAND_INVALID_COMMAND_MESSAGE);
         }
         if (arguments.containsKey(UpdateCommand.COMMAND_INCREMENT_ARGUMENT)) {
