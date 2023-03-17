@@ -201,12 +201,12 @@ public class UpdateCommand extends Command {
             throw new BadCommandException(UpdateCommand.COMMAND_INVALID_COMMAND_MESSAGE);
         }
 
-        if (arguments.size() > UpdateCommand.COMMAND_MAX_NUM_OF_ARGUMENTS){
+        if (arguments.size() > UpdateCommand.COMMAND_MAX_NUM_OF_ARGUMENTS) {
             throw new BadCommandException(UpdateCommand.COMMAND_INVALID_COMMAND_MESSAGE);
         }
 
         if (arguments.size() == UpdateCommand.COMMAND_MAX_NUM_OF_ARGUMENTS
-                && !arguments.containsKey(UpdateCommand.COMMAND_INCREMENT_ARGUMENT)){
+                && !arguments.containsKey(UpdateCommand.COMMAND_INCREMENT_ARGUMENT)) {
             throw new BadCommandException(UpdateCommand.COMMAND_INVALID_COMMAND_MESSAGE);
         }
 
