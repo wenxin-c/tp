@@ -1,8 +1,13 @@
 package wellnus.atomichabit;
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+import java.util.HashMap;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
 import wellnus.atomichabit.command.AddCommand;
 import wellnus.atomichabit.command.UpdateCommand;
 import wellnus.atomichabit.feature.AtomicHabitList;
@@ -12,10 +17,6 @@ import wellnus.command.CommandParser;
 import wellnus.exception.AtomicHabitException;
 import wellnus.exception.WellNusException;
 import wellnus.ui.TextUi;
-
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
-import java.util.HashMap;
 
 public class AtomicHabitTest {
     private static final String ADD_HABIT_COMMAND = "add";
@@ -175,18 +176,18 @@ public class AtomicHabitTest {
         addHabit_checkOutput_success();
         String habitIndex = "1";
         String increment = "-1";
-        String error_message = "Increment with minimum of 1 is expected, no update shall be performed.";
-        String warning_separator = "!!!!!!-------!!!!!--------!!!!!!!------!!!!!---------!!!!!!!";
-        String expectedErrorOutput = warning_separator
+        String errorMessage = "Increment with minimum of 1 is expected, no update shall be performed.";
+        String warningSeparator = "!!!!!!-------!!!!!--------!!!!!!!------!!!!!---------!!!!!!!";
+        String expectedErrorOutput = warningSeparator
                 + System.lineSeparator()
                 + "Error Message:"
                 + System.lineSeparator()
-                + error_message
+                + errorMessage
                 + System.lineSeparator()
                 + "Note:"
                 + System.lineSeparator()
                 + System.lineSeparator()
-                + warning_separator;
+                + warningSeparator;
 
         String testIndexCommand = String.format("%s --id %s --inc %s", UPDATE_HABIT_COMMAND, habitIndex, increment)
                 + System.lineSeparator();
