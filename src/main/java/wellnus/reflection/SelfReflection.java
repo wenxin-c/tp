@@ -58,8 +58,8 @@ public class SelfReflection {
      * Load the questions list with pre-defined reflect questions.
      */
     private void setUpQuestions() {
-        for (int i = 0; i < QUESTIONS.length; i += 1) {
-            ReflectionQuestion newQuestion = new ReflectionQuestion(QUESTIONS[i]);
+        for (String question : QUESTIONS) {
+            ReflectionQuestion newQuestion = new ReflectionQuestion(question);
             addReflectQuestion(newQuestion);
         }
     }

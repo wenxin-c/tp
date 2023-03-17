@@ -138,8 +138,7 @@ public class ReflectionManager extends Manager {
      * @throws BadCommandException If an invalid command was given
      */
     public void setCommandType(String inputCommand) throws BadCommandException {
-        String mainArgument = commandParser.getMainArgument(inputCommand);
-        commandType = mainArgument;
+        commandType = commandParser.getMainArgument(inputCommand);
         assert commandType.length() > EMPTY_COMMAND : COMMAND_TYPE_ASSERTION;
     }
 

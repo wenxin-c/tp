@@ -158,7 +158,7 @@ public class GetCommand extends Command {
      * Each number num: num >= 0 and num <= (maxSize - 1)
      *
      * @param maxSize Number of questions available to be chosen
-     * @return Array of 5 random numbers
+     * @return A set of 5 random numbers
      */
     private Set<Integer> generateRandomNumbers(int maxSize) {
         Set<Integer> randomNumbers = new Random().ints(MIN_SIZE, maxSize - ONE_OFFSET)
@@ -179,7 +179,7 @@ public class GetCommand extends Command {
         ArrayList<ReflectionQuestion> selectedQuestions = getRandomQuestions();
         String questionString = "";
         for (int i = 0; i < selectedQuestions.size(); i += 1) {
-            questionString += (Integer.toString(i + ONE_OFFSET) + DOT + selectedQuestions.get(i).toString()
+            questionString += ((i + ONE_OFFSET) + DOT + selectedQuestions.get(i).toString()
                     + System.lineSeparator());
         }
         return questionString;

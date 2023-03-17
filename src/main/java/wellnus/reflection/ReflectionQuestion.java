@@ -18,10 +18,6 @@ public class ReflectionQuestion {
         this.questionDescription = questionDescription;
     }
 
-    public String getQuestionDescription() {
-        return this.questionDescription;
-    }
-
     /**
      * Convert each reflect question to a string to be printed
      *
