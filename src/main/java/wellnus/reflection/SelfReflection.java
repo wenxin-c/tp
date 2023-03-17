@@ -46,6 +46,9 @@ public class SelfReflection {
 
     private ArrayList<ReflectionQuestion> questions = new ArrayList<>();
 
+    /**
+     * Constructor to create a SelfReflection object and set up the questions available.
+     */
     public SelfReflection() {
         setUpQuestions();
         assert questions.size() == TOTAL_NUM_QUESTIONS : TOTAL_NUM_QUESTION_ASSERTIONS;
