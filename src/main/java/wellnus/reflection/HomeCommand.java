@@ -8,7 +8,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class HomeCommand extends Command {
-    private static final Logger LOGGER = Logger.getLogger("ReturnCommandLogger");
+    private static final Logger LOGGER = Logger.getLogger("HomeCommandLogger");
     private static final String FEATURE_NAME = "reflect";
     private static final String COMMAND_KEYWORD = "home";
     private static final String FULL_DESCRIPTION = "";
