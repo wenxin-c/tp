@@ -15,7 +15,7 @@ import java.util.logging.Logger;
  * This is to accommodate to the uniqueness of each feature.
  */
 public class TextUi {
-    private static final Logger LOGGER = Logger.getLogger(ReflectionManager.class.getName());
+    private static final Logger LOGGER = Logger.getLogger("TextUiLogger");
     private static final String ALERT_SEPARATOR = "!!!!!!-------!!!!!--------!!!!!!!------!!!!!"
             + "---------!!!!!!!";
     private static final String INDENTATION_SPACES = "    ";
@@ -48,10 +48,10 @@ public class TextUi {
             String inputLine = SCANNER.nextLine();
             userCommand = inputLine.trim();
         } catch (BufferOverflowException bufferOverFlowException) {
-            LOGGER.log(Level.SEVERE, BUFFER_OVERFLOW_MSG, bufferOverFlowException);
+            LOGGER.log(Level.INFO, BUFFER_OVERFLOW_MSG, bufferOverFlowException);
             printErrorFor(bufferOverFlowException, BUFFER_OVERFLOW_MSG);
         } catch (NoSuchElementException noElementException) {
-            LOGGER.log(Level.SEVERE, NO_INPUT_ELEMENT_MSG, noElementException);
+            LOGGER.log(Level.INFO, NO_INPUT_ELEMENT_MSG, noElementException);
             printErrorFor(noElementException, NO_INPUT_ELEMENT_MSG);
         }
         return userCommand;

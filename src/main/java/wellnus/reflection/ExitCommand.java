@@ -8,7 +8,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class ExitCommand extends Command {
-    private static final Logger LOGGER = Logger.getLogger(ReflectionManager.class.getName());
+    private static final Logger LOGGER = Logger.getLogger("ExitCommandLogger");
     private static final String FEATURE_NAME = "Self Reflection";
     private static final String COMMAND_KEYWORD = "exit";
     private static final String FULL_DESCRIPTION = "";
@@ -77,7 +77,7 @@ public class ExitCommand extends Command {
         try {
             validateCommand(this.argumentPayload);
         } catch (BadCommandException invalidCommand) {
-            LOGGER.log(Level.SEVERE, INVALID_COMMAND_MSG, invalidCommand);
+            LOGGER.log(Level.INFO, INVALID_COMMAND_MSG, invalidCommand);
             UI.printErrorFor(invalidCommand, INVALID_COMMAND_NOTES);
         }
     }

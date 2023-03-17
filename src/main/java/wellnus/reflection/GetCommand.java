@@ -12,7 +12,7 @@ import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 public class GetCommand extends Command {
-    private static final Logger LOGGER = Logger.getLogger(ReflectionManager.class.getName());
+    private static final Logger LOGGER = Logger.getLogger("GetCommandLogger");
     private static final int NUM_OF_RANDOM_QUESTIONS = 5;
     private static final String FEATURE_NAME = "Self Reflection";
     private static final String COMMAND_KEYWORD = "get";
@@ -41,7 +41,7 @@ public class GetCommand extends Command {
         try {
             validateCommand(this.argumentPayload);
         } catch (BadCommandException invalidCommand) {
-            LOGGER.log(Level.SEVERE, INVALID_COMMAND_MSG, invalidCommand);
+            LOGGER.log(Level.INFO, INVALID_COMMAND_MSG, invalidCommand);
             UI.printErrorFor(invalidCommand, INVALID_COMMAND_NOTES);
         }
         String outputString = convertQuestionsToString();
