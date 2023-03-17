@@ -1,7 +1,6 @@
 package wellnus.ui;
 
-import wellnus.reflection.ReflectionManager;
-
+import java.io.InputStream;
 import java.nio.BufferOverflowException;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
@@ -27,8 +26,16 @@ public class TextUi {
             + "please key in your input!!";
     private static final String BUFFER_OVERFLOW_MSG = "Your input is too long,"
             + "please shorten it!!";
-    private static final Scanner SCANNER = new Scanner(System.in);
+    private final Scanner scanner;
     private String separator = "-";
+
+    public TextUi() {
+        this(System.in);
+    }
+
+    public TextUi(InputStream inputStream) {
+        this.scanner = new Scanner(inputStream);
+    }
 
     /**
      * Print spaces before output message for better formatting.
@@ -45,13 +52,13 @@ public class TextUi {
     public String getCommand() {
         String userCommand = "";
         try {
-            String inputLine = SCANNER.nextLine();
+            String inputLine = scanner.nextLine();
             userCommand = inputLine.trim();
         } catch (BufferOverflowException bufferOverFlowException) {
-            LOGGER.log(Level.INFO, BUFFER_OVERFLOW_MSG, bufferOverFlowException);
+            LOGGER.log(Level.INFO, BUFFER_OVERFLOW_MSG);
             printErrorFor(bufferOverFlowException, BUFFER_OVERFLOW_MSG);
         } catch (NoSuchElementException noElementException) {
-            LOGGER.log(Level.INFO, NO_INPUT_ELEMENT_MSG, noElementException);
+            LOGGER.log(Level.INFO, NO_INPUT_ELEMENT_MSG);
             printErrorFor(noElementException, NO_INPUT_ELEMENT_MSG);
         }
         return userCommand;

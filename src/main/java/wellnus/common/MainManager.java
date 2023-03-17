@@ -1,11 +1,14 @@
 package wellnus.common;
 
+import wellnus.atomichabit.feature.AtomicHabitManager;
 import wellnus.command.Command;
 import wellnus.command.CommandParser;
 import wellnus.command.ExitCommand;
 import wellnus.command.HelpCommand;
 import wellnus.exception.BadCommandException;
+import wellnus.exception.WellNusException;
 import wellnus.manager.Manager;
+import wellnus.reflection.ReflectionManager;
 import wellnus.ui.TextUi;
 
 import java.util.ArrayList;
@@ -26,8 +29,10 @@ public class MainManager extends Manager {
     private final TextUi textUi;
 
     public MainManager() {
+        super();
         this.featureManagers = new ArrayList<>();
         this.textUi = new TextUi();
+        this.setSupportedFeatureManagers();
     }
 
     private static String getBriefAppDescription() {
@@ -56,6 +61,7 @@ public class MainManager extends Manager {
                 String nextCommand = this.getTextUi().getCommand();
                 String featureKeyword = parser.getMainArgument(nextCommand);
                 Optional<Manager> featureManager = this.getManagerFor(featureKeyword);
+                // User gave a command that's not any feature's keyword nor a recognised main command
                 if (featureManager.isEmpty() && !this.isSupportedCommand(featureKeyword)) {
                     BadCommandException badCommandException =
                             new BadCommandException(MainManager.INVALID_COMMAND_MESSAGE);
@@ -63,6 +69,7 @@ public class MainManager extends Manager {
                             MainManager.INVALID_COMMAND_ADDITIONAL_MESSAGE);
                     continue;
                 }
+                // User issued a feature keyword, pass control to the corresponding feature's Manager
                 featureManager.ifPresent((manager) -> {
                     // TODO: Consider if there's a way to avoid this extra try-catch?
                     try {
@@ -71,11 +78,14 @@ public class MainManager extends Manager {
                         this.getTextUi().printErrorFor(badCommandException, NO_ADDITIONAL_MESSAGE);
                     }
                 });
-                Command mainCommand = this.getMainCommandFor(nextCommand);
-                mainCommand.execute();
-                isExit = ExitCommand.isExit(mainCommand);
-            } catch (BadCommandException badCommandException) {
-                this.getTextUi().printErrorFor(badCommandException, NO_ADDITIONAL_MESSAGE);
+                // User issued a main command, e.g. 'help'
+                if (featureManager.isEmpty()) {
+                    Command mainCommand = this.getMainCommandFor(nextCommand);
+                    mainCommand.execute();
+                    isExit = ExitCommand.isExit(mainCommand);
+                }
+            } catch (WellNusException exception) {
+                this.getTextUi().printErrorFor(exception, NO_ADDITIONAL_MESSAGE);
             }
         }
     }
@@ -208,8 +218,10 @@ public class MainManager extends Manager {
      * <code> this.supportedManagers.add([mgr1, mgr2, ...]); </code>
      */
     protected void setSupportedFeatureManagers() {
+        this.getSupportedFeatureManagers().add(new AtomicHabitManager());
+        this.getSupportedFeatureManagers().add(new ReflectionManager());
         // TODO: Implement once all Managers are in
-        // e.g. super.getSupportedFeatureManagers().add(new AtomicHabitManager());
+        // e.g. this.getSupportedFeatureManagers().add(new AtomicHabitManager());
     }
 
 }

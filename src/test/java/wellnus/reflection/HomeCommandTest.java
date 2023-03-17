@@ -6,10 +6,12 @@ import wellnus.exception.BadCommandException;
 import java.util.HashMap;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
-class ReturnCommandTest {
-    private static final String RETURN_COMMAND = "return";
-    private static final String RETURN_COMMAND_WRONG_FORMAT = "return back";
+class HomeCommandTest {
+    private static final String HOME_COMMAND = "home";
+    private static final String HOME_COMMAND_WRONG_FORMAT = "home back";
+    private static final String HOME_COMMAND_WITH_SPACES = "   home   ";
     private static final boolean IS_NOT_EXIT = false;
     private static final boolean IS_EXIT = true;
 
@@ -17,9 +19,9 @@ class ReturnCommandTest {
     @Test
     void execute_checkIsExit_expectTrue() throws BadCommandException {
         ReflectionManager reflectionManager = new ReflectionManager();
-        reflectionManager.setArgumentPayload(RETURN_COMMAND);
+        reflectionManager.setArgumentPayload(HOME_COMMAND);
         HashMap<String, String> returnArgumentPayload = reflectionManager.getArgumentPayload();
-        ReturnCommand returnCmd = new ReturnCommand(returnArgumentPayload);
+        HomeCommand returnCmd = new HomeCommand(returnArgumentPayload);
         returnCmd.execute();
         assertEquals(IS_EXIT, reflectionManager.getIsExit());
     }
@@ -28,9 +30,9 @@ class ReturnCommandTest {
     @Test
     void execute_checkNewObjectIsExit_expectFalse() throws BadCommandException {
         ReflectionManager reflectionManager = new ReflectionManager();
-        reflectionManager.setArgumentPayload(RETURN_COMMAND);
+        reflectionManager.setArgumentPayload(HOME_COMMAND);
         HashMap<String, String> returnArgumentPayload = reflectionManager.getArgumentPayload();
-        ReturnCommand returnCmd = new ReturnCommand(returnArgumentPayload);
+        HomeCommand returnCmd = new HomeCommand(returnArgumentPayload);
         returnCmd.execute();
         ReflectionManager newReflectionManager = new ReflectionManager();
         assertEquals(IS_NOT_EXIT, newReflectionManager.getIsExit());
@@ -38,14 +40,23 @@ class ReturnCommandTest {
 
     // Test whether wrong format command exception is caught or not.
     @Test
-    void execute_checkWrongCmdFormat_expectFalse() throws BadCommandException {
+    void execute_checkWrongCmdFormat_expectException() throws BadCommandException {
         ReflectionManager reflectionManager = new ReflectionManager();
-        reflectionManager.setArgumentPayload(RETURN_COMMAND_WRONG_FORMAT);
+        reflectionManager.setArgumentPayload(HOME_COMMAND_WRONG_FORMAT);
         HashMap<String, String> returnArgumentPayload = reflectionManager.getArgumentPayload();
-        ReturnCommand returnCmd = new ReturnCommand(returnArgumentPayload);
-        returnCmd.execute();
-        ReflectionManager newReflectionManager = new ReflectionManager();
-        assertEquals(IS_NOT_EXIT, newReflectionManager.getIsExit());
+        HomeCommand returnCmd = new HomeCommand(returnArgumentPayload);
+        assertThrows(BadCommandException.class, () -> {
+            returnCmd.validateCommand(returnArgumentPayload);
+        });
+    }
+
+    // Test whether leading/dangling spaces will be removed.
+    @Test
+    void execute_checkSpaceRemoval_success() throws BadCommandException {
+        ReflectionManager reflectionManager = new ReflectionManager();
+        reflectionManager.setCommandType(HOME_COMMAND_WITH_SPACES);
+        String homeCommand = reflectionManager.getCommandType();
+        assertEquals(HOME_COMMAND, homeCommand);
     }
 }
 

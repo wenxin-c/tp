@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 public class GetCommand extends Command {
     private static final Logger LOGGER = Logger.getLogger("GetCommandLogger");
     private static final int NUM_OF_RANDOM_QUESTIONS = 5;
-    private static final String FEATURE_NAME = "Self Reflection";
+    private static final String FEATURE_NAME = "reflect";
     private static final String COMMAND_KEYWORD = "get";
     private static final String FULL_DESCRIPTION = "";
     private static final String ARGUMENT = "get";
@@ -24,12 +24,19 @@ public class GetCommand extends Command {
     private static final String INVALID_COMMAND_MSG = "Command is invalid.";
     private static final String INVALID_COMMAND_NOTES = "Please check the available commands "
             + "and the format of commands.";
+    private static final String EMPTY_ARGUMENT_PAYLOAD_ASSERTION = "The argument-payload pair cannot be empty!";
+    private static final String COMMAND_KEYWORD_ASSERTION = "The key should be get.";
+    private static final String COMMAND_PAYLOAD_ASSERTION = "The payload should be empty.";
+    private static final String NUM_SELECTED_QUESTIONS_ASSERTION = "The number of selected questions should be 5.";
+    private static final String DOT = ".";
+    private static final int ONE_OFFSET = 1;
     private static final ReflectUi UI = new ReflectUi();
     private HashMap<String, String> argumentPayload;
 
     public GetCommand(HashMap<String, String> arguments) throws BadCommandException {
         super(arguments);
         this.argumentPayload = getArguments();
+        assert !argumentPayload.isEmpty() : EMPTY_ARGUMENT_PAYLOAD_ASSERTION;
     }
 
     /**
@@ -41,9 +48,12 @@ public class GetCommand extends Command {
         try {
             validateCommand(this.argumentPayload);
         } catch (BadCommandException invalidCommand) {
-            LOGGER.log(Level.INFO, INVALID_COMMAND_MSG, invalidCommand);
+            LOGGER.log(Level.INFO, INVALID_COMMAND_MSG);
             UI.printErrorFor(invalidCommand, INVALID_COMMAND_NOTES);
+            return;
         }
+        assert argumentPayload.containsKey(COMMAND_KEYWORD) : COMMAND_KEYWORD_ASSERTION;
+        assert argumentPayload.get(COMMAND_KEYWORD).equals(PAYLOAD) : COMMAND_PAYLOAD_ASSERTION;
         String outputString = convertQuestionsToString();
         UI.printOutputMessage(outputString);
     }
@@ -55,11 +65,13 @@ public class GetCommand extends Command {
      */
     public ArrayList<ReflectionQuestion> getRandomQuestions() {
         ArrayList<ReflectionQuestion> selectedQuestions = new ArrayList<>();
-        ArrayList<ReflectionQuestion> questions = SelfReflection.getQuestions();
+        SelfReflection selfReflection = new SelfReflection();
+        ArrayList<ReflectionQuestion> questions = selfReflection.getQuestions();
         Set<Integer> fiveRandomNumbers = generateRandomNumbers(questions.size());
         for (int index : fiveRandomNumbers) {
             selectedQuestions.add(questions.get(index));
         }
+        assert selectedQuestions.size() == NUM_OF_RANDOM_QUESTIONS : NUM_SELECTED_QUESTIONS_ASSERTION;
         return selectedQuestions;
     }
 
@@ -71,6 +83,10 @@ public class GetCommand extends Command {
     @Override
     protected String getCommandKeyword() {
         return COMMAND_KEYWORD;
+    }
+
+    protected HashMap<String, String> getArgumentPayload() {
+        return argumentPayload;
     }
 
     /**
@@ -136,11 +152,12 @@ public class GetCommand extends Command {
      * @return Array of 5 random numbers
      */
     private Set<Integer> generateRandomNumbers(int maxSize) {
-        Set<Integer> randomNumbers = new Random().ints(MIN_SIZE, maxSize - 1)
+        Set<Integer> randomNumbers = new Random().ints(MIN_SIZE, maxSize - ONE_OFFSET)
                 .distinct()
                 .limit(NUM_OF_RANDOM_QUESTIONS)
                 .boxed()
                 .collect(Collectors.toSet());
+        assert randomNumbers.size() == NUM_OF_RANDOM_QUESTIONS : NUM_SELECTED_QUESTIONS_ASSERTION;
         return randomNumbers;
     }
 
@@ -150,10 +167,10 @@ public class GetCommand extends Command {
      * @return Single string that consists of all questions
      */
     private String convertQuestionsToString() {
-        ArrayList selectedQuestions = getRandomQuestions();
+        ArrayList<ReflectionQuestion> selectedQuestions = getRandomQuestions();
         String questionString = "";
         for (int i = 0; i < selectedQuestions.size(); i += 1) {
-            questionString += (Integer.toString(i + 1) + selectedQuestions.get(i).toString()
+            questionString += (Integer.toString(i + ONE_OFFSET) + DOT + selectedQuestions.get(i).toString()
                     + System.lineSeparator());
         }
         return questionString;
