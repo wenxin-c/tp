@@ -1,14 +1,15 @@
 package wellnus.reflection;
 
-import org.junit.jupiter.api.Test;
-import wellnus.exception.BadCommandException;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import org.junit.jupiter.api.Test;
+
+import wellnus.exception.BadCommandException;
 
 /**
  * Class to test different tests for GetCommand Class utilising JUnit tests
@@ -52,8 +53,7 @@ class GetCommandTest {
         reflectManager.setArgumentPayload(GET_COMMAND_WRONG_FORMAT);
         HashMap<String, String> getCmdArgumentPayload = reflectManager.getArgumentPayload();
         GetCommand get = new GetCommand(getCmdArgumentPayload);
-        assertThrows(BadCommandException.class,
-                () -> get.validateCommand(getCmdArgumentPayload));
+        assertThrows(BadCommandException.class, () -> get.validateCommand(getCmdArgumentPayload));
     }
 }
 

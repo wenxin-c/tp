@@ -1,12 +1,13 @@
 package wellnus.reflection;
 
-import org.junit.jupiter.api.Test;
-import wellnus.exception.BadCommandException;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.HashMap;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import org.junit.jupiter.api.Test;
+
+import wellnus.exception.BadCommandException;
 
 /**
  * Class to test different tests for HomeCommand Class utilising JUnit tests
