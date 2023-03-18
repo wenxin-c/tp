@@ -1,11 +1,11 @@
 package wellnus.command;
 
+import java.util.HashMap;
+
 import wellnus.common.MainManager;
 import wellnus.exception.BadCommandException;
 import wellnus.manager.Manager;
 import wellnus.ui.TextUi;
-
-import java.util.HashMap;
 
 /**
  * Implementation of WellNus' <code>help</code> command. Explains to the user what commands are supported
@@ -16,8 +16,8 @@ public class HelpCommand extends Command {
     private static final String BAD_COMMAND_ADVICE_MESSAGE = "Try 'help' for a list of "
             + "commands/features supported by WellNUS++";
     private static final String COMMAND_ARGUMENTS = "<feature>";
-    private static final String COMMAND_BRIEF_DESCRIPTION = "Lists all features supported by WellNUS++, or all " +
-            "commands supported by a specific feature";
+    private static final String COMMAND_BRIEF_DESCRIPTION = "Lists all features supported by WellNUS++, or all "
+            + "commands supported by a specific feature";
     private static final String COMMAND_DETAILED_DESCRIPTION = "";
     private static final String COMMAND_INVALID_KEYWORD_MESSAGE = "Wrong command for 'help'";
     private static final String COMMAND_KEYWORD = "help";
@@ -27,6 +27,13 @@ public class HelpCommand extends Command {
     private final MainManager mainManager;
     private final TextUi textUi;
 
+    /**
+     * Initialises a HelpCommand Object using the command arguments issued by the user.
+     *
+     * @param arguments Command arguments issued by the user
+     * @param mainManager Instance of MainManager currently managing the WellNUS++ application
+     * @throws BadCommandException If arguments issued by the user are invalid
+     */
     public HelpCommand(HashMap<String, String> arguments, MainManager mainManager)
             throws BadCommandException {
         super(arguments);
@@ -38,7 +45,7 @@ public class HelpCommand extends Command {
         return HelpCommand.COMMAND_BRIEF_DESCRIPTION;
     }
 
-    /*
+    /**
      * Checks the command arguments for this help command to determine if
      *   the user wants an overall description of WellNus's supported features
      *   or a detailed description of a specific feature.

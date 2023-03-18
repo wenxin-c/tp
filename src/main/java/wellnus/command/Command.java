@@ -1,10 +1,10 @@
 package wellnus.command;
 
-import wellnus.exception.BadCommandException;
-import wellnus.exception.WellNusException;
-
 import java.util.HashMap;
 import java.util.Map;
+
+import wellnus.exception.BadCommandException;
+import wellnus.exception.WellNusException;
 
 /**
  * Superclass for all supported commands in Duke.<br>
@@ -23,6 +23,10 @@ public abstract class Command {
     // Key: An argument's name. Value: An argument's provided value from the user
     private final HashMap<String, String> arguments;
 
+    /**
+     * Initialises a Command Object with the given arguments from the user
+     * @param arguments
+     */
     public Command(HashMap<String, String> arguments) {
         // Arguments should never be null, or later code will call methods on a null reference
         assert arguments != null : WEIRD_ARGUMENTS_GIVEN;
