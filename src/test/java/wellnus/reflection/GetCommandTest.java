@@ -10,6 +10,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+/**
+ * Class to test different tests for GetCommand Class utilising JUnit tests
+ * Test cases will involve expected outputs and correct exception handling
+ */
 class GetCommandTest {
     private static final int EXPECTED_ARRAY_LENGTH = 5;
     private static final int EXPECTED_ARGUMENT_PAYLOAD_SIZE = 1;

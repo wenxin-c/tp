@@ -2,6 +2,9 @@ package wellnus.atomichabit.feature;
 
 import java.util.ArrayList;
 
+/**
+ * Class to represent a container that will contain all unique AtomicHabit objects in an arraylist
+ */
 public class AtomicHabitList {
     private final ArrayList<AtomicHabit> allAtomicHabits;
 

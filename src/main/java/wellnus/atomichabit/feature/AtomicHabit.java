@@ -1,5 +1,9 @@
 package wellnus.atomichabit.feature;
 
+/**
+ * Class to represent a unique atomic habit that the user will practice
+ * It contains primarily the description of the habit and the count of the habit
+ */
 public class AtomicHabit {
     private final String description;
     private int count;
