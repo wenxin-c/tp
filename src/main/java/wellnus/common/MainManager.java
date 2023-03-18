@@ -48,8 +48,8 @@ public class MainManager extends Manager {
 
     /**
      * Continuously reads user's commands and executes those that are supported
-     *     by WellNUS++ until the `exit` command is given.<br>
-     *
+     * by WellNUS++ until the `exit` command is given.<br>
+     * <p>
      * If an unrecognised command is given, a warning is printed on the user's screen.
      */
     private void executeCommands() {
@@ -92,7 +92,8 @@ public class MainManager extends Manager {
 
     /**
      * Parses the given command String issued by the user and returns the corresponding
-     *     Command object that can execute it.
+     * Command object that can execute it.
+     *
      * @param command Command issued by the user
      * @return Command object that can execute the user's command
      * @throws BadCommandException If command issued is not supported or invalid
@@ -189,7 +190,7 @@ public class MainManager extends Manager {
 
     /**
      * Executes the basic commands(e.g. <code>help</code>) as well as any feature-specific
-     *     commands, which are delegated to the corresponding features' Managers.<br>
+     * commands, which are delegated to the corresponding features' Managers.<br>
      * <br>
      * This method will keep reading the user's command until the exit command is given.
      */
