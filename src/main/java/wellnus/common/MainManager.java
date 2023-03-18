@@ -25,6 +25,7 @@ public class MainManager extends Manager {
     private static final String INVALID_COMMAND_ADDITIONAL_MESSAGE = "Try 'help' for some guidance";
     private static final String INVALID_FEATURE_KEYWORD_MESSAGE = "Feature keyword can't be empty dear";
     private static final String WELLNUS_FEATURE_NAME = "";
+    private static final String NO_ADDITIONAL_MESSAGE = "";
     private ArrayList<Manager> featureManagers;
     private final TextUi textUi;
 
@@ -56,7 +57,6 @@ public class MainManager extends Manager {
         boolean isExit = false;
         CommandParser parser = new CommandParser();
         while (!isExit) {
-            String NO_ADDITIONAL_MESSAGE = "";
             try {
                 String nextCommand = this.getTextUi().getCommand();
                 String featureKeyword = parser.getMainArgument(nextCommand);
