@@ -1,5 +1,10 @@
 package wellnus.common;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Optional;
+
 import wellnus.atomichabit.feature.AtomicHabitManager;
 import wellnus.command.Command;
 import wellnus.command.CommandParser;
@@ -10,11 +15,6 @@ import wellnus.exception.WellNusException;
 import wellnus.manager.Manager;
 import wellnus.reflection.ReflectionManager;
 import wellnus.ui.TextUi;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Optional;
 
 public class MainManager extends Manager {
     private static final String EXIT_COMMAND_KEYWORD = "exit";
