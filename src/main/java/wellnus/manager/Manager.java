@@ -6,7 +6,6 @@ import wellnus.command.Command;
 import wellnus.command.CommandParser;
 import wellnus.exception.BadCommandException;
 
-
 /**
  * Manager is the superclass for all WellNUS++ event drivers <br>
  * <br>
