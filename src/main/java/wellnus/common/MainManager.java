@@ -16,6 +16,14 @@ import wellnus.manager.Manager;
 import wellnus.reflection.ReflectionManager;
 import wellnus.ui.TextUi;
 
+/**
+ * MainManager is the primary event driver for WellNUS++ <br>
+ * <br>
+ * MainManager creates and stores exactly one instance of each feature's Manager in WellNUS++.
+ * <p>
+ * It runs an event driver, matches user input to the selected feature
+ * and executes its instance to launch the feature Manager.
+ */
 public class MainManager extends Manager {
     private static final String EXIT_COMMAND_KEYWORD = "exit";
     private static final String GREETING_MESSAGE = "Enter a command to start using WellNUS++! Try 'help' "
@@ -29,6 +37,11 @@ public class MainManager extends Manager {
     private ArrayList<Manager> featureManagers;
     private final TextUi textUi;
 
+    /**
+     * Constructs an instance of MainManager <br>
+     * Instantiates boilerplate utilities like TextUi
+     * and populates featureManagers with exactly one instance to be executed on user selection
+     */
     public MainManager() {
         super();
         this.featureManagers = new ArrayList<>();
