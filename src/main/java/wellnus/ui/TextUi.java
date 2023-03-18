@@ -4,6 +4,8 @@ import java.io.InputStream;
 import java.nio.BufferOverflowException;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * TextUi class for reading user inputs and printing outputs.<br/>
@@ -12,6 +14,7 @@ import java.util.Scanner;
  * This is to accommodate to the uniqueness of each feature.
  */
 public class TextUi {
+    private static final Logger LOGGER = Logger.getLogger("TextUiLogger");
     private static final String ALERT_SEPARATOR = "!!!!!!-------!!!!!--------!!!!!!!------!!!!!"
             + "---------!!!!!!!";
     private static final String INDENTATION_SPACES = "    ";
@@ -52,8 +55,10 @@ public class TextUi {
             String inputLine = scanner.nextLine();
             userCommand = inputLine.trim();
         } catch (BufferOverflowException bufferOverFlowException) {
+            LOGGER.log(Level.INFO, BUFFER_OVERFLOW_MSG);
             printErrorFor(bufferOverFlowException, BUFFER_OVERFLOW_MSG);
         } catch (NoSuchElementException noElementException) {
+            LOGGER.log(Level.INFO, NO_INPUT_ELEMENT_MSG);
             printErrorFor(noElementException, NO_INPUT_ELEMENT_MSG);
         }
         return userCommand;

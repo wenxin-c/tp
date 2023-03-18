@@ -4,8 +4,11 @@ import wellnus.command.Command;
 import wellnus.exception.BadCommandException;
 
 import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class HomeCommand extends Command {
+    private static final Logger LOGGER = Logger.getLogger("ReflectHomeCommandLogger");
     private static final String FEATURE_NAME = "reflect";
     private static final String COMMAND_KEYWORD = "home";
     private static final String FULL_DESCRIPTION = "";
@@ -79,8 +82,9 @@ public class HomeCommand extends Command {
     public void execute() {
         try {
             validateCommand(this.argumentPayload);
-        } catch (BadCommandException invalidCommandException) {
-            UI.printErrorFor(invalidCommandException, INVALID_COMMAND_NOTES);
+        } catch (BadCommandException invalidCommand) {
+            LOGGER.log(Level.INFO, INVALID_COMMAND_MSG);
+            UI.printErrorFor(invalidCommand, INVALID_COMMAND_NOTES);
             return;
         }
         assert argumentPayload.containsKey(COMMAND_KEYWORD) : COMMAND_KEYWORD_ASSERTION;
