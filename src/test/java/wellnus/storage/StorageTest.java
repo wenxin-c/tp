@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import org.junit.jupiter.api.Test;
 
 import wellnus.exception.StorageException;
+
 public class StorageTest {
 
     private Storage getStorageInstance() {
@@ -117,7 +118,7 @@ public class StorageTest {
         } catch (StorageException exception) {
             fail("Storage failed to load data!");
         }
-        assertEquals(result, debugList);
+        assertEquals(debugList, result);
         // Cleanup file
         try {
             storage.deleteFile(debugFilename);
