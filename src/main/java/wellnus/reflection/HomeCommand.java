@@ -1,15 +1,21 @@
 package wellnus.reflection;
 
+import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import wellnus.command.Command;
 import wellnus.exception.BadCommandException;
 
-import java.util.HashMap;
-
-public class ReturnCommand extends Command {
+/**
+ * Home command to return back to WellNUS++ main interface.
+ */
+public class HomeCommand extends Command {
+    private static final Logger LOGGER = Logger.getLogger("ReflectHomeCommandLogger");
     private static final String FEATURE_NAME = "reflect";
-    private static final String COMMAND_KEYWORD = "return";
+    private static final String COMMAND_KEYWORD = "home";
     private static final String FULL_DESCRIPTION = "";
-    private static final String ARGUMENT = "return";
+    private static final String ARGUMENT = "home";
     private static final String PAYLOAD = "";
     private static final ReflectUi UI = new ReflectUi();
     private static final int ARGUMENT_PAYLOAD_SIZE = 1;
@@ -20,10 +26,17 @@ public class ReturnCommand extends Command {
     private static final String EMPTY_ARGUMENT_PAYLOAD_ASSERTION = "The argument-payload pair cannot be empty!";
     private static final String COMMAND_KEYWORD_ASSERTION = "The key should be return.";
     private static final String COMMAND_PAYLOAD_ASSERTION = "The payload should be empty.";
-
+    private static final String HOME_MESSAGE = "How do you feel after reflecting on yourself?"
+            + System.lineSeparator() + "Hope you have gotten some takeaways from self reflection, see you again!!";
     private HashMap<String, String> argumentPayload;
 
-    public ReturnCommand(HashMap<String, String> arguments) throws BadCommandException {
+    /**
+     * Constructor to set up argument-payload pairs for home command.
+     *
+     * @param arguments Argument-payload pair from users
+     * @throws BadCommandException If an invalid command is given
+     */
+    public HomeCommand(HashMap<String, String> arguments) throws BadCommandException {
         super(arguments);
         this.argumentPayload = getArguments();
         assert argumentPayload.size() > EMPTY_ARGUMENT_PAYLOAD : EMPTY_ARGUMENT_PAYLOAD_ASSERTION;
@@ -32,7 +45,7 @@ public class ReturnCommand extends Command {
     /**
      * Get the command itself.
      *
-     * @return Command: return
+     * @return Command: home
      */
     @Override
     protected String getCommandKeyword() {
@@ -40,10 +53,10 @@ public class ReturnCommand extends Command {
     }
 
     /**
-     * Get detailed description of a return command.<br/>
+     * Get detailed description of a home command.<br/>
      * TODO: FULL_DESCRIPTION is not completed yet.
      *
-     * @return Full description of return command
+     * @return Full description of home command
      */
     @Override
     protected String getDetailedDescription() {
@@ -51,9 +64,9 @@ public class ReturnCommand extends Command {
     }
 
     /**
-     * Get the name of the feature in which this return command is generated.
+     * Get the name of the feature in which this home command is generated.
      *
-     * @return Self reflection
+     * @return Feature name: reflect
      */
     @Override
     protected String getFeatureKeyword() {
@@ -61,9 +74,9 @@ public class ReturnCommand extends Command {
     }
 
     /**
-     * Only one supported argument for exit command.
+     * Only one supported argument for home command.
      *
-     * @return Argument: return
+     * @return Argument: home
      */
     @Override
     protected String getSupportedCommandArguments() {
@@ -78,11 +91,14 @@ public class ReturnCommand extends Command {
     public void execute() {
         try {
             validateCommand(this.argumentPayload);
-        } catch (BadCommandException invalidCommandException) {
-            UI.printErrorFor(invalidCommandException, INVALID_COMMAND_NOTES);
+        } catch (BadCommandException invalidCommand) {
+            LOGGER.log(Level.INFO, INVALID_COMMAND_MSG);
+            UI.printErrorFor(invalidCommand, INVALID_COMMAND_NOTES);
+            return;
         }
         assert argumentPayload.containsKey(COMMAND_KEYWORD) : COMMAND_KEYWORD_ASSERTION;
         assert argumentPayload.get(COMMAND_KEYWORD).equals(PAYLOAD) : COMMAND_PAYLOAD_ASSERTION;
+        UI.printOutputMessage(HOME_MESSAGE);
         ReflectionManager.setIsExit(true);
     }
 
@@ -104,7 +120,7 @@ public class ReturnCommand extends Command {
             throw new BadCommandException(INVALID_COMMAND_MSG);
         } else if (!commandMap.containsKey(COMMAND_KEYWORD)) {
             throw new BadCommandException(INVALID_COMMAND_MSG);
-        } else if (!(commandMap.get(COMMAND_KEYWORD).equals(PAYLOAD))) {
+        } else if (!commandMap.get(COMMAND_KEYWORD).equals(PAYLOAD)) {
             throw new BadCommandException(INVALID_COMMAND_MSG);
         }
     }

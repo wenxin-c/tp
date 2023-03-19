@@ -44,8 +44,11 @@ public class SelfReflection {
     private static final String TOTAL_NUM_QUESTION_ASSERTIONS = "The total number of questions is 10.";
     private static final ReflectUi UI = new ReflectUi();
 
-    private static ArrayList<ReflectionQuestion> questions = new ArrayList<>();
+    private ArrayList<ReflectionQuestion> questions = new ArrayList<>();
 
+    /**
+     * Constructor to create a SelfReflection object and set up the questions available.
+     */
     public SelfReflection() {
         setUpQuestions();
         assert questions.size() == TOTAL_NUM_QUESTIONS : TOTAL_NUM_QUESTION_ASSERTIONS;
@@ -54,9 +57,9 @@ public class SelfReflection {
     /**
      * Load the questions list with pre-defined reflect questions.
      */
-    private static void setUpQuestions() {
-        for (int i = 0; i < QUESTIONS.length; i += 1) {
-            ReflectionQuestion newQuestion = new ReflectionQuestion(QUESTIONS[i]);
+    private void setUpQuestions() {
+        for (String question : QUESTIONS) {
+            ReflectionQuestion newQuestion = new ReflectionQuestion(question);
             addReflectQuestion(newQuestion);
         }
     }
@@ -69,15 +72,11 @@ public class SelfReflection {
         UI.printOutputMessage(GREETING_MESSAGE);
     }
 
-    public static ArrayList<ReflectionQuestion> getQuestions() {
+    public ArrayList<ReflectionQuestion> getQuestions() {
         return questions;
     }
 
-    public static void clearQuestions() {
-        questions.clear();
-    }
-
-    public static void addReflectQuestion(ReflectionQuestion question) {
+    public void addReflectQuestion(ReflectionQuestion question) {
         questions.add(question);
     }
 }

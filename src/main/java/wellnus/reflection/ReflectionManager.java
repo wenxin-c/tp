@@ -1,40 +1,49 @@
 package wellnus.reflection;
 
+import java.util.HashMap;
+import java.util.NoSuchElementException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import wellnus.exception.BadCommandException;
 import wellnus.manager.Manager;
 
-import java.util.HashMap;
-import java.util.NoSuchElementException;
-
+/**
+ * The manager for self reflection section.<br/>
+ * This class oversees the command execution for self reflection section.
+ */
 public class ReflectionManager extends Manager {
+    private static final Logger LOGGER = Logger.getLogger("ReflectionManagerLogger");
     private static final String FEATURE_NAME = "reflect";
     private static final String BRIEF_DESCRIPTION = "Users can get a random set of questions to reflect on.";
     private static final String FULL_DESCRIPTION = "";
     private static final String GET_COMMAND = "get";
     private static final String GET_PAYLOAD = "";
-    private static final String RETURN_MAIN = "return";
-    private static final String RETURN_PAYLOAD = "";
-    private static final String EXIT_COMMAND = "exit";
-    private static final String EXIT_PAYLOAD = "";
+    private static final String HOME_COMMAND = "home";
+    private static final String HOME_PAYLOAD = "";
     private static final String NO_ELEMENT_MESSAGE = "There is no new line of input, please key in inputs.";
     private static final String INVALID_COMMAND_MESSAGE = "Please check the available commands "
             + "and enter a valid command.";
     private static final String IS_EXIT_ASSERTION = "isExit should be true after exiting while loop";
-    private static final int EMPTY_COMMAND_TYPE = 0;
+    private static final int EMPTY_COMMAND = 0;
     private static final String COMMAND_TYPE_ASSERTION = "Command type should have length greater than 0";
 
     // TODO: Update with more commands being added
-    private static final int NUM_SUPPORTED_COMMANDS = 3;
-    private static final String SUPPORTED_COMMANDS_ASSERTION = "The number of supported commands should be 3";
+    private static final int NUM_SUPPORTED_COMMANDS = 2;
+    private static final String SUPPORTED_COMMANDS_ASSERTION = "The number of supported commands should be 2";
     private static final String ARGUMENT_PAYLOAD_ASSERTION = "Argument-payload pairs cannot be empty";
     private static final boolean INITIAL_EXIT_STATUS = false;
     private static final ReflectUi UI = new ReflectUi();
 
     // This attribute should be set as static to avoid confusion if a new object is created.
+    // It means exit from self reflection back to main interface
     private static boolean isExit;
     private String commandType;
     private HashMap<String, String> argumentPayload;
 
+    /**
+     * Constructor to set initial isExit status to false and load the reflection questions.
+     */
     public ReflectionManager() {
         setIsExit(INITIAL_EXIT_STATUS);
         setSupportedCommands();
@@ -90,8 +99,7 @@ public class ReflectionManager extends Manager {
     /**
      * Set up the set of command-payload pairs supported by self reflection.<br/>
      * <li>Command: get, Payload: ""
-     * <li>Command: exit, Payload: ""
-     * <li>Command: return, Payload: ""
+     * <li>Command: home, Payload: ""
      */
     @Override
     protected void setSupportedCommands() {
@@ -99,16 +107,13 @@ public class ReflectionManager extends Manager {
             HashMap<String, String> getCmdArgumentPayload = new HashMap<>();
             getCmdArgumentPayload.put(GET_COMMAND, GET_PAYLOAD);
             GetCommand getCmd = new GetCommand(getCmdArgumentPayload);
-            HashMap<String, String> returnCmdArgumentPayload = new HashMap<>();
-            returnCmdArgumentPayload.put(RETURN_MAIN, RETURN_PAYLOAD);
-            ReturnCommand returnCmd = new ReturnCommand(returnCmdArgumentPayload);
-            HashMap<String, String> exitCmdArgumentPayload = new HashMap<>();
-            exitCmdArgumentPayload.put(EXIT_COMMAND, EXIT_PAYLOAD);
-            ExitCommand exitCmd = new ExitCommand(exitCmdArgumentPayload);
+            HashMap<String, String> homeCmdArgumentPayload = new HashMap<>();
+            homeCmdArgumentPayload.put(HOME_COMMAND, HOME_PAYLOAD);
+            HomeCommand returnCmd = new HomeCommand(homeCmdArgumentPayload);
             supportedCommands.add(getCmd);
             supportedCommands.add(returnCmd);
-            supportedCommands.add(exitCmd);
         } catch (BadCommandException badCommandException) {
+            LOGGER.log(Level.INFO, INVALID_COMMAND_MESSAGE);
             UI.printErrorFor(badCommandException, INVALID_COMMAND_MESSAGE);
         }
         assert supportedCommands.size() == NUM_SUPPORTED_COMMANDS : SUPPORTED_COMMANDS_ASSERTION;
@@ -123,7 +128,7 @@ public class ReflectionManager extends Manager {
      */
     public void setArgumentPayload(String inputCommand) throws BadCommandException {
         argumentPayload = commandParser.parseUserInput(inputCommand);
-        assert !argumentPayload.isEmpty() : ARGUMENT_PAYLOAD_ASSERTION;
+        assert argumentPayload.size() > EMPTY_COMMAND : ARGUMENT_PAYLOAD_ASSERTION;
     }
 
     /**
@@ -133,9 +138,8 @@ public class ReflectionManager extends Manager {
      * @throws BadCommandException If an invalid command was given
      */
     public void setCommandType(String inputCommand) throws BadCommandException {
-        String mainArgument = commandParser.getMainArgument(inputCommand);
-        commandType = mainArgument;
-        assert commandType.length() > EMPTY_COMMAND_TYPE : COMMAND_TYPE_ASSERTION;
+        commandType = commandParser.getMainArgument(inputCommand);
+        assert commandType.length() > EMPTY_COMMAND : COMMAND_TYPE_ASSERTION;
     }
 
     /**
@@ -154,8 +158,10 @@ public class ReflectionManager extends Manager {
                 setArgumentPayload(inputCommand);
                 executeCommands();
             } catch (NoSuchElementException noSuchElement) {
+                LOGGER.log(Level.INFO, NO_ELEMENT_MESSAGE);
                 UI.printErrorFor(noSuchElement, NO_ELEMENT_MESSAGE);
             } catch (BadCommandException badCommand) {
+                LOGGER.log(Level.INFO, INVALID_COMMAND_MESSAGE);
                 UI.printErrorFor(badCommand, INVALID_COMMAND_MESSAGE);
             }
         }
@@ -167,25 +173,20 @@ public class ReflectionManager extends Manager {
      * Commands available at this moment are:
      * <li>Get a random set of reflection questions<br/>
      * <li>Return back main interface<br/>
-     * <li>Exit program<br/>
      *
      * @throws BadCommandException If an invalid command was given
      */
     public void executeCommands() throws BadCommandException {
-        assert commandType.length() > EMPTY_COMMAND_TYPE : COMMAND_TYPE_ASSERTION;
+        assert commandType.length() > EMPTY_COMMAND : COMMAND_TYPE_ASSERTION;
         switch (commandType) {
         case GET_COMMAND:
             GetCommand getQuestionsCmd = new GetCommand(argumentPayload);
             getQuestionsCmd.execute();
             break;
-        case RETURN_MAIN:
-            ReturnCommand returnCmd = new ReturnCommand(argumentPayload);
+        case HOME_COMMAND:
+            HomeCommand returnCmd = new HomeCommand(argumentPayload);
             returnCmd.execute();
             assert isExit : IS_EXIT_ASSERTION;
-            break;
-        case EXIT_COMMAND:
-            ExitCommand exitCmd = new ExitCommand(argumentPayload);
-            exitCmd.execute();
             break;
         default:
             throw new BadCommandException(INVALID_COMMAND_MESSAGE);

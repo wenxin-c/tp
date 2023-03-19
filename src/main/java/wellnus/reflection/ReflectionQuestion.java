@@ -8,13 +8,14 @@ public class ReflectionQuestion {
     private static final String EMPTY_QUESTION_MSG = "Question description cannot be empty.";
     private String questionDescription;
 
+    /**
+     * Constructor to create a ReflectionQuestion object and initialise question description.
+     *
+     * @param questionDescription The reflection question description
+     */
     public ReflectionQuestion(String questionDescription) {
         assert questionDescription.length() > EMPTY_QUESTION : EMPTY_QUESTION_MSG;
         this.questionDescription = questionDescription;
-    }
-
-    public String getQuestionDescription() {
-        return this.questionDescription;
     }
 
     /**
