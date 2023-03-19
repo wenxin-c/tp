@@ -17,7 +17,6 @@ public class ListCommand extends Command {
     private static final String COMMAND_DETAILED_DESCRIPTION = "";
     private static final String COMMAND_INVALID_ARGUMENTS_MESSAGE = "Invalid command, expected 'list'";
     private static final String COMMAND_SUPPORTED_ARGUMENTS = "";
-    private static final int FIRST_CHAR = 0;
     private static final String LINE_SEPARATOR = System.lineSeparator();
     private static final String DOT = ".";
     private static final String NO_ADDITIONAL_MESSAGE = "";
@@ -96,6 +95,7 @@ public class ListCommand extends Command {
             return;
         }
         int taskNo = 1;
+        int firstChar = 0;
         StringBuilder stringOfHabitsBuilder = new StringBuilder(FIRST_STRING + LINE_SEPARATOR);
         for (AtomicHabit habit : atomicHabits.getAllHabits()) {
             String currentHabitString = String.format("%d.%s [%d]",
@@ -104,7 +104,7 @@ public class ListCommand extends Command {
             taskNo += 1;
         }
 
-        String messageToUser = stringOfHabitsBuilder.substring(FIRST_CHAR,
+        String messageToUser = stringOfHabitsBuilder.substring(firstChar,
                 stringOfHabitsBuilder.length() - 1);
         getTextUi().printOutputMessage(messageToUser);
     }
