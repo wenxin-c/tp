@@ -38,11 +38,11 @@ public class StorageTest {
     }
 
     private String getDebugTokenizedString() {
-        return "attr0 p0 "
+        return "attr0 p0"
                 + Storage.DELIMITER
-                + "attr1 p1 --p2 p3 "
+                + "attr1 p1 --p2 p3"
                 + Storage.DELIMITER
-                + "attr2 --p1 p2 --p3 --p4 "
+                + "attr2 --p1 p2 --p3 --p4"
                 + Storage.DELIMITER
                 + "attr3"
                 + Storage.DELIMITER;
