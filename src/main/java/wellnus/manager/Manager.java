@@ -1,10 +1,10 @@
 package wellnus.manager;
 
+import java.util.ArrayList;
+
 import wellnus.command.Command;
 import wellnus.command.CommandParser;
 import wellnus.exception.BadCommandException;
-
-import java.util.ArrayList;
 
 /**
  * Manager is the superclass for all WellNUS++ event drivers <br>
