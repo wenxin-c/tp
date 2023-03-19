@@ -1,8 +1,5 @@
 package wellnus.reflection;
 
-import wellnus.command.Command;
-import wellnus.exception.BadCommandException;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
@@ -11,6 +8,12 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
+import wellnus.command.Command;
+import wellnus.exception.BadCommandException;
+
+/**
+ * Get command to get a set of 5 random questions.
+ */
 public class GetCommand extends Command {
     private static final Logger LOGGER = Logger.getLogger("ReflectGetCommandLogger");
     private static final int NUM_OF_RANDOM_QUESTIONS = 5;
@@ -33,6 +36,12 @@ public class GetCommand extends Command {
     private static final ReflectUi UI = new ReflectUi();
     private HashMap<String, String> argumentPayload;
 
+    /**
+     * Constructor to set up the argument-payload pairs for this command.
+     *
+     * @param arguments Argument-payload pairs from users
+     * @throws BadCommandException If an invalid command is given
+     */
     public GetCommand(HashMap<String, String> arguments) throws BadCommandException {
         super(arguments);
         this.argumentPayload = getArguments();
@@ -149,7 +158,7 @@ public class GetCommand extends Command {
      * Each number num: num >= 0 and num <= (maxSize - 1)
      *
      * @param maxSize Number of questions available to be chosen
-     * @return Array of 5 random numbers
+     * @return A set of 5 random numbers
      */
     private Set<Integer> generateRandomNumbers(int maxSize) {
         Set<Integer> randomNumbers = new Random().ints(MIN_SIZE, maxSize - ONE_OFFSET)
@@ -170,7 +179,7 @@ public class GetCommand extends Command {
         ArrayList<ReflectionQuestion> selectedQuestions = getRandomQuestions();
         String questionString = "";
         for (int i = 0; i < selectedQuestions.size(); i += 1) {
-            questionString += (Integer.toString(i + ONE_OFFSET) + DOT + selectedQuestions.get(i).toString()
+            questionString += ((i + ONE_OFFSET) + DOT + selectedQuestions.get(i).toString()
                     + System.lineSeparator());
         }
         return questionString;
