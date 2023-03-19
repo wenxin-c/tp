@@ -13,14 +13,18 @@ import wellnus.exception.WellNusException;
 import wellnus.manager.Manager;
 import wellnus.ui.TextUi;
 
+/**
+ * Class to represent the event driver of Atomic Habits feature
+ * This class will handle calling the different available commands for Atomic Habits according to user input
+ */
 public class AtomicHabitManager extends Manager {
     public static final String FEATURE_NAME = "hb";
     private static final String ADD_COMMAND_KEYWORD = "add";
-    private static final String ATOMIC_HABIT_LOGO = "   _    _                _       _  _        _     _  _       \n" +
-            "  /_\\  | |_  ___  _ __  (_) __  | || | __ _ | |__ (_)| |_  ___\n" +
-            " / _ \\ |  _|/ _ \\| '  \\ | |/ _| | __ |/ _` || '_ \\| ||  _|(_-<\n" +
-            "/_/ \\_\\ \\__|\\___/|_|_|_||_|\\__| |_||_|\\__,_||_.__/|_| \\__|/__/\n" +
-            "                                                              \n";
+    private static final String ATOMIC_HABIT_LOGO = "   _    _                _       _  _        _     _  _       \n"
+            + "  /_\\  | |_  ___  _ __  (_) __  | || | __ _ | |__ (_)| |_  ___\n"
+            + " / _ \\ |  _|/ _ \\| '  \\ | |/ _| | __ |/ _` || '_ \\| ||  _|(_-<\n"
+            + "/_/ \\_\\ \\__|\\___/|_|_|_||_|\\__| |_||_|\\__,_||_.__/|_| \\__|/__/\n";
+
     private static final String ATOMIC_HABIT_GREET = "Welcome to the atomic habits feature!";
     private static final String HOME_COMMAND_KEYWORD = "home";
     /*
@@ -34,6 +38,10 @@ public class AtomicHabitManager extends Manager {
     private final TextUi textUi;
     private final AtomicHabitList habitList;
 
+    /**
+     * Constructor of AtomicHabitManager
+     * Will initialise the private objects habitList and textUi
+     */
     public AtomicHabitManager() {
         this.habitList = new AtomicHabitList();
         this.textUi = new TextUi();
@@ -89,8 +97,8 @@ public class AtomicHabitManager extends Manager {
                 command.execute();
                 isExit = HomeCommand.isExit(command);
             } catch (BadCommandException badCommandException) {
-                String NO_ADDITIONAL_MESSAGE = "";
-                getTextUi().printErrorFor(badCommandException, NO_ADDITIONAL_MESSAGE);
+                String additionalMessage = "";
+                getTextUi().printErrorFor(badCommandException, additionalMessage);
             } catch (WellNusException exception) {
                 getTextUi().printErrorFor(exception, "Check user guide for valid commands!");
             }
@@ -156,22 +164,22 @@ public class AtomicHabitManager extends Manager {
      * @throws AtomicHabitException For every invalid command being tested below
      */
     public Command testInvalidCommand(String userCommand) throws AtomicHabitException {
-        String DESCRIPTION_TEST = "testing";
-        String EXIT_COMMAND = "hb exit";
-        String LIST_COMMAND = "hb list";
+        String descriptionTest = "testing";
+        String exitCommand = "hb exit";
+        String listCommand = "hb list";
         String indexTest = "1";
         String invalidCommandErrorMessage = "Invalid command! Please enter a valid command";
         HashMap<String, String> arguments;
         try {
             switch (userCommand) {
             case ADD_COMMAND_KEYWORD:
-                arguments = getCommandParser().parseUserInput(DESCRIPTION_TEST);
+                arguments = getCommandParser().parseUserInput(descriptionTest);
                 return new AddCommand(arguments, new AtomicHabitList());
             case LIST_COMMAND_KEYWORD:
-                arguments = getCommandParser().parseUserInput(LIST_COMMAND);
+                arguments = getCommandParser().parseUserInput(listCommand);
                 return new ListCommand(arguments, new AtomicHabitList());
             case HOME_COMMAND_KEYWORD:
-                arguments = getCommandParser().parseUserInput(EXIT_COMMAND);
+                arguments = getCommandParser().parseUserInput(exitCommand);
                 return new HomeCommand(arguments);
             case UPDATE_COMMAND_KEYWORD:
                 arguments = getCommandParser().parseUserInput(indexTest);
@@ -180,8 +188,8 @@ public class AtomicHabitManager extends Manager {
                 throw new AtomicHabitException(invalidCommandErrorMessage);
             }
         } catch (BadCommandException badCommandException) {
-            String NO_ADDITIONAL_MESSAGE = "";
-            getTextUi().printErrorFor(badCommandException, NO_ADDITIONAL_MESSAGE);
+            String additionalMessage = "";
+            getTextUi().printErrorFor(badCommandException, additionalMessage);
             return null;
         }
     }
