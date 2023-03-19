@@ -1,9 +1,9 @@
 package wellnus.storage;
 
+import java.util.ArrayList;
+
 import wellnus.exception.TokenizerException;
 import wellnus.manager.Manager;
-
-import java.util.ArrayList;
 
 /**
  * Template for all Tokenizers in WellNUS++ that are responsible for converting
