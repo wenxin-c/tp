@@ -36,7 +36,7 @@ public class Storage {
     protected static final String DIRECTORY_DEBUG = "debug";
 
     // Delimiter constants
-    protected static final String DELIMITER = " --\n";
+    protected static final String DELIMITER = " --" + System.lineSeparator();
     protected static final String NEWLINE = System.lineSeparator();
     private static final String FILE_EXTENTION = ".txt";
     private static final String WORKING_DIRECTORY = ".";
@@ -111,6 +111,7 @@ public class Storage {
 
     /**
      * Create a file in the path specified by its URI
+     *
      * @author nichyjt
      *
      * @param file to be created
