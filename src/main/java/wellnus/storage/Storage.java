@@ -7,14 +7,23 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 
+import wellnus.exception.StorageException;
+
+// TODO add logger and more defensive checks
+
 /**
- * TODO add logger and defensive checks
+ * Storage is the common interface for all Features to save and load data from. <br>
  * <p>
- * Each manager provides
+ * To save data, the manager should call <code>saveData()</code> and input a list of Strings.
+ * Each string represents one instance of the tokenized form of the data structure the manager is handling,
+ * such as ReflectionQuestion or AtomicHabit. <br>
+ * <p>
+ * To load data, the manager should call <code>loadData()</code> and input the correct filename of
+ * the data to be loaded. The filename should be obtained from the public constant Storage.FILE_[name]
  *
  * @author nichyjt
  */
@@ -27,7 +36,7 @@ public class Storage {
     protected static final String DIRECTORY_DEBUG = "debug";
 
     // Delimiter constants
-    protected static final String DELIMITER = " --";
+    protected static final String DELIMITER = " --\n";
     protected static final String EMPTY_STRING = "";
     protected static final String WHITESPACE_PADDING = " ";
     protected static final String NEWLINE = System.lineSeparator();
@@ -45,6 +54,12 @@ public class Storage {
 
     private Path wellNusDataDirectory;
 
+    /**
+     * Construct an instance of Storage to call saveData and loadData from.
+     *
+     * @throws wellnus.exception.StorageException when creating the data directory fails
+     * @author nichyjt
+     */
     public Storage() throws StorageException {
         wellNusDataDirectory = Paths.get(WORKING_DIRECTORY, DATA_DIRECTORY_NAME);
         // For safety, check that the data folder actually exists
@@ -108,76 +123,39 @@ public class Storage {
      * [space]--attr3 \n<br>
      * </code>
      *
-     * @param mapToTokenize
+     * @param tokenizedStrings
      * @return
      */
-    protected String tokenizeHashmap(HashMap<String, String> mapToTokenize) {
+    protected String tokenizeStringList(ArrayList<String> tokenizedStrings) {
         StringBuilder stringBuilder = new StringBuilder();
-        // Prefer enhanced for loop over lambda for developer accessibility
-        for (Map.Entry<String, String> attributePayloadPair : mapToTokenize.entrySet()) {
-            // An entry is of format "--keyName payload \n"
+        for (String entry : tokenizedStrings) {
             StringBuilder entryBuilder = new StringBuilder();
-
-            // Append the attribute key
+            entryBuilder.append(entry);
             entryBuilder.append(DELIMITER);
-            entryBuilder.append(attributePayloadPair.getKey());
-
-            // Append the attribute payload
-            entryBuilder.append(WHITESPACE_PADDING);
-            entryBuilder.append(attributePayloadPair.getValue());
-
-            entryBuilder.append(NEWLINE);
             stringBuilder.append(entryBuilder);
         }
         return stringBuilder.toString();
     }
 
-    private String getAttributeFromEntry(String[] entry) {
-        return entry[ATTRIBUTE_INDEX];
-    }
-
-    private String getPayloadFromEntry(String[] entry) {
-        StringBuilder builder = new StringBuilder();
-        for (int i = PAYLOAD_INDEX_START; i < entry.length; i += 1) {
-            builder.append(entry[i]);
-            builder.append(WHITESPACE_PADDING);
-        }
-        return builder.toString().trim();
-    }
-
     /**
-     * Splits a datastring by the " --" delimiter
+     * Splits a dataString by the " --" delimiter
      *
-     * @param dataString
-     * @return
+     * @param dataString string to be split
+     * @return a String[] of words belonging to the dataString
      */
     private String[] splitIntoEntries(String dataString) {
-        String[] tokens = dataString.split(DELIMITER);
-        return tokens;
-    }
-
-    private String[] splitEntryIntoWords(String entry) {
-        return entry.split(WHITESPACE_PADDING);
+        return dataString.split(DELIMITER);
     }
 
     /**
      * Detokenizing raw string
      *
-     * @param dataString
+     * @param dataString raw string loaded from the text file
      * @return
      */
-    protected HashMap<String, String> detokenizeDataString(String dataString) {
+    protected ArrayList<String> detokenizeDataString(String dataString) {
         String[] entries = splitIntoEntries(dataString);
-        HashMap<String, String> attributePayloadPair = new HashMap<>();
-        for (String entry : entries) {
-            String[] entryWords = splitEntryIntoWords(entry);
-            String attribute = getAttributeFromEntry(entryWords);
-            String payload = getPayloadFromEntry(entryWords);
-            attributePayloadPair.put(attribute, payload);
-        }
-        // Remove trailing empty attribute
-        attributePayloadPair.remove(EMPTY_STRING);
-        return attributePayloadPair;
+        return new ArrayList<>(Arrays.asList(entries));
     }
 
     private void writeDataToDisk(String data, File file) throws StorageException {
@@ -206,13 +184,13 @@ public class Storage {
         return data.toString();
     }
 
-    public void saveData(HashMap<String, String> tokenizedManager, String fileName) throws StorageException {
+    public void saveData(ArrayList<String> tokenizedManager, String fileName) throws StorageException {
         File file = getFile(fileName);
-        String tokenizedString = tokenizeHashmap(tokenizedManager);
+        String tokenizedString = tokenizeStringList(tokenizedManager);
         writeDataToDisk(tokenizedString, file);
     }
 
-    public HashMap<String, String> loadData(String fileName) throws StorageException {
+    public ArrayList<String> loadData(String fileName) throws StorageException {
         File file = getFile(fileName);
         String data = loadDataFromDisk(file);
         return detokenizeDataString(data);
