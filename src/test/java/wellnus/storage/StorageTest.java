@@ -1,8 +1,11 @@
 package wellnus.storage;
 
 import org.junit.jupiter.api.Test;
+import wellnus.exception.StorageException;
 
 import java.io.File;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -22,20 +25,25 @@ public class StorageTest {
         return storage;
     }
 
-    private HashMap<String, String> createValidDummyMap() {
-        String key0 = "attr0";
-        String val0 = "p0";
-        String key1 = "attr1";
-        String val1 = "p1 p2 p3";
-        String key2 = "attr2";
-        String val2 = "";
-        HashMap<String, String> dummyMap = new HashMap<>();
-        dummyMap.put(key0, val0);
-        dummyMap.put(key1, val1);
-        dummyMap.put(key2, val2);
-        return dummyMap;
+    private ArrayList<String> getDebugStringList() {
+        String entry0 = "attr0 p0";
+        String entry1 = "attr1 p1 --p2 p3";
+        String entry2 = "attr2 --p1 p2 --p3 --p4";
+        String entry3 = "attr3";
+        ArrayList<String> stringList = new ArrayList<>();
+        stringList.add(entry0);
+        stringList.add(entry1);
+        stringList.add(entry2);
+        stringList.add(entry3);
+        return stringList;
     }
 
+    private String getDebugTokenizedString() {
+        return "attr0 p0 --\n"
+                + "attr1 p1 --p2 p3 --\n"
+                + "attr2 --p1 p2 --p3 --p4 --\n"
+                + "attr3 --\n";
+    }
 
     @Test
     public void createAndDeleteFile_test() {
@@ -68,17 +76,10 @@ public class StorageTest {
             fail("Storage is null!");
         }
 
-        HashMap<String, String> testMap = new HashMap<>();
-        String key0 = "attr0";
-        String val0 = "";
-        String key1 = "attr1";
-        String val1 = "p1 p2 p3";
+        ArrayList<String> debugList = getDebugStringList();
 
-        testMap.put(key0, val0);
-        testMap.put(key1, val1);
-        String result = storage.tokenizeHashmap(testMap);
-        String expected = " --attr0 \n"
-                + " --attr1 p1 p2 p3\n";
+        String result = storage.tokenizeStringList(debugList);
+        String expected = getDebugTokenizedString();
         assertEquals(expected, result);
     }
 
@@ -88,34 +89,10 @@ public class StorageTest {
         if (storage == null) {
             fail("Storage is null!");
         }
-        String dataString = " --attr0 p\n"
-                + " --attr1 p1 p2 p3\n"
-                + " --attr2";
-        String key0 = "attr0";
-        String val0 = "p";
-        String key1 = "attr1";
-        String val1 = "p1 p2 p3";
-        String key2 = "attr2";
-        String val2 = "";
-        HashMap<String, String> result = storage.detokenizeDataString(dataString);
-
-        if (result.containsKey(key0)) {
-            assertEquals(val0, result.get(key0));
-        } else {
-            fail("Missing key0");
-        }
-
-        if (result.containsKey(key1)) {
-            assertEquals(val1, result.get(key1));
-        } else {
-            fail("Missing key1");
-        }
-
-        if (result.containsKey(key2)) {
-            assertEquals(val2, result.get(key2));
-        } else {
-            fail("Missing key2");
-        }
+        String dataString = getDebugTokenizedString();
+        ArrayList<String> expectedList = getDebugStringList();
+        ArrayList<String> result = storage.detokenizeDataString(dataString);
+        assertEquals(result, expectedList);
     }
 
     /**
@@ -129,20 +106,20 @@ public class StorageTest {
             fail("Storage is null!");
         }
         // Test saving logic
-        HashMap<String, String> dataMap = createValidDummyMap();
+        ArrayList<String> debugList = getDebugStringList();
         try {
-            storage.saveData(dataMap, debugFilename);
+            storage.saveData(getDebugStringList(), debugFilename);
         } catch (StorageException exception) {
             fail("Storage failed to save data!");
         }
         // Test loading logic
-        HashMap<String, String> result = new HashMap<>();
+        ArrayList<String> result = new ArrayList<>();
         try {
             result = storage.loadData(debugFilename);
         } catch (StorageException exception) {
             fail("Storage failed to load data!");
         }
-        assertEquals(result, dataMap);
+        assertEquals(result, debugList);
         // Cleanup file
         try {
             storage.deleteFile(debugFilename);
