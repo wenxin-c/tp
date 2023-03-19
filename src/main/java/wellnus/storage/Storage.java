@@ -88,12 +88,13 @@ public class Storage {
         }
     }
 
-
     private void createFile(File file) throws StorageException {
         try {
             file.createNewFile();
         } catch (IOException exception) {
-            throw new StorageException(exception.getMessage());
+            String errorMessage = ERROR_CANNOT_MAKE_FILE;
+            errorMessage = errorMessage.concat(exception.getMessage());
+            throw new StorageException(errorMessage);
         }
     }
 
