@@ -1,10 +1,10 @@
 package wellnus.command;
 
-import wellnus.exception.BadCommandException;
-
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import wellnus.exception.BadCommandException;
 
 /**
  * A CommandParser processes user input from a defined format <p>
@@ -62,8 +62,8 @@ public class CommandParser {
             throw new BadCommandException(ERROR_EMPTY_COMMAND);
         }
 
-        int NO_LIMIT = -1;
-        String[] rawCommands = fullCommandString.split(ARGUMENT_DELIMITER, NO_LIMIT);
+        int noLimit = -1;
+        String[] rawCommands = fullCommandString.split(ARGUMENT_DELIMITER, noLimit);
         // Adversarial user input check
         // There are 2 possible adversarial inputs that should be checked for
         // 1. Whitespace/Empty Arguments: `cmd payload -- payload1 -- `

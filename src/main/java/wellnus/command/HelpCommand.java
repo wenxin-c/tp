@@ -1,9 +1,9 @@
 package wellnus.command;
 
+import java.util.HashMap;
+
 import wellnus.exception.BadCommandException;
 import wellnus.ui.TextUi;
-
-import java.util.HashMap;
 
 /**
  * Implementation of WellNus' <code>help</code> command. Explains to the user what commands are supported
@@ -33,6 +33,11 @@ public class HelpCommand extends Command {
     private static final int EXPECTED_PAYLOAD_SIZE = 1;
     private final TextUi textUi;
 
+    /**
+     * Initialises a HelpCommand Object using the command arguments issued by the user.
+     *
+     * @param arguments Command arguments issued by the user
+     */
     public HelpCommand(HashMap<String, String> arguments) {
         super(arguments);
         this.textUi = new TextUi();

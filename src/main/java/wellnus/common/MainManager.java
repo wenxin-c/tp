@@ -1,5 +1,10 @@
 package wellnus.common;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Optional;
+
 import wellnus.atomichabit.feature.AtomicHabitManager;
 import wellnus.command.Command;
 import wellnus.command.CommandParser;
@@ -11,11 +16,14 @@ import wellnus.manager.Manager;
 import wellnus.reflection.ReflectionManager;
 import wellnus.ui.TextUi;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Optional;
-
+/**
+ * MainManager is the primary event driver for WellNUS++ <br>
+ * <br>
+ * MainManager creates and stores exactly one instance of each feature's Manager in WellNUS++.
+ * <p>
+ * It runs an event driver, matches user input to the selected feature
+ * and executes its instance to launch the feature Manager.
+ */
 public class MainManager extends Manager {
     private static final String EXIT_COMMAND_KEYWORD = "exit";
     private static final String GREETING_MESSAGE = "Enter a command to start using WellNUS++! Try 'help' "
@@ -25,9 +33,15 @@ public class MainManager extends Manager {
     private static final String INVALID_COMMAND_ADDITIONAL_MESSAGE = "Try 'help' for some guidance";
     private static final String INVALID_FEATURE_KEYWORD_MESSAGE = "Feature keyword can't be empty dear";
     private static final String WELLNUS_FEATURE_NAME = "";
+    private static final String NO_ADDITIONAL_MESSAGE = "";
     private ArrayList<Manager> featureManagers;
     private final TextUi textUi;
 
+    /**
+     * Constructs an instance of MainManager <br>
+     * Instantiates boilerplate utilities like TextUi
+     * and populates featureManagers with exactly one instance to be executed on user selection
+     */
     public MainManager() {
         super();
         this.featureManagers = new ArrayList<>();
@@ -48,15 +62,14 @@ public class MainManager extends Manager {
 
     /**
      * Continuously reads user's commands and executes those that are supported
-     *     by WellNUS++ until the `exit` command is given.<br>
-     *
+     * by WellNUS++ until the `exit` command is given.<br>
+     * <p>
      * If an unrecognised command is given, a warning is printed on the user's screen.
      */
     private void executeCommands() {
         boolean isExit = false;
         CommandParser parser = new CommandParser();
         while (!isExit) {
-            String NO_ADDITIONAL_MESSAGE = "";
             try {
                 String nextCommand = this.getTextUi().getCommand();
                 String featureKeyword = parser.getMainArgument(nextCommand);
@@ -92,7 +105,8 @@ public class MainManager extends Manager {
 
     /**
      * Parses the given command String issued by the user and returns the corresponding
-     *     Command object that can execute it.
+     * Command object that can execute it.
+     *
      * @param command Command issued by the user
      * @return Command object that can execute the user's command
      * @throws BadCommandException If command issued is not supported or invalid
@@ -189,7 +203,7 @@ public class MainManager extends Manager {
 
     /**
      * Executes the basic commands(e.g. <code>help</code>) as well as any feature-specific
-     *     commands, which are delegated to the corresponding features' Managers.<br>
+     * commands, which are delegated to the corresponding features' Managers.<br>
      * <br>
      * This method will keep reading the user's command until the exit command is given.
      */
