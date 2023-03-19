@@ -1,10 +1,13 @@
 package wellnus.command;
 
+import java.util.HashMap;
+
 import wellnus.exception.BadCommandException;
 import wellnus.ui.TextUi;
 
-import java.util.HashMap;
-
+/**
+ * Provides the exit command of the WellNUS++ app.
+ */
 public class ExitCommand extends Command {
     private static final String COMMAND_ARGUMENTS = "";
     private static final String COMMAND_DETAILED_DESCRIPTION = "Exits from the WellNUS++ application";
@@ -13,6 +16,12 @@ public class ExitCommand extends Command {
     private static final String FEATURE_KEYWORD = "";
     private final TextUi textUi;
 
+    /**
+     * Initialises an ExitCommand Object using the arguments issued by the user.
+     * @param arguments Command arguments issued by the user
+     * @throws BadCommandException If arguments given are invalid
+     * @see ExitCommand#validateCommand(HashMap)
+     */
     public ExitCommand(HashMap<String, String> arguments) throws BadCommandException {
         super(arguments);
         this.textUi = new TextUi();
