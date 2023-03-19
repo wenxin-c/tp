@@ -110,6 +110,13 @@ Expected outcome:
 
 ```
 ============================================================
+  _____ ______ _      ______   _____  ______ ______ _      ______ _____ _______ _____ ____  _   _ 
+ / ____|  ____| |    |  ____| |  __ \|  ____|  ____| |    |  ____/ ____|__   __|_   _/ __ \| \ | |
+| (___ | |__  | |    | |__    | |__) | |__  | |__  | |    | |__ | |       | |    | || |  | |  \| |
+ \___ \|  __| | |    |  __|   |  _  /|  __| |  __| | |    |  __|| |       | |    | || |  | | . ` |
+ ____) | |____| |____| |      | | \ \| |____| |    | |____| |___| |____   | |   _| || |__| | |\  |
+|_____/|______|______|_|      |_|  \_\______|_|    |______|______\_____|  |_|  |_____\____/|_| \_|
+============================================================
     Welcome to WellNUS++ Self Reflection section :D
     Feel very occupied and cannot find time to self reflect?
     No worries, this section will give you the opportunity to reflect and improve on yourself!!
@@ -214,6 +221,12 @@ Expected outcome:
 Thank you for using atomic habits. Do not forget about me!
 —---------------------------------------------------------------
 ```
+```
+============================================================
+    How do you feel after reflecting on yourself?
+    Hope you have gotten some takeaways from self reflection, see you again!!
+============================================================
+```
 
 ### Get reflection questions: `get`
 
@@ -240,6 +253,7 @@ Expected outcome:
 ### Exit: `exit`
 
 To exit the app, data of the current progress will be saved upon exiting the program
+**Note:** you can only enter `exit` command to exit the program after returning back to main WellNUS++. 
 
 Format: `exit`
 
