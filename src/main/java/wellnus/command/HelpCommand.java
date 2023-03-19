@@ -1,6 +1,5 @@
 package wellnus.command;
 
-import wellnus.common.MainManager;
 import wellnus.exception.BadCommandException;
 import wellnus.ui.TextUi;
 
