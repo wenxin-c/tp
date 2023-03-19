@@ -11,11 +11,8 @@ import java.util.HashMap;
 
 public class ListCommand extends Command {
     private static final String COMMAND_KEYWORD = "list";
-    private static final String COMMAND_DETAILED_DESCRIPTION = "";
     private static final String COMMAND_INVALID_ARGUMENTS_MESSAGE = "Invalid command, expected 'hb list'";
-    private static final String COMMAND_SUPPORTED_ARGUMENTS = "";
     private static final String LINE_SEPARATOR = System.lineSeparator();
-    private static final String DOT = ".";
     private static final String FIRST_STRING = "Here is the current accumulation of your atomic habits!"
             + LINE_SEPARATOR + "Keep up the good work and you will develop a helpful habit in no time";
     private final AtomicHabitList atomicHabits;
@@ -43,16 +40,6 @@ public class ListCommand extends Command {
     }
 
     /**
-     * Returns a detailed user-friendly description of what this specific command does.
-     *
-     * @return String Detailed explanation of this command
-     */
-    @Override
-    protected String getDetailedDescription() {
-        return COMMAND_DETAILED_DESCRIPTION;
-    }
-
-    /**
      * Identifies the feature that this Command is associated with. Override
      * this in subclasses so toString() returns the correct String representation.
      *
@@ -61,16 +48,6 @@ public class ListCommand extends Command {
     @Override
     protected String getFeatureKeyword() {
         return AtomicHabitManager.FEATURE_NAME;
-    }
-
-    /**
-     * Returns all the supported arguments for this Command.
-     *
-     * @return String All supported arguments for this Command
-     */
-    @Override
-    protected String getSupportedCommandArguments() {
-        return COMMAND_SUPPORTED_ARGUMENTS;
     }
 
     /**

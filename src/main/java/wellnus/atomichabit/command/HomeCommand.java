@@ -13,8 +13,6 @@ public class HomeCommand extends Command {
             + "atomic habits!";
     private static final String COMMAND_INVALID_COMMAND_MESSAGE = "Wrong command given for home!";
     private static final String COMMAND_KEYWORD = "home";
-    private static final String COMMAND_DETAILED_DESCRIPTION = "";
-    private static final String COMMAND_SUPPORTED_ARGUMENTS = "";
     private static final String HOME_MESSAGE = "Thank you for using atomic habits. Do not forget about me!";
     private final TextUi textUi;
 
@@ -49,16 +47,6 @@ public class HomeCommand extends Command {
     }
 
     /**
-     * Returns a detailed user-friendly description of what this specific command does.
-     *
-     * @return String Detailed explanation of this command
-     */
-    @Override
-    protected String getDetailedDescription() {
-        return COMMAND_DETAILED_DESCRIPTION;
-    }
-
-    /**
      * Identifies the feature that this Command is associated with. Override
      * this in subclasses so toString() returns the correct String representation.
      *
@@ -67,16 +55,6 @@ public class HomeCommand extends Command {
     @Override
     protected String getFeatureKeyword() {
         return AtomicHabitManager.FEATURE_NAME;
-    }
-
-    /**
-     * Returns all the supported arguments for this Command.
-     *
-     * @return String All supported arguments for this Command
-     */
-    @Override
-    protected String getSupportedCommandArguments() {
-        return COMMAND_SUPPORTED_ARGUMENTS;
     }
 
     /**

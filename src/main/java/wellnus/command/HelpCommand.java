@@ -12,8 +12,6 @@ import java.util.HashMap;
  */
 public class HelpCommand extends Command {
     private static final String BAD_COMMAND_MESSAGE = "help does not take in any arguments!";
-    private static final String COMMAND_ARGUMENTS = "<feature>";
-    private static final String COMMAND_DETAILED_DESCRIPTION = "";
     private static final String COMMAND_KEYWORD = "help";
     private static final String NO_FEATURE_KEYWORD = "";
 
@@ -36,7 +34,7 @@ public class HelpCommand extends Command {
     private static final int EXPECTED_PAYLOAD_SIZE = 1;
     private final TextUi textUi;
 
-    public HelpCommand(HashMap<String, String> arguments, MainManager mainManager) throws BadCommandException {
+    public HelpCommand(HashMap<String, String> arguments) {
         super(arguments);
         this.textUi = new TextUi();
     }
@@ -74,18 +72,8 @@ public class HelpCommand extends Command {
     }
 
     @Override
-    protected String getDetailedDescription() {
-        return HelpCommand.COMMAND_DETAILED_DESCRIPTION;
-    }
-
-    @Override
     protected String getFeatureKeyword() {
         return HelpCommand.NO_FEATURE_KEYWORD;
-    }
-
-    @Override
-    protected String getSupportedCommandArguments() {
-        return HelpCommand.COMMAND_ARGUMENTS;
     }
 
     /**

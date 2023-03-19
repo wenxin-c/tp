@@ -42,26 +42,12 @@ public abstract class Command {
     protected abstract String getCommandKeyword();
 
     /**
-     * Returns a detailed user-friendly description of what this specific command does.
-     *
-     * @return String Detailed explanation of this command
-     */
-    protected abstract String getDetailedDescription();
-
-    /**
      * Identifies the feature that this Command is associated with. Override
      * this in subclasses so toString() returns the correct String representation.
      *
      * @return String Keyword for the feature associated with this Command
      */
     protected abstract String getFeatureKeyword();
-
-    /**
-     * Returns all the supported arguments for this Command.
-     *
-     * @return String All supported arguments for this Command
-     */
-    protected abstract String getSupportedCommandArguments();
 
     /**
      * Executes the specified command from the user.<br>

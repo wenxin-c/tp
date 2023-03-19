@@ -16,8 +16,6 @@ public class GetCommand extends Command {
     private static final int NUM_OF_RANDOM_QUESTIONS = 5;
     private static final String FEATURE_NAME = "reflect";
     private static final String COMMAND_KEYWORD = "get";
-    private static final String FULL_DESCRIPTION = "";
-    private static final String ARGUMENT = "get";
     private static final String PAYLOAD = "";
     private static final int ARGUMENT_PAYLOAD_SIZE = 1;
     private static final int MIN_SIZE = 0;
@@ -90,27 +88,6 @@ public class GetCommand extends Command {
     }
 
     /**
-     * Only one supported argument for get command.
-     *
-     * @return Argument: get
-     */
-    @Override
-    protected String getSupportedCommandArguments() {
-        return ARGUMENT;
-    }
-
-    /**
-     * Get detailed description of a get command.
-     * TODO: FULL_DESCRIPTION is not completed yet.
-     *
-     * @return Full description of get command
-     */
-    @Override
-    protected String getDetailedDescription() {
-        return FULL_DESCRIPTION;
-    }
-
-    /**
      * Get the name of the feature in which this get command is generated.
      *
      * @return Self reflection
@@ -149,7 +126,7 @@ public class GetCommand extends Command {
      * Each number num: num >= 0 and num <= (maxSize - 1)
      *
      * @param maxSize Number of questions available to be chosen
-     * @return Array of 5 random numbers
+     * @return Set of 5 random numbers
      */
     private Set<Integer> generateRandomNumbers(int maxSize) {
         Set<Integer> randomNumbers = new Random().ints(MIN_SIZE, maxSize - ONE_OFFSET)
