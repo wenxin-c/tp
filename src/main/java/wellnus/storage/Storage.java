@@ -37,12 +37,7 @@ public class Storage {
 
     // Delimiter constants
     protected static final String DELIMITER = " --\n";
-    protected static final String EMPTY_STRING = "";
-    protected static final String WHITESPACE_PADDING = " ";
     protected static final String NEWLINE = System.lineSeparator();
-    protected static final int ATTRIBUTE_INDEX = 0;
-    protected static final int PAYLOAD_INDEX_START = 1;
-
     private static final String FILE_EXTENTION = ".txt";
     private static final String WORKING_DIRECTORY = ".";
     private static final String DATA_DIRECTORY_NAME = "data";
@@ -57,8 +52,8 @@ public class Storage {
     /**
      * Construct an instance of Storage to call saveData and loadData from.
      *
-     * @throws wellnus.exception.StorageException when creating the data directory fails
      * @author nichyjt
+     * @throws StorageException when creating the data directory fails
      */
     public Storage() throws StorageException {
         wellNusDataDirectory = Paths.get(WORKING_DIRECTORY, DATA_DIRECTORY_NAME);
@@ -68,8 +63,10 @@ public class Storage {
     }
 
     /**
-     * TODO
-     * ensure that data folder exists, else create it
+     * Check that the data folder exists. If it does not, try creating it
+     *
+     * @author nichyjt
+     * @throws StorageException if directory cannot be made
      */
     private void verifyDataDirectory() throws StorageException {
         assert wellNusDataDirectory != null : "wellNusDataDirectory path should be set up!";
@@ -81,7 +78,9 @@ public class Storage {
     }
 
     /**
-     * @param fileName
+     * Creates a <code>File</code> relative to the data folder
+     *
+     * @param fileName data file to retrieve
      */
     protected File getFile(String fileName) throws StorageException {
         Path pathToFile = wellNusDataDirectory.resolve(fileName + FILE_EXTENTION);
@@ -93,6 +92,13 @@ public class Storage {
         return dataFile;
     }
 
+    /**
+     * Create the data folder for WellNUS++
+     *
+     * @author nichyjt
+     * @param directoryPath path of the directory
+     * @throws StorageException if directory cannot be made
+     */
     private void createDataFolder(Path directoryPath) throws StorageException {
         try {
             Files.createDirectory(directoryPath);
@@ -103,6 +109,13 @@ public class Storage {
         }
     }
 
+    /**
+     * Create a file in the path specified by its URI
+     * @author nichyjt
+     *
+     * @param file to be created
+     * @throws StorageException if the file cannot be made
+     */
     private void createFile(File file) throws StorageException {
         try {
             file.createNewFile();
@@ -114,44 +127,38 @@ public class Storage {
     }
 
     /**
-     * Tokenized format: .
-     * Because the delimiter includes a space,
-     * Example: <br>
-     * <code>
-     * [space]--attr1 payload1\n<br>
-     * [space]--attr2 payload2 payload2-1\n<br>
-     * [space]--attr3 \n<br>
-     * </code>
+     * Tokenize every String entry with the delimiter suffix and append them together
+     * @author nichyjt
      *
-     * @param tokenizedStrings
-     * @return
+     * @param tokenizedStrings strings to be tokenized
+     * @return String of all tokenized string entries
      */
     protected String tokenizeStringList(ArrayList<String> tokenizedStrings) {
         StringBuilder stringBuilder = new StringBuilder();
         for (String entry : tokenizedStrings) {
-            StringBuilder entryBuilder = new StringBuilder();
-            entryBuilder.append(entry);
-            entryBuilder.append(DELIMITER);
-            stringBuilder.append(entryBuilder);
+            String entryDelimited = entry + DELIMITER;
+            stringBuilder.append(entryDelimited);
         }
         return stringBuilder.toString();
     }
 
     /**
-     * Splits a dataString by the " --" delimiter
+     * Splits a dataString by the " --\n" delimiter
      *
      * @param dataString string to be split
-     * @return a String[] of words belonging to the dataString
+     * @return String[] of words belonging to the dataString
      */
     private String[] splitIntoEntries(String dataString) {
         return dataString.split(DELIMITER);
     }
 
     /**
-     * Detokenizing raw string
+     * Detokenizing raw dataString into ArrayList of strings, where each string
+     * is an entry in the associated Manager's data structure
      *
+     * @author nichyjt
      * @param dataString raw string loaded from the text file
-     * @return
+     * @return ArrayList of strings to be parsed by tokenizer
      */
     protected ArrayList<String> detokenizeDataString(String dataString) {
         String[] entries = splitIntoEntries(dataString);
@@ -184,18 +191,51 @@ public class Storage {
         return data.toString();
     }
 
+    /**
+     * Save the pre-tokenized data onto Disk <br>
+     * <p>
+     * The data will be saved into the /data folder. <br>
+     * Each entry in the ArrayList should be an instance of the underlying data structure being `Managed`,
+     * with each instance being tokenized into a String beforehand <br>
+     * The fileName should be accessed via the public constant Storage.FILE_[feature].
+     *
+     * @author nichyjt
+     * @param tokenizedManager ArrayList of tokenized Manager data string
+     * @param fileName         name of the file to be saved
+     * @throws StorageException when there are unexpected IO errors
+     */
     public void saveData(ArrayList<String> tokenizedManager, String fileName) throws StorageException {
         File file = getFile(fileName);
         String tokenizedString = tokenizeStringList(tokenizedManager);
         writeDataToDisk(tokenizedString, file);
     }
 
+    /**
+     * Load a feature's data from the Disk <br>
+     * <p>
+     * The data will be laoded from the /data folder. <br>
+     * Each entry in the ArrayList will be an instance of the underlying data structure being `Managed`,
+     * with each instance being tokenized into a String beforehand <br>
+     * The fileName should be accessed via the public constant Storage.FILE_[feature].
+     *
+     * @author nichyjt
+     * @param fileName name of the file to be loaded
+     * @return ArrayList of tokenized Manager data string
+     * @throws StorageException when there are unexpected IO errors
+     */
     public ArrayList<String> loadData(String fileName) throws StorageException {
         File file = getFile(fileName);
         String data = loadDataFromDisk(file);
         return detokenizeDataString(data);
     }
 
+    /**
+     * Deletes the file from the /data directory
+     *
+     * @author nichyjt
+     * @param fileName name of the file to be deleted
+     * @throws StorageException when there are unexpected IO errors
+     */
     protected void deleteFile(String fileName) throws StorageException {
         File file = getFile(fileName);
         boolean isDeleted = file.delete();
