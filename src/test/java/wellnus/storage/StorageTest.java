@@ -1,17 +1,15 @@
 package wellnus.storage;
 
-import org.junit.jupiter.api.Test;
-import wellnus.exception.StorageException;
-
-import java.io.File;
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.HashMap;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.fail;
 
+import java.io.File;
+import java.util.ArrayList;
+
+import org.junit.jupiter.api.Test;
+
+import wellnus.exception.StorageException;
 public class StorageTest {
 
     private Storage getStorageInstance() {
