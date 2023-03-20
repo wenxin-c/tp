@@ -20,6 +20,7 @@ public interface Tokenizer<T> {
      * Converts the attributes of the given <code>Manager</code> into a String representation to be
      *     saved to storage.
      * @param dataObjects List of Objects which represent data we want to convert into a String representation
+     * @return ArrayList of Strings representing the data objects that we can write to storage
      * @throws TokenizerException If tokenizing fails and state cannot be converted into a valid String
      *     representation
      */
