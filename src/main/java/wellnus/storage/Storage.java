@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.InvalidPathException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -12,6 +13,8 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 import wellnus.exception.StorageException;
+
+import javax.management.BadStringOperationException;
 
 // TODO add logger and more defensive checks
 
@@ -43,9 +46,12 @@ public class Storage {
     private static final String DATA_DIRECTORY_NAME = "data";
 
     // Message constants
+    private static final String ERROR_GENERAL = "WellNUS++ faced an internal error in storage!";
     private static final String ERROR_CANNOT_MAKE_FILE = "WellNUS++ couldn't make the data file!";
     private static final String ERROR_CANNOT_MAKE_DIR = "WellNUS++ couldn't make the data directory!";
     private static final String ERROR_CANNOT_DELETE_FILE = "WellNUS++ couldn't delete the data file!";
+    private static final String ERROR_CANNOT_RESOLVE_PATH = "WellNUS++ couldn't resolve a path internally!";
+    private static final String ERROR_CANNOT_FIND_FILE = "WellNUS++ couldn't find the file!";
 
     private Path wellNusDataDirectory;
 
@@ -83,8 +89,20 @@ public class Storage {
      * @param fileName data file to retrieve
      */
     protected File getFile(String fileName) throws StorageException {
-        Path pathToFile = wellNusDataDirectory.resolve(fileName + FILE_EXTENTION);
-        File dataFile = pathToFile.toFile();
+        Path pathToFile;
+        File dataFile;
+        try {
+            pathToFile = wellNusDataDirectory.resolve(fileName + FILE_EXTENTION);
+            dataFile = pathToFile.toFile();
+        } catch (InvalidPathException exception) {
+            String errorMessage = ERROR_CANNOT_RESOLVE_PATH;
+            errorMessage = errorMessage.concat(exception.getMessage());
+            throw new StorageException(errorMessage);
+        } catch (UnsupportedOperationException exception) {
+            String errorMessage = ERROR_GENERAL;
+            errorMessage = errorMessage.concat(exception.getMessage());
+            throw new StorageException(errorMessage);
+        }
         boolean fileExists = dataFile.exists();
         if (!fileExists) {
             createFile(dataFile);
@@ -187,7 +205,13 @@ public class Storage {
             }
             reader.close();
         } catch (FileNotFoundException exception) {
-            throw new StorageException(exception.getMessage());
+            String errorMessage = ERROR_CANNOT_FIND_FILE;
+            errorMessage = errorMessage.concat(exception.getMessage());
+            throw new StorageException(errorMessage);
+        } catch (IllegalStateException exception) {
+            String errorMessage = ERROR_GENERAL;
+            errorMessage = errorMessage.concat(exception.getMessage());
+            throw new StorageException(errorMessage);
         }
         return data.toString();
     }
