@@ -3,7 +3,6 @@ package wellnus.storage;
 import java.util.ArrayList;
 
 import wellnus.exception.TokenizerException;
-import wellnus.manager.Manager;
 
 /**
  * Template for all Tokenizers in WellNUS++ that are responsible for converting
@@ -19,11 +18,12 @@ public interface Tokenizer<T> {
     /**
      * Converts the attributes of the given <code>Manager</code> into a String representation to be
      *     saved to storage.
-     * @param managerToTokenize Manager whose state we want to convert into a String representation
+     * @param dataObjects List of Objects which represent data we want to convert into a String representation
+     * @return ArrayList of Strings representing the data objects that we can write to storage
      * @throws TokenizerException If tokenizing fails and state cannot be converted into a valid String
      *     representation
      */
-    String tokenize(Manager managerToTokenize) throws TokenizerException;
+    ArrayList<String> tokenize(ArrayList<T> dataObjects) throws TokenizerException;
 
     /**
      * Converts the String representation of a <code>Manager</code>'s state back into an
@@ -33,5 +33,5 @@ public interface Tokenizer<T> {
      * @return ArrayList containing all the data from the Manager's previously saved state
      * @throws TokenizerException If detokenizing fails and valid state cannot be restored
      */
-    ArrayList<T> detokenize(String tokenizedManager) throws TokenizerException;
+    ArrayList<T> detokenize(ArrayList<String> tokenizedManager) throws TokenizerException;
 }
