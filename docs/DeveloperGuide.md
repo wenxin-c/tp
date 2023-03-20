@@ -20,7 +20,7 @@ to import the project into IDEA.<br>
    **Note**: Importing a Gradle project is slightly different from importing a normal Java project.
 3. **Verify the setup:**
    1. Run the ```wellnus.WellNus``` and try a few commands.
-   2. [Run the tests](https://se-education.org/addressbook-level3/Testing.html) to ensure they all pass.
+   2. Run the tests to ensure they all pass.
 
 ### Before writing code
 1. **Configure the coding style**<br>
