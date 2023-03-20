@@ -13,29 +13,33 @@ original source as well}
 
 ```mermaid
 classDiagram
+    direction BT
+    class CommandParser {
+        `+ parseUserInput(String)`
+        `+ getMainArgument(String)`
+        `- splitIntoCommands(String)`
+        `- getArgumentFromCommand(String)`
+        `- getPayloadFromCommand(String)`
+    }
     
-    class Manager:["`<i>Manager</i>`"] 
-        Manager:commandParser
-        Manager:*getCommandParser()*
-    
+    class Manager["<i>Manager</i>"]{
+       - commandParser : CommandParser
+        *+ getCommandParser()*
+    }  
+   CommandParser  "1" -- "" Manager
     class AtomicHabitManager {
-        getCommandParser()
+        `# getCommandParser()`
     }
     class ReflectionManager {
-        getCommandParser()
+        `# getCommandParser()`
     }
     class FooManager {
-        getCommandParser()
+        `# getCommandParser()`
     }
     Manager <|-- AtomicHabitManager 
     Manager <|-- ReflectionManager
     Manager <|-- FooManager
-    class CommandParser {
-        parseUserInput(String)
-        getMainArgument(String)
-    }
-    
-    CommandParser -- "1" Manager
+     
 ```
 
 ## Product scope
