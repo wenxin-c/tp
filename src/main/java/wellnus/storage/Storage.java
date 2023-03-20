@@ -24,9 +24,9 @@ import wellnus.exception.StorageException;
  * <p>
  * To load data, the manager should call <code>loadData()</code> and input the correct filename of
  * the data to be loaded. The filename should be obtained from the public constant Storage.FILE_[name]
- *
- * @author nichyjt
+ * <p>
  */
+//@@author nichyjt
 public class Storage {
     // These constant strings are intentionally made public
     // to allow any FeatureManager to call the (de)tokenize functions with the correct filename
@@ -50,24 +50,11 @@ public class Storage {
     private Path wellNusDataDirectory;
 
     /**
-     * Construct an instance of Storage to call saveData and loadData from.
-     *
-     * @author nichyjt
-     * @throws StorageException when creating the data directory fails
-     */
-    public Storage() throws StorageException {
-        wellNusDataDirectory = Paths.get(WORKING_DIRECTORY, DATA_DIRECTORY_NAME);
-        // For safety, check that the data folder actually exists
-        // If it doesn't, create it.
-        verifyDataDirectory();
-    }
-
-    /**
      * Check that the data folder exists. If it does not, try creating it
      *
-     * @author nichyjt
      * @throws StorageException if directory cannot be made
      */
+    //@@author nichyjt
     private void verifyDataDirectory() throws StorageException {
         assert wellNusDataDirectory != null : "wellNusDataDirectory path should be set up!";
         boolean directoryExists = Files.exists(wellNusDataDirectory);
@@ -95,10 +82,10 @@ public class Storage {
     /**
      * Create the data folder for WellNUS++
      *
-     * @author nichyjt
      * @param directoryPath path of the directory
      * @throws StorageException if directory cannot be made
      */
+    //@@author nichyjt
     private void createDataFolder(Path directoryPath) throws StorageException {
         try {
             Files.createDirectory(directoryPath);
@@ -112,10 +99,10 @@ public class Storage {
     /**
      * Create a file in the path specified by its URI
      *
-     * @author nichyjt
      * @param file to be created
      * @throws StorageException if the file cannot be made
      */
+    //@@author nichyjt
     private void createFile(File file) throws StorageException {
         try {
             file.createNewFile();
@@ -128,11 +115,11 @@ public class Storage {
 
     /**
      * Tokenize every String entry with the delimiter suffix and append them together
-     * @author nichyjt
      *
      * @param tokenizedStrings strings to be tokenized
      * @return String of all tokenized string entries
      */
+    //@@author nichyjt
     protected String tokenizeStringList(ArrayList<String> tokenizedStrings) {
         StringBuilder stringBuilder = new StringBuilder();
         for (String entry : tokenizedStrings) {
@@ -148,6 +135,7 @@ public class Storage {
      * @param dataString string to be split
      * @return String[] of words belonging to the dataString
      */
+    //@@author nichyjt
     private String[] splitIntoEntries(String dataString) {
         return dataString.split(DELIMITER);
     }
@@ -156,10 +144,10 @@ public class Storage {
      * Detokenizing raw dataString into ArrayList of strings, where each string
      * is an entry in the associated Manager's data structure
      *
-     * @author nichyjt
      * @param dataString raw string loaded from the text file
      * @return ArrayList of strings to be parsed by tokenizer
      */
+    //@@author nichyjt
     protected ArrayList<String> detokenizeDataString(String dataString) {
         String[] entries = splitIntoEntries(dataString);
         return new ArrayList<>(Arrays.asList(entries));
@@ -199,11 +187,11 @@ public class Storage {
      * with each instance being tokenized into a String beforehand <br>
      * The fileName should be accessed via the public constant Storage.FILE_[feature].
      *
-     * @author nichyjt
      * @param tokenizedManager ArrayList of tokenized Manager data string
      * @param fileName         name of the file to be saved
      * @throws StorageException when there are unexpected IO errors
      */
+    //@@author nichyjt
     public void saveData(ArrayList<String> tokenizedManager, String fileName) throws StorageException {
         File file = getFile(fileName);
         String tokenizedString = tokenizeStringList(tokenizedManager);
@@ -218,11 +206,11 @@ public class Storage {
      * with each instance being tokenized into a String beforehand <br>
      * The fileName should be accessed via the public constant Storage.FILE_[feature].
      *
-     * @author nichyjt
      * @param fileName name of the file to be loaded
      * @return ArrayList of tokenized Manager data string
      * @throws StorageException when there are unexpected IO errors
      */
+    //@@author nichyjt
     public ArrayList<String> loadData(String fileName) throws StorageException {
         File file = getFile(fileName);
         String data = loadDataFromDisk(file);
@@ -232,10 +220,10 @@ public class Storage {
     /**
      * Deletes the file from the /data directory
      *
-     * @author nichyjt
      * @param fileName name of the file to be deleted
      * @throws StorageException when there are unexpected IO errors
      */
+    //@@author nichyjt
     protected void deleteFile(String fileName) throws StorageException {
         File file = getFile(fileName);
         boolean isDeleted = file.delete();
