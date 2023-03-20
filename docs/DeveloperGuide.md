@@ -15,7 +15,7 @@ original source as well}
 classDiagram
     class Manager:["<i>Manager</i>"]
         Manager: commandParser
-        Manager: getCommandParser():["{abstract}"]
+        Manager: getCommandParser()
     class AtomicHabitManager {
         getCommandParser()
     }
