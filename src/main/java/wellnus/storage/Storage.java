@@ -24,7 +24,7 @@ import wellnus.exception.StorageException;
  * such as ReflectionQuestion or AtomicHabit. <br>
  * <p>
  * To load data, the manager should call <code>loadData()</code> and input the correct filename of
- * the data to be loaded. The filename should be obtained from the public constant Storage.FILE_[name]
+ * the data to be loaded. The filename should be obtained from the public constant Storage.FILE_[name].
  * <p>
  */
 //@@author nichyjt
@@ -219,7 +219,7 @@ public class Storage {
      * <p>
      * The data will be saved into the /data folder. <br>
      * Each entry in the ArrayList should be an instance of the underlying data structure being `Managed`,
-     * with each instance being tokenized into a String beforehand <br>
+     * with each instance being tokenized into a String beforehand. <br>
      * The fileName should be accessed via the public constant Storage.FILE_[feature].
      *
      * @param tokenizedManager ArrayList of tokenized Manager data string
