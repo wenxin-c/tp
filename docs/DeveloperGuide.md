@@ -14,7 +14,7 @@ original source as well}
 ```mermaid
 classDiagram
     
-    class Manager:["*Manager*"] 
+    class Manager:[<i>"Manager"</i>] 
         Manager:commandParser
         Manager:*getCommandParser()*
     
