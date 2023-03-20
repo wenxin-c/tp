@@ -26,7 +26,6 @@ public class HomeCommand extends Command {
     private static final String COMMAND_PAYLOAD_ASSERTION = "The payload should be empty.";
     private static final String HOME_MESSAGE = "How do you feel after reflecting on yourself?"
             + System.lineSeparator() + "Hope you have gotten some takeaways from self reflection, see you again!!";
-    private static final String IS_EXIT_ASSERTION = "isExit should be true after exiting while loop";
     private HashMap<String, String> argumentPayload;
 
     /**
@@ -78,7 +77,6 @@ public class HomeCommand extends Command {
         assert argumentPayload.get(COMMAND_KEYWORD).equals(PAYLOAD) : COMMAND_PAYLOAD_ASSERTION;
         UI.printOutputMessage(HOME_MESSAGE);
         ReflectionManager.setIsExit(true);
-        assert ReflectionManager.getIsExit() : IS_EXIT_ASSERTION;
     }
 
     /**
