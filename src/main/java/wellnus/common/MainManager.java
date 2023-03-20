@@ -116,7 +116,7 @@ public class MainManager extends Manager {
         HashMap<String, String> arguments = getCommandParser().parseUserInput(command);
         switch (commandKeyword) {
         case MainManager.HELP_COMMAND_KEYWORD:
-            return new HelpCommand(arguments, this);
+            return new HelpCommand(arguments);
         case MainManager.EXIT_COMMAND_KEYWORD:
             return new ExitCommand(arguments);
         default:
