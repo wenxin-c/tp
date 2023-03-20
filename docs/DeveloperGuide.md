@@ -13,10 +13,10 @@ original source as well}
 
 ```mermaid
 classDiagram
-    class Manager {
+    class Manager["{abstract}\nManager"] {
         commandParser
         getCommandParser()
-    }
+    } 
     class AtomicHabitManager {
         getCommandParser()
     }
