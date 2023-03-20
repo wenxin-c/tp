@@ -63,7 +63,7 @@ public class Storage {
     }
 
     /**
-     * Check that the data folder exists. If it does not, try creating it
+     * Check that the data folder exists. If it does not, try creating it.
      *
      * @throws StorageException if directory cannot be made
      */
@@ -78,7 +78,7 @@ public class Storage {
     }
 
     /**
-     * Creates a <code>File</code> relative to the data folder
+     * Creates a <code>File</code> relative to the data folder.
      *
      * @param fileName data file to retrieve
      */
@@ -93,7 +93,7 @@ public class Storage {
     }
 
     /**
-     * Create the data folder for WellNUS++
+     * Create the data folder for WellNUS++.
      *
      * @param directoryPath path of the directory
      * @throws StorageException if directory cannot be made
@@ -110,7 +110,7 @@ public class Storage {
     }
 
     /**
-     * Create a file in the path specified by its URI
+     * Create a file in the path specified by its URI.
      *
      * @param file to be created
      * @throws StorageException if the file cannot be made
@@ -127,7 +127,7 @@ public class Storage {
     }
 
     /**
-     * Tokenize every String entry with the delimiter suffix and append them together
+     * Tokenize every String entry with the delimiter suffix and append them together.
      *
      * @param tokenizedStrings strings to be tokenized
      * @return String of all tokenized string entries
@@ -143,7 +143,7 @@ public class Storage {
     }
 
     /**
-     * Splits a dataString by the " --\n" delimiter
+     * Splits a dataString by the " --\n" delimiter.
      *
      * @param dataString string to be split
      * @return String[] of words belonging to the dataString
@@ -155,7 +155,7 @@ public class Storage {
 
     /**
      * Detokenizing raw dataString into ArrayList of strings, where each string
-     * is an entry in the associated Manager's data structure
+     * is an entry in the associated Manager's data structure.
      *
      * @param dataString raw string loaded from the text file
      * @return ArrayList of strings to be parsed by tokenizer
@@ -193,7 +193,7 @@ public class Storage {
     }
 
     /**
-     * Save the pre-tokenized data onto Disk <br>
+     * Save the pre-tokenized data onto Disk. <br>
      * <p>
      * The data will be saved into the /data folder. <br>
      * Each entry in the ArrayList should be an instance of the underlying data structure being `Managed`,
@@ -212,7 +212,7 @@ public class Storage {
     }
 
     /**
-     * Load a feature's data from the Disk <br>
+     * Load a feature's data from the Disk. <br>
      * <p>
      * The data will be laoded from the /data folder. <br>
      * Each entry in the ArrayList will be an instance of the underlying data structure being `Managed`,
@@ -231,7 +231,7 @@ public class Storage {
     }
 
     /**
-     * Deletes the file from the /data directory
+     * Deletes the file from the /data directory.
      *
      * @param fileName name of the file to be deleted
      * @throws StorageException when there are unexpected IO errors
