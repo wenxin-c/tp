@@ -50,6 +50,19 @@ public class Storage {
     private Path wellNusDataDirectory;
 
     /**
+     * Construct an instance of Storage to call saveData and loadData from.
+     *
+     * @throws StorageException when creating the data directory fails
+     */
+    //@@author nichyjt
+    public Storage() throws StorageException {
+        wellNusDataDirectory = Paths.get(WORKING_DIRECTORY, DATA_DIRECTORY_NAME);
+        // For safety, check that the data folder actually exists
+        // If it doesn't, create it.
+        verifyDataDirectory();
+    }
+
+    /**
      * Check that the data folder exists. If it does not, try creating it
      *
      * @throws StorageException if directory cannot be made
