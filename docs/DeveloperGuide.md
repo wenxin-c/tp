@@ -13,7 +13,7 @@ original source as well}
 
 ```mermaid
 classDiagram
-    class Manager:["*Manager*"] {
+    class Manager:[*Manager*] {
         commandParser
         *getCommandParser()*
     }
