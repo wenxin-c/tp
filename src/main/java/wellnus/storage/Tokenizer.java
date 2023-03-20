@@ -23,7 +23,7 @@ public interface Tokenizer<T> {
      * @throws TokenizerException If tokenizing fails and state cannot be converted into a valid String
      *     representation
      */
-    String tokenize(Manager managerToTokenize) throws TokenizerException;
+    ArrayList<String> tokenize(Manager managerToTokenize) throws TokenizerException;
 
     /**
      * Converts the String representation of a <code>Manager</code>'s state back into an
@@ -33,5 +33,5 @@ public interface Tokenizer<T> {
      * @return ArrayList containing all the data from the Manager's previously saved state
      * @throws TokenizerException If detokenizing fails and valid state cannot be restored
      */
-    ArrayList<T> detokenize(String tokenizedManager) throws TokenizerException;
+    ArrayList<T> detokenize(ArrayList<String> tokenizedManager) throws TokenizerException;
 }

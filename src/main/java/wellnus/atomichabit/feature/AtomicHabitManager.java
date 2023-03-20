@@ -72,7 +72,7 @@ public class AtomicHabitManager extends Manager {
         }
     }
 
-    private AtomicHabitList getHabitList() {
+    public AtomicHabitList getHabitList() {
         return this.habitList;
     }
 
