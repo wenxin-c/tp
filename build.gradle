@@ -33,15 +33,26 @@ application {
 }
 
 shadowJar {
-    archiveBaseName = "WellNus"
-    archiveClassifier = null
+    archiveBaseName.set('WellNus')
+    archiveClassifier.set('')
+    archiveVersion.set('v2.0')
+}
+
+jar {
+    manifest {
+        attributes "Main-Class": "wellnus.WellNus"
+    }
+
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
 }
 
 checkstyle {
     toolVersion = '10.2'
 }
 
-run{
+run {
     standardInput = System.in
     enableAssertions = true
 }

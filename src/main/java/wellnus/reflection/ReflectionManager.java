@@ -24,7 +24,6 @@ public class ReflectionManager extends Manager {
     private static final String NO_ELEMENT_MESSAGE = "There is no new line of input, please key in inputs.";
     private static final String INVALID_COMMAND_MESSAGE = "Please check the available commands "
             + "and enter a valid command.";
-    private static final String IS_EXIT_ASSERTION = "isExit should be true after exiting while loop";
     private static final int EMPTY_COMMAND = 0;
     private static final String COMMAND_TYPE_ASSERTION = "Command type should have length greater than 0";
 
@@ -186,7 +185,6 @@ public class ReflectionManager extends Manager {
         case HOME_COMMAND:
             HomeCommand returnCmd = new HomeCommand(argumentPayload);
             returnCmd.execute();
-            assert isExit : IS_EXIT_ASSERTION;
             break;
         default:
             throw new BadCommandException(INVALID_COMMAND_MESSAGE);
