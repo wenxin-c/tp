@@ -1,12 +1,14 @@
 package wellnus;
 
 import wellnus.common.MainManager;
+import wellnus.exception.BadCommandException;
+import wellnus.focus.FocusManager;
 import wellnus.manager.Manager;
 import wellnus.ui.TextUi;
 
 /**
  * Main class of our WellNUS++ application. main() is executed when the application is launched.<br/>
- *
+ * <p>
  * Control is then passed to MainManager.runEventDriver().
  *
  * @see MainManager#runEventDriver()
@@ -20,7 +22,7 @@ public class WellNus {
 
     /**
      * Initialises an instance of WellNUS++, which needs <code>TextUi</code>
-     *     and <code>MainManager</code>.
+     * and <code>MainManager</code>.
      */
     public WellNus() {
         this.textUi = new TextUi();
@@ -68,15 +70,21 @@ public class WellNus {
      * @param args Commandline arguments passed to the WellNus Java ARchive
      */
     public static void main(String[] args) {
-        new WellNus().start();
+        FocusManager focusManager = new FocusManager();
+        try {
+            focusManager.runEventDriver();
+        } catch (BadCommandException exception) {
+            System.out.println(exception.getMessage());
+        }
+        //new WellNus().start();
     }
 
     /**
      * Starts up WellNUS++: Greets the user, reads for commands until a exit command is given,
-     *     and bids the user goodbye.<br/>
-     *
+     * and bids the user goodbye.<br/>
+     * <p>
      * The bulk of the work is done in executeUserCommands(), which delegates control to the
-     *     appropriate Manager.
+     * appropriate Manager.
      *
      * @see Manager#runEventDriver()
      */
