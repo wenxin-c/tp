@@ -2,7 +2,6 @@ package wellnus.command;
 
 import java.util.HashMap;
 
-import wellnus.common.MainManager;
 import wellnus.exception.BadCommandException;
 import wellnus.ui.TextUi;
 
@@ -12,8 +11,6 @@ import wellnus.ui.TextUi;
  */
 public class HelpCommand extends Command {
     private static final String BAD_COMMAND_MESSAGE = "help does not take in any arguments!";
-    private static final String COMMAND_ARGUMENTS = "<feature>";
-    private static final String COMMAND_DETAILED_DESCRIPTION = "";
     private static final String COMMAND_KEYWORD = "help";
     private static final String NO_FEATURE_KEYWORD = "";
 
@@ -40,10 +37,8 @@ public class HelpCommand extends Command {
      * Initialises a HelpCommand Object using the command arguments issued by the user.
      *
      * @param arguments Command arguments issued by the user
-     * @param mainManager Instance of MainManager currently managing the WellNUS++ application
-     * @throws BadCommandException If arguments issued by the user are invalid
      */
-    public HelpCommand(HashMap<String, String> arguments, MainManager mainManager) throws BadCommandException {
+    public HelpCommand(HashMap<String, String> arguments) {
         super(arguments);
         this.textUi = new TextUi();
     }
@@ -81,18 +76,8 @@ public class HelpCommand extends Command {
     }
 
     @Override
-    protected String getDetailedDescription() {
-        return HelpCommand.COMMAND_DETAILED_DESCRIPTION;
-    }
-
-    @Override
     protected String getFeatureKeyword() {
         return HelpCommand.NO_FEATURE_KEYWORD;
-    }
-
-    @Override
-    protected String getSupportedCommandArguments() {
-        return HelpCommand.COMMAND_ARGUMENTS;
     }
 
     /**

@@ -6,27 +6,23 @@ import wellnus.atomichabit.feature.AtomicHabit;
 import wellnus.atomichabit.feature.AtomicHabitList;
 import wellnus.atomichabit.feature.AtomicHabitManager;
 import wellnus.command.Command;
-import wellnus.command.CommandParser;
 import wellnus.exception.BadCommandException;
 import wellnus.ui.TextUi;
 /**
  * The AddCommand class is a command class that adds a new atomic habit to an AtomicHabitList.<br>
  */
 public class AddCommand extends Command {
-    private static final String COMMAND_DETAILED_DESCRIPTION = "";
     private static final String COMMAND_KEYWORD = "add";
     private static final String COMMAND_INVALID_ARGUMENTS_MESSAGE = "Wrong arguments given to 'add'!";
     private static final String COMMAND_NAME_ARGUMENT = "name";
     private static final String COMMAND_KEYWORD_ASSERTION = "The key should be add.";
     private static final String COMMAND_PAYLOAD_ASSERTION = "The payload should not be empty.";
     private static final int COMMAND_NUM_OF_ARGUMENTS = 2;
-    private static final String COMMAND_SUPPORTED_ARGUMENTS = "";
     private static final String COMMAND_WRONG_KEYWORD_MESSAGE = "Wrong command issued by the user, expected 'add'?";
     private static final String FEEDBACK_STRING_ONE = "Yay! You have added a new habit:";
     private static final String FEEDBACK_STRING_TWO = "was successfully added";
     private static final String NO_ADDITIONAL_MESSAGE = "";
     private final AtomicHabitList atomicHabits;
-    private final CommandParser commandParser;
     private final TextUi textUi;
     /**
      * Constructs an AddCommand object.<br>
@@ -37,7 +33,6 @@ public class AddCommand extends Command {
     public AddCommand(HashMap<String, String> arguments, AtomicHabitList atomicHabits) {
         super(arguments);
         this.atomicHabits = atomicHabits;
-        this.commandParser = new CommandParser();
         this.textUi = new TextUi();
     }
 
@@ -62,16 +57,6 @@ public class AddCommand extends Command {
     }
 
     /**
-     * Returns a detailed user-friendly description of what this specific command does.
-     *
-     * @return String Detailed explanation of this command
-     */
-    @Override
-    protected String getDetailedDescription() {
-        return COMMAND_DETAILED_DESCRIPTION;
-    }
-
-    /**
      * Identifies the feature that this Command is associated with. Override
      * this in subclasses so toString() returns the correct String representation.
      *
@@ -80,16 +65,6 @@ public class AddCommand extends Command {
     @Override
     protected String getFeatureKeyword() {
         return AtomicHabitManager.FEATURE_NAME;
-    }
-
-    /**
-     * Returns all the supported arguments for this Command.
-     *
-     * @return String All supported arguments for this Command
-     */
-    @Override
-    protected String getSupportedCommandArguments() {
-        return COMMAND_SUPPORTED_ARGUMENTS;
     }
 
     /**

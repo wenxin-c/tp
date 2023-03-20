@@ -14,8 +14,6 @@ public class HomeCommand extends Command {
     private static final Logger LOGGER = Logger.getLogger("ReflectHomeCommandLogger");
     private static final String FEATURE_NAME = "reflect";
     private static final String COMMAND_KEYWORD = "home";
-    private static final String FULL_DESCRIPTION = "";
-    private static final String ARGUMENT = "home";
     private static final String PAYLOAD = "";
     private static final ReflectUi UI = new ReflectUi();
     private static final int ARGUMENT_PAYLOAD_SIZE = 1;
@@ -54,17 +52,6 @@ public class HomeCommand extends Command {
     }
 
     /**
-     * Get detailed description of a home command.<br/>
-     * TODO: FULL_DESCRIPTION is not completed yet.
-     *
-     * @return Full description of home command
-     */
-    @Override
-    protected String getDetailedDescription() {
-        return FULL_DESCRIPTION;
-    }
-
-    /**
      * Get the name of the feature in which this home command is generated.
      *
      * @return Feature name: reflect
@@ -72,16 +59,6 @@ public class HomeCommand extends Command {
     @Override
     protected String getFeatureKeyword() {
         return FEATURE_NAME;
-    }
-
-    /**
-     * Only one supported argument for home command.
-     *
-     * @return Argument: home
-     */
-    @Override
-    protected String getSupportedCommandArguments() {
-        return ARGUMENT;
     }
 
     /**
