@@ -3,7 +3,6 @@ package wellnus.storage;
 import java.util.ArrayList;
 
 import wellnus.exception.TokenizerException;
-import wellnus.manager.Manager;
 
 /**
  * Template for all Tokenizers in WellNUS++ that are responsible for converting
