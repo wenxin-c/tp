@@ -99,7 +99,7 @@ public class StorageTest {
     }
 
     /**
-     * Tests the end-to-end of saving and loading
+     * Tests the end-to-end of saving and loading.
      */
     @Test
     public void saveAndLoadData_test() {
