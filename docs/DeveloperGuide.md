@@ -34,35 +34,21 @@ When GitHub detects those files, it will run the CI for your project automatical
 to the `master` branch or to any PR. No set up required.<br>
 <br>
 3. **Learn the design**<br>
-When you are ready to start coding, we recommend that you get some sense of the overall design by reading about 
-[AddressBook’s architecture](https://se-education.org/addressbook-level3/DeveloperGuide.html#architecture).<br>
-<br>
-4. **Do the tutorials**<br>
-These tutorials will help you get acquainted with the codebase.<br>
-   - [Tracing code](https://se-education.org/addressbook-level3/tutorials/TracingCode.html)
-   - [Adding a new command](https://se-education.org/addressbook-level3/tutorials/AddRemark.html)
-   - [Removing fields](https://se-education.org/addressbook-level3/tutorials/RemovingFields.html)
-<br>
+When you are ready to start coding, we recommend that you look at the class diagrams to understand the structure of the 
+code and the interaction among different classes.<br>
 
 ## Design & implementation
 
 {Describe the design and implementation of the product. Use UML diagrams and short code snippets where applicable.}
 
-### Design
-#### Architecture
-#### UI Component
-#### Logic Component
-#### Model Component
-#### Storage Component
-
-### Implementation
+### Object Diagram
 
 ## Product scope
 ### Target user profile
 * NUS Computing and Engineering students
 * Spend lots of time coding on their IDE and type relatively fast
 * Have to regularly use digital gadgets and Internet for their courses
-* Very familiar with command
+* Very familiar with command line interfaces
 * Stressed about academy and many others
 * Busy with work and drowning in deadlines
 * Wants to improve their wellness
@@ -116,5 +102,84 @@ be able to accomplish most of the tasks faster using commands than using the mou
 command to run the application. A CLI should appear in a few seconds.
 
 ### Sample test cases
+#### Help command
+1. Make sure you are in the main interface, but individual features(i.e. hb, reflect and timer)
+2. Test case: `help`<br>
+Expected output: a list of commands with their usage
+Example: 
+```
+------------------------------------------------------------
+    We are here to ensure your wellness is taken care of through WellNUS++
+Here are all the commands available for you!
+------------------------------------------------------------
+------------------------------------------------------------
+    1. hb - Enter Atomic Habits: Track your small daily habits and nurture it to form a larger behaviour
+    usage: hb
+    2. reflect - Read through introspective questions for your reflection
+    usage: reflect
+    3. exit - Exit WellNUS++
+    usage: exit
+------------------------------------------------------------
+```
+3. Test case: `help me`<br>
+Expected output: the list of commands will not be generated as it is an invalid command<br>
+Example: 
+```
+------------------------------------------------------------
+    help does not take in any arguments!
+------------------------------------------------------------
+```
+4. To get a list of available commands, any command other than `help` is invalid
+
+#### Get reflection questions
+1. Make sure you are inside **Self Reflection** feature by enter `reflect` command after the launch of the program
+2. Test case: `get`<br>
+Expected  output: get a set of 5 random introspective questions<br>
+Example: 
+```
+============================================================
+    1.What is my purpose in life?
+    2.What is my personality type?
+    3.Did I make time for myself this week?
+    4.What scares me the most right now?
+    5.When is the last time I gave back to others?
+============================================================
+```
+3. Test case: `get reflect`<br>
+Expected output: introspective questions will not be generated as this is an invalid command. <br>
+Example: 
+```
+!!!!!!-------!!!!!--------!!!!!!!------!!!!!---------!!!!!!!
+Error Message:
+    Command is invalid.
+Note:
+    Please check the available commands and the format of commands.
+!!!!!!-------!!!!!--------!!!!!!!------!!!!!---------!!!!!!!
+```
+4. Any command other than `get` is invalid
+
+#### Add atomic habits
+1. Make sure you are inside **Atomic habit** feature by enter `hb` command after the launch of the program
+2. Test case: `add --name make bed every morning`<br>
+Expected output: a new atomic habit is successfully added<br>
+Example: 
+```
+------------------------------------------------------------
+    Yay! You have added a new habit:
+    'make bed every morning' was successfully added
+------------------------------------------------------------
+```
+3. Test case: `add name make bed every morning`<br>
+Expected output: the atomic habit will not be added in as this is an invalid command<br>
+Example: 
+```
+!!!!!!-------!!!!!--------!!!!!!!------!!!!!---------!!!!!!!
+Error Message:
+    Wrong arguments given to 'add'!
+Note:
+    
+!!!!!!-------!!!!!--------!!!!!!!------!!!!!---------!!!!!!!
+```
+4. Any commands that does not follow the format of `add --name ATOMIC_HABIT_NAME` is invalid
 
 ### Saving data
