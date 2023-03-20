@@ -9,7 +9,6 @@ import wellnus.atomichabit.feature.AtomicHabit;
 import wellnus.atomichabit.feature.AtomicHabitList;
 import wellnus.atomichabit.feature.AtomicHabitManager;
 import wellnus.command.Command;
-import wellnus.command.CommandParser;
 import wellnus.exception.AtomicHabitException;
 import wellnus.exception.BadCommandException;
 import wellnus.ui.TextUi;
@@ -19,12 +18,10 @@ import wellnus.ui.TextUi;
  */
 public class UpdateCommand extends Command {
     private static final String COMMAND_KEYWORD = "update";
-    private static final String COMMAND_DETAILED_DESCRIPTION = "";
     private static final String COMMAND_INCREMENT_ARGUMENT = "inc";
     private static final String COMMAND_INDEX_ARGUMENT = "id";
     private static final int COMMAND_MIN_NUM_OF_ARGUMENTS = 2;
     private static final int COMMAND_MAX_NUM_OF_ARGUMENTS = 3;
-    private static final String COMMAND_SUPPORTED_ARGUMENTS = "--id <index> --inc <increment>";
     private static final String COMMAND_INVALID_COMMAND_MESSAGE = "Wrong command issued, expected 'update'";
     private static final String DOT = ".";
     private static final int DEFAULT_INCREMENT = 1;
@@ -49,8 +46,6 @@ public class UpdateCommand extends Command {
             + "This should be properly handled";
     private static final String NO_ADDITIONAL_MESSAGE = "";
     private final AtomicHabitList atomicHabits;
-    private String indexString;
-    private final CommandParser parser;
     private final TextUi textUi;
     /**
      * Constructs an UpdateCommand object with the given arguments and AtomicHabitList.<br>
@@ -61,7 +56,6 @@ public class UpdateCommand extends Command {
     public UpdateCommand(HashMap<String, String> arguments, AtomicHabitList atomicHabits) {
         super(arguments);
         this.atomicHabits = atomicHabits;
-        this.parser = new CommandParser();
         this.textUi = new TextUi();
     }
     /**
@@ -75,7 +69,6 @@ public class UpdateCommand extends Command {
                          AtomicHabitList atomicHabits) {
         super(arguments);
         this.atomicHabits = atomicHabits;
-        this.parser = new CommandParser();
         this.textUi = new TextUi(inputStream);
     }
 
@@ -85,10 +78,6 @@ public class UpdateCommand extends Command {
 
     private TextUi getTextUi() {
         return this.textUi;
-    }
-
-    private CommandParser getParser() {
-        return parser;
     }
 
     private int getIncrementCountFrom(HashMap<String, String> arguments)
@@ -124,16 +113,6 @@ public class UpdateCommand extends Command {
     }
 
     /**
-     * Returns a detailed user-friendly description of what this specific command does.
-     *
-     * @return String Detailed explanation of this command
-     */
-    @Override
-    protected String getDetailedDescription() {
-        return COMMAND_DETAILED_DESCRIPTION;
-    }
-
-    /**
      * Identifies the feature that this Command is associated with. Override
      * this in subclasses so toString() returns the correct String representation.
      *
@@ -142,16 +121,6 @@ public class UpdateCommand extends Command {
     @Override
     protected String getFeatureKeyword() {
         return AtomicHabitManager.FEATURE_NAME;
-    }
-
-    /**
-     * Returns all the supported arguments for this Command.
-     *
-     * @return String All supported arguments for this Command
-     */
-    @Override
-    protected String getSupportedCommandArguments() {
-        return COMMAND_SUPPORTED_ARGUMENTS;
     }
 
     /**
