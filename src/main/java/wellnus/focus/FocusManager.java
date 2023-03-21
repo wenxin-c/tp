@@ -22,10 +22,6 @@ public class FocusManager extends Manager {
     private static final String UNKNOWN_COMMAND_MESSAGE = "No such command in atomic habits!";
     private static final String GREETING_MESSAGE = "Welcome to Focus Timer";
 
-    private int Work = 25;
-    private int Break = 5;
-    private int LongBreak = 15;
-    private int Cycle = 4;
     private final TextUi textUi;
     private final Session session;
 
@@ -65,11 +61,6 @@ public class FocusManager extends Manager {
 
 
     private void runCommands() {
-//        Thread inputThread = new Thread(() -> {
-//            System.out.print("Enter your command: ");
-//            String name = scanner.nextLine();
-//        });
-//        inputThread.start();
         boolean isExit = false;
         while (!isExit) {
             try {

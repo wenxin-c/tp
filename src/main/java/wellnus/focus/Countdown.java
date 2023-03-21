@@ -55,7 +55,6 @@ public class Countdown {
 
     public void setStop() {
         timer.cancel();
-        textUi.printOutputMessage("Timer has stopped");
     }
 
     public void setStart() {
@@ -73,6 +72,10 @@ public class Countdown {
 
     public int getSeconds() {
         return this.seconds;
+    }
+
+    public String getDescription() {
+        return this.description;
     }
 
 }

@@ -3,16 +3,21 @@ package wellnus.focus;
 import wellnus.command.Command;
 import wellnus.exception.BadCommandException;
 import wellnus.exception.WellNusException;
+import wellnus.ui.TextUi;
 
 import java.util.HashMap;
 
 public class StartCommand extends Command {
 
+    private final static String START_MESSAGE = "Your session has started! Please focus on your task.";
     private final Session session;
+
+    private final TextUi textUi;
 
     public StartCommand(HashMap<String, String> arguments, Session session) {
         super(arguments);
         this.session = session;
+        this.textUi = new TextUi();
     }
 
     /**
@@ -62,10 +67,13 @@ public class StartCommand extends Command {
     public void execute() throws WellNusException {
         session.checkPrevCountdown();
         if (!session.getSession().get(session.getCurrentCountdownIndex()).getIsRunning()) {
+            if (session.getCurrentCountdownIndex() == 0) {
+                textUi.printOutputMessage(START_MESSAGE);
+            }
             session.getSession().get(session.getCurrentCountdownIndex()).start();
             session.getSession().get(session.getCurrentCountdownIndex()).setStart();
+            textUi.printOutputMessage(session.getSession().get(session.getCurrentCountdownIndex()).getDescription());
         }
-
     }
 
     /**

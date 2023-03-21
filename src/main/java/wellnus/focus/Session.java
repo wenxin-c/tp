@@ -5,9 +5,9 @@ import java.util.ArrayList;
 
 public class Session {
     private final ArrayList<Countdown> session;
-    private int work = 25;
-    private int brk = 5;
-    private int longBrk = 15;
+    private int work = 1;
+    private int brk = 1;
+    private int longBrk = 1;
     private int cycle = 3;
     private int currentCountdownIndex = 0;
 
@@ -40,6 +40,10 @@ public class Session {
         if (session.get(currentCountdownIndex).getIsCompletedCountdown()) {
             currentCountdownIndex += 1;
         }
+    }
+
+    public void resetCurrentCountdownIndex() {
+        currentCountdownIndex = 0;
     }
 
 

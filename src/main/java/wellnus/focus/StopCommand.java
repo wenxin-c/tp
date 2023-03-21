@@ -3,16 +3,21 @@ package wellnus.focus;
 import wellnus.command.Command;
 import wellnus.exception.BadCommandException;
 import wellnus.exception.WellNusException;
+import wellnus.ui.TextUi;
 
 import java.util.HashMap;
 
 public class StopCommand extends Command {
+    private static final String STOP_MESSAGE = "Your focus session has stopped. Please input start to begin another session";
 
     private final Session session;
+    private final TextUi textUi;
+
 
     public StopCommand(HashMap<String, String> arguments, Session session) {
         super(arguments);
         this.session = session;
+        this.textUi = new TextUi();
     }
 
     /**
@@ -59,8 +64,9 @@ public class StopCommand extends Command {
      */
     @Override
     public void execute() throws WellNusException {
-        System.out.println("stopped");
+        textUi.printOutputMessage(STOP_MESSAGE);
         session.getSession().get(session.getCurrentCountdownIndex()).setStop();
+        session.resetCurrentCountdownIndex();
     }
 
     /**
