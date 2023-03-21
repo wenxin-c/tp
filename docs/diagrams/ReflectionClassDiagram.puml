@@ -1,0 +1,74 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
+
+Package reflection <<Rectangle>>{
+class ReflectionManager{
+- {static}isExit : boolean
+- commandType : String
+- argumentPayload : HashMap<String, String>
++ ReflectionManager()
++ {static}setIsExit(status : boolean) : void
++ executeCommands() : void
++ runEventDriver() : void
++ setCommandType(inputCommand: String) : void
++ setArgumentPayload(inputCommand: String) : void
+}
+class GetCommand{
+-argumentPayload: HashMap<String, String>
++GetCommand(arguments: HashMap<String, String>)
++execute() : void
++validateCommand(commandMap: HashMap<String, String>) : void
++getRandomQuestions() : ArrayList<ReflectionQuestion>
+-generateRandomNumbers(maxSize : Integer) : Set<integer>
+}
+class HomeCommand{
+-argumentPayload: HashMap<String, String>
++HomeCommand(arguments: HashMap<String, String>)
++execute() : void
++validateCommand(commandMap: HashMap<String, String>) : void
+}
+class ReflectUi{
+#printLogoWithSeparator(logo : String) : void
+}
+class ReflectionQuestion{
+-questionDescription : String
++ReflectionQuestion()
+}
+class SelfReflection{
+-setUpQuestions() : void
++SelfReflection()
++{static}greet() : void
++getQuestions() : ArrayList<ReflectionQuestion>
+}
+}
+class "{abstract}\nTextUi" as TextUi{
++printOutputMessage(message : String) : void
++printErrorFor(exception : Exception, additionalMessage : String) : void
+}
+class "{abstract}\nManager" as Manager{
+#{abstract}setSupportedCommands() : void
+#{abstract}runEventDriver() : void
+}
+class "{abstract}\nCommand" as Command{
+#{abstract}execute : void
+#{abstract}validateCommand(commandMap: HashMap<String, String>) : void
+}
+
+ReflectionManager --> "1" ReflectUi
+ReflectionManager ..> SelfReflection
+ReflectionManager --|> Manager
+ReflectionManager --> "1..*" GetCommand
+ReflectionManager --> "1..*" HomeCommand
+GetCommand --> "*" SelfReflection
+SelfReflection --> "10" ReflectionQuestion
+SelfReflection --> "1" ReflectUi
+ReflectUi --|> TextUi
+GetCommand --> "1" ReflectUi
+HomeCommand --> "1" ReflectUi
+GetCommand --|> Command
+HomeCommand --|> Command
+HomeCommand ..> ReflectionManager
+@enduml

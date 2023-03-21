@@ -65,10 +65,62 @@ When you are ready to start coding, we recommend that you look at the class diag
 code and the interaction among different classes.<br>
 
 ## Design & implementation
+### Reflection Component
+![Reflection Component Class Diagram](diagrams/ReflectionClassDiagram.png)
+This `Reflection` component provides users with random sets of introspective questions for users to reflect on.<br>
+<br>
+The `reflection` package consists of several classes, namely `ReflectionManager`, `SelfReflection`, `ReflectionQuestion`,
+`GetCommand`, `HomeCommand` and `ReflectUi`. There are three abstract classes `Manager`, `Command`, `TextUi` which some 
+classes in `reflection` package inherit from. But since these abstract classes are outside of `reflection` package, the 
+focus of this section will be on classes inside `reflection` package. <br>
+<br>
 
-{Describe the design and implementation of the product. Use UML diagrams and short code snippets where applicable.}
+`ReflectionManager` class:<br>
+- This class is in charge of the overall execution of the **Self Reflection** feature. 
+- It inherits from abstract class `Manager`
+- Each `ReflectionManager` object contains exactly one `ReflectUi` object as an attribute to get user inputs.
+- The `runEventDriver()` method is the entry of the Self Reflection feature, the caller creates a `ReflectionManager` 
+object and calls this method to launch the Self Reflection feature. It calls a class-level method `SelfReflection.geet()`
+to print greeting logo and message, therefore, `SelfRelfection` class is a dependency of `ReflectionManager` class. 
+- It contains a **while loop** to continuously get input commands from users until users input `home` command to return back to main WellNUS++ interface. 
+- The termination condition of the while loop is controlled by a static attribute `isExit`. Whenever `runEventDriver()`
+method is called, the `isExit` attribute will be initialised as `false`. This attribute can be accessed by other objects
+(more specifically `HomeCommand` object) through a static method `setIsExit()` to set to `true` and the while loop will 
+be terminated. 
+- Upon getting input commands, the `runEventDriver()` method will call the `executeCommands()` method. Based on the 
+input command type, the `executeCommands()` method will then create the correct type of command object and call `.execute()`
+method to execute the command accordingly.  
 
-### Object Diagram
+`ReflectionQuestion` class:<br>
+- Each introspective question is a `ReflectionQuestion` object. 
+- It contains the basic description of the introspective question. 
+
+`SelfReflection` class:<br>
+- This class contains the information about the Self Reflection feature (e.g. greeting message, logo).
+- It contains a `String` array of 10 introspective questions. Upon the instantiation of a `SelfReflection` object, 
+`setUpQuestions()` method will be called in the constructor, these questions will be used to create an `arrayList` of 
+10 `ReflectionQuestion` objects. 
+
+`GetCommand` class:<br>
+- This command allows users to get a list of 5 random introspective questions.
+- Upon calling the `.execute()` method of a `GetCommand` object, the `validateCommand()` method will first be called to
+validate the commands. If the commands are invalid, a `BadCommandException` will be thrown.
+- The `generateRandomQuestions()` method will be called and within which a `SelfReflection` object will be instantiated.
+The `generateRandomNumbers()` method is called to generate a set of 5 distinct integers(0 ~ num_of_questions-1), this set
+of integers will be used as indexes to select the corresponding questions from the pool of 10 questions available in the
+`SelfReflection` object. 
+- Since `SelfReflection` object is only created when `getRandomQuestions()` method is called, there might be a `GetCommand`
+object without `SelfReflection` objects. Every time the `getRandomQuestions()` method is called, a new `SelfReflection` object 
+is created, hence, the multiplicity from `GetCommand` class to `SelfReflection` class is `*` (i.e. 0 or more). 
+
+`HomeCommand` class: <br>
+- This command allows users to return back to the main WellNUS++ interface. 
+- Similar to `GetCommand`, `validateCommand()` method will also be called to validate the command. 
+- It will then call the class-level method `ReflectionManager.setIsExit()` to terminate the while loop
+in `ReflectionManager` object. 
+
+`RefelctUi` class: <br>
+- It inherits from `TextUi` class and is in charge of printing output to users. 
 
 ## Product scope
 ### Target user profile
