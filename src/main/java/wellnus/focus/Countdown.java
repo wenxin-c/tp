@@ -35,7 +35,7 @@ public class Countdown {
                         isCompletedCountdown.set(true);
                         timer.cancel();
                         java.awt.Toolkit.getDefaultToolkit().beep();
-                        textUi.printOutputMessage("Type start for begin the next countdown");
+                        textUi.printOutputMessage("Type start to begin the next countdown");
                     } else if (seconds == 0) {
                         seconds = 59;
                         minutes--;
@@ -59,6 +59,10 @@ public class Countdown {
 
     public void setStart() {
         isRunClock.set(true);
+    }
+
+    public void setPause() {
+        isRunClock.set(false);
     }
 
 

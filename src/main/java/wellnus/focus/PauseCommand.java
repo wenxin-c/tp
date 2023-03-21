@@ -4,16 +4,20 @@ import wellnus.command.Command;
 import wellnus.exception.BadCommandException;
 import wellnus.exception.WellNusException;
 import wellnus.focus.Session;
+import wellnus.ui.TextUi;
 
 import java.util.HashMap;
 
 public class PauseCommand extends Command {
 
+    private static final String PAUSE_OUTPUT = "Timer paused at: ";
     private final Session session;
+    private final TextUi textUi;
 
     public PauseCommand(HashMap<String, String> arguments, Session session) {
         super(arguments);
         this.session = session;
+        this.textUi = new TextUi();
     }
 
     /**
@@ -38,7 +42,7 @@ public class PauseCommand extends Command {
     protected String getFeatureKeyword() {
         return null;
     }
-    
+
     /**
      * Executes the specified command from the user.<br>
      * <p>
@@ -48,8 +52,10 @@ public class PauseCommand extends Command {
      */
     @Override
     public void execute() throws WellNusException {
-        session.getSession().get(session.getCurrentCountdownIndex()).setStop();
-        System.out.println("Pause");
+        session.getSession().get(session.getCurrentCountdownIndex()).setPause();
+        int minutes = session.getSession().get(session.getCurrentCountdownIndex()).getMinutes();
+        int seconds = session.getSession().get(session.getCurrentCountdownIndex()).getSeconds();
+        textUi.printOutputMessage(PAUSE_OUTPUT + String.format("%d:%d", minutes, seconds));
     }
 
     /**

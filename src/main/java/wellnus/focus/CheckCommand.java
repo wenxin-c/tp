@@ -10,6 +10,7 @@ import java.util.HashMap;
 
 public class CheckCommand extends Command {
 
+    private final String CHECK_OUTPUT = "Time left: ";
     private final Session session;
     private final TextUi textUi;
 
@@ -53,7 +54,7 @@ public class CheckCommand extends Command {
     public void execute() throws WellNusException {
         int minutes = session.getSession().get(session.getCurrentCountdownIndex()).getMinutes();
         int seconds = session.getSession().get(session.getCurrentCountdownIndex()).getSeconds();
-        textUi.printOutputMessage("Time left: " + String.format("%d:%d", minutes, seconds));
+        textUi.printOutputMessage(CHECK_OUTPUT + String.format("%d:%d", minutes, seconds));
     }
 
     /**

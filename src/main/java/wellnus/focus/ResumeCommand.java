@@ -3,17 +3,21 @@ package wellnus.focus;
 import wellnus.command.Command;
 import wellnus.exception.BadCommandException;
 import wellnus.exception.WellNusException;
+import wellnus.ui.TextUi;
 
 
 import java.util.HashMap;
 
 public class ResumeCommand extends Command {
 
+    private final static String RESUME_OUTPUT = "Timer resumed at: ";
     private final Session session;
+    private final TextUi textUi;
 
     public ResumeCommand(HashMap<String, String> arguments, Session session) {
         super(arguments);
         this.session = session;
+        this.textUi = new TextUi();
     }
 
     /**
@@ -49,8 +53,10 @@ public class ResumeCommand extends Command {
      */
     @Override
     public void execute() throws WellNusException {
+        int minutes = session.getSession().get(session.getCurrentCountdownIndex()).getMinutes();
+        int seconds = session.getSession().get(session.getCurrentCountdownIndex()).getSeconds();
+        textUi.printOutputMessage(RESUME_OUTPUT + String.format("%d:%d", minutes, seconds));
         session.getSession().get(session.getCurrentCountdownIndex()).setStart();
-        System.out.println("Resume");
     }
 
     /**

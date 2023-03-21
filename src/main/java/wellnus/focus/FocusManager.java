@@ -21,7 +21,7 @@ public class FocusManager extends Manager {
     private static final String HOME_COMMAND_KEYWORD = "home";
     private static final String STOP_COMMAND_KEYWORD = "stop";
     private static final String CHECK_COMMAND_KEYWORD = "check";
-    private static final String UNKNOWN_COMMAND_MESSAGE = "No such command in atomic habits!";
+    private static final String UNKNOWN_COMMAND_MESSAGE = "No such command in focus timer!";
     private static final String FOCUS_TIMER_GREET = "Welcome to Focus Timer";
 
     private final TextUi textUi;
