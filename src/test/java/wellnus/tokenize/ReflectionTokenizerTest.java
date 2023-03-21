@@ -15,22 +15,22 @@ public class ReflectionTokenizerTest {
     private static final int INDEX_ONE = 1;
     @Test
     void tokenizeReflect_checkOutput_success() throws TokenizerException {
-        ArrayList<Set<Integer>> IndexToTokenize = new ArrayList<>();
+        ArrayList<Set<Integer>> indexToTokenize = new ArrayList<>();
         Set<Integer> likeTestIndexes = new HashSet<>();
         Set<Integer> prefTestIndexes = new HashSet<>();
         likeTestIndexes.add(1);
         likeTestIndexes.add(2);
         prefTestIndexes.add(3);
         prefTestIndexes.add(4);
-        IndexToTokenize.add(likeTestIndexes);
-        IndexToTokenize.add(prefTestIndexes);
+        indexToTokenize.add(likeTestIndexes);
+        indexToTokenize.add(prefTestIndexes);
         String expectedTokenizedLike = "like 1,2";
         String expectedTokenizedPref = "pref 3,4";
         ArrayList<String> expectedTokenizedIndex = new ArrayList<>();
         expectedTokenizedIndex.add(expectedTokenizedLike);
         expectedTokenizedIndex.add(expectedTokenizedPref);
         ReflectionTokenizer reflectionTokenizer = new ReflectionTokenizer();
-        ArrayList<String> actualTokenizedIndex = reflectionTokenizer.tokenize(IndexToTokenize);
+        ArrayList<String> actualTokenizedIndex = reflectionTokenizer.tokenize(indexToTokenize);
         Assertions.assertEquals(expectedTokenizedIndex, actualTokenizedIndex);
     }
     @Test
