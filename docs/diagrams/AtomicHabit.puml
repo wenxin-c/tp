@@ -27,7 +27,7 @@ Command <|-- HomeCommand
 Command <|-- ListCommand
 Command <|-- UpdateCommand
 Manager <|-- AtomicHabitManager
-AtomicHabitList -> "0..*" AtomicHabit : contains >
+AtomicHabitList -> "*" AtomicHabit : contains >
 AtomicHabitManager -right-> "1" AtomicHabitList : create >
 AtomicHabitManager --> AddCommand : execute >
 AtomicHabitManager --> HomeCommand : execute >
