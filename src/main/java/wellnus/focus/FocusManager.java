@@ -1,7 +1,6 @@
 package wellnus.focus;
 
 
-import wellnus.atomichabit.command.HomeCommand;
 import wellnus.command.Command;
 import wellnus.exception.BadCommandException;
 import wellnus.exception.WellNusException;
@@ -9,18 +8,21 @@ import wellnus.manager.Manager;
 import wellnus.ui.TextUi;
 
 import java.util.HashMap;
-import java.util.Scanner;
+
 
 public class FocusManager extends Manager {
-
+    public static final String FEATURE_NAME = "ft";
+    private static final String FEATURE_BRIEF_DESCRIPTION = "";
+    private static final String FEATURE_FULL_DESCRIPTION = "";
     private static final String START_COMMAND_KEYWORD = "start";
     private static final String PAUSE_COMMAND_KEYWORD = "pause";
     private static final String RESUME_COMMAND_KEYWORD = "resume";
     private static final String CONFIG_COMMAND_KEYWORD = "config";
+    private static final String HOME_COMMAND_KEYWORD = "home";
     private static final String STOP_COMMAND_KEYWORD = "stop";
     private static final String CHECK_COMMAND_KEYWORD = "check";
     private static final String UNKNOWN_COMMAND_MESSAGE = "No such command in atomic habits!";
-    private static final String GREETING_MESSAGE = "Welcome to Focus Timer";
+    private static final String FOCUS_TIMER_GREET = "Welcome to Focus Timer";
 
     private final TextUi textUi;
     private final Session session;
@@ -48,6 +50,8 @@ public class FocusManager extends Manager {
             return new PauseCommand(arguments, session);
         case RESUME_COMMAND_KEYWORD:
             return new ResumeCommand(arguments, session);
+        case HOME_COMMAND_KEYWORD:
+            return new HomeCommand(arguments, session);
         case STOP_COMMAND_KEYWORD:
             return new StopCommand(arguments, session);
         case CONFIG_COMMAND_KEYWORD:
@@ -57,6 +61,10 @@ public class FocusManager extends Manager {
         default:
             throw new BadCommandException(UNKNOWN_COMMAND_MESSAGE);
         }
+    }
+
+    private void greet() {
+        textUi.printOutputMessage(FOCUS_TIMER_GREET);
     }
 
 
@@ -84,7 +92,7 @@ public class FocusManager extends Manager {
      */
     @Override
     public String getFeatureName() {
-        return null;
+        return FEATURE_NAME;
     }
 
     /**
@@ -94,7 +102,7 @@ public class FocusManager extends Manager {
      */
     @Override
     public String getBriefDescription() {
-        return null;
+        return FEATURE_BRIEF_DESCRIPTION;
     }
 
     /**
@@ -104,7 +112,7 @@ public class FocusManager extends Manager {
      */
     @Override
     public String getFullDescription() {
-        return null;
+        return FEATURE_FULL_DESCRIPTION;
     }
 
     /**
@@ -129,7 +137,7 @@ public class FocusManager extends Manager {
      */
     @Override
     public void runEventDriver() throws BadCommandException {
-        System.out.println(GREETING_MESSAGE);
+        greet();
         runCommands();
     }
 }
