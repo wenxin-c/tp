@@ -27,6 +27,11 @@ public class FocusManager extends Manager {
     private final TextUi textUi;
     private final Session session;
 
+    /**
+     * Constructs a FocusManager object.
+     * Initialise a session and textUi.
+     * Session will be passed into different commands to be utilised.
+     */
     public FocusManager() {
         this.textUi = new TextUi();
         this.session = new Session();
@@ -54,8 +59,6 @@ public class FocusManager extends Manager {
             return new HomeCommand(arguments, session);
         case STOP_COMMAND_KEYWORD:
             return new StopCommand(arguments, session);
-        case CONFIG_COMMAND_KEYWORD:
-            //return new UpdateCommand(arguments, getHabitList());
         case CHECK_COMMAND_KEYWORD:
             return new CheckCommand(arguments, session);
         default:
@@ -127,13 +130,7 @@ public class FocusManager extends Manager {
     }
 
     /**
-     * runEventDriver is the entry point into a feature's driver loop <br>
-     * <br>
-     * This should be the part that contains the infinite loop and switch cases,
-     * but it is up to the implementer. <br>
-     * Its implementation should include the following:
-     * <li>A way to terminate runEventDriver</li>
-     * <li>A way to read input from console</li>
+     * runEventDriver is the entry point into a feature's driver loop.
      */
     @Override
     public void runEventDriver() throws BadCommandException {
