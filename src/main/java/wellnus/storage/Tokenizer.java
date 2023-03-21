@@ -30,9 +30,9 @@ public interface Tokenizer<T> {
      * Converts the String representation of a <code>Manager</code>'s state back into an
      *     <code>ArrayList</code> of the feature's data type class that can be used to restore that
      *     <code>Manager</code>'s previous state.
-     * @param tokenizedManager String representation of the Manager whose state we want to restore
+     * @param tokenizedDataObjects String representation of the Data Object whose state we want to restore
      * @return ArrayList containing all the data from the Manager's previously saved state
      * @throws TokenizerException If detokenizing fails and valid state cannot be restored
      */
-    ArrayList<T> detokenize(ArrayList<String> tokenizedManager) throws TokenizerException;
+    ArrayList<T> detokenize(ArrayList<String> tokenizedDataObjects) throws TokenizerException;
 }

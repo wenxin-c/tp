@@ -5,12 +5,11 @@ import java.util.Arrays;
 import java.util.HashMap;
 
 import wellnus.atomichabit.feature.AtomicHabit;
-import wellnus.atomichabit.feature.AtomicHabitManager;
+import wellnus.exception.StorageException;
 import wellnus.exception.TokenizerException;
-import wellnus.manager.Manager;
 
 /**
- * Class to tokenize and detokenize the AtomicHabit list inside AtomicHabitManager <br>
+ * Class to tokenize and detokenize the AtomicHabit list. <br>
  */
 public class AtomicHabitTokenizer implements Tokenizer<AtomicHabit> {
     private static final String DESCRIPTION_KEY = "description";
@@ -18,32 +17,40 @@ public class AtomicHabitTokenizer implements Tokenizer<AtomicHabit> {
     private static final String PARAMETER_DELIMITER = "--";
     private static final String DETOKENIZE_ERROR_MESSAGE = "Detokenization failed!"
             + "The file might be corrupted";
-    private static int INDEX_ZERO = 0;
-    private static int INDEX_FIRST = 1;
-    private String[] splitIntoParameter(String fullString) {
-        fullString = fullString.strip();
+    private static final int INDEX_ZERO = 0;
+    private static final int INDEX_FIRST = 1;
+    private static final int NUM_ATOMIC_HABIT_PARAMETER = 2;
+    private String[] splitTokenizedHabitIntoParameter(String tokenizedHabit) {
+        tokenizedHabit = tokenizedHabit.strip();
         int noLimit = -1;
-        String[] rawCommands = fullString.split(PARAMETER_DELIMITER, noLimit);
-        rawCommands = Arrays.copyOfRange(rawCommands, INDEX_FIRST, rawCommands.length);
-        String[] cleanCommands = new String[rawCommands.length];
-        for (int i = 0; i < rawCommands.length; ++i) {
-            String currentCommand = rawCommands[i];
+        String[] rawString = tokenizedHabit.split(PARAMETER_DELIMITER, noLimit);
+        rawString = Arrays.copyOfRange(rawString, INDEX_FIRST, rawString.length);
+        String[] cleanString = new String[rawString.length];
+        for (int i = 0; i < rawString.length; ++i) {
+            String currentCommand = rawString[i];
             currentCommand = currentCommand.strip();
-            cleanCommands[i] = currentCommand;
+            cleanString[i] = currentCommand;
         }
-        return cleanCommands;
+        return cleanString;
     }
 
-    private AtomicHabit parseTokenizedHabit(String tokenizedString) throws TokenizerException {
+    private AtomicHabit parseTokenizedHabit(String tokenizedHabit) throws TokenizerException {
         HashMap<String, String> parameterHashMap = new HashMap<>();
-        String[] parameterList = splitIntoParameter(tokenizedString);
-        for (String parameterString: parameterList) {
-            int i = parameterString.indexOf(' ');
-            String parameterKey = parameterString.substring(INDEX_ZERO, i);
-            String parameterValue = parameterString.substring(i).trim();
-            parameterHashMap.put(parameterKey, parameterValue);
+        String[] parameterStrings = splitTokenizedHabitIntoParameter(tokenizedHabit);
+        try {
+            for (String parameterString: parameterStrings) {
+                int i = parameterString.indexOf(' ');
+                String parameterKey = parameterString.substring(INDEX_ZERO, i);
+                String parameterValue = parameterString.substring(i).trim();
+                parameterHashMap.put(parameterKey, parameterValue);
+            }
+        } catch (StringIndexOutOfBoundsException stringIndexOutOfBoundsException) {
+            throw new TokenizerException(DETOKENIZE_ERROR_MESSAGE);
         }
         if (!parameterHashMap.containsKey(DESCRIPTION_KEY) || !parameterHashMap.containsKey(COUNT_KEY)) {
+            throw new TokenizerException(DETOKENIZE_ERROR_MESSAGE);
+        }
+        if (parameterHashMap.size() != NUM_ATOMIC_HABIT_PARAMETER) {
             throw new TokenizerException(DETOKENIZE_ERROR_MESSAGE);
         }
         String description = parameterHashMap.get(DESCRIPTION_KEY);
@@ -57,33 +64,40 @@ public class AtomicHabitTokenizer implements Tokenizer<AtomicHabit> {
         }
     }
     /**
-     * Tokenize List of Atomic Habits in the manager to be saved as ArrayList of Strings. <br>
+     * Tokenize List of Atomic Habits to be saved as ArrayList of Strings. <br>
      * Each habit will be tokenized with the following format:
      * --description [description of habit] --count [count of habit]. <br>
+     *
+     * @param habitsToTokenize List of atomic habits to be tokenized as ArrayList of strings.
+     * @return ArrayList of Strings representing the tokenized habits that we can write to storage.
      */
-    public ArrayList<String> tokenize(Manager managerToTokenize) throws TokenizerException {
-        AtomicHabitManager atomicHabitManager = (AtomicHabitManager) managerToTokenize;
-        ArrayList<AtomicHabit> habitList = atomicHabitManager.getHabitList().getAllHabits();
-        ArrayList<String> tokenizedHabitList = new ArrayList<>();
-        for (AtomicHabit habit: habitList) {
+    public ArrayList<String> tokenize(ArrayList<AtomicHabit> habitsToTokenize) throws TokenizerException {
+        ArrayList<String> tokenizedHabits = new ArrayList<>();
+        for (AtomicHabit habit: habitsToTokenize) {
             String tokenizedHabit = PARAMETER_DELIMITER + DESCRIPTION_KEY
                     + " " + habit.getDescription()
                     + " " + PARAMETER_DELIMITER + COUNT_KEY
                     + " " + habit.getCount();
-            tokenizedHabitList.add(tokenizedHabit);
+            tokenizedHabits.add(tokenizedHabit);
         }
-        return tokenizedHabitList;
+        return tokenizedHabits;
     }
     /**
-     * Convert string of tokenized AtomicHabitManager into ArrayList of AtomicHabit.
+     * Convert strings of tokenized AtomicHabit into ArrayList of AtomicHabit. <br>
+     * This method can be called in the constructor of AtomicHabitManager to detokenize.
+     * ArrayList of atomic habits from storage. <br>
+     *
+     * @param tokenizedAtomicHabits List of tokenized atomic habit strings from the storage.
+     * @return ArrayList containing all the atomic habit saved in the storage.
+     * @throws TokenizerException when the data can't be detokenized.
      */
-    public ArrayList<AtomicHabit> detokenize(ArrayList<String> tokenizedAtomicHabitManager) throws TokenizerException {
-        ArrayList<AtomicHabit> detokenizedAtomicHabit = new ArrayList<>();
-        for (String tokenizedString : tokenizedAtomicHabitManager) {
+    public ArrayList<AtomicHabit> detokenize(ArrayList<String> tokenizedAtomicHabits) throws TokenizerException {
+        ArrayList<AtomicHabit> detokenizedAtomicHabits = new ArrayList<>();
+        for (String tokenizedString : tokenizedAtomicHabits) {
             AtomicHabit parsedHabit = parseTokenizedHabit(tokenizedString);
-            detokenizedAtomicHabit.add(parsedHabit);
+            detokenizedAtomicHabits.add(parsedHabit);
         }
-        return detokenizedAtomicHabit;
+        return detokenizedAtomicHabits;
     }
 }
 
