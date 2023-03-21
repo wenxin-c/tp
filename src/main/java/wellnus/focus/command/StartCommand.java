@@ -1,8 +1,9 @@
-package wellnus.focus;
+package wellnus.focus.command;
 
 import wellnus.command.Command;
 import wellnus.exception.BadCommandException;
-import wellnus.exception.WellNusException;
+import wellnus.focus.feature.FocusManager;
+import wellnus.focus.feature.Session;
 import wellnus.ui.TextUi;
 
 import java.util.HashMap;

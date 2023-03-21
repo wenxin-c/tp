@@ -1,9 +1,10 @@
-package wellnus.focus;
+package wellnus.focus.feature;
 
 
 import wellnus.command.Command;
 import wellnus.exception.BadCommandException;
 import wellnus.exception.WellNusException;
+import wellnus.focus.command.*;
 import wellnus.manager.Manager;
 import wellnus.ui.TextUi;
 
@@ -12,7 +13,7 @@ import java.util.HashMap;
 
 public class FocusManager extends Manager {
     public static final String FEATURE_NAME = "ft";
-    private static final String FEATURE_BRIEF_DESCRIPTION = "";
+    private static final String FEATURE_BRIEF_DESCRIPTION = "Users can set a timer to focus on a task.";
     private static final String FEATURE_FULL_DESCRIPTION = "";
     private static final String START_COMMAND_KEYWORD = "start";
     private static final String PAUSE_COMMAND_KEYWORD = "pause";
@@ -23,6 +24,7 @@ public class FocusManager extends Manager {
     private static final String CHECK_COMMAND_KEYWORD = "check";
     private static final String UNKNOWN_COMMAND_MESSAGE = "No such command in focus timer!";
     private static final String FOCUS_TIMER_GREET = "Welcome to Focus Timer";
+    private static final String COMMAND_KEYWORD_ASSERTION = "The key cannot be null, check user-guide for valid commands";
 
     private final TextUi textUi;
     private final Session session;
@@ -48,6 +50,7 @@ public class FocusManager extends Manager {
     private Command getCommandFor(String commandString) throws BadCommandException {
         HashMap<String, String> arguments = getCommandParser().parseUserInput(commandString);
         String commandKeyword = getCommandParser().getMainArgument(commandString);
+        assert commandKeyword != null : COMMAND_KEYWORD_ASSERTION;
         switch (commandKeyword) {
         case START_COMMAND_KEYWORD:
             return new StartCommand(arguments, session);

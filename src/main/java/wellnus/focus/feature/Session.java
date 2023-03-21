@@ -1,4 +1,4 @@
-package wellnus.focus;
+package wellnus.focus.feature;
 
 
 import java.util.ArrayList;

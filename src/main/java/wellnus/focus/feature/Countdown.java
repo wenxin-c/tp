@@ -1,4 +1,4 @@
-package wellnus.focus;
+package wellnus.focus.feature;
 
 import wellnus.ui.TextUi;
 
@@ -13,10 +13,13 @@ import java.util.concurrent.atomic.AtomicBoolean;
  */
 public class Countdown {
 
-    private final static int ONE_SECOND = 1000;
-    private final static int DELAY_TIME = 0;
-    private final static int DEFAULT_STOP_TIME = 0;
-    private final static int DEFAULT_SECONDS = 59;
+    private static final int ONE_SECOND = 1000;
+    private static final int DELAY_TIME = 0;
+    private static final int DEFAULT_STOP_TIME = 0;
+    private static final int DEFAULT_SECONDS = 59;
+    private static final int INITIAL_SECONDS = 0;
+    private static final String MINUTES_INPUT_ASSERTION = "Minutes should be greater than 0";
+    private static final String TIMER_NOT_RUNNING_ASSERTION = "Timer should not be running";
     private TextUi textUi;
     private Timer timer;
     private int minutes;
@@ -33,8 +36,9 @@ public class Countdown {
      * @param description description of the current task user is focusing on
      */
     public Countdown(int minutes, String description) {
+        assert minutes > 0 : MINUTES_INPUT_ASSERTION;
         this.minutes = minutes;
-        this.seconds = 0;
+        this.seconds = INITIAL_SECONDS;
         this.timer = new Timer();
         this.isCompletedCountdown = new AtomicBoolean(false);
         this.isRunClock = new AtomicBoolean(false);
@@ -44,9 +48,11 @@ public class Countdown {
 
     /**
      * This method will start the countdown timer.
+     * Timer will notify user when the countdown timer has completed by playing a beep sound.
      * The timer will run in the background and will be stopped when the countdown minutes and seconds reaches 0.
      */
     public void start() {
+        assert isRunClock.get() == false : TIMER_NOT_RUNNING_ASSERTION;
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
