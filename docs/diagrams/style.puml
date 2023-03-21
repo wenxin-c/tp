@@ -1,0 +1,55 @@
+/'
+ 'Code is adopted from https://github.com/se-edu/addressbook-level3/blob/master/docs/diagrams/style.puml
+ 'Commonly used styles and colors across diagrams.
+ 'Refer to https://plantuml-documentation.readthedocs.io/en/latest for a more
+ 'comprehensive list of skinparams.
+ '/
+
+
+'T1 through T4 are shades of the original color from lightest to darkest
+
+!define MODEL_COLOR MidnightBlue
+!define MODEL_COLOR_T1 #F97181
+!define MODEL_COLOR_T2 #E41F36
+!define MODEL_COLOR_T3 #7B000E
+!define MODEL_COLOR_T4 #51000A
+
+!define USER_COLOR #FFFFFF
+
+skinparam BackgroundColor #FFFFFFF
+skinparam MinClassWidth 50
+skinparam ParticipantPadding 10
+skinparam DefaultTextAlignment center
+skinparam packageStyle Rectangle
+skinparam Shadowing false
+
+skinparam Class {
+    FontColor #FFFFFF
+    BorderThickness 1
+    BorderColor #FFFFFF
+    StereotypeFontColor #000000
+    FontName Arial
+}
+
+skinparam Actor {
+    BorderColor USER_COLOR
+    Color USER_COLOR
+    FontName Arial
+}
+
+skinparam Sequence {
+    MessageAlign center
+    BoxFontSize 15
+    BoxPadding 0
+    BoxFontColor #FFFFFF
+    FontName Arial
+}
+
+skinparam Participant {
+    FontColor #FFFFFF
+    Padding 20
+}
+
+'hide footbox
+hide circle
+
