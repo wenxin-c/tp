@@ -40,6 +40,9 @@ public class ReflectionTokenizer implements Tokenizer<Set<Integer>> {
     }
     private Set<Integer> getSet(String indexToSplit) throws TokenizerException {
         Set<Integer> cleanIndexes = new HashSet<>();
+        if (indexToSplit.isBlank()) {
+            return cleanIndexes;
+        }
         String[] splittedString = splitTokenizedIndex(indexToSplit);
         try {
             for (String indexString: splittedString) {
