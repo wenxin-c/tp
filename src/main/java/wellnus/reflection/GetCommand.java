@@ -15,6 +15,8 @@ import wellnus.exception.BadCommandException;
  * Get command to get a set of 5 random questions.
  */
 public class GetCommand extends Command {
+    public static final String COMMAND_DESCRIPTION = "get - Get a list of questions to reflect on.";
+    public static final String COMMAND_USAGE = "usage: get";
     private static final Logger LOGGER = Logger.getLogger("ReflectGetCommandLogger");
     private static final int NUM_OF_RANDOM_QUESTIONS = 5;
     private static final String FEATURE_NAME = "reflect";
@@ -127,6 +129,32 @@ public class GetCommand extends Command {
         } else if (!commandMap.get(COMMAND_KEYWORD).equals(PAYLOAD)) {
             throw new BadCommandException(INVALID_COMMAND_MSG);
         }
+    }
+
+    /**
+     * Method to ensure that developers add in a command usage
+     * <p>
+     * For example, for the 'add' command in AtomicHabit package: <br>
+     * "usage: add --name (name of habit)"
+     *
+     * @return String of the proper usage of the habit
+     */
+    @Override
+    public String getCommandUsage() {
+        return COMMAND_USAGE;
+    }
+
+    /**
+     * Method to ensure that developers add in a description for the command.
+     * <p>
+     * For example, for the 'add' command in AtomicHabit package: <br>
+     * "add - add a habit to your list"
+     *
+     * @return String of the description of what the command does
+     */
+    @Override
+    public String getCommandDescription() {
+        return COMMAND_DESCRIPTION;
     }
 
     /**
