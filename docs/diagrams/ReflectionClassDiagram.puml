@@ -44,7 +44,7 @@ class SelfReflection{
 +getQuestions() : ArrayList<ReflectionQuestion>
 }
 }
-class "{abstract}\nTextUi" as TextUi{
+class TextUi{
 +printOutputMessage(message : String) : void
 +printErrorFor(exception : Exception, additionalMessage : String) : void
 }

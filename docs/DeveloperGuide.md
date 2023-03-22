@@ -89,10 +89,10 @@ focus of this section will be on classes inside `reflection` package. <br>
 - This class is in charge of the overall execution of the **Self Reflection** feature. 
 - It inherits from abstract class `Manager`
 - Each `ReflectionManager` object contains exactly one `ReflectUi` object as an attribute to get user inputs. This is to
-use a common `scanner` object (created in the `ReflectUi` object) to read all the user inputs within Self Reflection feature.
-This can avoid potential unexpected behaviours from creating multiple `scanner` objects. 
+use a common `Scanner` object (created in the `ReflectUi` object) to read all the user inputs within Self Reflection feature.
+This can avoid potential unexpected behaviours from creating multiple `Scanner` objects. 
 - The `runEventDriver()` method is the entry of the Self Reflection feature, the caller creates a `ReflectionManager` 
-object and calls this method to launch the Self Reflection feature. It calls a class-level method `SelfReflection.geet()`
+object and calls this method to launch the Self Reflection feature. It calls a class-level method `SelfReflection.greet()`
 to print greeting logo and message, therefore, `SelfReflection` class is a dependency of `ReflectionManager` class. 
 - It contains a **while loop** to continuously get user input commands as users are expected to continuously perform a series of actions
 within Self Reflection feature until they wish to return back to main WellNUS++ interface(input `home` command). 
@@ -109,7 +109,7 @@ will be set up upon the instantiation of `ReflectionManager` object.
 `ReflectionQuestion` class:<br>
 - Each introspective question is a `ReflectionQuestion` object. 
 - It contains the basic description of the introspective question. Being modelled as an object instead of pure string, each
-question will be able to have more attributes such as like which will be utilised in future features.
+question will be able to have more attributes such as like which will be utilized in future features.
 
 `SelfReflection` class:<br>
 - This class contains the information about the Self Reflection feature (e.g. greeting message, logo).
