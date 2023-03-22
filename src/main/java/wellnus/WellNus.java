@@ -70,13 +70,7 @@ public class WellNus {
      * @param args Commandline arguments passed to the WellNus Java ARchive
      */
     public static void main(String[] args) {
-        FocusManager focusManager = new FocusManager();
-        try {
-            focusManager.runEventDriver();
-        } catch (BadCommandException exception) {
-            System.out.println(exception.getMessage());
-        }
-        //new WellNus().start();
+        new WellNus().start();
     }
 
     /**
