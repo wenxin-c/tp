@@ -57,18 +57,18 @@ class "{abstract}\nCommand" as Command{
 #{abstract}validateCommand(commandMap: HashMap<String, String>) : void
 }
 
-ReflectionManager --> "1" ReflectUi
-ReflectionManager ..> SelfReflection
+ReflectionManager --> "1" ReflectUi : uses >
+ReflectionManager ..> SelfReflection : call >
 ReflectionManager --|> Manager
-ReflectionManager --> "1..*" GetCommand
-ReflectionManager --> "1..*" HomeCommand
-GetCommand --> "*" SelfReflection
-SelfReflection --> "10" ReflectionQuestion
-SelfReflection --> "1" ReflectUi
+ReflectionManager --> "1..*" GetCommand : execute >
+ReflectionManager --> "1..*" HomeCommand : execute >
+GetCommand --> "*" SelfReflection : create >
+SelfReflection --> "10" ReflectionQuestion : contains >
+SelfReflection --> "1" ReflectUi : uses >
 ReflectUi --|> TextUi
-GetCommand --> "1" ReflectUi
-HomeCommand --> "1" ReflectUi
+GetCommand --> "1" ReflectUi : uses >
+HomeCommand --> "1" ReflectUi : uses >
 GetCommand --|> Command
 HomeCommand --|> Command
-HomeCommand ..> ReflectionManager
+HomeCommand ..> ReflectionManager : calls >
 @enduml
