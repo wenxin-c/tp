@@ -22,11 +22,11 @@ public class AtomicHabitTokenizer implements Tokenizer<AtomicHabit> {
     private String[] splitTokenizedHabitIntoParameter(String tokenizedHabit) {
         tokenizedHabit = tokenizedHabit.strip();
         int noLimit = -1;
-        String[] rawString = tokenizedHabit.split(PARAMETER_DELIMITER, noLimit);
-        rawString = Arrays.copyOfRange(rawString, INDEX_FIRST, rawString.length);
-        String[] cleanString = new String[rawString.length];
-        for (int i = 0; i < rawString.length; ++i) {
-            String currentCommand = rawString[i];
+        String[] rawStrings = tokenizedHabit.split(PARAMETER_DELIMITER, noLimit);
+        rawStrings = Arrays.copyOfRange(rawStrings, INDEX_FIRST, rawStrings.length);
+        String[] cleanString = new String[rawStrings.length];
+        for (int i = 0; i < rawStrings.length; ++i) {
+            String currentCommand = rawStrings[i];
             currentCommand = currentCommand.strip();
             cleanString[i] = currentCommand;
         }
@@ -37,7 +37,7 @@ public class AtomicHabitTokenizer implements Tokenizer<AtomicHabit> {
         HashMap<String, String> parameterHashMap = new HashMap<>();
         String[] parameterStrings = splitTokenizedHabitIntoParameter(tokenizedHabit);
         try {
-            for (String parameterString: parameterStrings) {
+            for (String parameterString : parameterStrings) {
                 int i = parameterString.indexOf(' ');
                 String parameterKey = parameterString.substring(INDEX_ZERO, i);
                 String parameterValue = parameterString.substring(i).trim();
@@ -72,7 +72,7 @@ public class AtomicHabitTokenizer implements Tokenizer<AtomicHabit> {
      */
     public ArrayList<String> tokenize(ArrayList<AtomicHabit> habitsToTokenize) throws TokenizerException {
         ArrayList<String> tokenizedHabits = new ArrayList<>();
-        for (AtomicHabit habit: habitsToTokenize) {
+        for (AtomicHabit habit : habitsToTokenize) {
             String tokenizedHabit = PARAMETER_DELIMITER + DESCRIPTION_KEY
                     + " " + habit.getDescription()
                     + " " + PARAMETER_DELIMITER + COUNT_KEY
@@ -88,7 +88,7 @@ public class AtomicHabitTokenizer implements Tokenizer<AtomicHabit> {
      *
      * @param tokenizedAtomicHabits List of tokenized atomic habit strings from the storage.
      * @return ArrayList containing all the atomic habit saved in the storage.
-     * @throws TokenizerException when the data can't be detokenized.
+     * @throws TokenizerException When the data can't be detokenized.
      */
     public ArrayList<AtomicHabit> detokenize(ArrayList<String> tokenizedAtomicHabits) throws TokenizerException {
         ArrayList<AtomicHabit> detokenizedAtomicHabits = new ArrayList<>();
@@ -99,4 +99,3 @@ public class AtomicHabitTokenizer implements Tokenizer<AtomicHabit> {
         return detokenizedAtomicHabits;
     }
 }
-

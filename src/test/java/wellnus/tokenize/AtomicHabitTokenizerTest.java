@@ -9,9 +9,6 @@ import org.junit.jupiter.api.Test;
 import wellnus.atomichabit.feature.AtomicHabit;
 import wellnus.exception.TokenizerException;
 import wellnus.storage.AtomicHabitTokenizer;
-
-
-
 public class AtomicHabitTokenizerTest {
     private static final int INDEX_ZERO = 0;
     private static final int INDEX_ONE = 1;

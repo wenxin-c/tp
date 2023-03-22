@@ -15,44 +15,53 @@ public class ReflectionTokenizer implements Tokenizer<Set<Integer>> {
     private static final int INDEX_ONE = 1;
     private static final String LIKE_KEY = "like";
     private static final String PREF_KEY = "pref";
+    private static final String SPACE_CHARACTER = " ";
+    private static final int NO_LIMIT = -1;
     private static final String DETOKENIZE_ERROR_MESSAGE = "Detokenization failed!"
             + "The file might be corrupted";
+    private String getTokenizedIndexes(String key, Set<Integer> indexesToTokenize) {
+        String tokenizedIndexes = key + " ";
+        for (int index : indexesToTokenize) {
+            tokenizedIndexes = tokenizedIndexes + index + INDEX_DELIMITER;
+        }
+        tokenizedIndexes = tokenizedIndexes.substring(INDEX_ZERO, tokenizedIndexes.length() - INDEX_ONE);
+        return tokenizedIndexes;
+    }
     private String splitParameter(String tokenizedRawString, String parameterKey) throws TokenizerException {
-        int i = tokenizedRawString.indexOf(' ');
-        String parameter = tokenizedRawString.substring(INDEX_ZERO, i);
+        int indexSplit = tokenizedRawString.indexOf(SPACE_CHARACTER);
+        String parameter = tokenizedRawString.substring(INDEX_ZERO, indexSplit);
         if (!parameter.equals(parameterKey)) {
             throw new TokenizerException(DETOKENIZE_ERROR_MESSAGE);
         }
-        String tokenizedIndexes = tokenizedRawString.substring(i).trim();
+        String tokenizedIndexes = tokenizedRawString.substring(indexSplit).trim();
         return tokenizedIndexes;
     }
     private String[] splitTokenizedIndex(String tokenizedIndexes) {
         tokenizedIndexes = tokenizedIndexes.strip();
-        int noLimit = -1;
-        String[] rawString = tokenizedIndexes.split(INDEX_DELIMITER, noLimit);
-        String[] cleanString = new String[rawString.length];
-        for (int i = 0; i < rawString.length; ++i) {
-            String currentCommand = rawString[i];
+        String[] inputStrings = tokenizedIndexes.split(INDEX_DELIMITER, NO_LIMIT);
+        String[] outputStrings = new String[inputStrings.length];
+        for (int i = 0; i < inputStrings.length; ++i) {
+            String currentCommand = inputStrings[i];
             currentCommand = currentCommand.strip();
-            cleanString[i] = currentCommand;
+            outputStrings[i] = currentCommand;
         }
-        return cleanString;
+        return outputStrings;
     }
     private Set<Integer> getSet(String indexToSplit) throws TokenizerException {
-        Set<Integer> cleanIndexes = new HashSet<>();
+        Set<Integer> outputIndexes = new HashSet<>();
         if (indexToSplit.isBlank()) {
-            return cleanIndexes;
+            return outputIndexes;
         }
         String[] splittedString = splitTokenizedIndex(indexToSplit);
         try {
-            for (String indexString: splittedString) {
+            for (String indexString : splittedString) {
                 int index = Integer.parseInt(indexString);
-                cleanIndexes.add(index);
+                outputIndexes.add(index);
             }
         } catch (NumberFormatException numberFormatException) {
             throw new TokenizerException(DETOKENIZE_ERROR_MESSAGE);
         }
-        return cleanIndexes;
+        return outputIndexes;
     }
     /**
      * Tokenize ArrayList of Set of Integers into strings that can be stored. <br>
@@ -68,22 +77,14 @@ public class ReflectionTokenizer implements Tokenizer<Set<Integer>> {
      *      write to storage.
      */
     public ArrayList<String> tokenize(ArrayList<Set<Integer>> arrayIndexToTokenize) throws TokenizerException {
-        ArrayList<String> tokenizedIndex = new ArrayList<>();
+        ArrayList<String> tokenizedIndexes = new ArrayList<>();
         Set<Integer> likeIndexToTokenize = arrayIndexToTokenize.get(INDEX_ZERO);
         Set<Integer> prefIndexToTokenize = arrayIndexToTokenize.get(INDEX_ONE);
-        String tokenizedLike = LIKE_KEY + " ";
-        for (int indexLike: likeIndexToTokenize) {
-            tokenizedLike = tokenizedLike + indexLike + INDEX_DELIMITER;
-        }
-        tokenizedLike = tokenizedLike.substring(INDEX_ZERO, tokenizedLike.length() - INDEX_ONE);
-        String tokenizedPref = PREF_KEY + " ";
-        for (int indexPref: prefIndexToTokenize) {
-            tokenizedPref = tokenizedPref + indexPref + INDEX_DELIMITER;
-        }
-        tokenizedPref = tokenizedPref.substring(INDEX_ZERO, tokenizedPref.length() - INDEX_ONE);
-        tokenizedIndex.add(tokenizedLike);
-        tokenizedIndex.add(tokenizedPref);
-        return tokenizedIndex;
+        String tokenizedLike = getTokenizedIndexes(LIKE_KEY, likeIndexToTokenize);
+        String tokenizedPref = getTokenizedIndexes(PREF_KEY, prefIndexToTokenize);
+        tokenizedIndexes.add(tokenizedLike);
+        tokenizedIndexes.add(tokenizedPref);
+        return tokenizedIndexes;
     }
     /**
      * Convert strings of tokenized Indexes into ArrayList that contains set of like indexes for the first entry
@@ -97,14 +98,14 @@ public class ReflectionTokenizer implements Tokenizer<Set<Integer>> {
      * @throws TokenizerException when the data can't be detokenized.
      */
     public ArrayList<Set<Integer>> detokenize(ArrayList<String> tokenizedIndex) throws TokenizerException {
-        ArrayList<Set<Integer>> detokenizedIndex = new ArrayList<>();
+        ArrayList<Set<Integer>> detokenizedIndexes = new ArrayList<>();
         String rawIndexLike = splitParameter(tokenizedIndex.get(INDEX_ZERO), LIKE_KEY);
         String rawIndexPref = splitParameter(tokenizedIndex.get(INDEX_ONE), PREF_KEY);
-        Set detokenizedLike = getSet(rawIndexLike);
-        Set detokenizedPref = getSet(rawIndexPref);
-        detokenizedIndex.add(detokenizedLike);
-        detokenizedIndex.add(detokenizedPref);
-        return detokenizedIndex;
+        Set<Integer> detokenizedLike = getSet(rawIndexLike);
+        Set<Integer> detokenizedPref = getSet(rawIndexPref);
+        detokenizedIndexes.add(detokenizedLike);
+        detokenizedIndexes.add(detokenizedPref);
+        return detokenizedIndexes;
     }
 }
 
