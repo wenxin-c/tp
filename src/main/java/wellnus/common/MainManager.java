@@ -25,6 +25,13 @@ import wellnus.ui.TextUi;
  * and executes its instance to launch the feature Manager.
  */
 public class MainManager extends Manager {
+    public static final String FEATURE_HELP_DESCRIPTION = "WellNUS++ is a Command Line Interface (CLI)"
+            + " app for NUS Computing students to "
+            + System.lineSeparator()
+            + "keep track and improve their physical and mental wellness in various aspects."
+            + System.lineSeparator()
+            + " If you can type fast, WellNUS++ can update their wellness progress faster than "
+            + "traditional Graphical User Interface(GUI) apps.";
     private static final String EXIT_COMMAND_KEYWORD = "exit";
     private static final String GREETING_MESSAGE = "Enter a command to start using WellNUS++! Try 'help' "
             + "if you're new, or just unsure.";
@@ -47,17 +54,6 @@ public class MainManager extends Manager {
         this.featureManagers = new ArrayList<>();
         this.textUi = new TextUi();
         this.setSupportedFeatureManagers();
-    }
-
-    private static String getBriefAppDescription() {
-        return "WellNUS++ helps you keep track and improve your physical and mental wellness.";
-    }
-
-    private static String getLongAppDescription() {
-        return "WellNUS++ is a Command Line Interface(CLI) app for NUS Computing students to "
-                + "keep track and improve their physical and mental wellness in various aspects."
-                + " If you can type fast, WellNUS++ can update their wellness progress faster than "
-                + "traditional Graphical User Interface(GUI) apps.";
     }
 
     /**
@@ -155,13 +151,13 @@ public class MainManager extends Manager {
     }
 
     /**
-     * Returns a brief description of the WellNUS++ app
+     * Returns a help description of the WellNUS++ app
      *
-     * @return Brief description of this app
+     * @return Help description of this app
      */
     @Override
-    public String getBriefDescription() {
-        return MainManager.getBriefAppDescription();
+    public String getFeatureHelpDescription() {
+        return FEATURE_HELP_DESCRIPTION;
     }
 
     /**
@@ -172,18 +168,6 @@ public class MainManager extends Manager {
     @Override
     public String getFeatureName() {
         return WELLNUS_FEATURE_NAME;
-    }
-
-    /**
-     * Returns a full description of the WellNUS++ app.
-     *
-     * @return Full description of the app
-     */
-    @Override
-    public String getFullDescription() {
-        // TODO: Call other feature's Managers to build a complete full description of WellNUS++.
-        //     getLongAppDescription() is an overall app description, it doesn't include features.
-        return MainManager.getLongAppDescription();
     }
 
     public Optional<Manager> getManagerFor(String featureKeyword) {
@@ -197,10 +181,6 @@ public class MainManager extends Manager {
         return Optional.empty();
     }
 
-    public boolean isSupportedFeature(String featureKeyword) {
-        return this.getManagerFor(featureKeyword).isPresent();
-    }
-
     /**
      * Executes the basic commands(e.g. <code>help</code>) as well as any feature-specific
      * commands, which are delegated to the corresponding features' Managers.<br>
@@ -211,18 +191,6 @@ public class MainManager extends Manager {
     public void runEventDriver() {
         this.greet();
         this.executeCommands();
-    }
-
-    /**
-     * Returns a list of basic commands supported by WellNUS++(e.g. <code>help</code>) <br>
-     * <br>
-     * Suggested implementation: <br>
-     * <code> this.supportedCommands.add([cmd1, cmd2, ...]); </code>
-     */
-    @Override
-    protected void setSupportedCommands() {
-        // TODO: Implement once basic Command subclasses are in
-        // Unable to implement this now since Command subclasses don't exist
     }
 
     /**
