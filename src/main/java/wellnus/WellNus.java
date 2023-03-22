@@ -1,8 +1,6 @@
 package wellnus;
 
 import wellnus.common.MainManager;
-import wellnus.exception.BadCommandException;
-import wellnus.focus.feature.FocusManager;
 import wellnus.manager.Manager;
 import wellnus.ui.TextUi;
 
