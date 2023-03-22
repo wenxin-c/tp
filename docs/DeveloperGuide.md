@@ -334,8 +334,6 @@ The `AtomicHabit` class has the following attributes:
 * `description` - the description of the habit
 * `count` - the number of times the habit is done
 
-### Object Diagram
-
 ## Product scope
 
 ### Target user profile
@@ -370,17 +368,19 @@ WellNUS++ is a CLI app, primarily due to the following reasons:
 
 ## User Stories
 
-| Version | As a ...                                           | I want to ...                                  | So that I can ...                                           |
-|---------|----------------------------------------------------|------------------------------------------------|-------------------------------------------------------------|
-| v1.0    | Computing student who prefers typing over clicking | I can use keyboard instead of mouse            | I can use the app efficiently                               |
-| v1.0    | Computing student who is too used to the Internet  | Reduce my browsing and information overload    | I can improve my attention span                             |
-| v1.0    | Reflective student                                 | I can get one introspective question on-demand | I can reflect and grow emotionally at my own pace           |
-|         |                                                    |                                                |                                                             |
-|         |                                                    |                                                |                                                             |
-|         |                                                    |                                                |                                                             |
-|         |                                                    |                                                |                                                             |
-|         |                                                    |                                                |                                                             |
-| v2.0    | user                                               | find a to-do item by name                      | locate a to-do without having to go through the entire list |
+| Version | As a ...                                           | I want to ...                                               | So that I can ...                                  |
+|---------|----------------------------------------------------|-------------------------------------------------------------|----------------------------------------------------|
+| v1.0    | Computing student who prefers typing over clicking | I can use keyboard instead of mouse                         | I can use the app efficiently                      |
+| v1.0    | Computing student who is too used to the Internet  | Reduce my browsing and information overload                 | I can improve my attention span                    |
+| v1.0    | Reflective student                                 | I can get one introspective question on-demand              | I can reflect and grow emotionally at my own pace  |
+| v1.0    | Computing student who wishes to improve lifestyle  | I can add an atomic habit to track                          | I can start the process of inculcating a new habit |
+| v1.0    | Computing student who wishes to improve lifestyle  | I can view all my atomic habits                             | I can keep track of my self-improvement progress   |
+| v1.0    | Computing student who wishes to improve lifestyle  | I can update my atomic habits                               | I can adjust the habits based on my progress       |
+| v2.0    | Reflective student                                 | I can mark introspective questions that I resonate with     | I can reflect using my favourite questions         |
+| v2.0    | Reflective student                                 | I can get the previous questions I viewed                   | I can re-view these questions                      |
+| v2.0    | Easily distracted computing student                | I want to start a timer to keep track of time spent on work | I can do timed-practice                            |
+| v2.0    | Easily distracted computing student                | I want to check the time                                    | I can keep track of my pace                        |
+| v2.0    | A regular WellNUS++ user                           | I wish to have my information stored in the app             | I can re-view my past data                         |
 
 ## Non-Functional Requirements
 
@@ -506,3 +506,4 @@ Note:
 4. Any commands that does not follow the format of `add --name ATOMIC_HABIT_NAME` is invalid
 
 ### Saving data
+To be implemented. 
