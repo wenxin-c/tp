@@ -1,16 +1,24 @@
 package wellnus.focus.feature;
 
+import java.util.HashMap;
 
 import wellnus.command.Command;
 import wellnus.exception.BadCommandException;
 import wellnus.exception.WellNusException;
-import wellnus.focus.command.*;
+import wellnus.focus.command.CheckCommand;
+import wellnus.focus.command.HomeCommand;
+import wellnus.focus.command.PauseCommand;
+import wellnus.focus.command.ResumeCommand;
+import wellnus.focus.command.StartCommand;
+import wellnus.focus.command.StopCommand;
 import wellnus.manager.Manager;
 import wellnus.ui.TextUi;
 
-import java.util.HashMap;
-
-
+/**
+ * Represents a class to run the event driver for the Focus Timer.
+ * This class will be called by the main manager.
+ * It will match the user input to the correct command and execute it.
+ */
 public class FocusManager extends Manager {
     public static final String FEATURE_NAME = "ft";
     private static final String FEATURE_BRIEF_DESCRIPTION = "Users can set a timer to focus on a task.";
@@ -24,7 +32,8 @@ public class FocusManager extends Manager {
     private static final String CHECK_COMMAND_KEYWORD = "check";
     private static final String UNKNOWN_COMMAND_MESSAGE = "No such command in focus timer!";
     private static final String FOCUS_TIMER_GREET = "Welcome to Focus Timer";
-    private static final String COMMAND_KEYWORD_ASSERTION = "The key cannot be null, check user-guide for valid commands";
+    private static final String COMMAND_KEYWORD_ASSERTION = "The key cannot be null"
+            + ", check user-guide for valid commands";
 
     private final TextUi textUi;
     private final Session session;
@@ -83,8 +92,8 @@ public class FocusManager extends Manager {
                 command.execute();
                 isExit = HomeCommand.isExit(command);
             } catch (BadCommandException badCommandException) {
-                String NO_ADDITIONAL_MESSAGE = "";
-                textUi.printErrorFor(badCommandException, NO_ADDITIONAL_MESSAGE);
+                String noAdditionalMessage = "";
+                textUi.printErrorFor(badCommandException, noAdditionalMessage);
             } catch (WellNusException exception) {
                 textUi.printErrorFor(exception, "Check user guide for valid commands!");
             }
@@ -140,4 +149,45 @@ public class FocusManager extends Manager {
         greet();
         runCommands();
     }
+
+    /**
+     * Public method used for testing FocusManager's handling of invalidCommands.
+     *
+     * @param userCommand simulated user input
+     * @return Command object that can execute the user's command
+     * @throws BadCommandException
+     */
+    public Command testInvalidCommand(String userCommand) throws BadCommandException {
+        String startCommand = "focusStart";
+        String pauseCommand = "focusPause";
+        String resumeCommand = "focusResume";
+        String homeCommand = "focusHome";
+        String stopCommand = "focusStop";
+        String checkCommand = "focusCheck";
+        HashMap<String, String> arguments;
+        switch (userCommand) {
+        case START_COMMAND_KEYWORD:
+            arguments = getCommandParser().parseUserInput(startCommand);
+            return new StartCommand(arguments, session);
+        case PAUSE_COMMAND_KEYWORD:
+            arguments = getCommandParser().parseUserInput(pauseCommand);
+            return new PauseCommand(arguments, session);
+        case RESUME_COMMAND_KEYWORD:
+            arguments = getCommandParser().parseUserInput(resumeCommand);
+            return new ResumeCommand(arguments, session);
+        case HOME_COMMAND_KEYWORD:
+            arguments = getCommandParser().parseUserInput(homeCommand);
+            return new HomeCommand(arguments, session);
+        case STOP_COMMAND_KEYWORD:
+            arguments = getCommandParser().parseUserInput(stopCommand);
+            return new StopCommand(arguments, session);
+        case CHECK_COMMAND_KEYWORD:
+            arguments = getCommandParser().parseUserInput(checkCommand);
+            return new CheckCommand(arguments, session);
+        default:
+            throw new BadCommandException(UNKNOWN_COMMAND_MESSAGE);
+        }
+
+    }
+
 }

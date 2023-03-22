@@ -1,20 +1,24 @@
 package wellnus.focus.command;
 
+import java.util.HashMap;
+
 import wellnus.command.Command;
 import wellnus.exception.BadCommandException;
 import wellnus.focus.feature.FocusManager;
 import wellnus.focus.feature.Session;
 import wellnus.ui.TextUi;
 
-import java.util.HashMap;
-
+/**
+ * Represents a command to start the current session.
+ * Also used to start different countdowns timers in the session.
+ */
 public class StartCommand extends Command {
     private static final String COMMAND_KEYWORD = "start";
     private static final int COMMAND_NUM_OF_ARGUMENTS = 1;
     private static final String COMMAND_INVALID_ARGUMENTS_MESSAGE = "Invalid command, expected 'start'";
     private static final String NO_ADDITIONAL_MESSAGE = "";
     private static final String COMMAND_KEYWORD_ASSERTION = "The key should be start.";
-    private final static String START_MESSAGE = "Your session has started! Please focus on your task.";
+    private static final String START_MESSAGE = "Your session has started! Please focus on your task.";
     private final Session session;
 
     private final TextUi textUi;
@@ -100,3 +104,4 @@ public class StartCommand extends Command {
 
     }
 }
+

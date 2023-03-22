@@ -3,6 +3,10 @@ package wellnus.focus.feature;
 
 import java.util.ArrayList;
 
+/**
+ * Represents a session of Countdown objects.
+ * A session is a sequence of Countdown objects represented by an ArrayList.
+ */
 public class Session {
     private final ArrayList<Countdown> session;
     private int work = 1;
@@ -55,9 +59,7 @@ public class Session {
     }
 
     /**
-     * Method to get the current countdown.
-     *
-     * @return current index to show which countdown is running
+     * Method to increment the current countdown index if the current countdown is completed.
      */
     public void checkPrevCountdown() {
         if (session.get(currentCountdownIndex).getIsCompletedCountdown()) {

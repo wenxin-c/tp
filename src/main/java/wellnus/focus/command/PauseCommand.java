@@ -1,13 +1,16 @@
 package wellnus.focus.command;
 
+import java.util.HashMap;
+
 import wellnus.command.Command;
 import wellnus.exception.BadCommandException;
 import wellnus.focus.feature.FocusManager;
 import wellnus.focus.feature.Session;
 import wellnus.ui.TextUi;
 
-import java.util.HashMap;
-
+/**
+ * Represents a class to pause the current countdown in the session.
+ */
 public class PauseCommand extends Command {
     private static final String COMMAND_KEYWORD = "pause";
     private static final int COMMAND_NUM_OF_ARGUMENTS = 1;

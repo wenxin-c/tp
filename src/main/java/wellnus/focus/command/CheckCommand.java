@@ -1,12 +1,12 @@
 package wellnus.focus.command;
 
+import java.util.HashMap;
+
 import wellnus.command.Command;
 import wellnus.exception.BadCommandException;
 import wellnus.focus.feature.FocusManager;
 import wellnus.focus.feature.Session;
 import wellnus.ui.TextUi;
-
-import java.util.HashMap;
 
 /**
  * Represents a command to check the time left in the current session.
@@ -18,7 +18,7 @@ public class CheckCommand extends Command {
     private static final String COMMAND_INVALID_ARGUMENTS_MESSAGE = "Invalid command, expected 'check'";
     private static final String NO_ADDITIONAL_MESSAGE = "";
     private static final String COMMAND_KEYWORD_ASSERTION = "The key should be check.";
-    private final String CHECK_OUTPUT = "Time left: ";
+    private static final String CHECK_OUTPUT = "Time left: ";
     private final Session session;
     private final TextUi textUi;
 

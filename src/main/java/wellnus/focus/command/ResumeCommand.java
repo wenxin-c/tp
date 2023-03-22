@@ -1,14 +1,16 @@
 package wellnus.focus.command;
 
+import java.util.HashMap;
+
 import wellnus.command.Command;
 import wellnus.exception.BadCommandException;
 import wellnus.focus.feature.FocusManager;
 import wellnus.focus.feature.Session;
 import wellnus.ui.TextUi;
 
-
-import java.util.HashMap;
-
+/**
+ * Represents a command to resume the countdown timer in the current session.
+ */
 public class ResumeCommand extends Command {
 
     private static final String COMMAND_KEYWORD = "resume";
@@ -16,7 +18,7 @@ public class ResumeCommand extends Command {
     private static final String COMMAND_INVALID_ARGUMENTS_MESSAGE = "Invalid command, expected 'resume'";
     private static final String NO_ADDITIONAL_MESSAGE = "";
     private static final String COMMAND_KEYWORD_ASSERTION = "The key should be resume.";
-    private final static String RESUME_OUTPUT = "Timer resumed at: ";
+    private static final String RESUME_OUTPUT = "Timer resumed at: ";
     private final Session session;
     private final TextUi textUi;
 
@@ -93,3 +95,4 @@ public class ResumeCommand extends Command {
 
     }
 }
+
