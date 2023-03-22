@@ -23,4 +23,5 @@ deactivate CommandParser
         deactivate CommandParser
     end
 CommandParser --> Manager: HashMap<String,String> argumentPayload
+deactivate CommandParser
 @enduml
