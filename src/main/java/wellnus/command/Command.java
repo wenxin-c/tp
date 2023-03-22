@@ -25,6 +25,7 @@ public abstract class Command {
 
     /**
      * Initialises a Command Object with the given arguments from the user
+     *
      * @param arguments
      */
     public Command(HashMap<String, String> arguments) {
@@ -106,4 +107,25 @@ public abstract class Command {
      * @throws BadCommandException If the arguments have any issues
      */
     public abstract void validateCommand(HashMap<String, String> arguments) throws BadCommandException;
+
+    /**
+     * Method to ensure that developers add in a command usage.
+     * <p>
+     * For example, for the 'add' command in AtomicHabit package: <br>
+     * "usage: add --name (name of habit)"
+     *
+     * @return String of the proper usage of the habit
+     */
+    public abstract String getCommandUsage();
+
+    /**
+     * Method to ensure that developers add in a description for the command.
+     * <p>
+     * For example, for the 'add' command in AtomicHabit package: <br>
+     * "add - add a habit to your list"
+     *
+     * @return String of the description of what the command does
+     */
+    public abstract String getCommandDescription();
+
 }
