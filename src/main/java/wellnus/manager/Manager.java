@@ -62,42 +62,17 @@ public abstract class Manager {
     public abstract String getFeatureName();
 
     /**
-     * Utility function to get a summary description of the feature this Manager is administering
+     * Abstract function to ensure developers add in a getter for the feature's help description.
+     * <p>
+     * This description will be shown when the user types in the help command. <br>
+     * The description should be a brief overview of what the feature does. <br>
+     * For example: <br>
+     * "reflect: Reflect is your go-to tool to get, save and reflect on our specially
+     * curated list of questions to reflect on"
      *
-     * @return summary description of the feature that this Manager handles
+     * @return String of the feature's help description
      */
-    public abstract String getBriefDescription();
-
-    /**
-     * Utility function to get the full description of the feature this Manager is administering
-     *
-     * @return full description of the feature that this Manager handles
-     */
-    public abstract String getFullDescription();
-
-    /**
-     * Utility function to set a list of main commands the feature supports <br>
-     * <br>
-     * Suggested implementation: <br>
-     * <code> this.supportedCommands.add([cmd1, cmd2, ...]); </code>
-     */
-    protected abstract void setSupportedCommands();
-
-    /**
-     * Utility function to get a string array of
-     * all the supported commands' descriptions
-     *
-     * @return ArrayList of each command's full description
-     */
-    public ArrayList<String> getCommandDescriptions() {
-        assert supportedCommands != null : "supportedCommands should not be null";
-
-        ArrayList<String> descriptions = new ArrayList<>();
-        for (Command command : supportedCommands) {
-            descriptions.add(command.toString());
-        }
-        return descriptions;
-    }
+    public abstract String getFeatureHelpDescription();
 
     /**
      * Utility function to get a list of main arguments the feature supports
