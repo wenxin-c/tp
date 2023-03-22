@@ -242,6 +242,35 @@ This makes behaviour **unpredictable** and a **confusing** user experience.
 For expert users and CLI-masters, pedantic argument input like AB3 makes the typing experience MUCH slower due to the
 need to type which is relatively clunky as the user will need to type far off to the '/' key on the keyboard.
 
+### AtomicHabit Component
+
+![AtomicHabit Component](diagrams/AtomicHabit.png)
+The `AtomicHabit` component is responsible for tracking the user's daily habits.
+It consists of the `feature` package and the `command` package.
+
+The `command` package consists of the `AddCommand`, `HomeCommand`, `ListCommand`, `UpdateCommand`.
+
+* `AddCommand` - Adds a new habit to the user's habit list.
+* `HomeCommand` - Returns the user back to main interface.
+* `ListCommand` - Lists all the user's habits.
+* `UpdateCommand` - Updates the user's habit count.
+
+The `feature` package contains the `AtomicHabit` class, the `AtomicHabitList` class and the `AtomicHabitManager` class.
+The `AtomicHabit` class represents a single habit, while the `AtomicHabitList` class represents the list of all the
+user's habit and the `AtomicHabitManager` class is the class that manages the `AtomicHabitList` class and executes
+the `commands`.
+
+The `AtomicHabitManager` class utilises `TextUi` class to process user inputs and execute the `commands` accordingly.
+
+The `AtomicHabitList` class is implemented as an ArrayList of `AtomicHabit` objects.
+
+The `AtomicHabit` class has the following attributes:
+
+* `description` - the description of the habit
+* `count` - the number of times the habit is done
+
+### Object Diagram
+
 ## Product scope
 
 ### Target user profile
