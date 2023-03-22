@@ -18,15 +18,18 @@ Package command {
 
 Package manager{
     Class "{abstract}\nManager" as Manager {
+        # commandParser : CommandParser
         + getCommandParser()
     }
 }
 
 Class AtomicHabitManager {
+    # commandParser : CommandParser
     + getCommandParser()
 }
 
 Class ReflectionManager {
+    # commandParser : CommandParser
     + getCommandParser()
 }
 
