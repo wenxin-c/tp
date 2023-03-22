@@ -78,28 +78,37 @@ focus of this section will be on classes inside `reflection` package. <br>
 `ReflectionManager` class:<br>
 - This class is in charge of the overall execution of the **Self Reflection** feature. 
 - It inherits from abstract class `Manager`
-- Each `ReflectionManager` object contains exactly one `ReflectUi` object as an attribute to get user inputs.
+- Each `ReflectionManager` object contains exactly one `ReflectUi` object as an attribute to get user inputs. This is to
+use a common `scanner` object (created in the `ReflectUi` object) to read all the user inputs within Self Reflection feature.
+This can avoid potential unexpected behaviours from creating multiple `scanner` objects. 
 - The `runEventDriver()` method is the entry of the Self Reflection feature, the caller creates a `ReflectionManager` 
 object and calls this method to launch the Self Reflection feature. It calls a class-level method `SelfReflection.geet()`
-to print greeting logo and message, therefore, `SelfRelfection` class is a dependency of `ReflectionManager` class. 
-- It contains a **while loop** to continuously get input commands from users until users input `home` command to return back to main WellNUS++ interface. 
+to print greeting logo and message, therefore, `SelfReflection` class is a dependency of `ReflectionManager` class. 
+- It contains a **while loop** to continuously get user input commands as users are expected to continuously perform a series of actions
+within Self Reflection feature until they wish to return back to main WellNUS++ interface(input `home` command). 
 - The termination condition of the while loop is controlled by a static attribute `isExit`. Whenever `runEventDriver()`
 method is called, the `isExit` attribute will be initialised as `false`. This attribute can be accessed by other objects
 (more specifically `HomeCommand` object) through a static method `setIsExit()` to set to `true` and the while loop will 
-be terminated. 
+be terminated. The `static` attribute allows other objects to modify `isExit` value. 
 - Upon getting input commands, the `runEventDriver()` method will call the `executeCommands()` method. Based on the 
 input command type, the `executeCommands()` method will then create the correct type of command object and call `.execute()`
 method to execute the command accordingly.  
+- Each `ReflectionManager` object will contain `1..*` `HomeCommand` and `GetCommand` objects since a list of supported commands 
+will be set up upon the instantiation of `ReflectionManager` object. 
 
 `ReflectionQuestion` class:<br>
 - Each introspective question is a `ReflectionQuestion` object. 
-- It contains the basic description of the introspective question. 
+- It contains the basic description of the introspective question. Being modelled as an object instead of pure string, each
+question will be able to have more attributes such as like which will be utilised in future features.
 
 `SelfReflection` class:<br>
 - This class contains the information about the Self Reflection feature (e.g. greeting message, logo).
 - It contains a `String` array of 10 introspective questions. Upon the instantiation of a `SelfReflection` object, 
 `setUpQuestions()` method will be called in the constructor, these questions will be used to create an `arrayList` of 
 10 `ReflectionQuestion` objects. 
+- By abstracting the above-mentioned attributes and methods as a separate class instead of putting them in `ReflectionManager`,
+the `ReflectionManager` class can solely focus command execution. As the greeting message and introspective are subject to changes
+in the future, it will be beneficial to have a separate class taking care of these data. 
 
 `GetCommand` class:<br>
 - This command allows users to get a list of 5 random introspective questions.
@@ -119,8 +128,10 @@ is created, hence, the multiplicity from `GetCommand` class to `SelfReflection` 
 - It will then call the class-level method `ReflectionManager.setIsExit()` to terminate the while loop
 in `ReflectionManager` object. 
 
-`RefelctUi` class: <br>
-- It inherits from `TextUi` class and is in charge of printing output to users. 
+`ReflectUi` class: <br>
+- It inherits from `TextUi` class and is in charge of printing output to users.
+- This subclass is created to allow Self Reflection feature to have more customised output behaviour(e.g. type of separators)
+other than those inherited from parent class `TextUi`. 
 
 ## Product scope
 ### Target user profile
