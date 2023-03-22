@@ -19,6 +19,7 @@ public class ReflectionTokenizer implements Tokenizer<Set<Integer>> {
     private static final int NO_LIMIT = -1;
     private static final String DETOKENIZE_ERROR_MESSAGE = "Detokenization failed!"
             + "The file might be corrupted";
+
     private String getTokenizedIndexes(String key, Set<Integer> indexesToTokenize) {
         String tokenizedIndexes = key + " ";
         for (int index : indexesToTokenize) {
@@ -27,6 +28,7 @@ public class ReflectionTokenizer implements Tokenizer<Set<Integer>> {
         tokenizedIndexes = tokenizedIndexes.substring(INDEX_ZERO, tokenizedIndexes.length() - INDEX_ONE);
         return tokenizedIndexes;
     }
+
     private String splitParameter(String tokenizedRawString, String parameterKey) throws TokenizerException {
         int indexSplit = tokenizedRawString.indexOf(SPACE_CHARACTER);
         String parameter = tokenizedRawString.substring(INDEX_ZERO, indexSplit);
@@ -36,6 +38,7 @@ public class ReflectionTokenizer implements Tokenizer<Set<Integer>> {
         String tokenizedIndexes = tokenizedRawString.substring(indexSplit).trim();
         return tokenizedIndexes;
     }
+
     private String[] splitTokenizedIndex(String tokenizedIndexes) {
         tokenizedIndexes = tokenizedIndexes.strip();
         String[] inputStrings = tokenizedIndexes.split(INDEX_DELIMITER, NO_LIMIT);
@@ -47,6 +50,7 @@ public class ReflectionTokenizer implements Tokenizer<Set<Integer>> {
         }
         return outputStrings;
     }
+
     private Set<Integer> getSet(String indexToSplit) throws TokenizerException {
         Set<Integer> outputIndexes = new HashSet<>();
         if (indexToSplit.isBlank()) {
@@ -63,6 +67,7 @@ public class ReflectionTokenizer implements Tokenizer<Set<Integer>> {
         }
         return outputIndexes;
     }
+
     /**
      * Tokenize ArrayList of Set of Integers into strings that can be stored. <br>
      * ArrayList contains 2 Set of Integers, which corresponds for set of like indexes for the first entry
@@ -86,6 +91,7 @@ public class ReflectionTokenizer implements Tokenizer<Set<Integer>> {
         tokenizedIndexes.add(tokenizedPref);
         return tokenizedIndexes;
     }
+
     /**
      * Convert strings of tokenized Indexes into ArrayList that contains set of like indexes for the first entry
      *      and set of pref indexes for the second entry. <br>

@@ -19,6 +19,7 @@ public class AtomicHabitTokenizer implements Tokenizer<AtomicHabit> {
     private static final int INDEX_ZERO = 0;
     private static final int INDEX_FIRST = 1;
     private static final int NUM_ATOMIC_HABIT_PARAMETER = 2;
+
     private String[] splitTokenizedHabitIntoParameter(String tokenizedHabit) {
         tokenizedHabit = tokenizedHabit.strip();
         int noLimit = -1;
@@ -62,6 +63,7 @@ public class AtomicHabitTokenizer implements Tokenizer<AtomicHabit> {
             throw new TokenizerException(DETOKENIZE_ERROR_MESSAGE);
         }
     }
+
     /**
      * Tokenize List of Atomic Habits to be saved as ArrayList of Strings. <br>
      * Each habit will be tokenized with the following format:
@@ -81,6 +83,7 @@ public class AtomicHabitTokenizer implements Tokenizer<AtomicHabit> {
         }
         return tokenizedHabits;
     }
+
     /**
      * Convert strings of tokenized AtomicHabit into ArrayList of AtomicHabit. <br>
      * This method can be called in the constructor of AtomicHabitManager to detokenize.

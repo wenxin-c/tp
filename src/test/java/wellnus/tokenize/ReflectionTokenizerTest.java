@@ -13,6 +13,7 @@ import wellnus.storage.ReflectionTokenizer;
 public class ReflectionTokenizerTest {
     private static final int INDEX_ZERO = 0;
     private static final int INDEX_ONE = 1;
+
     @Test
     void tokenizeReflect_checkOutput_success() throws TokenizerException {
         ArrayList<Set<Integer>> indexesToTokenize = new ArrayList<>();
@@ -33,6 +34,7 @@ public class ReflectionTokenizerTest {
         ArrayList<String> actualTokenizedIndex = reflectionTokenizer.tokenize(indexesToTokenize);
         Assertions.assertEquals(expectedTokenizedIndex, actualTokenizedIndex);
     }
+
     @Test
     void detokenizeReflect_checkOutput_success() throws TokenizerException {
         Set<Integer> expectedDetokenizedLikes = new HashSet<>();
