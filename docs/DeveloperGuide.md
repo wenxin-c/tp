@@ -78,6 +78,170 @@ If you plan to use Intellij IDEA (highly recommended): <br>
 
 {Describe the design and implementation of the product. Use UML diagrams and short code snippets where applicable.}
 
+### CommandParser Component
+
+The CommandParser is a core feature of WellNUS++.
+It defines the following:
+
+1. The syntax for users to input commands
+2. A common API for developers to **process** user input
+
+#### Design Considerations
+
+The CommandParser is implicitly used by users 100% of the time.
+It is the abstraction through which the users will interact with WellNUS++'s features.
+Its ease of use is critical to ensure a good user experience.
+
+**User design Considerations**:  
+Our [target user profile](#target-user-profile) are Computing and Engineering students.
+With that, we have done extensive research and laid out the following design considerations.
+
+1. **Easy learning curve**  
+   Our users are often strapped for time and tend to prefer to use tools that
+   they are familiar with or can learn quickly. Our command syntax should be easy
+   to remember, predictable and intuitive.
+2. **Flexible usage**  
+   "Arguments" for a command should not care about the order of arguments.
+   Users often type what comes to mind first. Allowing flexible order of arguments
+   reduces the cognitive load on the user's end and allows for a
+   more pleasant experience.
+
+**Developer Design Considerations**:  
+Virtually every feature in WellNUS++ will require user input to be processed. This means that all features
+will have to interact with `CommandParser`. Hence, the
+design for the `CommandParser` API must be understandable, unambiguous and easy to develop on.
+
+3. **Easy way to extract components of user input**  
+   Each component of userInput (arguments, payload, etc) should be obtainable in predictable and non-arbitrary way.
+   Arbitrary way (using index) is not preferred as it is prone to developer erros.
+4. **Easy way to validate user input**  
+   There should also be built-in ways to easily validate components of user input for a command,
+   such as checking length.
+
+#### CommandParser Syntax
+
+The command parser defines any arbitrary user input to be valid
+if it follows the following structure.
+
+```
+mainCommand [payload] [--argument1 [payload1] --argument2 [payload2] ... ]
+```
+
+This should be familiar to you. It is similar to how most CLI applications process arguments in the wild.
+
+![Example](diagrams/git_command.png)
+<figcaption align="center">Example of CLI input syntax in the wild</figcaption>
+
+This achieves design consideration (1). Why?  
+This syntax is intuitive at a glance to our target users,
+is predictable and easy to remember as the only thing they need to remember is the argument name and
+the '--' delimiter.
+
+From this syntax, we can generalise ALL user inputs as `(argument, payload)` pairs.  
+`mainCommand` is a special `argument`, where it MUST be the first word in the user input.
+
+Due to the unique one-to-one relationship between arguments and payloads, we can model a user input
+using this syntax using a `HashMap` mapping each `argument` to a `payload`.
+
+For example,
+`
+$ foo bar --arg1 payload1 payload1--1 --arg2 payload2 --arg3
+`
+
+Will be mapped as:
+`
+(foo, bar), (arg1 payload1 payload1--1), (arg2 payload2), (arg3, "")
+`
+where `""` represents an empty string (for visualization).
+
+Using a `HashMap` fulfils design considerations (2), (3) and (4).
+
+- (2): Order of arguments do not matter as
+- (3): To get a `payload`, the developer simply needs to call `myHashMap.get("argument")`.  
+  This syntatic sugar prevents developer errors compared to an index-based approach.
+- (4): Validating commands is much less difficult using `HashMap`. For example, size can be checked with
+  built-in `.size()`,
+  argument existence can be queried with `.containsKey()`.
+
+#### Integration with WellNUS++
+
+![Integration](diagrams/CommandParserClass.png)
+
+`CommandParser` integrates into the boilerplate via the abstract Manager class.  
+All features are controlled by a manager subclass - hence the developers just need to call
+`getCommandParser` to get a reference to the `CommandParser` taking care of all commands
+in the `Manager` subclass.
+
+#### CommandParser API
+
+There are only two methods that developers need to know to use `CommandParser`.
+
+1. `parseUserInput`
+2. `getMainArgument`
+
+**Usage: `parseUserInput`**
+
+`parseUserInput` is used to get a `HashMap` representation of the user input, a bijection
+between `argument` and `payload` pairs.
+
+Implementation of `parseUserInput`:
+
+![CommandParser implementation](diagrams/CommandParserSequence.png)
+
+`parseUserInput(String userInput)` is used to directly convert a string into their argument-payload pairs.
+It first calls `splitIntoCommand` to split input over the `' --'` delimiter to get a `String[] commands`.
+Each `command` in `commands[]` contain the argument and payload. Internally, it splits the
+argument from the payload and populates a `HashMap` with the one-to-one mapping. After all `command`s have
+been processed, the map is returned to the `Manager` for usage.
+
+**Sample Code**
+
+```java
+// Example usage to get the HashMap
+public class FooManager extends Manager {
+    public HashMap<String, String> handleCommand(String userInput) {
+        // Get a reference to the parser
+        CommandParser parser = getCommandParser();
+        // Get the one-to-one mapping
+        HashMap<String, String> result = parseUserInput(userInput);
+        return result;
+    }
+}
+```
+
+**Usage: `getMainCommand(userInput)`**
+
+To understand what the user wants to do, we need a convenient way to get the `mainCommand` from the user input.
+The canonical way to do this is to use `getMainCommand`. This defeats adversarial input where the main command
+is input as an argument.
+
+Internally, this just splits the string by whitespace and returns the first word in the array.
+
+#### Alternative Designs Considered
+
+We considered alternative command structures such as [AB3](https://se-education.org/addressbook-level3/UserGuide.html)
+where input types are
+specified , `e.g. n/John Doe` which more 'secure' from the get go.
+However, due to the following issues, AB3 was not chosen as the alternative solution compared to the shell-like
+structure.
+
+**Steep learning curve**  
+For experienced and inexperienced users, it is a hassle to remember what letter corresponds to what argument.
+For AB3, the user needs to remember all the different `char` 'verbs' such as `e/` for email, `n/` for name.
+This violates design consideration (1).
+
+**Does not scale well**  
+AB3 structure runs the high risk of argument-space collision as well.  
+For example, consider a command that needs an "email" and "entry". What does `e/<payload>` correspond to?
+We could simply just put entry as *some other character* -- but that defeats the purpose of having the structure in the
+first place as the character is the argument's first character.
+This makes behaviour **unpredictable** and a **confusing** user experience.
+
+**Bad expert user experience**
+
+For expert users and CLI-masters, pedantic argument input like AB3 makes the typing experience MUCH slower due to the
+need to type which is relatively clunky as the user will need to type far off to the '/' key on the keyboard.
+
 ### AtomicHabit Component
 
 ![AtomicHabit Component](diagrams/AtomicHabit.png)
@@ -163,6 +327,11 @@ WellNUS++ is a CLI app, primarily due to the following reasons:
 
 * *glossary item* - Definition
 * **Mainstream OS**: Windows, Linux, Unix, OS-X
+* **Main Command**: The first WORD that a user types in. `e.g. reflect, exit`
+* **Argument**: A word that is a parameter to a `Main Command` and is prefixed by ` --`. `e.g. --id, --name`
+* **Payload**: An (optional) arbitrary sequence of characters immediately following a main command or argument.
+  The payload will terminate when the user clicks `enter` or separates the payload with another argument
+  with the `--` delimiter.
 
 ## Instructions for manual testing
 
