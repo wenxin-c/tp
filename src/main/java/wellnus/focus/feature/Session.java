@@ -67,7 +67,8 @@ public class Session {
      * Method to increment the current countdown index if the current countdown is completed.
      */
     public void checkPrevCountdown() {
-        if (session.get(currentCountdownIndex).getIsCompletedCountdown() && currentCountdownIndex < session.size() - INCREMENT) {
+        if (session.get(currentCountdownIndex).getIsCompletedCountdown()
+                && currentCountdownIndex < session.size() - INCREMENT) {
             currentCountdownIndex += INCREMENT;
         }
     }
