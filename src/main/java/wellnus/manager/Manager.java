@@ -29,9 +29,6 @@ public abstract class Manager {
 
     protected CommandParser commandParser;
 
-    // For this Manager's feature, what commands exist?
-    protected ArrayList<Command> supportedCommands;
-
     /**
      * Construct a feature Manager to handle control flow for the given feature. <br>
      * <br>
@@ -41,7 +38,6 @@ public abstract class Manager {
      */
     public Manager() {
         this.commandParser = new CommandParser();
-        this.supportedCommands = new ArrayList<>();
     }
 
     /**
@@ -73,16 +69,6 @@ public abstract class Manager {
      * @return String of the feature's help description
      */
     public abstract String getFeatureHelpDescription();
-
-    /**
-     * Utility function to get a list of main arguments the feature supports
-     *
-     * @return <code>ArrayList</code> of <code>Command</code>s
-     */
-    public ArrayList<Command> getSupportedCommands() {
-        assert supportedCommands != null : "supportedCommands should not be null";
-        return supportedCommands;
-    }
 
     /**
      * runEventDriver is the entry point into a feature's driver loop <br>
