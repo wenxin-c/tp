@@ -160,7 +160,7 @@ public class StorageTest {
         } catch (StorageException exception) {
             fail("loadData failed when loading file that does not exist despite safety checks");
         }
-        // Cleanup
+        // Cleanup the debug file that was created as part of safety measures
         // deleteFile must work as the above tests on deleteFile have passed
         try {
             storage.deleteFile(Storage.FILE_DEBUG);
