@@ -51,6 +51,7 @@ public class Storage {
     private static final String ERROR_CANNOT_RESOLVE_PATH = "WellNUS++ couldn't resolve a path internally!";
     private static final String ERROR_CANNOT_WRITE_FILE = "WellNUS++ couldn't write to a file!";
     private static final String ERROR_CANNOT_LOAD_FILE = "WellNUS++ couldn't load a file!";
+    private static final String ERROR_INVALID_FILENAME = "WellNUS++ cannot create a file that is not registered!";
     private static final String ASSERT_FILENAME_NOT_NULL = "fileName should not be null!";
     private static final String ASSERT_FILENAME_NOT_EMPTY = "fileName should have a length > 0!";
     private static final String ASSERT_PATH_NOT_NULL = "path should not be null!";
@@ -62,6 +63,8 @@ public class Storage {
             + "Check if file permissions and data directory are properly instantiated?";
     private static final String LOG_MISSING_FILE = "WellNUS++ could not find a file.\n"
             + "Check if this method was called before any data file instantiation?";
+    private static final String LOG_INVALID_FILENAME = "WellNUS++ cannot create the file as its name is invalid.\n"
+            + "Check if its filename is registered in the Storage class.";
 
     private Path wellNusDataDirectory;
 
@@ -76,6 +79,26 @@ public class Storage {
         // For safety, check that the data folder actually exists
         // If it doesn't, create it.
         verifyDataDirectory();
+    }
+
+    /**
+     * Check if the supplied fileName is a valid WellNUS++ file.
+     *
+     * @param fileName name of file to be used in WellNUS++
+     * @return boolean representing if the fileName exists
+     */
+    //@@author nichyjt
+    private boolean isValidFileName(String fileName) {
+        assert fileName != null : ASSERT_STRING_NOT_NULL;
+        switch (fileName) {
+        case FILE_HABIT:
+        case FILE_REFLECT:
+        case FILE_DEBUG:
+            // fallthrough
+            return true;
+        default:
+            return false;
+        }
     }
 
     /**
@@ -101,7 +124,10 @@ public class Storage {
     protected File getFile(String fileName) throws StorageException {
         assert fileName != null : ASSERT_FILENAME_NOT_NULL;
         assert fileName.length() > 0 : ASSERT_FILENAME_NOT_EMPTY;
-
+        if (!isValidFileName(fileName)) {
+            LOGGER.log(Level.WARNING, LOG_INVALID_FILENAME);
+            throw new StorageException(ERROR_INVALID_FILENAME);
+        }
         Path pathToFile;
         File dataFile;
         try {
@@ -261,7 +287,10 @@ public class Storage {
         assert fileName != null : ASSERT_FILENAME_NOT_NULL;
         assert fileName.length() > 0 : ASSERT_FILENAME_NOT_EMPTY;
         assert tokenizedManager != null : ASSERT_LIST_NOT_NULL;
-
+        if (!isValidFileName(fileName)) {
+            LOGGER.log(Level.WARNING, LOG_INVALID_FILENAME);
+            throw new StorageException(ERROR_INVALID_FILENAME);
+        }
         File file = getFile(fileName);
         String tokenizedString = tokenizeStringList(tokenizedManager);
         writeDataToDisk(tokenizedString, file);
@@ -283,7 +312,10 @@ public class Storage {
     public ArrayList<String> loadData(String fileName) throws StorageException {
         assert fileName != null : ASSERT_FILENAME_NOT_NULL;
         assert fileName.length() > 0 : ASSERT_FILENAME_NOT_EMPTY;
-
+        if (!isValidFileName(fileName)) {
+            LOGGER.log(Level.WARNING, LOG_INVALID_FILENAME);
+            throw new StorageException(ERROR_INVALID_FILENAME);
+        }
         File file = getFile(fileName);
         String data = loadDataFromDisk(file);
         return detokenizeDataString(data);
@@ -299,6 +331,10 @@ public class Storage {
     protected void deleteFile(String fileName) throws StorageException {
         assert fileName != null : ASSERT_FILENAME_NOT_NULL;
         assert fileName.length() > 0 : ASSERT_FILENAME_NOT_EMPTY;
+        if (!isValidFileName(fileName)) {
+            LOGGER.log(Level.WARNING, LOG_INVALID_FILENAME);
+            throw new StorageException(ERROR_INVALID_FILENAME);
+        }
         File file = getFile(fileName);
         boolean isDeleted = file.delete();
         if (!isDeleted) {
