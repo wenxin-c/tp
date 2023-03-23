@@ -11,11 +11,10 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import wellnus.exception.StorageException;
-
-// TODO add logger and more defensive checks
 
 /**
  * Storage is the common interface for all Features to save and load data from. <br>
@@ -51,6 +50,8 @@ public class Storage {
     private static final String ERROR_CANNOT_DELETE_FILE = "WellNUS++ couldn't delete the data file!";
     private static final String ERROR_CANNOT_RESOLVE_PATH = "WellNUS++ couldn't resolve a path internally!";
     private static final String ERROR_CANNOT_FIND_FILE = "WellNUS++ couldn't find the file!";
+    private static final String ERROR_CANNOT_WRITE_FILE = "WellNUS++ couldn't write to a file!";
+    private static final String ERROR_CANNOT_LOAD_FILE = "WellNUS++ couldn't load a file!";
     private static final String ASSERT_FILENAME_NOT_NULL = "fileName should not be null!";
     private static final String ASSERT_FILENAME_NOT_EMPTY = "fileName should have a length > 0!";
     private static final String ASSERT_PATH_NOT_NULL = "path should not be null!";
@@ -58,6 +59,10 @@ public class Storage {
     private static final String ASSERT_STRING_NOT_NULL = "string input should not be null!";
     private static final String ASSERT_FILE_NOT_NULL = "file input should not be null!";
     private static final Logger LOGGER = Logger.getLogger("StorageLogger");
+    private static final String LOG_ACCESS_ERROR = "WellNUS++ has encountered a severe input/output error! \n"
+            + "Check if file permissions and data directory are properly instantiated?";
+    private static final String LOG_MISSING_FILE = "WellNUS++ could not find a file.\n"
+            + "Check if this method was called before any data file instantiation?";
 
     private Path wellNusDataDirectory;
 
@@ -131,6 +136,7 @@ public class Storage {
         try {
             Files.createDirectory(directoryPath);
         } catch (IOException exception) {
+            LOGGER.log(Level.SEVERE, LOG_ACCESS_ERROR);
             String errorMessage = ERROR_CANNOT_MAKE_DIR + System.lineSeparator();
             errorMessage = errorMessage.concat(exception.getMessage());
             throw new StorageException(errorMessage);
@@ -149,6 +155,7 @@ public class Storage {
         try {
             file.createNewFile();
         } catch (IOException exception) {
+            LOGGER.log(Level.SEVERE, LOG_ACCESS_ERROR);
             String errorMessage = ERROR_CANNOT_MAKE_FILE;
             errorMessage = errorMessage.concat(exception.getMessage());
             throw new StorageException(errorMessage);
@@ -164,7 +171,6 @@ public class Storage {
     //@@author nichyjt
     protected String tokenizeStringList(ArrayList<String> tokenizedStrings) {
         assert tokenizedStrings != null : ASSERT_LIST_NOT_NULL;
-
         StringBuilder stringBuilder = new StringBuilder();
         for (String entry : tokenizedStrings) {
             String entryDelimited = entry + DELIMITER;
@@ -207,7 +213,10 @@ public class Storage {
             writer.write(data);
             writer.close();
         } catch (IOException exception) {
-            throw new StorageException(exception.getMessage());
+            LOGGER.log(Level.SEVERE, LOG_MISSING_FILE);
+            String errorMessage = ERROR_CANNOT_WRITE_FILE;
+            errorMessage = errorMessage.concat(exception.getMessage());
+            throw new StorageException(errorMessage);
         }
     }
 
@@ -222,10 +231,12 @@ public class Storage {
             }
             reader.close();
         } catch (FileNotFoundException exception) {
+            LOGGER.log(Level.SEVERE, LOG_ACCESS_ERROR);
             String errorMessage = ERROR_CANNOT_FIND_FILE;
             errorMessage = errorMessage.concat(exception.getMessage());
             throw new StorageException(errorMessage);
         } catch (IllegalStateException exception) {
+            LOGGER.log(Level.SEVERE, LOG_ACCESS_ERROR);
             String errorMessage = ERROR_GENERAL;
             errorMessage = errorMessage.concat(exception.getMessage());
             throw new StorageException(errorMessage);
