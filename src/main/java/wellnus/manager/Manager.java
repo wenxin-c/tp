@@ -1,8 +1,5 @@
 package wellnus.manager;
 
-import java.util.ArrayList;
-
-import wellnus.command.Command;
 import wellnus.command.CommandParser;
 import wellnus.exception.BadCommandException;
 
