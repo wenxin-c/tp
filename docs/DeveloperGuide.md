@@ -369,6 +369,38 @@ he/she never left. This makes sense conceptually for a class named `MainManager`
 particular `Manager`'s state from storage if the application is still running and the user returns to a particular
 feature.
 
+### Tokenizer
+![Tokenizer](diagrams/Tokenizer.png)<br/>
+The `Tokenizer` interface is the superclass for classes responsible for converting data stored temporarily in feature's
+Managers into Strings for storage and also convert Strings from storage back into data that can be restored by Managers.
+
+Each `Tokenizer` provided `tokenize()` and `detokenize()`, which can then be adapted for each feature. This fulfills the
+`Single Responsibility Principle` as each `Tokenizer` are only responsible to tokenize and detokenize data from only one
+Feature. Furthermore, this design also fulfills `Open-Closed Principle` where `Tokenizer` interface are open for extension
+should there be a new feature added into WellNUS++., while the `Tokenizer` feature itself are closed for modification. In
+addition, this design principle fulfills the `Dependency Inversion Principle` as the feature's Managers are not dependent on
+actual implementation of `Tokenizer`, but on the abstract of `Tokenizer` class and its `tokenize()` and `detokenize()`
+method. Each feature's tokenizer are free to implement `tokenize()` and `detokenize()` as every feature might store different
+kinds of date.
+
+`AtomicHabitTokernizer` class is responsible to tokenize and detokenize ArrayList of AtomicHabits that AtomicHabitManager will
+use or store. Each habit will be tokenized in the following format `--description [description of habit] --count [count of
+habit]` using the `tokenize()` method. While `detokenize()` method converts the strings back to ArrayList of AtomicHabit that
+can be initialized in AtomicHabitManager to restore the state of the Manager.
+
+`ReflectionTokenizer` class is responsible to tokenize the liked question's index and previous questions's index and detokenize
+it back. ArrayList of Set containing the index of `like` and `pref` will be passed to the `tokenize()` function. The data will
+be stored in the following format
+
+```
+like [index of liked question]
+prev [index of previous question]
+``` 
+
+`detokenize()` then can be called by ReflectionManager to retrieve the ArrayList containing the Set of liked and previous
+questions' index to restore its state.
+
+
 ## Product scope
 
 ### Target user profile
