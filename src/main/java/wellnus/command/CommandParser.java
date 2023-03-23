@@ -52,6 +52,25 @@ public class CommandParser {
 
     }
 
+    /**
+     * Split a userInput by the standardized delimiter.
+     * <p>
+     * This function handles some adversarial user input.
+     * There are 2 possible adversarial inputs that this function checks for:
+     * <p>
+     * 1. Whitespace/Empty Arguments: `cmd payload -- payload1 -- ` <br>
+     * Split renders it as ["cmd payload", " payload1", ""]
+     * " payload1" will cause issues with rendering
+     * So, check for empty commands and whitespace prefix. <br>
+     * <p>
+     * 2. Missing main argument: `--argument payload` <br>
+     * Split renders this as ["--argument payload"]
+     * So, check for "--" prefix.
+     *
+     * @param fullCommandString Raw user input from stdin in string form
+     * @return String array of command substrings
+     * @throws BadCommandException when command is empty or is problematic
+     */
     private String[] splitIntoCommands(String fullCommandString) throws BadCommandException {
         assert fullCommandString != null : "fullCommandString should not be null";
 
@@ -64,16 +83,6 @@ public class CommandParser {
 
         int noLimit = -1;
         String[] rawCommands = fullCommandString.split(ARGUMENT_DELIMITER, noLimit);
-        // Adversarial user input check
-        // There are 2 possible adversarial inputs that should be checked for
-        // 1. Whitespace/Empty Arguments: `cmd payload -- payload1 -- `
-        //    Split renders it as ["cmd payload", " payload1", ""]
-        //    " payload1" will cause issues with rendering
-        //    So, check for empty commands and whitespace prefix
-        // 2. Missing main argument: `--argument payload`
-        //    Split renders this as ["--argument payload"]
-        //    So, check for "--" prefix
-
         String[] cleanCommands = new String[rawCommands.length];
         for (int i = 0; i < rawCommands.length; ++i) {
             String currentCommand = rawCommands[i];
