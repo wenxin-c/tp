@@ -26,12 +26,7 @@ import wellnus.ui.TextUi;
  */
 public class MainManager extends Manager {
     public static final String FEATURE_HELP_DESCRIPTION = "WellNUS++ is a Command Line Interface (CLI)"
-            + " app for NUS Computing students to "
-            + System.lineSeparator()
-            + "keep track and improve their physical and mental wellness in various aspects."
-            + System.lineSeparator()
-            + " If you can type fast, WellNUS++ can update their wellness progress faster than "
-            + "traditional Graphical User Interface(GUI) apps.";
+            + " app for you to keep track, manage and improve your physical and mental wellness.";
     private static final String EXIT_COMMAND_KEYWORD = "exit";
     private static final String GREETING_MESSAGE = "Enter a command to start using WellNUS++! Try 'help' "
             + "if you're new, or just unsure.";

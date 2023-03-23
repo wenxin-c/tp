@@ -1,7 +1,5 @@
 package wellnus.command;
 
-import java.lang.reflect.Array;
-import java.sql.Ref;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -22,14 +20,9 @@ public class HelpCommand extends Command {
     private static final String BAD_COMMAND_MESSAGE = "help does not take in any arguments!";
     private static final String COMMAND_KEYWORD = "help";
     private static final String NO_FEATURE_KEYWORD = "";
-
-    private static final String HELP_PREAMBLE = "We are here to ensure your wellness"
-            + " is taken care of through WellNUS++\n"
-            + "Here are all the commands available for you!\n";
+    private static final String HELP_PREAMBLE = "Here are all the commands available for you!";
     private static final String USAGE_HABIT = "\tusage: hb";
     private static final String USAGE_REFLECT = "\tusage: reflect";
-    private static final String USAGE_EXIT = "\tusage: exit";
-
     private static final String PADDING = " ";
     private static final String DOT = ".";
     private static final int ONE_OFFSET = 1;
@@ -73,12 +66,14 @@ public class HelpCommand extends Command {
      * Lists all features available in WellNUS++ and a short description
      */
     private void printHelpMessage() {
-        this.getTextUi().printOutputMessage(HELP_PREAMBLE);
-        // Refactor this out if it does not scale well
         ArrayList<String> commandDescriptions = getCommandDescriptions();
         ArrayList<String> commandUsages = getCommandUsages();
+        // Add in description
         String outputMessage = MainManager.FEATURE_HELP_DESCRIPTION;
         outputMessage = outputMessage.concat(System.lineSeparator());
+        outputMessage = outputMessage.concat(HELP_PREAMBLE);
+        outputMessage = outputMessage.concat(System.lineSeparator() + System.lineSeparator());
+
         for (int i = 0; i < commandUsages.size(); i += 1) {
             outputMessage = outputMessage.concat(i + ONE_OFFSET + DOT + PADDING);
             outputMessage = outputMessage.concat(commandDescriptions.get(i) + System.lineSeparator());
@@ -87,8 +82,6 @@ public class HelpCommand extends Command {
         this.getTextUi().printOutputMessage(outputMessage);
     }
 
-
-    // TODO: Potential depreciation of the below functions
     @Override
     protected String getCommandKeyword() {
         return HelpCommand.COMMAND_KEYWORD;
