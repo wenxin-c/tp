@@ -16,18 +16,18 @@ public class CommandParserTest {
     public void parseUserInput_validInput() {
         // The following commands should be able to pass
         String[] validCommandInputs = {
-            "mainCommand",
-            "mainCommand payload",
-            "main --arg1 pay1",
-            "main --arg1 pay1 --arg2",
-            "main --arg1 pay1 --arg2 --arg3 pay3",
+                "mainCommand",
+                "mainCommand payload",
+                "main --arg1 pay1",
+                "main --arg1 pay1 --arg2",
+                "main --arg1 pay1 --arg2 --arg3 pay3",
         };
 
         // The following tests check if adversarial inputs are processed correctly
         String[] validTrickyInputs = {
-            "mainCommand pay--load",
-            "mainCommand --argument1 payload--",
-            "  mainCommand --arg--1 pay1 --arg2 pay2",
+                "mainCommand pay--load",
+                "mainCommand --argument1 payload--",
+                "  mainCommand --arg--1 pay1 --arg2 pay2",
         };
 
         CommandParser parser = new CommandParser();
@@ -114,7 +114,7 @@ public class CommandParserTest {
     @Test
     public void getMainArgumentTest_paddedInput_success() {
         CommandParser parser = new CommandParser();
-        String target = "mainCommand";
+        String target = "maincommand";
         String command = "   mainCommand payload --argument payload1";
         try {
             String result1 = parser.getMainArgument(command);
@@ -130,7 +130,7 @@ public class CommandParserTest {
     @Test
     public void getMainArgumentTest_specialWhitespace_success() {
         CommandParser parser = new CommandParser();
-        String target = "mainCommand";
+        String target = "maincommand";
         String command = "\n \t mainCommand payload --argument payload1";
         try {
             String result1 = parser.getMainArgument(command);
