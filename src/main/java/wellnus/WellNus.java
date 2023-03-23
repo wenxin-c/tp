@@ -68,7 +68,7 @@ public class WellNus {
      * @param args Commandline arguments passed to the WellNus Java ARchive
      */
     public static void main(String[] args) {
-        //new WellNus().start();
+        new WellNus().start();
     }
 
     /**

@@ -235,7 +235,7 @@ public class MainManager extends Manager {
     protected void setSupportedFeatureManagers() {
         this.getSupportedFeatureManagers().add(new AtomicHabitManager());
         this.getSupportedFeatureManagers().add(new ReflectionManager());
-        this.getSupportedFeatureManagers().add(new FocusManager());
+        //this.getSupportedFeatureManagers().add(new FocusManager());
         // TODO: Implement once all Managers are in
         // e.g. this.getSupportedFeatureManagers().add(new AtomicHabitManager());
     }
