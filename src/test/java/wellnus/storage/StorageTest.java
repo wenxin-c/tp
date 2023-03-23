@@ -7,6 +7,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 import java.io.File;
 import java.util.ArrayList;
 
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 
 import wellnus.exception.StorageException;
@@ -49,6 +50,7 @@ public class StorageTest {
     }
 
     @Test
+    @Order(1)
     public void createAndDeleteFile_test() {
         Storage storage = getStorageInstance();
         assert storage != null;
@@ -73,11 +75,10 @@ public class StorageTest {
     }
 
     @Test
+    @Order(2)
     public void tokenizeHashmap_test() {
         Storage storage = getStorageInstance();
-        if (storage == null) {
-            fail("Storage is null!");
-        }
+        assert storage != null;
 
         ArrayList<String> debugList = getDebugStringList();
 
@@ -87,11 +88,11 @@ public class StorageTest {
     }
 
     @Test
+    @Order(3)
     public void detokenizeDataString_test() {
         Storage storage = getStorageInstance();
-        if (storage == null) {
-            fail("Storage is null!");
-        }
+        assert storage != null;
+
         String dataString = getDebugTokenizedString();
         ArrayList<String> expectedList = getDebugStringList();
         ArrayList<String> result = storage.detokenizeDataString(dataString);
@@ -102,12 +103,12 @@ public class StorageTest {
      * Tests the end-to-end of saving and loading.
      */
     @Test
+    @Order(4)
     public void saveAndLoadData_test() {
         Storage storage = getStorageInstance();
+        assert storage != null;
+
         String debugFilename = Storage.FILE_DEBUG;
-        if (storage == null) {
-            fail("Storage is null!");
-        }
         // Test saving logic
         ArrayList<String> debugList = getDebugStringList();
         try {
@@ -130,4 +131,42 @@ public class StorageTest {
             fail("Failed to cleanup file!");
         }
     }
+
+    /**
+     * Ensures that deleting a file that does not exist due to developer error does not crash WellNUS++
+     */
+    @Test
+    @Order(5)
+    public void deleteFile_fileNotExist_success() {
+        Storage storage = getStorageInstance();
+        assert storage != null;
+        try {
+            storage.deleteFile(Storage.FILE_DEBUG);
+        } catch (StorageException exception) {
+            fail("deleteFile failed on file not exist!");
+        }
+    }
+
+    /**
+     * Ensure that loading an un-instantiated file automatically creates the file as safety behaviour
+     */
+    @Test
+    @Order(6)
+    public void loadFile_fileNotExist() {
+        Storage storage = getStorageInstance();
+        assert storage != null;
+        try {
+            storage.loadData(Storage.FILE_DEBUG);
+        } catch (StorageException exception) {
+            fail("loadData failed when loading file that does not exist despite safety checks");
+        }
+        // Cleanup
+        // deleteFile must work as the above tests on deleteFile have passed
+        try {
+            storage.deleteFile(Storage.FILE_DEBUG);
+        } catch (StorageException e) {
+            fail("Failed to cleanup file!");
+        }
+    }
+
 }
