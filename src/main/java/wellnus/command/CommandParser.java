@@ -103,7 +103,7 @@ public class CommandParser {
             logger.log(Level.INFO, LOG_STR_EMPTY_INPUT);
             throw new BadCommandException(ERROR_EMPTY_ARGUMENT);
         }
-        return words[0];
+        return words[0].toLowerCase();
     }
 
     private String getPayloadFromCommand(String commandString) {
@@ -154,7 +154,7 @@ public class CommandParser {
      * Has main argument "hb"
      *
      * @param userInput Any string input representing a command
-     * @return the inferred Main Argument
+     * @return the inferred Main Argument, converted to lowercase
      * @throws BadCommandException when String is empty
      */
     public String getMainArgument(String userInput) throws BadCommandException {
@@ -166,6 +166,6 @@ public class CommandParser {
             throw new BadCommandException(ERROR_EMPTY_COMMAND);
         }
         String[] parameters = userInput.split(" ");
-        return parameters[0];
+        return parameters[0].toLowerCase();
     }
 }
