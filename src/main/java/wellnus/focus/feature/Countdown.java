@@ -21,9 +21,11 @@ public class Countdown {
     private static final int INITIAL_SECONDS = 0;
     private static final String MINUTES_INPUT_ASSERTION = "Minutes should be greater than 0";
     private static final String TIMER_NOT_RUNNING_ASSERTION = "Timer should not be running";
+    private static final String TIMER_COMPLETE_MESSAGE = "Type start to begin the next countdown";
     private TextUi textUi;
     private Timer timer;
     private int minutes;
+    private int inputMinutes;
     private int seconds;
     private final String description;
     private AtomicBoolean isCompletedCountdown;
@@ -39,12 +41,40 @@ public class Countdown {
     public Countdown(int minutes, String description) {
         assert minutes > 0 : MINUTES_INPUT_ASSERTION;
         this.minutes = minutes;
+        this.inputMinutes = minutes;
         this.seconds = INITIAL_SECONDS;
         this.timer = new Timer();
         this.isCompletedCountdown = new AtomicBoolean(false);
         this.isRunClock = new AtomicBoolean(false);
         this.description = description;
         this.textUi = new TextUi();
+    }
+
+    /**
+     * This method will execute the actions necessary when a countdown completes.
+     * The timer will be stopped and a beep sound will be played.
+     * A message will be printed to the user to notify them that the countdown has completed.
+     */
+    private void timerComplete() {
+        isCompletedCountdown.set(true);
+        timer.cancel();
+        java.awt.Toolkit.getDefaultToolkit().beep();
+        textUi.printOutputMessage(TIMER_COMPLETE_MESSAGE);
+        this.minutes = inputMinutes;
+    }
+
+    /**
+     * This method will decrement the minutes by 1;
+     */
+    private void decrementMinutes() {
+        minutes--;
+    }
+
+    /**
+     * This method will decrement the seconds by 1;
+     */
+    private void decrementSeconds() {
+        seconds--;
     }
 
     /**
@@ -59,18 +89,14 @@ public class Countdown {
             public void run() {
                 if (isRunClock.get()) {
                     if (seconds == DEFAULT_STOP_TIME && minutes == DEFAULT_STOP_TIME) {
-                        isCompletedCountdown.set(true);
-                        timer.cancel();
-                        java.awt.Toolkit.getDefaultToolkit().beep();
-                        textUi.printOutputMessage("Type start to begin the next countdown");
+                        timerComplete();
                     } else if (seconds == DEFAULT_STOP_TIME) {
                         seconds = DEFAULT_SECONDS;
-                        minutes--;
+                        decrementMinutes();
                     } else {
-                        seconds--;
+                        decrementSeconds();
                     }
                 }
-
             }
         }, DELAY_TIME, ONE_SECOND);
 

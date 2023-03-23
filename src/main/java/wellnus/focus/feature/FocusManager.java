@@ -91,9 +91,9 @@ public class FocusManager extends Manager {
                 Command command = getCommandFor(commandString);
                 command.execute();
                 isExit = HomeCommand.isExit(command);
-            } catch (BadCommandException badCommandException) {
+            } catch (BadCommandException exception) {
                 String noAdditionalMessage = "";
-                textUi.printErrorFor(badCommandException, noAdditionalMessage);
+                textUi.printErrorFor(exception, noAdditionalMessage);
             } catch (WellNusException exception) {
                 textUi.printErrorFor(exception, "Check user guide for valid commands!");
             }
