@@ -49,7 +49,6 @@ public class Storage {
     private static final String ERROR_CANNOT_MAKE_DIR = "WellNUS++ couldn't make the data directory!";
     private static final String ERROR_CANNOT_DELETE_FILE = "WellNUS++ couldn't delete the data file!";
     private static final String ERROR_CANNOT_RESOLVE_PATH = "WellNUS++ couldn't resolve a path internally!";
-    private static final String ERROR_CANNOT_FIND_FILE = "WellNUS++ couldn't find the file!";
     private static final String ERROR_CANNOT_WRITE_FILE = "WellNUS++ couldn't write to a file!";
     private static final String ERROR_CANNOT_LOAD_FILE = "WellNUS++ couldn't load a file!";
     private static final String ASSERT_FILENAME_NOT_NULL = "fileName should not be null!";
@@ -187,6 +186,7 @@ public class Storage {
      */
     //@@author nichyjt
     private String[] splitIntoEntries(String dataString) {
+        assert dataString != null : ASSERT_STRING_NOT_NULL;
         return dataString.split(DELIMITER);
     }
 
@@ -232,7 +232,7 @@ public class Storage {
             reader.close();
         } catch (FileNotFoundException exception) {
             LOGGER.log(Level.SEVERE, LOG_ACCESS_ERROR);
-            String errorMessage = ERROR_CANNOT_FIND_FILE;
+            String errorMessage = ERROR_CANNOT_LOAD_FILE;
             errorMessage = errorMessage.concat(exception.getMessage());
             throw new StorageException(errorMessage);
         } catch (IllegalStateException exception) {
