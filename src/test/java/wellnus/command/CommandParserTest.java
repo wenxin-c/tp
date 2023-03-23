@@ -9,26 +9,36 @@ import org.junit.jupiter.api.Test;
 
 import wellnus.exception.BadCommandException;
 
+import java.util.ArrayList;
+
 
 public class CommandParserTest {
+
+    private ArrayList<String> getValidCommandInputs() {
+        ArrayList<String> validCommands = new ArrayList<>();
+        validCommands.add("mainCommand");
+        validCommands.add("mainCommand payload");
+        validCommands.add("main --arg1 pay1");
+        validCommands.add("main --arg1 pay1 --arg2");
+        validCommands.add("main --arg1 pay1 --arg2 --arg3 pay3");
+        return validCommands;
+    }
+
+    private ArrayList<String> getValidTrickyInputs() {
+        ArrayList<String> validCommands = new ArrayList<>();
+        validCommands.add("mainCommand pay--load");
+        validCommands.add("mainCommand --argument1 payload--");
+        validCommands.add("  mainCommand --arg--1 pay1 --arg2 pay2");
+        return validCommands;
+    }
 
     @Test
     public void parseUserInput_validInput() {
         // The following commands should be able to pass
-        String[] validCommandInputs = {
-            "mainCommand",
-            "mainCommand payload",
-            "main --arg1 pay1",
-            "main --arg1 pay1 --arg2",
-            "main --arg1 pay1 --arg2 --arg3 pay3",
-        };
+        ArrayList<String> validCommandInputs = getValidCommandInputs();
 
         // The following tests check if adversarial inputs are processed correctly
-        String[] validTrickyInputs = {
-            "mainCommand pay--load",
-            "mainCommand --argument1 payload--",
-            "  mainCommand --arg--1 pay1 --arg2 pay2",
-        };
+        ArrayList<String> validTrickyInputs = getValidTrickyInputs();
 
         CommandParser parser = new CommandParser();
         for (String validCommand : validCommandInputs) {
@@ -160,6 +170,14 @@ public class CommandParserTest {
         assertThrows(BadCommandException.class, () -> {
             parser.getMainArgument(" \n \t ");
         }, "Expected error throw from white-spaced user input");
+    }
+
+    @Test
+    public void parseUserInput_repeatedArgument_throwsException() {
+        CommandParser parser = new CommandParser();
+        assertThrows(BadCommandException.class, () -> {
+            parser.parseUserInput("foo --bar payload --bar payload2");
+        }, "Expected error throw from repeated arguments");
     }
 
 }
