@@ -11,6 +11,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
+import java.util.logging.Logger;
 
 import wellnus.exception.StorageException;
 
@@ -50,6 +51,13 @@ public class Storage {
     private static final String ERROR_CANNOT_DELETE_FILE = "WellNUS++ couldn't delete the data file!";
     private static final String ERROR_CANNOT_RESOLVE_PATH = "WellNUS++ couldn't resolve a path internally!";
     private static final String ERROR_CANNOT_FIND_FILE = "WellNUS++ couldn't find the file!";
+    private static final String ASSERT_FILENAME_NOT_NULL = "fileName should not be null!";
+    private static final String ASSERT_FILENAME_NOT_EMPTY = "fileName should have a length > 0!";
+    private static final String ASSERT_PATH_NOT_NULL = "path should not be null!";
+    private static final String ASSERT_LIST_NOT_NULL = "list input should not be null!";
+    private static final String ASSERT_STRING_NOT_NULL = "string input should not be null!";
+    private static final String ASSERT_FILE_NOT_NULL = "file input should not be null!";
+    private static final Logger LOGGER = Logger.getLogger("StorageLogger");
 
     private Path wellNusDataDirectory;
 
@@ -87,6 +95,9 @@ public class Storage {
      * @param fileName data file to retrieve
      */
     protected File getFile(String fileName) throws StorageException {
+        assert fileName != null : ASSERT_FILENAME_NOT_NULL;
+        assert fileName.length() > 0 : ASSERT_FILENAME_NOT_EMPTY;
+
         Path pathToFile;
         File dataFile;
         try {
@@ -116,6 +127,7 @@ public class Storage {
      */
     //@@author nichyjt
     private void createDataFolder(Path directoryPath) throws StorageException {
+        assert directoryPath != null : ASSERT_PATH_NOT_NULL;
         try {
             Files.createDirectory(directoryPath);
         } catch (IOException exception) {
@@ -133,6 +145,7 @@ public class Storage {
      */
     //@@author nichyjt
     private void createFile(File file) throws StorageException {
+        assert file != null : ASSERT_FILE_NOT_NULL;
         try {
             file.createNewFile();
         } catch (IOException exception) {
@@ -150,6 +163,8 @@ public class Storage {
      */
     //@@author nichyjt
     protected String tokenizeStringList(ArrayList<String> tokenizedStrings) {
+        assert tokenizedStrings != null : ASSERT_LIST_NOT_NULL;
+
         StringBuilder stringBuilder = new StringBuilder();
         for (String entry : tokenizedStrings) {
             String entryDelimited = entry + DELIMITER;
@@ -178,11 +193,14 @@ public class Storage {
      */
     //@@author nichyjt
     protected ArrayList<String> detokenizeDataString(String dataString) {
+        assert dataString != null : ASSERT_STRING_NOT_NULL;
         String[] entries = splitIntoEntries(dataString);
         return new ArrayList<>(Arrays.asList(entries));
     }
 
     private void writeDataToDisk(String data, File file) throws StorageException {
+        assert data != null : ASSERT_STRING_NOT_NULL;
+        assert file != null : ASSERT_FILE_NOT_NULL;
         // assume file exists
         try {
             FileWriter writer = new FileWriter(file.getAbsolutePath());
@@ -194,6 +212,7 @@ public class Storage {
     }
 
     private String loadDataFromDisk(File file) throws StorageException {
+        assert file != null : ASSERT_FILE_NOT_NULL;
         // assume file exists
         StringBuilder data = new StringBuilder();
         try {
@@ -228,6 +247,10 @@ public class Storage {
      */
     //@@author nichyjt
     public void saveData(ArrayList<String> tokenizedManager, String fileName) throws StorageException {
+        assert fileName != null : ASSERT_FILENAME_NOT_NULL;
+        assert fileName.length() > 0 : ASSERT_FILENAME_NOT_EMPTY;
+        assert tokenizedManager != null : ASSERT_LIST_NOT_NULL;
+
         File file = getFile(fileName);
         String tokenizedString = tokenizeStringList(tokenizedManager);
         writeDataToDisk(tokenizedString, file);
@@ -247,6 +270,9 @@ public class Storage {
      */
     //@@author nichyjt
     public ArrayList<String> loadData(String fileName) throws StorageException {
+        assert fileName != null : ASSERT_FILENAME_NOT_NULL;
+        assert fileName.length() > 0 : ASSERT_FILENAME_NOT_EMPTY;
+
         File file = getFile(fileName);
         String data = loadDataFromDisk(file);
         return detokenizeDataString(data);
@@ -260,6 +286,8 @@ public class Storage {
      */
     //@@author nichyjt
     protected void deleteFile(String fileName) throws StorageException {
+        assert fileName != null : ASSERT_FILENAME_NOT_NULL;
+        assert fileName.length() > 0 : ASSERT_FILENAME_NOT_EMPTY;
         File file = getFile(fileName);
         boolean isDeleted = file.delete();
         if (!isDeleted) {
