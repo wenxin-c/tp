@@ -2,6 +2,7 @@ package wellnus.storage;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import java.io.File;
@@ -167,6 +168,47 @@ public class StorageTest {
         } catch (StorageException e) {
             fail("Failed to cleanup file!");
         }
+    }
+
+    @Test
+    @Order(7)
+    public void getFile_invalidFileName_exceptionThrown() {
+        Storage storage = getStorageInstance();
+        assert storage != null;
+        assertThrows(StorageException.class, () -> {
+            storage.getFile("foobar");
+        }, "Expected exception to be thrown for invalid filename");
+    }
+
+    @Test
+    @Order(8)
+    public void saveData_invalidFileName_exceptionThrown() {
+        Storage storage = getStorageInstance();
+        assert storage != null;
+        ArrayList<String> payload = getDebugStringList();
+        assertThrows(StorageException.class, () -> {
+            storage.saveData(payload, "foobar");
+        }, "Expected exception to be thrown for invalid filename");
+    }
+
+    @Test
+    @Order(9)
+    public void loadData_invalidFileName_exceptionThrown() {
+        Storage storage = getStorageInstance();
+        assert storage != null;
+        assertThrows(StorageException.class, () -> {
+            storage.loadData("foobar");
+        }, "Expected exception to be thrown for invalid filename");
+    }
+
+    @Test
+    @Order(10)
+    public void deleteFile_invalidFileName_exceptionThrown() {
+        Storage storage = getStorageInstance();
+        assert storage != null;
+        assertThrows(StorageException.class, () -> {
+            storage.deleteFile("foobar");
+        }, "Expected exception to be thrown for invalid filename");
     }
 
 }
