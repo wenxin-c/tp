@@ -1,14 +1,17 @@
 package wellnus.reflection;
 
-import wellnus.command.Command;
-import wellnus.exception.BadCommandException;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import wellnus.command.Command;
+import wellnus.exception.BadCommandException;
+
+/**
+ * Get all the questions that are in the favorite list.
+ */
 public class FavoriteCommand extends Command {
     private static final String COMMAND_KEYWORD = "fav";
     private static final String PAYLOAD = "";
