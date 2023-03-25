@@ -15,6 +15,7 @@ import wellnus.ui.TextUi;
 public class StartCommand extends Command {
     private static final String COMMAND_KEYWORD = "start";
     private static final int COMMAND_NUM_OF_ARGUMENTS = 1;
+    private static final int FIRST_COUNTDOWN_INDEX = 0;
     private static final String COMMAND_INVALID_ARGUMENTS_MESSAGE = "Invalid command, expected 'start'";
     private static final String NO_ADDITIONAL_MESSAGE = "";
     private static final String COMMAND_KEYWORD_ASSERTION = "The key should be start.";
@@ -70,18 +71,15 @@ public class StartCommand extends Command {
             textUi.printErrorFor(badCommandException, NO_ADDITIONAL_MESSAGE);
             return;
         }
-        session.checkPrevCountdown();
-        if (!session.hasAnyCountdown()) {
-            session.init();
+        if (session.getCurrentCountdownIndex() == session.getSession().size() - 1) {
+            session.checkPrevCountdown();
         }
-        if (!session.getSession().get(session.getCurrentCountdownIndex()).getIsCompletedCountdown()
-                || !session.getSession().get(session.getCurrentCountdownIndex()).getIsRunning()) {
-            if (session.getCurrentCountdownIndex() == 0) {
-                textUi.printOutputMessage(START_MESSAGE);
-            }
-            session.getSession().get(session.getCurrentCountdownIndex()).start();
-            session.getSession().get(session.getCurrentCountdownIndex()).setStart();
-            textUi.printOutputMessage(session.getSession().get(session.getCurrentCountdownIndex()).getDescription());
+        if (session.getCurrentCountdownIndex() == FIRST_COUNTDOWN_INDEX && !session.hasAnyCountdown()) {
+            session.init();
+            textUi.printOutputMessage(START_MESSAGE);
+            session.getSession().get(FIRST_COUNTDOWN_INDEX).start();
+            session.getSession().get(FIRST_COUNTDOWN_INDEX).setStart();
+            textUi.printOutputMessage(session.getSession().get(FIRST_COUNTDOWN_INDEX).getDescription());
         }
     }
 

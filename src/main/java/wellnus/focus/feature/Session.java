@@ -73,9 +73,17 @@ public class Session {
                 && currentCountdownIndex < session.size() - INCREMENT) {
             currentCountdownIndex += INCREMENT;
         }
+        if (session.get(currentCountdownIndex).getIsCompletedCountdown()
+                && currentCountdownIndex == session.size() - INCREMENT) {
+            currentCountdownIndex = 0;
+        }
     }
 
+    /**
+     * Method to initialise a session when start command is executed.
+     */
     public void init() {
+        session.clear();
         fillSession();
     }
 

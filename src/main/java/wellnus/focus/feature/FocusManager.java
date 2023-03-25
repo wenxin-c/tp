@@ -7,6 +7,7 @@ import wellnus.exception.BadCommandException;
 import wellnus.exception.WellNusException;
 import wellnus.focus.command.CheckCommand;
 import wellnus.focus.command.HomeCommand;
+import wellnus.focus.command.NextCommand;
 import wellnus.focus.command.PauseCommand;
 import wellnus.focus.command.ResumeCommand;
 import wellnus.focus.command.StartCommand;
@@ -26,6 +27,7 @@ public class FocusManager extends Manager {
     private static final String START_COMMAND_KEYWORD = "start";
     private static final String PAUSE_COMMAND_KEYWORD = "pause";
     private static final String RESUME_COMMAND_KEYWORD = "resume";
+    private static final String NEXT_COMMAND_KEYWORD = "next";
     private static final String CONFIG_COMMAND_KEYWORD = "config";
     private static final String HOME_COMMAND_KEYWORD = "home";
     private static final String STOP_COMMAND_KEYWORD = "stop";
@@ -72,6 +74,8 @@ public class FocusManager extends Manager {
             return new StopCommand(arguments, session);
         case CHECK_COMMAND_KEYWORD:
             return new CheckCommand(arguments, session);
+        case NEXT_COMMAND_KEYWORD:
+            return new NextCommand(arguments, session);
         default:
             throw new BadCommandException(UNKNOWN_COMMAND_MESSAGE);
         }

@@ -22,7 +22,7 @@ public class Countdown {
     private static final String MINUTES_INPUT_ASSERTION = "Minutes should be greater than 0";
     private static final String STOP_BEFORE_START_ASSERTION = "Timer should be started before trying to stop it";
     private static final String TIMER_NOT_RUNNING_ASSERTION = "Timer should not be running";
-    private static final String TIMER_COMPLETE_MESSAGE = "Type start to begin the next countdown";
+    private static final String TIMER_COMPLETE_MESSAGE = "Type 'next' to begin the next countdown";
     private TextUi textUi;
     private Timer timer;
     private int minutes;
@@ -89,6 +89,9 @@ public class Countdown {
             public void run() {
                 if (!isRunClock.get()) {
                     return;
+                }
+                if (minutes == DEFAULT_STOP_TIME && seconds <= 10) {
+                    textUi.printOutputMessage(seconds + " seconds left");
                 }
                 if (seconds == DEFAULT_STOP_TIME && minutes == DEFAULT_STOP_TIME) {
                     timerComplete();
