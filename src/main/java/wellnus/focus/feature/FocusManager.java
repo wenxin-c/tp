@@ -109,30 +109,19 @@ public class FocusManager extends Manager {
     }
 
     /**
-     * Utility function to get a summary description of the feature this Manager is administering.
+     * Abstract function to ensure developers add in a getter for the feature's help description.
+     * <p>
+     * This description will be shown when the user types in the help command. <br>
+     * The description should be a brief overview of what the feature does. <br>
+     * For example: <br>
+     * "reflect: Reflect is your go-to tool to get, save and reflect on our specially
+     * curated list of questions to reflect on"
      *
-     * @return summary description of the feature that this Manager handles
+     * @return String of the feature's help description
      */
     @Override
-    public String getBriefDescription() {
-        return FEATURE_BRIEF_DESCRIPTION;
-    }
-
-    /**
-     * Utility function to get the full description of the feature this Manager is administering.
-     *
-     * @return full description of the feature that this Manager handles
-     */
-    @Override
-    public String getFullDescription() {
-        return FEATURE_FULL_DESCRIPTION;
-    }
-
-    /**
-     * Utility function to set a list of main commands the feature supports.
-     */
-    @Override
-    protected void setSupportedCommands() {
+    public String getFeatureHelpDescription() {
+        return null;
     }
 
     /**
