@@ -20,7 +20,6 @@ public class StartCommand extends Command {
     private static final String COMMAND_KEYWORD_ASSERTION = "The key should be start.";
     private static final String START_MESSAGE = "Your session has started! Please focus on your task.";
     private final Session session;
-
     private final TextUi textUi;
 
     /**
@@ -37,8 +36,8 @@ public class StartCommand extends Command {
     }
 
     /**
-     * Identifies this Command's keyword. Override this in subclasses so
-     * toString() returns the correct String representation.
+     * Identifies this Command's keyword.
+     * Override this in subclasses so toString() returns the correct String representation.
      *
      * @return String Keyword of this Command
      */
@@ -48,8 +47,8 @@ public class StartCommand extends Command {
     }
 
     /**
-     * Identifies the feature that this Command is associated with. Override
-     * this in subclasses so toString() returns the correct String representation.
+     * Identifies the feature that this Command is associated with.
+     * Override this in subclasses so toString() returns the correct String representation.
      *
      * @return String Keyword for the feature associated with this Command
      */
@@ -57,7 +56,6 @@ public class StartCommand extends Command {
     protected String getFeatureKeyword() {
         return FocusManager.FEATURE_NAME;
     }
-
 
     /**
      * Outputs unique description of the countdown.
@@ -73,8 +71,6 @@ public class StartCommand extends Command {
             return;
         }
         session.checkPrevCountdown();
-        // Session is no longer initialised upon calling new Session(), so initialise it the first
-        // time a countdown is started
         if (!session.hasAnyCountdown()) {
             session.init();
         }
@@ -107,7 +103,5 @@ public class StartCommand extends Command {
         if (arguments.get(COMMAND_KEYWORD) != "") {
             throw new BadCommandException(COMMAND_INVALID_ARGUMENTS_MESSAGE);
         }
-
     }
 }
-

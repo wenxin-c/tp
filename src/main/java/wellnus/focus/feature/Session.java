@@ -90,6 +90,4 @@ public class Session {
     public void resetCurrentCountdownIndex() {
         currentCountdownIndex = 0;
     }
-
-
 }

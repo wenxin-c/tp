@@ -12,7 +12,6 @@ import wellnus.ui.TextUi;
  * Represents a command to check the time left in the current session.
  */
 public class CheckCommand extends Command {
-
     private static final String COMMAND_KEYWORD = "check";
     private static final int COMMAND_NUM_OF_ARGUMENTS = 1;
     private static final String COMMAND_INVALID_ARGUMENTS_MESSAGE = "Invalid command, expected 'check'";
@@ -36,8 +35,8 @@ public class CheckCommand extends Command {
     }
 
     /**
-     * Identifies this Command's keyword. Override this in subclasses so
-     * toString() returns the correct String representation.
+     * Identifies this Command's keyword.
+     * Override this in subclasses so toString() returns the correct String representation.
      *
      * @return String Keyword of this Command
      */
@@ -46,10 +45,9 @@ public class CheckCommand extends Command {
         return COMMAND_KEYWORD;
     }
 
-
     /**
-     * Identifies the feature that this Command is associated with. Override
-     * this in subclasses so toString() returns the correct String representation.
+     * Identifies the feature that this Command is associated with.
+     * Override this in subclasses so toString() returns the correct String representation.
      *
      * @return String Keyword for the feature associated with this Command
      */
@@ -93,6 +91,5 @@ public class CheckCommand extends Command {
         if (arguments.get(COMMAND_KEYWORD) != "") {
             throw new BadCommandException(COMMAND_INVALID_ARGUMENTS_MESSAGE);
         }
-
     }
 }

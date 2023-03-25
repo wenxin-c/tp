@@ -83,30 +83,24 @@ public class Countdown {
      */
     public void start() {
         assert isRunClock.get() == false : TIMER_NOT_RUNNING_ASSERTION;
-        /*
-         * new Timer() results in a background Thread being created.
-         * We lazy initialise this Thread by calling new Timer() inside start() instead of
-         * Countdown's constructor.
-         * This also reduces memory usage.
-         */
         timer = new Timer();
         TimerTask countdownTask = new TimerTask() {
             @Override
             public void run() {
-                if (isRunClock.get()) {
-                    if (seconds == DEFAULT_STOP_TIME && minutes == DEFAULT_STOP_TIME) {
-                        timerComplete();
-                    } else if (seconds == DEFAULT_STOP_TIME) {
-                        seconds = DEFAULT_SECONDS;
-                        decrementMinutes();
-                    } else {
-                        decrementSeconds();
-                    }
+                if (!isRunClock.get()) {
+                    return;
+                }
+                if (seconds == DEFAULT_STOP_TIME && minutes == DEFAULT_STOP_TIME) {
+                    timerComplete();
+                } else if (seconds == DEFAULT_STOP_TIME) {
+                    seconds = DEFAULT_SECONDS;
+                    decrementMinutes();
+                } else {
+                    decrementSeconds();
                 }
             }
         };
         timer.scheduleAtFixedRate(countdownTask, DELAY_TIME, ONE_SECOND);
-
     }
 
     /**
@@ -181,5 +175,4 @@ public class Countdown {
     public String getDescription() {
         return this.description;
     }
-
 }

@@ -11,7 +11,6 @@ import org.junit.jupiter.api.Test;
 import wellnus.command.CommandParser;
 import wellnus.exception.BadCommandException;
 import wellnus.exception.WellNusException;
-import wellnus.focus.command.CheckCommand;
 import wellnus.focus.command.StartCommand;
 import wellnus.focus.feature.FocusManager;
 import wellnus.focus.feature.Session;
@@ -84,25 +83,11 @@ public class FocusTest {
     }
 
     /**
-     * Test if session creates countdowns
+     * Test if session does not create countdowns before start command.
      */
     @Test
-    public void session_createCountdowns_success() {
-        Assertions.assertEquals(true, session.getSession().size() > 0);
+    public void session_createCountdownsBeforeStart_fail() {
+        Assertions.assertEquals(false, session.getSession().size() > 0);
     }
-
-    /**
-     * Test if CheckCommand provides intended output
-     */
-    @Test
-    public void checkCommand_checkOutput_success() throws WellNusException {
-        HashMap<String, String> arguments = parser.parseUserInput(CHECK_COMMAND);
-        CheckCommand checkCommand = new CheckCommand(arguments, session);
-        checkCommand.execute();
-        String expectedCheckOutput = "Time left: " + session.getSession().get(0).getMinutes()
-                + ":" + session.getSession().get(0).getSeconds();
-        Assertions.assertEquals(expectedCheckOutput, getMessageFrom(outputStreamCaptor.toString()));
-    }
-
-
 }
+

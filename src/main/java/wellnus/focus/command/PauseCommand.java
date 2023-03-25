@@ -35,8 +35,8 @@ public class PauseCommand extends Command {
     }
 
     /**
-     * Identifies this Command's keyword. Override this in subclasses so
-     * toString() returns the correct String representation.
+     * Identifies this Command's keyword.
+     * Override this in subclasses so toString() returns the correct String representation.
      *
      * @return String Keyword of this Command
      */
@@ -45,10 +45,9 @@ public class PauseCommand extends Command {
         return COMMAND_KEYWORD;
     }
 
-
     /**
-     * Identifies the feature that this Command is associated with. Override
-     * this in subclasses so toString() returns the correct String representation.
+     * Identifies the feature that this Command is associated with.
+     * Override this in subclasses so toString() returns the correct String representation.
      *
      * @return String Keyword for the feature associated with this Command
      */
@@ -93,6 +92,5 @@ public class PauseCommand extends Command {
         if (arguments.get(COMMAND_KEYWORD) != "") {
             throw new BadCommandException(COMMAND_INVALID_ARGUMENTS_MESSAGE);
         }
-
     }
 }

@@ -18,7 +18,6 @@ public class StopCommand extends Command {
     private static final String NO_ADDITIONAL_MESSAGE = "";
     private static final String COMMAND_KEYWORD_ASSERTION = "The key should be stop.";
     private static final String STOP_MESSAGE = "Your focus session has ended.";
-
     private final Session session;
     private final TextUi textUi;
 
@@ -36,8 +35,8 @@ public class StopCommand extends Command {
     }
 
     /**
-     * Identifies this Command's keyword. Override this in subclasses so
-     * toString() returns the correct String representation.
+     * Identifies this Command's keyword.
+     * Override this in subclasses so toString() returns the correct String representation.
      *
      * @return String Keyword of this Command
      */
@@ -46,10 +45,9 @@ public class StopCommand extends Command {
         return COMMAND_KEYWORD;
     }
 
-
     /**
-     * Identifies the feature that this Command is associated with. Override
-     * this in subclasses so toString() returns the correct String representation.
+     * Identifies the feature that this Command is associated with.
+     * Override this in subclasses so toString() returns the correct String representation.
      *
      * @return String Keyword for the feature associated with this Command
      */
@@ -57,7 +55,6 @@ public class StopCommand extends Command {
     protected String getFeatureKeyword() {
         return FocusManager.FEATURE_NAME;
     }
-
 
     /**
      * Prints message to indicate session has ended.
@@ -95,7 +92,6 @@ public class StopCommand extends Command {
         if (arguments.get(COMMAND_KEYWORD) != "") {
             throw new BadCommandException(COMMAND_INVALID_ARGUMENTS_MESSAGE);
         }
-
     }
 }
 

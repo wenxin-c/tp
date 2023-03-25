@@ -34,7 +34,6 @@ public class FocusManager extends Manager {
     private static final String FOCUS_TIMER_GREET = "Welcome to Focus Timer";
     private static final String COMMAND_KEYWORD_ASSERTION = "The key cannot be null"
             + ", check user-guide for valid commands";
-
     private final TextUi textUi;
     private final Session session;
 
@@ -49,8 +48,8 @@ public class FocusManager extends Manager {
     }
 
     /**
-     * Parses the given command from the user and determines the correct Command
-     * subclass that can handle its execution.
+     * Parses the given command from the user.
+     * Determines the correct Command subclass that can handle its execution.
      *
      * @param commandString Full command issued by the user
      * @return Command object that can execute the user's command
@@ -82,7 +81,6 @@ public class FocusManager extends Manager {
         textUi.printOutputMessage(FOCUS_TIMER_GREET);
     }
 
-
     private void runCommands() {
         boolean isExit = false;
         while (!isExit) {
@@ -101,7 +99,7 @@ public class FocusManager extends Manager {
     }
 
     /**
-     * Utility function to get the featureName this Manager is administering
+     * Utility function to get the featureName this Manager is administering.
      *
      * @return name of the feature that this Manager handles
      */
@@ -111,7 +109,7 @@ public class FocusManager extends Manager {
     }
 
     /**
-     * Utility function to get a summary description of the feature this Manager is administering
+     * Utility function to get a summary description of the feature this Manager is administering.
      *
      * @return summary description of the feature that this Manager handles
      */
@@ -121,7 +119,7 @@ public class FocusManager extends Manager {
     }
 
     /**
-     * Utility function to get the full description of the feature this Manager is administering
+     * Utility function to get the full description of the feature this Manager is administering.
      *
      * @return full description of the feature that this Manager handles
      */
@@ -131,14 +129,10 @@ public class FocusManager extends Manager {
     }
 
     /**
-     * Utility function to set a list of main commands the feature supports <br>
-     * <br>
-     * Suggested implementation: <br>
-     * <code> this.supportedCommands.add([cmd1, cmd2, ...]); </code>
+     * Utility function to set a list of main commands the feature supports.
      */
     @Override
     protected void setSupportedCommands() {
-
     }
 
     /**
@@ -187,7 +181,5 @@ public class FocusManager extends Manager {
         default:
             throw new BadCommandException(UNKNOWN_COMMAND_MESSAGE);
         }
-
     }
-
 }

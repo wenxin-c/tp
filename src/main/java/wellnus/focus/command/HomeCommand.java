@@ -9,7 +9,7 @@ import wellnus.focus.feature.Session;
 import wellnus.ui.TextUi;
 
 /**
- * The HomeCommand class is a command class that returns user back to the main WellNUS++ program.<br>
+ * The HomeCommand class is a command class that returns user back to the main WellNUS++ program.
  */
 public class HomeCommand extends Command {
     private static final int COMMAND_NUM_OF_ARGUMENTS = 1;
@@ -36,7 +36,7 @@ public class HomeCommand extends Command {
     }
 
     /**
-     * Check if a HomeCommand is executed and user wants to return to home
+     * Check if a HomeCommand is executed and user wants to return to home.
      *
      * @param command User command
      * @return true If user wants to exit feature false if not
@@ -46,8 +46,8 @@ public class HomeCommand extends Command {
     }
 
     /**
-     * Identifies this Command's keyword. Override this in subclasses so
-     * toString() returns the correct String representation.
+     * Identifies this Command's keyword.
+     * Override this in subclasses so toString() returns the correct String representation.
      *
      * @return String Keyword of this Command
      */
@@ -57,8 +57,8 @@ public class HomeCommand extends Command {
     }
 
     /**
-     * Identifies the feature that this Command is associated with. Override
-     * this in subclasses so toString() returns the correct String representation.
+     * Identifies the feature that this Command is associated with.
+     * Override this in subclasses so toString() returns the correct String representation.
      *
      * @return String Keyword for the feature associated with this Command
      */
@@ -105,5 +105,3 @@ public class HomeCommand extends Command {
         }
     }
 }
-
-
