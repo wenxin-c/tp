@@ -63,7 +63,7 @@ public class HelpCommand extends Command {
     }
 
     /**
-     * Lists all features available in WellNUS++ and a short description
+     * Lists all features available in WellNUS++ and a short description.
      */
     private void printHelpMessage() {
         ArrayList<String> commandDescriptions = getCommandDescriptions();
@@ -128,7 +128,7 @@ public class HelpCommand extends Command {
     }
 
     /**
-     * Abstract method to ensure developers add in a command usage
+     * Abstract method to ensure developers add in a command usage.
      * <p>
      * For example, for the 'add' command in AtomicHabit package: <br>
      * "usage: add --name (name of habit)"

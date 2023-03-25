@@ -37,7 +37,7 @@ public class HomeCommand extends Command {
     }
 
     /**
-     * Check if a HomeCommand is executed and user wants to return to home
+     * Check if a HomeCommand is executed and user wants to return to home.
      *
      * @param command User command
      * @return true If user wants to exit feature false if not
@@ -113,7 +113,7 @@ public class HomeCommand extends Command {
     }
 
     /**
-     * Method to ensure that developers add in a command usage
+     * Method to ensure that developers add in a command usage.
      * <p>
      * For example, for the 'add' command in AtomicHabit package: <br>
      * "usage: add --name (name of habit)"

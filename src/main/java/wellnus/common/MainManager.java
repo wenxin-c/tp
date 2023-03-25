@@ -40,7 +40,7 @@ public class MainManager extends Manager {
     private final TextUi textUi;
 
     /**
-     * Constructs an instance of MainManager <br>
+     * Constructs an instance of MainManager. <br>
      * Instantiates boilerplate utilities like TextUi
      * and populates featureManagers with exactly one instance to be executed on user selection
      */
@@ -146,7 +146,7 @@ public class MainManager extends Manager {
     }
 
     /**
-     * Returns a help description of the WellNUS++ app
+     * Returns a help description of the WellNUS++ app.
      *
      * @return Help description of this app
      */
@@ -189,7 +189,7 @@ public class MainManager extends Manager {
     }
 
     /**
-     * Returns a list of features supported by WellNUS++ <br>
+     * Returns a list of features supported by WellNUS++. <br>
      * <br>
      * Suggested implementation: <br>
      * <code> this.supportedManagers.add([mgr1, mgr2, ...]); </code>

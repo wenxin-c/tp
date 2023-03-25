@@ -205,7 +205,7 @@ public class UpdateCommand extends Command {
     }
 
     /**
-     * Method to ensure that developers add in a command usage
+     * Method to ensure that developers add in a command usage.
      * <p>
      * For example, for the 'add' command in AtomicHabit package: <br>
      * "usage: add --name (name of habit)"
