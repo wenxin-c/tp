@@ -18,20 +18,16 @@ import wellnus.ui.TextUi;
  * This class will handle calling the different available commands for Atomic Habits according to user input
  */
 public class AtomicHabitManager extends Manager {
+    public static final String FEATURE_HELP_DESCRIPTION = "Atomic Habits - Track and manage your habits "
+            + "with our suite of tools to help you grow and nurture a better you!";
     public static final String FEATURE_NAME = "hb";
     private static final String ADD_COMMAND_KEYWORD = "add";
     private static final String ATOMIC_HABIT_LOGO = "   _    _                _       _  _        _     _  _       \n"
             + "  /_\\  | |_  ___  _ __  (_) __  | || | __ _ | |__ (_)| |_  ___\n"
             + " / _ \\ |  _|/ _ \\| '  \\ | |/ _| | __ |/ _` || '_ \\| ||  _|(_-<\n"
             + "/_/ \\_\\ \\__|\\___/|_|_|_||_|\\__| |_||_|\\__,_||_.__/|_| \\__|/__/\n";
-
     private static final String ATOMIC_HABIT_GREET = "Welcome to the atomic habits feature!";
     private static final String HOME_COMMAND_KEYWORD = "home";
-    /*
-     * FEATURE_* variables: Information about this feature to assist the 'help' command
-     */
-    private static final String FEATURE_BRIEF_DESCRIPTION = "";
-    private static final String FEATURE_FULL_DESCRIPTION = "";
     private static final String LIST_COMMAND_KEYWORD = "list";
     private static final String UNKNOWN_COMMAND_MESSAGE = "No such command in atomic habits!";
     private static final String UPDATE_COMMAND_KEYWORD = "update";
@@ -45,6 +41,10 @@ public class AtomicHabitManager extends Manager {
     public AtomicHabitManager() {
         this.habitList = new AtomicHabitList();
         this.textUi = new TextUi();
+    }
+
+    private static String getHelpDescription() {
+        return "Atomic Habits: ";
     }
 
     /**
@@ -116,33 +116,19 @@ public class AtomicHabitManager extends Manager {
     }
 
     /**
-     * Returns a summary description of the atomic habits feature
+     * Abstract function to ensure developers add in a getter for the feature's help description.
+     * <p>
+     * This description will be shown when the user types in the help command. <br>
+     * The description should be a brief overview of what the feature does. <br>
+     * For example: <br>
+     * "reflect: Reflect is your go-to tool to get, save and reflect on our specially
+     * curated list of questions to reflect on"
      *
-     * @return Summary description of this feature
+     * @return String of the feature's help description
      */
     @Override
-    public String getBriefDescription() {
-        return FEATURE_BRIEF_DESCRIPTION;
-    }
-
-    /**
-     * Returns the full description of the atomic habits feature
-     *
-     * @return Full description of this feature
-     */
-    @Override
-    public String getFullDescription() {
-        return FEATURE_FULL_DESCRIPTION;
-    }
-
-    /**
-     * Returns a list of main commands the atomic habit feature supports <br>
-     * <br>
-     * Suggested implementation: <br>
-     * <code> this.supportedCommands.add([cmd1, cmd2, ...]); </code>
-     */
-    @Override
-    protected void setSupportedCommands() {
+    public String getFeatureHelpDescription() {
+        return FEATURE_HELP_DESCRIPTION;
     }
 
     /**

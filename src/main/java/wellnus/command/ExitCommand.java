@@ -9,6 +9,8 @@ import wellnus.ui.TextUi;
  * Provides the exit command of the WellNUS++ app.
  */
 public class ExitCommand extends Command {
+    public static final String COMMAND_DESCRIPTION = "exit - Close WellNUS++ and return to your terminal.";
+    public static final String COMMAND_USAGE = "usage: exit";
     private static final String COMMAND_INVALID_COMMAND_MESSAGE = "Invalid exit command given!";
     private static final String COMMAND_KEYWORD = "exit";
     private static final String FEATURE_KEYWORD = "";
@@ -16,6 +18,7 @@ public class ExitCommand extends Command {
 
     /**
      * Initialises an ExitCommand Object using the arguments issued by the user.
+     *
      * @param arguments Command arguments issued by the user
      * @see ExitCommand#validateCommand(HashMap)
      */
@@ -72,5 +75,31 @@ public class ExitCommand extends Command {
         if (!arguments.containsKey(ExitCommand.COMMAND_KEYWORD)) {
             throw new BadCommandException(ExitCommand.COMMAND_INVALID_COMMAND_MESSAGE);
         }
+    }
+
+    /**
+     * Method to ensure that developers add in a command usage.
+     * <p>
+     * For example, for the 'add' command in AtomicHabit package: <br>
+     * "usage: add --name (name of habit)"
+     *
+     * @return String of the proper usage of the habit
+     */
+    @Override
+    public String getCommandUsage() {
+        return COMMAND_USAGE;
+    }
+
+    /**
+     * Method to ensure that developers add in a description for the command.
+     * <p>
+     * For example, for the 'add' command in AtomicHabit package: <br>
+     * "add - add a habit to your list"
+     *
+     * @return String of the description of what the command does
+     */
+    @Override
+    public String getCommandDescription() {
+        return COMMAND_DESCRIPTION;
     }
 }

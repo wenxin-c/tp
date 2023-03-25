@@ -98,7 +98,7 @@ public class CommandParserTest {
     @Test
     public void getMainArgumentTest() {
         CommandParser parser = new CommandParser();
-        String target = "mainCommand";
+        String target = "maincommand";
         String command = "mainCommand payload --argument payload1";
         try {
             String result1 = parser.getMainArgument(command);
@@ -114,7 +114,7 @@ public class CommandParserTest {
     @Test
     public void getMainArgumentTest_paddedInput_success() {
         CommandParser parser = new CommandParser();
-        String target = "mainCommand";
+        String target = "maincommand";
         String command = "   mainCommand payload --argument payload1";
         try {
             String result1 = parser.getMainArgument(command);
@@ -130,7 +130,7 @@ public class CommandParserTest {
     @Test
     public void getMainArgumentTest_specialWhitespace_success() {
         CommandParser parser = new CommandParser();
-        String target = "mainCommand";
+        String target = "maincommand";
         String command = "\n \t mainCommand payload --argument payload1";
         try {
             String result1 = parser.getMainArgument(command);
