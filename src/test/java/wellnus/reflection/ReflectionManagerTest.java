@@ -2,14 +2,11 @@ package wellnus.reflection;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.junit.jupiter.api.Test;
 
-import wellnus.command.Command;
 import wellnus.exception.BadCommandException;
 
 class ReflectionManagerTest {
@@ -17,8 +14,6 @@ class ReflectionManagerTest {
     private static final String GET_COMMAND = "get";
     private static final String INVALID_COMMAND = "test";
     private static final String SEPARATOR = " ";
-    private static final int INDEX_ZERO = 0;
-    private static final int INDEX_ONE = 1;
 
     // Test whether exceptions are thrown for invalid command
     @Test
@@ -55,15 +50,6 @@ class ReflectionManagerTest {
         HashMap<String, String> argumentPayload = reflectionManager.getArgumentPayload();
         String value = argumentPayload.get(GET_COMMAND);
         assertEquals(EMPTY_STRING, value);
-    }
-
-    // Test whether supported commands are properly set up.
-    @Test
-    void setSupportedCommands_checkCommandTypes_success() {
-        ReflectionManager reflectionManager = new ReflectionManager();
-        ArrayList<Command> supportedCommands = reflectionManager.getSupportedCommands();
-        assertTrue(supportedCommands.get(INDEX_ZERO) instanceof GetCommand);
-        assertTrue(supportedCommands.get(INDEX_ONE) instanceof HomeCommand);
     }
 }
 

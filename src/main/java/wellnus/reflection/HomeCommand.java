@@ -13,6 +13,8 @@ import wellnus.exception.BadCommandException;
  * @@author wenxin-c
  */
 public class HomeCommand extends Command {
+    public static final String COMMAND_DESCRIPTION = "home - Return back to the main menu of WellNUS++.";
+    public static final String COMMAND_USAGE = "usage: home";
     private static final Logger LOGGER = Logger.getLogger("ReflectHomeCommandLogger");
     private static final String FEATURE_NAME = "reflect";
     private static final String COMMAND_KEYWORD = "home";
@@ -64,6 +66,32 @@ public class HomeCommand extends Command {
     @Override
     protected String getFeatureKeyword() {
         return FEATURE_NAME;
+    }
+
+    /**
+     * Method to ensure that developers add in a command usage.
+     * <p>
+     * For example, for the 'add' command in AtomicHabit package: <br>
+     * "usage: add --name (name of habit)"
+     *
+     * @return String of the proper usage of the habit
+     */
+    @Override
+    public String getCommandUsage() {
+        return COMMAND_USAGE;
+    }
+
+    /**
+     * Method to ensure that developers add in a description for the command.
+     * <p>
+     * For example, for the 'add' command in AtomicHabit package: <br>
+     * "add - add a habit to your list"
+     *
+     * @return String of the description of what the command does
+     */
+    @Override
+    public String getCommandDescription() {
+        return COMMAND_DESCRIPTION;
     }
 
     /**

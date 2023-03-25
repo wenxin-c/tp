@@ -15,6 +15,9 @@ import wellnus.exception.BadCommandException;
  * @@author wenxin-c
  */
 public class FavoriteCommand extends Command {
+    public static final String COMMAND_DESCRIPTION = "fav - Get the list of questions that have been added to "
+            + "the favorite list.";
+    public static final String COMMAND_USAGE = "usage: fav";
     private static final String COMMAND_KEYWORD = "fav";
     private static final String PAYLOAD = "";
     private static final String FEATURE_NAME = "reflect";
@@ -70,6 +73,32 @@ public class FavoriteCommand extends Command {
     @Override
     protected String getFeatureKeyword() {
         return FEATURE_NAME;
+    }
+
+    /**
+     * Method to ensure that developers add in a command usage.
+     * <p>
+     * For example, for the 'add' command in AtomicHabit package: <br>
+     * "usage: add --name (name of habit)"
+     *
+     * @return String of the proper usage of the habit
+     */
+    @Override
+    public String getCommandUsage() {
+        return COMMAND_USAGE;
+    }
+
+    /**
+     * Method to ensure that developers add in a description for the command.
+     * <p>
+     * For example, for the 'add' command in AtomicHabit package: <br>
+     * "add - add a habit to your list"
+     *
+     * @return String of the description of what the command does
+     */
+    @Override
+    public String getCommandDescription() {
+        return COMMAND_DESCRIPTION;
     }
 
     /**

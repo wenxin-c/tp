@@ -16,6 +16,8 @@ import wellnus.exception.BadCommandException;
  * @@author wenxin-c
  */
 public class LikeCommand extends Command {
+    public static final String COMMAND_DESCRIPTION = "like (index) - Add a particular question to favorite list.";
+    public static final String COMMAND_USAGE = "usage: like (index)";
     private static final String COMMAND_KEYWORD = "like";
     private static final String FEATURE_NAME = "reflect";
     private static final String INVALID_COMMAND_MSG = "Command is invalid.";
@@ -75,6 +77,32 @@ public class LikeCommand extends Command {
     @Override
     protected String getFeatureKeyword() {
         return FEATURE_NAME;
+    }
+
+    /**
+     * Method to ensure that developers add in a command usage.
+     * <p>
+     * For example, for the 'add' command in AtomicHabit package: <br>
+     * "usage: add --name (name of habit)"
+     *
+     * @return String of the proper usage of the habit
+     */
+    @Override
+    public String getCommandUsage() {
+        return COMMAND_USAGE;
+    }
+
+    /**
+     * Method to ensure that developers add in a description for the command.
+     * <p>
+     * For example, for the 'add' command in AtomicHabit package: <br>
+     * "add - add a habit to your list"
+     *
+     * @return String of the description of what the command does
+     */
+    @Override
+    public String getCommandDescription() {
+        return COMMAND_DESCRIPTION;
     }
 
     /**

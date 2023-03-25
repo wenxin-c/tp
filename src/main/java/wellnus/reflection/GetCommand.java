@@ -15,6 +15,8 @@ import wellnus.exception.BadCommandException;
  * @@author wenxin-c
  */
 public class GetCommand extends Command {
+    public static final String COMMAND_DESCRIPTION = "get - Get a list of questions to reflect on.";
+    public static final String COMMAND_USAGE = "usage: get";
     private static final Logger LOGGER = Logger.getLogger("ReflectGetCommandLogger");
     private static final String FEATURE_NAME = "reflect";
     private static final String COMMAND_KEYWORD = "get";
@@ -72,6 +74,32 @@ public class GetCommand extends Command {
     }
 
     /**
+     * Method to ensure that developers add in a command usage.
+     * <p>
+     * For example, for the 'add' command in AtomicHabit package: <br>
+     * "usage: add --name (name of habit)"
+     *
+     * @return String of the proper usage of the habit
+     */
+    @Override
+    public String getCommandUsage() {
+        return COMMAND_USAGE;
+    }
+
+    /**
+     * Method to ensure that developers add in a description for the command.
+     * <p>
+     * For example, for the 'add' command in AtomicHabit package: <br>
+     * "add - add a habit to your list"
+     *
+     * @return String of the description of what the command does
+     */
+    @Override
+    public String getCommandDescription() {
+        return COMMAND_DESCRIPTION;
+    }
+
+    /**
      * Entry point to this command.<br/>
      * Trigger the generation of five random questions and print to users.<br/>
      */
@@ -116,6 +144,8 @@ public class GetCommand extends Command {
     /**
      * Use questionList object to generate a set of 5 random integers(0-9) which will then be used as indexes to get
      * a set of 5 random questions.
+     * <br/>
+     * Each number num: num >= 0 and num <= (maxSize - 1)
      *
      * @return The selected sets of random questions
      */

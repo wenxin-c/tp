@@ -16,24 +16,18 @@ import wellnus.manager.Manager;
  * This class oversees the command execution for self reflection section.
  */
 public class ReflectionManager extends Manager {
+    public static final String FEATURE_HELP_DESCRIPTION = "Reflection - Take some time to pause and reflect "
+            + "with our specially curated list of questions and reflection management tools.";
     private static final Logger LOGGER = Logger.getLogger("ReflectionManagerLogger");
     private static final String FEATURE_NAME = "reflect";
-    private static final String BRIEF_DESCRIPTION = "Users can get a random set of questions to reflect on.";
-    private static final String FULL_DESCRIPTION = "";
     private static final String GET_COMMAND = "get";
-    private static final String GET_PAYLOAD = "";
     private static final String HOME_COMMAND = "home";
-    private static final String HOME_PAYLOAD = "";
     private static final String LIKE_COMMAND = "like";
-    private static final String LIKE_PAYLOAD = "1";
     private static final String FAV_COMMAND = "fav";
-    private static final String FAV_PAYLOAD = "";
     private static final String NO_ELEMENT_MESSAGE = "There is no new line of input, please key in inputs.";
     private static final String INVALID_COMMAND_MESSAGE = "Please check the available commands "
             + "and enter a valid command.";
     private static final String COMMAND_TYPE_ASSERTION = "Command type should have length greater than 0";
-    // TODO: Update with more commands being added
-    private static final String SUPPORTED_COMMANDS_ASSERTION = "The number of supported commands should be 4";
     private static final String ARGUMENT_PAYLOAD_ASSERTION = "Argument-payload pairs cannot be empty";
     private static final String LOGO =
             "  _____ ______ _      ______   _____  ______ ______ _      ______ _____ _______ _____ ____  _   _ \n"
@@ -52,15 +46,13 @@ public class ReflectionManager extends Manager {
             + System.lineSeparator() + "Feel very occupied and cannot find time to self reflect?"
             + System.lineSeparator() + "No worries, this section will give you the opportunity to reflect "
             + "and improve on yourself!!";
-    // This attribute should be set as static to avoid confusion if a new object is created.
-    // It means exit from self reflection back to main interface
-    // TODO: Update with more commands being added
-    private static final int NUM_SUPPORTED_COMMANDS = 4;
     private static final int EMPTY_COMMAND = 0;
     private static final boolean IS_EXIT_INITIAL = false;
     private static final Integer[] ARR_INDEXES = { 5, 6, 7, 8, 1};
     private static final Set<Integer> RANDOM_INDEXES = new HashSet<>(Arrays.asList(ARR_INDEXES));
     private static final ReflectUi UI = new ReflectUi();
+    // This attribute should be set as static to avoid confusion if a new object is created.
+    // It means exit from self reflection back to main interface
     private static boolean isExit;
     private String commandType;
     private HashMap<String, String> argumentPayload;
@@ -71,7 +63,6 @@ public class ReflectionManager extends Manager {
      */
     public ReflectionManager() {
         setIsExit(IS_EXIT_INITIAL);
-        setSupportedCommands();
     }
 
     public static void setIsExit(boolean status) {
@@ -101,57 +92,19 @@ public class ReflectionManager extends Manager {
     }
 
     /**
-     * Get a summary of description of self reflection feature.
+     * Abstract function to ensure developers add in a getter for the feature's help description.
+     * <p>
+     * This description will be shown when the user types in the help command. <br>
+     * The description should be a brief overview of what the feature does. <br>
+     * For example: <br>
+     * "reflect: Reflect is your go-to tool to get, save and reflect on our specially
+     * curated list of questions to reflect on"
      *
-     * @return Brief description of self reflection
+     * @return String of the feature's help description
      */
     @Override
-    public String getBriefDescription() {
-        return BRIEF_DESCRIPTION;
-    }
-
-    /**
-     * Get a full description of self reflection feature.<br/>
-     * TODO: FULL_DESCRIPTION is not completed yet!
-     *
-     * @return Full description of self reflection
-     */
-    @Override
-    public String getFullDescription() {
-        return FULL_DESCRIPTION;
-    }
-
-    /**
-     * Set up the set of command-payload pairs supported by self reflection.<br/>
-     * <li>Command: get, Payload: ""
-     * <li>Command: home, Payload: ""
-     * <li>Command: like, Payload: "1"(Integer from 1 to 5)
-     * <li>Command: fav, Payload: ""
-     */
-    @Override
-    protected void setSupportedCommands() {
-        try {
-            HashMap<String, String> getCmdArgumentPayload = new HashMap<>();
-            getCmdArgumentPayload.put(GET_COMMAND, GET_PAYLOAD);
-            GetCommand getCmd = new GetCommand(getCmdArgumentPayload, questionList);
-            HashMap<String, String> homeCmdArgumentPayload = new HashMap<>();
-            homeCmdArgumentPayload.put(HOME_COMMAND, HOME_PAYLOAD);
-            HomeCommand returnCmd = new HomeCommand(homeCmdArgumentPayload, questionList);
-            HashMap<String, String> likeCmdArgumentPayload = new HashMap<>();
-            likeCmdArgumentPayload.put(LIKE_COMMAND, LIKE_PAYLOAD);
-            LikeCommand likeCmd = new LikeCommand(likeCmdArgumentPayload, questionList);
-            HashMap<String, String> favCmdArgumentPayload = new HashMap<>();
-            favCmdArgumentPayload.put(FAV_COMMAND, FAV_PAYLOAD);
-            FavoriteCommand favCmd = new FavoriteCommand(favCmdArgumentPayload, questionList);
-            supportedCommands.add(getCmd);
-            supportedCommands.add(returnCmd);
-            supportedCommands.add(likeCmd);
-            supportedCommands.add(favCmd);
-        } catch (BadCommandException | NumberFormatException badCommandException) {
-            LOGGER.log(Level.INFO, INVALID_COMMAND_MESSAGE);
-            UI.printErrorFor(badCommandException, INVALID_COMMAND_MESSAGE);
-        }
-        assert supportedCommands.size() == NUM_SUPPORTED_COMMANDS : SUPPORTED_COMMANDS_ASSERTION;
+    public String getFeatureHelpDescription() {
+        return FEATURE_HELP_DESCRIPTION;
     }
 
     /**
