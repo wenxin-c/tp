@@ -13,10 +13,10 @@ import wellnus.manager.Manager;
  * This class oversees the command execution for self reflection section.
  */
 public class ReflectionManager extends Manager {
+    public static final String FEATURE_HELP_DESCRIPTION = "Reflection - Take some time to pause and reflect "
+            + "with our specially curated list of questions and reflection management tools.";
     private static final Logger LOGGER = Logger.getLogger("ReflectionManagerLogger");
     private static final String FEATURE_NAME = "reflect";
-    private static final String BRIEF_DESCRIPTION = "Users can get a random set of questions to reflect on.";
-    private static final String FULL_DESCRIPTION = "";
     private static final String GET_COMMAND = "get";
     private static final String GET_PAYLOAD = "";
     private static final String HOME_COMMAND = "home";
@@ -45,7 +45,6 @@ public class ReflectionManager extends Manager {
      */
     public ReflectionManager() {
         setIsExit(INITIAL_EXIT_STATUS);
-        setSupportedCommands();
     }
 
     public HashMap<String, String> getArgumentPayload() {
@@ -75,47 +74,19 @@ public class ReflectionManager extends Manager {
     }
 
     /**
-     * Get a summary of description of self reflection feature.
+     * Abstract function to ensure developers add in a getter for the feature's help description.
+     * <p>
+     * This description will be shown when the user types in the help command. <br>
+     * The description should be a brief overview of what the feature does. <br>
+     * For example: <br>
+     * "reflect: Reflect is your go-to tool to get, save and reflect on our specially
+     * curated list of questions to reflect on"
      *
-     * @return Brief description of self reflection
+     * @return String of the feature's help description
      */
     @Override
-    public String getBriefDescription() {
-        return BRIEF_DESCRIPTION;
-    }
-
-    /**
-     * Get a full description of self reflection feature.<br/>
-     * TODO: FULL_DESCRIPTION is not completed yet!
-     *
-     * @return Full description of self reflection
-     */
-    @Override
-    public String getFullDescription() {
-        return FULL_DESCRIPTION;
-    }
-
-    /**
-     * Set up the set of command-payload pairs supported by self reflection.<br/>
-     * <li>Command: get, Payload: ""
-     * <li>Command: home, Payload: ""
-     */
-    @Override
-    protected void setSupportedCommands() {
-        try {
-            HashMap<String, String> getCmdArgumentPayload = new HashMap<>();
-            getCmdArgumentPayload.put(GET_COMMAND, GET_PAYLOAD);
-            GetCommand getCmd = new GetCommand(getCmdArgumentPayload);
-            HashMap<String, String> homeCmdArgumentPayload = new HashMap<>();
-            homeCmdArgumentPayload.put(HOME_COMMAND, HOME_PAYLOAD);
-            HomeCommand returnCmd = new HomeCommand(homeCmdArgumentPayload);
-            supportedCommands.add(getCmd);
-            supportedCommands.add(returnCmd);
-        } catch (BadCommandException badCommandException) {
-            LOGGER.log(Level.INFO, INVALID_COMMAND_MESSAGE);
-            UI.printErrorFor(badCommandException, INVALID_COMMAND_MESSAGE);
-        }
-        assert supportedCommands.size() == NUM_SUPPORTED_COMMANDS : SUPPORTED_COMMANDS_ASSERTION;
+    public String getFeatureHelpDescription() {
+        return FEATURE_HELP_DESCRIPTION;
     }
 
     /**

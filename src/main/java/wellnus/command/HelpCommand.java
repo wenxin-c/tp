@@ -1,31 +1,28 @@
 package wellnus.command;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
+import wellnus.atomichabit.feature.AtomicHabitManager;
+import wellnus.common.MainManager;
 import wellnus.exception.BadCommandException;
+import wellnus.reflection.ReflectionManager;
 import wellnus.ui.TextUi;
 
 /**
  * Implementation of WellNus' <code>help</code> command. Explains to the user what commands are supported
  * by WellNus and how to use each command.
  */
+//@@author: nichyjt
 public class HelpCommand extends Command {
+    public static final String COMMAND_DESCRIPTION = "help - Get help on what commands can be used in WellNUS++";
+    public static final String COMMAND_USAGE = "usage: help (command-to-check)";
     private static final String BAD_COMMAND_MESSAGE = "help does not take in any arguments!";
     private static final String COMMAND_KEYWORD = "help";
     private static final String NO_FEATURE_KEYWORD = "";
-
-    private static final String HELP_PREAMBLE = "We are here to ensure your wellness"
-                                                    + " is taken care of through WellNUS++\n"
-                                                    + "Here are all the commands available for you!\n";
-    private static final String FEATURE_HABIT = "hb - Enter Atomic Habits: "
-                                                    + "Track your small daily habits and "
-                                                    + "nurture it to form a larger behaviour";
+    private static final String HELP_PREAMBLE = "Here are all the commands available for you!";
     private static final String USAGE_HABIT = "\tusage: hb";
-    private static final String FEATURE_REFLECT = "reflect - Read through introspective questions for your reflection";
     private static final String USAGE_REFLECT = "\tusage: reflect";
-    private static final String COMMAND_EXIT = "exit - Exit WellNUS++";
-    private static final String USAGE_EXIT = "\tusage: exit";
-
     private static final String PADDING = " ";
     private static final String DOT = ".";
     private static final int ONE_OFFSET = 1;
@@ -47,29 +44,44 @@ public class HelpCommand extends Command {
         return this.textUi;
     }
 
+    private ArrayList<String> getCommandDescriptions() {
+        ArrayList<String> commandDescriptions = new ArrayList<>();
+        commandDescriptions.add(AtomicHabitManager.FEATURE_HELP_DESCRIPTION);
+        commandDescriptions.add(ReflectionManager.FEATURE_HELP_DESCRIPTION);
+        commandDescriptions.add(ExitCommand.COMMAND_DESCRIPTION);
+        commandDescriptions.add(COMMAND_DESCRIPTION);
+        return commandDescriptions;
+    }
+
+    private ArrayList<String> getCommandUsages() {
+        ArrayList<String> commandUsages = new ArrayList<>();
+        commandUsages.add(USAGE_HABIT);
+        commandUsages.add(USAGE_REFLECT);
+        commandUsages.add(ExitCommand.COMMAND_USAGE);
+        commandUsages.add(COMMAND_USAGE);
+        return commandUsages;
+    }
+
     /**
-     * Lists all features available in WellNUS++ and a short description
+     * Lists all features available in WellNUS++ and a short description.
      */
     private void printHelpMessage() {
-        this.getTextUi().printOutputMessage(HELP_PREAMBLE);
-        // Refactor this out if it does not scale well
-        String[] commandDescriptions = {
-            FEATURE_HABIT, FEATURE_REFLECT, COMMAND_EXIT
-        };
-        String[] commandUsages = {
-            USAGE_HABIT, USAGE_REFLECT, USAGE_EXIT
-        };
-        String outputMessage = "";
-        for (int i = 0; i < commandUsages.length; i += 1) {
+        ArrayList<String> commandDescriptions = getCommandDescriptions();
+        ArrayList<String> commandUsages = getCommandUsages();
+        // Add in description
+        String outputMessage = MainManager.FEATURE_HELP_DESCRIPTION;
+        outputMessage = outputMessage.concat(System.lineSeparator());
+        outputMessage = outputMessage.concat(HELP_PREAMBLE);
+        outputMessage = outputMessage.concat(System.lineSeparator() + System.lineSeparator());
+
+        for (int i = 0; i < commandUsages.size(); i += 1) {
             outputMessage = outputMessage.concat(i + ONE_OFFSET + DOT + PADDING);
-            outputMessage = outputMessage.concat(commandDescriptions[i] + System.lineSeparator());
-            outputMessage = outputMessage.concat(commandUsages[i] + System.lineSeparator());
+            outputMessage = outputMessage.concat(commandDescriptions.get(i) + System.lineSeparator());
+            outputMessage = outputMessage.concat(commandUsages.get(i) + System.lineSeparator());
         }
         this.getTextUi().printOutputMessage(outputMessage);
     }
 
-
-    // TODO: Potential depreciation of the below functions
     @Override
     protected String getCommandKeyword() {
         return HelpCommand.COMMAND_KEYWORD;
@@ -113,5 +125,31 @@ public class HelpCommand extends Command {
         if (arguments.get(COMMAND_KEYWORD).length() > EMPTY_ARG_LENGTH || arguments.size() > EXPECTED_PAYLOAD_SIZE) {
             throw new BadCommandException(BAD_COMMAND_MESSAGE);
         }
+    }
+
+    /**
+     * Abstract method to ensure developers add in a command usage.
+     * <p>
+     * For example, for the 'add' command in AtomicHabit package: <br>
+     * "usage: add --name (name of habit)"
+     *
+     * @return String of the proper usage of the habit
+     */
+    @Override
+    public String getCommandUsage() {
+        return COMMAND_USAGE;
+    }
+
+    /**
+     * Method to ensure that developers add in a description for the command.
+     * <p>
+     * For example, for the 'add' command in AtomicHabit package: <br>
+     * "add - add a habit to your list"
+     *
+     * @return String of the description of what the command does
+     */
+    @Override
+    public String getCommandDescription() {
+        return COMMAND_DESCRIPTION;
     }
 }

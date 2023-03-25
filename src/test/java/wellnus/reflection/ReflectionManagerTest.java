@@ -2,14 +2,11 @@ package wellnus.reflection;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.junit.jupiter.api.Test;
 
-import wellnus.command.Command;
 import wellnus.exception.BadCommandException;
 
 class ReflectionManagerTest {
@@ -54,13 +51,5 @@ class ReflectionManagerTest {
         assertEquals(EMPTY_STRING, value);
     }
 
-    // Test whether supported commands are properly set up.
-    @Test
-    void setSupportedCommands_checkCommandTypes_success() {
-        ReflectionManager reflectionManager = new ReflectionManager();
-        ArrayList<Command> supportedCommands = reflectionManager.getSupportedCommands();
-        assertTrue(supportedCommands.get(0) instanceof GetCommand);
-        assertTrue(supportedCommands.get(1) instanceof HomeCommand);
-    }
 }
 

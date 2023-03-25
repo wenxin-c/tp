@@ -11,6 +11,8 @@ import wellnus.ui.TextUi;
  * The HomeCommand class is a command class that returns user back to the main WellNUS++ program.<br>
  */
 public class HomeCommand extends Command {
+    public static final String COMMAND_DESCRIPTION = "home - Return back to the main menu of WellNUS++.";
+    public static final String COMMAND_USAGE = "usage: home";
     private static final int COMMAND_NUM_OF_ARGUMENTS = 1;
     private static final String COMMAND_INVALID_ARGUMENTS_MESSAGE = "That is not a valid home command for "
             + "atomic habits!";
@@ -19,6 +21,7 @@ public class HomeCommand extends Command {
     private static final String HOME_MESSAGE = "Thank you for using atomic habits. Do not forget about me!";
     private static final String NO_ADDITIONAL_MESSAGE = "";
     private final TextUi textUi;
+
     /**
      * Constructs an HomeCommand object.<br>
      *
@@ -34,7 +37,7 @@ public class HomeCommand extends Command {
     }
 
     /**
-     * Check if a HomeCommand is executed and user wants to return to home
+     * Check if a HomeCommand is executed and user wants to return to home.
      *
      * @param command User command
      * @return true If user wants to exit feature false if not
@@ -107,6 +110,32 @@ public class HomeCommand extends Command {
         if (!arguments.containsKey(HomeCommand.COMMAND_KEYWORD)) {
             throw new BadCommandException(HomeCommand.COMMAND_INVALID_COMMAND_MESSAGE);
         }
+    }
+
+    /**
+     * Method to ensure that developers add in a command usage.
+     * <p>
+     * For example, for the 'add' command in AtomicHabit package: <br>
+     * "usage: add --name (name of habit)"
+     *
+     * @return String of the proper usage of the habit
+     */
+    @Override
+    public String getCommandUsage() {
+        return COMMAND_USAGE;
+    }
+
+    /**
+     * Method to ensure that developers add in a description for the command.
+     * <p>
+     * For example, for the 'add' command in AtomicHabit package: <br>
+     * "add - add a habit to your list"
+     *
+     * @return String of the description of what the command does
+     */
+    @Override
+    public String getCommandDescription() {
+        return COMMAND_DESCRIPTION;
     }
 }
 
