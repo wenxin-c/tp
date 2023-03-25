@@ -48,7 +48,7 @@ public abstract class Manager {
     }
 
     /**
-     * Utility function to get the featureName this Manager is administering
+     * Utility function to get the featureName this Manager is administering.
      *
      * @return name of the feature that this Manager handles
      */
@@ -68,7 +68,7 @@ public abstract class Manager {
     public abstract String getFeatureHelpDescription();
 
     /**
-     * runEventDriver is the entry point into a feature's driver loop <br>
+     * runEventDriver is the entry point into a feature's driver loop. <br>
      * <br>
      * This should be the part that contains the infinite loop and switch cases,
      * but it is up to the implementer. <br>
