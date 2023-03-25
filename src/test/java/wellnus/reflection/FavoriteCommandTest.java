@@ -30,6 +30,5 @@ class FavoriteCommandTest {
         String favQuestions = favCmd.getFavQuestions();
         assertEquals(IS_CORRECT_LENGTH, favQuestions.length() >= MIN_QUESTION_LENGTH);
     }
-
 }
 
