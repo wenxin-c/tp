@@ -15,11 +15,15 @@ public class HelpCommand extends Command {
     private static final String NO_FEATURE_KEYWORD = "";
 
     private static final String HELP_PREAMBLE = "We are here to ensure your wellness"
-                                                    + " is taken care of through WellNUS++\n"
-                                                    + "Here are all the commands available for you!\n";
+                + " is taken care of through WellNUS++\n"
+                + "Here are all the commands available for you!\n";
+    private static final String FEATURE_FOCUS = "ft - Enter Focus Timer: "
+                + "Focus on your important tasks for "
+                + "productivity and curb digital addiction";
+    private static final String USAGE_FOCUS = "\tusage: ft";
     private static final String FEATURE_HABIT = "hb - Enter Atomic Habits: "
-                                                    + "Track your small daily habits and "
-                                                    + "nurture it to form a larger behaviour";
+                + "Track your small daily habits and "
+                + "nurture it to form a larger behaviour";
     private static final String USAGE_HABIT = "\tusage: hb";
     private static final String FEATURE_REFLECT = "reflect - Read through introspective questions for your reflection";
     private static final String USAGE_REFLECT = "\tusage: reflect";
@@ -54,10 +58,10 @@ public class HelpCommand extends Command {
         this.getTextUi().printOutputMessage(HELP_PREAMBLE);
         // Refactor this out if it does not scale well
         String[] commandDescriptions = {
-            FEATURE_HABIT, FEATURE_REFLECT, COMMAND_EXIT
+            FEATURE_FOCUS, FEATURE_HABIT, FEATURE_REFLECT, COMMAND_EXIT
         };
         String[] commandUsages = {
-            USAGE_HABIT, USAGE_REFLECT, USAGE_EXIT
+            USAGE_FOCUS, USAGE_HABIT, USAGE_REFLECT, USAGE_EXIT
         };
         String outputMessage = "";
         for (int i = 0; i < commandUsages.length; i += 1) {

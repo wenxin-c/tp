@@ -79,7 +79,9 @@ public class HomeCommand extends Command {
             textUi.printErrorFor(badCommandException, NO_ADDITIONAL_MESSAGE);
             return;
         }
-        session.getSession().get(session.getCurrentCountdownIndex()).setStop();
+        if (session.hasAnyCountdown()) {
+            session.getSession().get(session.getCurrentCountdownIndex()).setStop();
+        }
         textUi.printOutputMessage(HOME_MESSAGE);
     }
 

@@ -26,7 +26,6 @@ public class Session {
      */
     public Session() {
         this.session = new ArrayList<>();
-        fillSession();
     }
 
     /**
@@ -67,10 +66,21 @@ public class Session {
      * Method to increment the current countdown index if the current countdown is completed.
      */
     public void checkPrevCountdown() {
+        if (session.size() == 0) {
+            return;
+        }
         if (session.get(currentCountdownIndex).getIsCompletedCountdown()
                 && currentCountdownIndex < session.size() - INCREMENT) {
             currentCountdownIndex += INCREMENT;
         }
+    }
+
+    public void init() {
+        fillSession();
+    }
+
+    public boolean hasAnyCountdown() {
+        return session.size() > 0;
     }
 
     /**

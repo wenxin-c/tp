@@ -20,6 +20,7 @@ public class Countdown {
     private static final int DEFAULT_SECONDS = 59;
     private static final int INITIAL_SECONDS = 0;
     private static final String MINUTES_INPUT_ASSERTION = "Minutes should be greater than 0";
+    private static final String STOP_BEFORE_START_ASSERTION = "Timer should be started before trying to stop it";
     private static final String TIMER_NOT_RUNNING_ASSERTION = "Timer should not be running";
     private static final String TIMER_COMPLETE_MESSAGE = "Type start to begin the next countdown";
     private TextUi textUi;
@@ -43,7 +44,6 @@ public class Countdown {
         this.minutes = minutes;
         this.inputMinutes = minutes;
         this.seconds = INITIAL_SECONDS;
-        this.timer = new Timer();
         this.isCompletedCountdown = new AtomicBoolean(false);
         this.isRunClock = new AtomicBoolean(false);
         this.description = description;
@@ -56,8 +56,7 @@ public class Countdown {
      * A message will be printed to the user to notify them that the countdown has completed.
      */
     private void timerComplete() {
-        isCompletedCountdown.set(true);
-        timer.cancel();
+        setStop();
         java.awt.Toolkit.getDefaultToolkit().beep();
         textUi.printOutputMessage(TIMER_COMPLETE_MESSAGE);
         this.minutes = inputMinutes;
@@ -84,7 +83,14 @@ public class Countdown {
      */
     public void start() {
         assert isRunClock.get() == false : TIMER_NOT_RUNNING_ASSERTION;
-        timer.scheduleAtFixedRate(new TimerTask() {
+        /*
+         * new Timer() results in a background Thread being created.
+         * We lazy initialise this Thread by calling new Timer() inside start() instead of
+         * Countdown's constructor.
+         * This also reduces memory usage.
+         */
+        timer = new Timer();
+        TimerTask countdownTask = new TimerTask() {
             @Override
             public void run() {
                 if (isRunClock.get()) {
@@ -98,7 +104,8 @@ public class Countdown {
                     }
                 }
             }
-        }, DELAY_TIME, ONE_SECOND);
+        };
+        timer.scheduleAtFixedRate(countdownTask, DELAY_TIME, ONE_SECOND);
 
     }
 
@@ -115,7 +122,13 @@ public class Countdown {
      * This method will stop the countdown timer and stops the background thread.
      */
     public void setStop() {
+        // timer is only initialised in start() method, so calling setStop() leads
+        // to a crash. Catch this mistake with an assertion
+        assert timer != null : STOP_BEFORE_START_ASSERTION;
+        isCompletedCountdown.set(true);
+        isRunClock.set(false);
         timer.cancel();
+        timer.purge();
     }
 
     /**

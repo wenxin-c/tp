@@ -73,7 +73,13 @@ public class StartCommand extends Command {
             return;
         }
         session.checkPrevCountdown();
-        if (!session.getSession().get(session.getCurrentCountdownIndex()).getIsRunning()) {
+        // Session is no longer initialised upon calling new Session(), so initialise it the first
+        // time a countdown is started
+        if (!session.hasAnyCountdown()) {
+            session.init();
+        }
+        if (!session.getSession().get(session.getCurrentCountdownIndex()).getIsCompletedCountdown()
+                || !session.getSession().get(session.getCurrentCountdownIndex()).getIsRunning()) {
             if (session.getCurrentCountdownIndex() == 0) {
                 textUi.printOutputMessage(START_MESSAGE);
             }
