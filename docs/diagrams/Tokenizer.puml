@@ -1,0 +1,29 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
+
+package "Storage" {
+  interface Tokenizer {
+    + tokenize(ArrayList<T>)
+    + detokenize(ArrayList<String>)
+  }
+
+  class AtomicHabitTokenizer {
+    - splitTokenizedHabitIntoParameter(String)
+    + tokenize(ArrayList<AtomicHabit>)
+    + detokenize(ArrayList<String>)
+  }
+
+  class ReflectionTokenizer {
+    - getTokenizedIndexes(String, Set<Integer>)
+    - getSet(String)
+    + tokenize(ArrayList<Set<Integer>>)
+    + detokenize(ArrayList<String>)
+  }
+}
+
+Tokenizer <|-- AtomicHabitTokenizer
+Tokenizer <|-- ReflectionTokenizer
+@enduml
