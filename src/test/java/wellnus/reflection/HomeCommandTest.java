@@ -12,6 +12,8 @@ import wellnus.exception.BadCommandException;
 /**
  * Class to test different tests for HomeCommand Class utilising JUnit tests
  * Test cases will involve expected outputs and correct exception handling
+ *
+ * @@author wenxin-c
  */
 class HomeCommandTest {
     private static final String HOME_COMMAND = "home";
@@ -19,6 +21,7 @@ class HomeCommandTest {
     private static final String HOME_COMMAND_WITH_SPACES = "   home   ";
     private static final boolean IS_NOT_EXIT = false;
     private static final boolean IS_EXIT = true;
+    private static final QuestionList questionList = new QuestionList();
 
     // Test whether ReturnCommand execute() method can terminate self reflection or not.
     @Test
@@ -26,8 +29,8 @@ class HomeCommandTest {
         ReflectionManager reflectionManager = new ReflectionManager();
         reflectionManager.setArgumentPayload(HOME_COMMAND);
         HashMap<String, String> returnArgumentPayload = reflectionManager.getArgumentPayload();
-        HomeCommand returnCmd = new HomeCommand(returnArgumentPayload);
-        returnCmd.execute();
+        HomeCommand homeCmd = new HomeCommand(returnArgumentPayload, questionList);
+        homeCmd.execute();
         assertEquals(IS_EXIT, reflectionManager.getIsExit());
     }
 
@@ -37,8 +40,8 @@ class HomeCommandTest {
         ReflectionManager reflectionManager = new ReflectionManager();
         reflectionManager.setArgumentPayload(HOME_COMMAND);
         HashMap<String, String> returnArgumentPayload = reflectionManager.getArgumentPayload();
-        HomeCommand returnCmd = new HomeCommand(returnArgumentPayload);
-        returnCmd.execute();
+        HomeCommand homeCmd = new HomeCommand(returnArgumentPayload, questionList);
+        homeCmd.execute();
         ReflectionManager newReflectionManager = new ReflectionManager();
         assertEquals(IS_NOT_EXIT, newReflectionManager.getIsExit());
     }
@@ -49,7 +52,7 @@ class HomeCommandTest {
         ReflectionManager reflectionManager = new ReflectionManager();
         reflectionManager.setArgumentPayload(HOME_COMMAND_WRONG_FORMAT);
         HashMap<String, String> returnArgumentPayload = reflectionManager.getArgumentPayload();
-        HomeCommand returnCmd = new HomeCommand(returnArgumentPayload);
+        HomeCommand returnCmd = new HomeCommand(returnArgumentPayload, questionList);
         assertThrows(BadCommandException.class, () -> {
             returnCmd.validateCommand(returnArgumentPayload);
         });

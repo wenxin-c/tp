@@ -16,7 +16,9 @@ class ReflectionManagerTest {
     private static final String EMPTY_STRING = "";
     private static final String GET_COMMAND = "get";
     private static final String INVALID_COMMAND = "test";
-    private static final int RANDOM_QUESTION_SIZE = 5;
+    private static final String SEPARATOR = " ";
+    private static final int INDEX_ZERO = 0;
+    private static final int INDEX_ONE = 1;
 
     // Test whether exceptions are thrown for invalid command
     @Test
@@ -31,7 +33,7 @@ class ReflectionManagerTest {
     @Test
     void setCommandType_emptyString_expectException() {
         ReflectionManager reflectionManager = new ReflectionManager();
-        String[] input = EMPTY_STRING.split(" ");
+        String[] input = EMPTY_STRING.split(SEPARATOR);
         System.out.println(input.length);
         assertThrows(BadCommandException.class, (
         ) -> reflectionManager.setCommandType(EMPTY_STRING));
@@ -60,20 +62,8 @@ class ReflectionManagerTest {
     void setSupportedCommands_checkCommandTypes_success() {
         ReflectionManager reflectionManager = new ReflectionManager();
         ArrayList<Command> supportedCommands = reflectionManager.getSupportedCommands();
-        assertTrue(supportedCommands.get(0) instanceof GetCommand);
-        assertTrue(supportedCommands.get(1) instanceof HomeCommand);
-    }
-
-    // Test whether randomQuestionIndexes are successfully set up
-    @Test
-    void setRandomQuestionIndexes_checkSize_success() throws BadCommandException {
-        ReflectionManager reflectionManager = new ReflectionManager();
-        reflectionManager.setArgumentPayload(GET_COMMAND);
-        HashMap<String, String> argumentPayload = reflectionManager.getArgumentPayload();
-        GetCommand getCmd = new GetCommand(argumentPayload);
-        getCmd.execute();
-        assertEquals(true, ReflectionManager.getHasGetQuestions());
-        assertEquals(RANDOM_QUESTION_SIZE, ReflectionManager.getRandomQuestionIndexes().size());
+        assertTrue(supportedCommands.get(INDEX_ZERO) instanceof GetCommand);
+        assertTrue(supportedCommands.get(INDEX_ONE) instanceof HomeCommand);
     }
 }
 

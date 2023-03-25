@@ -2,6 +2,8 @@ package wellnus.reflection;
 
 /**
  * ReflectQuestion class is used to create reflect question objects.
+ *
+ * @@author wenxin-c
  */
 public class ReflectionQuestion {
     private static final int EMPTY_QUESTION = 0;

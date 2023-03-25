@@ -2,26 +2,23 @@ package wellnus.reflection;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Random;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.stream.Collectors;
 
 import wellnus.command.Command;
 import wellnus.exception.BadCommandException;
 
 /**
- * Get command to get a set of 5 random questions.
+ * Command to get a set of 5 random questions.
+ *
+ * @@author wenxin-c
  */
 public class GetCommand extends Command {
     private static final Logger LOGGER = Logger.getLogger("ReflectGetCommandLogger");
-    private static final int NUM_OF_RANDOM_QUESTIONS = 5;
     private static final String FEATURE_NAME = "reflect";
     private static final String COMMAND_KEYWORD = "get";
     private static final String PAYLOAD = "";
-    private static final int ARGUMENT_PAYLOAD_SIZE = 1;
-    private static final int MIN_SIZE = 0;
     private static final String INVALID_COMMAND_MSG = "Command is invalid.";
     private static final String INVALID_COMMAND_NOTES = "Please check the available commands "
             + "and the format of commands.";
@@ -31,20 +28,26 @@ public class GetCommand extends Command {
     private static final String NUM_SELECTED_QUESTIONS_ASSERTION = "The number of selected questions should be 5.";
     private static final String DOT = ".";
     private static final String EMPTY_STRING = "";
+    private static final int NUM_OF_RANDOM_QUESTIONS = 5;
+    private static final int ARGUMENT_PAYLOAD_SIZE = 1;
     private static final int ONE_OFFSET = 1;
-    private static final boolean GET_STATUS = true;
     private static final ReflectUi UI = new ReflectUi();
     private HashMap<String, String> argumentPayload;
+    private Set<Integer> randomQuestionIndexes;
+    private QuestionList questionList;
 
     /**
-     * Constructor to set up the argument-payload pairs for this command.
+     * Set up the argument-payload pairs for this command.<br/>
+     * Pass in a questionList object from ReflectionManager to access the list of questions.
      *
      * @param arguments Argument-payload pairs from users
+     * @param questionList Object that contains the data about questions
      * @throws BadCommandException If an invalid command is given
      */
-    public GetCommand(HashMap<String, String> arguments) throws BadCommandException {
+    public GetCommand(HashMap<String, String> arguments, QuestionList questionList) throws BadCommandException {
         super(arguments);
         this.argumentPayload = getArguments();
+        this.questionList = questionList;
         assert !argumentPayload.isEmpty() : EMPTY_ARGUMENT_PAYLOAD_ASSERTION;
     }
 
@@ -56,10 +59,6 @@ public class GetCommand extends Command {
     @Override
     protected String getCommandKeyword() {
         return COMMAND_KEYWORD;
-    }
-
-    protected HashMap<String, String> getArgumentPayload() {
-        return argumentPayload;
     }
 
     /**
@@ -88,7 +87,6 @@ public class GetCommand extends Command {
         assert argumentPayload.containsKey(COMMAND_KEYWORD) : COMMAND_KEYWORD_ASSERTION;
         assert argumentPayload.get(COMMAND_KEYWORD).equals(PAYLOAD) : COMMAND_PAYLOAD_ASSERTION;
         String outputString = convertQuestionsToString();
-        ReflectionManager.setHasGetQuestions(GET_STATUS);
         UI.printOutputMessage(outputString);
     }
 
@@ -116,39 +114,21 @@ public class GetCommand extends Command {
     }
 
     /**
-     * Get a random set of 5 reflection questions.
+     * Use questionList object to generate a set of 5 random integers(0-9) which will then be used as indexes to get
+     * a set of 5 random questions.
      *
      * @return The selected sets of random questions
      */
     public ArrayList<ReflectionQuestion> getRandomQuestions() {
+        this.questionList.setRandomQuestionIndexes();
+        this.randomQuestionIndexes = questionList.getRandomQuestionIndexes();
         ArrayList<ReflectionQuestion> selectedQuestions = new ArrayList<>();
-        SelfReflection selfReflection = new SelfReflection();
-        ArrayList<ReflectionQuestion> questions = selfReflection.getQuestions();
-        Set<Integer> fiveRandomNumbers = generateRandomNumbers(questions.size());
-        for (int index : fiveRandomNumbers) {
+        ArrayList<ReflectionQuestion> questions = questionList.getAllQuestions();
+        for (int index : this.randomQuestionIndexes) {
             selectedQuestions.add(questions.get(index));
         }
         assert selectedQuestions.size() == NUM_OF_RANDOM_QUESTIONS : NUM_SELECTED_QUESTIONS_ASSERTION;
         return selectedQuestions;
-    }
-
-    /**
-     * Generate an array of 5 random numbers.<br/>
-     * <br/>
-     * Each number num: num >= 0 and num <= (maxSize - 1)
-     *
-     * @param maxSize Number of questions available to be chosen
-     * @return Set of 5 random numbers
-     */
-    public Set<Integer> generateRandomNumbers(int maxSize) {
-        Set<Integer> randomNumbers = new Random().ints(MIN_SIZE, maxSize - ONE_OFFSET)
-                .distinct()
-                .limit(NUM_OF_RANDOM_QUESTIONS)
-                .boxed()
-                .collect(Collectors.toSet());
-        assert randomNumbers.size() == NUM_OF_RANDOM_QUESTIONS : NUM_SELECTED_QUESTIONS_ASSERTION;
-        ReflectionManager.setRandomQuestionIndexes(randomNumbers);
-        return randomNumbers;
     }
 
     /**

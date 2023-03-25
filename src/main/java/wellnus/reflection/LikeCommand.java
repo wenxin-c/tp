@@ -12,6 +12,8 @@ import wellnus.exception.BadCommandException;
 
 /**
  * Like command to add commands to favorite list.
+ *
+ * @@author wenxin-c
  */
 public class LikeCommand extends Command {
     private static final String COMMAND_KEYWORD = "like";
@@ -37,24 +39,28 @@ public class LikeCommand extends Command {
     private ArrayList<HashSet<Integer>> dataIndex;
     private HashMap<String, String> argumentPayload;
     private Set<Integer> randomQuestionIndexes;
+    private QuestionList questionList;
 
     /**
-     * Constructor to set up the argument-payload pairs for this command.
+     * Set up the argument-payload pairs for this command.<br/>
+     * Pass in a questionList object from ReflectionManager to access the indexes of the previous set of questions.
      *
      * @param arguments Argument-payload pairs from users
+     * @param questionList Object that contains the data about questions
      * @throws BadCommandException If an invalid command is given
      */
-    public LikeCommand(HashMap<String, String> arguments) throws BadCommandException {
+    public LikeCommand(HashMap<String, String> arguments, QuestionList questionList) throws BadCommandException {
         super(arguments);
         this.argumentPayload = getArguments();
-        this.randomQuestionIndexes = ReflectionManager.getRandomQuestionIndexes();
-        this.dataIndex = ReflectionManager.getDataIndex();
+        this.questionList = questionList;
+        this.randomQuestionIndexes = questionList.getRandomQuestionIndexes();
+        this.dataIndex = questionList.getDataIndex();
     }
 
     /**
      * Get the command itself.
      *
-     * @return Command: get
+     * @return Command: like
      */
     @Override
     protected String getCommandKeyword() {
@@ -133,7 +139,7 @@ public class LikeCommand extends Command {
     HashMap<Integer, Integer> mapInputToQuestion() {
         HashMap<Integer, Integer> indexQuestionMap = new HashMap<>();
         int targetedIndex = INDEX_ONE;
-        for (int index : randomQuestionIndexes) {
+        for (int index : this.randomQuestionIndexes) {
             indexQuestionMap.put(targetedIndex, index);
             targetedIndex += INDEX_ONE;
         }
@@ -152,19 +158,18 @@ public class LikeCommand extends Command {
      */
     public void addFavQuestion(String questionIndex) throws BadCommandException {
         int questionIndexInt = Integer.parseInt(questionIndex);
-        if (!ReflectionManager.getHasGetQuestions()) {
+        if (this.randomQuestionIndexes.isEmpty()) {
             throw new BadCommandException(MISSING_SET_QUESTIONS);
         }
         HashMap<Integer, Integer> indexQuestionMap = mapInputToQuestion();
         int indexToAdd = indexQuestionMap.get(questionIndexInt);
-        SelfReflection selfReflection = new SelfReflection();
-        ArrayList<ReflectionQuestion> questions = selfReflection.getQuestions();
-        if (dataIndex.get(INDEX_ZERO).contains(indexToAdd)) {
+        ArrayList<ReflectionQuestion> questions = this.questionList.getAllQuestions();
+        if (this.dataIndex.get(INDEX_ZERO).contains(indexToAdd)) {
             UI.printOutputMessage(questions.get(indexToAdd).toString() + DUPLICATE_LIKE);
             return;
         }
-        dataIndex.get(INDEX_ZERO).add(indexToAdd);
-        ReflectionManager.setDataIndex(this.dataIndex);
+        this.dataIndex.get(INDEX_ZERO).add(indexToAdd);
+        questionList.setDataIndex(this.dataIndex);
         UI.printOutputMessage(ADD_FAV_SUCCESS_ONE + questions.get(indexToAdd).toString() + ADD_FAV_SUCCESS_TWO);
     }
 }

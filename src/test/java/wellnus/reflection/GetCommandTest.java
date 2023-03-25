@@ -14,6 +14,8 @@ import wellnus.exception.BadCommandException;
 /**
  * Class to test different tests for GetCommand Class utilising JUnit tests
  * Test cases will involve expected outputs and correct exception handling
+ *
+ * @@author wenxin-c
  */
 class GetCommandTest {
     private static final int EXPECTED_ARRAY_LENGTH = 5;
@@ -21,15 +23,14 @@ class GetCommandTest {
     private static final String GET_COMMAND = "get";
     private static final String EMPTY_PAYLOAD = "";
     private static final String GET_COMMAND_WRONG_FORMAT = "get reflect";
+    private static final QuestionList questionList = new QuestionList();
 
     // Test whether the get command is properly generated
     @Test
     void createGetObject_checkArgumentPayload_success() throws BadCommandException {
         ReflectionManager reflectManager = new ReflectionManager();
         reflectManager.setArgumentPayload(GET_COMMAND);
-        HashMap<String, String> getCmdArgumentPayload = reflectManager.getArgumentPayload();
-        GetCommand get = new GetCommand(getCmdArgumentPayload);
-        HashMap<String, String> argumentPayload = get.getArgumentPayload();
+        HashMap<String, String> argumentPayload = reflectManager.getArgumentPayload();
         assertEquals(EXPECTED_ARGUMENT_PAYLOAD_SIZE, argumentPayload.size());
         assertTrue(argumentPayload.containsKey(GET_COMMAND));
         assertEquals(EMPTY_PAYLOAD, argumentPayload.get(GET_COMMAND));
@@ -41,7 +42,7 @@ class GetCommandTest {
         ReflectionManager reflectManager = new ReflectionManager();
         reflectManager.setArgumentPayload(GET_COMMAND);
         HashMap<String, String> getCmdArgumentPayload = reflectManager.getArgumentPayload();
-        GetCommand get = new GetCommand(getCmdArgumentPayload);
+        GetCommand get = new GetCommand(getCmdArgumentPayload, questionList);
         ArrayList<ReflectionQuestion> selectedQuestions = get.getRandomQuestions();
         assertEquals(EXPECTED_ARRAY_LENGTH, selectedQuestions.size());
     }
@@ -52,7 +53,7 @@ class GetCommandTest {
         ReflectionManager reflectManager = new ReflectionManager();
         reflectManager.setArgumentPayload(GET_COMMAND_WRONG_FORMAT);
         HashMap<String, String> getCmdArgumentPayload = reflectManager.getArgumentPayload();
-        GetCommand get = new GetCommand(getCmdArgumentPayload);
+        GetCommand get = new GetCommand(getCmdArgumentPayload, questionList);
         assertThrows(BadCommandException.class, () -> get.validateCommand(getCmdArgumentPayload));
     }
 }

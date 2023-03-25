@@ -11,6 +11,8 @@ import wellnus.exception.BadCommandException;
 
 /**
  * Get all the questions that are in the favorite list.
+ *
+ * @@author wenxin-c
  */
 public class FavoriteCommand extends Command {
     private static final String COMMAND_KEYWORD = "fav";
@@ -28,21 +30,26 @@ public class FavoriteCommand extends Command {
     private static final int ARGUMENT_PAYLOAD_SIZE = 1;
     private static final int INDEX_ZERO = 0;
     private static final int INDEX_ONE = 1;
+    private static final int INCREMENT_ONE = 1;
     private static final Logger LOGGER = Logger.getLogger("ReflectFavCommandLogger");
     private static final ReflectUi UI = new ReflectUi();
     private ArrayList<HashSet<Integer>> dataIndex;
     private HashMap<String, String> argumentPayload;
+    private QuestionList questionList;
 
     /**
-     * Constructor to set up the argument-payload pairs for this command.
+     * Set up the argument-payload pairs for this command.<br/>
+     * Pass in a questionList object from ReflectionManager to access the list of favorite questions.
      *
      * @param arguments Argument-payload pairs from users
+     * @param questionList Object that contains the data about questions
      * @throws BadCommandException If an invalid command is given
      */
-    public FavoriteCommand(HashMap<String, String> arguments) throws BadCommandException {
+    public FavoriteCommand(HashMap<String, String> arguments, QuestionList questionList) throws BadCommandException {
         super(arguments);
         this.argumentPayload = getArguments();
-        this.dataIndex = ReflectionManager.getDataIndex();
+        this.questionList = questionList;
+        this.dataIndex = questionList.getDataIndex();
     }
 
     /**
@@ -71,13 +78,13 @@ public class FavoriteCommand extends Command {
      * @return String of favorite questions
      */
     public String getFavQuestions() {
-        SelfReflection selfReflection = new SelfReflection();
-        ArrayList<ReflectionQuestion> questions = selfReflection.getQuestions();
+        ArrayList<ReflectionQuestion> questions = questionList.getAllQuestions();
         String questionString = EMPTY_STRING;
         int displayIndex = INDEX_ONE;
         for (int questionIndex : this.dataIndex.get(INDEX_ZERO)) {
             questionString += (displayIndex + DOT + questions.get(questionIndex).toString()
                     + System.lineSeparator());
+            displayIndex += INCREMENT_ONE;
         }
         return questionString;
     }

@@ -9,15 +9,14 @@ import wellnus.exception.BadCommandException;
 
 /**
  * Home command to return back to WellNUS++ main interface.
+ *
+ * @@author wenxin-c
  */
 public class HomeCommand extends Command {
     private static final Logger LOGGER = Logger.getLogger("ReflectHomeCommandLogger");
     private static final String FEATURE_NAME = "reflect";
     private static final String COMMAND_KEYWORD = "home";
     private static final String PAYLOAD = "";
-    private static final ReflectUi UI = new ReflectUi();
-    private static final int ARGUMENT_PAYLOAD_SIZE = 1;
-    private static final int EMPTY_ARGUMENT_PAYLOAD = 0;
     private static final String INVALID_COMMAND_MSG = "Command is invalid.";
     private static final String INVALID_COMMAND_NOTES = "Please check the available commands "
             + "and the format of commands.";
@@ -26,18 +25,24 @@ public class HomeCommand extends Command {
     private static final String COMMAND_PAYLOAD_ASSERTION = "The payload should be empty.";
     private static final String HOME_MESSAGE = "How do you feel after reflecting on yourself?"
             + System.lineSeparator() + "Hope you have gotten some takeaways from self reflection, see you again!!";
-    private static final boolean RESET_GET_STATUS = false;
+    private static final int ARGUMENT_PAYLOAD_SIZE = 1;
+    private static final int EMPTY_ARGUMENT_PAYLOAD = 0;
+    private static final ReflectUi UI = new ReflectUi();
     private HashMap<String, String> argumentPayload;
+    private QuestionList questionList;
 
     /**
-     * Constructor to set up argument-payload pairs for home command.
+     * Set up the argument-payload pairs for this command.<br/>
+     * Pass in a questionList object from ReflectionManager to manipulate history data.
      *
-     * @param arguments Argument-payload pair from users
+     * @param arguments Argument-payload pairs from users
+     * @param questionList Object that contains the data about questions
      * @throws BadCommandException If an invalid command is given
      */
-    public HomeCommand(HashMap<String, String> arguments) throws BadCommandException {
+    public HomeCommand(HashMap<String, String> arguments, QuestionList questionList) throws BadCommandException {
         super(arguments);
         this.argumentPayload = getArguments();
+        this.questionList = questionList;
         assert argumentPayload.size() > EMPTY_ARGUMENT_PAYLOAD : EMPTY_ARGUMENT_PAYLOAD_ASSERTION;
     }
 
@@ -63,7 +68,7 @@ public class HomeCommand extends Command {
 
     /**
      * Main entry point of this command.<br/>
-     * Return back to WellNUS++ main interface
+     * Return back to WellNUS++ main interface and clear the questionList history data.
      */
     @Override
     public void execute() {
@@ -77,9 +82,8 @@ public class HomeCommand extends Command {
         assert argumentPayload.containsKey(COMMAND_KEYWORD) : COMMAND_KEYWORD_ASSERTION;
         assert argumentPayload.get(COMMAND_KEYWORD).equals(PAYLOAD) : COMMAND_PAYLOAD_ASSERTION;
         UI.printOutputMessage(HOME_MESSAGE);
-        ReflectionManager.setHasGetQuestions(RESET_GET_STATUS);
-        if (!ReflectionManager.getRandomQuestionIndexes().isEmpty()) {
-            ReflectionManager.clearRandomQuestionIndexes();
+        if (!questionList.getRandomQuestionIndexes().isEmpty()) {
+            questionList.clearRandomQuestionIndexes();
         }
         ReflectionManager.setIsExit(true);
     }
@@ -89,7 +93,7 @@ public class HomeCommand extends Command {
      * <br/>
      * Conditions for command to be valid:<br/>
      * <li>Only one argument-payload pair
-     * <li>The pair contains key: return
+     * <li>The pair contains key: home
      * <li>Payload is empty
      * Whichever mismatch will cause the command to be invalid.
      *
