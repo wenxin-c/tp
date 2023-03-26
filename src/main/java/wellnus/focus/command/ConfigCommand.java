@@ -224,7 +224,7 @@ public class ConfigCommand extends Command {
         // Re-run through the validation logic for redundancy & safety
         try {
             this.newCycle = validateCycles(sessionCycle);
-            session.setWork(newCycle);
+            session.setCycle(newCycle);
         } catch (BadCommandException exception) {
             LOGGER.log(Level.SEVERE, LOG_VALIDATION_ASSUMPTION_FAIL);
             throw new FocusException(exception.getMessage());
