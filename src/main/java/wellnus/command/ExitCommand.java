@@ -1,19 +1,28 @@
 package wellnus.command;
 
+import java.util.HashMap;
+
 import wellnus.exception.BadCommandException;
 import wellnus.ui.TextUi;
 
-import java.util.HashMap;
-
+/**
+ * Provides the exit command of the WellNUS++ app.
+ */
 public class ExitCommand extends Command {
-    private static final String COMMAND_ARGUMENTS = "";
-    private static final String COMMAND_DETAILED_DESCRIPTION = "Exits from the WellNUS++ application";
+    public static final String COMMAND_DESCRIPTION = "exit - Close WellNUS++ and return to your terminal.";
+    public static final String COMMAND_USAGE = "usage: exit";
     private static final String COMMAND_INVALID_COMMAND_MESSAGE = "Invalid exit command given!";
     private static final String COMMAND_KEYWORD = "exit";
     private static final String FEATURE_KEYWORD = "";
     private final TextUi textUi;
 
-    public ExitCommand(HashMap<String, String> arguments) throws BadCommandException {
+    /**
+     * Initialises an ExitCommand Object using the arguments issued by the user.
+     *
+     * @param arguments Command arguments issued by the user
+     * @see ExitCommand#validateCommand(HashMap)
+     */
+    public ExitCommand(HashMap<String, String> arguments) {
         super(arguments);
         this.textUi = new TextUi();
     }
@@ -38,16 +47,6 @@ public class ExitCommand extends Command {
     }
 
     /**
-     * Returns a detailed user-friendly description of what this specific command does.
-     *
-     * @return String Detailed explanation of this command
-     */
-    @Override
-    protected String getDetailedDescription() {
-        return ExitCommand.COMMAND_DETAILED_DESCRIPTION;
-    }
-
-    /**
      * Identifies the feature that this Command is associated with. Override
      * this in subclasses so toString() returns the correct String representation.
      *
@@ -56,16 +55,6 @@ public class ExitCommand extends Command {
     @Override
     protected String getFeatureKeyword() {
         return ExitCommand.FEATURE_KEYWORD;
-    }
-
-    /**
-     * Returns all the supported arguments for this Command.
-     *
-     * @return String All supported arguments for this Command
-     */
-    @Override
-    protected String getSupportedCommandArguments() {
-        return ExitCommand.COMMAND_ARGUMENTS;
     }
 
     /**
@@ -86,5 +75,31 @@ public class ExitCommand extends Command {
         if (!arguments.containsKey(ExitCommand.COMMAND_KEYWORD)) {
             throw new BadCommandException(ExitCommand.COMMAND_INVALID_COMMAND_MESSAGE);
         }
+    }
+
+    /**
+     * Method to ensure that developers add in a command usage.
+     * <p>
+     * For example, for the 'add' command in AtomicHabit package: <br>
+     * "usage: add --name (name of habit)"
+     *
+     * @return String of the proper usage of the habit
+     */
+    @Override
+    public String getCommandUsage() {
+        return COMMAND_USAGE;
+    }
+
+    /**
+     * Method to ensure that developers add in a description for the command.
+     * <p>
+     * For example, for the 'add' command in AtomicHabit package: <br>
+     * "add - add a habit to your list"
+     *
+     * @return String of the description of what the command does
+     */
+    @Override
+    public String getCommandDescription() {
+        return COMMAND_DESCRIPTION;
     }
 }

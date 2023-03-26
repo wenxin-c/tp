@@ -46,6 +46,9 @@ public class SelfReflection {
 
     private ArrayList<ReflectionQuestion> questions = new ArrayList<>();
 
+    /**
+     * Constructor to create a SelfReflection object and set up the questions available.
+     */
     public SelfReflection() {
         setUpQuestions();
         assert questions.size() == TOTAL_NUM_QUESTIONS : TOTAL_NUM_QUESTION_ASSERTIONS;
@@ -55,8 +58,8 @@ public class SelfReflection {
      * Load the questions list with pre-defined reflect questions.
      */
     private void setUpQuestions() {
-        for (int i = 0; i < QUESTIONS.length; i += 1) {
-            ReflectionQuestion newQuestion = new ReflectionQuestion(QUESTIONS[i]);
+        for (String question : QUESTIONS) {
+            ReflectionQuestion newQuestion = new ReflectionQuestion(question);
             addReflectQuestion(newQuestion);
         }
     }
@@ -71,10 +74,6 @@ public class SelfReflection {
 
     public ArrayList<ReflectionQuestion> getQuestions() {
         return questions;
-    }
-
-    public void clearQuestions() {
-        questions.clear();
     }
 
     public void addReflectQuestion(ReflectionQuestion question) {

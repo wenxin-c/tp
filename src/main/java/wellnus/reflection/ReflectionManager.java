@@ -1,15 +1,22 @@
 package wellnus.reflection;
 
+import java.util.HashMap;
+import java.util.NoSuchElementException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import wellnus.exception.BadCommandException;
 import wellnus.manager.Manager;
 
-import java.util.HashMap;
-import java.util.NoSuchElementException;
-
+/**
+ * The manager for self reflection section.<br/>
+ * This class oversees the command execution for self reflection section.
+ */
 public class ReflectionManager extends Manager {
+    public static final String FEATURE_HELP_DESCRIPTION = "Reflection - Take some time to pause and reflect "
+            + "with our specially curated list of questions and reflection management tools.";
+    private static final Logger LOGGER = Logger.getLogger("ReflectionManagerLogger");
     private static final String FEATURE_NAME = "reflect";
-    private static final String BRIEF_DESCRIPTION = "Users can get a random set of questions to reflect on.";
-    private static final String FULL_DESCRIPTION = "";
     private static final String GET_COMMAND = "get";
     private static final String GET_PAYLOAD = "";
     private static final String HOME_COMMAND = "home";
@@ -17,7 +24,6 @@ public class ReflectionManager extends Manager {
     private static final String NO_ELEMENT_MESSAGE = "There is no new line of input, please key in inputs.";
     private static final String INVALID_COMMAND_MESSAGE = "Please check the available commands "
             + "and enter a valid command.";
-    private static final String IS_EXIT_ASSERTION = "isExit should be true after exiting while loop";
     private static final int EMPTY_COMMAND = 0;
     private static final String COMMAND_TYPE_ASSERTION = "Command type should have length greater than 0";
 
@@ -34,9 +40,11 @@ public class ReflectionManager extends Manager {
     private String commandType;
     private HashMap<String, String> argumentPayload;
 
+    /**
+     * Constructor to set initial isExit status to false and load the reflection questions.
+     */
     public ReflectionManager() {
         setIsExit(INITIAL_EXIT_STATUS);
-        setSupportedCommands();
     }
 
     public HashMap<String, String> getArgumentPayload() {
@@ -66,46 +74,19 @@ public class ReflectionManager extends Manager {
     }
 
     /**
-     * Get a summary of description of self reflection feature.
+     * Abstract function to ensure developers add in a getter for the feature's help description.
+     * <p>
+     * This description will be shown when the user types in the help command. <br>
+     * The description should be a brief overview of what the feature does. <br>
+     * For example: <br>
+     * "reflect: Reflect is your go-to tool to get, save and reflect on our specially
+     * curated list of questions to reflect on"
      *
-     * @return Brief description of self reflection
+     * @return String of the feature's help description
      */
     @Override
-    public String getBriefDescription() {
-        return BRIEF_DESCRIPTION;
-    }
-
-    /**
-     * Get a full description of self reflection feature.<br/>
-     * TODO: FULL_DESCRIPTION is not completed yet!
-     *
-     * @return Full description of self reflection
-     */
-    @Override
-    public String getFullDescription() {
-        return FULL_DESCRIPTION;
-    }
-
-    /**
-     * Set up the set of command-payload pairs supported by self reflection.<br/>
-     * <li>Command: get, Payload: ""
-     * <li>Command: home, Payload: ""
-     */
-    @Override
-    protected void setSupportedCommands() {
-        try {
-            HashMap<String, String> getCmdArgumentPayload = new HashMap<>();
-            getCmdArgumentPayload.put(GET_COMMAND, GET_PAYLOAD);
-            GetCommand getCmd = new GetCommand(getCmdArgumentPayload);
-            HashMap<String, String> homeCmdArgumentPayload = new HashMap<>();
-            homeCmdArgumentPayload.put(HOME_COMMAND, HOME_PAYLOAD);
-            HomeCommand returnCmd = new HomeCommand(homeCmdArgumentPayload);
-            supportedCommands.add(getCmd);
-            supportedCommands.add(returnCmd);
-        } catch (BadCommandException badCommandException) {
-            UI.printErrorFor(badCommandException, INVALID_COMMAND_MESSAGE);
-        }
-        assert supportedCommands.size() == NUM_SUPPORTED_COMMANDS : SUPPORTED_COMMANDS_ASSERTION;
+    public String getFeatureHelpDescription() {
+        return FEATURE_HELP_DESCRIPTION;
     }
 
     /**
@@ -127,8 +108,7 @@ public class ReflectionManager extends Manager {
      * @throws BadCommandException If an invalid command was given
      */
     public void setCommandType(String inputCommand) throws BadCommandException {
-        String mainArgument = commandParser.getMainArgument(inputCommand);
-        commandType = mainArgument;
+        commandType = commandParser.getMainArgument(inputCommand);
         assert commandType.length() > EMPTY_COMMAND : COMMAND_TYPE_ASSERTION;
     }
 
@@ -148,8 +128,10 @@ public class ReflectionManager extends Manager {
                 setArgumentPayload(inputCommand);
                 executeCommands();
             } catch (NoSuchElementException noSuchElement) {
+                LOGGER.log(Level.INFO, NO_ELEMENT_MESSAGE);
                 UI.printErrorFor(noSuchElement, NO_ELEMENT_MESSAGE);
             } catch (BadCommandException badCommand) {
+                LOGGER.log(Level.INFO, INVALID_COMMAND_MESSAGE);
                 UI.printErrorFor(badCommand, INVALID_COMMAND_MESSAGE);
             }
         }
@@ -174,7 +156,6 @@ public class ReflectionManager extends Manager {
         case HOME_COMMAND:
             HomeCommand returnCmd = new HomeCommand(argumentPayload);
             returnCmd.execute();
-            assert isExit : IS_EXIT_ASSERTION;
             break;
         default:
             throw new BadCommandException(INVALID_COMMAND_MESSAGE);

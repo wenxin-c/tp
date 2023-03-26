@@ -1,15 +1,21 @@
 package wellnus.reflection;
 
+import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import wellnus.command.Command;
 import wellnus.exception.BadCommandException;
 
-import java.util.HashMap;
-
+/**
+ * Home command to return back to WellNUS++ main interface.
+ */
 public class HomeCommand extends Command {
+    public static final String COMMAND_DESCRIPTION = "home - Return back to the main menu of WellNUS++.";
+    public static final String COMMAND_USAGE = "usage: home";
+    private static final Logger LOGGER = Logger.getLogger("ReflectHomeCommandLogger");
     private static final String FEATURE_NAME = "reflect";
     private static final String COMMAND_KEYWORD = "home";
-    private static final String FULL_DESCRIPTION = "";
-    private static final String ARGUMENT = "home";
     private static final String PAYLOAD = "";
     private static final ReflectUi UI = new ReflectUi();
     private static final int ARGUMENT_PAYLOAD_SIZE = 1;
@@ -20,10 +26,16 @@ public class HomeCommand extends Command {
     private static final String EMPTY_ARGUMENT_PAYLOAD_ASSERTION = "The argument-payload pair cannot be empty!";
     private static final String COMMAND_KEYWORD_ASSERTION = "The key should be return.";
     private static final String COMMAND_PAYLOAD_ASSERTION = "The payload should be empty.";
-    private static final String HOME_MESSAGE = "How do you feel after reflecting on yourself?" +
-            System.lineSeparator() + "Hope you have gotten some takeaways from self reflection, see you again!!";
+    private static final String HOME_MESSAGE = "How do you feel after reflecting on yourself?"
+            + System.lineSeparator() + "Hope you have gotten some takeaways from self reflection, see you again!!";
     private HashMap<String, String> argumentPayload;
 
+    /**
+     * Constructor to set up argument-payload pairs for home command.
+     *
+     * @param arguments Argument-payload pair from users
+     * @throws BadCommandException If an invalid command is given
+     */
     public HomeCommand(HashMap<String, String> arguments) throws BadCommandException {
         super(arguments);
         this.argumentPayload = getArguments();
@@ -41,17 +53,6 @@ public class HomeCommand extends Command {
     }
 
     /**
-     * Get detailed description of a home command.<br/>
-     * TODO: FULL_DESCRIPTION is not completed yet.
-     *
-     * @return Full description of home command
-     */
-    @Override
-    protected String getDetailedDescription() {
-        return FULL_DESCRIPTION;
-    }
-
-    /**
      * Get the name of the feature in which this home command is generated.
      *
      * @return Feature name: reflect
@@ -62,16 +63,6 @@ public class HomeCommand extends Command {
     }
 
     /**
-     * Only one supported argument for home command.
-     *
-     * @return Argument: home
-     */
-    @Override
-    protected String getSupportedCommandArguments() {
-        return ARGUMENT;
-    }
-
-    /**
      * Main entry point of this command.<br/>
      * Return back to WellNUS++ main interface
      */
@@ -79,8 +70,9 @@ public class HomeCommand extends Command {
     public void execute() {
         try {
             validateCommand(this.argumentPayload);
-        } catch (BadCommandException invalidCommandException) {
-            UI.printErrorFor(invalidCommandException, INVALID_COMMAND_NOTES);
+        } catch (BadCommandException invalidCommand) {
+            LOGGER.log(Level.INFO, INVALID_COMMAND_MSG);
+            UI.printErrorFor(invalidCommand, INVALID_COMMAND_NOTES);
             return;
         }
         assert argumentPayload.containsKey(COMMAND_KEYWORD) : COMMAND_KEYWORD_ASSERTION;
@@ -110,6 +102,32 @@ public class HomeCommand extends Command {
         } else if (!commandMap.get(COMMAND_KEYWORD).equals(PAYLOAD)) {
             throw new BadCommandException(INVALID_COMMAND_MSG);
         }
+    }
+
+    /**
+     * Method to ensure that developers add in a command usage.
+     * <p>
+     * For example, for the 'add' command in AtomicHabit package: <br>
+     * "usage: add --name (name of habit)"
+     *
+     * @return String of the proper usage of the habit
+     */
+    @Override
+    public String getCommandUsage() {
+        return COMMAND_USAGE;
+    }
+
+    /**
+     * Method to ensure that developers add in a description for the command.
+     * <p>
+     * For example, for the 'add' command in AtomicHabit package: <br>
+     * "add - add a habit to your list"
+     *
+     * @return String of the description of what the command does
+     */
+    @Override
+    public String getCommandDescription() {
+        return COMMAND_DESCRIPTION;
     }
 }
 

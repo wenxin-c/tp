@@ -1,10 +1,10 @@
 package wellnus.command;
 
-import wellnus.exception.BadCommandException;
-import wellnus.exception.WellNusException;
-
 import java.util.HashMap;
 import java.util.Map;
+
+import wellnus.exception.BadCommandException;
+import wellnus.exception.WellNusException;
 
 /**
  * Superclass for all supported commands in Duke.<br>
@@ -23,6 +23,11 @@ public abstract class Command {
     // Key: An argument's name. Value: An argument's provided value from the user
     private final HashMap<String, String> arguments;
 
+    /**
+     * Initialises a Command Object with the given arguments from the user
+     *
+     * @param arguments
+     */
     public Command(HashMap<String, String> arguments) {
         // Arguments should never be null, or later code will call methods on a null reference
         assert arguments != null : WEIRD_ARGUMENTS_GIVEN;
@@ -42,26 +47,12 @@ public abstract class Command {
     protected abstract String getCommandKeyword();
 
     /**
-     * Returns a detailed user-friendly description of what this specific command does.
-     *
-     * @return String Detailed explanation of this command
-     */
-    protected abstract String getDetailedDescription();
-
-    /**
      * Identifies the feature that this Command is associated with. Override
      * this in subclasses so toString() returns the correct String representation.
      *
      * @return String Keyword for the feature associated with this Command
      */
     protected abstract String getFeatureKeyword();
-
-    /**
-     * Returns all the supported arguments for this Command.
-     *
-     * @return String All supported arguments for this Command
-     */
-    protected abstract String getSupportedCommandArguments();
 
     /**
      * Executes the specified command from the user.<br>
@@ -116,4 +107,25 @@ public abstract class Command {
      * @throws BadCommandException If the arguments have any issues
      */
     public abstract void validateCommand(HashMap<String, String> arguments) throws BadCommandException;
+
+    /**
+     * Method to ensure that developers add in a command usage.
+     * <p>
+     * For example, for the 'add' command in AtomicHabit package: <br>
+     * "usage: add --name (name of habit)"
+     *
+     * @return String of the proper usage of the habit
+     */
+    public abstract String getCommandUsage();
+
+    /**
+     * Method to ensure that developers add in a description for the command.
+     * <p>
+     * For example, for the 'add' command in AtomicHabit package: <br>
+     * "add - add a habit to your list"
+     *
+     * @return String of the description of what the command does
+     */
+    public abstract String getCommandDescription();
+
 }

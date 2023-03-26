@@ -1,15 +1,13 @@
 package wellnus.reflection;
 
-import org.junit.jupiter.api.Test;
-import wellnus.command.Command;
-import wellnus.exception.BadCommandException;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.util.HashMap;
+
+import org.junit.jupiter.api.Test;
+
+import wellnus.exception.BadCommandException;
 
 class ReflectionManagerTest {
     private static final String EMPTY_STRING = "";
@@ -31,16 +29,16 @@ class ReflectionManagerTest {
         ReflectionManager reflectionManager = new ReflectionManager();
         String[] input = EMPTY_STRING.split(" ");
         System.out.println(input.length);
-        assertThrows(BadCommandException.class,
-                () -> reflectionManager.setCommandType(EMPTY_STRING));
+        assertThrows(BadCommandException.class, (
+        ) -> reflectionManager.setCommandType(EMPTY_STRING));
     }
 
     // Test whether exceptions are thrown for empty string for argument-payload pairs.
     @Test
     void setArgumentPayload_emptyCommand_expectException() {
         ReflectionManager reflectionManager = new ReflectionManager();
-        assertThrows(BadCommandException.class,
-                () -> reflectionManager.setArgumentPayload(EMPTY_STRING));
+        assertThrows(BadCommandException.class, (
+        ) -> reflectionManager.setArgumentPayload(EMPTY_STRING));
     }
 
     // Test whether argument_payload pair is properly generated.
@@ -53,13 +51,5 @@ class ReflectionManagerTest {
         assertEquals(EMPTY_STRING, value);
     }
 
-    // Test whether supported commands are properly set up.
-    @Test
-    void setSupportedCommands_checkCommandTypes_success() {
-        ReflectionManager reflectionManager = new ReflectionManager();
-        ArrayList<Command> supportedCommands = reflectionManager.getSupportedCommands();
-        assertTrue(supportedCommands.get(0) instanceof GetCommand);
-        assertTrue(supportedCommands.get(1) instanceof HomeCommand);
-    }
 }
 

@@ -1,12 +1,14 @@
 package wellnus.command;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.fail;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+
 import wellnus.exception.BadCommandException;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
 
 public class CommandParserTest {
 
@@ -96,7 +98,7 @@ public class CommandParserTest {
     @Test
     public void getMainArgumentTest() {
         CommandParser parser = new CommandParser();
-        String target = "mainCommand";
+        String target = "maincommand";
         String command = "mainCommand payload --argument payload1";
         try {
             String result1 = parser.getMainArgument(command);
@@ -112,7 +114,7 @@ public class CommandParserTest {
     @Test
     public void getMainArgumentTest_paddedInput_success() {
         CommandParser parser = new CommandParser();
-        String target = "mainCommand";
+        String target = "maincommand";
         String command = "   mainCommand payload --argument payload1";
         try {
             String result1 = parser.getMainArgument(command);
@@ -128,7 +130,7 @@ public class CommandParserTest {
     @Test
     public void getMainArgumentTest_specialWhitespace_success() {
         CommandParser parser = new CommandParser();
-        String target = "mainCommand";
+        String target = "maincommand";
         String command = "\n \t mainCommand payload --argument payload1";
         try {
             String result1 = parser.getMainArgument(command);
