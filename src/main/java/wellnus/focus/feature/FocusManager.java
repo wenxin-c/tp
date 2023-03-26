@@ -6,6 +6,7 @@ import wellnus.command.Command;
 import wellnus.exception.BadCommandException;
 import wellnus.exception.WellNusException;
 import wellnus.focus.command.CheckCommand;
+import wellnus.focus.command.ConfigCommand;
 import wellnus.focus.command.HomeCommand;
 import wellnus.focus.command.NextCommand;
 import wellnus.focus.command.PauseCommand;
@@ -20,6 +21,7 @@ import wellnus.ui.TextUi;
  * This class will be called by the main manager.
  * It will match the user input to the correct command and execute it.
  */
+//@@author YongbinWang
 public class FocusManager extends Manager {
     public static final String FEATURE_NAME = "ft";
     private static final String FEATURE_BRIEF_DESCRIPTION = "Users can set a timer to focus on a task.";
@@ -76,6 +78,8 @@ public class FocusManager extends Manager {
             return new CheckCommand(arguments, session);
         case NEXT_COMMAND_KEYWORD:
             return new NextCommand(arguments, session);
+        case CONFIG_COMMAND_KEYWORD:
+            return new ConfigCommand(arguments, session);
         default:
             throw new BadCommandException(UNKNOWN_COMMAND_MESSAGE);
         }
@@ -171,6 +175,9 @@ public class FocusManager extends Manager {
         case CHECK_COMMAND_KEYWORD:
             arguments = getCommandParser().parseUserInput(checkCommand);
             return new CheckCommand(arguments, session);
+        case CONFIG_COMMAND_KEYWORD:
+            arguments = getCommandParser().parseUserInput(checkCommand);
+            return new ConfigCommand(arguments, session);
         default:
             throw new BadCommandException(UNKNOWN_COMMAND_MESSAGE);
         }
