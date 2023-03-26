@@ -11,10 +11,10 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import wellnus.exception.StorageException;
-
-// TODO add logger and more defensive checks
 
 /**
  * Storage is the common interface for all Features to save and load data from. <br>
@@ -49,8 +49,23 @@ public class Storage {
     private static final String ERROR_CANNOT_MAKE_DIR = "WellNUS++ couldn't make the data directory!";
     private static final String ERROR_CANNOT_DELETE_FILE = "WellNUS++ couldn't delete the data file!";
     private static final String ERROR_CANNOT_RESOLVE_PATH = "WellNUS++ couldn't resolve a path internally!";
-    private static final String ERROR_CANNOT_FIND_FILE = "WellNUS++ couldn't find the file!";
-
+    private static final String ERROR_CANNOT_WRITE_FILE = "WellNUS++ couldn't write to a file!";
+    private static final String ERROR_CANNOT_LOAD_FILE = "WellNUS++ couldn't load a file!";
+    private static final String ERROR_INVALID_FILENAME = "WellNUS++ cannot create a file that is not registered!";
+    private static final String ASSERT_FILENAME_NOT_NULL = "fileName should not be null!";
+    private static final String ASSERT_FILENAME_NOT_EMPTY = "fileName should have a length > 0!";
+    private static final String ASSERT_PATH_NOT_NULL = "path should not be null!";
+    private static final String ASSERT_LIST_NOT_NULL = "list input should not be null!";
+    private static final String ASSERT_STRING_NOT_NULL = "string input should not be null!";
+    private static final String ASSERT_FILE_NOT_NULL = "file input should not be null!";
+    private static final Logger LOGGER = Logger.getLogger("StorageLogger");
+    private static final String LOG_ACCESS_ERROR = "WellNUS++ has encountered a severe input/output error! \n"
+            + "Check if file permissions and data directory are properly instantiated?";
+    private static final String LOG_MISSING_FILE = "WellNUS++ could not find a file.\n"
+            + "Check if this method was called before any data file instantiation?";
+    private static final String LOG_INVALID_FILENAME = "WellNUS++ cannot create the file as its name is invalid.\n"
+            + "Check if its filename is registered in the Storage class.";
+    private static final int FILENAME_EMPTY = 0;
     private Path wellNusDataDirectory;
 
     /**
@@ -64,6 +79,26 @@ public class Storage {
         // For safety, check that the data folder actually exists
         // If it doesn't, create it.
         verifyDataDirectory();
+    }
+
+    /**
+     * Check if the supplied fileName is a valid WellNUS++ file.
+     *
+     * @param fileName name of file to be used in WellNUS++
+     * @return boolean representing if the fileName exists
+     */
+    //@@author nichyjt
+    private boolean isValidFileName(String fileName) {
+        assert fileName != null : ASSERT_STRING_NOT_NULL;
+        switch (fileName) {
+        case FILE_HABIT:
+        case FILE_REFLECT:
+        case FILE_DEBUG:
+            // fallthrough
+            return true;
+        default:
+            return false;
+        }
     }
 
     /**
@@ -87,6 +122,12 @@ public class Storage {
      * @param fileName data file to retrieve
      */
     protected File getFile(String fileName) throws StorageException {
+        assert fileName != null : ASSERT_FILENAME_NOT_NULL;
+        assert fileName.length() > FILENAME_EMPTY : ASSERT_FILENAME_NOT_EMPTY;
+        if (!isValidFileName(fileName)) {
+            LOGGER.log(Level.WARNING, LOG_INVALID_FILENAME);
+            throw new StorageException(ERROR_INVALID_FILENAME);
+        }
         Path pathToFile;
         File dataFile;
         try {
@@ -116,9 +157,11 @@ public class Storage {
      */
     //@@author nichyjt
     private void createDataFolder(Path directoryPath) throws StorageException {
+        assert directoryPath != null : ASSERT_PATH_NOT_NULL;
         try {
             Files.createDirectory(directoryPath);
         } catch (IOException exception) {
+            LOGGER.log(Level.SEVERE, LOG_ACCESS_ERROR);
             String errorMessage = ERROR_CANNOT_MAKE_DIR + System.lineSeparator();
             errorMessage = errorMessage.concat(exception.getMessage());
             throw new StorageException(errorMessage);
@@ -133,9 +176,11 @@ public class Storage {
      */
     //@@author nichyjt
     private void createFile(File file) throws StorageException {
+        assert file != null : ASSERT_FILE_NOT_NULL;
         try {
             file.createNewFile();
         } catch (IOException exception) {
+            LOGGER.log(Level.SEVERE, LOG_ACCESS_ERROR);
             String errorMessage = ERROR_CANNOT_MAKE_FILE;
             errorMessage = errorMessage.concat(exception.getMessage());
             throw new StorageException(errorMessage);
@@ -150,6 +195,7 @@ public class Storage {
      */
     //@@author nichyjt
     protected String tokenizeStringList(ArrayList<String> tokenizedStrings) {
+        assert tokenizedStrings != null : ASSERT_LIST_NOT_NULL;
         StringBuilder stringBuilder = new StringBuilder();
         for (String entry : tokenizedStrings) {
             String entryDelimited = entry + DELIMITER;
@@ -166,6 +212,7 @@ public class Storage {
      */
     //@@author nichyjt
     private String[] splitIntoEntries(String dataString) {
+        assert dataString != null : ASSERT_STRING_NOT_NULL;
         return dataString.split(DELIMITER);
     }
 
@@ -178,22 +225,29 @@ public class Storage {
      */
     //@@author nichyjt
     protected ArrayList<String> detokenizeDataString(String dataString) {
+        assert dataString != null : ASSERT_STRING_NOT_NULL;
         String[] entries = splitIntoEntries(dataString);
         return new ArrayList<>(Arrays.asList(entries));
     }
 
     private void writeDataToDisk(String data, File file) throws StorageException {
+        assert data != null : ASSERT_STRING_NOT_NULL;
+        assert file != null : ASSERT_FILE_NOT_NULL;
         // assume file exists
         try {
             FileWriter writer = new FileWriter(file.getAbsolutePath());
             writer.write(data);
             writer.close();
         } catch (IOException exception) {
-            throw new StorageException(exception.getMessage());
+            LOGGER.log(Level.SEVERE, LOG_MISSING_FILE);
+            String errorMessage = ERROR_CANNOT_WRITE_FILE;
+            errorMessage = errorMessage.concat(exception.getMessage());
+            throw new StorageException(errorMessage);
         }
     }
 
     private String loadDataFromDisk(File file) throws StorageException {
+        assert file != null : ASSERT_FILE_NOT_NULL;
         // assume file exists
         StringBuilder data = new StringBuilder();
         try {
@@ -203,10 +257,12 @@ public class Storage {
             }
             reader.close();
         } catch (FileNotFoundException exception) {
-            String errorMessage = ERROR_CANNOT_FIND_FILE;
+            LOGGER.log(Level.SEVERE, LOG_ACCESS_ERROR);
+            String errorMessage = ERROR_CANNOT_LOAD_FILE;
             errorMessage = errorMessage.concat(exception.getMessage());
             throw new StorageException(errorMessage);
         } catch (IllegalStateException exception) {
+            LOGGER.log(Level.SEVERE, LOG_ACCESS_ERROR);
             String errorMessage = ERROR_GENERAL;
             errorMessage = errorMessage.concat(exception.getMessage());
             throw new StorageException(errorMessage);
@@ -228,6 +284,13 @@ public class Storage {
      */
     //@@author nichyjt
     public void saveData(ArrayList<String> tokenizedManager, String fileName) throws StorageException {
+        assert fileName != null : ASSERT_FILENAME_NOT_NULL;
+        assert fileName.length() > FILENAME_EMPTY : ASSERT_FILENAME_NOT_EMPTY;
+        assert tokenizedManager != null : ASSERT_LIST_NOT_NULL;
+        if (!isValidFileName(fileName)) {
+            LOGGER.log(Level.WARNING, LOG_INVALID_FILENAME);
+            throw new StorageException(ERROR_INVALID_FILENAME);
+        }
         File file = getFile(fileName);
         String tokenizedString = tokenizeStringList(tokenizedManager);
         writeDataToDisk(tokenizedString, file);
@@ -247,6 +310,12 @@ public class Storage {
      */
     //@@author nichyjt
     public ArrayList<String> loadData(String fileName) throws StorageException {
+        assert fileName != null : ASSERT_FILENAME_NOT_NULL;
+        assert fileName.length() > FILENAME_EMPTY : ASSERT_FILENAME_NOT_EMPTY;
+        if (!isValidFileName(fileName)) {
+            LOGGER.log(Level.WARNING, LOG_INVALID_FILENAME);
+            throw new StorageException(ERROR_INVALID_FILENAME);
+        }
         File file = getFile(fileName);
         String data = loadDataFromDisk(file);
         return detokenizeDataString(data);
@@ -260,6 +329,12 @@ public class Storage {
      */
     //@@author nichyjt
     protected void deleteFile(String fileName) throws StorageException {
+        assert fileName != null : ASSERT_FILENAME_NOT_NULL;
+        assert fileName.length() > FILENAME_EMPTY : ASSERT_FILENAME_NOT_EMPTY;
+        if (!isValidFileName(fileName)) {
+            LOGGER.log(Level.WARNING, LOG_INVALID_FILENAME);
+            throw new StorageException(ERROR_INVALID_FILENAME);
+        }
         File file = getFile(fileName);
         boolean isDeleted = file.delete();
         if (!isDeleted) {
