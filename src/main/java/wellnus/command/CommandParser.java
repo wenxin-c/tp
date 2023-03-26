@@ -38,6 +38,7 @@ public class CommandParser {
     // Message string constants for errors and ui
     private static final String ERROR_EMPTY_COMMAND = "Command is empty!";
     private static final String ERROR_EMPTY_ARGUMENT = "Command is missing an argument!";
+    private static final String ERROR_REPEATED_ARGUMENT = "Command has repeated arguments!";
     private static final Logger logger = Logger.getLogger("CommandParserLogger");
     private static final String LOG_STR_EMPTY_INPUT = "Input string is empty. This should be properly handled";
     private static final String LOG_EMPTY_ARG = "Argument is empty. This should be properly handled";
@@ -149,6 +150,10 @@ public class CommandParser {
         String[] commands = splitIntoCommands(userInput);
         for (String command : commands) {
             String argument = getArgumentFromCommand(command);
+            // Safety check if arguments already exists
+            if (argumentPayload.containsKey(argument)) {
+                throw new BadCommandException(ERROR_REPEATED_ARGUMENT);
+            }
             String payload = getPayloadFromCommand(command);
             argumentPayload.put(argument, payload);
         }
