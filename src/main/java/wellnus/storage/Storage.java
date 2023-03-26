@@ -65,7 +65,7 @@ public class Storage {
             + "Check if this method was called before any data file instantiation?";
     private static final String LOG_INVALID_FILENAME = "WellNUS++ cannot create the file as its name is invalid.\n"
             + "Check if its filename is registered in the Storage class.";
-
+    private static final int FILENAME_EMPTY = 0;
     private Path wellNusDataDirectory;
 
     /**
@@ -123,7 +123,7 @@ public class Storage {
      */
     protected File getFile(String fileName) throws StorageException {
         assert fileName != null : ASSERT_FILENAME_NOT_NULL;
-        assert fileName.length() > 0 : ASSERT_FILENAME_NOT_EMPTY;
+        assert fileName.length() > FILENAME_EMPTY : ASSERT_FILENAME_NOT_EMPTY;
         if (!isValidFileName(fileName)) {
             LOGGER.log(Level.WARNING, LOG_INVALID_FILENAME);
             throw new StorageException(ERROR_INVALID_FILENAME);
@@ -285,7 +285,7 @@ public class Storage {
     //@@author nichyjt
     public void saveData(ArrayList<String> tokenizedManager, String fileName) throws StorageException {
         assert fileName != null : ASSERT_FILENAME_NOT_NULL;
-        assert fileName.length() > 0 : ASSERT_FILENAME_NOT_EMPTY;
+        assert fileName.length() > FILENAME_EMPTY : ASSERT_FILENAME_NOT_EMPTY;
         assert tokenizedManager != null : ASSERT_LIST_NOT_NULL;
         if (!isValidFileName(fileName)) {
             LOGGER.log(Level.WARNING, LOG_INVALID_FILENAME);
@@ -311,7 +311,7 @@ public class Storage {
     //@@author nichyjt
     public ArrayList<String> loadData(String fileName) throws StorageException {
         assert fileName != null : ASSERT_FILENAME_NOT_NULL;
-        assert fileName.length() > 0 : ASSERT_FILENAME_NOT_EMPTY;
+        assert fileName.length() > FILENAME_EMPTY : ASSERT_FILENAME_NOT_EMPTY;
         if (!isValidFileName(fileName)) {
             LOGGER.log(Level.WARNING, LOG_INVALID_FILENAME);
             throw new StorageException(ERROR_INVALID_FILENAME);
@@ -330,7 +330,7 @@ public class Storage {
     //@@author nichyjt
     protected void deleteFile(String fileName) throws StorageException {
         assert fileName != null : ASSERT_FILENAME_NOT_NULL;
-        assert fileName.length() > 0 : ASSERT_FILENAME_NOT_EMPTY;
+        assert fileName.length() > FILENAME_EMPTY : ASSERT_FILENAME_NOT_EMPTY;
         if (!isValidFileName(fileName)) {
             LOGGER.log(Level.WARNING, LOG_INVALID_FILENAME);
             throw new StorageException(ERROR_INVALID_FILENAME);

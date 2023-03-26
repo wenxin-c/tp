@@ -165,7 +165,7 @@ public class StorageTest {
         // deleteFile must work as the above tests on deleteFile have passed
         try {
             storage.deleteFile(Storage.FILE_DEBUG);
-        } catch (StorageException e) {
+        } catch (StorageException exception) {
             fail("Failed to cleanup file!");
         }
     }
