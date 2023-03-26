@@ -98,4 +98,36 @@ public class Session {
     public void resetCurrentCountdownIndex() {
         currentCountdownIndex = 0;
     }
+
+    public int getWork() {
+        return work;
+    }
+
+    public void setWork(int newWork) {
+        this.work = newWork;
+    }
+
+    public int getCycle() {
+        return cycle;
+    }
+
+    public void setCycle(int newCycles) {
+        this.cycle = newCycles;
+    }
+
+    public int getBrk() {
+        return brk;
+    }
+
+    public void setBrk(int newBrk) {
+        this.brk = newBrk;
+    }
+
+    public int getLongBrk() {
+        return longBrk;
+    }
+
+    public void setLongBrk(int newLongBrk) {
+        this.longBrk = newLongBrk;
+    }
 }
