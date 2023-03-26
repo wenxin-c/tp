@@ -20,6 +20,17 @@ public class AtomicHabit {
         this.count = 1;
     }
 
+    /**
+     * Constructor of atomic habit class.
+     * Will initialise private description and count to the input parameter.
+     *
+     * @param description Description of atomic habit.
+     * @param count Number of habit to be initialized.
+     */
+    public AtomicHabit(String description, int count) {
+        this.description = description;
+        this.count = count;
+    }
     public String getDescription() {
         return description;
     }
