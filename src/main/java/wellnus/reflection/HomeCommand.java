@@ -7,10 +7,9 @@ import java.util.logging.Logger;
 import wellnus.command.Command;
 import wellnus.exception.BadCommandException;
 
+//@@author wenxin-c
 /**
  * Home command to return back to WellNUS++ main interface.
- *
- * @@author wenxin-c
  */
 public class HomeCommand extends Command {
     public static final String COMMAND_DESCRIPTION = "home - Return back to the main menu of WellNUS++.";
@@ -22,15 +21,12 @@ public class HomeCommand extends Command {
     private static final String INVALID_COMMAND_MSG = "Command is invalid.";
     private static final String INVALID_COMMAND_NOTES = "Please check the available commands "
             + "and the format of commands.";
-    private static final String EMPTY_ARGUMENT_PAYLOAD_ASSERTION = "The argument-payload pair cannot be empty!";
     private static final String COMMAND_KEYWORD_ASSERTION = "The key should be return.";
     private static final String COMMAND_PAYLOAD_ASSERTION = "The payload should be empty.";
     private static final String HOME_MESSAGE = "How do you feel after reflecting on yourself?"
             + System.lineSeparator() + "Hope you have gotten some takeaways from self reflection, see you again!!";
     private static final int ARGUMENT_PAYLOAD_SIZE = 1;
-    private static final int EMPTY_ARGUMENT_PAYLOAD = 0;
     private static final ReflectUi UI = new ReflectUi();
-    private HashMap<String, String> argumentPayload;
     private QuestionList questionList;
 
     /**
@@ -39,13 +35,10 @@ public class HomeCommand extends Command {
      *
      * @param arguments Argument-payload pairs from users
      * @param questionList Object that contains the data about questions
-     * @throws BadCommandException If an invalid command is given
      */
-    public HomeCommand(HashMap<String, String> arguments, QuestionList questionList) throws BadCommandException {
+    public HomeCommand(HashMap<String, String> arguments, QuestionList questionList) {
         super(arguments);
-        this.argumentPayload = getArguments();
         this.questionList = questionList;
-        assert argumentPayload.size() > EMPTY_ARGUMENT_PAYLOAD : EMPTY_ARGUMENT_PAYLOAD_ASSERTION;
     }
 
     /**
@@ -101,14 +94,12 @@ public class HomeCommand extends Command {
     @Override
     public void execute() {
         try {
-            validateCommand(this.argumentPayload);
+            validateCommand(getArguments());
         } catch (BadCommandException invalidCommand) {
             LOGGER.log(Level.INFO, INVALID_COMMAND_MSG);
             UI.printErrorFor(invalidCommand, INVALID_COMMAND_NOTES);
             return;
         }
-        assert argumentPayload.containsKey(COMMAND_KEYWORD) : COMMAND_KEYWORD_ASSERTION;
-        assert argumentPayload.get(COMMAND_KEYWORD).equals(PAYLOAD) : COMMAND_PAYLOAD_ASSERTION;
         UI.printOutputMessage(HOME_MESSAGE);
         if (!questionList.getRandomQuestionIndexes().isEmpty()) {
             questionList.clearRandomQuestionIndexes();
@@ -137,6 +128,8 @@ public class HomeCommand extends Command {
         } else if (!commandMap.get(COMMAND_KEYWORD).equals(PAYLOAD)) {
             throw new BadCommandException(INVALID_COMMAND_MSG);
         }
+        assert getArguments().containsKey(COMMAND_KEYWORD) : COMMAND_KEYWORD_ASSERTION;
+        assert getArguments().get(COMMAND_KEYWORD).equals(PAYLOAD) : COMMAND_PAYLOAD_ASSERTION;
     }
 }
 

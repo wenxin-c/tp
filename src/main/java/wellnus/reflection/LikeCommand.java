@@ -1,8 +1,6 @@
 package wellnus.reflection;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -10,10 +8,9 @@ import java.util.logging.Logger;
 import wellnus.command.Command;
 import wellnus.exception.BadCommandException;
 
+//@@author wenxin-c
 /**
  * Like command to add commands to favorite list.
- *
- * @@author wenxin-c
  */
 public class LikeCommand extends Command {
     public static final String COMMAND_DESCRIPTION = "like (index) - Add a particular question to favorite list.";
@@ -28,18 +25,12 @@ public class LikeCommand extends Command {
     private static final String MISSING_SET_QUESTIONS = "A set of questions has not been gotten";
     private static final String MISSING_SET_QUESTIONS_NOTES = "Please get a set of questions before adding to favorite "
             + "list!";
-    private static final String ADD_FAV_SUCCESS_ONE = "You have added question: ";
-    private static final String ADD_FAV_SUCCESS_TWO = " into favorite list!!";
-    private static final String DUPLICATE_LIKE = " is already in the favorite list!";
     private static final int ARGUMENT_PAYLOAD_SIZE = 1;
     private static final int UPPER_BOUND = 5;
     private static final int LOWER_BOUND = 1;
     private static final int INDEX_ONE = 1;
-    private static final int INDEX_ZERO = 0;
     private static final Logger LOGGER = Logger.getLogger("ReflectLikeCommandLogger");
     private static final ReflectUi UI = new ReflectUi();
-    private ArrayList<HashSet<Integer>> dataIndex;
-    private HashMap<String, String> argumentPayload;
     private Set<Integer> randomQuestionIndexes;
     private QuestionList questionList;
 
@@ -49,14 +40,11 @@ public class LikeCommand extends Command {
      *
      * @param arguments Argument-payload pairs from users
      * @param questionList Object that contains the data about questions
-     * @throws BadCommandException If an invalid command is given
      */
-    public LikeCommand(HashMap<String, String> arguments, QuestionList questionList) throws BadCommandException {
+    public LikeCommand(HashMap<String, String> arguments, QuestionList questionList) {
         super(arguments);
-        this.argumentPayload = getArguments();
         this.questionList = questionList;
         this.randomQuestionIndexes = questionList.getRandomQuestionIndexes();
-        this.dataIndex = questionList.getDataIndex();
     }
 
     /**
@@ -129,6 +117,7 @@ public class LikeCommand extends Command {
                 throw new BadCommandException(WRONG_INDEX_MSG);
             }
         }
+        assert getArguments().containsKey(COMMAND_KEYWORD) : COMMAND_KEYWORD_ASSERTION;
     }
 
     /**
@@ -138,7 +127,7 @@ public class LikeCommand extends Command {
     @Override
     public void execute() {
         try {
-            validateCommand(this.argumentPayload);
+            validateCommand(getArguments());
         } catch (BadCommandException badCommandException) {
             LOGGER.log(Level.INFO, INVALID_COMMAND_MSG);
             UI.printErrorFor(badCommandException, INVALID_COMMAND_NOTES);
@@ -148,9 +137,8 @@ public class LikeCommand extends Command {
             UI.printErrorFor(numberFormatException, WRONG_INDEX_MSG);
             return;
         }
-        assert argumentPayload.containsKey(COMMAND_KEYWORD) : COMMAND_KEYWORD_ASSERTION;
         try {
-            addFavQuestion(this.argumentPayload.get(COMMAND_KEYWORD));
+            addFavQuestion(getArguments().get(COMMAND_KEYWORD));
         } catch (BadCommandException badCommandException) {
             LOGGER.log(Level.INFO, MISSING_SET_QUESTIONS);
             UI.printErrorFor(badCommandException, MISSING_SET_QUESTIONS_NOTES);
@@ -162,14 +150,14 @@ public class LikeCommand extends Command {
      * Since the questions have a unique and fixed index, this function maps the user input index to the real index
      * of the question in the questions list.
      *
-     * @return IndexQuestionMap
+     * @return indexQuestionMap The hashmap with display index as key and question index as value.
      */
     HashMap<Integer, Integer> mapInputToQuestion() {
         HashMap<Integer, Integer> indexQuestionMap = new HashMap<>();
-        int targetedIndex = INDEX_ONE;
+        int displayIndex = INDEX_ONE;
         for (int index : this.randomQuestionIndexes) {
-            indexQuestionMap.put(targetedIndex, index);
-            targetedIndex += INDEX_ONE;
+            indexQuestionMap.put(displayIndex, index);
+            displayIndex += INDEX_ONE;
         }
         return indexQuestionMap;
     }
@@ -177,28 +165,19 @@ public class LikeCommand extends Command {
     /**
      * Add this index to favorite list and print the question to be added.<br/>
      * <br/>
-     * A valid index will only be added(i.e. passed validateCommand()):
-     * <li> There is a set of questions gotten previously
-     * <li> The question is not yet in the favorite list
+     * A valid index will only be added(i.e. passed validateCommand()) if there is a set of questions gotten previously
      *
      * @param questionIndex User input of the index of question to be added to favorite list.
      * @throws BadCommandException If there is not a set of question generated yet.
      */
     public void addFavQuestion(String questionIndex) throws BadCommandException {
         int questionIndexInt = Integer.parseInt(questionIndex);
-        if (this.randomQuestionIndexes.isEmpty()) {
+        if (!questionList.hasRandomQuestionIndexes()) {
             throw new BadCommandException(MISSING_SET_QUESTIONS);
         }
         HashMap<Integer, Integer> indexQuestionMap = mapInputToQuestion();
         int indexToAdd = indexQuestionMap.get(questionIndexInt);
-        ArrayList<ReflectionQuestion> questions = this.questionList.getAllQuestions();
-        if (this.dataIndex.get(INDEX_ZERO).contains(indexToAdd)) {
-            UI.printOutputMessage(questions.get(indexToAdd).toString() + DUPLICATE_LIKE);
-            return;
-        }
-        this.dataIndex.get(INDEX_ZERO).add(indexToAdd);
-        questionList.setDataIndex(this.dataIndex);
-        UI.printOutputMessage(ADD_FAV_SUCCESS_ONE + questions.get(indexToAdd).toString() + ADD_FAV_SUCCESS_TWO);
+        questionList.addFavListIndex(indexToAdd);
     }
 }
 

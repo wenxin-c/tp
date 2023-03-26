@@ -7,6 +7,7 @@ import java.util.HashMap;
 
 import org.junit.jupiter.api.Test;
 
+import wellnus.command.CommandParser;
 import wellnus.exception.BadCommandException;
 
 /**
@@ -34,27 +35,14 @@ class HomeCommandTest {
         assertEquals(IS_EXIT, reflectionManager.getIsExit());
     }
 
-    // Test whether isExit is false for a new ReflectionManager object after exiting from previous one.
-    @Test
-    void execute_checkNewObjectIsExit_expectFalse() throws BadCommandException {
-        ReflectionManager reflectionManager = new ReflectionManager();
-        reflectionManager.setArgumentPayload(HOME_COMMAND);
-        HashMap<String, String> returnArgumentPayload = reflectionManager.getArgumentPayload();
-        HomeCommand homeCmd = new HomeCommand(returnArgumentPayload, questionList);
-        homeCmd.execute();
-        ReflectionManager newReflectionManager = new ReflectionManager();
-        assertEquals(IS_NOT_EXIT, newReflectionManager.getIsExit());
-    }
-
     // Test whether wrong format command exception is caught or not.
     @Test
     void execute_checkWrongCmdFormat_expectException() throws BadCommandException {
-        ReflectionManager reflectionManager = new ReflectionManager();
-        reflectionManager.setArgumentPayload(HOME_COMMAND_WRONG_FORMAT);
-        HashMap<String, String> returnArgumentPayload = reflectionManager.getArgumentPayload();
-        HomeCommand returnCmd = new HomeCommand(returnArgumentPayload, questionList);
+        CommandParser commandParser = new CommandParser();
+        HashMap<String, String> homeArgumentPayload = commandParser.parseUserInput(HOME_COMMAND_WRONG_FORMAT);
+        HomeCommand returnCmd = new HomeCommand(homeArgumentPayload, questionList);
         assertThrows(BadCommandException.class, () -> {
-            returnCmd.validateCommand(returnArgumentPayload);
+            returnCmd.validateCommand(homeArgumentPayload);
         });
     }
 

@@ -1,18 +1,15 @@
 package wellnus.reflection;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import wellnus.command.Command;
 import wellnus.exception.BadCommandException;
 
+//@@author wenxin-c
 /**
  * Get all the questions that are in the favorite list.
- *
- * @@author wenxin-c
  */
 public class FavoriteCommand extends Command {
     public static final String COMMAND_DESCRIPTION = "fav - Get the list of questions that have been added to "
@@ -26,18 +23,13 @@ public class FavoriteCommand extends Command {
             + "and the format of commands.";
     private static final String COMMAND_KEYWORD_ASSERTION = "The key should be fav.";
     private static final String COMMAND_PAYLOAD_ASSERTION = "The payload should be empty.";
+    private static final String INDEX_OUT_OF_BOUND_NOTES = "Question index is out of bound(e.g. negative integers, 0)!"
+            + "Your data file might be corrupted!!";
     private static final String EMPTY_FAV_LIST = "There is nothing in favorite list, "
             + "please get reflection questions first!!";
-    private static final String DOT = ".";
-    private static final String EMPTY_STRING = "";
     private static final int ARGUMENT_PAYLOAD_SIZE = 1;
-    private static final int INDEX_ZERO = 0;
-    private static final int INDEX_ONE = 1;
-    private static final int INCREMENT_ONE = 1;
     private static final Logger LOGGER = Logger.getLogger("ReflectFavCommandLogger");
     private static final ReflectUi UI = new ReflectUi();
-    private ArrayList<HashSet<Integer>> dataIndex;
-    private HashMap<String, String> argumentPayload;
     private QuestionList questionList;
 
     /**
@@ -46,13 +38,10 @@ public class FavoriteCommand extends Command {
      *
      * @param arguments Argument-payload pairs from users
      * @param questionList Object that contains the data about questions
-     * @throws BadCommandException If an invalid command is given
      */
-    public FavoriteCommand(HashMap<String, String> arguments, QuestionList questionList) throws BadCommandException {
+    public FavoriteCommand(HashMap<String, String> arguments, QuestionList questionList) {
         super(arguments);
-        this.argumentPayload = getArguments();
         this.questionList = questionList;
-        this.dataIndex = questionList.getDataIndex();
     }
 
     /**
@@ -102,42 +91,28 @@ public class FavoriteCommand extends Command {
     }
 
     /**
-     * Get a string of all favorite questions based on the favorite question indexes.
-     *
-     * @return String of favorite questions
-     */
-    public String getFavQuestions() {
-        ArrayList<ReflectionQuestion> questions = questionList.getAllQuestions();
-        String questionString = EMPTY_STRING;
-        int displayIndex = INDEX_ONE;
-        for (int questionIndex : this.dataIndex.get(INDEX_ZERO)) {
-            questionString += (displayIndex + DOT + questions.get(questionIndex).toString()
-                    + System.lineSeparator());
-            displayIndex += INCREMENT_ONE;
-        }
-        return questionString;
-    }
-
-    /**
      * Entry point to this command.<br/>
      */
     @Override
     public void execute() {
         try {
-            validateCommand(this.argumentPayload);
+            validateCommand(getArguments());
         } catch (BadCommandException invalidCommand) {
             LOGGER.log(Level.INFO, INVALID_COMMAND_MSG);
             UI.printErrorFor(invalidCommand, INVALID_COMMAND_NOTES);
             return;
         }
-        assert argumentPayload.containsKey(COMMAND_KEYWORD) : COMMAND_KEYWORD_ASSERTION;
-        assert argumentPayload.get(COMMAND_KEYWORD).equals(PAYLOAD) : COMMAND_PAYLOAD_ASSERTION;
-        if (this.dataIndex.get(INDEX_ZERO).isEmpty()) {
+        if (!questionList.hasFavQuestions()) {
             UI.printOutputMessage(EMPTY_FAV_LIST);
             return;
         }
-        String outputString = getFavQuestions();
-        UI.printOutputMessage(outputString);
+        try {
+            String outputString = questionList.getFavQuestions();
+            UI.printOutputMessage(outputString);
+        } catch (ArrayIndexOutOfBoundsException arrayIndexOutOfBoundsException) {
+            LOGGER.log(Level.WARNING, INVALID_COMMAND_MSG);
+            UI.printErrorFor(arrayIndexOutOfBoundsException, INDEX_OUT_OF_BOUND_NOTES);
+        }
     }
 
     /**
@@ -161,6 +136,8 @@ public class FavoriteCommand extends Command {
         } else if (!commandMap.get(COMMAND_KEYWORD).equals(PAYLOAD)) {
             throw new BadCommandException(INVALID_COMMAND_MSG);
         }
+        assert getArguments().containsKey(COMMAND_KEYWORD) : COMMAND_KEYWORD_ASSERTION;
+        assert getArguments().get(COMMAND_KEYWORD).equals(PAYLOAD) : COMMAND_PAYLOAD_ASSERTION;
     }
 }
 

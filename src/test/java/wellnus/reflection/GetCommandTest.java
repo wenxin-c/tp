@@ -9,6 +9,7 @@ import java.util.HashMap;
 
 import org.junit.jupiter.api.Test;
 
+import wellnus.command.CommandParser;
 import wellnus.exception.BadCommandException;
 
 /**
@@ -39,9 +40,8 @@ class GetCommandTest {
     // Test the number of questions being generated
     @Test
     void getRandomQuestions_checkLength_expectFive() throws BadCommandException {
-        ReflectionManager reflectManager = new ReflectionManager();
-        reflectManager.setArgumentPayload(GET_COMMAND);
-        HashMap<String, String> getCmdArgumentPayload = reflectManager.getArgumentPayload();
+        CommandParser commandParser = new CommandParser();
+        HashMap<String, String> getCmdArgumentPayload = commandParser.parseUserInput(GET_COMMAND);
         GetCommand get = new GetCommand(getCmdArgumentPayload, questionList);
         ArrayList<ReflectionQuestion> selectedQuestions = get.getRandomQuestions();
         assertEquals(EXPECTED_ARRAY_LENGTH, selectedQuestions.size());
@@ -50,9 +50,8 @@ class GetCommandTest {
     // Test whether command is validated properly.
     @Test
     void validateCommand_getCommand_expectException() throws BadCommandException {
-        ReflectionManager reflectManager = new ReflectionManager();
-        reflectManager.setArgumentPayload(GET_COMMAND_WRONG_FORMAT);
-        HashMap<String, String> getCmdArgumentPayload = reflectManager.getArgumentPayload();
+        CommandParser commandParser = new CommandParser();
+        HashMap<String, String> getCmdArgumentPayload = commandParser.parseUserInput(GET_COMMAND_WRONG_FORMAT);
         GetCommand get = new GetCommand(getCmdArgumentPayload, questionList);
         assertThrows(BadCommandException.class, () -> get.validateCommand(getCmdArgumentPayload));
     }

@@ -10,6 +10,7 @@ import java.util.Set;
 
 import org.junit.jupiter.api.Test;
 
+import wellnus.command.CommandParser;
 import wellnus.exception.BadCommandException;
 
 // @@author wenxin-c
@@ -31,15 +32,12 @@ class LikeCommandTest {
     @Test
     void validateLikeCommand_checkFormat_expectExceptions() throws BadCommandException {
         QuestionList questionList = new QuestionList();
-        ReflectionManager reflectionManager = new ReflectionManager();
-        reflectionManager.setArgumentPayload(LIKE_COMMAND_MISSING_PARAM);
-        HashMap<String, String> argumentPayloadMissingParam = reflectionManager.getArgumentPayload();
+        CommandParser commandParser = new CommandParser();
+        HashMap<String, String> argumentPayloadMissingParam = commandParser.parseUserInput(LIKE_COMMAND_MISSING_PARAM);
         LikeCommand likeCmdMissingParam = new LikeCommand(argumentPayloadMissingParam, questionList);
-        reflectionManager.setArgumentPayload(LIKE_COMMAND_WRONG_PARAM);
-        HashMap<String, String> argumentPayloadWrongParam = reflectionManager.getArgumentPayload();
+        HashMap<String, String> argumentPayloadWrongParam = commandParser.parseUserInput(LIKE_COMMAND_WRONG_PARAM);
         LikeCommand likeCmdWrongParam = new LikeCommand(argumentPayloadWrongParam, questionList);
-        reflectionManager.setArgumentPayload(LIKE_COMMAND_OUT_OF_BOUND);
-        HashMap<String, String> argumentPayloadOutBound = reflectionManager.getArgumentPayload();
+        HashMap<String, String> argumentPayloadOutBound = commandParser.parseUserInput(LIKE_COMMAND_OUT_OF_BOUND);
         LikeCommand likeCmdOutBound = new LikeCommand(argumentPayloadOutBound, questionList);
         assertThrows(NumberFormatException.class, (
         ) -> likeCmdMissingParam.validateCommand(argumentPayloadMissingParam));
@@ -53,9 +51,8 @@ class LikeCommandTest {
     @Test
     void addFavList_noPrevQuestions_expectException() throws BadCommandException {
         QuestionList questionList = new QuestionList();
-        ReflectionManager reflectionManager = new ReflectionManager();
-        reflectionManager.setArgumentPayload(LIKE_COMMAND);
-        HashMap<String, String> argumentPayload = reflectionManager.getArgumentPayload();
+        CommandParser commandParser = new CommandParser();
+        HashMap<String, String> argumentPayload = commandParser.parseUserInput(LIKE_COMMAND);
         LikeCommand likeCmd = new LikeCommand(argumentPayload, questionList);
         assertThrows(BadCommandException.class, (
         ) -> likeCmd.addFavQuestion(argumentPayload.get(LIKE_COMMAND_KEYWORD)));
@@ -66,9 +63,8 @@ class LikeCommandTest {
     void addFavList_checkIndex_success() throws BadCommandException {
         QuestionList questionList = new QuestionList();
         questionList.setRandomQuestionIndexes(RANDOM_INDEXES);
-        ReflectionManager reflectionManager = new ReflectionManager();
-        reflectionManager.setArgumentPayload(LIKE_COMMAND);
-        HashMap<String, String> argumentPayloadLikeCmd = reflectionManager.getArgumentPayload();
+        CommandParser commandParser = new CommandParser();
+        HashMap<String, String> argumentPayloadLikeCmd = commandParser.parseUserInput(LIKE_COMMAND);
         LikeCommand likeCmd = new LikeCommand(argumentPayloadLikeCmd, questionList);
         HashMap<Integer, Integer> indexQuestionMap = likeCmd.mapInputToQuestion();
         int count = INITIAL_INDEX;
@@ -89,9 +85,8 @@ class LikeCommandTest {
     void addFavList_checkQuestionList_success() throws BadCommandException {
         QuestionList questionList = new QuestionList();
         questionList.setRandomQuestionIndexes(RANDOM_INDEXES);
-        ReflectionManager reflectionManager = new ReflectionManager();
-        reflectionManager.setArgumentPayload(LIKE_COMMAND);
-        HashMap<String, String> argumentPayloadLikeCmd = reflectionManager.getArgumentPayload();
+        CommandParser commandParser = new CommandParser();
+        HashMap<String, String> argumentPayloadLikeCmd = commandParser.parseUserInput(LIKE_COMMAND);
         LikeCommand likeCmd = new LikeCommand(argumentPayloadLikeCmd, questionList);
         likeCmd.execute();
         Set<Integer> favList = questionList.getDataIndex().get(INDEX_ZERO);

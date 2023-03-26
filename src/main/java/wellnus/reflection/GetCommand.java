@@ -9,10 +9,9 @@ import java.util.logging.Logger;
 import wellnus.command.Command;
 import wellnus.exception.BadCommandException;
 
+//@@author wenxin-c
 /**
  * Command to get a set of 5 random questions.
- *
- * @@author wenxin-c
  */
 public class GetCommand extends Command {
     public static final String COMMAND_DESCRIPTION = "get - Get a list of questions to reflect on.";
@@ -24,7 +23,6 @@ public class GetCommand extends Command {
     private static final String INVALID_COMMAND_MSG = "Command is invalid.";
     private static final String INVALID_COMMAND_NOTES = "Please check the available commands "
             + "and the format of commands.";
-    private static final String EMPTY_ARGUMENT_PAYLOAD_ASSERTION = "The argument-payload pair cannot be empty!";
     private static final String COMMAND_KEYWORD_ASSERTION = "The key should be get.";
     private static final String COMMAND_PAYLOAD_ASSERTION = "The payload should be empty.";
     private static final String NUM_SELECTED_QUESTIONS_ASSERTION = "The number of selected questions should be 5.";
@@ -34,7 +32,6 @@ public class GetCommand extends Command {
     private static final int ARGUMENT_PAYLOAD_SIZE = 1;
     private static final int ONE_OFFSET = 1;
     private static final ReflectUi UI = new ReflectUi();
-    private HashMap<String, String> argumentPayload;
     private Set<Integer> randomQuestionIndexes;
     private QuestionList questionList;
 
@@ -44,13 +41,10 @@ public class GetCommand extends Command {
      *
      * @param arguments Argument-payload pairs from users
      * @param questionList Object that contains the data about questions
-     * @throws BadCommandException If an invalid command is given
      */
-    public GetCommand(HashMap<String, String> arguments, QuestionList questionList) throws BadCommandException {
+    public GetCommand(HashMap<String, String> arguments, QuestionList questionList) {
         super(arguments);
-        this.argumentPayload = getArguments();
         this.questionList = questionList;
-        assert !argumentPayload.isEmpty() : EMPTY_ARGUMENT_PAYLOAD_ASSERTION;
     }
 
     /**
@@ -106,14 +100,12 @@ public class GetCommand extends Command {
     @Override
     public void execute() {
         try {
-            validateCommand(this.argumentPayload);
+            validateCommand(getArguments());
         } catch (BadCommandException invalidCommand) {
             LOGGER.log(Level.INFO, INVALID_COMMAND_MSG);
             UI.printErrorFor(invalidCommand, INVALID_COMMAND_NOTES);
             return;
         }
-        assert argumentPayload.containsKey(COMMAND_KEYWORD) : COMMAND_KEYWORD_ASSERTION;
-        assert argumentPayload.get(COMMAND_KEYWORD).equals(PAYLOAD) : COMMAND_PAYLOAD_ASSERTION;
         String outputString = convertQuestionsToString();
         UI.printOutputMessage(outputString);
     }
@@ -139,6 +131,8 @@ public class GetCommand extends Command {
         } else if (!commandMap.get(COMMAND_KEYWORD).equals(PAYLOAD)) {
             throw new BadCommandException(INVALID_COMMAND_MSG);
         }
+        assert getArguments().containsKey(COMMAND_KEYWORD) : COMMAND_KEYWORD_ASSERTION;
+        assert getArguments().get(COMMAND_KEYWORD).equals(PAYLOAD) : COMMAND_PAYLOAD_ASSERTION;
     }
 
     /**
@@ -150,7 +144,7 @@ public class GetCommand extends Command {
      * @return The selected sets of random questions
      */
     public ArrayList<ReflectionQuestion> getRandomQuestions() {
-        this.questionList.setRandomQuestionIndexes();
+        questionList.setRandomQuestionIndexes();
         this.randomQuestionIndexes = questionList.getRandomQuestionIndexes();
         ArrayList<ReflectionQuestion> selectedQuestions = new ArrayList<>();
         ArrayList<ReflectionQuestion> questions = questionList.getAllQuestions();

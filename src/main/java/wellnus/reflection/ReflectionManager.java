@@ -130,6 +130,7 @@ public class ReflectionManager extends Manager {
         assert commandType.length() > EMPTY_COMMAND : COMMAND_TYPE_ASSERTION;
     }
 
+    //@@author wenxin-c
     /**
      * Print greeting logo and message.
      */
@@ -137,13 +138,13 @@ public class ReflectionManager extends Manager {
         UI.printLogoWithSeparator(LOGO);
         UI.printOutputMessage(GREETING_MESSAGE);
     }
+    //@@author
 
+    //@@author wenxin-c
     /**
      * Main entry point of self reflection section.<br/>
      * <br/>
      * It prints out greeting messages, listen to and execute user commands.
-     *
-     * @@author wenxin-c
      */
     @Override
     public void runEventDriver() {
@@ -164,7 +165,7 @@ public class ReflectionManager extends Manager {
             }
         }
     }
-    // @@author
+    //@@author
 
     /**
      * Decide which command to create based on command type.<br/>

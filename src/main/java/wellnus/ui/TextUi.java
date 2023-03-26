@@ -37,6 +37,7 @@ public class TextUi {
         this.scanner = new Scanner(inputStream);
     }
 
+    //@@author wenxin-c
     /**
      * Print spaces before output message for better formatting.
      */
@@ -160,5 +161,6 @@ public class TextUi {
         }
         printSeparator();
     }
+    //@@author
 }
 

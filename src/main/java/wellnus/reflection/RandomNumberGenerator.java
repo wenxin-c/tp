@@ -4,12 +4,11 @@ import java.util.Random;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+//@@author wenxin-c
 /**
  * Generate a set of 5 distinct random integers ranging from 0 to 9<br/>
  * <br/>
  * This set of random numbers will be used as indexes to get a set of random questions.
- *
- * @@author wenxin-c
  */
 public class RandomNumberGenerator {
     private static final String NUM_SELECTED_QUESTIONS_ASSERTION = "The number of selected questions should be 5.";

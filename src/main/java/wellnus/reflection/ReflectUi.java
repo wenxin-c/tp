@@ -2,10 +2,9 @@ package wellnus.reflection;
 
 import wellnus.ui.TextUi;
 
+//@@author wenxin-c
 /**
  * This section is to be updated with main UI class
- *
- * @@author wenxin-c
  */
 public class ReflectUi extends TextUi {
     private static final String SEPARATOR = "=";
