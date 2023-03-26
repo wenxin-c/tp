@@ -2,11 +2,13 @@ package wellnus.storage;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import java.io.File;
 import java.util.ArrayList;
 
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 
 import wellnus.exception.StorageException;
@@ -49,6 +51,7 @@ public class StorageTest {
     }
 
     @Test
+    @Order(1)
     public void createAndDeleteFile_test() {
         Storage storage = getStorageInstance();
         assert storage != null;
@@ -73,11 +76,10 @@ public class StorageTest {
     }
 
     @Test
+    @Order(2)
     public void tokenizeHashmap_test() {
         Storage storage = getStorageInstance();
-        if (storage == null) {
-            fail("Storage is null!");
-        }
+        assert storage != null;
 
         ArrayList<String> debugList = getDebugStringList();
 
@@ -87,11 +89,11 @@ public class StorageTest {
     }
 
     @Test
+    @Order(3)
     public void detokenizeDataString_test() {
         Storage storage = getStorageInstance();
-        if (storage == null) {
-            fail("Storage is null!");
-        }
+        assert storage != null;
+
         String dataString = getDebugTokenizedString();
         ArrayList<String> expectedList = getDebugStringList();
         ArrayList<String> result = storage.detokenizeDataString(dataString);
@@ -102,12 +104,12 @@ public class StorageTest {
      * Tests the end-to-end of saving and loading.
      */
     @Test
+    @Order(4)
     public void saveAndLoadData_test() {
         Storage storage = getStorageInstance();
+        assert storage != null;
+
         String debugFilename = Storage.FILE_DEBUG;
-        if (storage == null) {
-            fail("Storage is null!");
-        }
         // Test saving logic
         ArrayList<String> debugList = getDebugStringList();
         try {
@@ -130,4 +132,83 @@ public class StorageTest {
             fail("Failed to cleanup file!");
         }
     }
+
+    /**
+     * Ensures that deleting a file that does not exist due to developer error does not crash WellNUS++
+     */
+    @Test
+    @Order(5)
+    public void deleteFile_fileNotExist_success() {
+        Storage storage = getStorageInstance();
+        assert storage != null;
+        try {
+            storage.deleteFile(Storage.FILE_DEBUG);
+        } catch (StorageException exception) {
+            fail("deleteFile failed on file not exist!");
+        }
+    }
+
+    /**
+     * Ensure that loading an un-instantiated file automatically creates the file as safety behaviour
+     */
+    @Test
+    @Order(6)
+    public void loadFile_fileNotExist() {
+        Storage storage = getStorageInstance();
+        assert storage != null;
+        try {
+            storage.loadData(Storage.FILE_DEBUG);
+        } catch (StorageException exception) {
+            fail("loadData failed when loading file that does not exist despite safety checks");
+        }
+        // Cleanup the debug file that was created as part of safety measures
+        // deleteFile must work as the above tests on deleteFile have passed
+        try {
+            storage.deleteFile(Storage.FILE_DEBUG);
+        } catch (StorageException exception) {
+            fail("Failed to cleanup file!");
+        }
+    }
+
+    @Test
+    @Order(7)
+    public void getFile_invalidFileName_exceptionThrown() {
+        Storage storage = getStorageInstance();
+        assert storage != null;
+        assertThrows(StorageException.class, () -> {
+            storage.getFile("foobar");
+        }, "Expected exception to be thrown for invalid filename");
+    }
+
+    @Test
+    @Order(8)
+    public void saveData_invalidFileName_exceptionThrown() {
+        Storage storage = getStorageInstance();
+        assert storage != null;
+        ArrayList<String> payload = getDebugStringList();
+        assertThrows(StorageException.class, () -> {
+            storage.saveData(payload, "foobar");
+        }, "Expected exception to be thrown for invalid filename");
+    }
+
+    @Test
+    @Order(9)
+    public void loadData_invalidFileName_exceptionThrown() {
+        Storage storage = getStorageInstance();
+        assert storage != null;
+        assertThrows(StorageException.class, () -> {
+            storage.loadData("foobar");
+        }, "Expected exception to be thrown for invalid filename");
+    }
+
+    @Test
+    @Order(10)
+    public void deleteFile_invalidFileName_exceptionThrown() {
+        Storage storage = getStorageInstance();
+        assert storage != null;
+        assertThrows(StorageException.class, () -> {
+            storage.deleteFile("foobar");
+        }, "Expected exception to be thrown for invalid filename");
+    }
+
 }
