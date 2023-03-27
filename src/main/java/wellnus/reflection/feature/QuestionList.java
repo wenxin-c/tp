@@ -120,8 +120,8 @@ public class QuestionList {
     }
 
     /**
-     * TODO: BUGGY!!!!!
-     * Set up initial data file
+     * Set up initial data file.<br/>
+     * Set up the arrayList and set in the event that datafile is corrupted.
      */
     public void dataIndexInitialSetup() {
         this.dataIndex = new ArrayList<>();
