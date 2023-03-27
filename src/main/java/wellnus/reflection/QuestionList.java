@@ -3,8 +3,14 @@ package wellnus.reflection;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
-//@@author wenxin-c
+import wellnus.exception.StorageException;
+import wellnus.exception.TokenizerException;
+import wellnus.storage.ReflectionTokenizer;
+import wellnus.storage.Storage;
+
 /**
  * This class contains the list of questions available in reflect feature,
  * and the list of indexes of favorite questions liked by the user.<br/>
@@ -41,10 +47,15 @@ public class QuestionList {
     private static final String ADD_FAV_SUCCESS_ONE = "You have added question: ";
     private static final String ADD_FAV_SUCCESS_TWO = " into favorite list!!";
     private static final String DUPLICATE_LIKE = " is already in the favorite list!";
+    private static final String STORAGE_ERROR = "The file data cannot be stored properly!!";
+    private static final String TOKENIZER_ERROR = "The data cannot be tokenized for storage properly!!";
     private static final String DOT = ".";
     private static final String EMPTY_STRING = "";
+    private static final String FILE_NAME = "reflect";
     private static final RandomNumberGenerator RANDOM_NUMBER_GENERATOR =
             new RandomNumberGenerator(RANDOM_NUMBER_UPPERBOUND);
+    private static final Logger LOGGER = Logger.getLogger("ReflectQuestionListLogger");
+    private static final ReflectionTokenizer reflectionTokenizer = new ReflectionTokenizer();
     private static final ReflectUi UI = new ReflectUi();
     private static final boolean HAS_RANDOM_QUESTIONS = true;
     private static final boolean NOT_HAS_RANDOM_QUESTIONS = false;
@@ -52,18 +63,35 @@ public class QuestionList {
     private static final boolean NOT_HAS_FAV_QUESTIONS = false;
     private ArrayList<ReflectionQuestion> questions = new ArrayList<>();
     private Set<Integer> randomQuestionIndexes;
-    private ArrayList<HashSet<Integer>> dataIndex;
+    private ArrayList<Set<Integer>> dataIndex;
+    private Storage storage;
 
+    //@@author wenxin-c
     /**
      * Constructor to create a SelfReflection object and set up the questions available.
      */
     public QuestionList() {
+        try {
+            storage = new Storage();
+        } catch (StorageException storageException) {
+            LOGGER.log(Level.WARNING, STORAGE_ERROR);
+            UI.printErrorFor(storageException, STORAGE_ERROR);
+            return;
+        }
         this.randomQuestionIndexes = new HashSet<>();
-        // TODO: Load data from file through tokenizer
-        this.dataIndex = new ArrayList<>();
-        HashSet<Integer> setLike = new HashSet<>();
-        // TODO: create a prev set here
-        this.dataIndex.add(setLike);
+        this.dataFileInitialSetup();
+        try {
+            this.storeFavList();
+            this.loadFavList();
+        } catch (StorageException storageException) {
+            LOGGER.log(Level.WARNING, TOKENIZER_ERROR);
+            UI.printErrorFor(storageException, TOKENIZER_ERROR);
+            return;
+        } catch (TokenizerException tokenizerException) {
+            LOGGER.log(Level.WARNING, STORAGE_ERROR);
+            UI.printErrorFor(tokenizerException, STORAGE_ERROR);
+            return;
+        }
         setUpQuestions();
         assert questions.size() == TOTAL_NUM_QUESTIONS : TOTAL_NUM_QUESTION_ASSERTIONS;
     }
@@ -87,11 +115,48 @@ public class QuestionList {
         questions.add(newQuestion);
     }
 
-    public ArrayList<HashSet<Integer>> getDataIndex() {
+    public void setDataIndex(ArrayList<Set<Integer>> dataIndex) {
+        this.dataIndex = dataIndex;
+    }
+
+    public ArrayList<Set<Integer>> getDataIndex() {
         return dataIndex;
     }
 
-    // TODO: add storage method here<br>
+    /**
+     * TODO: BUGGY!!!!!
+     * Set up initial data file
+     */
+    public void dataFileInitialSetup() {
+        this.dataIndex = new ArrayList<>();
+        HashSet<Integer> setLike = new HashSet<>();
+        HashSet<Integer> setPrev = new HashSet<>();
+        this.dataIndex.add(setLike);
+        this.dataIndex.add(setPrev);
+    }
+    /**
+     * Tokenize the indexes of liked questions and store them in a data file.
+     *
+     * @throws TokenizerException If there is error during tokenization
+     * @throws StorageException If data cannot be stored properly
+     */
+    public void storeFavList() throws TokenizerException, StorageException {
+        ArrayList<String> tokenizedFavList = reflectionTokenizer.tokenize(this.dataIndex);
+        storage.saveData(tokenizedFavList, FILE_NAME);
+    }
+
+    /**
+     * Load a string of integers from data file and detokenize it into the set of indexes of favorite questions.
+     *
+     * @throws StorageException If there is error during tokenization
+     * @throws TokenizerException If there is error during detokenization
+     */
+    public void loadFavList() throws StorageException, TokenizerException {
+        ArrayList<String> loadedFavList = storage.loadData(FILE_NAME);
+        ArrayList<Set<Integer>> detokenizedFavList = reflectionTokenizer.detokenize(loadedFavList);
+        this.setDataIndex(detokenizedFavList);
+    }
+
     /**
      * Generate a set of 5 distinct random numbers from 0-9 which will then be used as indexes to
      * select 5 random questions.
@@ -118,16 +183,20 @@ public class QuestionList {
 
     /**
      * Add the index of a liked question into fav list.<br/>
-     * A valid index will only be added(i.e. passed validateCommand()) if the question is not yet in the favorite list
+     * <br/>
+     * A valid index will only be added(i.e. passed validateCommand())
+     * if the question is not yet in the favorite list.<br/>
+     * Indexes of all favorite questions will be stored in data file every time a question is liked.
      *
      * @param indexToAdd The index of the question liked by user
      */
-    public void addFavListIndex(int indexToAdd) {
+    public void addFavListIndex(int indexToAdd) throws TokenizerException, StorageException {
         if (this.dataIndex.get(INDEX_ZERO).contains(indexToAdd)) {
             UI.printOutputMessage(questions.get(indexToAdd).toString() + DUPLICATE_LIKE);
             return;
         }
         this.dataIndex.get(INDEX_ZERO).add(indexToAdd);
+        this.storeFavList();
         UI.printOutputMessage(ADD_FAV_SUCCESS_ONE + this.questions.get(indexToAdd).toString() + ADD_FAV_SUCCESS_TWO);
     }
 
@@ -172,5 +241,6 @@ public class QuestionList {
         }
         return questionString;
     }
+    //@@author
 }
 

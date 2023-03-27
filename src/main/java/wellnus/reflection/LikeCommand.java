@@ -7,6 +7,8 @@ import java.util.logging.Logger;
 
 import wellnus.command.Command;
 import wellnus.exception.BadCommandException;
+import wellnus.exception.StorageException;
+import wellnus.exception.TokenizerException;
 
 //@@author wenxin-c
 /**
@@ -25,6 +27,8 @@ public class LikeCommand extends Command {
     private static final String MISSING_SET_QUESTIONS = "A set of questions has not been gotten";
     private static final String MISSING_SET_QUESTIONS_NOTES = "Please get a set of questions before adding to favorite "
             + "list!";
+    private static final String TOKENIZER_ERROR = "The data cannot be tokenized for storage properly!!";
+    private static final String STORAGE_ERROR = "The file data cannot be stored properly!!";
     private static final int ARGUMENT_PAYLOAD_SIZE = 1;
     private static final int UPPER_BOUND = 5;
     private static final int LOWER_BOUND = 1;
@@ -142,6 +146,12 @@ public class LikeCommand extends Command {
         } catch (BadCommandException badCommandException) {
             LOGGER.log(Level.INFO, MISSING_SET_QUESTIONS);
             UI.printErrorFor(badCommandException, MISSING_SET_QUESTIONS_NOTES);
+        } catch (TokenizerException tokenizerException) {
+            LOGGER.log(Level.WARNING, TOKENIZER_ERROR);
+            UI.printErrorFor(tokenizerException, TOKENIZER_ERROR);
+        } catch (StorageException storageException) {
+            LOGGER.log(Level.WARNING, STORAGE_ERROR);
+            UI.printErrorFor(storageException, STORAGE_ERROR);
         }
     }
 
@@ -170,7 +180,7 @@ public class LikeCommand extends Command {
      * @param questionIndex User input of the index of question to be added to favorite list.
      * @throws BadCommandException If there is not a set of question generated yet.
      */
-    public void addFavQuestion(String questionIndex) throws BadCommandException {
+    public void addFavQuestion(String questionIndex) throws BadCommandException, TokenizerException, StorageException {
         int questionIndexInt = Integer.parseInt(questionIndex);
         if (!questionList.hasRandomQuestionIndexes()) {
             throw new BadCommandException(MISSING_SET_QUESTIONS);
