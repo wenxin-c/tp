@@ -13,6 +13,7 @@ class ReflectionManagerTest {
     private static final String EMPTY_STRING = "";
     private static final String GET_COMMAND = "get";
     private static final String INVALID_COMMAND = "test";
+    private static final String SEPARATOR = " ";
 
     // Test whether exceptions are thrown for invalid command
     @Test
@@ -27,7 +28,7 @@ class ReflectionManagerTest {
     @Test
     void setCommandType_emptyString_expectException() {
         ReflectionManager reflectionManager = new ReflectionManager();
-        String[] input = EMPTY_STRING.split(" ");
+        String[] input = EMPTY_STRING.split(SEPARATOR);
         System.out.println(input.length);
         assertThrows(BadCommandException.class, (
         ) -> reflectionManager.setCommandType(EMPTY_STRING));
@@ -50,6 +51,5 @@ class ReflectionManagerTest {
         String value = argumentPayload.get(GET_COMMAND);
         assertEquals(EMPTY_STRING, value);
     }
-
 }
 
