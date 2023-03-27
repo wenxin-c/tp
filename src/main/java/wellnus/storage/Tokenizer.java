@@ -23,14 +23,13 @@ public interface Tokenizer<T> {
      * @throws TokenizerException If tokenizing fails and state cannot be converted into a valid String
      *     representation
      */
-
-    ArrayList<String> tokenize(ArrayList<T> dataObjects) throws TokenizerException;
+    ArrayList<String> tokenize(ArrayList<T> dataObjects);
 
     /**
      * Converts the String representation of a <code>Manager</code>'s state back into an
      *     <code>ArrayList</code> of the feature's data type class that can be used to restore that
      *     <code>Manager</code>'s previous state.
-     * @param tokenizedDataObjects String representation of the Data Object whose state we want to restore
+     * @param tokenizedDataObjects String representation of the Data Objects whose state we want to restore
      * @return ArrayList containing all the data from the Manager's previously saved state
      * @throws TokenizerException If detokenizing fails and valid state cannot be restored
      */
