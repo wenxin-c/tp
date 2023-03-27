@@ -23,8 +23,8 @@ import wellnus.ui.TextUi;
 public class ConfigCommand extends Command {
     public static final String COMMAND_DESCRIPTION = "config - Change the number of cycles"
             + " and the times of the work, break and long break of your session!\n"
-            + "Note that the minimum cycles is 2 minutes,\n"
-            + "the maximum number of cycles is 5 minutes,\n"
+            + "Note that the minimum cycles is 2,\n"
+            + "the maximum number of cycles is 5,\n"
             + "the maximum work/break times is 60 minutes,\n"
             + "the minimum work/break times is 1 minute.\n"
             + "This is to ensure your well-being, as higher values might be counter-productive!";
