@@ -19,8 +19,6 @@ public class NextCommand extends Command {
     private static final int COMMAND_NUM_OF_ARGUMENTS = 1;
     private static final String COMMAND_INVALID_ARGUMENTS_MESSAGE = "Invalid command, expected 'next'";
     private static final String NO_ADDITIONAL_MESSAGE = "";
-    private static final String COMMAND_KEYWORD_ASSERTION = "The key should be next.";
-    private static final String NEXT_MESSAGE = "Starting next timer...";
     private static final String ERROR_SESSION_NOT_STARTED = "A focus session has not started yet, "
             + "try `start`ing one first!";
     private static final String ERROR_COUNTDOWN_RUNNING = "Oops, your timer for this session is still ticking!";
@@ -103,7 +101,7 @@ public class NextCommand extends Command {
         if (!arguments.containsKey(COMMAND_KEYWORD)) {
             throw new BadCommandException(COMMAND_INVALID_ARGUMENTS_MESSAGE);
         }
-        if (arguments.get(COMMAND_KEYWORD) != "") {
+        if (!arguments.get(COMMAND_KEYWORD).equals("")) {
             throw new BadCommandException(COMMAND_INVALID_ARGUMENTS_MESSAGE);
         }
     }

@@ -99,7 +99,7 @@ public class HomeCommand extends Command {
         if (arguments.size() != HomeCommand.COMMAND_NUM_OF_ARGUMENTS) {
             throw new BadCommandException(HomeCommand.COMMAND_INVALID_ARGUMENTS_MESSAGE);
         }
-        if (arguments.get(COMMAND_KEYWORD) != "") {
+        if (!arguments.get(COMMAND_KEYWORD).equals("")) {
             throw new BadCommandException(HomeCommand.COMMAND_INVALID_ARGUMENTS_MESSAGE);
         }
         if (!arguments.containsKey(HomeCommand.COMMAND_KEYWORD)) {

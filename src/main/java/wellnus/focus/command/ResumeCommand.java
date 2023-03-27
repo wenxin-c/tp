@@ -94,7 +94,7 @@ public class ResumeCommand extends Command {
         if (!arguments.containsKey(COMMAND_KEYWORD)) {
             throw new BadCommandException(COMMAND_INVALID_ARGUMENTS_MESSAGE);
         }
-        if (arguments.get(COMMAND_KEYWORD) != "") {
+        if (!arguments.get(COMMAND_KEYWORD).equals("")) {
             throw new BadCommandException(COMMAND_INVALID_ARGUMENTS_MESSAGE);
         }
     }
