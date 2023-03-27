@@ -1,8 +1,6 @@
 package wellnus.reflection;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -11,38 +9,37 @@ import wellnus.exception.BadCommandException;
 
 //@@author wenxin-c
 /**
- * Command to get a set of 5 random questions.
+ * Get all the questions that are in the favorite list.
  */
-public class GetCommand extends Command {
-    public static final String COMMAND_DESCRIPTION = "get - Get a list of questions to reflect on.";
-    public static final String COMMAND_USAGE = "usage: get";
-    private static final Logger LOGGER = Logger.getLogger("ReflectGetCommandLogger");
-    private static final String FEATURE_NAME = "reflect";
-    private static final String COMMAND_KEYWORD = "get";
+public class FavoriteCommand extends Command {
+    public static final String COMMAND_DESCRIPTION = "fav - Get the list of questions that have been added to "
+            + "the favorite list.";
+    public static final String COMMAND_USAGE = "usage: fav";
+    private static final String COMMAND_KEYWORD = "fav";
     private static final String PAYLOAD = "";
+    private static final String FEATURE_NAME = "reflect";
     private static final String INVALID_COMMAND_MSG = "Command is invalid.";
     private static final String INVALID_COMMAND_NOTES = "Please check the available commands "
             + "and the format of commands.";
-    private static final String COMMAND_KEYWORD_ASSERTION = "The key should be get.";
+    private static final String COMMAND_KEYWORD_ASSERTION = "The key should be fav.";
     private static final String COMMAND_PAYLOAD_ASSERTION = "The payload should be empty.";
-    private static final String NUM_SELECTED_QUESTIONS_ASSERTION = "The number of selected questions should be 5.";
-    private static final String DOT = ".";
-    private static final String EMPTY_STRING = "";
-    private static final int NUM_OF_RANDOM_QUESTIONS = 5;
+    private static final String INDEX_OUT_OF_BOUND_NOTES = "Question index is out of bound(e.g. negative integers, 0)!"
+            + "Your data file might be corrupted!!";
+    private static final String EMPTY_FAV_LIST = "There is nothing in favorite list, "
+            + "please get reflection questions first!!";
     private static final int ARGUMENT_PAYLOAD_SIZE = 1;
-    private static final int ONE_OFFSET = 1;
+    private static final Logger LOGGER = Logger.getLogger("ReflectFavCommandLogger");
     private static final ReflectUi UI = new ReflectUi();
-    private Set<Integer> randomQuestionIndexes;
     private QuestionList questionList;
 
     /**
      * Set up the argument-payload pairs for this command.<br/>
-     * Pass in a questionList object from ReflectionManager to access the list of questions.
+     * Pass in a questionList object from ReflectionManager to access the list of favorite questions.
      *
      * @param arguments Argument-payload pairs from users
      * @param questionList Object that contains the data about questions
      */
-    public GetCommand(HashMap<String, String> arguments, QuestionList questionList) {
+    public FavoriteCommand(HashMap<String, String> arguments, QuestionList questionList) {
         super(arguments);
         this.questionList = questionList;
     }
@@ -95,7 +92,6 @@ public class GetCommand extends Command {
 
     /**
      * Entry point to this command.<br/>
-     * Trigger the generation of five random questions and print to users.<br/>
      */
     @Override
     public void execute() {
@@ -106,8 +102,17 @@ public class GetCommand extends Command {
             UI.printErrorFor(invalidCommand, INVALID_COMMAND_NOTES);
             return;
         }
-        String outputString = convertQuestionsToString();
-        UI.printOutputMessage(outputString);
+        if (!questionList.hasFavQuestions()) {
+            UI.printOutputMessage(EMPTY_FAV_LIST);
+            return;
+        }
+        try {
+            String outputString = questionList.getFavQuestions();
+            UI.printOutputMessage(outputString);
+        } catch (ArrayIndexOutOfBoundsException arrayIndexOutOfBoundsException) {
+            LOGGER.log(Level.WARNING, INVALID_COMMAND_MSG);
+            UI.printErrorFor(arrayIndexOutOfBoundsException, INDEX_OUT_OF_BOUND_NOTES);
+        }
     }
 
     /**
@@ -115,7 +120,7 @@ public class GetCommand extends Command {
      * <br/>
      * Conditions for command to be valid:<br/>
      * <li>Only one argument-payload pair
-     * <li>The pair contains key: get
+     * <li>The pair contains key: fav
      * <li>Payload is empty
      * Whichever mismatch will cause the command to be invalid.
      *
@@ -133,41 +138,6 @@ public class GetCommand extends Command {
         }
         assert getArguments().containsKey(COMMAND_KEYWORD) : COMMAND_KEYWORD_ASSERTION;
         assert getArguments().get(COMMAND_KEYWORD).equals(PAYLOAD) : COMMAND_PAYLOAD_ASSERTION;
-    }
-
-    /**
-     * Use questionList object to generate a set of 5 random integers(0-9) which will then be used as indexes to get
-     * a set of 5 random questions.
-     * <br/>
-     * Each number num: num >= 0 and num <= (maxSize - 1)
-     *
-     * @return The selected sets of random questions
-     */
-    public ArrayList<ReflectionQuestion> getRandomQuestions() {
-        questionList.setRandomQuestionIndexes();
-        this.randomQuestionIndexes = questionList.getRandomQuestionIndexes();
-        ArrayList<ReflectionQuestion> selectedQuestions = new ArrayList<>();
-        ArrayList<ReflectionQuestion> questions = questionList.getAllQuestions();
-        for (int index : this.randomQuestionIndexes) {
-            selectedQuestions.add(questions.get(index));
-        }
-        assert selectedQuestions.size() == NUM_OF_RANDOM_QUESTIONS : NUM_SELECTED_QUESTIONS_ASSERTION;
-        return selectedQuestions;
-    }
-
-    /**
-     * Convert all five questions to a single string to be printed.
-     *
-     * @return Single string that consists of all questions
-     */
-    private String convertQuestionsToString() {
-        ArrayList<ReflectionQuestion> selectedQuestions = getRandomQuestions();
-        String questionString = EMPTY_STRING;
-        for (int i = 0; i < selectedQuestions.size(); i += 1) {
-            questionString += ((i + ONE_OFFSET) + DOT + selectedQuestions.get(i).toString()
-                    + System.lineSeparator());
-        }
-        return questionString;
     }
 }
 
