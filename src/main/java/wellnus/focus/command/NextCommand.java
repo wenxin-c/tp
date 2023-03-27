@@ -12,12 +12,19 @@ import wellnus.ui.TextUi;
  * Represents a class to start the next countdown in the session.
  */
 public class NextCommand extends Command {
+    public static final String COMMAND_DESCRIPTION = "next - When a timer ends, move on to the next countdown!\n"
+            + "This can only be used when a countdown timer has ended!";
+    public static final String COMMAND_USAGE = "usage: next";
     private static final String COMMAND_KEYWORD = "next";
     private static final int COMMAND_NUM_OF_ARGUMENTS = 1;
     private static final String COMMAND_INVALID_ARGUMENTS_MESSAGE = "Invalid command, expected 'next'";
     private static final String NO_ADDITIONAL_MESSAGE = "";
     private static final String COMMAND_KEYWORD_ASSERTION = "The key should be next.";
     private static final String NEXT_MESSAGE = "Starting next timer...";
+    private static final String ERROR_SESSION_NOT_STARTED = "A focus session has not started yet, "
+            + "try `start`ing one first!";
+    private static final String ERROR_COUNTDOWN_RUNNING = "Oops, your timer for this session is still ticking!";
+    private static final String ERROR_SESSION_ENDED = "Your focus session has ended! Try `start`ing a new session!";
     private final Session session;
     private final TextUi textUi;
 
@@ -69,16 +76,18 @@ public class NextCommand extends Command {
             textUi.printErrorFor(badCommandException, NO_ADDITIONAL_MESSAGE);
             return;
         }
-        if (session.getCurrentCountdownIndex() == session.getSession().size() - 1) {
+        if (session.isSessionReady()) {
+            textUi.printOutputMessage(ERROR_SESSION_NOT_STARTED);
+            return;
+        }
+        if (session.isSessionCounting() || session.isSessionPaused()) {
+            textUi.printOutputMessage(ERROR_COUNTDOWN_RUNNING);
             return;
         }
         session.checkPrevCountdown();
-        if (!session.getSession().get(session.getCurrentCountdownIndex()).getIsCompletedCountdown()
-                && !session.getSession().get(session.getCurrentCountdownIndex()).getIsRunning()) {
-            session.getSession().get(session.getCurrentCountdownIndex()).start();
-            session.getSession().get(session.getCurrentCountdownIndex()).setStart();
-            textUi.printOutputMessage(session.getSession().get(session.getCurrentCountdownIndex()).getDescription());
-        }
+        session.getCurrentCountdown().start();
+        session.getCurrentCountdown().setStart();
+        textUi.printOutputMessage(session.getCurrentCountdown().getDescription());
     }
 
     /**

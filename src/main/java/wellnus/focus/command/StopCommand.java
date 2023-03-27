@@ -12,12 +12,17 @@ import wellnus.ui.TextUi;
  * Represents a command to stop the current session.
  */
 public class StopCommand extends Command {
+    public static final String COMMAND_DESCRIPTION = "stop - Stop the session. You will have to `start` "
+            + "your focus session again!";
+    public static final String COMMAND_USAGE = "usage: stop";
     private static final String COMMAND_KEYWORD = "stop";
     private static final int COMMAND_NUM_OF_ARGUMENTS = 1;
     private static final String COMMAND_INVALID_ARGUMENTS_MESSAGE = "Invalid command, expected 'stop'";
     private static final String NO_ADDITIONAL_MESSAGE = "";
     private static final String COMMAND_KEYWORD_ASSERTION = "The key should be stop.";
-    private static final String STOP_MESSAGE = "Your focus session has ended.";
+    private static final String STOP_MESSAGE = "Your focus session has ended.\n"
+            + "To start a new session, `start` it up!";
+    private static final String ERROR_NOT_STARTED = "Nothing to stop - the timer has not started yet!";
     private final Session session;
     private final TextUi textUi;
 
@@ -69,8 +74,13 @@ public class StopCommand extends Command {
             textUi.printErrorFor(badCommandException, NO_ADDITIONAL_MESSAGE);
             return;
         }
+        if (!session.hasAnyCountdown() || session.isSessionReady()) {
+            textUi.printOutputMessage(ERROR_NOT_STARTED);
+            return;
+        }
         textUi.printOutputMessage(STOP_MESSAGE);
-        session.getSession().get(session.getCurrentCountdownIndex()).setStop();
+        session.getCurrentCountdown().setStop();
+        session.initialiseSession();
         session.resetCurrentCountdownIndex();
     }
 

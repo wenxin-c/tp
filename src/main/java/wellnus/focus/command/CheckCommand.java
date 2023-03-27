@@ -12,12 +12,16 @@ import wellnus.ui.TextUi;
  * Represents a command to check the time left in the current session.
  */
 public class CheckCommand extends Command {
+    public static final String COMMAND_DESCRIPTION = "check - Check the time left in the current session.\n"
+            + "This can only be used when a countdown is underway!";
+    public static final String COMMAND_USAGE = "usage: check";
     private static final String COMMAND_KEYWORD = "check";
     private static final int COMMAND_NUM_OF_ARGUMENTS = 1;
     private static final String COMMAND_INVALID_ARGUMENTS_MESSAGE = "Invalid command, expected 'check'";
     private static final String NO_ADDITIONAL_MESSAGE = "";
     private static final String COMMAND_KEYWORD_ASSERTION = "The key should be check.";
     private static final String CHECK_OUTPUT = "Time left: ";
+    private static final String ERROR_COUNTDOWN_NOT_RUNNING = "Nothing to check - the countdown has not started yet!";
     private final Session session;
     private final TextUi textUi;
 
@@ -68,11 +72,17 @@ public class CheckCommand extends Command {
             textUi.printErrorFor(badCommandException, NO_ADDITIONAL_MESSAGE);
             return;
         }
-        if (session.getSession().get(session.getCurrentCountdownIndex()).getIsRunning()) {
-            int minutes = session.getSession().get(session.getCurrentCountdownIndex()).getMinutes();
-            int seconds = session.getSession().get(session.getCurrentCountdownIndex()).getSeconds();
-            textUi.printOutputMessage(CHECK_OUTPUT + String.format("%d:%d", minutes, seconds));
+        if (session.isSessionReady()) {
+            textUi.printOutputMessage(ERROR_COUNTDOWN_NOT_RUNNING);
+            return;
         }
+        if (session.isSessionWaiting()) {
+            textUi.printOutputMessage(ERROR_COUNTDOWN_NOT_RUNNING);
+            return;
+        }
+        int minutes = session.getCurrentCountdown().getMinutes();
+        int seconds = session.getCurrentCountdown().getSeconds();
+        textUi.printOutputMessage(CHECK_OUTPUT + String.format("%d:%d", minutes, seconds));
     }
 
     /**

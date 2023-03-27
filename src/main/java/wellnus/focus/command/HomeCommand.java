@@ -12,6 +12,8 @@ import wellnus.ui.TextUi;
  * The HomeCommand class is a command class that returns user back to the main WellNUS++ program.
  */
 public class HomeCommand extends Command {
+    public static final String COMMAND_DESCRIPTION = "home - Stop the session and go back to WellNUS++.";
+    public static final String COMMAND_USAGE = "usage: home";
     private static final int COMMAND_NUM_OF_ARGUMENTS = 1;
     private static final String COMMAND_INVALID_ARGUMENTS_MESSAGE = "That is not a valid home command for "
             + "focus timer!";
@@ -79,8 +81,8 @@ public class HomeCommand extends Command {
             textUi.printErrorFor(badCommandException, NO_ADDITIONAL_MESSAGE);
             return;
         }
-        if (session.hasAnyCountdown()) {
-            session.getSession().get(session.getCurrentCountdownIndex()).setStop();
+        if (!session.isSessionReady()) {
+            session.getCurrentCountdown().setStop();
         }
         textUi.printOutputMessage(HOME_MESSAGE);
     }

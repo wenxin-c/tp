@@ -12,12 +12,16 @@ import wellnus.ui.TextUi;
  * Represents a class to pause the current countdown in the session.
  */
 public class PauseCommand extends Command {
+    public static final String COMMAND_DESCRIPTION = "pause - Pause the session!"
+            + "Can only be used when a countdown is ticking.";
+    public static final String COMMAND_USAGE = "usage: pause";
     private static final String COMMAND_KEYWORD = "pause";
     private static final int COMMAND_NUM_OF_ARGUMENTS = 1;
     private static final String COMMAND_INVALID_ARGUMENTS_MESSAGE = "Invalid command, expected 'pause'";
     private static final String NO_ADDITIONAL_MESSAGE = "";
     private static final String COMMAND_KEYWORD_ASSERTION = "The key should be pause.";
     private static final String PAUSE_OUTPUT = "Timer paused at: ";
+    private static final String ERROR_COUNTDOWN_NOT_RUNNING = "Nothing to pause - the timer has not started yet!";
     private final Session session;
     private final TextUi textUi;
 
@@ -68,9 +72,15 @@ public class PauseCommand extends Command {
             textUi.printErrorFor(badCommandException, NO_ADDITIONAL_MESSAGE);
             return;
         }
-        session.getSession().get(session.getCurrentCountdownIndex()).setPause();
-        int minutes = session.getSession().get(session.getCurrentCountdownIndex()).getMinutes();
-        int seconds = session.getSession().get(session.getCurrentCountdownIndex()).getSeconds();
+        // Only execute the pause logic if the countdown is not running
+        if (!session.getCurrentCountdown().getIsRunning()) {
+            // Gently tell the user why pause did not execute
+            textUi.printOutputMessage(ERROR_COUNTDOWN_NOT_RUNNING);
+            return;
+        }
+        session.getCurrentCountdown().setPause();
+        int minutes = session.getCurrentCountdown().getMinutes();
+        int seconds = session.getCurrentCountdown().getSeconds();
         textUi.printOutputMessage(PAUSE_OUTPUT + String.format("%d:%d", minutes, seconds));
     }
 

@@ -62,7 +62,8 @@ public class ConfigCommand extends Command {
     private static final String LOG_VALIDATION_ASSUMPTION_FAIL = "New cycle/break/work time is assumed to "
             + "have passed the validation bounds and type checking, but has"
             + "unexpectedly failed the second redundant check! This may be a developer error.";
-
+    private static final String ERROR_SESSION_STARTED = "Cannot config the session as it has already started.\n"
+            + "If you want to reconfigure, `stop` the session and then `config`!";
 
     // Final is OK to be used here since the command will be constructed on a need-to basis
     private final TextUi textUi;
@@ -120,6 +121,10 @@ public class ConfigCommand extends Command {
      */
     @Override
     public void execute() throws WellNusException {
+        if (!session.isSessionReady()) {
+            textUi.printOutputMessage(ERROR_SESSION_STARTED);
+            return;
+        }
         HashMap<String, String> argumentPayloads = getArguments();
         try {
             validateCommand(argumentPayloads);
