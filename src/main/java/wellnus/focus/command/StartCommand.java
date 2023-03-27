@@ -20,7 +20,6 @@ public class StartCommand extends Command {
     private static final int FIRST_COUNTDOWN_INDEX = 0;
     private static final String COMMAND_INVALID_ARGUMENTS_MESSAGE = "Invalid command, expected 'start'";
     private static final String NO_ADDITIONAL_MESSAGE = "";
-    private static final String COMMAND_KEYWORD_ASSERTION = "The key should be start.";
     private static final String START_MESSAGE = "Your session has started! Please focus on your task.";
     private static final String ERROR_NOT_READY = "Nothing to start - your session has started!";
     private final Session session;
@@ -114,7 +113,7 @@ public class StartCommand extends Command {
      */
     @Override
     public String getCommandUsage() {
-        return null;
+        return COMMAND_USAGE;
     }
 
     /**
@@ -127,6 +126,6 @@ public class StartCommand extends Command {
      */
     @Override
     public String getCommandDescription() {
-        return null;
+        return COMMAND_DESCRIPTION;
     }
 }

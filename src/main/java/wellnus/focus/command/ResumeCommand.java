@@ -109,7 +109,7 @@ public class ResumeCommand extends Command {
      */
     @Override
     public String getCommandUsage() {
-        return null;
+        return COMMAND_USAGE;
     }
 
     /**
@@ -122,6 +122,6 @@ public class ResumeCommand extends Command {
      */
     @Override
     public String getCommandDescription() {
-        return null;
+        return COMMAND_DESCRIPTION;
     }
 }

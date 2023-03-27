@@ -19,7 +19,6 @@ public class StopCommand extends Command {
     private static final int COMMAND_NUM_OF_ARGUMENTS = 1;
     private static final String COMMAND_INVALID_ARGUMENTS_MESSAGE = "Invalid command, expected 'stop'";
     private static final String NO_ADDITIONAL_MESSAGE = "";
-    private static final String COMMAND_KEYWORD_ASSERTION = "The key should be stop.";
     private static final String STOP_MESSAGE = "Your focus session has ended.\n"
             + "To start a new session, `start` it up!";
     private static final String ERROR_NOT_STARTED = "Nothing to stop - the timer has not started yet!";
@@ -114,7 +113,7 @@ public class StopCommand extends Command {
      */
     @Override
     public String getCommandUsage() {
-        return null;
+        return COMMAND_USAGE;
     }
 
     /**
@@ -127,7 +126,7 @@ public class StopCommand extends Command {
      */
     @Override
     public String getCommandDescription() {
-        return null;
+        return COMMAND_DESCRIPTION;
     }
 }
 

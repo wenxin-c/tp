@@ -65,7 +65,6 @@ public class ConfigCommand extends Command {
     private static final String ERROR_SESSION_STARTED = "Cannot config the session as it has already started.\n"
             + "If you want to reconfigure, `stop` the session and then `config`!";
 
-    // Final is OK to be used here since the command will be constructed on a need-to basis
     private final TextUi textUi;
     private final Session session;
     private int newCycle;

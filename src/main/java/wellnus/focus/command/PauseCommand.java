@@ -19,7 +19,6 @@ public class PauseCommand extends Command {
     private static final int COMMAND_NUM_OF_ARGUMENTS = 1;
     private static final String COMMAND_INVALID_ARGUMENTS_MESSAGE = "Invalid command, expected 'pause'";
     private static final String NO_ADDITIONAL_MESSAGE = "";
-    private static final String COMMAND_KEYWORD_ASSERTION = "The key should be pause.";
     private static final String PAUSE_OUTPUT = "Timer paused at: ";
     private static final String ERROR_COUNTDOWN_NOT_RUNNING = "Nothing to pause - the timer has not started yet!";
     private final Session session;
@@ -114,7 +113,7 @@ public class PauseCommand extends Command {
      */
     @Override
     public String getCommandUsage() {
-        return null;
+        return COMMAND_USAGE;
     }
 
     /**
@@ -127,6 +126,6 @@ public class PauseCommand extends Command {
      */
     @Override
     public String getCommandDescription() {
-        return null;
+        return COMMAND_DESCRIPTION;
     }
 }

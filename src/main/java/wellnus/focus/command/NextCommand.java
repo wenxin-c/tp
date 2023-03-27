@@ -24,7 +24,6 @@ public class NextCommand extends Command {
     private static final String ERROR_SESSION_NOT_STARTED = "A focus session has not started yet, "
             + "try `start`ing one first!";
     private static final String ERROR_COUNTDOWN_RUNNING = "Oops, your timer for this session is still ticking!";
-    private static final String ERROR_SESSION_ENDED = "Your focus session has ended! Try `start`ing a new session!";
     private final Session session;
     private final TextUi textUi;
 
@@ -85,8 +84,7 @@ public class NextCommand extends Command {
             return;
         }
         session.checkPrevCountdown();
-        session.getCurrentCountdown().start();
-        session.getCurrentCountdown().setStart();
+        session.startTimer();
         textUi.printOutputMessage(session.getCurrentCountdown().getDescription());
     }
 
@@ -120,7 +118,7 @@ public class NextCommand extends Command {
      */
     @Override
     public String getCommandUsage() {
-        return null;
+        return COMMAND_USAGE;
     }
 
     /**
@@ -133,7 +131,7 @@ public class NextCommand extends Command {
      */
     @Override
     public String getCommandDescription() {
-        return null;
+        return COMMAND_DESCRIPTION;
     }
 }
 
