@@ -72,7 +72,7 @@ public class AtomicHabitTokenizer implements Tokenizer<AtomicHabit> {
      * @param habitsToTokenize List of atomic habits to be tokenized as ArrayList of strings.
      * @return ArrayList of Strings representing the tokenized habits that we can write to storage.
      */
-    public ArrayList<String> tokenize(ArrayList<AtomicHabit> habitsToTokenize) throws TokenizerException {
+    public ArrayList<String> tokenize(ArrayList<AtomicHabit> habitsToTokenize) {
         ArrayList<String> tokenizedHabits = new ArrayList<>();
         for (AtomicHabit habit : habitsToTokenize) {
             String tokenizedHabit = PARAMETER_DELIMITER + DESCRIPTION_KEY

@@ -12,13 +12,16 @@ import wellnus.ui.TextUi;
  * Represents a command to resume the countdown timer in the current session.
  */
 public class ResumeCommand extends Command {
-
+    public static final String COMMAND_DESCRIPTION = "resume - Continue the countdown.\n"
+            + "Can only be used when a countdown is paused.";
+    public static final String COMMAND_USAGE = "usage: home";
     private static final String COMMAND_KEYWORD = "resume";
     private static final int COMMAND_NUM_OF_ARGUMENTS = 1;
     private static final String COMMAND_INVALID_ARGUMENTS_MESSAGE = "Invalid command, expected 'resume'";
     private static final String NO_ADDITIONAL_MESSAGE = "";
     private static final String COMMAND_KEYWORD_ASSERTION = "The key should be resume.";
     private static final String RESUME_OUTPUT = "Timer resumed at: ";
+    private static final String ERROR_NOT_PAUSED = "You don't seem to be paused. Ignoring the command!";
     private final Session session;
     private final TextUi textUi;
 
@@ -70,10 +73,14 @@ public class ResumeCommand extends Command {
             return;
         }
         assert super.getArguments().containsKey(COMMAND_KEYWORD) : COMMAND_KEYWORD_ASSERTION;
-        int minutes = session.getSession().get(session.getCurrentCountdownIndex()).getMinutes();
-        int seconds = session.getSession().get(session.getCurrentCountdownIndex()).getSeconds();
+        if (!session.hasAnyCountdown() || !session.isSessionPaused()) {
+            textUi.printOutputMessage(ERROR_NOT_PAUSED);
+            return;
+        }
+        int minutes = session.getCurrentCountdown().getMinutes();
+        int seconds = session.getCurrentCountdown().getSeconds();
         textUi.printOutputMessage(RESUME_OUTPUT + String.format("%d:%d", minutes, seconds));
-        session.getSession().get(session.getCurrentCountdownIndex()).setStart();
+        session.getCurrentCountdown().setStart();
     }
 
     /**
@@ -87,7 +94,7 @@ public class ResumeCommand extends Command {
         if (!arguments.containsKey(COMMAND_KEYWORD)) {
             throw new BadCommandException(COMMAND_INVALID_ARGUMENTS_MESSAGE);
         }
-        if (arguments.get(COMMAND_KEYWORD) != "") {
+        if (!arguments.get(COMMAND_KEYWORD).equals("")) {
             throw new BadCommandException(COMMAND_INVALID_ARGUMENTS_MESSAGE);
         }
     }
@@ -102,7 +109,7 @@ public class ResumeCommand extends Command {
      */
     @Override
     public String getCommandUsage() {
-        return null;
+        return COMMAND_USAGE;
     }
 
     /**
@@ -115,6 +122,6 @@ public class ResumeCommand extends Command {
      */
     @Override
     public String getCommandDescription() {
-        return null;
+        return COMMAND_DESCRIPTION;
     }
 }

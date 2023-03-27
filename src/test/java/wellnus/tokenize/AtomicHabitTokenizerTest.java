@@ -19,7 +19,7 @@ public class AtomicHabitTokenizerTest {
     }
 
     @Test
-    void tokenizeHabit_checkOutput_success() throws TokenizerException {
+    void tokenizeHabit_checkOutput_success() {
         String expectedTokenizedHabitOne = "--description foo --count 1";
         String expectedTokenizedHabitTwo = "--description bar --count 2";
         ArrayList<AtomicHabit> habitsToTokenize = new ArrayList<>();
@@ -50,6 +50,15 @@ public class AtomicHabitTokenizerTest {
         assertEquals(expectedCountTestOne, actualDetokenizedAtomicHabits.get(INDEX_ZERO).getCount());
         assertEquals(expectedDescriptionTestTwo, actualDetokenizedAtomicHabits.get(INDEX_ONE).getDescription());
         assertEquals(expectedCountTestTwo, actualDetokenizedAtomicHabits.get(INDEX_ONE).getCount());
+    }
+
+    @Test
+    void detokenizeHabit_checkOutputEmptyString_success() throws TokenizerException {
+        ArrayList<AtomicHabit> expectedDetokenizedAtomicHabit = new ArrayList<>();
+        ArrayList<String> tokenizedHabits = new ArrayList<>();
+        AtomicHabitTokenizer habitTokenizer = new AtomicHabitTokenizer();
+        ArrayList<AtomicHabit> actualDetokenizedAtomicHabits = habitTokenizer.detokenize(tokenizedHabits);
+        assertEquals(expectedDetokenizedAtomicHabit, actualDetokenizedAtomicHabits);
     }
 
     @Test
