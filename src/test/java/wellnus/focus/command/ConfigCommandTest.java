@@ -179,5 +179,4 @@ public class ConfigCommandTest {
         command = new ConfigCommand(argumentPayload, session);
         assertThrows(WellNusException.class, command::execute);
     }
-    
 }
