@@ -104,7 +104,7 @@ public class Countdown {
                 if (!isRunClock.get()) {
                     return;
                 }
-                if (minutes == DEFAULT_STOP_TIME && seconds <= 10) {
+                if (minutes == DEFAULT_STOP_TIME && seconds <= 10 && seconds != 0) {
                     textUi.printOutputMessage(seconds + " seconds left");
                 }
                 if (seconds == DEFAULT_STOP_TIME && minutes == DEFAULT_STOP_TIME) {
