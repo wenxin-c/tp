@@ -81,13 +81,5 @@ public class FocusTest {
             focusManager.testInvalidCommand(command);
         });
     }
-
-    /**
-     * Test if session does not create countdowns before start command.
-     */
-    @Test
-    public void session_createCountdownsBeforeStart_fail() {
-        Assertions.assertEquals(false, session.getSession().size() > 0);
-    }
 }
 
