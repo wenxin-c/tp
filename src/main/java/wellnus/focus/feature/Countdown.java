@@ -23,12 +23,17 @@ public class Countdown {
     private static final String STOP_BEFORE_START_ASSERTION = "Timer should be started before trying to stop it";
     private static final String TIMER_NOT_RUNNING_ASSERTION = "Timer should not be running";
     private static final String TIMER_COMPLETE_MESSAGE = "Type 'next' to begin the next countdown";
+    private static final String TIMER_COMPLETE_MESSAGE_LAST = "Congrats! That's a session done and dusted!\n"
+            + "Type `start` to start a new session, or `config` to change the session settings.";
     private TextUi textUi;
     private Timer timer;
     private int minutes;
     private int inputMinutes;
     private int seconds;
     private final String description;
+    private boolean isLast;
+    // Convenience attribute to signify that this countdown object is the rollover countdown
+    private boolean isReady = false;
     private AtomicBoolean isCompletedCountdown;
     private AtomicBoolean isRunClock;
 
@@ -39,7 +44,7 @@ public class Countdown {
      * @param minutes     the number of minutes to countdown
      * @param description description of the current task user is focusing on
      */
-    public Countdown(int minutes, String description) {
+    public Countdown(int minutes, String description, boolean isLast) {
         assert minutes > 0 : MINUTES_INPUT_ASSERTION;
         this.minutes = minutes;
         this.inputMinutes = minutes;
@@ -48,6 +53,7 @@ public class Countdown {
         this.isRunClock = new AtomicBoolean(false);
         this.description = description;
         this.textUi = new TextUi();
+        this.isLast = isLast;
     }
 
     /**
@@ -58,8 +64,16 @@ public class Countdown {
     private void timerComplete() {
         setStop();
         java.awt.Toolkit.getDefaultToolkit().beep();
-        textUi.printOutputMessage(TIMER_COMPLETE_MESSAGE);
+        if (isLast) {
+            textUi.printOutputMessage(TIMER_COMPLETE_MESSAGE_LAST);
+        } else {
+            textUi.printOutputMessage(TIMER_COMPLETE_MESSAGE);
+        }
         this.minutes = inputMinutes;
+        this.isCompletedCountdown.set(true);
+        if (isLast) {
+            setIsReady(true);
+        }
     }
 
     /**
@@ -87,6 +101,7 @@ public class Countdown {
         TimerTask countdownTask = new TimerTask() {
             @Override
             public void run() {
+                setIsReady(false);
                 if (!isRunClock.get()) {
                     return;
                 }
@@ -178,4 +193,13 @@ public class Countdown {
     public String getDescription() {
         return this.description;
     }
+
+    public boolean getIsReady() {
+        return isReady;
+    }
+
+    public void setIsReady(boolean isReady) {
+        this.isReady = isReady;
+    }
+
 }
