@@ -81,7 +81,6 @@ public class NextCommand extends Command {
             textUi.printOutputMessage(ERROR_COUNTDOWN_RUNNING);
             return;
         }
-        session.checkPrevCountdown();
         session.startTimer();
         textUi.printOutputMessage(session.getCurrentCountdown().getDescription());
     }
