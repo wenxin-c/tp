@@ -1,4 +1,4 @@
-package wellnus.reflection;
+package wellnus.reflection.feature;
 
 import java.util.Random;
 import java.util.Set;

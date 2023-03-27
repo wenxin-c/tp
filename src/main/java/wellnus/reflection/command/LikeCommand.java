@@ -1,4 +1,4 @@
-package wellnus.reflection;
+package wellnus.reflection.command;
 
 import java.util.HashMap;
 import java.util.Set;
@@ -9,6 +9,8 @@ import wellnus.command.Command;
 import wellnus.exception.BadCommandException;
 import wellnus.exception.StorageException;
 import wellnus.exception.TokenizerException;
+import wellnus.reflection.feature.QuestionList;
+import wellnus.reflection.feature.ReflectUi;
 
 //@@author wenxin-c
 /**
@@ -162,7 +164,7 @@ public class LikeCommand extends Command {
      *
      * @return indexQuestionMap The hashmap with display index as key and question index as value.
      */
-    HashMap<Integer, Integer> mapInputToQuestion() {
+    public HashMap<Integer, Integer> mapInputToQuestion() {
         HashMap<Integer, Integer> indexQuestionMap = new HashMap<>();
         int displayIndex = INDEX_ONE;
         for (int index : this.randomQuestionIndexes) {

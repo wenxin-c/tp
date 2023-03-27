@@ -1,4 +1,4 @@
-package wellnus.reflection;
+package wellnus.reflection.feature;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -76,21 +76,17 @@ public class QuestionList {
         } catch (StorageException storageException) {
             LOGGER.log(Level.WARNING, STORAGE_ERROR);
             UI.printErrorFor(storageException, STORAGE_ERROR);
-            return;
         }
         this.randomQuestionIndexes = new HashSet<>();
-        this.dataFileInitialSetup();
+        this.dataIndexInitialSetup();
         try {
-            this.storeFavList();
             this.loadFavList();
         } catch (StorageException storageException) {
             LOGGER.log(Level.WARNING, TOKENIZER_ERROR);
             UI.printErrorFor(storageException, TOKENIZER_ERROR);
-            return;
         } catch (TokenizerException tokenizerException) {
             LOGGER.log(Level.WARNING, STORAGE_ERROR);
             UI.printErrorFor(tokenizerException, STORAGE_ERROR);
-            return;
         }
         setUpQuestions();
         assert questions.size() == TOTAL_NUM_QUESTIONS : TOTAL_NUM_QUESTION_ASSERTIONS;
@@ -127,20 +123,21 @@ public class QuestionList {
      * TODO: BUGGY!!!!!
      * Set up initial data file
      */
-    public void dataFileInitialSetup() {
+    public void dataIndexInitialSetup() {
         this.dataIndex = new ArrayList<>();
         HashSet<Integer> setLike = new HashSet<>();
         HashSet<Integer> setPrev = new HashSet<>();
         this.dataIndex.add(setLike);
         this.dataIndex.add(setPrev);
     }
+
     /**
      * Tokenize the indexes of liked questions and store them in a data file.
      *
      * @throws TokenizerException If there is error during tokenization
      * @throws StorageException If data cannot be stored properly
      */
-    public void storeFavList() throws TokenizerException, StorageException {
+    public void storeFavList() throws StorageException {
         ArrayList<String> tokenizedFavList = reflectionTokenizer.tokenize(this.dataIndex);
         storage.saveData(tokenizedFavList, FILE_NAME);
     }
@@ -190,7 +187,7 @@ public class QuestionList {
      *
      * @param indexToAdd The index of the question liked by user
      */
-    public void addFavListIndex(int indexToAdd) throws TokenizerException, StorageException {
+    public void addFavListIndex(int indexToAdd) throws StorageException {
         if (this.dataIndex.get(INDEX_ZERO).contains(indexToAdd)) {
             UI.printOutputMessage(questions.get(indexToAdd).toString() + DUPLICATE_LIKE);
             return;
@@ -231,7 +228,7 @@ public class QuestionList {
      *
      * @return String of favorite questions
      */
-    public String getFavQuestions() throws ArrayIndexOutOfBoundsException {
+    public String getFavQuestions() throws IndexOutOfBoundsException {
         String questionString = EMPTY_STRING;
         int displayIndex = INDEX_ONE;
         for (int questionIndex : this.dataIndex.get(INDEX_ZERO)) {
