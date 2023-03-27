@@ -13,7 +13,6 @@ import wellnus.ui.TextUi;
  * Atomic data type is used to communicate with the timer background thread.
  */
 public class Countdown {
-
     private static final int ONE_SECOND = 1000;
     private static final int DELAY_TIME = 0;
     private static final int DEFAULT_STOP_TIME = 0;
@@ -194,6 +193,15 @@ public class Countdown {
         return this.description;
     }
 
+    /**
+     * This method will return the ready status of the session
+     * <p>
+     * Only the last countdown timer object in a session can have this as true.
+     * The last countdown timer object will be 'ready' only if it is not counting down.
+     * This is meant to help the Session manage starting new sessions.
+     *
+     * @return boolean representing the ready state of the session
+     */
     public boolean getIsReady() {
         return isReady;
     }

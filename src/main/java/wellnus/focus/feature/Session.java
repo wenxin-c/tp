@@ -9,15 +9,15 @@ import java.util.ArrayList;
  * We define a Session to have 4 states.
  * <ol>
  *     <li> Ready
- *          `config` and `start` are only legal here.*
+ *          `config` and `start` are only legal here.
  *     <li> Counting
- *          `pause` and `stop` are only legal here
+ *          `pause` and `stop` are only legal here.
  *     <li> Waiting
- *          `next` and `stop` are only legal here
+ *          `next` and `stop` are only legal here.
  *     <li> Paused
- *          `resume` and `stop` are only legal here
+ *          `resume` and `stop` are only legal here.
  * </ol>
- * The first timer is a dummy timer
+ * The last timer holds a special `isReady` attribute to help Session determine if `start` and `config` is usable.
  */
 //@@author YongbinWang
 public class Session {
@@ -91,29 +91,60 @@ public class Session {
 
     }
 
+    /**
+     * Get the current countdown object actively ticking in the Session
+     *
+     * @return Countdown the current countdown being ticked
+     */
     public Countdown getCurrentCountdown() {
         return session.get(currentCountdownIndex);
     }
 
+    /**
+     * Check if the session is in its Ready state.
+     * <p>
+     * A session can only be ready if the current index is the last timer
+     * and the last timer's isReady is true, which can only occur if it is not counting down.
+     *
+     * @return boolean Representing the ready state of the session.
+     */
     public boolean isSessionReady() {
         return getCurrentCountdownIndex() == session.size() - INCREMENT && getCurrentCountdown().getIsReady();
     }
 
+    /**
+     * Check if the session is in its Counting state.
+     *
+     * @return boolean Representing if the session's countdown is underway.
+     */
     public boolean isSessionCounting() {
         Countdown countdown = getCurrentCountdown();
         return countdown.getIsRunning() && !countdown.getIsCompletedCountdown();
     }
 
+    /**
+     * Check if the session is in its Waiting state.
+     *
+     * @return boolean Representing if the session's countdown is done and is waiting for a next command.
+     */
     public boolean isSessionWaiting() {
         Countdown countdown = getCurrentCountdown();
         return !countdown.getIsRunning() && countdown.getIsCompletedCountdown();
     }
 
+    /**
+     * Check if the session is in its Paused state.
+     *
+     * @return boolean Representing if the session's countdown is paused.
+     */
     public boolean isSessionPaused() {
         Countdown countdown = getCurrentCountdown();
         return !countdown.getIsRunning() && !countdown.getIsCompletedCountdown() && !countdown.getIsReady();
     }
 
+    /**
+     * Starts the timer for the current countdown and increment the index if needed.
+     */
     public void startTimer() {
         checkPrevCountdown();
         getCurrentCountdown().setStart();
