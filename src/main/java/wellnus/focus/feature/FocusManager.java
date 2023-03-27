@@ -6,6 +6,7 @@ import wellnus.command.Command;
 import wellnus.exception.BadCommandException;
 import wellnus.exception.WellNusException;
 import wellnus.focus.command.CheckCommand;
+import wellnus.focus.command.ConfigCommand;
 import wellnus.focus.command.HomeCommand;
 import wellnus.focus.command.NextCommand;
 import wellnus.focus.command.PauseCommand;
@@ -20,6 +21,7 @@ import wellnus.ui.TextUi;
  * This class will be called by the main manager.
  * It will match the user input to the correct command and execute it.
  */
+//@@author YongbinWang
 public class FocusManager extends Manager {
     public static final String FEATURE_NAME = "ft";
     private static final String FEATURE_BRIEF_DESCRIPTION = "Users can set a timer to focus on a task.";
@@ -33,9 +35,11 @@ public class FocusManager extends Manager {
     private static final String STOP_COMMAND_KEYWORD = "stop";
     private static final String CHECK_COMMAND_KEYWORD = "check";
     private static final String UNKNOWN_COMMAND_MESSAGE = "No such command in focus timer!";
-    private static final String FOCUS_TIMER_GREET = "Welcome to Focus Timer";
+    private static final String FOCUS_TIMER_GREET = "Welcome to Focus Timer.\n"
+            + "Start a focus session with `start`, or `config` the session first!";
     private static final String COMMAND_KEYWORD_ASSERTION = "The key cannot be null"
             + ", check user-guide for valid commands";
+    private static final String ERROR_SESSION_RUNNING = "Sorry, you cant `start` or `config` a ";
     private final TextUi textUi;
     private final Session session;
 
@@ -76,6 +80,8 @@ public class FocusManager extends Manager {
             return new CheckCommand(arguments, session);
         case NEXT_COMMAND_KEYWORD:
             return new NextCommand(arguments, session);
+        case CONFIG_COMMAND_KEYWORD:
+            return new ConfigCommand(arguments, session);
         default:
             throw new BadCommandException(UNKNOWN_COMMAND_MESSAGE);
         }
@@ -171,6 +177,9 @@ public class FocusManager extends Manager {
         case CHECK_COMMAND_KEYWORD:
             arguments = getCommandParser().parseUserInput(checkCommand);
             return new CheckCommand(arguments, session);
+        case CONFIG_COMMAND_KEYWORD:
+            arguments = getCommandParser().parseUserInput(checkCommand);
+            return new ConfigCommand(arguments, session);
         default:
             throw new BadCommandException(UNKNOWN_COMMAND_MESSAGE);
         }

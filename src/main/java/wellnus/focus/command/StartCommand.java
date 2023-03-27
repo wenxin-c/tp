@@ -13,13 +13,15 @@ import wellnus.ui.TextUi;
  * Also used to start different countdowns timers in the session.
  */
 public class StartCommand extends Command {
+    public static final String COMMAND_DESCRIPTION = "start - Start your focus session!";
+    public static final String COMMAND_USAGE = "usage: start";
     private static final String COMMAND_KEYWORD = "start";
     private static final int COMMAND_NUM_OF_ARGUMENTS = 1;
     private static final int FIRST_COUNTDOWN_INDEX = 0;
     private static final String COMMAND_INVALID_ARGUMENTS_MESSAGE = "Invalid command, expected 'start'";
     private static final String NO_ADDITIONAL_MESSAGE = "";
-    private static final String COMMAND_KEYWORD_ASSERTION = "The key should be start.";
     private static final String START_MESSAGE = "Your session has started! Please focus on your task.";
+    private static final String ERROR_NOT_READY = "Nothing to start - your session has started!";
     private final Session session;
     private final TextUi textUi;
 
@@ -71,16 +73,14 @@ public class StartCommand extends Command {
             textUi.printErrorFor(badCommandException, NO_ADDITIONAL_MESSAGE);
             return;
         }
-        if (session.getCurrentCountdownIndex() == session.getSession().size() - 1) {
-            session.checkPrevCountdown();
+        if (!session.isSessionReady()) {
+            textUi.printOutputMessage(ERROR_NOT_READY);
+            return;
         }
-        if (session.getCurrentCountdownIndex() == FIRST_COUNTDOWN_INDEX && !session.hasAnyCountdown()) {
-            session.init();
-            textUi.printOutputMessage(START_MESSAGE);
-            session.getSession().get(FIRST_COUNTDOWN_INDEX).start();
-            session.getSession().get(FIRST_COUNTDOWN_INDEX).setStart();
-            textUi.printOutputMessage(session.getSession().get(FIRST_COUNTDOWN_INDEX).getDescription());
-        }
+        // Forcefully initialise the session again for repeated countdowns
+        textUi.printOutputMessage(START_MESSAGE);
+        session.startTimer();
+        textUi.printOutputMessage(session.getSession().get(FIRST_COUNTDOWN_INDEX).getDescription());
     }
 
     /**
@@ -98,7 +98,7 @@ public class StartCommand extends Command {
         if (!arguments.containsKey(COMMAND_KEYWORD)) {
             throw new BadCommandException(COMMAND_INVALID_ARGUMENTS_MESSAGE);
         }
-        if (arguments.get(COMMAND_KEYWORD) != "") {
+        if (!arguments.get(COMMAND_KEYWORD).equals("")) {
             throw new BadCommandException(COMMAND_INVALID_ARGUMENTS_MESSAGE);
         }
     }
@@ -113,7 +113,7 @@ public class StartCommand extends Command {
      */
     @Override
     public String getCommandUsage() {
-        return null;
+        return COMMAND_USAGE;
     }
 
     /**
@@ -126,6 +126,6 @@ public class StartCommand extends Command {
      */
     @Override
     public String getCommandDescription() {
-        return null;
+        return COMMAND_DESCRIPTION;
     }
 }
