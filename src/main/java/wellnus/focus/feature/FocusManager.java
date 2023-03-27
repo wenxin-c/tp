@@ -35,9 +35,11 @@ public class FocusManager extends Manager {
     private static final String STOP_COMMAND_KEYWORD = "stop";
     private static final String CHECK_COMMAND_KEYWORD = "check";
     private static final String UNKNOWN_COMMAND_MESSAGE = "No such command in focus timer!";
-    private static final String FOCUS_TIMER_GREET = "Welcome to Focus Timer";
+    private static final String FOCUS_TIMER_GREET = "Welcome to Focus Timer.\n"
+            + "Start a focus session with `start`, or `config` the session first!";
     private static final String COMMAND_KEYWORD_ASSERTION = "The key cannot be null"
             + ", check user-guide for valid commands";
+    private static final String ERROR_SESSION_RUNNING = "Sorry, you cant `start` or `config` a ";
     private final TextUi textUi;
     private final Session session;
 
