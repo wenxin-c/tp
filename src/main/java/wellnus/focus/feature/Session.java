@@ -160,6 +160,9 @@ public class Session {
         primeSessionIsReady();
     }
 
+    /**
+     * Sets the isReady flag in the session for the last countdown object to be true
+     */
     private void primeSessionIsReady() {
         int lastIndex = session.size() - INCREMENT;
         session.get(lastIndex).setIsReady(true);
