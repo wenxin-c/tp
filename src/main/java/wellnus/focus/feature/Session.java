@@ -147,8 +147,8 @@ public class Session {
      */
     public void startTimer() {
         checkPrevCountdown();
-        getCurrentCountdown().setStart();
         getCurrentCountdown().start();
+        getCurrentCountdown().setStart();
     }
 
     /**
@@ -193,7 +193,7 @@ public class Session {
     public void setCycle(int newCycles) {
         this.cycle = newCycles;
         fillSession();
-        currentCountdownIndex = session.size() - INCREMENT;
+        resetCurrentCountdownIndex();
     }
 
     public int getBrk() {
