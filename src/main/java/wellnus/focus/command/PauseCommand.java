@@ -21,6 +21,7 @@ public class PauseCommand extends Command {
     private static final String NO_ADDITIONAL_MESSAGE = "";
     private static final String PAUSE_OUTPUT = "Timer paused at: ";
     private static final String ERROR_COUNTDOWN_NOT_RUNNING = "Nothing to pause - the timer has not started yet!";
+    private static final String ERROR_IS_PAUSED = "Nothing to pause - you have already paused the timer!";
     private final Session session;
     private final TextUi textUi;
 
@@ -72,7 +73,11 @@ public class PauseCommand extends Command {
             return;
         }
         // Only execute the pause logic if the countdown is not running
-        if (!session.getCurrentCountdown().getIsRunning()) {
+        if (session.isSessionPaused()) {
+            textUi.printOutputMessage(ERROR_IS_PAUSED);
+            return;
+        }
+        if (!session.isSessionCounting()) {
             // Gently tell the user why pause did not execute
             textUi.printOutputMessage(ERROR_COUNTDOWN_NOT_RUNNING);
             return;
