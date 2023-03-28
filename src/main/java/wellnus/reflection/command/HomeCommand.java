@@ -17,9 +17,9 @@ import wellnus.reflection.feature.ReflectionManager;
 public class HomeCommand extends Command {
     public static final String COMMAND_DESCRIPTION = "home - Return back to the main menu of WellNUS++.";
     public static final String COMMAND_USAGE = "usage: home";
+    public static final String COMMAND_KEYWORD = "home";
     private static final Logger LOGGER = Logger.getLogger("ReflectHomeCommandLogger");
     private static final String FEATURE_NAME = "reflect";
-    private static final String COMMAND_KEYWORD = "home";
     private static final String PAYLOAD = "";
     private static final String INVALID_COMMAND_MSG = "Command is invalid.";
     private static final String INVALID_COMMAND_NOTES = "Please check the available commands "

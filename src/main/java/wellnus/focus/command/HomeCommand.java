@@ -14,11 +14,11 @@ import wellnus.ui.TextUi;
 public class HomeCommand extends Command {
     public static final String COMMAND_DESCRIPTION = "home - Stop the session and go back to WellNUS++.";
     public static final String COMMAND_USAGE = "usage: home";
+    public static final String COMMAND_KEYWORD = "home";
     private static final int COMMAND_NUM_OF_ARGUMENTS = 1;
     private static final String COMMAND_INVALID_ARGUMENTS_MESSAGE = "That is not a valid home command for "
             + "focus timer!";
     private static final String COMMAND_INVALID_COMMAND_MESSAGE = "Wrong command given for home!";
-    private static final String COMMAND_KEYWORD = "home";
     private static final String HOME_MESSAGE = "Thank you for using focus timer. Keep up the productivity!";
     private static final String NO_ADDITIONAL_MESSAGE = "";
     private final TextUi textUi;

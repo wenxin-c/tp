@@ -5,45 +5,46 @@ skinparam arrowColor MODEL_COLOR
 skinparam classBackgroundColor MODEL_COLOR
 
 Package reflection <<Rectangle>>{
-class ReflectionManager{
-- {static}isExit : boolean
-- commandType : String
-- argumentPayload : HashMap<String, String>
-+ ReflectionManager()
-+ {static}setIsExit(status : boolean) : void
-+ executeCommands() : void
-+ runEventDriver() : void
-+ setCommandType(inputCommand: String) : void
-+ setArgumentPayload(inputCommand: String) : void
-}
+Package command <<Rectangle>>{
 class GetCommand{
--argumentPayload: HashMap<String, String>
-+GetCommand(arguments: HashMap<String, String>)
-+execute() : void
-+validateCommand(commandMap: HashMap<String, String>) : void
+-reflectUi : ReflectUi
 +getRandomQuestions() : ArrayList<ReflectionQuestion>
--generateRandomNumbers(maxSize : Integer) : Set<integer>
 }
 class HomeCommand{
--argumentPayload: HashMap<String, String>
-+HomeCommand(arguments: HashMap<String, String>)
-+execute() : void
-+validateCommand(commandMap: HashMap<String, String>) : void
+-reflectUi : ReflectUi
+}
+class LikeCommand{
+-reflectUi : ReflectUi
++addFavQuestion(questionIndex: String)
++mapInputToQuestion() : HashMap<Integer, Integer>
+}
+class FavCommand{
+-reflectUi : ReflectUi
+}
+}
+
+Package feature <<Rectangle>>{
+class ReflectionManager{
+-reflectUi : ReflectUi
++executeCommands() : void
++runEventDriver() : void
 }
 class ReflectUi{
 #printLogoWithSeparator(logo : String) : void
 }
 class ReflectionQuestion{
 -questionDescription : String
-+ReflectionQuestion()
 }
-class SelfReflection{
+class QuestionList{
 -setUpQuestions() : void
-+SelfReflection()
-+{static}greet() : void
 +getQuestions() : ArrayList<ReflectionQuestion>
 }
+class RandomNumberGenerator{
++generateRandomNumbers() : Set<Integer>
 }
+}
+}
+
 class TextUi{
 +printOutputMessage(message : String) : void
 +printErrorFor(exception : Exception, additionalMessage : String) : void
@@ -53,22 +54,30 @@ class "{abstract}\nManager" as Manager{
 #{abstract}runEventDriver() : void
 }
 class "{abstract}\nCommand" as Command{
+-arguments : HashMap<String, String>
 #{abstract}execute : void
 #{abstract}validateCommand(commandMap: HashMap<String, String>) : void
 }
+class Storage
 
-ReflectionManager --> "1" ReflectUi : uses >
-ReflectionManager ..> SelfReflection : call >
+ReflectionManager --> "1" QuestionList : create >
 ReflectionManager --|> Manager
-ReflectionManager --> "1..*" GetCommand : execute >
-ReflectionManager --> "1..*" HomeCommand : execute >
-GetCommand --> "*" SelfReflection : create >
-SelfReflection --> "10" ReflectionQuestion : contains >
-SelfReflection --> "1" ReflectUi : uses >
+ReflectionManager ..> GetCommand : execute >
+ReflectionManager ..> HomeCommand : execute >
+ReflectionManager ..> LikeCommand : execute >
+ReflectionManager ..> FavCommand : execute >
+GetCommand ..> QuestionList
+FavCommand ..> QuestionList
+LikeCommand ..> QuestionList
+HomeCommand ..> QuestionList
+QuestionList --> "10" ReflectionQuestion : contains >
+QuestionList --> "1" ReflectUi : uses >
+QuestionList --> "1" Storage
+QuestionList --> "1" RandomNumberGenerator : uses >
 ReflectUi --|> TextUi
-GetCommand --> "1" ReflectUi : uses >
-HomeCommand --> "1" ReflectUi : uses >
 GetCommand --|> Command
 HomeCommand --|> Command
+LikeCommand --|> Command
+FavCommand --|> Command
 HomeCommand ..> ReflectionManager : calls >
 @enduml
