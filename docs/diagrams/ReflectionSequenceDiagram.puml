@@ -170,7 +170,4 @@ activate ReflectionManager
         BadCommandException --> ReflectionManager
         deactivate BadCommandException
     end
-
-
-
 @enduml
