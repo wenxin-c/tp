@@ -15,7 +15,7 @@ public class CheckCommand extends Command {
     public static final String COMMAND_DESCRIPTION = "check - Check the time left in the current session.\n"
             + "This can only be used when a countdown is underway!";
     public static final String COMMAND_USAGE = "usage: check";
-    private static final String COMMAND_KEYWORD = "check";
+    public static final String COMMAND_KEYWORD = "check";
     private static final int COMMAND_NUM_OF_ARGUMENTS = 1;
     private static final String COMMAND_INVALID_ARGUMENTS_MESSAGE = "Invalid command, expected 'check'";
     private static final String NO_ADDITIONAL_MESSAGE = "";

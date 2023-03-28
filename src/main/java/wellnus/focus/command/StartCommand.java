@@ -15,7 +15,7 @@ import wellnus.ui.TextUi;
 public class StartCommand extends Command {
     public static final String COMMAND_DESCRIPTION = "start - Start your focus session!";
     public static final String COMMAND_USAGE = "usage: start";
-    private static final String COMMAND_KEYWORD = "start";
+    public static final String COMMAND_KEYWORD = "start";
     private static final int COMMAND_NUM_OF_ARGUMENTS = 1;
     private static final int FIRST_COUNTDOWN_INDEX = 0;
     private static final String COMMAND_INVALID_ARGUMENTS_MESSAGE = "Invalid command, expected 'start'";

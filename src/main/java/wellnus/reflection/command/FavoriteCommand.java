@@ -17,7 +17,7 @@ public class FavoriteCommand extends Command {
     public static final String COMMAND_DESCRIPTION = "fav - Get the list of questions that have been added to "
             + "the favorite list.";
     public static final String COMMAND_USAGE = "usage: fav";
-    private static final String COMMAND_KEYWORD = "fav";
+    public static final String COMMAND_KEYWORD = "fav";
     private static final String PAYLOAD = "";
     private static final String FEATURE_NAME = "reflect";
     private static final String INVALID_COMMAND_MSG = "Command is invalid.";
