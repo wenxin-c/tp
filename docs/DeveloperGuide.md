@@ -335,7 +335,7 @@ The `AtomicHabit` class has the following attributes:
 * `count` - the number of times the habit is done
 
 ### Managers
-![Manager](diagrams/managers.png)<br/>
+![Manager](diagrams/Manager.png)<br/>
 The `Manager` abstract class is the superclass for classes responsible for handling user interaction with the app.
 
 Each `Manager` provides `runEventDriver()`, which takes over control of user interaction and provides a particular
