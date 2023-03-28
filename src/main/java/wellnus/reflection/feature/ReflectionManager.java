@@ -49,11 +49,6 @@ public class ReflectionManager extends Manager {
             + "and improve on yourself!!";
     private static final int EMPTY_COMMAND = 0;
     private static final boolean IS_EXIT_INITIAL = false;
-<<<<<<< HEAD:src/main/java/wellnus/reflection/feature/ReflectionManager.java
-=======
-    private static final Integer[] ARR_INDEXES = {5, 6, 7, 8, 1};
-    private static final Set<Integer> RANDOM_INDEXES = new HashSet<>(Arrays.asList(ARR_INDEXES));
->>>>>>> master:src/main/java/wellnus/reflection/ReflectionManager.java
     private static final ReflectUi UI = new ReflectUi();
     // This attribute should be set as static to avoid confusion if a new object is created.
     // It means exit from self reflection back to main interface
