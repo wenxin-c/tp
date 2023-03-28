@@ -7,7 +7,11 @@ import java.util.logging.Logger;
 
 import wellnus.exception.BadCommandException;
 import wellnus.manager.Manager;
-import wellnus.reflection.command.*;
+import wellnus.reflection.command.FavoriteCommand;
+import wellnus.reflection.command.GetCommand;
+import wellnus.reflection.command.HomeCommand;
+import wellnus.reflection.command.LikeCommand;
+import wellnus.reflection.command.PrevCommand;
 
 /**
  * The manager for self reflection section.<br/>
