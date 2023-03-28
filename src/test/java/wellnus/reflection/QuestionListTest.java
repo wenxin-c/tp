@@ -5,6 +5,9 @@ import java.util.ArrayList;
 
 import org.junit.jupiter.api.Test;
 
+import wellnus.reflection.feature.QuestionList;
+import wellnus.reflection.feature.ReflectionQuestion;
+
 // @@author wenxin-c
 class QuestionListTest {
     private static final int FULL_ARRAY_LENGTH = 10;

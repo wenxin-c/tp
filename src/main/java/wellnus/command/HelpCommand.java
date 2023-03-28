@@ -7,7 +7,7 @@ import wellnus.atomichabit.feature.AtomicHabitManager;
 import wellnus.common.MainManager;
 import wellnus.exception.BadCommandException;
 import wellnus.focus.feature.FocusManager;
-import wellnus.reflection.ReflectionManager;
+import wellnus.reflection.feature.ReflectionManager;
 import wellnus.ui.TextUi;
 
 /**
