@@ -14,9 +14,9 @@ import wellnus.gamification.util.GamificationUi;
  */
 public class StatsCommand extends Command {
     private static final String COMMAND_DESCRIPTION = "stats - Displays the user's XP level and points";
-    private static final String COMMAND_KEYWORD = "stats";
-    private static final String COMMAND_SYNTAX = "usage: stats";
-    private static final String FEATURE_KEYWORD = "gamif";
+    private static final String COMMAND_NAME = "stats";
+    private static final String COMMAND_USAGE = "usage: stats";
+    private static final String FEATURE_NAME = "gamif";
     private static final int NUM_OF_ARGUMENTS = 1;
     private static final String TOO_MANY_ARGUMENTS = "Too many arguments given for 'stats' command";
     private static final String WRONG_COMMAND_MESSAGE = "StatsCommand called for the wrong command keyword";
@@ -39,7 +39,7 @@ public class StatsCommand extends Command {
      */
     @Override
     protected String getCommandKeyword() {
-        return COMMAND_KEYWORD;
+        return COMMAND_NAME;
     }
 
     /**
@@ -49,7 +49,7 @@ public class StatsCommand extends Command {
      */
     @Override
     protected String getFeatureKeyword() {
-        return FEATURE_KEYWORD;
+        return FEATURE_NAME;
     }
 
     /**
@@ -71,7 +71,7 @@ public class StatsCommand extends Command {
      */
     @Override
     public void validateCommand(HashMap<String, String> arguments) throws BadCommandException {
-        assert arguments.containsKey(COMMAND_KEYWORD) : WRONG_COMMAND_MESSAGE;
+        assert arguments.containsKey(getCommandKeyword()) : WRONG_COMMAND_MESSAGE;
         if (arguments.size() > NUM_OF_ARGUMENTS) {
             throw new BadCommandException(TOO_MANY_ARGUMENTS);
         }
@@ -84,7 +84,7 @@ public class StatsCommand extends Command {
      */
     @Override
     public String getCommandUsage() {
-        return COMMAND_SYNTAX;
+        return COMMAND_USAGE;
     }
 
     /**

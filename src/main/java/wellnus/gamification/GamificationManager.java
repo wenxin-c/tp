@@ -19,19 +19,19 @@ public class GamificationManager extends Manager {
     private static final String COMMAND_HOME = "home";
     private static final String COMMAND_STATS = "stats";
 
-    private static final String FEATURE_GAMIFICATION = "gamif";
-    private static final String FEATURE_DESCRIPTION = "gamif: Gamification gives you the motivation "
+    private static final String FEATURE_NAME = "gamif";
+    private static final String FEATURE_HELP_DESCRIPTION = "gamif: Gamification gives you the motivation "
             + "to continue improving your wellness by rewarding you for your efforts!";
     private static final String UNRECOGNISED_COMMAND_ERROR = "Unrecognised command %s, see 'help' on our available "
             + "commands";
-    private final GamificationData gamData;
+    private final GamificationData gamificationData;
     private final TextUi textUi;
 
     /**
      * Returns an instance of the GamificationManager.
      */
     public GamificationManager() {
-        this.gamData = new GamificationData();
+        this.gamificationData = new GamificationData();
         this.textUi = new TextUi();
     }
 
@@ -42,7 +42,7 @@ public class GamificationManager extends Manager {
         case COMMAND_HOME:
             return new HomeCommand(arguments);
         case COMMAND_STATS:
-            return new StatsCommand(arguments, gamData);
+            return new StatsCommand(arguments, gamificationData);
         default:
             throw new BadCommandException(String.format(UNRECOGNISED_COMMAND_ERROR, cmdKeyword));
         }
@@ -55,7 +55,7 @@ public class GamificationManager extends Manager {
      */
     @Override
     public String getFeatureName() {
-        return FEATURE_GAMIFICATION;
+        return FEATURE_NAME;
     }
 
     /**
@@ -65,11 +65,11 @@ public class GamificationManager extends Manager {
      */
     @Override
     public String getFeatureHelpDescription() {
-        return FEATURE_DESCRIPTION;
+        return FEATURE_HELP_DESCRIPTION;
     }
 
     public GamificationData getGamificationData() {
-        return gamData;
+        return gamificationData;
     }
 
     /**
