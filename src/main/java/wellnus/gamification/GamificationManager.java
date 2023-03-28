@@ -18,12 +18,11 @@ import wellnus.ui.TextUi;
 public class GamificationManager extends Manager {
     private static final String COMMAND_HOME = "home";
     private static final String COMMAND_STATS = "stats";
-
-    private static final String FEATURE_NAME = "gamif";
-    private static final String FEATURE_HELP_DESCRIPTION = "gamif: Gamification gives you the motivation "
-            + "to continue improving your wellness by rewarding you for your efforts!";
     private static final String UNRECOGNISED_COMMAND_ERROR = "Unrecognised command %s, see 'help' on our available "
             + "commands";
+    public static final String FEATURE_NAME = "gamif";
+    public static final String FEATURE_HELP_DESCRIPTION = "gamif: Gamification gives you the motivation "
+            + "to continue improving your wellness by rewarding you for your efforts!";
     private final GamificationData gamificationData;
     private final TextUi textUi;
 
