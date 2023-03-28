@@ -11,8 +11,8 @@ import wellnus.ui.TextUi;
 public class ExitCommand extends Command {
     public static final String COMMAND_DESCRIPTION = "exit - Close WellNUS++ and return to your terminal.";
     public static final String COMMAND_USAGE = "usage: exit";
+    public static final String COMMAND_KEYWORD = "exit";
     private static final String COMMAND_INVALID_COMMAND_MESSAGE = "Invalid exit command given!";
-    private static final String COMMAND_KEYWORD = "exit";
     private static final String FEATURE_KEYWORD = "";
     private final TextUi textUi;
 
