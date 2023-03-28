@@ -9,6 +9,7 @@ import wellnus.exception.BadCommandException;
 import wellnus.manager.Manager;
 import wellnus.reflection.command.FavoriteCommand;
 import wellnus.reflection.command.GetCommand;
+import wellnus.reflection.command.HelpCommand;
 import wellnus.reflection.command.HomeCommand;
 import wellnus.reflection.command.LikeCommand;
 
