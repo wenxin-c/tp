@@ -1,5 +1,6 @@
-package wellnus.reflection;
+package wellnus.reflection.feature;
 
+//@@author wenxin-c
 /**
  * ReflectQuestion class is used to create reflect question objects.
  */

@@ -12,9 +12,10 @@ import wellnus.command.ExitCommand;
 import wellnus.command.HelpCommand;
 import wellnus.exception.BadCommandException;
 import wellnus.exception.WellNusException;
+import wellnus.focus.feature.FocusManager;
 import wellnus.gamification.GamificationManager;
 import wellnus.manager.Manager;
-import wellnus.reflection.ReflectionManager;
+import wellnus.reflection.feature.ReflectionManager;
 import wellnus.ui.TextUi;
 
 /**
@@ -201,6 +202,7 @@ public class MainManager extends Manager {
         this.getSupportedFeatureManagers().add(
                 new AtomicHabitManager(gamificationManager.getGamificationData()));
         this.getSupportedFeatureManagers().add(new ReflectionManager());
+        this.getSupportedFeatureManagers().add(new FocusManager());
         // TODO: Implement once all Managers are in
         // e.g. this.getSupportedFeatureManagers().add(new AtomicHabitManager());
     }
