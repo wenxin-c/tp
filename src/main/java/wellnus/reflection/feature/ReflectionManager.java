@@ -7,10 +7,7 @@ import java.util.logging.Logger;
 
 import wellnus.exception.BadCommandException;
 import wellnus.manager.Manager;
-import wellnus.reflection.command.FavoriteCommand;
-import wellnus.reflection.command.GetCommand;
-import wellnus.reflection.command.HomeCommand;
-import wellnus.reflection.command.LikeCommand;
+import wellnus.reflection.command.*;
 
 /**
  * The manager for self reflection section.<br/>
@@ -25,6 +22,7 @@ public class ReflectionManager extends Manager {
     private static final String HOME_COMMAND = "home";
     private static final String LIKE_COMMAND = "like";
     private static final String FAV_COMMAND = "fav";
+    private static final String PREV_COMMAND = "prev";
     private static final String NO_ELEMENT_MESSAGE = "There is no new line of input, please key in inputs.";
     private static final String INVALID_COMMAND_MESSAGE = "Please check the available commands "
             + "and enter a valid command.";
@@ -195,6 +193,10 @@ public class ReflectionManager extends Manager {
         case FAV_COMMAND:
             FavoriteCommand favCmd = new FavoriteCommand(argumentPayload, questionList);
             favCmd.execute();
+            break;
+        case PREV_COMMAND:
+            PrevCommand prevCmd = new PrevCommand(argumentPayload, questionList);
+            prevCmd.execute();
             break;
         default:
             throw new BadCommandException(INVALID_COMMAND_MESSAGE);
