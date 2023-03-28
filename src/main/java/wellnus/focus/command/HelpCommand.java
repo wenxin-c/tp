@@ -15,7 +15,7 @@ import wellnus.ui.TextUi;
 public class HelpCommand extends Command {
     public static final String COMMAND_DESCRIPTION = "help - Get help on what commands can be used "
             + "in Focus Timer WellNUS++";
-    public static final String COMMAND_USAGE = "usage: help (command-to-check)";
+    public static final String COMMAND_USAGE = "usage: help [command-to-check]";
     private static final String BAD_COMMAND_MESSAGE = "help does not take in any arguments!";
     private static final String COMMAND_KEYWORD = "help";
     private static final String NO_FEATURE_KEYWORD = "";
