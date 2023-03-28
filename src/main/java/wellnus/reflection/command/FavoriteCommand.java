@@ -25,6 +25,7 @@ public class FavoriteCommand extends Command {
             + "and the format of commands.";
     private static final String COMMAND_KEYWORD_ASSERTION = "The key should be fav.";
     private static final String COMMAND_PAYLOAD_ASSERTION = "The payload should be empty.";
+    private static final String INDEX_OUT_OF_BOUND_MSG = "Index is out of bound!!";
     private static final String INDEX_OUT_OF_BOUND_NOTES = "Question index is out of bound(e.g. negative integers, 0)!"
             + "Your data file might be corrupted!!";
     private static final String EMPTY_FAV_LIST = "There is nothing in favorite list, "
@@ -57,7 +58,7 @@ public class FavoriteCommand extends Command {
     }
 
     /**
-     * Get the name of the feature in which this get command is generated.
+     * Get the name of the feature in which this fav command is generated.
      *
      * @return Feature name: reflect
      */
@@ -112,7 +113,7 @@ public class FavoriteCommand extends Command {
             String outputString = questionList.getFavQuestions();
             UI.printOutputMessage(outputString);
         } catch (IndexOutOfBoundsException indexOutOfBoundsException) {
-            LOGGER.log(Level.WARNING, INVALID_COMMAND_MSG);
+            LOGGER.log(Level.WARNING, INDEX_OUT_OF_BOUND_MSG);
             UI.printErrorFor(indexOutOfBoundsException, INDEX_OUT_OF_BOUND_NOTES);
         }
     }
