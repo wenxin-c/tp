@@ -1,0 +1,35 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
+hide footbox
+
+participant ":WellNus" as WellNus MODEL_COLOR
+participant ":MainManager" as MainManager MODEL_COLOR
+participant ":FeatureManager" as FeatureManager MODEL_COLOR
+participant ":Command" as Command MODEL_COLOR
+
+[-> WellNus : start()
+activate WellNus
+WellNus -> MainManager: runEventDriver()
+activate MainManager
+MainManager -> FeatureManager: runEventDriver()
+activate FeatureManager
+loop not home command
+FeatureManager -> Command : execute()
+activate Command
+Command --> FeatureManager
+deactivate Command
+Command -[hidden]-> FeatureManager
+destroy Command
+Command -[hidden]-> FeatureManager
+end
+FeatureManager --> MainManager : 'home' command given
+deactivate FeatureManager
+MainManager --> WellNus : 'exit' command given
+deactivate MainManager
+[<--WellNus
+deactivate WellNus
+@enduml
