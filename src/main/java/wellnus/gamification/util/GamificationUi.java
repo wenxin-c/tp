@@ -6,7 +6,7 @@ package wellnus.gamification.util;
 public class GamificationUi {
     private static final int NUM_CHAR_IN_SEPARATOR = 70;
     private static final String CELEBRATE_LEVEL_UP_MESSAGE = "Congratulations! Level up";
-    private static final String GOODBYE_MESSAGE = "Thank you for using the gamification feature! Cya";
+    private static final String GOODBYE_MESSAGE = "Thank you for using the gamification feature! Return anytime";
     private static final String LOGO =
             "    ______                _ _____            __  _           " + System.lineSeparator()
             + "   / ____/___ _____ ___  (_) __(_)________ _/ /_(_)___  ____ " + System.lineSeparator()
