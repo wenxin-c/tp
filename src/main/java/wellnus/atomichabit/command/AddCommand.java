@@ -15,7 +15,7 @@ import wellnus.ui.TextUi;
 public class AddCommand extends Command {
     public static final String COMMAND_DESCRIPTION = "add - Add a habit to your habit tracker.";
     public static final String COMMAND_USAGE = "usage: add --name (your habit name)";
-    private static final String COMMAND_KEYWORD = "add";
+    public static final String COMMAND_KEYWORD = "add";
     private static final String COMMAND_INVALID_ARGUMENTS_MESSAGE = "Wrong arguments given to 'add'!";
     private static final String COMMAND_NAME_ARGUMENT = "name";
     private static final String COMMAND_KEYWORD_ASSERTION = "The key should be add.";

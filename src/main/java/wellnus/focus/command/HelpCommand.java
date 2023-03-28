@@ -19,11 +19,14 @@ public class HelpCommand extends Command {
     private static final String BAD_COMMAND_MESSAGE = "help does not take in any arguments!";
     private static final String COMMAND_KEYWORD = "help";
     private static final String NO_FEATURE_KEYWORD = "";
-    private static final String HELP_PREAMBLE = "Here are all the commands available for you!";
+    private static final String HELP_PREAMBLE = "Input `help` to see all available commands.\n"
+            + "Input `help [command-to-check] to get usage help for a specific command.\n"
+            + "Here are all the commands available for you!";
+    private static final String ERROR_UNKNOWN_COMMAND = "Sorry, we couldn't find that command!\n"
+            + "To find a command accessible in this part of WellNUS++, try `help`!";
     private static final String PADDING = " ";
     private static final String DOT = ".";
     private static final int ONE_OFFSET = 1;
-    private static final int EMPTY_ARG_LENGTH = 0;
     private static final int EXPECTED_PAYLOAD_SIZE = 1;
     private final TextUi textUi;
 
@@ -54,38 +57,78 @@ public class HelpCommand extends Command {
         return commandDescriptions;
     }
 
-    private ArrayList<String> getCommandUsages() {
-        ArrayList<String> commandUsages = new ArrayList<>();
-        commandUsages.add(CheckCommand.COMMAND_USAGE);
-        commandUsages.add(ConfigCommand.COMMAND_USAGE);
-        commandUsages.add(HelpCommand.COMMAND_USAGE);
-        commandUsages.add(HomeCommand.COMMAND_USAGE);
-        commandUsages.add(NextCommand.COMMAND_USAGE);
-        commandUsages.add(PauseCommand.COMMAND_USAGE);
-        commandUsages.add(ResumeCommand.COMMAND_USAGE);
-        commandUsages.add(StartCommand.COMMAND_USAGE);
-        commandUsages.add(StopCommand.COMMAND_USAGE);
-        return commandUsages;
+    /**
+     * Prints either the general help message or the command-specific help message
+     * based on the presence of a payload.
+     */
+    private void printHelpMessage() {
+        HashMap<String, String> argumentPayload = getArguments();
+        String commandToSearch = argumentPayload.get(COMMAND_KEYWORD);
+        if (commandToSearch.equals(NO_FEATURE_KEYWORD)) {
+            printGeneralHelpMessage();
+            return;
+        }
+        printSpecificHelpMessage(commandToSearch);
     }
 
     /**
-     * Lists all features available in Focus Timer WellNUS++ and a short description.
+     * Lists all features available in Atomic Habit WellNUS++ and a short description.
      */
-    private void printHelpMessage() {
+    public void printGeneralHelpMessage() {
         ArrayList<String> commandDescriptions = getCommandDescriptions();
-        ArrayList<String> commandUsages = getCommandUsages();
-        // Add in description
         String outputMessage = FocusManager.FEATURE_HELP_DESCRIPTION;
         outputMessage = outputMessage.concat(System.lineSeparator());
         outputMessage = outputMessage.concat(HELP_PREAMBLE);
         outputMessage = outputMessage.concat(System.lineSeparator() + System.lineSeparator());
 
-        for (int i = 0; i < commandUsages.size(); i += 1) {
+        for (int i = 0; i < commandDescriptions.size(); i += 1) {
             outputMessage = outputMessage.concat(i + ONE_OFFSET + DOT + PADDING);
             outputMessage = outputMessage.concat(commandDescriptions.get(i) + System.lineSeparator());
-            outputMessage = outputMessage.concat(commandUsages.get(i) + System.lineSeparator());
         }
         this.getTextUi().printOutputMessage(outputMessage);
+    }
+
+    /**
+     * Prints the help message for a given commandToSearch.
+     * If it does not exist,
+     */
+    public void printSpecificHelpMessage(String commandToSearch) {
+        switch (commandToSearch) {
+        case CheckCommand.COMMAND_KEYWORD:
+            printUsageMessage(CheckCommand.COMMAND_DESCRIPTION, CheckCommand.COMMAND_USAGE);
+            break;
+        case ConfigCommand.COMMAND_KEYWORD:
+            printUsageMessage(ConfigCommand.COMMAND_DESCRIPTION, ConfigCommand.COMMAND_USAGE);
+            break;
+        case HelpCommand.COMMAND_KEYWORD:
+            printUsageMessage(HelpCommand.COMMAND_DESCRIPTION, HelpCommand.COMMAND_USAGE);
+            break;
+        case HomeCommand.COMMAND_KEYWORD:
+            printUsageMessage(HomeCommand.COMMAND_DESCRIPTION, HomeCommand.COMMAND_USAGE);
+            break;
+        case NextCommand.COMMAND_KEYWORD:
+            printUsageMessage(NextCommand.COMMAND_DESCRIPTION, NextCommand.COMMAND_USAGE);
+            break;
+        case PauseCommand.COMMAND_KEYWORD:
+            printUsageMessage(PauseCommand.COMMAND_DESCRIPTION, PauseCommand.COMMAND_USAGE);
+            break;
+        case ResumeCommand.COMMAND_KEYWORD:
+            printUsageMessage(ResumeCommand.COMMAND_DESCRIPTION, ResumeCommand.COMMAND_USAGE);
+            break;
+        case StartCommand.COMMAND_KEYWORD:
+            printUsageMessage(StartCommand.COMMAND_DESCRIPTION, StartCommand.COMMAND_USAGE);
+            break;
+        case StopCommand.COMMAND_KEYWORD:
+            printUsageMessage(StopCommand.COMMAND_DESCRIPTION, StopCommand.COMMAND_USAGE);
+            break;
+        default:
+            textUi.printOutputMessage(ERROR_UNKNOWN_COMMAND);
+        }
+    }
+
+    private void printUsageMessage(String commandDescription, String usageString) {
+        String message = commandDescription + System.lineSeparator() + usageString;
+        textUi.printOutputMessage(message);
     }
 
     @Override
@@ -128,7 +171,7 @@ public class HelpCommand extends Command {
     public void validateCommand(HashMap<String, String> arguments) throws BadCommandException {
         assert arguments.containsKey(COMMAND_KEYWORD) : "HelpCommand's payload map does not contain 'help'!";
         // Check if user put in unnecessary payload or arguments
-        if (arguments.get(COMMAND_KEYWORD).length() > EMPTY_ARG_LENGTH || arguments.size() > EXPECTED_PAYLOAD_SIZE) {
+        if (arguments.size() > EXPECTED_PAYLOAD_SIZE) {
             throw new BadCommandException(BAD_COMMAND_MESSAGE);
         }
     }
