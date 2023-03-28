@@ -92,8 +92,8 @@ class LikeCommandTest {
         LikeCommand likeCmd = new LikeCommand(argumentPayloadLikeCmd, questionList);
         likeCmd.execute();
         Set<Integer> favList = questionList.getDataIndex().get(INDEX_ZERO);
-        for (int a:favList) {
-            System.out.println(a);
+        for (int index : favList) {
+            System.out.println(index);
         }
         assertEquals(INCREMENT_ONE, favList.size());
         int index = Integer.parseInt(argumentPayloadLikeCmd.get(LIKE_COMMAND_KEYWORD));
