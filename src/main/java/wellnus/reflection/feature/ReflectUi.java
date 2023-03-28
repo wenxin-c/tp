@@ -1,4 +1,4 @@
-package wellnus.reflection;
+package wellnus.reflection.feature;
 
 import wellnus.ui.TextUi;
 

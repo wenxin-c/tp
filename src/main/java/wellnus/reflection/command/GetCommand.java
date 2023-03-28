@@ -1,42 +1,51 @@
-package wellnus.reflection;
+package wellnus.reflection.command;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import wellnus.command.Command;
 import wellnus.exception.BadCommandException;
+import wellnus.reflection.feature.QuestionList;
+import wellnus.reflection.feature.ReflectUi;
+import wellnus.reflection.feature.ReflectionQuestion;
 
 //@@author wenxin-c
 /**
- * Home command to return back to WellNUS++ main interface.
+ * Command to get a set of 5 random questions.
  */
-public class HomeCommand extends Command {
-    public static final String COMMAND_DESCRIPTION = "home - Return back to the main menu of WellNUS++.";
-    public static final String COMMAND_USAGE = "usage: home";
-    private static final Logger LOGGER = Logger.getLogger("ReflectHomeCommandLogger");
+public class GetCommand extends Command {
+    public static final String COMMAND_DESCRIPTION = "get - Get a list of questions to reflect on.";
+    public static final String COMMAND_USAGE = "usage: get";
+    private static final Logger LOGGER = Logger.getLogger("ReflectGetCommandLogger");
     private static final String FEATURE_NAME = "reflect";
-    private static final String COMMAND_KEYWORD = "home";
+    private static final String COMMAND_KEYWORD = "get";
     private static final String PAYLOAD = "";
     private static final String INVALID_COMMAND_MSG = "Command is invalid.";
     private static final String INVALID_COMMAND_NOTES = "Please check the available commands "
             + "and the format of commands.";
-    private static final String COMMAND_KEYWORD_ASSERTION = "The key should be return.";
+    private static final String COMMAND_KEYWORD_ASSERTION = "The key should be get.";
     private static final String COMMAND_PAYLOAD_ASSERTION = "The payload should be empty.";
-    private static final String HOME_MESSAGE = "How do you feel after reflecting on yourself?"
-            + System.lineSeparator() + "Hope you have gotten some takeaways from self reflection, see you again!!";
+    private static final String NUM_SELECTED_QUESTIONS_ASSERTION = "The number of selected questions should be 5.";
+    private static final String DOT = ".";
+    private static final String EMPTY_STRING = "";
+    private static final int NUM_OF_RANDOM_QUESTIONS = 5;
     private static final int ARGUMENT_PAYLOAD_SIZE = 1;
+    private static final int ONE_OFFSET = 1;
     private static final ReflectUi UI = new ReflectUi();
+    private Set<Integer> randomQuestionIndexes;
     private QuestionList questionList;
 
     /**
      * Set up the argument-payload pairs for this command.<br/>
-     * Pass in a questionList object from ReflectionManager to manipulate history data.
+     * Pass in a questionList object from ReflectionManager to access the list of questions.
      *
      * @param arguments Argument-payload pairs from users
      * @param questionList Object that contains the data about questions
      */
-    public HomeCommand(HashMap<String, String> arguments, QuestionList questionList) {
+    public GetCommand(HashMap<String, String> arguments, QuestionList questionList) {
         super(arguments);
         this.questionList = questionList;
     }
@@ -44,7 +53,7 @@ public class HomeCommand extends Command {
     /**
      * Get the command itself.
      *
-     * @return Command: home
+     * @return Command: get
      */
     @Override
     protected String getCommandKeyword() {
@@ -52,7 +61,7 @@ public class HomeCommand extends Command {
     }
 
     /**
-     * Get the name of the feature in which this home command is generated.
+     * Get the name of the feature in which this get command is generated.
      *
      * @return Feature name: reflect
      */
@@ -88,8 +97,8 @@ public class HomeCommand extends Command {
     }
 
     /**
-     * Main entry point of this command.<br/>
-     * Return back to WellNUS++ main interface and clear the questionList history data.
+     * Entry point to this command.<br/>
+     * Trigger the generation of five random questions and print to users.<br/>
      */
     @Override
     public void execute() {
@@ -100,11 +109,8 @@ public class HomeCommand extends Command {
             UI.printErrorFor(invalidCommand, INVALID_COMMAND_NOTES);
             return;
         }
-        UI.printOutputMessage(HOME_MESSAGE);
-        if (!questionList.getRandomQuestionIndexes().isEmpty()) {
-            questionList.clearRandomQuestionIndexes();
-        }
-        ReflectionManager.setIsExit(true);
+        String outputString = convertQuestionsToString();
+        UI.printOutputMessage(outputString);
     }
 
     /**
@@ -112,7 +118,7 @@ public class HomeCommand extends Command {
      * <br/>
      * Conditions for command to be valid:<br/>
      * <li>Only one argument-payload pair
-     * <li>The pair contains key: home
+     * <li>The pair contains key: get
      * <li>Payload is empty
      * Whichever mismatch will cause the command to be invalid.
      *
@@ -130,6 +136,41 @@ public class HomeCommand extends Command {
         }
         assert getArguments().containsKey(COMMAND_KEYWORD) : COMMAND_KEYWORD_ASSERTION;
         assert getArguments().get(COMMAND_KEYWORD).equals(PAYLOAD) : COMMAND_PAYLOAD_ASSERTION;
+    }
+
+    /**
+     * Use questionList object to generate a set of 5 random integers(0-9) which will then be used as indexes to get
+     * a set of 5 random questions.
+     * <br/>
+     * Each number num: num >= 0 and num <= (maxSize - 1)
+     *
+     * @return The selected sets of random questions
+     */
+    public ArrayList<ReflectionQuestion> getRandomQuestions() {
+        questionList.setRandomQuestionIndexes();
+        this.randomQuestionIndexes = questionList.getRandomQuestionIndexes();
+        ArrayList<ReflectionQuestion> selectedQuestions = new ArrayList<>();
+        ArrayList<ReflectionQuestion> questions = questionList.getAllQuestions();
+        for (int index : this.randomQuestionIndexes) {
+            selectedQuestions.add(questions.get(index));
+        }
+        assert selectedQuestions.size() == NUM_OF_RANDOM_QUESTIONS : NUM_SELECTED_QUESTIONS_ASSERTION;
+        return selectedQuestions;
+    }
+
+    /**
+     * Convert all five questions to a single string to be printed.
+     *
+     * @return Single string that consists of all questions
+     */
+    private String convertQuestionsToString() {
+        ArrayList<ReflectionQuestion> selectedQuestions = getRandomQuestions();
+        String questionString = EMPTY_STRING;
+        for (int i = 0; i < selectedQuestions.size(); i += 1) {
+            questionString += ((i + ONE_OFFSET) + DOT + selectedQuestions.get(i).toString()
+                    + System.lineSeparator());
+        }
+        return questionString;
     }
 }
 
