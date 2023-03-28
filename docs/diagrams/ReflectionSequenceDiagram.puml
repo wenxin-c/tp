@@ -68,10 +68,6 @@ activate ReflectionManager
         deactivate GetCommand
         GetCommand -> GetCommand : convertQuestionsToString()
         activate GetCommand
-            GetCommand -> QuestionList : getRandomQuestionIndexes()
-            activate QuestionList
-            QuestionList --> GetCommand : randomQuestionIndexes : Set<Integer>
-            deactivate QuestionList
         GetCommand --> GetCommand
         deactivate GetCommand
 
@@ -86,7 +82,7 @@ activate ReflectionManager
         LikeCommand --> ReflectionManager
         deactivate LikeCommand
 
-        ReflectionManager -> GetCommand : execute()
+        ReflectionManager -> LikeCommand : execute()
         activate LikeCommand
         LikeCommand -> LikeCommand : validateCommand()
         activate LikeCommand
@@ -94,18 +90,6 @@ activate ReflectionManager
         deactivate LikeCommand
         LikeCommand -> LikeCommand : addFavQuestion()
         activate LikeCommand
-            alt questionList has randomQuestionIndexes
-                LikeCommand -> QuestionList : addfavIndexes()
-                activate QuestionList
-                QuestionList --> LikeCommand
-                deactivate QuestionList
-            else
-                create BadCommandException
-                ReflectionManager -> BadCommandException
-                activate BadCommandException
-                BadCommandException --> ReflectionManager
-                deactivate BadCommandException
-            end
         LikeCommand --> LikeCommand
         deactivate LikeCommand
 
@@ -129,7 +113,7 @@ activate ReflectionManager
         FavoriteCommand -> QuestionList : getFavQuestions()
         activate QuestionList
         QuestionList --> FavoriteCommand
-        deactivate FavoriteCommand
+        deactivate QuestionList
 
         FavoriteCommand --> ReflectionManager
         deactivate FavoriteCommand
@@ -148,12 +132,7 @@ activate ReflectionManager
         activate HomeCommand
         HomeCommand --> HomeCommand
         deactivate HomeCommand
-            opt random index is not empty
-            HomeCommand -> QuestionList : clearRandomQuestionIndexes()
-            activate QuestionList
-            QuestionList --> HomeCommand
-            deactivate QuestionList
-            end
+
         HomeCommand -> ReflectionManager : setIsExit()
         activate ReflectionManager
         ReflectionManager --> HomeCommand
@@ -165,7 +144,7 @@ activate ReflectionManager
 
     else
         create BadCommandException
-        ReflectionManager -> BadCommandException
+        ReflectionManager -> BadCommandException : new()
         activate BadCommandException
         BadCommandException --> ReflectionManager
         deactivate BadCommandException
