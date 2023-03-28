@@ -39,6 +39,9 @@ class QuestionList{
 -setUpQuestions() : void
 +getQuestions() : ArrayList<ReflectionQuestion>
 }
+class RandomNumberGenerator{
++generateRandomNumbers() : Set<Integer>
+}
 }
 }
 
@@ -70,6 +73,7 @@ HomeCommand ..> QuestionList
 QuestionList --> "10" ReflectionQuestion : contains >
 QuestionList --> "1" ReflectUi : uses >
 QuestionList --> "1" Storage
+QuestionList --> "1" RandomNumberGenerator : uses >
 ReflectUi --|> TextUi
 GetCommand --|> Command
 HomeCommand --|> Command
