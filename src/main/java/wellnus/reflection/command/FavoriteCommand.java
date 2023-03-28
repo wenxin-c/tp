@@ -1,4 +1,4 @@
-package wellnus.reflection;
+package wellnus.reflection.command;
 
 import java.util.HashMap;
 import java.util.logging.Level;
@@ -6,6 +6,8 @@ import java.util.logging.Logger;
 
 import wellnus.command.Command;
 import wellnus.exception.BadCommandException;
+import wellnus.reflection.feature.QuestionList;
+import wellnus.reflection.feature.ReflectUi;
 
 //@@author wenxin-c
 /**
@@ -109,9 +111,9 @@ public class FavoriteCommand extends Command {
         try {
             String outputString = questionList.getFavQuestions();
             UI.printOutputMessage(outputString);
-        } catch (ArrayIndexOutOfBoundsException arrayIndexOutOfBoundsException) {
+        } catch (IndexOutOfBoundsException indexOutOfBoundsException) {
             LOGGER.log(Level.WARNING, INVALID_COMMAND_MSG);
-            UI.printErrorFor(arrayIndexOutOfBoundsException, INDEX_OUT_OF_BOUND_NOTES);
+            UI.printErrorFor(indexOutOfBoundsException, INDEX_OUT_OF_BOUND_NOTES);
         }
     }
 

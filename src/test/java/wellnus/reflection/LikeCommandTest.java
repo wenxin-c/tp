@@ -12,6 +12,8 @@ import org.junit.jupiter.api.Test;
 
 import wellnus.command.CommandParser;
 import wellnus.exception.BadCommandException;
+import wellnus.reflection.command.LikeCommand;
+import wellnus.reflection.feature.QuestionList;
 
 // @@author wenxin-c
 class LikeCommandTest {
@@ -90,6 +92,9 @@ class LikeCommandTest {
         LikeCommand likeCmd = new LikeCommand(argumentPayloadLikeCmd, questionList);
         likeCmd.execute();
         Set<Integer> favList = questionList.getDataIndex().get(INDEX_ZERO);
+        for (int index : favList) {
+            System.out.println(index);
+        }
         assertEquals(INCREMENT_ONE, favList.size());
         int index = Integer.parseInt(argumentPayloadLikeCmd.get(LIKE_COMMAND_KEYWORD));
         assertEquals(IS_ADDED, favList.contains(index));

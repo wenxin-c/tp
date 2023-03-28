@@ -24,10 +24,9 @@ import wellnus.ui.TextUi;
  */
 //@@author YongbinWang
 public class FocusManager extends Manager {
+    public static final String FEATURE_HELP_DESCRIPTION = "Focus Timer (ft) - Set a configurable timer "
+            + "with work and rest cycles to keep yourself focused and productive!";
     public static final String FEATURE_NAME = "ft";
-    public static final String FEATURE_HELP_DESCRIPTION = "Focus Timer - Stay productive by using our Focus Timer! ";
-    private static final String FEATURE_BRIEF_DESCRIPTION = "Users can set a timer to focus on a task.";
-    private static final String FEATURE_FULL_DESCRIPTION = "";
     private static final String START_COMMAND_KEYWORD = "start";
     private static final String PAUSE_COMMAND_KEYWORD = "pause";
     private static final String RESUME_COMMAND_KEYWORD = "resume";

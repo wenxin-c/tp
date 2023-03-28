@@ -9,6 +9,9 @@ import org.junit.jupiter.api.Test;
 
 import wellnus.command.CommandParser;
 import wellnus.exception.BadCommandException;
+import wellnus.reflection.command.HomeCommand;
+import wellnus.reflection.feature.QuestionList;
+import wellnus.reflection.feature.ReflectionManager;
 
 /**
  * Class to test different tests for HomeCommand Class utilising JUnit tests

@@ -8,6 +8,8 @@ import java.io.PrintStream;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import wellnus.reflection.feature.ReflectionQuestion;
+
 class ReflectionQuestionTest {
     private static final String QUESTION = "How's today?";
     private final ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
