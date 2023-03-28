@@ -1,0 +1,152 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
+hide footbox
+
+activate MainManager
+
+create ReflectionManager
+MainManager -> ReflectionManager
+activate ReflectionManager
+
+create ReflectUi
+ReflectionManager -> ReflectUi
+activate ReflectUi
+ReflectUi --> ReflectionManager
+deactivate ReflectUi
+
+create QuestionList
+ReflectionManager -> QuestionList
+activate QuestionList
+QuestionList --> ReflectionManager
+deactivate QuestionList
+
+create CommandParser
+ReflectionManager -> CommandParser
+activate CommandParser
+CommandParser --> ReflectionManager
+deactivate CommandParser
+
+ReflectionManager --> MainManager
+deactivate ReflectionManager
+
+MainManager -> ReflectionManager : runEventDriver()
+activate ReflectionManager
+
+ReflectionManager -> ReflectUi : getCommands()
+activate ReflectUi
+ReflectUi --> ReflectionManager : inputCommand: String
+deactivate ReflectUi
+
+ReflectionManager -> CommandParser : setCommandType(inputCommand: String)
+activate CommandParser
+CommandParser --> ReflectionManager
+deactivate CommandParser
+
+ReflectionManager -> CommandParser : setCommandArgument(inputCommand: String)
+activate CommandParser
+CommandParser --> ReflectionManager
+deactivate CommandParser
+
+ReflectionManager -> ReflectionManager : executeCommands()
+activate ReflectionManager
+    alt commandType = get
+        create GetCommand
+        ReflectionManager -> GetCommand
+        activate GetCommand
+        GetCommand --> ReflectionManager
+        deactivate GetCommand
+
+        ReflectionManager -> GetCommand : execute()
+        activate GetCommand
+        GetCommand -> GetCommand : validateCommand()
+        activate GetCommand
+        GetCommand --> GetCommand
+        deactivate GetCommand
+        GetCommand -> GetCommand : convertQuestionsToString()
+        activate GetCommand
+        GetCommand --> GetCommand
+        deactivate GetCommand
+
+        GetCommand --> ReflectionManager
+        deactivate GetCommand
+        destroy GetCommand
+
+    else commandType = like
+        create LikeCommand
+        ReflectionManager -> LikeCommand
+        activate LikeCommand
+        LikeCommand --> ReflectionManager
+        deactivate LikeCommand
+
+        ReflectionManager -> LikeCommand : execute()
+        activate LikeCommand
+        LikeCommand -> LikeCommand : validateCommand()
+        activate LikeCommand
+        LikeCommand --> LikeCommand
+        deactivate LikeCommand
+        LikeCommand -> LikeCommand : addFavQuestion()
+        activate LikeCommand
+        LikeCommand --> LikeCommand
+        deactivate LikeCommand
+
+        LikeCommand --> ReflectionManager
+        deactivate LikeCommand
+        destroy LikeCommand
+
+    else commandType = fav
+        create FavoriteCommand
+        ReflectionManager -> FavoriteCommand
+        activate FavoriteCommand
+        FavoriteCommand --> ReflectionManager
+        deactivate FavoriteCommand
+
+        ReflectionManager -> FavoriteCommand : execute()
+        activate FavoriteCommand
+        FavoriteCommand -> FavoriteCommand : validateCommand()
+        activate FavoriteCommand
+        FavoriteCommand --> FavoriteCommand
+        deactivate FavoriteCommand
+        FavoriteCommand -> QuestionList : getFavQuestions()
+        activate QuestionList
+        QuestionList --> FavoriteCommand
+        deactivate QuestionList
+
+        FavoriteCommand --> ReflectionManager
+        deactivate FavoriteCommand
+        destroy FavoriteCommand
+
+    else commandType = home
+        create HomeCommand
+        ReflectionManager -> HomeCommand
+        activate HomeCommand
+        HomeCommand --> ReflectionManager
+        deactivate HomeCommand
+
+        ReflectionManager -> HomeCommand : execute()
+        activate HomeCommand
+        HomeCommand -> HomeCommand : validateCommand()
+        activate HomeCommand
+        HomeCommand --> HomeCommand
+        deactivate HomeCommand
+
+        HomeCommand -> ReflectionManager : setIsExit()
+        activate ReflectionManager
+        ReflectionManager --> HomeCommand
+        deactivate ReflectionManager
+
+        HomeCommand --> ReflectionManager
+        deactivate HomeCommand
+        destroy HomeCommand
+
+    else
+        create BadCommandException
+        ReflectionManager -> BadCommandException : new()
+        activate BadCommandException
+        BadCommandException --> ReflectionManager
+        deactivate BadCommandException
+    end
+@enduml
