@@ -6,6 +6,7 @@ import java.util.HashMap;
 import wellnus.atomichabit.feature.AtomicHabitManager;
 import wellnus.common.MainManager;
 import wellnus.exception.BadCommandException;
+import wellnus.focus.feature.FocusManager;
 import wellnus.reflection.ReflectionManager;
 import wellnus.ui.TextUi;
 
@@ -15,14 +16,18 @@ import wellnus.ui.TextUi;
  */
 //@@author: nichyjt
 public class HelpCommand extends Command {
-    public static final String COMMAND_DESCRIPTION = "help - Get help on what commands can be used in WellNUS++";
-    public static final String COMMAND_USAGE = "usage: help (command-to-check)";
-    private static final String BAD_COMMAND_MESSAGE = "help does not take in any arguments!";
+    public static final String COMMAND_DESCRIPTION = "help - Get help on what commands can be used in WellNUS++.";
+    public static final String COMMAND_USAGE = "usage: help [command-to-check]";
     private static final String COMMAND_KEYWORD = "help";
+    private static final String BAD_COMMAND_MESSAGE = "help does not take in any arguments!";
     private static final String NO_FEATURE_KEYWORD = "";
-    private static final String HELP_PREAMBLE = "Here are all the commands available for you!";
+    private static final String HELP_PREAMBLE = "Input `help` to see all available commands.\n"
+            + "Input `help [command-to-check] to get usage help for a specific command.\n"
+            + "Here are all the commands available for you!";
     private static final String USAGE_HABIT = "\tusage: hb";
     private static final String USAGE_REFLECT = "\tusage: reflect";
+    private static final String ERROR_UNKNOWN_COMMAND = "Sorry, we couldn't find that command!\n"
+            + "To find a command accessible in this part of WellNUS++, try `help`!";
     private static final String PADDING = " ";
     private static final String DOT = ".";
     private static final int ONE_OFFSET = 1;
@@ -48,38 +53,69 @@ public class HelpCommand extends Command {
         ArrayList<String> commandDescriptions = new ArrayList<>();
         commandDescriptions.add(AtomicHabitManager.FEATURE_HELP_DESCRIPTION);
         commandDescriptions.add(ReflectionManager.FEATURE_HELP_DESCRIPTION);
+        commandDescriptions.add(FocusManager.FEATURE_HELP_DESCRIPTION);
         commandDescriptions.add(ExitCommand.COMMAND_DESCRIPTION);
         commandDescriptions.add(COMMAND_DESCRIPTION);
         return commandDescriptions;
     }
 
-    private ArrayList<String> getCommandUsages() {
-        ArrayList<String> commandUsages = new ArrayList<>();
-        commandUsages.add(USAGE_HABIT);
-        commandUsages.add(USAGE_REFLECT);
-        commandUsages.add(ExitCommand.COMMAND_USAGE);
-        commandUsages.add(COMMAND_USAGE);
-        return commandUsages;
+    /**
+     * Prints either the general help message or the command-specific help message
+     * based on the presence of a payload.
+     */
+    private void printHelpMessage() {
+        HashMap<String, String> argumentPayload = getArguments();
+        String commandToSearch = argumentPayload.get(COMMAND_KEYWORD);
+        if (commandToSearch.equals(NO_FEATURE_KEYWORD)) {
+            printGeneralHelpMessage();
+            return;
+        }
+        printSpecificHelpMessage(commandToSearch);
     }
 
     /**
      * Lists all features available in WellNUS++ and a short description.
      */
-    private void printHelpMessage() {
+    public void printGeneralHelpMessage() {
         ArrayList<String> commandDescriptions = getCommandDescriptions();
-        ArrayList<String> commandUsages = getCommandUsages();
-        // Add in description
         String outputMessage = MainManager.FEATURE_HELP_DESCRIPTION;
         outputMessage = outputMessage.concat(System.lineSeparator());
         outputMessage = outputMessage.concat(HELP_PREAMBLE);
         outputMessage = outputMessage.concat(System.lineSeparator() + System.lineSeparator());
 
-        for (int i = 0; i < commandUsages.size(); i += 1) {
+        for (int i = 0; i < commandDescriptions.size(); i += 1) {
             outputMessage = outputMessage.concat(i + ONE_OFFSET + DOT + PADDING);
             outputMessage = outputMessage.concat(commandDescriptions.get(i) + System.lineSeparator());
-            outputMessage = outputMessage.concat(commandUsages.get(i) + System.lineSeparator());
         }
         this.getTextUi().printOutputMessage(outputMessage);
+    }
+
+    /**
+     * Prints the help message for a given commandToSearch.
+     * If it does not exist,
+     */
+    public void printSpecificHelpMessage(String commandToSearch) {
+        switch (commandToSearch) {
+        case AtomicHabitManager.FEATURE_NAME:
+            printUsageMessage(AtomicHabitManager.FEATURE_HELP_DESCRIPTION, USAGE_HABIT);
+            break;
+        case ReflectionManager.FEATURE_NAME:
+            printUsageMessage(ReflectionManager.FEATURE_HELP_DESCRIPTION, USAGE_REFLECT);
+            break;
+        case HelpCommand.COMMAND_KEYWORD:
+            printUsageMessage(HelpCommand.COMMAND_DESCRIPTION, HelpCommand.COMMAND_USAGE);
+            break;
+        case ExitCommand.COMMAND_KEYWORD:
+            printUsageMessage(ExitCommand.COMMAND_DESCRIPTION, ExitCommand.COMMAND_USAGE);
+            break;
+        default:
+            textUi.printOutputMessage(ERROR_UNKNOWN_COMMAND);
+        }
+    }
+
+    private void printUsageMessage(String commandDescription, String usageString) {
+        String message = commandDescription + System.lineSeparator() + usageString;
+        textUi.printOutputMessage(message);
     }
 
     @Override
@@ -122,7 +158,7 @@ public class HelpCommand extends Command {
     public void validateCommand(HashMap<String, String> arguments) throws BadCommandException {
         assert arguments.containsKey(COMMAND_KEYWORD) : "HelpCommand's payload map does not contain 'help'!";
         // Check if user put in unnecessary payload or arguments
-        if (arguments.get(COMMAND_KEYWORD).length() > EMPTY_ARG_LENGTH || arguments.size() > EXPECTED_PAYLOAD_SIZE) {
+        if (arguments.size() > EXPECTED_PAYLOAD_SIZE) {
             throw new BadCommandException(BAD_COMMAND_MESSAGE);
         }
     }
