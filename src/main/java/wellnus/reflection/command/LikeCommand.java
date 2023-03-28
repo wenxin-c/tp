@@ -64,7 +64,7 @@ public class LikeCommand extends Command {
     }
 
     /**
-     * Get the name of the feature in which this get command is generated.
+     * Get the name of the feature in which this like command is generated.
      *
      * @return Feature name: reflect
      */
