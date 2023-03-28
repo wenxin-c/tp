@@ -76,6 +76,7 @@ If you plan to use Intellij IDEA (highly recommended): <br>
 
 ## Design & implementation
 ### Reflection Component
+![Reflection Component Class Diagram](diagrams/ReflectionSequenceDiagram.png)
 ![Reflection Component Class Diagram](diagrams/ReflectionClassDiagram.png)
 This `Reflection` component provides users with random sets of introspective questions for users to reflect on.<br>
 <br>
