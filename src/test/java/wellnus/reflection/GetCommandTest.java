@@ -11,6 +11,10 @@ import org.junit.jupiter.api.Test;
 
 import wellnus.command.CommandParser;
 import wellnus.exception.BadCommandException;
+import wellnus.reflection.command.GetCommand;
+import wellnus.reflection.feature.QuestionList;
+import wellnus.reflection.feature.ReflectionManager;
+import wellnus.reflection.feature.ReflectionQuestion;
 
 /**
  * Class to test different tests for GetCommand Class utilising JUnit tests

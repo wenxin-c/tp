@@ -1,25 +1,26 @@
-package wellnus.reflection;
+package wellnus.reflection.feature;
 
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.NoSuchElementException;
-import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import wellnus.exception.BadCommandException;
 import wellnus.manager.Manager;
+import wellnus.reflection.command.FavoriteCommand;
+import wellnus.reflection.command.GetCommand;
+import wellnus.reflection.command.HomeCommand;
+import wellnus.reflection.command.LikeCommand;
 
 /**
  * The manager for self reflection section.<br/>
  * This class oversees the command execution for self reflection section.
  */
 public class ReflectionManager extends Manager {
-    public static final String FEATURE_HELP_DESCRIPTION = "Reflection - Take some time to pause and reflect "
+    public static final String FEATURE_HELP_DESCRIPTION = "Reflection (reflect) - Take some time to pause and reflect "
             + "with our specially curated list of questions and reflection management tools.";
+    public static final String FEATURE_NAME = "reflect";
     private static final Logger LOGGER = Logger.getLogger("ReflectionManagerLogger");
-    private static final String FEATURE_NAME = "reflect";
     private static final String GET_COMMAND = "get";
     private static final String HOME_COMMAND = "home";
     private static final String LIKE_COMMAND = "like";
@@ -48,8 +49,6 @@ public class ReflectionManager extends Manager {
             + "and improve on yourself!!";
     private static final int EMPTY_COMMAND = 0;
     private static final boolean IS_EXIT_INITIAL = false;
-    private static final Integer[] ARR_INDEXES = { 5, 6, 7, 8, 1};
-    private static final Set<Integer> RANDOM_INDEXES = new HashSet<>(Arrays.asList(ARR_INDEXES));
     private static final ReflectUi UI = new ReflectUi();
     // This attribute should be set as static to avoid confusion if a new object is created.
     // It means exit from self reflection back to main interface
@@ -131,6 +130,7 @@ public class ReflectionManager extends Manager {
     }
 
     //@@author wenxin-c
+
     /**
      * Print greeting logo and message.
      */
@@ -141,6 +141,7 @@ public class ReflectionManager extends Manager {
     //@@author
 
     //@@author wenxin-c
+
     /**
      * Main entry point of self reflection section.<br/>
      * <br/>

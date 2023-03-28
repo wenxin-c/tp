@@ -14,7 +14,7 @@ import wellnus.exception.BadCommandException;
 import wellnus.exception.WellNusException;
 import wellnus.focus.feature.FocusManager;
 import wellnus.manager.Manager;
-import wellnus.reflection.ReflectionManager;
+import wellnus.reflection.feature.ReflectionManager;
 import wellnus.ui.TextUi;
 
 /**
