@@ -196,8 +196,10 @@ public class MainManager extends Manager {
      * <code> this.supportedManagers.add([mgr1, mgr2, ...]); </code>
      */
     protected void setSupportedFeatureManagers() {
-        this.getSupportedFeatureManagers().add(new GamificationManager());
-        this.getSupportedFeatureManagers().add(new AtomicHabitManager());
+        GamificationManager gamificationManager = new GamificationManager();
+        this.getSupportedFeatureManagers().add(gamificationManager);
+        this.getSupportedFeatureManagers().add(
+                new AtomicHabitManager(gamificationManager.getGamificationData()));
         this.getSupportedFeatureManagers().add(new ReflectionManager());
         // TODO: Implement once all Managers are in
         // e.g. this.getSupportedFeatureManagers().add(new AtomicHabitManager());
