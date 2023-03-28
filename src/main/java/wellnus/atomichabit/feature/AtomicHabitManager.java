@@ -3,6 +3,7 @@ package wellnus.atomichabit.feature;
 import java.util.HashMap;
 
 import wellnus.atomichabit.command.AddCommand;
+import wellnus.atomichabit.command.HelpCommand;
 import wellnus.atomichabit.command.HomeCommand;
 import wellnus.atomichabit.command.ListCommand;
 import wellnus.atomichabit.command.UpdateCommand;
@@ -31,6 +32,7 @@ public class AtomicHabitManager extends Manager {
     private static final String LIST_COMMAND_KEYWORD = "list";
     private static final String UNKNOWN_COMMAND_MESSAGE = "No such command in atomic habits!";
     private static final String UPDATE_COMMAND_KEYWORD = "update";
+    private static final String HELP_COMMAND_KEYWORD = "help";
     private final TextUi textUi;
     private final AtomicHabitList habitList;
 
@@ -67,6 +69,8 @@ public class AtomicHabitManager extends Manager {
             return new ListCommand(arguments, getHabitList());
         case UPDATE_COMMAND_KEYWORD:
             return new UpdateCommand(arguments, getHabitList());
+        case HELP_COMMAND_KEYWORD:
+            return new HelpCommand(arguments);
         default:
             throw new BadCommandException(UNKNOWN_COMMAND_MESSAGE);
         }

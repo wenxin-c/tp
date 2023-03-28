@@ -22,6 +22,7 @@ public class ReflectionManager extends Manager {
     private static final String FEATURE_NAME = "reflect";
     private static final String GET_COMMAND = "get";
     private static final String HOME_COMMAND = "home";
+    private static final String HELP_COMMAND = "help";
     private static final String LIKE_COMMAND = "like";
     private static final String FAV_COMMAND = "fav";
     private static final String NO_ELEMENT_MESSAGE = "There is no new line of input, please key in inputs.";
@@ -194,6 +195,10 @@ public class ReflectionManager extends Manager {
         case FAV_COMMAND:
             FavoriteCommand favCmd = new FavoriteCommand(argumentPayload, questionList);
             favCmd.execute();
+            break;
+        case HELP_COMMAND:
+            HelpCommand helpCmd = new HelpCommand(argumentPayload);
+            helpCmd.execute();
             break;
         default:
             throw new BadCommandException(INVALID_COMMAND_MESSAGE);
