@@ -19,9 +19,10 @@ import wellnus.reflection.feature.ReflectionQuestion;
 public class GetCommand extends Command {
     public static final String COMMAND_DESCRIPTION = "get - Get a list of questions to reflect on.";
     public static final String COMMAND_USAGE = "usage: get";
+    public static final String COMMAND_KEYWORD = "get";
     private static final Logger LOGGER = Logger.getLogger("ReflectGetCommandLogger");
     private static final String FEATURE_NAME = "reflect";
-    private static final String COMMAND_KEYWORD = "get";
+
     private static final String PAYLOAD = "";
     private static final String INVALID_COMMAND_MSG = "Command is invalid.";
     private static final String INVALID_COMMAND_NOTES = "Please check the available commands "

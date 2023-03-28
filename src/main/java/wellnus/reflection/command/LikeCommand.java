@@ -19,7 +19,7 @@ import wellnus.reflection.feature.ReflectUi;
 public class LikeCommand extends Command {
     public static final String COMMAND_DESCRIPTION = "like (index) - Add a particular question to favorite list.";
     public static final String COMMAND_USAGE = "usage: like (index)";
-    private static final String COMMAND_KEYWORD = "like";
+    public static final String COMMAND_KEYWORD = "like";
     private static final String FEATURE_NAME = "reflect";
     private static final String INVALID_COMMAND_MSG = "Command is invalid.";
     private static final String INVALID_COMMAND_NOTES = "Please check the available commands "

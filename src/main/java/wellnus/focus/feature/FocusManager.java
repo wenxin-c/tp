@@ -7,6 +7,7 @@ import wellnus.exception.BadCommandException;
 import wellnus.exception.WellNusException;
 import wellnus.focus.command.CheckCommand;
 import wellnus.focus.command.ConfigCommand;
+import wellnus.focus.command.HelpCommand;
 import wellnus.focus.command.HomeCommand;
 import wellnus.focus.command.NextCommand;
 import wellnus.focus.command.PauseCommand;
@@ -34,6 +35,7 @@ public class FocusManager extends Manager {
     private static final String HOME_COMMAND_KEYWORD = "home";
     private static final String STOP_COMMAND_KEYWORD = "stop";
     private static final String CHECK_COMMAND_KEYWORD = "check";
+    private static final String HELP_COMMAND_KEYWORD = "help";
     private static final String UNKNOWN_COMMAND_MESSAGE = "No such command in focus timer!";
     private static final String FOCUS_TIMER_GREET = "Welcome to Focus Timer.\n"
             + "Start a focus session with `start`, or `config` the session first!";
@@ -82,6 +84,8 @@ public class FocusManager extends Manager {
             return new NextCommand(arguments, session);
         case CONFIG_COMMAND_KEYWORD:
             return new ConfigCommand(arguments, session);
+        case HELP_COMMAND_KEYWORD:
+            return new HelpCommand(arguments);
         default:
             throw new BadCommandException(UNKNOWN_COMMAND_MESSAGE);
         }
