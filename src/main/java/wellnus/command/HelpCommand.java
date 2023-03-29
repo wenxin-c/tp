@@ -7,6 +7,7 @@ import wellnus.atomichabit.feature.AtomicHabitManager;
 import wellnus.common.MainManager;
 import wellnus.exception.BadCommandException;
 import wellnus.focus.feature.FocusManager;
+import wellnus.gamification.GamificationManager;
 import wellnus.reflection.feature.ReflectionManager;
 import wellnus.ui.TextUi;
 
@@ -26,6 +27,8 @@ public class HelpCommand extends Command {
             + "Here are all the commands available for you!";
     private static final String USAGE_HABIT = "\tusage: hb";
     private static final String USAGE_REFLECT = "\tusage: reflect";
+    private static final String USAGE_FOCUS = "\tusage: ft";
+    private static final String USAGE_GAMIFICATION = "\tusage: gamif";
     private static final String ERROR_UNKNOWN_COMMAND = "Sorry, we couldn't find that command!\n"
             + "To find a command accessible in this part of WellNUS++, try `help`!";
     private static final String PADDING = " ";
@@ -54,6 +57,7 @@ public class HelpCommand extends Command {
         commandDescriptions.add(AtomicHabitManager.FEATURE_HELP_DESCRIPTION);
         commandDescriptions.add(ReflectionManager.FEATURE_HELP_DESCRIPTION);
         commandDescriptions.add(FocusManager.FEATURE_HELP_DESCRIPTION);
+        commandDescriptions.add(GamificationManager.FEATURE_HELP_DESCRIPTION);
         commandDescriptions.add(ExitCommand.COMMAND_DESCRIPTION);
         commandDescriptions.add(COMMAND_DESCRIPTION);
         return commandDescriptions;
@@ -101,6 +105,12 @@ public class HelpCommand extends Command {
             break;
         case ReflectionManager.FEATURE_NAME:
             printUsageMessage(ReflectionManager.FEATURE_HELP_DESCRIPTION, USAGE_REFLECT);
+            break;
+        case FocusManager.FEATURE_NAME:
+            printUsageMessage(FocusManager.FEATURE_HELP_DESCRIPTION, USAGE_FOCUS);
+            break;
+        case GamificationManager.FEATURE_NAME:
+            printUsageMessage(GamificationManager.FEATURE_HELP_DESCRIPTION, USAGE_GAMIFICATION);
             break;
         case HelpCommand.COMMAND_KEYWORD:
             printUsageMessage(HelpCommand.COMMAND_DESCRIPTION, HelpCommand.COMMAND_USAGE);
