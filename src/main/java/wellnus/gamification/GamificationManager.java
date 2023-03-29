@@ -3,9 +3,9 @@ package wellnus.gamification;
 import java.util.HashMap;
 
 import wellnus.command.Command;
-import wellnus.command.HelpCommand;
 import wellnus.exception.BadCommandException;
 import wellnus.exception.WellNusException;
+import wellnus.gamification.command.HelpCommand;
 import wellnus.gamification.command.HomeCommand;
 import wellnus.gamification.command.StatsCommand;
 import wellnus.gamification.util.GamificationData;
