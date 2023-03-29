@@ -20,8 +20,8 @@ public class GamificationManager extends Manager {
     public static final String FEATURE_NAME = "gamif";
     public static final String FEATURE_HELP_DESCRIPTION = "gamif: Gamification gives you the motivation "
             + "to continue improving your wellness by rewarding you for your efforts!";
-    private static final String COMMAND_HELP = "help";
-    private static final String COMMAND_HOME = "home";
+      private static final String COMMAND_HELP = "help";  
+  private static final String COMMAND_HOME = "home";
     private static final String COMMAND_STATS = "stats";
     private static final String UNRECOGNISED_COMMAND_ERROR = "Unrecognised command %s, see 'help' on our available "
             + "commands";
@@ -40,12 +40,12 @@ public class GamificationManager extends Manager {
         HashMap<String, String> arguments = commandParser.parseUserInput(command);
         String cmdKeyword = commandParser.getMainArgument(command);
         switch (cmdKeyword) {
+        case COMMAND_HELP:
+            return new HelpCommand(arguments);
         case COMMAND_HOME:
             return new HomeCommand(arguments);
         case COMMAND_STATS:
             return new StatsCommand(arguments, gamificationData);
-        case COMMAND_HELP:
-            return new HelpCommand(arguments);
         default:
             throw new BadCommandException(String.format(UNRECOGNISED_COMMAND_ERROR, cmdKeyword));
         }
@@ -82,22 +82,23 @@ public class GamificationManager extends Manager {
      * and manage the user's commands.
      *
      * @throws BadCommandException If an unrecognised command is given or invalid arguments are given for
-     *     a recognised command
+     *                             a recognised command
      */
     @Override
     public void runEventDriver() throws BadCommandException {
         GamificationUi.printLogo();
         boolean isExit = false;
         while (!isExit) {
-            String commandString = textUi.getCommand();
-            Command command = getCommandFor(commandString);
             try {
+                String commandString = textUi.getCommand();
+                Command command = getCommandFor(commandString);
                 command.execute();
+                isExit = HomeCommand.isHome(command);
             } catch (WellNusException exception) {
                 String noAdditionalMsg = "";
                 textUi.printErrorFor(exception, noAdditionalMsg);
             }
-            isExit = HomeCommand.isHome(command);
         }
     }
 }
+
