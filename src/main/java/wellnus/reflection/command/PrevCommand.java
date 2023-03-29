@@ -15,7 +15,7 @@ import wellnus.reflection.feature.ReflectUi;
 public class PrevCommand extends Command {
     public static final String COMMAND_DESCRIPTION = "prev - Get the previously generated set of questions.";
     public static final String COMMAND_USAGE = "usage: prev";
-    private static final String COMMAND_KEYWORD = "prev";
+    public static final String COMMAND_KEYWORD = "prev";
     private static final String FEATURE_NAME = "reflect";
     private static final String INVALID_COMMAND_MSG = "Command is invalid.";
     private static final String INVALID_COMMAND_NOTES = "Please check the available commands "
@@ -26,7 +26,7 @@ public class PrevCommand extends Command {
     private static final String MISSING_SET_QUESTIONS_NOTES = "Please get a set of questions before adding to favorite "
             + "list!";
     private static final String INDEX_OUT_OF_BOUND_MSG = "Index is out of bound!!";
-    private static final String INDEX_OUT_OF_BOUND_NOTES = "Question index is out of bound(e.g. negative integers, 0)!"
+    private static final String INDEX_OUT_OF_BOUND_NOTES = "Question index is out of bound (e.g. negative integers, 0)!"
             + "Your data file might be corrupted!!";
     private static final String PAYLOAD = "";
     private static final int ARGUMENT_PAYLOAD_SIZE = 1;
