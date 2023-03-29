@@ -78,22 +78,22 @@ public class GamificationManager extends Manager {
      * and manage the user's commands.
      *
      * @throws BadCommandException If an unrecognised command is given or invalid arguments are given for
-     *     a recognised command
+     *                             a recognised command
      */
     @Override
     public void runEventDriver() throws BadCommandException {
         GamificationUi.printLogo();
         boolean isExit = false;
         while (!isExit) {
-            String commandString = textUi.getCommand();
-            Command command = getCommandFor(commandString);
             try {
+                String commandString = textUi.getCommand();
+                Command command = getCommandFor(commandString);
                 command.execute();
+                isExit = HomeCommand.isHome(command);
             } catch (WellNusException exception) {
                 String noAdditionalMsg = "";
                 textUi.printErrorFor(exception, noAdditionalMsg);
             }
-            isExit = HomeCommand.isHome(command);
         }
     }
 }
