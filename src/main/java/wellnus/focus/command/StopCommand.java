@@ -15,7 +15,7 @@ public class StopCommand extends Command {
     public static final String COMMAND_DESCRIPTION = "stop - Stop the session. You will have to `start` "
             + "your focus session again!";
     public static final String COMMAND_USAGE = "usage: stop";
-    private static final String COMMAND_KEYWORD = "stop";
+    public static final String COMMAND_KEYWORD = "stop";
     private static final int COMMAND_NUM_OF_ARGUMENTS = 1;
     private static final String COMMAND_INVALID_ARGUMENTS_MESSAGE = "Invalid command, expected 'stop'";
     private static final String NO_ADDITIONAL_MESSAGE = "";

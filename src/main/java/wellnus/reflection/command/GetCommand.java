@@ -8,6 +8,7 @@ import java.util.logging.Logger;
 
 import wellnus.command.Command;
 import wellnus.exception.BadCommandException;
+import wellnus.exception.StorageException;
 import wellnus.reflection.feature.QuestionList;
 import wellnus.reflection.feature.ReflectUi;
 import wellnus.reflection.feature.ReflectionQuestion;
@@ -19,9 +20,10 @@ import wellnus.reflection.feature.ReflectionQuestion;
 public class GetCommand extends Command {
     public static final String COMMAND_DESCRIPTION = "get - Get a list of questions to reflect on.";
     public static final String COMMAND_USAGE = "usage: get";
+    public static final String COMMAND_KEYWORD = "get";
     private static final Logger LOGGER = Logger.getLogger("ReflectGetCommandLogger");
     private static final String FEATURE_NAME = "reflect";
-    private static final String COMMAND_KEYWORD = "get";
+
     private static final String PAYLOAD = "";
     private static final String INVALID_COMMAND_MSG = "Command is invalid.";
     private static final String INVALID_COMMAND_NOTES = "Please check the available commands "
@@ -29,6 +31,7 @@ public class GetCommand extends Command {
     private static final String COMMAND_KEYWORD_ASSERTION = "The key should be get.";
     private static final String COMMAND_PAYLOAD_ASSERTION = "The payload should be empty.";
     private static final String NUM_SELECTED_QUESTIONS_ASSERTION = "The number of selected questions should be 5.";
+    private static final String STORAGE_ERROR = "The file data cannot be stored properly!!";
     private static final String DOT = ".";
     private static final String EMPTY_STRING = "";
     private static final int NUM_OF_RANDOM_QUESTIONS = 5;
@@ -109,8 +112,13 @@ public class GetCommand extends Command {
             UI.printErrorFor(invalidCommand, INVALID_COMMAND_NOTES);
             return;
         }
-        String outputString = convertQuestionsToString();
-        UI.printOutputMessage(outputString);
+        try {
+            String outputString = convertQuestionsToString();
+            UI.printOutputMessage(outputString);
+        } catch (StorageException storageException) {
+            LOGGER.log(Level.WARNING, STORAGE_ERROR);
+            UI.printErrorFor(storageException, STORAGE_ERROR);
+        }
     }
 
     /**
@@ -146,7 +154,7 @@ public class GetCommand extends Command {
      *
      * @return The selected sets of random questions
      */
-    public ArrayList<ReflectionQuestion> getRandomQuestions() {
+    public ArrayList<ReflectionQuestion> getRandomQuestions() throws StorageException {
         questionList.setRandomQuestionIndexes();
         this.randomQuestionIndexes = questionList.getRandomQuestionIndexes();
         ArrayList<ReflectionQuestion> selectedQuestions = new ArrayList<>();
@@ -163,7 +171,7 @@ public class GetCommand extends Command {
      *
      * @return Single string that consists of all questions
      */
-    private String convertQuestionsToString() {
+    private String convertQuestionsToString() throws StorageException {
         ArrayList<ReflectionQuestion> selectedQuestions = getRandomQuestions();
         String questionString = EMPTY_STRING;
         for (int i = 0; i < selectedQuestions.size(); i += 1) {
