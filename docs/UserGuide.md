@@ -160,7 +160,7 @@ Keep up the good work and you will develop a helpful habit in no time
 —--------------------------------------------------------------- 
 ```
 
-### Update an atomic habit: `update
+### Update an atomic habit: `update`
 
 Increment the number of times that an atomic habit has been carried out.
 
