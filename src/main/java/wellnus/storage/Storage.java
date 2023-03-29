@@ -82,6 +82,33 @@ public class Storage {
     }
 
     /**
+     * Method to check if the specific file exists.
+     * Used to check if the file exists before attempting to load it for atomic habit manager.
+     *
+     * @param fileName name of the file storing the feature data
+     * @return boolean representing if the file exists
+     * @throws StorageException
+     */
+    public boolean checkFileExists(String fileName) throws StorageException {
+        Path pathToFile;
+        File dataFile;
+        try {
+            pathToFile = wellNusDataDirectory.resolve(fileName + FILE_EXTENTION);
+            dataFile = pathToFile.toFile();
+        } catch (InvalidPathException exception) {
+            String errorMessage = ERROR_CANNOT_RESOLVE_PATH;
+            errorMessage = errorMessage.concat(exception.getMessage());
+            throw new StorageException(errorMessage);
+        } catch (UnsupportedOperationException exception) {
+            String errorMessage = ERROR_GENERAL;
+            errorMessage = errorMessage.concat(exception.getMessage());
+            throw new StorageException(errorMessage);
+        }
+        boolean fileExists = dataFile.exists();
+        return fileExists;
+    }
+
+    /**
      * Check if the supplied fileName is a valid WellNUS++ file.
      *
      * @param fileName name of file to be used in WellNUS++

@@ -47,7 +47,8 @@ public class AtomicHabitTokenizer implements Tokenizer<AtomicHabit> {
         } catch (StringIndexOutOfBoundsException stringIndexOutOfBoundsException) {
             throw new TokenizerException(DETOKENIZE_ERROR_MESSAGE);
         }
-        if (!parameterHashMap.containsKey(DESCRIPTION_KEY) || !parameterHashMap.containsKey(COUNT_KEY)) {
+        if ((!parameterHashMap.containsKey(DESCRIPTION_KEY) || !parameterHashMap.containsKey(COUNT_KEY))
+                && !parameterHashMap.isEmpty()) {
             throw new TokenizerException(DETOKENIZE_ERROR_MESSAGE);
         }
         if (parameterHashMap.size() != NUM_ATOMIC_HABIT_PARAMETER) {

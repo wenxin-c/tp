@@ -77,9 +77,12 @@ public class AtomicHabitList {
      * @throws TokenizerException If there is error during detokenization
      */
     public void loadHabitData() throws StorageException, TokenizerException {
+        boolean fileExists = storage.checkFileExists(FILE_NAME);
         ArrayList<String> loadedHabitList = storage.loadData(FILE_NAME);
-        ArrayList<AtomicHabit> detokenizedHabitList = atomicHabitTokenizer.detokenize(loadedHabitList);
-        allAtomicHabits = detokenizedHabitList;
+        if (fileExists) {
+            ArrayList<AtomicHabit> detokenizedHabitList = atomicHabitTokenizer.detokenize(loadedHabitList);
+            allAtomicHabits = detokenizedHabitList;
+        }
     }
 
     /**
@@ -95,4 +98,3 @@ public class AtomicHabitList {
         return allAtomicHabits.get(index);
     }
 }
-
