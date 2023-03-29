@@ -32,7 +32,7 @@ public class AtomicHabitList {
      */
     public AtomicHabitList() {
         try {
-            storage = new Storage();
+            this.storage = new Storage();
         } catch (StorageException storageException) {
             LOGGER.log(Level.WARNING, STORAGE_ERROR);
             textUi.printErrorFor(storageException, STORAGE_ERROR);
