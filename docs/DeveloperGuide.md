@@ -485,7 +485,7 @@ feature.
 The `Tokenizer` interface is the superclass for classes responsible for converting data stored temporarily in feature's
 Managers into Strings for storage and also convert Strings from storage back into data that can be restored by Managers.
 
-Each `Tokenizer` provided `tokenize()` and `detokenize()`, which can then be adapted for each feature. This fulfills the
+Each `Tokenizer` provides `tokenize()` and `detokenize()`, which can then be adapted for each feature. This fulfills the
 `Single Responsibility Principle` as each `Tokenizer` are only responsible to tokenize and detokenize data from only one
 Feature. Furthermore, this design also fulfills `Open-Closed Principle` where `Tokenizer` interface are open for
 extension
@@ -496,7 +496,7 @@ dependent on
 actual implementation of `Tokenizer`, but on the abstract of `Tokenizer` class and its `tokenize()` and `detokenize()`
 method. Each feature's tokenizer are free to implement `tokenize()` and `detokenize()` as every feature might store
 different
-kinds of date.
+kinds of data.
 
 `AtomicHabitTokernizer` class is responsible to tokenize and detokenize ArrayList of AtomicHabits that
 AtomicHabitManager will
@@ -513,8 +513,8 @@ data will
 be stored in the following format
 
 ```
-like [index of liked question]
-prev [index of previous question]
+like:[index of liked question]
+prev:[index of previous question]
 ``` 
 
 `detokenize()` then can be called by ReflectionManager to retrieve the ArrayList containing the Set of liked and
