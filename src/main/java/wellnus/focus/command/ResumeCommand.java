@@ -15,7 +15,7 @@ public class ResumeCommand extends Command {
     public static final String COMMAND_DESCRIPTION = "resume - Continue the countdown.\n"
             + "Can only be used when a countdown is paused.";
     public static final String COMMAND_USAGE = "usage: home";
-    private static final String COMMAND_KEYWORD = "resume";
+    public static final String COMMAND_KEYWORD = "resume";
     private static final int COMMAND_NUM_OF_ARGUMENTS = 1;
     private static final String COMMAND_INVALID_ARGUMENTS_MESSAGE = "Invalid command, expected 'resume'";
     private static final String NO_ADDITIONAL_MESSAGE = "";

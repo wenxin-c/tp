@@ -15,7 +15,7 @@ public class PauseCommand extends Command {
     public static final String COMMAND_DESCRIPTION = "pause - Pause the session!"
             + "Can only be used when a countdown is ticking.";
     public static final String COMMAND_USAGE = "usage: pause";
-    private static final String COMMAND_KEYWORD = "pause";
+    public static final String COMMAND_KEYWORD = "pause";
     private static final int COMMAND_NUM_OF_ARGUMENTS = 1;
     private static final String COMMAND_INVALID_ARGUMENTS_MESSAGE = "Invalid command, expected 'pause'";
     private static final String NO_ADDITIONAL_MESSAGE = "";

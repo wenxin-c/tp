@@ -74,7 +74,7 @@ activate AtomicHabitManager
                 AtomicHabitManager -> ListCommand
                 activate ListCommand
                 ListCommand --> AtomicHabitManager : ListCommand(arguments, habitList)
-                deactivate GetCommand
+                deactivate ListCommand
             else commandString = update
                 create UpdateCommand
                 AtomicHabitManager -> UpdateCommand

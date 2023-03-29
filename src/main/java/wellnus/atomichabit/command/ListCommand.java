@@ -15,7 +15,7 @@ import wellnus.ui.TextUi;
 public class ListCommand extends Command {
     public static final String COMMAND_DESCRIPTION = "list - Lists out all the habits in your tracker.";
     public static final String COMMAND_USAGE = "usage: list";
-    private static final String COMMAND_KEYWORD = "list";
+    public static final String COMMAND_KEYWORD = "list";
     private static final int COMMAND_NUM_OF_ARGUMENTS = 1;
     private static final String COMMAND_INVALID_ARGUMENTS_MESSAGE = "Invalid command, expected 'list'";
     private static final String LINE_SEPARATOR = System.lineSeparator();

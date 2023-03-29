@@ -1,0 +1,37 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
+
+hide footbox
+title Saving Data (Emphasis on Storage Subroutine)
+FooManager -> FooTokenizer : tokenize(ArrayList<T>)
+activate FooTokenizer
+activate FooManager
+FooTokenizer --> FooManager: ArrayList<String> tokenizedManager
+deactivate FooTokenizer
+FooManager -> Storage : saveData(ArrayList<String> tokenizedManager, fileName)
+activate Storage
+Storage -> Storage: isValidFileName(fileName)
+activate Storage
+Storage --> Storage
+deactivate Storage
+Storage -> Storage: getFile()
+activate Storage
+Storage --> Storage: file
+deactivate Storage
+Storage -> Storage: tokenizeString(tokenizedManager)
+activate Storage
+Storage --> Storage: tokenizedString
+deactivate Storage
+Storage -> Storage: writeDataToDisk(tokenizedString, file)
+activate Storage
+Storage --> Storage
+deactivate Storage
+Storage --> FooManager
+deactivate Storage
+
+@enduml

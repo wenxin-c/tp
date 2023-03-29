@@ -15,7 +15,7 @@ public class NextCommand extends Command {
     public static final String COMMAND_DESCRIPTION = "next - When a timer ends, move on to the next countdown!\n"
             + "This can only be used when a countdown timer has ended!";
     public static final String COMMAND_USAGE = "usage: next";
-    private static final String COMMAND_KEYWORD = "next";
+    public static final String COMMAND_KEYWORD = "next";
     private static final int COMMAND_NUM_OF_ARGUMENTS = 1;
     private static final String COMMAND_INVALID_ARGUMENTS_MESSAGE = "Invalid command, expected 'next'";
     private static final String NO_ADDITIONAL_MESSAGE = "";

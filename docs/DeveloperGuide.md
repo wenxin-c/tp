@@ -470,6 +470,35 @@ prev [index of previous question]
 previous
 questions' index to restore its state.
 
+### Storage
+
+Storage is a common API built to work completely decoupled from any `Tokenizer` implementation.
+
+Saving: `saveData`, `Storage` allows for any tokenizing structure logic as long as the input data is in the form
+of an `ArrayList<String>`.
+
+Loading: `loadData` will load all `WellNUS++` data into a common data type, `ArrayList<String>`.
+
+The data transformation from `String` to the target data type by the managers is solely up to `Tokenizer`.
+
+#### Usage: `saveData()`
+
+To illustrate the overall flow on how to save data, refer to the sequence diagram below.
+
+The general idea is to `tokenize` it first into the `ArrayList<String>` format calling before
+calling `Storage`'s `saveData` method.
+
+![](./diagrams/StorageSequence-Saving_Data__Emphasis_on_Storage_Subroutine_.png)
+
+#### Design Considerations
+
+- Only filenames defined by public string constants in the `Storage` class.
+  This is meant to prevent developer mis-use and control what exactly waht files WellNUS++ can create.
+- Internally, each entry in `ArrayList<String>` will be delimited by ` --\n`, where \n is `System.LineSeparator()`.
+  This was chosen due to the invariant property of `' --'` in the context of WellNUS++. Due to the way all user input
+  is filtered by the `CommandParser`, the chosen delimiter should never show up in any data input, such as a habit name
+  from `AtomicHabits`
+
 ## Product scope
 
 ### Target user profile
