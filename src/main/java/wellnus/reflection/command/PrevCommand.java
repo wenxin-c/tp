@@ -23,8 +23,7 @@ public class PrevCommand extends Command {
     private static final String COMMAND_KEYWORD_ASSERTION = "The key should be prev.";
     private static final String COMMAND_PAYLOAD_ASSERTION = "The payload should be empty.";
     private static final String MISSING_SET_QUESTIONS = "A set of questions has not been gotten";
-    private static final String MISSING_SET_QUESTIONS_NOTES = "Please get a set of questions before adding to favorite "
-            + "list!";
+    private static final String MISSING_SET_QUESTIONS_NOTES = "Please get a set of questions before viewing them.";
     private static final String INDEX_OUT_OF_BOUND_MSG = "Index is out of bound!!";
     private static final String INDEX_OUT_OF_BOUND_NOTES = "Question index is out of bound (e.g. negative integers, 0)!"
             + "Your data file might be corrupted!!";
