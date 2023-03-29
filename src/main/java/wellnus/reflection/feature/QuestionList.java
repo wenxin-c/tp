@@ -80,7 +80,7 @@ public class QuestionList {
         this.randomQuestionIndexes = new HashSet<>();
         this.dataIndexInitialSetup();
         try {
-            this.loadFavList();
+            this.loadQuestionData();
         } catch (StorageException storageException) {
             LOGGER.log(Level.WARNING, TOKENIZER_ERROR);
             UI.printErrorFor(storageException, TOKENIZER_ERROR);
@@ -137,9 +137,9 @@ public class QuestionList {
      * @throws TokenizerException If there is error during tokenization
      * @throws StorageException If data cannot be stored properly
      */
-    public void storeFavList() throws StorageException {
-        ArrayList<String> tokenizedFavList = reflectionTokenizer.tokenize(this.dataIndex);
-        storage.saveData(tokenizedFavList, FILE_NAME);
+    public void storeQuestionData() throws StorageException {
+        ArrayList<String> tokenizedQuestionList = reflectionTokenizer.tokenize(this.dataIndex);
+        storage.saveData(tokenizedQuestionList, FILE_NAME);
     }
 
     /**
@@ -148,18 +148,25 @@ public class QuestionList {
      * @throws StorageException If there is error during tokenization
      * @throws TokenizerException If there is error during detokenization
      */
-    public void loadFavList() throws StorageException, TokenizerException {
-        ArrayList<String> loadedFavList = storage.loadData(FILE_NAME);
-        ArrayList<Set<Integer>> detokenizedFavList = reflectionTokenizer.detokenize(loadedFavList);
-        this.setDataIndex(detokenizedFavList);
+    public void loadQuestionData() throws StorageException, TokenizerException {
+        ArrayList<String> loadedQuestionList = storage.loadData(FILE_NAME);
+        ArrayList<Set<Integer>> detokenizedQuestionList = reflectionTokenizer.detokenize(loadedQuestionList);
+        this.setDataIndex(detokenizedQuestionList);
+        this.randomQuestionIndexes = this.dataIndex.get(INDEX_ONE);
     }
 
     /**
      * Generate a set of 5 distinct random numbers from 0-9 which will then be used as indexes to
      * select 5 random questions.
      */
-    public void setRandomQuestionIndexes() {
+    public void setRandomQuestionIndexes() throws StorageException {
         this.randomQuestionIndexes = RANDOM_NUMBER_GENERATOR.generateRandomNumbers();
+        ArrayList<Set<Integer>> updatedQuestionData = new ArrayList<>();
+        Set<Integer> favIndexList = this.dataIndex.get(INDEX_ZERO);
+        updatedQuestionData.add(favIndexList);
+        updatedQuestionData.add(this.randomQuestionIndexes);
+        this.setDataIndex(updatedQuestionData);
+        this.storeQuestionData();
     }
 
     public void setRandomQuestionIndexes(HashSet<Integer> randomQuestionIndexes) {
@@ -193,7 +200,7 @@ public class QuestionList {
             return;
         }
         this.dataIndex.get(INDEX_ZERO).add(indexToAdd);
-        this.storeFavList();
+        this.storeQuestionData();
         UI.printOutputMessage(ADD_FAV_SUCCESS_ONE + this.questions.get(indexToAdd).toString() + ADD_FAV_SUCCESS_TWO);
     }
 

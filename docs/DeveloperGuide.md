@@ -75,89 +75,172 @@ If you plan to use Intellij IDEA (highly recommended): <br>
    code and the interaction among different classes.<br>
 
 ## Design & implementation
+### Application Lifecycle
+#### Overview
+The overall execution lifecycle of the WellNus application involves 4 main components, as shown in the diagram below.
+
+![Application Lifecycle](diagrams/WellnusSequence.png)
+
+The application begins with a call to `WellNus.start()`, which initialises an instance of `MainManager` and calls the 
+`MainManager.runEventDriver()` method.
+
+`MainManager.runEventDriver()` will then take control of user input and provide a basic interface that parses commands 
+from the user. This basic interface only supports basic commands such as `help` and `exit` and recognises the keywords
+of all supported features in WellNUS++. When a recognised feature keyword is given, the corresponding `FeatureManager` 
+will be activated through its `runEventDriver()` method, which gains control of user input from `MainManager`. On the
+other hand, `MainManager.runEventDriver()` terminates when the `exit` command is given, after which the user exits from
+the application.
+
+After control of user input is granted by `MainManager`, `FeatureManager.runEventDriver()` provides the user with a
+feature-specific user interface that continuously parses user commands to determine the suitable `Command` class to 
+handle any given command. In the case of supported commands besides 'home', the `execute()` method of the corresponding 
+`Command` class is called to perform a particular action requested by the user. On the other hand, the `home` command 
+will terminate the `FeatureManager.runEventDriver()` loop, returning the user to the main WellNus++ interface provided 
+by `MainManager.runEventDriver()`.
+
+#### Rationale
+`WellNus` directly transfers control of user input to `MainManager.runEventDriver()` as managing user input is the
+expected functionality of the `runEventDriver()` method within a particular implementation of `Manager`, which means
+that conceptually, management of user input belongs in a subclass of `Manager` instead. Besides, this abstraction
+of user input logic from `WellNus` fulfils the `Single Responsibility Principle` since `WellNus` is intended
+to be a high-level class that delegates tasks to specialised classes that provide the expected functionality, and thus
+`WellNus` must not be responsible for concrete logic such as managing user input.
+
+Additionally, `MainManager.runEventDriver()` is intentionally restricted to only recognise basic commands and feature
+keywords to firstly, achieve the encapsulation and abstraction of feature-specific logic from `MainManager`. Moving 
+feature-specific logic such as recognising feature-specific commands to corresponding feature `Managers` ensures that
+actual implementation details in feature-related subpackages are hidden from `MainManager`. This is necessary for 
+the purpose of encapsulation since `MainManager` exists in a different subpackage. At the same time, by providing the
+public `runEventDriver()` in feature `Managers`, `MainManager` is only aware of the expected functionality of the
+`runEventDriver()`, which can be used to support feature-specific commands, without being involved in the implementation
+details. This allows `MainManager.runEventDriver()` to be kept abstract while providing the expected functionality of
+the application. Secondly, this design fulfils the `Single Responsibility Principle` as `MainManager` is solely
+responsible for the main WellNUS++ commands but not any feature-specific ones, which means that its logic will only
+be changed for reasons related to the main WellNUS++ commands only.
+
+Lastly, the `runEventDriver()` method of feature `Managers` delegates the execution of commands to implementations of
+`Command` to abide by the `Single Responsibility Principle`. Every `Manager.runEventDriver()` method is expected to
+provide a particular user interface, but not any commands. This means that this method should only change for reasons
+related to its user interface, which requires that command handling logic be implemented elsewhere so that changes in
+commands do not require changes in any implementation of `Manager.runEventDriver()`. Besides, this approach ensures
+abstraction of logic as `Manager.runEventDriver()` ensures that command handling is performed while avoiding the
+actual implementation details by delegating the task to a particular implementation of `Command.execute()`, which is
+known to provide command handling functionality.
+
 ### Reflection Component
+
 ![Reflection Component Class Diagram](diagrams/ReflectionSequenceDiagram.png)
 ![Reflection Component Class Diagram](diagrams/ReflectionClassDiagram.png)
 This `Reflection` component provides users with random sets of introspective questions for users to reflect on.<br>
 <br>
-The `reflection` package consists of two packages `command` and `feature` packages. There are also abstract classes 
-such as `Manager`, `Command`, `TextUi` that some classes in `reflection` package inherit from. But these abstract classes
+The `reflection` package consists of two packages `command` and `feature` packages. There are also abstract classes
+such as `Manager`, `Command`, `TextUi` that some classes in `reflection` package inherit from. But these abstract
+classes
 are not the focus of this section since they are outside of `reflection` package.<br>
 <br>
 
 #### Feature Package (`ReflectionManager`, `ReflectionQuestion`, `QuestionList`, `TextUi`, `RandomNumberGenerator` classes)
+
 `ReflectionManager` class:<br>
-- It is charge of the overall execution of the **Self Reflection** feature. 
+
+- It is charge of the overall execution of the **Self Reflection** feature.
 - It inherits from abstract class `Manager`
 - Each `ReflectionManager` object contains exactly one `ReflectUi` object as an attribute to get user inputs. This is to
-use a common `Scanner` object (created in the `ReflectUi` object) to read all the user inputs within Self Reflection feature.
-This can avoid potential unexpected behaviours from creating multiple `Scanner` objects. 
-- The `runEventDriver()` method is the entry of the Self Reflection feature. It contains a **while loop** to continuously 
-get user input commands as users are expected to continuously perform a series of actions within Self Reflection feature 
-until they wish to return back to main WellNUS++ interface(input `home` command). 
+  use a common `Scanner` object (created in the `ReflectUi` object) to read all the user inputs within Self Reflection
+  feature.
+  This can avoid potential unexpected behaviours from creating multiple `Scanner` objects.
+- The `runEventDriver()` method is the entry of the Self Reflection feature. It contains a **while loop** to
+  continuously
+  get user input commands as users are expected to continuously perform a series of actions within Self Reflection
+  feature
+  until they wish to return back to main WellNUS++ interface(input `home` command).
 - The termination condition of the while loop is controlled by a static attribute `isExit`. Whenever `runEventDriver()`
-method is called, the `isExit` attribute will be initialised as `false`. This attribute can be accessed by other objects
-(more specifically `HomeCommand` object) through a static method `setIsExit()` to set to `true` and the while loop will 
-be terminated. The `static` attribute allows other objects to modify `isExit` value. 
-- The `runEventDriver()` method will call the `executeCommands()` method upon getting user commands. Based on the 
-input command type, the `executeCommands()` method will then create the correct type of command objects and call `.execute()`
-method to execute the command accordingly. Since the command objects are local variables, they are dependencies for `ReflectionManager`
-class.
+  method is called, the `isExit` attribute will be initialised as `false`. This attribute can be accessed by other
+  objects
+  (more specifically `HomeCommand` object) through a static method `setIsExit()` to set to `true` and the while loop
+  will
+  be terminated. The `static` attribute allows other objects to modify `isExit` value.
+- The `runEventDriver()` method will call the `executeCommands()` method upon getting user commands. Based on the
+  input command type, the `executeCommands()` method will then create the correct type of command objects and
+  call `.execute()`
+  method to execute the command accordingly. Since the command objects are local variables, they are dependencies
+  for `ReflectionManager`
+  class.
 
 `ReflectionQuestion` class:<br>
-- Each introspective question is a `ReflectionQuestion` object. 
-- It contains the basic description of the introspective question. Being modelled as an object instead of pure string, each
-question will be able to have more attributes which might be utilized for future features.
+
+- Each introspective question is a `ReflectionQuestion` object.
+- It contains the basic description of the introspective question. Being modelled as an object instead of pure string,
+  each
+  question will be able to have more attributes which might be utilized for future features.
 
 `QuestionList` class:<br>
+
 - This class stores the list of questions in Self Reflection feature.
-- It contains a `String` array of 10 introspective questions. These descriptions will be used to instantiate an arrayList
-of 10 ReflectionQuestion.
-- It also stores the indexes of the previous set of generated question and questions liked by users. As such data is used 
-by all commands, a `QuestionList` object is passed by reference to construct command objects(`LikeCommand`, `GetCommand`,
-`HomeCommand`, `FavoriteCommand`). Hence, it is a dependency to all command objects in Self Reflection. This structure allows 
-data to be centralised and well organised by one class.
-- By abstracting the above-mentioned attributes and methods as a separate class instead of putting them in `ReflectionManager`,
-the `ReflectionManager` class can solely focus command execution. All the data related to the list of questions is stored 
-in `QuestionList` class. As such, Single responsibility can be better achieved.  
+- It contains a `String` array of 10 introspective questions. These descriptions will be used to instantiate an
+  arrayList
+  of 10 ReflectionQuestion.
+- It also stores the indexes of the previous set of generated question and questions liked by users. As such data is
+  used
+  by all commands, a `QuestionList` object is passed by reference to construct command
+  objects(`LikeCommand`, `GetCommand`,
+  `HomeCommand`, `FavoriteCommand`). Hence, it is a dependency to all command objects in Self Reflection. This structure
+  allows
+  data to be centralised and well organised by one class.
+- By abstracting the above-mentioned attributes and methods as a separate class instead of putting them
+  in `ReflectionManager`,
+  the `ReflectionManager` class can solely focus command execution. All the data related to the list of questions is
+  stored
+  in `QuestionList` class. As such, Single responsibility can be better achieved.
 
 `ReflectUi` class: <br>
-- It inherits from `TextUi` class and is in charge of printing output to users.
-- This subclass is created to allow Self Reflection feature to have more customised output behaviour(e.g. type of separators)
+
+- This subclass is created to allow Self Reflection feature to have more customised output behaviour(e.g. type of
+  separators)
   other than those inherited from parent class `TextUi`.
 
 `RandomNumberGenerator` class; <br>
+
 - It is used generate a set of 5 distinct integers(0 ~ num_of_questions-1), this set
   of integers will be used as indexes to select the corresponding questions from the pool of 10 questions available.
 
 #### Command Package
+
 `GetCommand` class: <br>
+
 - Command format: `get`
 - This command allows users to get a list of 5 random introspective questions.
-- The commands are validated by the `validateCommand()` method and a `BadCommandException` will be thrown if the commands are invalid.
-- A `QuestionList` object is passed in as a dependency to generate the set of indexes and provide the pool of 10 
-introspective questions available.  
+- The commands are validated by the `validateCommand()` method and a `BadCommandException` will be thrown if the
+  commands are invalid.
+- A `QuestionList` object is passed in as a dependency to generate the set of indexes and provide the pool of 10
+  introspective questions available.
 
 `LikeCommand` class: <br>
+
 - Command format: `like <index of question(1~5)>`
-- Users can add an introspective question that is generated in the previous set into their favorite list. Since there will only
-be 5 questions per set, the indexes are restricted to integer 1~5. 
-- `addFavQuestion()` method in `QuestionList` class is used to add and store the data. 
+- Users can add an introspective question that is generated in the previous set into their favorite list. Since there
+  will only
+  be 5 questions per set, the indexes are restricted to integer 1~5.
+- `addFavQuestion()` method in `QuestionList` class is used to add and store the data.
 - Users can only successfully add a question to favorite list if they have gotten a set of questions previously.
-- Every time a question is added into the favorite list, the indexes of this particular question will be stored in data 
-file straightaway. It prevents data loss due to unforeseen computer shutdown.
+- Every time a question is added into the favorite list, the indexes of this particular question will be stored in data
+  file straightaway. It prevents data loss due to unforeseen computer shutdown.
 
 `FavoriteCommand` class: <br>
+
 - Command format: `fav`
 - Users can get the questions in their favorite list.
-- `getFavQuestions()` method in `QuestionList` class matches the indexes to corresponding questions and return this set of questions
-back to `FavCommand` for output. As such, `QuestionList` is a dependency for `FavoriteCommand` as well.
+- `getFavQuestions()` method in `QuestionList` class matches the indexes to corresponding questions and return this set
+  of questions
+  back to `FavCommand` for output. As such, `QuestionList` is a dependency for `FavoriteCommand` as well.
 
 `HomeCommand` class: <br>
+
 - Command format: `home`
-- This command allows users to return back to the main WellNUS++ interface. 
-- Similar to `GetCommand`, `validateCommand()` method will also be called to validate the command. 
-- It will then call the class-level method `ReflectionManager.setIsExit()` to terminate the while loop in `Reflectionmanager`.
+- This command allows users to return back to the main WellNUS++ interface.
+- Similar to `GetCommand`, `validateCommand()` method will also be called to validate the command.
+- It will then call the class-level method `ReflectionManager.setIsExit()` to terminate the while loop
+  in `Reflectionmanager`.
 
 ### CommandParser Component
 
@@ -350,8 +433,19 @@ The `AtomicHabit` class has the following attributes:
 * `description` - the description of the habit
 * `count` - the number of times the habit is done
 
+Implementation of `AtomicHabitManager`:
+![AtomicHabitManager Implementation](diagrams/AtomicHabitSequenceDiagram.png)
+`AtomicHabitManager` is a subclass of `Manager` class. It is initialised by the `MainManager`.
+When the user enters 'hb' command, the `MainManager` will call the `runEventDriver()` method of `AtomicHabitManager`
+object. The `runEventDriver()` method will call back the `greet()` method to print the welcome message.
+Then, it will call the `runCommands()` method to process the user input and execute the `commands` accordingly.
+The output of the `commands` will be printed by the `textUi` object which is an attribute of `AtomicHabitManager` class
+and is initialised in the constructor. `habitList` which was initialised in the constructor is the `AtomicHabitList`
+object that stores all the user's habits.
+
 ### Managers
-![Manager](diagrams/managers.png)<br/>
+
+![Manager](diagrams/Manager.png)<br/>
 The `Manager` abstract class is the superclass for classes responsible for handling user interaction with the app.
 
 Each `Manager` provides `runEventDriver()`, which takes over control of user interaction and provides a particular
@@ -386,26 +480,36 @@ particular `Manager`'s state from storage if the application is still running an
 feature.
 
 ### Tokenizer
+
 ![Tokenizer](diagrams/Tokenizer.png)<br/>
 The `Tokenizer` interface is the superclass for classes responsible for converting data stored temporarily in feature's
 Managers into Strings for storage and also convert Strings from storage back into data that can be restored by Managers.
 
 Each `Tokenizer` provided `tokenize()` and `detokenize()`, which can then be adapted for each feature. This fulfills the
 `Single Responsibility Principle` as each `Tokenizer` are only responsible to tokenize and detokenize data from only one
-Feature. Furthermore, this design also fulfills `Open-Closed Principle` where `Tokenizer` interface are open for extension
-should there be a new feature added into WellNUS++., while the `Tokenizer` feature itself are closed for modification. In
-addition, this design principle fulfills the `Dependency Inversion Principle` as the feature's Managers are not dependent on
+Feature. Furthermore, this design also fulfills `Open-Closed Principle` where `Tokenizer` interface are open for
+extension
+should there be a new feature added into WellNUS++., while the `Tokenizer` feature itself are closed for modification.
+In
+addition, this design principle fulfills the `Dependency Inversion Principle` as the feature's Managers are not
+dependent on
 actual implementation of `Tokenizer`, but on the abstract of `Tokenizer` class and its `tokenize()` and `detokenize()`
-method. Each feature's tokenizer are free to implement `tokenize()` and `detokenize()` as every feature might store different
+method. Each feature's tokenizer are free to implement `tokenize()` and `detokenize()` as every feature might store
+different
 kinds of date.
 
-`AtomicHabitTokernizer` class is responsible to tokenize and detokenize ArrayList of AtomicHabits that AtomicHabitManager will
-use or store. Each habit will be tokenized in the following format `--description [description of habit] --count [count of
-habit]` using the `tokenize()` method. While `detokenize()` method converts the strings back to ArrayList of AtomicHabit that
+`AtomicHabitTokernizer` class is responsible to tokenize and detokenize ArrayList of AtomicHabits that
+AtomicHabitManager will
+use or store. Each habit will be tokenized in the following
+format `--description [description of habit] --count [count of
+habit]` using the `tokenize()` method. While `detokenize()` method converts the strings back to ArrayList of AtomicHabit
+that
 can be initialized in AtomicHabitManager to restore the state of the Manager.
 
-`ReflectionTokenizer` class is responsible to tokenize the liked question's index and previous questions's index and detokenize
-it back. ArrayList of Set containing the index of `like` and `pref` will be passed to the `tokenize()` function. The data will
+`ReflectionTokenizer` class is responsible to tokenize the liked question's index and previous questions's index and
+detokenize
+it back. ArrayList of Set containing the index of `like` and `pref` will be passed to the `tokenize()` function. The
+data will
 be stored in the following format
 
 ```
@@ -413,10 +517,12 @@ like [index of liked question]
 prev [index of previous question]
 ``` 
 
-`detokenize()` then can be called by ReflectionManager to retrieve the ArrayList containing the Set of liked and previous
+`detokenize()` then can be called by ReflectionManager to retrieve the ArrayList containing the Set of liked and
+previous
 questions' index to restore its state.
 
 ### Storage
+
 Storage is a common API built to work completely decoupled from any `Tokenizer` implementation.
 
 Saving: `saveData`, `Storage` allows for any tokenizing structure logic as long as the input data is in the form
@@ -426,20 +532,19 @@ Loading: `loadData` will load all `WellNUS++` data into a common data type, `Arr
 
 The data transformation from `String` to the target data type by the managers is solely up to `Tokenizer`.
 
-
 #### Usage: `saveData()`
 
-To illustrate the overall flow on how to save data, refer to the sequence diagram below.  
+To illustrate the overall flow on how to save data, refer to the sequence diagram below.
 
-The general idea is to `tokenize` it first into the `ArrayList<String>` format calling  before
+The general idea is to `tokenize` it first into the `ArrayList<String>` format calling before
 calling `Storage`'s `saveData` method.
 
 ![](./diagrams/StorageSequence-Saving_Data__Emphasis_on_Storage_Subroutine_.png)
 
-
 #### Design Considerations
-- Only filenames defined by public string constants in the `Storage` class. 
-  This is meant to prevent developer mis-use and control what exactly waht files WellNUS++ can create. 
+
+- Only filenames defined by public string constants in the `Storage` class.
+  This is meant to prevent developer mis-use and control what exactly waht files WellNUS++ can create.
 - Internally, each entry in `ArrayList<String>` will be delimited by ` --\n`, where \n is `System.LineSeparator()`.
   This was chosen due to the invariant property of `' --'` in the context of WellNUS++. Due to the way all user input
   is filtered by the `CommandParser`, the chosen delimiter should never show up in any data input, such as a habit name
@@ -617,4 +722,5 @@ Note:
 4. Any commands that does not follow the format of `add --name ATOMIC_HABIT_NAME` is invalid
 
 ### Saving data
+
 To be implemented. 
