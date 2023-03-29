@@ -7,6 +7,7 @@ import wellnus.atomichabit.feature.AtomicHabitList;
 import wellnus.atomichabit.feature.AtomicHabitManager;
 import wellnus.command.Command;
 import wellnus.exception.BadCommandException;
+import wellnus.exception.StorageException;
 import wellnus.ui.TextUi;
 
 /**
@@ -20,6 +21,7 @@ public class AddCommand extends Command {
     private static final String COMMAND_NAME_ARGUMENT = "name";
     private static final String COMMAND_KEYWORD_ASSERTION = "The key should be add.";
     private static final String COMMAND_PAYLOAD_ASSERTION = "The payload should not be empty.";
+    private static final String ERROR_STORAGE_MESSAGE = "Error saving to storage!";
     private static final int COMMAND_NUM_OF_ARGUMENTS = 2;
     private static final String COMMAND_WRONG_KEYWORD_MESSAGE = "Wrong command issued by the user, expected 'add'?";
     private static final String FEEDBACK_STRING_ONE = "Yay! You have added a new habit:";
@@ -88,6 +90,11 @@ public class AddCommand extends Command {
         String name = super.getArguments().get(AddCommand.COMMAND_NAME_ARGUMENT);
         AtomicHabit habit = new AtomicHabit(name);
         this.getAtomicHabits().addAtomicHabit(habit);
+        try {
+            this.getAtomicHabits().storeHabitData();
+        } catch (StorageException exception) {
+            this.getTextUi().printErrorFor(exception, ERROR_STORAGE_MESSAGE);
+        }
         String messageToUser = FEEDBACK_STRING_ONE + System.lineSeparator();
         messageToUser += String.format("'%s' %s", habit, FEEDBACK_STRING_TWO);
         getTextUi().printOutputMessage(messageToUser);

@@ -11,6 +11,7 @@ import wellnus.atomichabit.feature.AtomicHabitManager;
 import wellnus.command.Command;
 import wellnus.exception.AtomicHabitException;
 import wellnus.exception.BadCommandException;
+import wellnus.exception.StorageException;
 import wellnus.ui.TextUi;
 
 /**
@@ -29,6 +30,7 @@ public class UpdateCommand extends Command {
     private static final String DOT = ".";
     private static final int DEFAULT_INCREMENT = 1;
     private static final String FEEDBACK_STRING = "The following habit has been incremented! Keep up the good work!";
+    private static final String ERROR_STORAGE_MESSAGE = "Error saving to storage!";
     private static final String FEEDBACK_STRING_NO_INCREMENT = "The following habit has not been updated! "
             + "Enter a positive integer to update your habit!";
     private static final String FEEDBACK_INDEX_NOT_INTEGER_ERROR = "Invalid input! Please enter an integer";
@@ -148,8 +150,12 @@ public class UpdateCommand extends Command {
             }
             int index = this.getIndexFrom(super.getArguments()) - INDEX_OFFSET;
             AtomicHabit habit = getAtomicHabits().getHabitByIndex(index);
-
             habit.increaseCount(incrementCount);
+            try {
+                this.getAtomicHabits().storeHabitData();
+            } catch (StorageException exception) {
+                this.getTextUi().printErrorFor(exception, ERROR_STORAGE_MESSAGE);
+            }
             String stringOfUpdatedHabit = (index + 1) + DOT + habit + " " + "[" + habit.getCount() + "]"
                     + LINE_SEPARATOR;
             getTextUi().printOutputMessage(FEEDBACK_STRING + LINE_SEPARATOR
