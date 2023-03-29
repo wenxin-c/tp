@@ -1,17 +1,14 @@
 package wellnus.atomichabit.feature;
 
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import wellnus.exception.StorageException;
 import wellnus.exception.TokenizerException;
 import wellnus.storage.AtomicHabitTokenizer;
-import wellnus.storage.ReflectionTokenizer;
 import wellnus.storage.Storage;
-import wellnus.storage.Tokenizer;
 import wellnus.ui.TextUi;
-
-import java.util.ArrayList;
-import java.util.Set;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Class to represent a container that will contain all unique AtomicHabit objects in an arraylist
@@ -29,6 +26,10 @@ public class AtomicHabitList {
     private Storage storage;
     private TextUi textUi;
 
+    /**
+     * Constructor for AtomicHabitList class, initializes the storage,textUi and allAtomicHabits objects.
+     * Loads the data from the data file into the arraylist of atomic habits.
+     */
     public AtomicHabitList() {
         try {
             storage = new Storage();

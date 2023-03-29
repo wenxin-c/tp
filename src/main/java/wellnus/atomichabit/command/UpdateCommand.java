@@ -160,7 +160,6 @@ public class UpdateCommand extends Command {
                     + LINE_SEPARATOR;
             getTextUi().printOutputMessage(FEEDBACK_STRING + LINE_SEPARATOR
                     + stringOfUpdatedHabit);
-
         } catch (NumberFormatException numberFormatException) {
             logger.log(Level.INFO, LOG_STR_INPUT_NOT_INTEGER);
             throw new AtomicHabitException(FEEDBACK_INDEX_NOT_INTEGER_ERROR);
