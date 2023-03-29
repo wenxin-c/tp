@@ -245,6 +245,20 @@ public class QuestionList {
         }
         return questionString;
     }
+
+    /**
+     * Get the previously generated set of questions. *
+     * @return String of previously generated questions */
+    public String getPrevSetQuestions() throws IndexOutOfBoundsException {
+        String questionString = EMPTY_STRING;
+        int displayIndex = INDEX_ONE;
+        for (int questionIndex : this.dataIndex.get(INDEX_ONE)) {
+            questionString += (displayIndex + DOT + this.questions.get(questionIndex).toString()
+                    + System.lineSeparator());
+            displayIndex += INCREMENT_ONE;
+        }
+        return questionString;
+    }
     //@@author
 }
 
