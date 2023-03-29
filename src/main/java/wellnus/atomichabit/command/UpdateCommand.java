@@ -62,7 +62,7 @@ public class UpdateCommand extends Command {
      * @param atomicHabits The AtomicHabitList object containing habit to be updates.
      */
     public UpdateCommand(HashMap<String, String> arguments, AtomicHabitList atomicHabits,
-            GamificationData gamificationData) {
+                         GamificationData gamificationData) {
         super(arguments);
         this.atomicHabits = atomicHabits;
         this.gamificationData = gamificationData;
@@ -155,7 +155,6 @@ public class UpdateCommand extends Command {
             }
             int index = this.getIndexFrom(super.getArguments()) - INDEX_OFFSET;
             AtomicHabit habit = getAtomicHabits().getHabitByIndex(index);
-
             habit.increaseCount(incrementCount);
             boolean hasLevelUp = gamificationData.addXp(
                     incrementCount * NUM_OF_XP_PER_INCREMENT);

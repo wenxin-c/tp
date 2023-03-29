@@ -10,6 +10,7 @@ import wellnus.atomichabit.command.UpdateCommand;
 import wellnus.command.Command;
 import wellnus.exception.AtomicHabitException;
 import wellnus.exception.BadCommandException;
+import wellnus.exception.StorageException;
 import wellnus.exception.WellNusException;
 import wellnus.gamification.util.GamificationData;
 import wellnus.manager.Manager;
@@ -34,6 +35,7 @@ public class AtomicHabitManager extends Manager {
     private static final String UNKNOWN_COMMAND_MESSAGE = "No such command in atomic habits!";
     private static final String UPDATE_COMMAND_KEYWORD = "update";
     private static final String HELP_COMMAND_KEYWORD = "help";
+    private static final String ERROR_STORAGE_MESSAGE = "Error saving to storage!";
     private final TextUi textUi;
     private final AtomicHabitList habitList;
     private final GamificationData gamificationData;
@@ -102,6 +104,11 @@ public class AtomicHabitManager extends Manager {
                 String commandString = getTextUi().getCommand();
                 Command command = getCommandFor(commandString);
                 command.execute();
+                try {
+                    habitList.storeHabitData();
+                } catch (StorageException exception) {
+                    this.getTextUi().printErrorFor(exception, ERROR_STORAGE_MESSAGE);
+                }
                 isExit = HomeCommand.isExit(command);
             } catch (BadCommandException badCommandException) {
                 String additionalMessage = "";
