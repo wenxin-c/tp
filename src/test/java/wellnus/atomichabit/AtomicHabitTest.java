@@ -16,6 +16,7 @@ import wellnus.command.Command;
 import wellnus.command.CommandParser;
 import wellnus.exception.AtomicHabitException;
 import wellnus.exception.WellNusException;
+import wellnus.gamification.util.GamificationData;
 import wellnus.ui.TextUi;
 
 public class AtomicHabitTest {
@@ -24,11 +25,13 @@ public class AtomicHabitTest {
     private final AtomicHabitList habitList;
     private final ByteArrayOutputStream outputStreamCaptor;
     private final CommandParser parser;
+    private final GamificationData gamificationData;
 
     public AtomicHabitTest() {
         this.habitList = new AtomicHabitList();
         this.outputStreamCaptor = new ByteArrayOutputStream();
         this.parser = new CommandParser();
+        this.gamificationData = new GamificationData();
     }
 
     private String getMessageFrom(String uiOutput) {
@@ -78,7 +81,7 @@ public class AtomicHabitTest {
     @Test
     public void addHabit_invalidCommand_atomicHabitExceptionThrown() {
         // Test false command by user
-        AtomicHabitManager atomicHabitManager = new AtomicHabitManager();
+        AtomicHabitManager atomicHabitManager = new AtomicHabitManager(gamificationData);
         String command = "sleep";
         Assertions.assertThrows(AtomicHabitException.class, () -> {
             atomicHabitManager.testInvalidCommand(command);
@@ -97,7 +100,7 @@ public class AtomicHabitTest {
         String testUpdateCommand = String.format("%s --id %s", UPDATE_HABIT_COMMAND, habitIndex)
                 + System.lineSeparator();
         HashMap<String, String> arguments = parser.parseUserInput(testUpdateCommand);
-        Command updateCommand = new UpdateCommand(arguments, habitList);
+        Command updateCommand = new UpdateCommand(arguments, habitList, gamificationData);
         String expectedUpdateHabitOutput = "The following habit has been incremented! Keep up the good work!"
                 + System.lineSeparator()
                 + habitIndex + "." + payload + " " + "[2]";
@@ -119,7 +122,7 @@ public class AtomicHabitTest {
         String testUpdateCommand = String.format("%s --id %s --inc %s", UPDATE_HABIT_COMMAND, habitIndex, increment)
                 + System.lineSeparator();
         HashMap<String, String> arguments = parser.parseUserInput(testUpdateCommand);
-        Command updateCommand = new UpdateCommand(arguments, habitList);
+        Command updateCommand = new UpdateCommand(arguments, habitList, gamificationData);
         String expectedUpdateHabitOutput = "The following habit has been incremented! Keep up the good work!"
                 + System.lineSeparator()
                 + habitIndex + "." + payload + " " + "[4]";
@@ -140,7 +143,7 @@ public class AtomicHabitTest {
         String testIndexCommand = String.format("%s --id %s", UPDATE_HABIT_COMMAND, habitIndex)
                 + System.lineSeparator();
         HashMap<String, String> arguments = parser.parseUserInput(testIndexCommand);
-        Command updateCommand = new UpdateCommand(arguments, habitList);
+        Command updateCommand = new UpdateCommand(arguments, habitList, gamificationData);
         Assertions.assertThrows(AtomicHabitException.class, updateCommand::execute);
     }
 
@@ -159,11 +162,11 @@ public class AtomicHabitTest {
         String testNegativeIndexCommand = String.format("%s --id %s", UPDATE_HABIT_COMMAND, negativeHabitIndex)
                 + System.lineSeparator();
         HashMap<String, String> arguments = parser.parseUserInput(testLargeIndexCommand);
-        Command updateCommandForLargeIndex = new UpdateCommand(arguments, habitList);
+        Command updateCommandForLargeIndex = new UpdateCommand(arguments, habitList, gamificationData);
         Assertions.assertThrows(AtomicHabitException.class, updateCommandForLargeIndex::execute);
 
         arguments = parser.parseUserInput(testNegativeIndexCommand);
-        Command updateCommandForNegativeIndex = new UpdateCommand(arguments, habitList);
+        Command updateCommandForNegativeIndex = new UpdateCommand(arguments, habitList, gamificationData);
         Assertions.assertThrows(AtomicHabitException.class, updateCommandForNegativeIndex::execute);
     }
 
@@ -192,7 +195,7 @@ public class AtomicHabitTest {
         String testIndexCommand = String.format("%s --id %s --inc %s", UPDATE_HABIT_COMMAND, habitIndex, increment)
                 + System.lineSeparator();
         HashMap<String, String> arguments = parser.parseUserInput(testIndexCommand);
-        Command updateCommand = new UpdateCommand(arguments, habitList);
+        Command updateCommand = new UpdateCommand(arguments, habitList, gamificationData);
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outputStream));
         updateCommand.execute();

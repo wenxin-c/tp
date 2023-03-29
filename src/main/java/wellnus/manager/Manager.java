@@ -4,7 +4,7 @@ import wellnus.command.CommandParser;
 import wellnus.exception.BadCommandException;
 
 /**
- * Manager is the superclass for all WellNUS++ event drivers <br>
+ * Manager is the superclass for all WellNUS++ event drivers. <br>
  * <br>
  * Each manager is in charge of 'managing' exactly one feature. <br>
  * For example, <i>hb</i> and <i>reflect</i>. <br>
@@ -40,7 +40,7 @@ public abstract class Manager {
     /**
      * Utility function to get the CommandParser tied to the Manager class.
      *
-     * @return commandParser reference to this manager's instance of CommandParser
+     * @return CommandParser reference to this manager's instance of CommandParser
      */
     public CommandParser getCommandParser() {
         assert commandParser != null : "commandParser should not be null";
@@ -48,9 +48,9 @@ public abstract class Manager {
     }
 
     /**
-     * Utility function to get the featureName this Manager is administering
+     * Utility function to get the featureName this Manager is administering.
      *
-     * @return name of the feature that this Manager handles
+     * @return Name of the feature that this Manager handles
      */
     public abstract String getFeatureName();
 
@@ -68,7 +68,7 @@ public abstract class Manager {
     public abstract String getFeatureHelpDescription();
 
     /**
-     * runEventDriver is the entry point into a feature's driver loop <br>
+     * runEventDriver is the entry point into a feature's driver loop. <br>
      * <br>
      * This should be the part that contains the infinite loop and switch cases,
      * but it is up to the implementer. <br>

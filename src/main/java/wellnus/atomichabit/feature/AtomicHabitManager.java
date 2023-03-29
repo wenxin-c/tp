@@ -12,6 +12,7 @@ import wellnus.exception.AtomicHabitException;
 import wellnus.exception.BadCommandException;
 import wellnus.exception.StorageException;
 import wellnus.exception.WellNusException;
+import wellnus.gamification.util.GamificationData;
 import wellnus.manager.Manager;
 import wellnus.ui.TextUi;
 
@@ -37,12 +38,14 @@ public class AtomicHabitManager extends Manager {
     private static final String ERROR_STORAGE_MESSAGE = "Error saving to storage!";
     private final TextUi textUi;
     private final AtomicHabitList habitList;
+    private final GamificationData gamificationData;
 
     /**
      * Constructor of AtomicHabitManager
      * Will initialise the private objects habitList and textUi
      */
-    public AtomicHabitManager() {
+    public AtomicHabitManager(GamificationData gamificationData) {
+        this.gamificationData = gamificationData;
         this.habitList = new AtomicHabitList();
         this.textUi = new TextUi();
     }
@@ -70,7 +73,7 @@ public class AtomicHabitManager extends Manager {
         case LIST_COMMAND_KEYWORD:
             return new ListCommand(arguments, getHabitList());
         case UPDATE_COMMAND_KEYWORD:
-            return new UpdateCommand(arguments, getHabitList());
+            return new UpdateCommand(arguments, getHabitList(), gamificationData);
         case HELP_COMMAND_KEYWORD:
             return new HelpCommand(arguments);
         default:
@@ -180,7 +183,7 @@ public class AtomicHabitManager extends Manager {
                 return new HomeCommand(arguments);
             case UPDATE_COMMAND_KEYWORD:
                 arguments = getCommandParser().parseUserInput(indexTest);
-                return new UpdateCommand(arguments, new AtomicHabitList());
+                return new UpdateCommand(arguments, new AtomicHabitList(), gamificationData);
             default:
                 throw new AtomicHabitException(invalidCommandErrorMessage);
             }
