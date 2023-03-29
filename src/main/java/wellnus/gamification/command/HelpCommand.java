@@ -20,7 +20,7 @@ public class HelpCommand extends Command {
     private static final String COMMAND_KEYWORD = "help";
     private static final String NO_FEATURE_KEYWORD = "";
     private static final String HELP_PREAMBLE = "Input `help` to see all available commands.\n"
-            + "Input `help [command-to-check] to get usage help for a specific command.\n"
+            + "Input `help [command-to-check]` to get usage help for a specific command.\n"
             + "Here are all the commands available for you!";
     private static final String ERROR_UNKNOWN_COMMAND = "Sorry, we couldn't find that command!\n"
             + "To find a command accessible in this part of WellNUS++, try `help`!";
@@ -43,6 +43,7 @@ public class HelpCommand extends Command {
     private TextUi getTextUi() {
         return this.textUi;
     }
+
     private ArrayList<String> getCommandDescriptions() {
         ArrayList<String> commandDescriptions = new ArrayList<>();
         commandDescriptions.add(HelpCommand.COMMAND_DESCRIPTION);
