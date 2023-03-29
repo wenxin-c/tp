@@ -20,7 +20,6 @@ public class AtomicHabitList {
     private static final String TOKENIZER_ERROR = "The data cannot be tokenized for storage properly!!";
     private static final Logger LOGGER = Logger.getLogger("AtomicHabitListLogger");
     private static final AtomicHabitTokenizer atomicHabitTokenizer = new AtomicHabitTokenizer();
-    //Changed to non-final to assign from load data, can change accordingly
     private ArrayList<AtomicHabit> allAtomicHabits;
 
     private Storage storage;
