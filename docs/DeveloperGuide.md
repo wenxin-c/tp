@@ -75,6 +75,57 @@ If you plan to use Intellij IDEA (highly recommended): <br>
    code and the interaction among different classes.<br>
 
 ## Design & implementation
+### Application Lifecycle
+#### Overview
+The overall execution lifecycle of the WellNus application involves 4 main components, as shown in the diagram below.
+
+![Application Lifecycle](diagrams/WellnusSequence.png)
+
+The application begins with a call to `WellNus.start()`, which initialises an instance of `MainManager` and calls the 
+`MainManager.runEventDriver()` method.
+
+`MainManager.runEventDriver()` will then take control of user input and provide a basic interface that parses commands 
+from the user. This basic interface only supports basic commands such as `help` and `exit` and recognises the keywords
+of all supported features in WellNUS++. When a recognised feature keyword is given, the corresponding `FeatureManager` 
+will be activated through its `runEventDriver()` method, which gains control of user input from `MainManager`. On the
+other hand, `MainManager.runEventDriver()` terminates when the `exit` command is given, after which the user exits from
+the application.
+
+After control of user input is granted by `MainManager`, `FeatureManager.runEventDriver()` provides the user with a
+feature-specific user interface that continuously parses user commands to determine the suitable `Command` class to 
+handle any given command. In the case of supported commands besides 'home', the `execute()` method of the corresponding 
+`Command` class is called to perform a particular action requested by the user. On the other hand, the `home` command 
+will terminate the `FeatureManager.runEventDriver()` loop, returning the user to the main WellNus++ interface provided 
+by `MainManager.runEventDriver()`.
+
+#### Rationale
+`WellNus` directly transfers control of user input to `MainManager.runEventDriver()` as managing user input is the
+expected functionality of the `runEventDriver()` method within a particular implementation of `Manager`, which means
+that conceptually, management of user input belongs in a subclass of `Manager` instead. Besides, this abstraction
+of user input logic from `WellNus` fulfils the `Single Responsibility Principle` since `WellNus` is intended
+to be a high-level class that delegates tasks to specialised classes that provide the expected functionality, and thus
+`WellNus` must not be responsible for concrete logic such as managing user input.
+
+Additionally, `MainManager.runEventDriver()` is intentionally restricted to only recognise basic commands and feature
+keywords to firstly, achieve the encapsulation and abstraction of feature-specific logic from `MainManager`. Moving 
+feature-specific logic such as recognising feature-specific commands to corresponding feature `Managers` ensures that
+actual implementation details in feature-related subpackages are hidden from `MainManager`. This is necessary for 
+the purpose of encapsulation since `MainManager` exists in a different subpackage. At the same time, by providing the
+public `runEventDriver()` in feature `Managers`, `MainManager` is only aware of the expected functionality of the
+`runEventDriver()`, which can be used to support feature-specific commands, without being involved in the implementation
+details. This allows `MainManager.runEventDriver()` to be kept abstract while providing the expected functionality of
+the application. Secondly, this design fulfils the `Single Responsibility Principle` as `MainManager` is solely
+responsible for the main WellNUS++ commands but not any feature-specific ones, which means that its logic will only
+be changed for reasons related to the main WellNUS++ commands only.
+
+Lastly, the `runEventDriver()` method of feature `Managers` delegates the execution of commands to implementations of
+`Command` to abide by the `Single Responsibility Principle`. Every `Manager.runEventDriver()` method is expected to
+provide a particular user interface, but not any commands. This means that this method should only change for reasons
+related to its user interface, which requires that command handling logic be implemented elsewhere so that changes in
+commands do not require changes in any implementation of `Manager.runEventDriver()`. Besides, this approach ensures
+abstraction of logic as `Manager.runEventDriver()` ensures that command handling is performed while avoiding the
+actual implementation details by delegating the task to a particular implementation of `Command.execute()`, which is
+known to provide command handling functionality.
 
 ### Reflection Component
 
@@ -394,7 +445,7 @@ object that stores all the user's habits.
 
 ### Managers
 
-![Manager](diagrams/managers.png)<br/>
+![Manager](diagrams/Manager.png)<br/>
 The `Manager` abstract class is the superclass for classes responsible for handling user interaction with the app.
 
 Each `Manager` provides `runEventDriver()`, which takes over control of user interaction and provides a particular
