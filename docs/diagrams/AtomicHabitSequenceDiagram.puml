@@ -1,0 +1,99 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
+hide footbox
+
+activate MainManager
+
+create AtomicHabitManager
+MainManager -> AtomicHabitManager
+activate AtomicHabitManager
+
+create textUi
+AtomicHabitManager -> textUi
+activate textUi
+textUi --> AtomicHabitManager
+deactivate textUi
+
+create habitList
+AtomicHabitManager -> habitList
+activate habitList
+habitList --> AtomicHabitManager
+deactivate habitList
+
+AtomicHabitManager --> MainManager
+deactivate AtomicHabitManager
+
+MainManager -> AtomicHabitManager : runEventDriver()
+activate AtomicHabitManager
+
+AtomicHabitManager -> AtomicHabitManager : greet()
+activate AtomicHabitManager
+AtomicHabitManager -> textUi : getTextUi()
+activate textUi
+textUi --> AtomicHabitManager : textUi
+deactivate textUi
+AtomicHabitManager -> textUi : printOutputMessage()
+deactivate AtomicHabitManager
+
+AtomicHabitManager -> AtomicHabitManager : runCommands()
+activate AtomicHabitManager
+
+    loop until isExit is true
+        AtomicHabitManager -> AtomicHabitManager : getCommand()
+        activate AtomicHabitManager
+        AtomicHabitManager -> textUi : getTextUi()
+        activate textUi
+        textUi --> AtomicHabitManager : textUi
+        deactivate textUi
+        AtomicHabitManager -> textUi : getCommand()
+        activate textUi
+        textUi --> AtomicHabitManager : commandString
+        deactivate textUi
+        deactivate AtomicHabitManager
+
+        AtomicHabitManager -> AtomicHabitManager : getCommandFor(commandString)
+        activate AtomicHabitManager
+            alt commandString = add
+                create AddCommand
+                AtomicHabitManager -> AddCommand
+                activate AddCommand
+                AddCommand --> AtomicHabitManager : AddCommand(arguments, habitList)
+                deactivate AddCommand
+            else commandString = home
+                create HomeCommand
+                AtomicHabitManager -> HomeCommand
+                activate HomeCommand
+                HomeCommand --> AtomicHabitManager : HomeCommand(arguments, habitList)
+                deactivate HomeCommand
+            else commandString = list
+                create ListCommand
+                AtomicHabitManager -> ListCommand
+                activate ListCommand
+                ListCommand --> AtomicHabitManager : ListCommand(arguments, habitList)
+                deactivate ListCommand
+            else commandString = update
+                create UpdateCommand
+                AtomicHabitManager -> UpdateCommand
+                activate UpdateCommand
+                UpdateCommand --> AtomicHabitManager : UpdateCommand(arguments, habitList)
+                deactivate UpdateCommand
+            else
+                create BadCommandException
+                AtomicHabitManager -> BadCommandException
+                activate BadCommandException
+                BadCommandException --> AtomicHabitManager
+                deactivate BadCommandException
+            end
+        deactivate AtomicHabitManager
+        AtomicHabitManager -> command : execute()
+    end
+deactivate AtomicHabitManager
+
+deactivate AtomicHabitManager
+AtomicHabitManager --> MainManager
+
+@enduml
