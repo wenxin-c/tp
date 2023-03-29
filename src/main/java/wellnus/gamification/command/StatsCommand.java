@@ -14,7 +14,7 @@ import wellnus.gamification.util.GamificationUi;
  */
 public class StatsCommand extends Command {
     public static final String COMMAND_DESCRIPTION = "stats - Displays the user's XP level and points";
-    public static final String COMMAND_NAME = "stats";
+    public static final String COMMAND_KEYWORD = "stats";
     public static final String COMMAND_USAGE = "usage: stats";
     public static final String FEATURE_NAME = "gamif";
     private static final int NUM_OF_ARGUMENTS = 1;
@@ -39,7 +39,7 @@ public class StatsCommand extends Command {
      */
     @Override
     protected String getCommandKeyword() {
-        return COMMAND_NAME;
+        return COMMAND_KEYWORD;
     }
 
     /**

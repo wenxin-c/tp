@@ -3,6 +3,7 @@ package wellnus.gamification;
 import java.util.HashMap;
 
 import wellnus.command.Command;
+import wellnus.command.HelpCommand;
 import wellnus.exception.BadCommandException;
 import wellnus.exception.WellNusException;
 import wellnus.gamification.command.HomeCommand;
@@ -19,6 +20,7 @@ public class GamificationManager extends Manager {
     public static final String FEATURE_NAME = "gamif";
     public static final String FEATURE_HELP_DESCRIPTION = "gamif: Gamification gives you the motivation "
             + "to continue improving your wellness by rewarding you for your efforts!";
+    private static final String COMMAND_HELP = "help";
     private static final String COMMAND_HOME = "home";
     private static final String COMMAND_STATS = "stats";
     private static final String UNRECOGNISED_COMMAND_ERROR = "Unrecognised command %s, see 'help' on our available "
@@ -42,6 +44,8 @@ public class GamificationManager extends Manager {
             return new HomeCommand(arguments);
         case COMMAND_STATS:
             return new StatsCommand(arguments, gamificationData);
+        case COMMAND_HELP:
+            return new HelpCommand(arguments);
         default:
             throw new BadCommandException(String.format(UNRECOGNISED_COMMAND_ERROR, cmdKeyword));
         }
