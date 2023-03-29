@@ -13,7 +13,7 @@ public class ReflectionTokenizer implements Tokenizer<Set<Integer>> {
     private static final String INDEX_DELIMITER = ",";
     private static final int INDEX_ZERO = 0;
     private static final int INDEX_ONE = 1;
-    private static final int INDEX_TEN = 10;
+    private static final int INDEX_NINE = 9;
     private static final int TOKENIZER_INDEX_ARRAYLIST_SIZE = 2;
     private static final String LIKE_KEY = "like";
     private static final String PREF_KEY = "pref";
@@ -70,7 +70,7 @@ public class ReflectionTokenizer implements Tokenizer<Set<Integer>> {
         try {
             for (String indexString : splittedString) {
                 int index = Integer.parseInt(indexString);
-                if (index < INDEX_ONE || index > INDEX_TEN) {
+                if (index < INDEX_ZERO || index > INDEX_NINE) {
                     throw new TokenizerException(DETOKENIZE_ERROR_MESSAGE);
                 }
                 outputIndexes.add(index);
