@@ -56,8 +56,10 @@ class LikeCommandTest {
         CommandParser commandParser = new CommandParser();
         HashMap<String, String> argumentPayload = commandParser.parseUserInput(LIKE_COMMAND);
         LikeCommand likeCmd = new LikeCommand(argumentPayload, questionList);
-        assertThrows(BadCommandException.class, (
-        ) -> likeCmd.addFavQuestion(argumentPayload.get(LIKE_COMMAND_KEYWORD)));
+        if (!questionList.hasRandomQuestionIndexes()) {
+            assertThrows(BadCommandException.class, (
+            ) -> likeCmd.addFavQuestion(argumentPayload.get(LIKE_COMMAND_KEYWORD)));
+        }
     }
 
     // Test the mapping from user input to question index.

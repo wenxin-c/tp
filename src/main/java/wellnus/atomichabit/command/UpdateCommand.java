@@ -20,7 +20,7 @@ import wellnus.ui.TextUi;
 public class UpdateCommand extends Command {
     public static final String COMMAND_DESCRIPTION = "update - Update how many times you've done a habit.";
     public static final String COMMAND_USAGE = "usage: update --id habit-index [--inc increment_number]";
-    private static final String COMMAND_KEYWORD = "update";
+    public static final String COMMAND_KEYWORD = "update";
     private static final String COMMAND_INCREMENT_ARGUMENT = "inc";
     private static final String COMMAND_INDEX_ARGUMENT = "id";
     private static final int COMMAND_MIN_NUM_OF_ARGUMENTS = 2;

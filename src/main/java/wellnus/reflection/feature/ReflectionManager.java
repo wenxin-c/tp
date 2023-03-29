@@ -9,6 +9,7 @@ import wellnus.exception.BadCommandException;
 import wellnus.manager.Manager;
 import wellnus.reflection.command.FavoriteCommand;
 import wellnus.reflection.command.GetCommand;
+import wellnus.reflection.command.HelpCommand;
 import wellnus.reflection.command.HomeCommand;
 import wellnus.reflection.command.LikeCommand;
 import wellnus.reflection.command.PrevCommand;
@@ -24,6 +25,7 @@ public class ReflectionManager extends Manager {
     private static final Logger LOGGER = Logger.getLogger("ReflectionManagerLogger");
     private static final String GET_COMMAND = "get";
     private static final String HOME_COMMAND = "home";
+    private static final String HELP_COMMAND = "help";
     private static final String LIKE_COMMAND = "like";
     private static final String FAV_COMMAND = "fav";
     private static final String PREV_COMMAND = "prev";
@@ -185,6 +187,10 @@ public class ReflectionManager extends Manager {
         case GET_COMMAND:
             GetCommand getQuestionsCmd = new GetCommand(argumentPayload, questionList);
             getQuestionsCmd.execute();
+            break;
+        case HELP_COMMAND:
+            HelpCommand helpCmd = new HelpCommand(argumentPayload);
+            helpCmd.execute();
             break;
         case HOME_COMMAND:
             HomeCommand returnCmd = new HomeCommand(argumentPayload, questionList);

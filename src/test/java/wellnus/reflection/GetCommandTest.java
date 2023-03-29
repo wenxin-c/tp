@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Test;
 
 import wellnus.command.CommandParser;
 import wellnus.exception.BadCommandException;
+import wellnus.exception.StorageException;
 import wellnus.reflection.command.GetCommand;
 import wellnus.reflection.feature.QuestionList;
 import wellnus.reflection.feature.ReflectionManager;
@@ -43,7 +44,7 @@ class GetCommandTest {
 
     // Test the number of questions being generated
     @Test
-    void getRandomQuestions_checkLength_expectFive() throws BadCommandException {
+    void getRandomQuestions_checkLength_expectFive() throws BadCommandException, StorageException {
         CommandParser commandParser = new CommandParser();
         HashMap<String, String> getCmdArgumentPayload = commandParser.parseUserInput(GET_COMMAND);
         GetCommand get = new GetCommand(getCmdArgumentPayload, questionList);
