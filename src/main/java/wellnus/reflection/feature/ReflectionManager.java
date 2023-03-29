@@ -207,6 +207,13 @@ public class ReflectionManager extends Manager {
         case PREV_COMMAND:
             PrevCommand prevCmd = new PrevCommand(argumentPayload, questionList);
             prevCmd.execute();
+<<<<<<< HEAD
+=======
+            break;
+        case HELP_COMMAND:
+            HelpCommand helpCmd = new HelpCommand(argumentPayload);
+            helpCmd.execute();
+>>>>>>> bcf139c94a270b0e223c39c6abc66d6c1cfc535d
             break;
         default:
             throw new BadCommandException(INVALID_COMMAND_MESSAGE);
