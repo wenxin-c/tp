@@ -13,10 +13,10 @@ import wellnus.gamification.util.GamificationUi;
  * as current XP level.
  */
 public class StatsCommand extends Command {
-    private static final String COMMAND_DESCRIPTION = "stats - Displays the user's XP level and points";
-    private static final String COMMAND_NAME = "stats";
-    private static final String COMMAND_USAGE = "usage: stats";
-    private static final String FEATURE_NAME = "gamif";
+    public static final String COMMAND_DESCRIPTION = "stats - Displays the user's XP level and points";
+    public static final String COMMAND_NAME = "stats";
+    public static final String COMMAND_USAGE = "usage: stats";
+    public static final String FEATURE_NAME = "gamif";
     private static final int NUM_OF_ARGUMENTS = 1;
     private static final String TOO_MANY_ARGUMENTS = "Too many arguments given for 'stats' command";
     private static final String WRONG_COMMAND_MESSAGE = "StatsCommand called for the wrong command keyword";

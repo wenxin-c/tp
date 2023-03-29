@@ -11,10 +11,10 @@ import wellnus.gamification.util.GamificationUi;
  * Provides the 'home' command for the gamification feature.
  */
 public class HomeCommand extends Command {
-    private static final String COMMAND_DESCRIPTION = "home - Returns the user to the main WellNus++ session";
-    private static final String COMMAND_NAME = "home";
-    private static final String COMMAND_USAGE = "usage: home";
-    private static final String FEATURE_NAME = "gamif";
+    public static final String COMMAND_DESCRIPTION = "home - Returns the user to the main WellNus++ session";
+    public static final String COMMAND_NAME = "home";
+    public static final String COMMAND_USAGE = "usage: home";
+    public static final String FEATURE_NAME = "gamif";
     private static final int NUM_OF_ARGUMENTS = 1;
     private static final String TOO_MANY_ARGUMENTS_MESSAGE = "Too many arguments given";
     private static final String WRONG_COMMAND_KEYWORD_MESSAGE = "Gamification feature's HomeCommand called for the "
