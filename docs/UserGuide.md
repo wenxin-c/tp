@@ -17,28 +17,30 @@ traditional Graphical User Interface(GUI) apps.
 ## Table of Contents
 
 <!-- TOC -->
-* [WellNUS++ User Guide](#wellnus-user-guide)
-  * [Introduction](#introduction)
-  * [Table of Contents](#table-of-contents)
-  * [Quick Start](#quick-start)
-  * [Features](#features)
-    * [Command Format](#command-format)
-    * [Viewing help: `help`](#viewing-help--help)
-    * [Accessing feature: `FEATURE_NAME`](#accessing-feature--featurename)
-    * [Accessing atomic habit feature : `hb`](#accessing-atomic-habit-feature--hb)
-    * [Add new atomic habit: `add`](#add-new-atomic-habit--add)
-    * [List all atomic habit: `list`](#list-all-atomic-habit--list)
-    * [Update an atomic habit: `update`](#update-an-atomic-habit--update)
-    * [Home: `home`](#home--home)
-    * [Accessing self reflection feature: `reflect`](#accessing-self-reflection-feature--reflect)
-    * [Get reflection questions: `get`](#get-reflection-questions--get)
-    * [Add reflection question into favorite list: `like INDEX`](#add-reflection-question-into-favorite-list--like-index)
-    * [View favorite list: `fav`](#view-favorite-list--fav)
-    * [Get the previous set of reflection questions generated: `prev`](#get-the-previous-set-of-reflection-questions-generated--prev)
-    * [Return back main WellNUS++: `home`](#return-back-main-wellnus--home)
-    * [Exit WellNUS++: `exit`](#exit-wellnus--exit)
-  * [FAQ](#faq)
-  * [Command Summary](#command-summary)
+- [WellNUS++ User Guide](#wellnus-user-guide)
+  - [Introduction](#introduction)
+  - [Table of Contents](#table-of-contents)
+  - [Quick Start](#quick-start)
+  - [Features](#features)
+    - [Command Format](#command-format)
+    - [Viewing help: `help`](#viewing-help-help)
+    - [Accessing feature: `FEATURE_NAME`](#accessing-feature-feature_name)
+    - [Accessing atomic habit feature : `hb`](#accessing-atomic-habit-feature--hb)
+    - [Add new atomic habit: `add`](#add-new-atomic-habit-add)
+    - [List all atomic habit: `list`](#list-all-atomic-habit-list)
+    - [Update an atomic habit: `update`](#update-an-atomic-habit-update)
+    - [Home: `home`](#home-home)
+    - [Accessing self reflection feature: `reflect`](#accessing-self-reflection-feature-reflect)
+    - [Get reflection questions: `get`](#get-reflection-questions-get)
+    - [Add reflection question into favorite list: `like INDEX`](#add-reflection-question-into-favorite-list-like-index)
+    - [View favorite list: `fav`](#view-favorite-list-fav)
+    - [Get the previous set of reflection questions generated: `prev`](#get-the-previous-set-of-reflection-questions-generated-prev)
+    - [Return back main WellNUS++: `home`](#return-back-main-wellnus-home)
+    - [Accessing Focus Timer Feature: `ft`](#accessing-focus-timer-feature-ft)
+    - [Configure the Timer: `config`](#configure-the-timer-config)
+    - [Exit WellNUS++: `exit`](#exit-wellnus-exit)
+  - [FAQ](#faq)
+  - [Command Summary](#command-summary)
 <!-- TOC -->
 
 ## Quick Start
@@ -397,6 +399,63 @@ Example output:
     How do you feel after reflecting on yourself?
     Hope you have gotten some takeaways from self reflection, see you again!!
 ============================================================
+```
+
+### Accessing Focus Timer Feature: `ft`  
+Our Focus Timer feature allows users to be productive by setting a configurable work-break timer, inspired by the [Pomodoro technique](https://en.wikipedia.org/wiki/Pomodoro_Technique). 
+
+Format: `ft`<br>
+
+Example of usage:<br>
+
+`ft`
+
+Expected outcome:
+```
+------------------------------------------------------------
+    Welcome to Focus Timer.
+    Start a focus session with `start`, or `config` the session first!
+------------------------------------------------------------
+```
+### Configure the Timer: `config`
+
+Configures the focus timer's settings. The number of work-break cycles, work length and break length can be configured. 
+
+Format: `config [--cycle numCycle --work workTime --break breakTime --longbreak longBreakTime]`
+
+* At least one of the arguments, `cycle, work, break, longbreak` must be included along with the main `config` command 
+* `numCycle` is an **integer** that is `>= 2`
+* `workTime, longBreakTime` is an **integer** that is `>= 1`
+
+Example of usage:
+
+`config --cycle 4`
+
+Expected outcome:
+
+```
+------------------------------------------------------------
+    Okay, here's your new session details!
+    Cycles: 4
+    Work: 1 minute
+    Break: 1 minute
+    Long break: 1 minute
+------------------------------------------------------------
+```
+
+Example of usage 2:
+
+`config --longbreak 2 --cycle 4 --work 5`
+
+Expected outcome:
+```
+------------------------------------------------------------
+    Okay, here's your new session details!
+    Cycles: 4
+    Work: 5 minutes
+    Break: 1 minute
+    Long break: 2 minutes
+------------------------------------------------------------
 ```
 
 ### Exit WellNUS++: `exit`
