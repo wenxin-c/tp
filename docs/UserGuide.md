@@ -17,42 +17,53 @@ traditional Graphical User Interface(GUI) apps.
 ## Table of Contents
 
 <!-- TOC -->
+
 - [WellNUS++ User Guide](#wellnus-user-guide)
-  - [Introduction](#introduction)
-  - [Table of Contents](#table-of-contents)
-  - [Quick Start](#quick-start)
-  - [Features](#features)
-    - [Command Format](#command-format)
-    - [Viewing help: `help`](#viewing-help-help)
-    - [Accessing feature: `FEATURE_NAME`](#accessing-feature-feature_name)
-    - [Accessing atomic habit feature : `hb`](#accessing-atomic-habit-feature--hb)
-    - [Add new atomic habit: `add`](#add-new-atomic-habit-add)
-    - [List all atomic habit: `list`](#list-all-atomic-habit-list)
-    - [Update an atomic habit: `update`](#update-an-atomic-habit-update)
-    - [Home: `home`](#home-home)
-    - [Accessing self reflection feature: `reflect`](#accessing-self-reflection-feature-reflect)
-    - [Get reflection questions: `get`](#get-reflection-questions-get)
-    - [Add reflection question into favorite list: `like INDEX`](#add-reflection-question-into-favorite-list-like-index)
-    - [View favorite list: `fav`](#view-favorite-list-fav)
-    - [Get the previous set of reflection questions generated: `prev`](#get-the-previous-set-of-reflection-questions-generated-prev)
-    - [Return back main WellNUS++: `home`](#return-back-main-wellnus-home)
-    - [Accessing Focus Timer Feature: `ft`](#accessing-focus-timer-feature-ft)
-    - [Configure the Timer: `config`](#configure-the-timer-config)
-    - [Exit WellNUS++: `exit`](#exit-wellnus-exit)
-  - [FAQ](#faq)
-  - [Command Summary](#command-summary)
+    - [Introduction](#introduction)
+    - [Table of Contents](#table-of-contents)
+    - [Quick Start](#quick-start)
+    - [Features](#features)
+        - [Command Format](#command-format)
+        - [Viewing help: `help`](#viewing-help-help)
+        - [Accessing feature: `FEATURE_NAME`](#accessing-feature-feature_name)
+        - [Accessing atomic habit feature : `hb`](#accessing-atomic-habit-feature--hb)
+        - [Add new atomic habit: `add`](#add-new-atomic-habit-add)
+        - [List all atomic habit: `list`](#list-all-atomic-habit-list)
+        - [Update an atomic habit: `update`](#update-an-atomic-habit-update)
+        - [Home: `home`](#home-home)
+        - [Accessing self reflection feature: `reflect`](#accessing-self-reflection-feature-reflect)
+        - [Get reflection questions: `get`](#get-reflection-questions-get)
+        - [Add reflection question into favorite list: `like INDEX`](#add-reflection-question-into-favorite-list-like-index)
+        - [View favorite list: `fav`](#view-favorite-list-fav)
+        - [Get the previous set of reflection questions generated: `prev`](#get-the-previous-set-of-reflection-questions-generated-prev)
+        - [Return back main WellNUS++: `home`](#return-back-main-wellnus-home)
+        - [Accessing Focus Timer Feature: `ft`](#accessing-focus-timer-feature-ft)
+        - [Start the session: `start`](#start-session--start)
+        - [Pause the session: `pause`](#pause-session--pause)
+        - [Resume the session: `resume`](#resume-session--resume)
+        - [Check the time: `check`](#check-time--check)
+        - [Next timer: `next`](#next-timer--next)
+        - [Stop the session : `stop`](#stop-session--stop)
+        - [Configure the Timer: `config`](#configure-the-timer-config)
+        - [Exit WellNUS++: `exit`](#exit-wellnus-exit)
+    - [FAQ](#faq)
+    - [Command Summary](#command-summary)
+
 <!-- TOC -->
 
 ## Quick Start
 
 1. Ensure you have Java 11 or above installed in your Computer.
 
-2. Download the latest CS2113_T12_4_WellNUS.jar from [here](https://github.com/AY2223S2-CS2113-T12-4/tp/releases/tag/v2.0).
+2. Download the latest CS2113_T12_4_WellNUS.jar
+   from [here](https://github.com/AY2223S2-CS2113-T12-4/tp/releases/tag/v2.0).
 
 3. Copy the file to the folder you want to use as the home folder for your WellNUS++.
 
-4. Open a command terminal, cd into the folder you put the .jar file in, and use the `java -jar CS2113_T12_4_WellNUS.jar`
-command to run the application. A CLI should appear in a few seconds (shown below).
+4. Open a command terminal, cd into the folder you put the .jar file in, and use
+   the `java -jar CS2113_T12_4_WellNUS.jar`
+   command to run the application. A CLI should appear in a few seconds (shown below).
+
 ```
 ------------------------------------------------------------
     Very good day to you! Welcome to
@@ -122,7 +133,7 @@ Access specific feature from main interface by inputting the feature_name
 Feature name can be referenced by calling the help command
 
 Take note that users are only allowed to access features (i.e. atomic habit, self reflection,
-focus timer from the main WellNUS++, cross feature transition is not 
+focus timer from the main WellNUS++, cross feature transition is not
 allowed!)
 
 Format: `FEATURE_NAME`
@@ -149,6 +160,7 @@ Expected outcome:
     No worries, this section will give you the opportunity to reflect and improve on yourself!!
 ============================================================
 ```
+
 ### Accessing atomic habit feature : `hb`
 
 Atomic habit feature allows users to keep track of the daily habits they wish to develop for better self improvement.
@@ -160,6 +172,7 @@ Example of usage:<br>
 `hb`
 
 Expected outcome:
+
 ```
 ------------------------------------------------------------
     Welcome to the atomic habits feature!
@@ -169,7 +182,6 @@ Expected outcome:
 /_/ \_\ \__|\___/|_|_|_||_|\__| |_||_|\__,_||_.__/|_| \__|/__/
 ------------------------------------------------------------
 ```
-
 
 ### Add new atomic habit: `add`
 
@@ -275,13 +287,14 @@ Thank you for using atomic habits. Do not forget about me!
 Format: `reflect`
 
 Self reflection feature allows users to get sets of random introspective questions to reflect on to improve overall
-wellness and achieve better selves. 
+wellness and achieve better selves.
 
-Example of usage: 
+Example of usage:
 
 `reflect`
 
 Expected outcome:
+
 ```
 ============================================================
   _____ ______ _      ______   _____  ______ ______ _      ______ _____ _______ _____ ____  _   _ 
@@ -299,7 +312,7 @@ Expected outcome:
 
 ### Get reflection questions: `get`
 
-Ask WellNUS++ to get a set of 5 random introspective questions for users to view and reflect on. 
+Ask WellNUS++ to get a set of 5 random introspective questions for users to view and reflect on.
 The questions are randomised for users to reflect on different aspects of life.
 
 Format: `get`
@@ -326,7 +339,7 @@ Users can add the reflection question they like into favorite list and review af
 
 Format: `like INDEX`
 
-Note that the users are supposed to at least `get` a set of questions before liking them. 
+Note that the users are supposed to at least `get` a set of questions before liking them.
 Index parameter is limited to integer 1-5 as only 5 questions will be generated in every random set.
 
 Example of usage:
@@ -347,7 +360,7 @@ Users can review the list of reflection questions they liked.
 
 Format: `fav`
 
-Example of usage: 
+Example of usage:
 
 `fav`
 
@@ -369,11 +382,11 @@ Format: `prev`
 
 Note that the users are supposed to at least `get` a set of questions before viewing the previous set.
 
-Example of usage: 
+Example of usage:
 
 `prev`
 
-Example output: 
+Example output:
 
 ```
 ============================================================
@@ -384,9 +397,10 @@ Example output:
     5.What is something I find inspiring?
 ============================================================
 ```
+
 ### Return back main WellNUS++: `home`
 
-Users can return back to the main WellNUS++. 
+Users can return back to the main WellNUS++.
 
 Format: `home`
 
@@ -401,8 +415,12 @@ Example output:
 ============================================================
 ```
 
-### Accessing Focus Timer Feature: `ft`  
-Our Focus Timer feature allows users to be productive by setting a configurable work-break timer, inspired by the [Pomodoro technique](https://en.wikipedia.org/wiki/Pomodoro_Technique). 
+### Accessing Focus Timer Feature: `ft`
+
+Our Focus Timer feature allows users to be productive by setting a configurable work-break timer, inspired by
+the [Pomodoro technique](https://en.wikipedia.org/wiki/Pomodoro_Technique).
+
+**Command input is not allowed when timer is counting down the last 10 seconds.**
 
 Format: `ft`<br>
 
@@ -411,25 +429,153 @@ Example of usage:<br>
 `ft`
 
 Expected outcome:
+
 ```
 ------------------------------------------------------------
     Welcome to Focus Timer.
     Start a focus session with `start`, or `config` the session first!
 ------------------------------------------------------------
 ```
+
+### Start Session: `start`
+
+Ask WellNUS++ to start the focus session consisting of work and break cycles.
+
+`start` can only be used when you first enter Focus, after a session has ended or after a session has been stopped.
+
+Format: `start`
+
+Example of usage:
+
+`start`
+
+Expected outcome:
+
+```
+------------------------------------------------------------
+    Your session has started! Please focus on your task.
+------------------------------------------------------------
+------------------------------------------------------------
+    Task
+------------------------------------------------------------
+```
+
+### Pause session: `pause`
+
+Ask WellNUS++ to pause the focus session which pauses the current countdown timer.
+
+`pause` can only be used when the timer is counting down.
+
+Format: `pause`
+
+Example of usage:
+
+`pause`
+
+Expected outcome:
+
+```
+------------------------------------------------------------
+    Timer paused at: 0:54
+------------------------------------------------------------
+```
+
+### Resume session: `resume`
+
+Ask WellNUS++ to resume the focus session which continues the current countdown timer.
+
+`resume` can only be used when the timer has been paused.
+
+Format: `resume`
+
+Example of usage:
+
+`resume`
+
+Expected outcome:
+
+```
+------------------------------------------------------------
+    Timer resumed at: 0:54
+------------------------------------------------------------
+```
+
+### Check time: `check`
+
+Ask WellNUS++ to display the current time of the timer for users to check time remaining.
+
+`check` can be used whenever during the ongoing session.
+
+Format: `check`
+
+Example of usage:
+
+`check`
+
+Expected outcome:
+
+```
+------------------------------------------------------------
+    Time left: 0:57
+------------------------------------------------------------
+```
+
+### Next timer: `next`
+
+Ask WellNUS++ to start the next work or break iteration of the focus session.
+
+`next` can only be used when a work or break timer has ended, and a prompt to proceed to the next timer is displayed.
+
+Format: `next`
+
+Example of usage:
+
+`next`
+
+Expected outcome:
+
+```
+------------------------------------------------------------
+    Task
+------------------------------------------------------------
+```
+
+### Stop session: `stop`
+
+Ask WellNUS++ to stop the focus session.
+
+`stop` can only be used when the session has started.
+
+Format: `stop`
+
+Example of usage:
+
+`stop`
+
+Expected outcome:
+
+```
+------------------------------------------------------------
+    Your focus session has ended.
+To start a new session, `start` it up!
+You can also configure the session to your liking with `config`!
+------------------------------------------------------------
+```
+
 ### Configure the Timer: `config`
 
 Configures the focus timer's settings.
-The number of work-break cycles, work length and break length can be configured. 
+The number of work-break cycles, work length and break length can be configured.
 When leaving `ft`, the configuration will be reset to the default values.
 
 Format: `config [--cycle numCycle --work workTime --break breakTime --longbreak longBreakTime]`
 
-* At least one of the arguments, `cycle, work, break, longbreak` must be included along with the main `config` command 
+* At least one of the arguments, `cycle, work, break, longbreak` must be included along with the main `config` command
 * `numCycle` is an **integer** that is `>= 2`
 * `workTime, breakTime, longBreakTime` is an **integer** that is `>= 1`
 
 The initial default values for Focus Timer:
+
 * `numCycles = 2`
 * `workTime = 1`
 * `breakTime = 1`
@@ -456,6 +602,7 @@ Example of usage 2:
 `config --longbreak 2 --cycle 4 --work 5`
 
 Expected outcome:
+
 ```
 ------------------------------------------------------------
     Okay, here's your new session details!
@@ -472,7 +619,7 @@ To exit the app, data of the current progress will be saved in data files.
 
 Format: `exit`
 
-Take note that users are only allowed to exit from main WellNUS++ (i.e. users cannot exit the program from other 
+Take note that users are only allowed to exit from main WellNUS++ (i.e. users cannot exit the program from other
 features like atomic habit.)
 
 Example of usage:
