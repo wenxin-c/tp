@@ -24,10 +24,11 @@ public class HomeCommand extends Command {
     private static final String INVALID_COMMAND_MSG = "Command is invalid.";
     private static final String INVALID_COMMAND_NOTES = "Please check the available commands "
             + "and the format of commands.";
-    private static final String COMMAND_KEYWORD_ASSERTION = "The key should be return.";
     private static final String COMMAND_PAYLOAD_ASSERTION = "The payload should be empty.";
     private static final String HOME_MESSAGE = "How do you feel after reflecting on yourself?"
             + System.lineSeparator() + "Hope you have gotten some takeaways from self reflection, see you again!!";
+    private static final String WRONG_COMMAND_ARGUMENTS_MESSAGE = "'home' command shouldn't have additional '%s' "
+            + "argument";
     private static final int ARGUMENT_PAYLOAD_SIZE = 1;
     private static final ReflectUi UI = new ReflectUi();
     private QuestionList questionList;
@@ -128,10 +129,11 @@ public class HomeCommand extends Command {
             throw new BadCommandException(INVALID_COMMAND_MSG);
         } else if (!commandMap.containsKey(COMMAND_KEYWORD)) {
             throw new BadCommandException(INVALID_COMMAND_MSG);
-        } else if (!commandMap.get(COMMAND_KEYWORD).equals(PAYLOAD)) {
-            throw new BadCommandException(INVALID_COMMAND_MSG);
         }
-        assert getArguments().containsKey(COMMAND_KEYWORD) : COMMAND_KEYWORD_ASSERTION;
+        String payload = commandMap.get(getCommandKeyword());
+        if (!payload.isBlank()) {
+            throw new BadCommandException(String.format(WRONG_COMMAND_ARGUMENTS_MESSAGE, payload));
+        }
         assert getArguments().get(COMMAND_KEYWORD).equals(PAYLOAD) : COMMAND_PAYLOAD_ASSERTION;
     }
 }
