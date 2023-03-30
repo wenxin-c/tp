@@ -15,21 +15,25 @@ mental wellness in various aspects. If you can type fast, WellNUS++ can update t
 traditional Graphical User Interface(GUI) apps.
 
 ## Table of Contents
-
-- [WellNUS++ User Guide](#wellnus-user-guide)
-    - [Quick Start](#quick-start)
-    - [Features](#features)
-        - [Command format](#command-format)
-        - [Viewing help](#viewing-help--help)
-        - [Accessing feature](#accessing-feature--featurename)
-        - [Add new atomic habit](#add-new-atomic-habit--add)
-        - [List all atomic habits](#list-all-atomic-habit--list)
-        - [Update an atomic habit](#update-an-atomic-habit---update)
-        - [Home](#home--home)
-        - [Get reflection questions](#get-reflection-questions--get)
-        - [Exit](#exit--exit)
-    - [FAQ](#faq)
-    - [Command Summary](#command-summary)
+<!-- TOC -->
+* [WellNUS++ User Guide](#wellnus-user-guide)
+  * [Introduction](#introduction)
+  * [Table of Contents](#table-of-contents)
+  * [Quick Start](#quick-start)
+  * [Features](#features)
+    * [Command Format](#command-format)
+    * [Viewing help: `help`](#viewing-help--help)
+    * [Accessing feature: `FEATURE_NAME`](#accessing-feature--featurename)
+    * [Add new atomic habit: `add`](#add-new-atomic-habit--add)
+    * [List all atomic habit: `list`](#list-all-atomic-habit--list)
+    * [Update an atomic habit: `update`](#update-an-atomic-habit--update)
+    * [Gamification statistics: `stats`](#gamification-statistics--stats)
+    * [Home: `home`](#home--home)
+    * [Get reflection questions: `get`](#get-reflection-questions--get)
+    * [Exit: `exit`](#exit--exit)
+  * [FAQ](#faq)
+  * [Command Summary](#command-summary)
+<!-- TOC -->
 
 ## Quick Start
 
