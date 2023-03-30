@@ -85,7 +85,7 @@ WellNUS++ comes with a variety of features to help you enhance your overall well
 * Parameters can be in any order.
   e.g. if the command specifies --name NAME --phone PHONE_NUMBER, --phone PHONE_NUMBER --name NAME is also acceptable.
 
-### Viewing help: `help`
+### Viewing WellNUS++ help: `help`
 
 Lists all commands available and provide a short description of the application
 
@@ -265,7 +265,7 @@ The following habit has been incremented! Keep up the good work!
 —---------------------------------------------------------------
 ```
 
-### Viewing help: `help`
+### Viewing Atomic Habit help: `help`
 
 Lists all commands available and provide a short description of Atomic Habit feature
 
@@ -441,7 +441,7 @@ Example output:
 ============================================================
 ```
 
-### Viewing help: `help`
+### Viewing Reflection help: `help`
 
 Lists all commands available and provide a short description of Reflection feature
 
@@ -566,7 +566,7 @@ Expected outcome:
     Long break: 2 minutes
 ------------------------------------------------------------
 ```
-### Viewing help: `help`
+### Viewing Focus Timer help: `help`
 
 Lists all commands available and provide a short description of Focus Timer feature
 
