@@ -441,6 +441,8 @@ Expected outcome:
 
 Ask WellNUS++ to start the focus session consisting of work and break cycles.
 
+`start` can only be used when you first enter Focus, after a session has ended or after a session has been stopped.
+
 Format: `start`
 
 Example of usage:
@@ -462,6 +464,8 @@ Expected outcome:
 
 Ask WellNUS++ to pause the focus session which pauses the current countdown timer.
 
+`pause` can only be used when the timer is counting down.
+
 Format: `pause`
 
 Example of usage:
@@ -479,6 +483,8 @@ Expected outcome:
 ### Resume session: `resume`
 
 Ask WellNUS++ to resume the focus session which continues the current countdown timer.
+
+`resume` can only be used when the timer has been paused.
 
 Format: `resume`
 
@@ -498,6 +504,8 @@ Expected outcome:
 
 Ask WellNUS++ to display the current time of the timer for users to check time remaining.
 
+`check` can be used whenever during the ongoing session.
+
 Format: `check`
 
 Example of usage:
@@ -516,6 +524,8 @@ Expected outcome:
 
 Ask WellNUS++ to start the next work or break iteration of the focus session.
 
+`next` can only be used when a work or break timer has ended, and a prompt to proceed to the next timer is displayed.
+
 Format: `next`
 
 Example of usage:
@@ -533,6 +543,8 @@ Expected outcome:
 ### Stop session: `stop`
 
 Ask WellNUS++ to stop the focus session.
+
+`stop` can only be used when the session has started.
 
 Format: `stop`
 
