@@ -91,9 +91,10 @@ public class GamificationManager extends Manager {
         while (!isExit) {
             try {
                 String commandString = textUi.getCommand();
+                HashMap<String, String> arguments = getCommandParser().parseUserInput(commandString);
                 Command command = getCommandFor(commandString);
                 command.execute();
-                isExit = HomeCommand.isHome(command);
+                isExit = HomeCommand.isHome(command, arguments);
             } catch (WellNusException exception) {
                 String noAdditionalMsg = "";
                 textUi.printErrorFor(exception, noAdditionalMsg);

@@ -102,6 +102,7 @@ public class AtomicHabitManager extends Manager {
         while (!isExit) {
             try {
                 String commandString = getTextUi().getCommand();
+                HashMap<String, String> arguments = getCommandParser().parseUserInput(commandString);
                 Command command = getCommandFor(commandString);
                 command.execute();
                 try {
@@ -109,7 +110,7 @@ public class AtomicHabitManager extends Manager {
                 } catch (StorageException exception) {
                     this.getTextUi().printErrorFor(exception, ERROR_STORAGE_MESSAGE);
                 }
-                isExit = HomeCommand.isExit(command);
+                isExit = HomeCommand.isExit(command, arguments);
             } catch (BadCommandException badCommandException) {
                 String additionalMessage = "";
                 getTextUi().printErrorFor(badCommandException, additionalMessage);

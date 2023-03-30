@@ -100,9 +100,10 @@ public class FocusManager extends Manager {
         while (!isExit) {
             try {
                 String commandString = textUi.getCommand();
+                HashMap<String, String> arguments = getCommandParser().parseUserInput(commandString);
                 Command command = getCommandFor(commandString);
                 command.execute();
-                isExit = HomeCommand.isExit(command);
+                isExit = HomeCommand.isExit(command, arguments);
             } catch (BadCommandException exception) {
                 String noAdditionalMessage = "";
                 textUi.printErrorFor(exception, noAdditionalMessage);

@@ -19,6 +19,10 @@ public class HomeCommand extends Command {
     private static final String TOO_MANY_ARGUMENTS_MESSAGE = "Too many arguments given";
     private static final String WRONG_COMMAND_KEYWORD_MESSAGE = "Gamification feature's HomeCommand called for the "
             + "wrong command";
+    private static final String INVALID_COMMAND_MSG = "Command is invalid!!";
+    private static final String WRONG_COMMAND_PAYLOAD = "The command payload should be empty";
+    private static final boolean IS_VALID_COMMAND = true;
+    private static final boolean IS_INVALID_COMMAND = false;
 
     /**
      * Initialises a Command Object to handle the 'home' command from the user
@@ -29,8 +33,24 @@ public class HomeCommand extends Command {
         super(arguments);
     }
 
-    public static boolean isHome(Command command) {
-        return command instanceof HomeCommand;
+    /**
+     * Check whether it is a valid home command.
+     *
+     * @param command Command object created from user input.
+     * @param arguments Argument-payload pairs for input command.
+     * @return True if it is valid and false if not.
+     */
+    public static boolean isHome(Command command, HashMap<String, String> arguments) {
+        if (!(command instanceof HomeCommand)) {
+            return IS_INVALID_COMMAND;
+        }
+        if (arguments.size() != NUM_OF_ARGUMENTS) {
+            return IS_INVALID_COMMAND;
+        }
+        if (arguments.get(COMMAND_KEYWORD) != "") {
+            return IS_INVALID_COMMAND;
+        }
+        return IS_VALID_COMMAND;
     }
 
     /**
@@ -62,7 +82,12 @@ public class HomeCommand extends Command {
      */
     @Override
     public void execute() throws WellNusException {
-        validateCommand(getArguments());
+        try {
+            validateCommand(getArguments());
+        } catch (BadCommandException badCommandException) {
+            GamificationUi.printMsgWithSeparator(INVALID_COMMAND_MSG);
+            return;
+        }
         GamificationUi.printGoodbye();
     }
 
@@ -77,6 +102,9 @@ public class HomeCommand extends Command {
         assert arguments.containsKey(getCommandKeyword()) : WRONG_COMMAND_KEYWORD_MESSAGE;
         if (arguments.size() > NUM_OF_ARGUMENTS) {
             throw new BadCommandException(TOO_MANY_ARGUMENTS_MESSAGE);
+        }
+        if (arguments.get(COMMAND_KEYWORD) != "") {
+            throw new BadCommandException(WRONG_COMMAND_PAYLOAD);
         }
     }
 

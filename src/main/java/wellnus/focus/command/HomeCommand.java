@@ -21,6 +21,8 @@ public class HomeCommand extends Command {
     private static final String COMMAND_INVALID_COMMAND_MESSAGE = "Wrong command given for home!";
     private static final String HOME_MESSAGE = "Thank you for using focus timer. Keep up the productivity!";
     private static final String NO_ADDITIONAL_MESSAGE = "";
+    private static final boolean IS_VALID_COMMAND = true;
+    private static final boolean IS_INVALID_COMMAND = false;
     private final TextUi textUi;
     private final Session session;
 
@@ -38,13 +40,23 @@ public class HomeCommand extends Command {
     }
 
     /**
-     * Check if a HomeCommand is executed and user wants to return to home.
+     * Check whether it is a valid home command.
      *
-     * @param command User command
-     * @return true If user wants to exit feature false if not
+     * @param command Command object created from user input.
+     * @param arguments Argument-payload pairs for input command.
+     * @return True if it is valid and false if not.
      */
-    public static boolean isExit(Command command) {
-        return command instanceof HomeCommand;
+    public static boolean isExit(Command command, HashMap<String, String> arguments) {
+        if (!(command instanceof HomeCommand)) {
+            return IS_INVALID_COMMAND;
+        }
+        if (arguments.size() != COMMAND_NUM_OF_ARGUMENTS) {
+            return IS_INVALID_COMMAND;
+        }
+        if (arguments.get(COMMAND_KEYWORD) != "") {
+            return IS_INVALID_COMMAND;
+        }
+        return IS_VALID_COMMAND;
     }
 
     /**
