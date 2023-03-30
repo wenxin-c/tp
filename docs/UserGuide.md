@@ -249,6 +249,30 @@ The following habit has been incremented! Keep up the good work!
 —---------------------------------------------------------------
 ```
 
+### Accessing gamification feature: `gamif`
+
+Format: `gamif`
+
+Gamification system integrated into WellNUS++ to incentivize users to improve
+their wellness.
+
+Example of usage:
+
+`gamif`
+
+Expected outcome:
+
+```
+######################################################################
+    Welcome to
+    ______                _ _____            __  _           
+   / ____/___ _____ ___  (_) __(_)________ _/ /_(_)___  ____ 
+  / / __/ __ `/ __ `__ \/ / /_/ / ___/ __ `/ __/ / __ \/ __ \
+ / /_/ / /_/ / / / / / / / __/ / /__/ /_/ / /_/ / /_/ / / / /
+ \____/\__,_/_/ /_/ /_/_/_/ /_/\___/\__,_/\__/_/\____/_/ /_/ 
+######################################################################
+```
+
 ### Gamification statistics: `stats`
 Displays the user's current XP points and level.
 
