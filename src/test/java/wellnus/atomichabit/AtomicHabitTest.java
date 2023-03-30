@@ -9,6 +9,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import wellnus.atomichabit.command.AddCommand;
+import wellnus.atomichabit.command.DeleteCommand;
 import wellnus.atomichabit.command.UpdateCommand;
 import wellnus.atomichabit.feature.AtomicHabitList;
 import wellnus.atomichabit.feature.AtomicHabitManager;
@@ -22,6 +23,7 @@ import wellnus.ui.TextUi;
 public class AtomicHabitTest {
     private static final String ADD_HABIT_COMMAND = "add";
     private static final String UPDATE_HABIT_COMMAND = "update";
+    private static final String DELETE_HABIT_COMMAND = "delete";
     private final AtomicHabitList habitList;
     private final ByteArrayOutputStream outputStreamCaptor;
     private final CommandParser parser;
@@ -200,6 +202,19 @@ public class AtomicHabitTest {
         System.setOut(new PrintStream(outputStream));
         updateCommand.execute();
         Assertions.assertEquals(expectedErrorOutput, getMessageFrom(outputStream.toString()));
+    }
+
+    @Test
+    public void deleteHabit_checkOutput_success() throws WellNusException {
+        addHabit_checkOutput_success();
+        String habitIndex = "1";
+        int expectedAtomicHabitListLength = 0;
+        String testUpdateCommand = String.format("%s --id %s", DELETE_HABIT_COMMAND, habitIndex)
+                + System.lineSeparator();
+        HashMap<String, String> arguments = parser.parseUserInput(testUpdateCommand);
+        Command deleteCommand = new DeleteCommand(arguments, habitList);
+        deleteCommand.execute();
+        Assertions.assertEquals(expectedAtomicHabitListLength, habitList.getAllHabits().size());
     }
 }
 

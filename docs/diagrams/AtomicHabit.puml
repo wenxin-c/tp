@@ -8,6 +8,7 @@ skinparam classBackgroundColor MODEL_COLOR
 Package atomichabit <<Rectangle>>{
 Package command <<Rectangle>> {
 Class AddCommand
+Class DeleteCommand
 Class HomeCommand
 Class ListCommand
 Class UpdateCommand
@@ -23,6 +24,7 @@ Class TextUi
 Class "{abstract}\nCommand" as Command
 Class "{abstract}\nManager" as Manager
 Command <|-- AddCommand
+Command <|-- DeleteCommand
 Command <|-- HomeCommand
 Command <|-- ListCommand
 Command <|-- UpdateCommand
@@ -30,14 +32,17 @@ Manager <|-- AtomicHabitManager
 AtomicHabitList -> "*" AtomicHabit : contains >
 AtomicHabitManager -right-> "1" AtomicHabitList : create >
 AtomicHabitManager --> AddCommand : execute >
+AtomicHabitManager --> DeleteCommand : execute >
 AtomicHabitManager --> HomeCommand : execute >
 AtomicHabitManager --> ListCommand : execute >
 AtomicHabitManager --> UpdateCommand : execute >
 AddCommand --> "1"AtomicHabitList
+DeleteCommand --> "1"AtomicHabitList
 ListCommand --> "1"AtomicHabitList
 UpdateCommand --> "1"AtomicHabitList
 AtomicHabitManager -down-> "1"TextUi
 AddCommand -right-> "1"TextUi
+DeleteCommand -right-> "1"TextUi
 ListCommand -right-> "1"TextUi
 UpdateCommand -right-> "1"TextUi
 @enduml
