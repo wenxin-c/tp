@@ -113,6 +113,24 @@ Here are all the commands available for you!
 ------------------------------------------------------------
 ```
 
+### Home: `home`
+
+To leave the current feature and return back to main interface
+
+Format: `home`
+
+Example of usage:
+
+`home`
+
+Expected outcome:
+
+```
+—---------------------------------------------------------------
+Thank you for using atomic habits. Do not forget about me!
+—---------------------------------------------------------------
+```
+
 ### Accessing feature: `FEATURE_NAME`
 
 Access specific feature from main interface by inputting the feature_name
@@ -146,6 +164,7 @@ Expected outcome:
     No worries, this section will give you the opportunity to reflect and improve on yourself!!
 ============================================================
 ```
+
 ### Accessing atomic habit feature : `hb`
 
 Atomic habit feature allows users to keep track of the daily habits they wish to develop for better self improvement.
@@ -289,24 +308,6 @@ Expected outcome:
 #                 Current XP: Level 2 [===>        ]                 #
 #                        7 more XP to Level 3                        #
 ######################################################################
-```
-
-### Home: `home`
-
-To leave the current feature and return back to main interface
-
-Format: `home`
-
-Example of usage:
-
-`home`
-
-Expected outcome:
-
-```
-—---------------------------------------------------------------
-Thank you for using atomic habits. Do not forget about me!
-—---------------------------------------------------------------
 ```
 
 ### Accessing self reflection feature: `reflect`
