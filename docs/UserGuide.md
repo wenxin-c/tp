@@ -197,6 +197,24 @@ The following habit has been incremented! Keep up the good work!
 —---------------------------------------------------------------
 ```
 
+### Gamification statistics: `stats`
+Displays the user's current XP points and level.
+
+Format: `stats`
+
+Example of usage:
+
+`stats`
+
+Expected outcome:
+
+```
+######################################################################
+#                 Current XP: Level 2 [===>        ]                 #
+#                        7 more XP to Level 3                        #
+######################################################################
+```
+
 ### Home: `home`
 
 To leave the current feature and return back to main interface
