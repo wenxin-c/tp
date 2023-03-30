@@ -24,13 +24,18 @@ traditional Graphical User Interface(GUI) apps.
     * [Command Format](#command-format)
     * [Viewing help: `help`](#viewing-help--help)
     * [Accessing feature: `FEATURE_NAME`](#accessing-feature--featurename)
+    * [Accessing atomic habit feature : `hb`](#accessing-atomic-habit-feature--hb)
     * [Add new atomic habit: `add`](#add-new-atomic-habit--add)
     * [List all atomic habit: `list`](#list-all-atomic-habit--list)
     * [Update an atomic habit: `update`](#update-an-atomic-habit--update)
-    * [Gamification statistics: `stats`](#gamification-statistics--stats)
     * [Home: `home`](#home--home)
+    * [Accessing self reflection feature: `reflect`](#accessing-self-reflection-feature--reflect)
     * [Get reflection questions: `get`](#get-reflection-questions--get)
-    * [Exit: `exit`](#exit--exit)
+    * [Add reflection question into favorite list: `like INDEX`](#add-reflection-question-into-favorite-list--like-index)
+    * [View favorite list: `fav`](#view-favorite-list--fav)
+    * [Get the previous set of reflection questions generated: `prev`](#get-the-previous-set-of-reflection-questions-generated--prev)
+    * [Return back main WellNUS++: `home`](#return-back-main-wellnus--home)
+    * [Exit WellNUS++: `exit`](#exit-wellnus--exit)
   * [FAQ](#faq)
   * [Command Summary](#command-summary)
 <!-- TOC -->
@@ -39,13 +44,26 @@ traditional Graphical User Interface(GUI) apps.
 
 1. Ensure you have Java 11 or above installed in your Computer.
 
-2. Download the latest wellnus++.jar from [here](https://github.com/AY2223S2-CS2113-T12-4/tp/releases/latest).
+2. Download the latest CS2113_T12_4_WellNUS.jar from [here](https://github.com/AY2223S2-CS2113-T12-4/tp/releases/latest).
 
 3. Copy the file to the folder you want to use as the home folder for your WellNUS++.
 
-4. Open a command terminal, cd into the folder you put the .jar file in, and use the java -jar wellnus++.jar command to
-   run the application.
-   A CLI should appear in a few seconds.
+4. Open a command terminal, cd into the folder you put the .jar file in, and use the `java -jar CS2113_T12_4_WellNUS.jar`
+command to run the application. A CLI should appear in a few seconds (shown below).
+```
+------------------------------------------------------------
+    Very good day to you! Welcome to
+    
+    ,--.   ,--.       ,--.,--.,--.  ,--.,--. ,--. ,---.     |  |        |  |
+    |  |   |  | ,---. |  ||  ||  ,'.|  ||  | |  |'   .-',---|  |---.,---|  |---.
+    |  |.'.|  || .-. :|  ||  ||  |' '  ||  | |  |`.  `-.'---|  |---''---|  |---'
+    |   ,'.   |\   --.|  ||  ||  | `   |'  '-'  '.-'    |   |  |        |  |
+    '--'   '--' `----'`--'`--'`--'  `--' `-----' `-----'    `--'        `--'
+------------------------------------------------------------
+------------------------------------------------------------
+    Enter a command to start using WellNUS++! Try 'help' if you're new, or just unsure.
+------------------------------------------------------------
+```
 
 ## Features
 
@@ -81,19 +99,17 @@ Expected outcome:
 
 ```
 ------------------------------------------------------------
-    We are here to ensure your wellness is taken care of through WellNUS++
-    Here are all the commands available for you!
-------------------------------------------------------------
-```
-
-```
-------------------------------------------------------------
-    1. hb - Enter Atomic Habits: Track your small daily habits and nurture it to form a larger behaviour
-    usage: hb
-    2. reflect - Read through introspective questions for your reflection
-    usage: reflect
-    3. exit - Exit WellNUS++
-    usage: exit
+    WellNUS++ is a Command Line Interface (CLI) app for you to keep track, manage and improve your physical and mental wellness.
+    Input `help` to see all available commands.
+Input `help [command-to-check]` to get usage help for a specific command.
+Here are all the commands available for you!
+    
+    1. Atomic Habits (hb) - Track and manage your habits with our suite of tools to help you grow and nurture a better you!
+    2. Reflection (reflect) - Take some time to pause and reflect with our specially curated list of questions and reflection management tools.
+    3. Focus Timer (ft) - Set a configurable timer with work and rest cycles to keep yourself focused and productive!
+    4. Gamification (gamif) - Gamification gives you the motivation to continue improving your wellness by rewarding you for your efforts!
+    5. exit - Close WellNUS++ and return to your terminal.
+    6. help - Get help on what commands can be used in WellNUS++.
 ------------------------------------------------------------
 ```
 
@@ -101,6 +117,10 @@ Expected outcome:
 
 Access specific feature from main interface by inputting the feature_name
 Feature name can be referenced by calling the help command
+
+Take note that users are only allowed to access features (i.e. atomic habit, self reflection,
+focus timer from the main WellNUS++, cross feature transition is not 
+allowed!)
 
 Format: `FEATURE_NAME`
 
@@ -114,11 +134,39 @@ Expected outcome:
 
 ```
 ============================================================
+  _____ ______ _      ______   _____  ______ ______ _      ______ _____ _______ _____ ____  _   _ 
+ / ____|  ____| |    |  ____| |  __ \|  ____|  ____| |    |  ____/ ____|__   __|_   _/ __ \| \ | |
+| (___ | |__  | |    | |__    | |__) | |__  | |__  | |    | |__ | |       | |    | || |  | |  \| |
+ \___ \|  __| | |    |  __|   |  _  /|  __| |  __| | |    |  __|| |       | |    | || |  | | . ` |
+ ____) | |____| |____| |      | | \ \| |____| |    | |____| |___| |____   | |   _| || |__| | |\  |
+|_____/|______|______|_|      |_|  \_\______|_|    |______|______\_____|  |_|  |_____\____/|_| \_|
+============================================================
     Welcome to WellNUS++ Self Reflection section :D
     Feel very occupied and cannot find time to self reflect?
     No worries, this section will give you the opportunity to reflect and improve on yourself!!
 ============================================================
 ```
+### Accessing atomic habit feature : `hb`
+
+Atomic habit feature allows users to keep track of the daily habits they wish to develop for better self improvement.
+
+Format: `hb`<br>
+
+Example of usage:<br>
+
+`hb`
+
+Expected outcome:
+```
+------------------------------------------------------------
+    Welcome to the atomic habits feature!
+    _    _                _       _  _        _     _  _       
+  /_\  | |_  ___  _ __  (_) __  | || | __ _ | |__ (_)| |_  ___
+ / _ \ |  _|/ _ \| '  \ | |/ _| | __ |/ _` || '_ \| ||  _|(_-<
+/_/ \_\ \__|\___/|_|_|_||_|\__| |_||_|\__,_||_.__/|_| \__|/__/
+------------------------------------------------------------
+```
+
 
 ### Add new atomic habit: `add`
 
@@ -237,9 +285,37 @@ Thank you for using atomic habits. Do not forget about me!
 —---------------------------------------------------------------
 ```
 
+### Accessing self reflection feature: `reflect`
+
+Format: `reflect`
+
+Self reflection feature allows users to get sets of random introspective questions to reflect on to improve overall
+wellness and achieve better selves. 
+
+Example of usage: 
+
+`reflect`
+
+Expected outcome:
+```
+============================================================
+  _____ ______ _      ______   _____  ______ ______ _      ______ _____ _______ _____ ____  _   _ 
+ / ____|  ____| |    |  ____| |  __ \|  ____|  ____| |    |  ____/ ____|__   __|_   _/ __ \| \ | |
+| (___ | |__  | |    | |__    | |__) | |__  | |__  | |    | |__ | |       | |    | || |  | |  \| |
+ \___ \|  __| | |    |  __|   |  _  /|  __| |  __| | |    |  __|| |       | |    | || |  | | . ` |
+ ____) | |____| |____| |      | | \ \| |____| |    | |____| |___| |____   | |   _| || |__| | |\  |
+|_____/|______|______|_|      |_|  \_\______|_|    |______|______\_____|  |_|  |_____\____/|_| \_|
+============================================================
+    Welcome to WellNUS++ Self Reflection section :D
+    Feel very occupied and cannot find time to self reflect?
+    No worries, this section will give you the opportunity to reflect and improve on yourself!!
+============================================================
+```
+
 ### Get reflection questions: `get`
 
-Ask WellNUS++ to get a set of 5 random introspective questions for users to view
+Ask WellNUS++ to get a set of 5 random introspective questions for users to view and reflect on. 
+The questions are randomised for users to reflect on different aspects of life.
 
 Format: `get`
 
@@ -259,11 +335,95 @@ Expected outcome:
 ============================================================
 ```
 
-### Exit: `exit`
+### Add reflection question into favorite list: `like INDEX`
 
-To exit the app, data of the current progress will be saved upon exiting the program
+Users can add the reflection question they like into favorite list and review afterwards.
+
+Format: `like INDEX`
+
+Note that the users are supposed to at least `get` a set of questions before liking them. 
+Index parameter is limited to integer 1-5 as only 5 questions will be generated in every random set.
+
+Example of usage:
+
+`like 1`
+
+Expected output:
+
+```
+============================================================
+    You have added question: What is my purpose in life? into favorite list!!
+============================================================
+```
+
+### View favorite list: `fav`
+
+Users can review the list of reflection questions they liked.
+
+Format: `fav`
+
+Example of usage: 
+
+`fav`
+
+Example output:
+
+```
+============================================================
+    1.What are three of my most cherished personal values?
+    2.What is my purpose in life?
+    3.What matters to me most right now?
+============================================================
+```
+
+### Get the previous set of reflection questions generated: `prev`
+
+Users can view the previous set of questions generated for review.
+
+Format: `prev`
+
+Note that the users are supposed to at least `get` a set of questions before viewing the previous set.
+
+Example of usage: 
+
+`prev`
+
+Example output: 
+
+```
+============================================================
+    1.What is my purpose in life?
+    2.What is my personality type?
+    3.Did I make time for myself this week?
+    4.Am I making time for my social life?
+    5.What is something I find inspiring?
+============================================================
+```
+### Return back main WellNUS++: `home`
+
+Users can return back to the main WellNUS++. 
+
+Format: `home`
+
+Example of usage: `home`
+
+Example output:
+
+```
+============================================================
+    How do you feel after reflecting on yourself?
+    Hope you have gotten some takeaways from self reflection, see you again!!
+============================================================
+```
+
+### Exit WellNUS++: `exit`
+
+To exit the app, data of the current progress will be saved in data files.
 
 Format: `exit`
+
+Take note that users are only allowed to exit from main WellNUS++ (i.e. users cannot exit the program from other 
+features like atomic habit.)
 
 Example of usage:
 
@@ -281,13 +441,11 @@ Expected outcome:
 
 **Q**: Will my data be saved after every update?
 
-**A**: Yes, each feature has its individual data file on the local storage. When WellNUS++
-is launched and the user proceeds to a particular feature, previous data will be loaded
-from the feature's corresponding data file.
+**A**: Yes, data will be saved upon updating and restored when the application is relaunched.
 
 **Q**: How can I navigate the program?
 
-**A**: Please type help when you start the program to view all the commands available
+**A**: Please type `help` when you start the program to view all the commands available
 
 **Q**: How do I start the program?
 
@@ -300,13 +458,15 @@ from the feature's corresponding data file.
 ## Command Summary
 
 * Help `help`
-* Access feature `reflect`
+* Access feature `reflect`, `hb`, `ft`, `gamif`
 * Add habit `add --name make bed`
 * View habit `list`
 * Update habit `list`
   `update --id 1 [--inc 2]`
+* Get reflect question `get`
+* Like reflect question `like INDEX`
+* View favorite list `fav`
 * Return to main interface `home`
 * Get question `get`
-* Access feature `gamif`
 * Display gamification statistics `stats`
 * Exit program `exit`
