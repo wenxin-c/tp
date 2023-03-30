@@ -839,7 +839,7 @@ Thank you for using atomic habits. Do not forget about me!
 —---------------------------------------------------------------
 ```
 
-Example output for self reflection:
+Expected outcome for self reflection:
 
 ```
 ============================================================
