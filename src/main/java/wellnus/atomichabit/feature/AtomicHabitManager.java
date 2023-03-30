@@ -3,6 +3,7 @@ package wellnus.atomichabit.feature;
 import java.util.HashMap;
 
 import wellnus.atomichabit.command.AddCommand;
+import wellnus.atomichabit.command.DeleteCommand;
 import wellnus.atomichabit.command.HelpCommand;
 import wellnus.atomichabit.command.HomeCommand;
 import wellnus.atomichabit.command.ListCommand;
