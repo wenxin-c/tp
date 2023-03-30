@@ -277,7 +277,9 @@ Expected outcome:
 
 **Q**: Will my data be saved after every update?
 
-**A**: No it is currently not implemented, saving will only be done when you exit the program
+**A**: Yes, each feature has its individual data file on the local storage. When WellNUS++
+is launched and the user proceeds to a particular feature, previous data will be loaded
+from the feature's corresponding data file.
 
 **Q**: How can I navigate the program?
 
