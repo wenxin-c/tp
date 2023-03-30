@@ -39,7 +39,7 @@ traditional Graphical User Interface(GUI) apps.
 
 1. Ensure you have Java 11 or above installed in your Computer.
 
-2. Download the latest wellnus++.jar from here.
+2. Download the latest wellnus++.jar from [here](https://github.com/AY2223S2-CS2113-T12-4/tp/releases/latest).
 
 3. Copy the file to the folder you want to use as the home folder for your WellNUS++.
 
