@@ -15,40 +15,39 @@ mental wellness in various aspects. If you can type fast, WellNUS++ can update t
 traditional Graphical User Interface(GUI) apps.
 
 ## Table of Contents
-
 <!-- TOC -->
-
-- [WellNUS++ User Guide](#wellnus-user-guide)
-    - [Introduction](#introduction)
-    - [Table of Contents](#table-of-contents)
-    - [Quick Start](#quick-start)
-    - [Features](#features)
-        - [Command Format](#command-format)
-        - [Viewing help: `help`](#viewing-help-help)
-        - [Accessing feature: `FEATURE_NAME`](#accessing-feature-feature_name)
-        - [Accessing atomic habit feature : `hb`](#accessing-atomic-habit-feature--hb)
-        - [Add new atomic habit: `add`](#add-new-atomic-habit-add)
-        - [List all atomic habit: `list`](#list-all-atomic-habit-list)
-        - [Update an atomic habit: `update`](#update-an-atomic-habit-update)
-        - [Home: `home`](#home-home)
-        - [Accessing self reflection feature: `reflect`](#accessing-self-reflection-feature-reflect)
-        - [Get reflection questions: `get`](#get-reflection-questions-get)
-        - [Add reflection question into favorite list: `like INDEX`](#add-reflection-question-into-favorite-list-like-index)
-        - [View favorite list: `fav`](#view-favorite-list-fav)
-        - [Get the previous set of reflection questions generated: `prev`](#get-the-previous-set-of-reflection-questions-generated-prev)
-        - [Return back main WellNUS++: `home`](#return-back-main-wellnus-home)
-        - [Accessing Focus Timer Feature: `ft`](#accessing-focus-timer-feature-ft)
-        - [Start the session: `start`](#start-session--start)
-        - [Pause the session: `pause`](#pause-session--pause)
-        - [Resume the session: `resume`](#resume-session--resume)
-        - [Check the time: `check`](#check-time--check)
-        - [Next timer: `next`](#next-timer--next)
-        - [Stop the session : `stop`](#stop-session--stop)
-        - [Configure the Timer: `config`](#configure-the-timer-config)
-        - [Exit WellNUS++: `exit`](#exit-wellnus-exit)
-    - [FAQ](#faq)
-    - [Command Summary](#command-summary)
-
+* [WellNUS++ User Guide](#wellnus-user-guide)
+  * [Introduction](#introduction)
+  * [Table of Contents](#table-of-contents)
+  * [Quick Start](#quick-start)
+  * [Features](#features)
+    * [Command Format](#command-format)
+    * [Viewing help: `help`](#viewing-help--help)
+    * [Home: `home`](#home--home)
+    * [Accessing feature: `FEATURE_NAME`](#accessing-feature--featurename)
+    * [Accessing atomic habit feature : `hb`](#accessing-atomic-habit-feature--hb)
+    * [Add new atomic habit: `add`](#add-new-atomic-habit--add)
+    * [List all atomic habit: `list`](#list-all-atomic-habit--list)
+    * [Update an atomic habit: `update`](#update-an-atomic-habit--update)
+    * [Accessing gamification feature: `gamif`](#accessing-gamification-feature--gamif)
+    * [Gamification statistics: `stats`](#gamification-statistics--stats)
+    * [Accessing self reflection feature: `reflect`](#accessing-self-reflection-feature--reflect)
+    * [Get reflection questions: `get`](#get-reflection-questions--get)
+    * [Add reflection question into favorite list: `like INDEX`](#add-reflection-question-into-favorite-list--like-index)
+    * [View favorite list: `fav`](#view-favorite-list--fav)
+    * [Get the previous set of reflection questions generated: `prev`](#get-the-previous-set-of-reflection-questions-generated--prev)
+    * [Return back main WellNUS++: `home`](#return-back-main-wellnus--home)
+    * [Accessing Focus Timer Feature: `ft`](#accessing-focus-timer-feature--ft)
+    * [Start Session: `start`](#start-session--start)
+    * [Pause session: `pause`](#pause-session--pause)
+    * [Resume session: `resume`](#resume-session--resume)
+    * [Check time: `check`](#check-time--check)
+    * [Next timer: `next`](#next-timer--next)
+    * [Stop session: `stop`](#stop-session--stop)
+    * [Configure the Timer: `config`](#configure-the-timer--config)
+    * [Exit WellNUS++: `exit`](#exit-wellnus--exit)
+  * [FAQ](#faq)
+  * [Command Summary](#command-summary)
 <!-- TOC -->
 
 ## Quick Start
@@ -56,7 +55,7 @@ traditional Graphical User Interface(GUI) apps.
 1. Ensure you have Java 11 or above installed in your Computer.
 
 2. Download the latest CS2113_T12_4_WellNUS.jar
-   from [here](https://github.com/AY2223S2-CS2113-T12-4/tp/releases/tag/v2.0).
+   from [here](https://github.com/AY2223S2-CS2113-T12-4/tp/releases/latest).
 
 3. Copy the file to the folder you want to use as the home folder for your WellNUS++.
 
@@ -125,6 +124,24 @@ Here are all the commands available for you!
     5. exit - Close WellNUS++ and return to your terminal.
     6. help - Get help on what commands can be used in WellNUS++.
 ------------------------------------------------------------
+```
+
+### Home: `home`
+
+To leave the current feature and return back to main interface
+
+Format: `home`
+
+Example of usage:
+
+`home`
+
+Expected outcome:
+
+```
+—---------------------------------------------------------------
+Thank you for using atomic habits. Do not forget about me!
+—---------------------------------------------------------------
 ```
 
 ### Accessing feature: `FEATURE_NAME`
@@ -264,22 +281,46 @@ The following habit has been incremented! Keep up the good work!
 —---------------------------------------------------------------
 ```
 
-### Home: `home`
+### Accessing gamification feature: `gamif`
 
-To leave the current feature and return back to main interface
+Format: `gamif`
 
-Format: `home`
+Gamification system integrated into WellNUS++ to incentivize users to improve
+their wellness.
 
 Example of usage:
 
-`home`
+`gamif`
 
 Expected outcome:
 
 ```
-—---------------------------------------------------------------
-Thank you for using atomic habits. Do not forget about me!
-—---------------------------------------------------------------
+######################################################################
+    Welcome to
+    ______                _ _____            __  _           
+   / ____/___ _____ ___  (_) __(_)________ _/ /_(_)___  ____ 
+  / / __/ __ `/ __ `__ \/ / /_/ / ___/ __ `/ __/ / __ \/ __ \
+ / /_/ / /_/ / / / / / / / __/ / /__/ /_/ / /_/ / /_/ / / / /
+ \____/\__,_/_/ /_/ /_/_/_/ /_/\___/\__,_/\__/_/\____/_/ /_/ 
+######################################################################
+```
+
+### Gamification statistics: `stats`
+Displays the user's current XP points and level.
+
+Format: `stats`
+
+Example of usage:
+
+`stats`
+
+Expected outcome:
+
+```
+######################################################################
+#                 Current XP: Level 2 [===>        ]                 #
+#                        7 more XP to Level 3                        #
+######################################################################
 ```
 
 ### Accessing self reflection feature: `reflect`
@@ -638,7 +679,7 @@ Expected outcome:
 
 **Q**: Will my data be saved after every update?
 
-**A**: Yes, data will be saved upon updating.
+**A**: Yes, data will be saved upon updating and restored when the application is relaunched.
 
 **Q**: How can I navigate the program?
 
@@ -664,4 +705,6 @@ Expected outcome:
 * Like reflect question `like INDEX`
 * View favorite list `fav`
 * Return to main interface `home`
+* Get question `get`
+* Display gamification statistics `stats`
 * Exit program `exit`
