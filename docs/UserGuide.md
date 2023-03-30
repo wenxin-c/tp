@@ -379,7 +379,7 @@ Expected outcome:
 ######################################################################
 ```
 
-### Viewing Focus Timer help: `help`
+### Viewing Gamification help: `help`
 
 Lists all commands available and provide a short description of Gamification feature
 
