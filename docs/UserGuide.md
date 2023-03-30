@@ -29,7 +29,6 @@ traditional Graphical User Interface(GUI) apps.
     * [List all atomic habit: `list`](#list-all-atomic-habit--list)
     * [Update an atomic habit: `update`](#update-an-atomic-habit--update)
     * [Viewing Atomic Habit help: `help`](#viewing-atomic-habit-help--help)
-    * [Home: `home`](#home--home)
     * [Accessing gamification feature: `gamif`](#accessing-gamification-feature--gamif)
     * [Gamification statistics: `stats`](#gamification-statistics--stats)
     * [Viewing Gamification help: `help`](#viewing-gamification-help--help)
@@ -39,7 +38,6 @@ traditional Graphical User Interface(GUI) apps.
     * [View favorite list: `fav`](#view-favorite-list--fav)
     * [Get the previous set of reflection questions generated: `prev`](#get-the-previous-set-of-reflection-questions-generated--prev)
     * [Viewing Reflection help: `help`](#viewing-reflection-help--help)
-    * [Return back main WellNUS++: `home`](#return-back-main-wellnus--home)
     * [Accessing Focus Timer Feature: `ft`](#accessing-focus-timer-feature--ft)
     * [Start Session: `start`](#start-session--start)
     * [Pause session: `pause`](#pause-session--pause)
@@ -49,6 +47,7 @@ traditional Graphical User Interface(GUI) apps.
     * [Stop session: `stop`](#stop-session--stop)
     * [Viewing Focus Timer help: `help`](#viewing-focus-timer-help--help)
     * [Configure the Timer: `config`](#configure-the-timer--config)
+    * [Return back main WellNUS++: `home`](#return-back-main-wellnus--home)
     * [Exit WellNUS++: `exit`](#exit-wellnus--exit)
   * [FAQ](#faq)
   * [Command Summary](#command-summary)
@@ -323,24 +322,6 @@ Expected outcome:
 ------------------------------------------------------------
 ```
 
-### Home: `home`
-
-To leave the current feature and return back to main interface
-
-Format: `home`
-
-Example of usage:
-
-`home`
-
-Expected outcome:
-
-```
-—---------------------------------------------------------------
-Thank you for using atomic habits. Do not forget about me!
-—---------------------------------------------------------------
-```
-
 ### Accessing gamification feature: `gamif`
 
 Format: `gamif`
@@ -582,23 +563,6 @@ Expected outcome:
     get - Get a list of questions to reflect on.
     usage: get
 ------------------------------------------------------------
-```
-
-### Return back main WellNUS++: `home`
-
-Users can return back to the main WellNUS++.
-
-Format: `home`
-
-Example of usage: `home`
-
-Example output:
-
-```
-============================================================
-    How do you feel after reflecting on yourself?
-    Hope you have gotten some takeaways from self reflection, see you again!!
-============================================================
 ```
 
 ### Accessing Focus Timer Feature: `ft`
@@ -854,6 +818,34 @@ Expected outcome:
     Long break: 2 minutes
 ------------------------------------------------------------
 ```
+### Return back main WellNUS++: `home`
+
+To leave the current feature and return back to main interface. Each individual feature (i.e. atomic habit,
+self reflection, focus timer and gamification) has this command with customised
+output messages.
+
+Format: `home`
+
+Example of usage:
+
+`home`
+
+Expected outcome for atomic habit:
+
+```
+—---------------------------------------------------------------
+Thank you for using atomic habits. Do not forget about me!
+—---------------------------------------------------------------
+```
+
+Expected outcome for self reflection:
+
+```
+============================================================
+    How do you feel after reflecting on yourself?
+    Hope you have gotten some takeaways from self reflection, see you again!!
+============================================================
+```
 
 ### Exit WellNUS++: `exit`
 
@@ -905,7 +897,7 @@ Expected outcome:
 * Get reflect question `get`
 * Like reflect question `like INDEX`
 * View favorite list `fav`
-* Return to main interface `home`
-* Get question `get`
+* View previous questions `prev`
 * Display gamification statistics `stats`
+* Return to main interface `home`
 * Exit program `exit`
