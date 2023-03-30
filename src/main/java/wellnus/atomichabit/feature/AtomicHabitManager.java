@@ -35,6 +35,7 @@ public class AtomicHabitManager extends Manager {
     private static final String UNKNOWN_COMMAND_MESSAGE = "No such command in atomic habits!";
     private static final String UPDATE_COMMAND_KEYWORD = "update";
     private static final String HELP_COMMAND_KEYWORD = "help";
+    private static final String DELETE_COMMAND_KEYWORD  = "delete";
     private static final String ERROR_STORAGE_MESSAGE = "Error saving to storage!";
     private final TextUi textUi;
     private final AtomicHabitList habitList;
@@ -68,6 +69,8 @@ public class AtomicHabitManager extends Manager {
         switch (commandKeyword) {
         case ADD_COMMAND_KEYWORD:
             return new AddCommand(arguments, getHabitList());
+        case DELETE_COMMAND_KEYWORD:
+            return new DeleteCommand(arguments, getHabitList());
         case HOME_COMMAND_KEYWORD:
             return new HomeCommand(arguments);
         case LIST_COMMAND_KEYWORD:
@@ -175,6 +178,9 @@ public class AtomicHabitManager extends Manager {
             case ADD_COMMAND_KEYWORD:
                 arguments = getCommandParser().parseUserInput(descriptionTest);
                 return new AddCommand(arguments, new AtomicHabitList());
+            case DELETE_COMMAND_KEYWORD:
+                arguments = getCommandParser().parseUserInput(indexTest);
+                return new DeleteCommand(arguments, new AtomicHabitList());
             case LIST_COMMAND_KEYWORD:
                 arguments = getCommandParser().parseUserInput(listCommand);
                 return new ListCommand(arguments, new AtomicHabitList());

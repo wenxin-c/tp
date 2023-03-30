@@ -60,6 +60,15 @@ public class AtomicHabitList {
     }
 
     /**
+     * Method to delete atomicHabit from the list containing all habits
+     *
+     * @param atomicHabit Atomic habit to be deleted
+     */
+    public void deleteAtomicHabit(AtomicHabit atomicHabit) {
+        allAtomicHabits.remove(atomicHabit);
+    }
+
+    /**
      * Tokenize the atomic habits and store them in a data file.
      *
      * @throws TokenizerException If there is error during tokenization
