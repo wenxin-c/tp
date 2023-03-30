@@ -303,4 +303,6 @@ from the feature's corresponding data file.
   `update --id 1 [--inc 2]`
 * Return to main interface `home`
 * Get question `get`
+* Access feature `gamif`
+* Display gamification statistics `stats`
 * Exit program `exit`
