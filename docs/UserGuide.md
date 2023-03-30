@@ -89,12 +89,12 @@ WellNUS++ comes with a variety of features to help you enhance your overall well
 
 Lists all commands available and provide a short description of the application
 
-Format: `help`
+Format: `help [command-to-check]`
 
 * List all commands available in the app and a short description of the app
 * Give a detailed explanation of the parameters and subcommands for a given command
 
-Example of usage:
+Example of usage 1:
 
 `help`
 
@@ -113,6 +113,19 @@ Here are all the commands available for you!
     4. Gamification (gamif) - Gamification gives you the motivation to continue improving your wellness by rewarding you for your efforts!
     5. exit - Close WellNUS++ and return to your terminal.
     6. help - Get help on what commands can be used in WellNUS++.
+------------------------------------------------------------
+```
+
+Example of usage 2:
+
+`help hb`
+
+Expected outcome:
+
+```
+------------------------------------------------------------
+    Atomic Habits (hb) - Track and manage your habits with our suite of tools to help you grow and nurture a better you!
+    usage: hb
 ------------------------------------------------------------
 ```
 
@@ -252,6 +265,49 @@ The following habit has been incremented! Keep up the good work!
 —---------------------------------------------------------------
 ```
 
+### Viewing help: `help`
+
+Lists all commands available and provide a short description of Atomic Habit feature
+
+Format: `help [command-to-check]`
+
+* List all commands available in the Atomic Habit and a short description of the Atomic Habit
+* Give a detailed explanation of the parameters and subcommands for a given command
+
+Example of usage 1:
+
+`help`
+
+Expected outcome:
+
+```
+------------------------------------------------------------
+    Atomic Habits (hb) - Track and manage your habits with our suite of tools to help you grow and nurture a better you!
+    Input `help` to see all available commands.
+Input `help [command-to-check] to get usage help for a specific command.
+Here are all the commands available for you!
+    
+    1. add - Add a habit to your habit tracker.
+    2. help - Get help on what commands can be used in Atomic Habit WellNUS++
+    3. home - Return back to the main menu of WellNUS++.
+    4. list - Lists out all the habits in your tracker.
+    5. update - Update how many times you've done a habit.
+------------------------------------------------------------
+```
+
+Example of usage 2:
+
+`help add`
+
+Expected outcome:
+
+```
+------------------------------------------------------------
+    add - Add a habit to your habit tracker.
+    usage: add --name (your habit name)
+------------------------------------------------------------
+```
+
 ### Home: `home`
 
 To leave the current feature and return back to main interface
@@ -384,6 +440,51 @@ Example output:
     5.What is something I find inspiring?
 ============================================================
 ```
+
+### Viewing help: `help`
+
+Lists all commands available and provide a short description of Reflection feature
+
+Format: `help [command-to-check]`
+
+* List all commands available in the Reflection and a short description of the Reflection
+* Give a detailed explanation of the parameters and subcommands for a given command
+
+Example of usage 1:
+
+`help`
+
+Expected outcome:
+
+```
+------------------------------------------------------------
+    Reflection (reflect) - Take some time to pause and reflect with our specially curated list of questions and reflection management tools.
+    Input `help` to see all available commands.
+Input `help [command-to-check] to get usage help for a specific command.
+Here are all the commands available for you!
+    
+    1. fav - Get the list of questions that have been added to the favorite list.
+    2. get - Get a list of questions to reflect on.
+    3. help - Get help on what commands can be used in Reflection WellNUS++
+    4. home - Return back to the main menu of WellNUS++.
+    5. like (index) - Add a particular question to favorite list.
+    6. prev - Get the previously generated set of questions.
+------------------------------------------------------------
+```
+
+Example of usage 2:
+
+`help get`
+
+Expected outcome:
+
+```
+------------------------------------------------------------
+    get - Get a list of questions to reflect on.
+    usage: get
+------------------------------------------------------------
+```
+
 ### Return back main WellNUS++: `home`
 
 Users can return back to the main WellNUS++. 
@@ -463,6 +564,61 @@ Expected outcome:
     Work: 5 minutes
     Break: 1 minute
     Long break: 2 minutes
+------------------------------------------------------------
+```
+### Viewing help: `help`
+
+Lists all commands available and provide a short description of Focus Timer feature
+
+Format: `help [command-to-check]`
+
+* List all commands available in the Focus Timer and a short description of the Focus Timer
+* Give a detailed explanation of the parameters and subcommands for a given command
+
+Example of usage 1:
+
+`help`
+
+Expected outcome:
+
+```
+------------------------------------------------------------
+    Focus Timer (ft) - Set a configurable timer with work and rest cycles to keep yourself focused and productive!
+    Input `help` to see all available commands.
+Input `help [command-to-check]` to get usage help for a specific command.
+Here are all the commands available for you!
+    
+    1. check - Check the time left in the current session.
+This can only be used when a countdown is underway!
+    2. config - Change the number of cycles and the times of the work, break and long break of your session!
+Note that the minimum cycles is 2,
+the maximum number of cycles is 5,
+the maximum work/break times is 60 minutes,
+the minimum work/break times is 1 minute.
+This is to ensure your well-being, as higher values might be counter-productive!
+    3. help - Get help on what commands can be used in Focus Timer WellNUS++
+    4. home - Stop the session and go back to WellNUS++.
+    5. next - When a timer ends, move on to the next countdown!
+This can only be used when a countdown timer has ended!
+    6. pause - Pause the session!Can only be used when a countdown is ticking.
+    7. resume - Continue the countdown.
+Can only be used when a countdown is paused.
+    8. start - Start your focus session!
+    9. stop - Stop the session. You will have to `start` your focus session again!
+------------------------------------------------------------
+
+```
+
+Example of usage 2:
+
+`help stop`
+
+Expected outcome:
+
+```
+------------------------------------------------------------
+    stop - Stop the session. You will have to `start` your focus session again!
+    usage: stop
 ------------------------------------------------------------
 ```
 
