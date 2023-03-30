@@ -5,6 +5,7 @@ import java.util.HashMap;
 import wellnus.atomichabit.feature.AtomicHabitManager;
 import wellnus.command.Command;
 import wellnus.exception.BadCommandException;
+import wellnus.exception.WellNusException;
 import wellnus.ui.TextUi;
 
 /**
@@ -20,6 +21,8 @@ public class HomeCommand extends Command {
     private static final String COMMAND_INVALID_COMMAND_MESSAGE = "Wrong command given for home!";
     private static final String HOME_MESSAGE = "Thank you for using atomic habits. Do not forget about me!";
     private static final String NO_ADDITIONAL_MESSAGE = "";
+    private static final String WRONG_COMMAND_ARGUMENTS_MESSAGE = "'home' command shouldn't have additional '%s' "
+            + "argument";
     private final TextUi textUi;
 
     /**
@@ -72,13 +75,8 @@ public class HomeCommand extends Command {
      * Prints the exit feature message for the atomic habits feature on the user's screen.
      */
     @Override
-    public void execute() {
-        try {
-            validateCommand(super.getArguments());
-        } catch (BadCommandException badCommandException) {
-            this.getTextUi().printErrorFor(badCommandException, NO_ADDITIONAL_MESSAGE);
-            return;
-        }
+    public void execute() throws WellNusException {
+        validateCommand(super.getArguments());
         getTextUi().printOutputMessage(HOME_MESSAGE);
     }
 
@@ -104,11 +102,12 @@ public class HomeCommand extends Command {
         if (arguments.size() != HomeCommand.COMMAND_NUM_OF_ARGUMENTS) {
             throw new BadCommandException(HomeCommand.COMMAND_INVALID_ARGUMENTS_MESSAGE);
         }
-        if (arguments.get(COMMAND_KEYWORD) != "") {
-            throw new BadCommandException(HomeCommand.COMMAND_INVALID_ARGUMENTS_MESSAGE);
-        }
         if (!arguments.containsKey(HomeCommand.COMMAND_KEYWORD)) {
             throw new BadCommandException(HomeCommand.COMMAND_INVALID_COMMAND_MESSAGE);
+        }
+        String payload = arguments.get(getCommandKeyword());
+        if (!payload.isBlank()) {
+            throw new BadCommandException(String.format(WRONG_COMMAND_ARGUMENTS_MESSAGE, payload));
         }
     }
 
