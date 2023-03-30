@@ -36,7 +36,7 @@ public class AtomicHabitManager extends Manager {
     private static final String UNKNOWN_COMMAND_MESSAGE = "No such command in atomic habits!";
     private static final String UPDATE_COMMAND_KEYWORD = "update";
     private static final String HELP_COMMAND_KEYWORD = "help";
-    private static final String DELETE_COMMAND_KEYWORD  = "delete";
+    private static final String DELETE_COMMAND_KEYWORD = "delete";
     private static final String ERROR_STORAGE_MESSAGE = "Error saving to storage!";
     private final TextUi textUi;
     private final AtomicHabitList habitList;
