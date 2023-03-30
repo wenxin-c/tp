@@ -419,13 +419,21 @@ Expected outcome:
 ```
 ### Configure the Timer: `config`
 
-Configures the focus timer's settings. The number of work-break cycles, work length and break length can be configured. 
+Configures the focus timer's settings.
+The number of work-break cycles, work length and break length can be configured. 
+When leaving `ft`, the configuration will be reset to the default values.
 
 Format: `config [--cycle numCycle --work workTime --break breakTime --longbreak longBreakTime]`
 
 * At least one of the arguments, `cycle, work, break, longbreak` must be included along with the main `config` command 
 * `numCycle` is an **integer** that is `>= 2`
-* `workTime, longBreakTime` is an **integer** that is `>= 1`
+* `workTime, breakTime, longBreakTime` is an **integer** that is `>= 1`
+
+The initial default values for Focus Timer:
+* `numCycles = 2`
+* `workTime = 1`
+* `breakTime = 1`
+* `longBreakTime = 1`
 
 Example of usage:
 
