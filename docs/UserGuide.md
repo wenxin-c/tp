@@ -98,6 +98,7 @@ WellNUS++ comes with a variety of features to help you enhance your overall well
 * Parameters can be in any order.
   e.g. if the command specifies --name NAME --phone PHONE_NUMBER, --phone PHONE_NUMBER --name NAME is also acceptable.
 
+<!-- @@author BernardLesley -->
 ### Viewing WellNUS++ help: `help`
 
 Lists all commands available and provide a short description of the application
@@ -142,6 +143,7 @@ Expected outcome:
 ------------------------------------------------------------
 ```
 
+<!-- @@author wenxin-c -->
 ### Accessing feature: `FEATURE_NAME`
 
 Access specific feature from main interface by inputting the feature_name
@@ -176,6 +178,7 @@ Expected outcome:
 ============================================================
 ```
 
+<!-- @@author YongbinWang -->
 ### Accessing atomic habit feature : `hb`
 
 Atomic habit feature allows users to keep track of the daily habits they wish to develop for better self improvement.
@@ -279,6 +282,7 @@ The following habit has been incremented! Keep up the good work!
 —---------------------------------------------------------------
 ```
 
+<!-- @@author BernardLesley -->
 ### Viewing Atomic Habit help: `help`
 
 Lists all commands available and provide a short description of Atomic Habit feature
@@ -322,12 +326,16 @@ Expected outcome:
 ------------------------------------------------------------
 ```
 
+<!-- @@author haoyangw -->
 ### Accessing gamification feature: `gamif`
 
 Format: `gamif`
 
 Gamification system integrated into WellNUS++ to incentivize users to improve
 their wellness.
+
+Users can accumulate XP points from working on their atomic habits and
+level up.
 
 Example of usage:
 
@@ -364,6 +372,7 @@ Expected outcome:
 ######################################################################
 ```
 
+<!-- @@author BernardLesley -->
 ### Viewing Gamification help: `help`
 
 Lists all commands available and provide a short description of Gamification feature
@@ -405,6 +414,7 @@ Expected outcome:
 ------------------------------------------------------------
 ```
 
+<!-- @@author wenxin-c -->
 ### Accessing self reflection feature: `reflect`
 
 Format: `reflect`
@@ -433,6 +443,7 @@ Expected outcome:
 ============================================================
 ```
 
+<!-- @@author YongbinWang -->
 ### Get reflection questions: `get`
 
 Ask WellNUS++ to get a set of 5 random introspective questions for users to view and reflect on.
@@ -456,6 +467,7 @@ Expected outcome:
 ============================================================
 ```
 
+<!-- @@author wenxin-c -->
 ### Add reflection question into favorite list: `like INDEX`
 
 Users can add the reflection question they like into favorite list and review afterwards.
@@ -521,6 +533,7 @@ Example output:
 ============================================================
 ```
 
+<!-- @@author BernardLesley -->
 ### Viewing Reflection help: `help`
 
 Lists all commands available and provide a short description of Reflection feature
@@ -564,6 +577,7 @@ Expected outcome:
     usage: get
 ------------------------------------------------------------
 ```
+
 <!--@@author nichyjt-->
 ### Accessing Focus Timer Feature: `ft`
 
@@ -713,6 +727,7 @@ You can also configure the session to your liking with `config`!
 ------------------------------------------------------------
 ```
 
+<!-- @@author BernardLesley -->
 ### Viewing Focus Timer help: `help`
 
 Lists all commands available and provide a short description of Focus Timer feature
@@ -768,6 +783,7 @@ Expected outcome:
     usage: stop
 ------------------------------------------------------------
 ```
+
 <!--@@author nichyjt-->
 ### Configure the Timer: `config`
 
@@ -819,6 +835,7 @@ Expected outcome:
     Long break: 2 minutes
 ------------------------------------------------------------
 ```
+
 <!--@@ author BernardLesley-->
 ### Return back main WellNUS++: `home`
 
@@ -869,7 +886,8 @@ Expected outcome:
     Thank you for using WellNUS++! See you again soon Dx
 ------------------------------------------------------------
 ```
-<!--@@author -->
+
+<!--@@author haoyangw -->
 ## FAQ
 
 **Q**: Will my data be saved after every update?
@@ -878,16 +896,18 @@ Expected outcome:
 
 **Q**: How can I navigate the program?
 
-**A**: Please type `help` when you start the program to view all the commands available
+**A**: In WellNUS++, type `help` to view the list of feature supported by our app. From within a feature, `help`
+explains all commands available within that feature.
 
 **Q**: How do I start the program?
 
-**A**: Please run the JAR file on your local machine
+**A**: Please run the JAR file on your local machine. See the [Quick Start](#quick-start) section for details.
 
 **Q**: Where will my data be stored?
 
-**A**: Your data will be stored in the separate folder with reference from the program directory
+**A**: Each feature's data will be stored in a separate text file within the data folder(relative to the jar file).
 
+<!-- @@author nichyjt -->
 ## Command Summary
 
 * Help `help`
