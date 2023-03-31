@@ -819,7 +819,7 @@ Expected outcome:
     Long break: 2 minutes
 ------------------------------------------------------------
 ```
-<!--@@ author-->
+<!--@@ author BernardLesley-->
 ### Return back main WellNUS++: `home`
 
 To leave the current feature and return back to main interface. Each individual feature (i.e. atomic habit,
@@ -869,7 +869,7 @@ Expected outcome:
     Thank you for using WellNUS++! See you again soon Dx
 ------------------------------------------------------------
 ```
-
+<!--@@author -->
 ## FAQ
 
 **Q**: Will my data be saved after every update?
