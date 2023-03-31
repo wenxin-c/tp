@@ -819,6 +819,7 @@ Expected outcome:
     Long break: 2 minutes
 ------------------------------------------------------------
 ```
+<!--@@ author-->
 ### Return back main WellNUS++: `home`
 
 To leave the current feature and return back to main interface. Each individual feature (i.e. atomic habit,
