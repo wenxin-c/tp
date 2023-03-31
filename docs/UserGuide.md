@@ -329,6 +329,9 @@ Format: `gamif`
 Gamification system integrated into WellNUS++ to incentivize users to improve
 their wellness.
 
+Users can accumulate XP points from working on their atomic habits and
+level up.
+
 Example of usage:
 
 `gamif`
