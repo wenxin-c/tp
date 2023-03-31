@@ -567,7 +567,7 @@ Expected outcome:
     usage: get
 ------------------------------------------------------------
 ```
-
+<!--@@author nichyjt-->
 ### Accessing Focus Timer Feature: `ft`
 
 Our Focus Timer feature allows users to be productive by setting a configurable work-break timer, inspired by
@@ -590,6 +590,7 @@ Expected outcome:
 ------------------------------------------------------------
 ```
 
+<!--@@author YongbinWang-->
 ### Start Session: `start`
 
 Ask WellNUS++ to start the focus session consisting of work and break cycles.
@@ -770,7 +771,7 @@ Expected outcome:
     usage: stop
 ------------------------------------------------------------
 ```
-
+<!--@@author nichyjt-->
 ### Configure the Timer: `config`
 
 Configures the focus timer's settings.
@@ -821,6 +822,7 @@ Expected outcome:
     Long break: 2 minutes
 ------------------------------------------------------------
 ```
+<!--@@ author BernardLesley-->
 ### Return back main WellNUS++: `home`
 
 To leave the current feature and return back to main interface. Each individual feature (i.e. atomic habit,
@@ -870,7 +872,7 @@ Expected outcome:
     Thank you for using WellNUS++! See you again soon Dx
 ------------------------------------------------------------
 ```
-
+<!--@@author -->
 ## FAQ
 
 **Q**: Will my data be saved after every update?
@@ -893,15 +895,25 @@ explains all commands available within that feature.
 ## Command Summary
 
 * Help `help`
-* Access feature `reflect`, `hb`, `ft`, `gamif`
-* Add habit `add --name make bed`
-* View habit `list`
-* Update habit `list`
-  `update --id 1 [--inc 2]`
-* Get reflect question `get`
-* Like reflect question `like INDEX`
-* View favorite list `fav`
-* View previous questions `prev`
-* Display gamification statistics `stats`
+* Access feature`hb`
+  * Add habit `add --name make bed`
+  * View habit `list`
+  * Update habit `list`
+    `update --id 1 [--inc 2]`
+* Access feature `reflect`
+  * Get reflect question `get`
+  * Like reflect question `like INDEX`
+  * View favorite list `fav`
+  * View previous questions `prev`
+* Access feature `gamif`
+  * Display gamification statistics `stats`
+* Access feature `ft`
+  * Configure the timer `config [--cycle 2 --work 1 --break 1 --longBreak 1]`
+  * Start the timer `start`
+  * Pause the timer `pause`
+  * Resume the timer `resume`
+  * Check the time left `check`
+  * Go to the next countdown `next`
+  * Stop the timer `stop`
 * Return to main interface `home`
 * Exit program `exit`
