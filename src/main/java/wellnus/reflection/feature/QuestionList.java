@@ -78,7 +78,6 @@ public class QuestionList {
             UI.printErrorFor(storageException, STORAGE_ERROR);
         }
         this.randomQuestionIndexes = new HashSet<>();
-        this.dataIndexInitialSetup();
         try {
             this.loadQuestionData();
         } catch (StorageException storageException) {
@@ -117,18 +116,6 @@ public class QuestionList {
 
     public ArrayList<Set<Integer>> getDataIndex() {
         return dataIndex;
-    }
-
-    /**
-     * Set up initial data file.<br/>
-     * Set up the arrayList and set in the event that datafile is corrupted.
-     */
-    public void dataIndexInitialSetup() {
-        this.dataIndex = new ArrayList<>();
-        HashSet<Integer> setLike = new HashSet<>();
-        HashSet<Integer> setPrev = new HashSet<>();
-        this.dataIndex.add(setLike);
-        this.dataIndex.add(setPrev);
     }
 
     /**

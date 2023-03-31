@@ -121,10 +121,16 @@ public class ReflectionTokenizer implements Tokenizer<Set<Integer>> {
         Set<Integer> detokenizedLike = new HashSet<>();
         Set<Integer> detokenizedPref = new HashSet<>();
         if (tokenizedIndex.size() == TOKENIZER_INDEX_ARRAYLIST_SIZE) {
-            String rawIndexLike = splitParameter(tokenizedIndex.get(INDEX_ZERO), LIKE_KEY);
-            String rawIndexPref = splitParameter(tokenizedIndex.get(INDEX_ONE), PREF_KEY);
-            detokenizedLike = getSet(rawIndexLike);
-            detokenizedPref = getSet(rawIndexPref);
+            String tokenizedLikedIndexes = tokenizedIndex.get(INDEX_ZERO);
+            if (!tokenizedLikedIndexes.isBlank()) {
+                String rawIndexLike = splitParameter(tokenizedLikedIndexes, LIKE_KEY);
+                detokenizedLike = getSet(rawIndexLike);
+            }
+            String tokenizedPrefIndexes = tokenizedIndex.get(INDEX_ONE);
+            if (!tokenizedPrefIndexes.isBlank()) {
+                String rawIndexPref = splitParameter(tokenizedPrefIndexes, PREF_KEY);
+                detokenizedPref = getSet(rawIndexPref);
+            }
         }
         detokenizedIndexes.add(detokenizedLike);
         detokenizedIndexes.add(detokenizedPref);

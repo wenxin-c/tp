@@ -97,8 +97,10 @@ public class AtomicHabitTokenizer implements Tokenizer<AtomicHabit> {
     public ArrayList<AtomicHabit> detokenize(ArrayList<String> tokenizedAtomicHabits) throws TokenizerException {
         ArrayList<AtomicHabit> detokenizedAtomicHabits = new ArrayList<>();
         for (String tokenizedString : tokenizedAtomicHabits) {
-            AtomicHabit parsedHabit = parseTokenizedHabit(tokenizedString);
-            detokenizedAtomicHabits.add(parsedHabit);
+            if (!tokenizedString.isBlank()) {
+                AtomicHabit parsedHabit = parseTokenizedHabit(tokenizedString);
+                detokenizedAtomicHabits.add(parsedHabit);
+            }
         }
         return detokenizedAtomicHabits;
     }
