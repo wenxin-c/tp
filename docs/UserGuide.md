@@ -879,15 +879,16 @@ Expected outcome:
 
 **Q**: How can I navigate the program?
 
-**A**: Please type `help` when you start the program to view all the commands available
+**A**: In WellNUS++, type `help` to view the list of feature supported by our app. From within a feature, `help`
+explains all commands available within that feature.
 
 **Q**: How do I start the program?
 
-**A**: Please run the JAR file on your local machine
+**A**: Please run the JAR file on your local machine. See the [Quick Start](#quick-start) section for details.
 
 **Q**: Where will my data be stored?
 
-**A**: Your data will be stored in the separate folder with reference from the program directory
+**A**: Each feature's data will be stored in a separate text file within the data folder(relative to the jar file).
 
 ## Command Summary
 
