@@ -64,7 +64,7 @@ public class HelpCommand extends Command {
      */
     private void printHelpMessage() {
         HashMap<String, String> argumentPayload = getArguments();
-        String commandToSearch = argumentPayload.get(COMMAND_KEYWORD).trim();
+        String commandToSearch = argumentPayload.get(COMMAND_KEYWORD).trim().toLowerCase();
         if (commandToSearch.equals(NO_FEATURE_KEYWORD)) {
             printGeneralHelpMessage();
             return;
