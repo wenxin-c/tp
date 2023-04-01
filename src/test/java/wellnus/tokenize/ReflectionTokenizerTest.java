@@ -7,7 +7,6 @@ import java.util.Set;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import wellnus.exception.TokenizerException;
 import wellnus.storage.ReflectionTokenizer;
 
 public class ReflectionTokenizerTest {
