@@ -53,7 +53,7 @@ public class ReflectionTokenizerTest {
     }
 
     @Test
-    void detokenizeReflect_checkOutput_success() throws TokenizerException {
+    void detokenizeReflect_checkOutput_success() {
         Set<Integer> expectedDetokenizedLikes = new HashSet<>();
         expectedDetokenizedLikes.add(1);
         expectedDetokenizedLikes.add(2);
@@ -72,7 +72,7 @@ public class ReflectionTokenizerTest {
     }
 
     @Test
-    void detokenizeReflect_checkOutputEmptyString_success() throws TokenizerException {
+    void detokenizeReflect_checkOutputEmptyString_success() {
         Set<Integer> expectedDetokenizedLikes = new HashSet<>();
         Set<Integer> expectedDetokenizedPrefs = new HashSet<>();
         ArrayList<String> stringsToDetokenize = new ArrayList<>();
