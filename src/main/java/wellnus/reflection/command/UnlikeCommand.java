@@ -31,8 +31,8 @@ public class UnlikeCommand extends Command {
     private static final String COMMAND_KEYWORD_ASSERTION = "The key should be unlike.";
     private static final String EMPTY_FAV_LIST_MSG = "The favorite list is empty, there is nothing to be removed.";
     private static final String MISSING_SET_QUESTIONS = "A set of questions has not been gotten";
-    private static final String MISSING_SET_QUESTIONS_NOTES = "Please get a set of questions before adding to favorite "
-            + "list!";
+    private static final String MISSING_SET_QUESTIONS_NOTES = "Please get a set of questions before adding to"
+            + " favorite list!";
     private static final String TOKENIZER_ERROR = "The data cannot be tokenized for storage properly!!";
     private static final String STORAGE_ERROR = "The file data cannot be stored properly!!";
     private static final int INDEX_ZERO = 0;

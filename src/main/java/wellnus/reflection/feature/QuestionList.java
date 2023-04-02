@@ -205,7 +205,8 @@ public class QuestionList {
     public void removeFavListIndex(int indexToRemove) throws StorageException {
         this.dataIndex.get(INDEX_ZERO).remove(indexToRemove);
         this.storeQuestionData();
-        UI.printOutputMessage(REMOVE_FAV_SUCCESS_ONE + this.questions.get(indexToRemove).toString() + REMOVE_FAV_SUCCESS_TWO);
+        UI.printOutputMessage(REMOVE_FAV_SUCCESS_ONE + this.questions.get(indexToRemove).toString()
+                + REMOVE_FAV_SUCCESS_TWO);
     }
 
     /**
