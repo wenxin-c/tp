@@ -12,7 +12,6 @@ import org.junit.jupiter.api.Test;
 
 import wellnus.command.CommandParser;
 import wellnus.exception.BadCommandException;
-import wellnus.reflection.command.LikeCommand;
 import wellnus.reflection.feature.IndexMapper;
 import wellnus.reflection.feature.QuestionList;
 
@@ -68,7 +67,6 @@ class LikeCommandTest {
     void addFavList_checkIndex_success() throws BadCommandException {
         QuestionList questionList = new QuestionList();
         questionList.setRandomQuestionIndexes(RANDOM_INDEXES);
-        CommandParser commandParser = new CommandParser();
         IndexMapper indexMapper = new IndexMapper(questionList.getRandomQuestionIndexes());
         HashMap<Integer, Integer> indexQuestionMap = indexMapper.mapIndex();
         int count = INITIAL_INDEX;

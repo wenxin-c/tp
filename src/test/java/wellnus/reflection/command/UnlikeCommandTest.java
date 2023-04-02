@@ -26,10 +26,14 @@ class UnlikeCommandTest {
         HashMap<String, String> argumentsUnlikeCmdOutBound = commandParser.parseUserInput(UNLIKE_CMD_OUT_BOUND_INDEX);
         UnlikeCommand unlikeCmd = new UnlikeCommand(argumentsUnlikeCmdOutBound, questionList);
         assertThrows(BadCommandException.class, (
-        ) -> { unlikeCmd.validateCommand(argumentsUnlikeCmdOutBound); });
+        ) -> {
+            unlikeCmd.validateCommand(argumentsUnlikeCmdOutBound);
+        });
         HashMap<String, String> argumentsUnlikeCmdWrongFormat = commandParser.parseUserInput(UNLIKE_CMD_WRONG_FORMAT);
         assertThrows(NumberFormatException.class, (
-        ) -> { unlikeCmd.validateCommand(argumentsUnlikeCmdWrongFormat); });
+        ) -> {
+            unlikeCmd.validateCommand(argumentsUnlikeCmdWrongFormat);
+        });
     }
 
     // Check whether empty fav list is caught

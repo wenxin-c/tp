@@ -8,7 +8,6 @@ import java.util.HashMap;
 import org.junit.jupiter.api.Test;
 
 import wellnus.exception.BadCommandException;
-import wellnus.reflection.feature.ReflectionManager;
 
 class ReflectionManagerTest {
     private static final String EMPTY_STRING = "";

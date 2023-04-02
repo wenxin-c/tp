@@ -12,16 +12,14 @@ import org.junit.jupiter.api.Test;
 import wellnus.command.CommandParser;
 import wellnus.exception.BadCommandException;
 import wellnus.exception.StorageException;
-import wellnus.reflection.command.GetCommand;
 import wellnus.reflection.feature.QuestionList;
 import wellnus.reflection.feature.ReflectionManager;
 import wellnus.reflection.feature.ReflectionQuestion;
 
+//@@author wenxin-c
 /**
  * Class to test different tests for GetCommand Class utilising JUnit tests
  * Test cases will involve expected outputs and correct exception handling
- *
- * @@author wenxin-c
  */
 class GetCommandTest {
     private static final int EXPECTED_ARRAY_LENGTH = 5;

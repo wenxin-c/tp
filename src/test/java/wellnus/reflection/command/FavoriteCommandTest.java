@@ -10,7 +10,6 @@ import org.junit.jupiter.api.Test;
 
 import wellnus.command.CommandParser;
 import wellnus.exception.BadCommandException;
-import wellnus.reflection.command.LikeCommand;
 import wellnus.reflection.feature.QuestionList;
 
 class FavoriteCommandTest {
