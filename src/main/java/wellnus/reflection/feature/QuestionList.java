@@ -46,6 +46,8 @@ public class QuestionList {
     private static final String TOTAL_NUM_QUESTION_ASSERTIONS = "The total number of questions is 10.";
     private static final String ADD_FAV_SUCCESS_ONE = "You have added question: ";
     private static final String ADD_FAV_SUCCESS_TWO = " into favorite list!!";
+    private static final String REMOVE_FAV_SUCCESS_ONE = "You have removed question: ";
+    private static final String REMOVE_FAV_SUCCESS_TWO = " from favorite list!!";
     private static final String DUPLICATE_LIKE = " is already in the favorite list!";
     private static final String STORAGE_ERROR = "The file data cannot be stored properly!!";
     private static final String TOKENIZER_ERROR = "The data cannot be tokenized for storage properly!!";
@@ -180,6 +182,7 @@ public class QuestionList {
      * Indexes of all favorite questions will be stored in data file every time a question is liked.
      *
      * @param indexToAdd The index of the question liked by user
+     * @throws StorageException If data fails to be stored properly.
      */
     public void addFavListIndex(int indexToAdd) throws StorageException {
         if (this.dataIndex.get(INDEX_ZERO).contains(indexToAdd)) {
@@ -189,6 +192,20 @@ public class QuestionList {
         this.dataIndex.get(INDEX_ZERO).add(indexToAdd);
         this.storeQuestionData();
         UI.printOutputMessage(ADD_FAV_SUCCESS_ONE + this.questions.get(indexToAdd).toString() + ADD_FAV_SUCCESS_TWO);
+    }
+
+    /**
+     * Remove the index of a liked question from the fav list.<br/>
+     * <br/>
+     * Indexes of all favorite questions will be stored in data file every time a question is removed.
+     *
+     * @param indexToRemove The index of question to be removed from fav list.
+     * @throws StorageException If data fails to be stored properly.
+     */
+    public void removeFavListIndex(int indexToRemove) throws StorageException {
+        this.dataIndex.get(INDEX_ZERO).remove(indexToRemove);
+        this.storeQuestionData();
+        UI.printOutputMessage(REMOVE_FAV_SUCCESS_ONE + this.questions.get(indexToRemove).toString() + REMOVE_FAV_SUCCESS_TWO);
     }
 
     /**

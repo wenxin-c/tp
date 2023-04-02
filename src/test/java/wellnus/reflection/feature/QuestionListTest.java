@@ -1,4 +1,4 @@
-package wellnus.reflection;
+package wellnus.reflection.feature;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.ArrayList;

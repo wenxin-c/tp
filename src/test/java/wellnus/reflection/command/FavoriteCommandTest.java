@@ -1,4 +1,4 @@
-package wellnus.reflection;
+package wellnus.reflection.command;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
