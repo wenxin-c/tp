@@ -80,12 +80,9 @@ public class GamificationManager extends Manager {
      * <br>
      * It is calls the relevant methods to present the user with the gamification feature's interface
      * and manage the user's commands.
-     *
-     * @throws BadCommandException If an unrecognised command is given or invalid arguments are given for
-     *                             a recognised command
      */
     @Override
-    public void runEventDriver() throws BadCommandException {
+    public void runEventDriver() {
         GamificationUi.printLogo();
         boolean isExit = false;
         while (!isExit) {

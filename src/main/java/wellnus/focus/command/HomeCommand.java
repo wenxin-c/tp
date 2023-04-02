@@ -4,6 +4,7 @@ import java.util.HashMap;
 
 import wellnus.command.Command;
 import wellnus.exception.BadCommandException;
+import wellnus.exception.WellNusException;
 import wellnus.focus.feature.FocusManager;
 import wellnus.focus.feature.Session;
 import wellnus.ui.TextUi;
@@ -21,6 +22,8 @@ public class HomeCommand extends Command {
     private static final String COMMAND_INVALID_COMMAND_MESSAGE = "Wrong command given for home!";
     private static final String HOME_MESSAGE = "Thank you for using focus timer. Keep up the productivity!";
     private static final String NO_ADDITIONAL_MESSAGE = "";
+    private static final String WRONG_COMMAND_ARGUMENTS_MESSAGE = "'home' command shouldn't have additional '%s' "
+            + "argument";
     private final TextUi textUi;
     private final Session session;
 
@@ -74,13 +77,8 @@ public class HomeCommand extends Command {
      * Prints the exit feature message for the focus timer feature on the user's screen.
      */
     @Override
-    public void execute() {
-        try {
-            validateCommand(super.getArguments());
-        } catch (BadCommandException badCommandException) {
-            textUi.printErrorFor(badCommandException, NO_ADDITIONAL_MESSAGE);
-            return;
-        }
+    public void execute() throws WellNusException {
+        validateCommand(super.getArguments());
         if (!session.isSessionReady()) {
             session.getCurrentCountdown().setStop();
         }
@@ -96,14 +94,15 @@ public class HomeCommand extends Command {
      */
     @Override
     public void validateCommand(HashMap<String, String> arguments) throws BadCommandException {
-        if (arguments.size() != HomeCommand.COMMAND_NUM_OF_ARGUMENTS) {
-            throw new BadCommandException(HomeCommand.COMMAND_INVALID_ARGUMENTS_MESSAGE);
-        }
-        if (!arguments.get(COMMAND_KEYWORD).equals("")) {
+        if (arguments.size() > HomeCommand.COMMAND_NUM_OF_ARGUMENTS) {
             throw new BadCommandException(HomeCommand.COMMAND_INVALID_ARGUMENTS_MESSAGE);
         }
         if (!arguments.containsKey(HomeCommand.COMMAND_KEYWORD)) {
             throw new BadCommandException(HomeCommand.COMMAND_INVALID_COMMAND_MESSAGE);
+        }
+        String payload = arguments.get(getCommandKeyword());
+        if (!payload.isBlank()) {
+            throw new BadCommandException(String.format(WRONG_COMMAND_ARGUMENTS_MESSAGE, payload));
         }
     }
 
