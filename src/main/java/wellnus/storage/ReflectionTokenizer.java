@@ -18,7 +18,7 @@ public class ReflectionTokenizer implements Tokenizer<Set<Integer>> {
     private static final int LIKE_INDEX = 0;
     private static final int PREV_INDEX = 1;
     private static final int INDEX_NINE = 9;
-    private static final int MAX_NUM_PREV_INDEX = 5;
+    private static final int NUM_PREV_INDEX = 5;
     private static final int TOKENIZER_INDEX_ARRAYLIST_SIZE = 2;
     private static final String LIKE_KEY = "like";
     private static final String PREV_KEY = "prev";
@@ -65,6 +65,7 @@ public class ReflectionTokenizer implements Tokenizer<Set<Integer>> {
         }
         return outputStrings;
     }
+
     private Set<Integer> validateTokenizedIndexFormat(ArrayList<String> tokenizedIndex,
                                                       int categoryIndex, String categoryKey) {
         Set<Integer> validatedSet = new HashSet<>();
@@ -98,7 +99,7 @@ public class ReflectionTokenizer implements Tokenizer<Set<Integer>> {
         } catch (NumberFormatException numberFormatException) {
             throw new TokenizerException(DETOKENIZE_ERROR_MESSAGE);
         }
-        if (categoryKey.equals(PREV_KEY) && outputIndexes.size() > MAX_NUM_PREV_INDEX) {
+        if (categoryKey.equals(PREV_KEY) && outputIndexes.size() != NUM_PREV_INDEX) {
             throw new TokenizerException(DETOKENIZE_ERROR_MESSAGE);
         }
         return outputIndexes;
