@@ -82,6 +82,7 @@ public class ReflectionTokenizer implements Tokenizer<Set<Integer>> {
         }
         return validatedSet;
     }
+
     private Set<Integer> getSet(String indexToSplit, String categoryKey) throws TokenizerException {
         Set<Integer> outputIndexes = new HashSet<>();
         if (indexToSplit.isBlank()) {
