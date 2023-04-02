@@ -57,11 +57,14 @@ public class ReflectionTokenizerTest {
         expectedDetokenizedLikes.add(1);
         expectedDetokenizedLikes.add(2);
         Set<Integer> expectedDetokenizedPrevs = new HashSet<>();
+        expectedDetokenizedPrevs.add(1);
+        expectedDetokenizedPrevs.add(2);
         expectedDetokenizedPrevs.add(3);
         expectedDetokenizedPrevs.add(4);
+        expectedDetokenizedPrevs.add(5);
         ArrayList<String> stringsToDetokenize = new ArrayList<>();
         String tokenizedLikeTest = "like:1,2";
-        String tokenizedPrevTest = "prev:3,4";
+        String tokenizedPrevTest = "prev:1,2,3,4,5";
         stringsToDetokenize.add(tokenizedLikeTest);
         stringsToDetokenize.add(tokenizedPrevTest);
         ReflectionTokenizer reflectionTokenizer = new ReflectionTokenizer();
