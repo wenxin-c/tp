@@ -28,6 +28,7 @@ public class UpdateCommand extends Command {
     private static final int COMMAND_MIN_NUM_OF_ARGUMENTS = 2;
     private static final int COMMAND_MAX_NUM_OF_ARGUMENTS = 3;
     private static final String COMMAND_INVALID_COMMAND_MESSAGE = "Wrong command issued, expected 'update'";
+    private static final String COMMAND_INVALID_ARGUMENT_MESSAGE = "Wrong argument issued, expected 'id' and 'inc'";
     private static final String DOT = ".";
     private static final int DEFAULT_INCREMENT = 1;
     private static final String FEEDBACK_STRING = "The following habit has been incremented! Keep up the good work!";
@@ -199,11 +200,11 @@ public class UpdateCommand extends Command {
             throw new BadCommandException(UpdateCommand.COMMAND_INVALID_COMMAND_MESSAGE);
         }
         if (!arguments.containsKey(UpdateCommand.COMMAND_INDEX_ARGUMENT)) {
-            throw new BadCommandException(UpdateCommand.COMMAND_INVALID_COMMAND_MESSAGE);
+            throw new BadCommandException(UpdateCommand.COMMAND_INVALID_ARGUMENT_MESSAGE);
         }
         if (arguments.size() == UpdateCommand.COMMAND_MAX_NUM_OF_ARGUMENTS
                 && !arguments.containsKey(UpdateCommand.COMMAND_INCREMENT_ARGUMENT)) {
-            throw new BadCommandException(UpdateCommand.COMMAND_INVALID_COMMAND_MESSAGE);
+            throw new BadCommandException(UpdateCommand.COMMAND_INVALID_ARGUMENT_MESSAGE);
         }
         if (arguments.containsKey(UpdateCommand.COMMAND_INCREMENT_ARGUMENT)) {
             String incrementString = arguments.get(COMMAND_INCREMENT_ARGUMENT);
