@@ -24,7 +24,7 @@ import wellnus.ui.TextUi;
  */
 //@@author YongbinWang
 public class FocusManager extends Manager {
-    public static final String FEATURE_HELP_DESCRIPTION = "Focus Timer (ft) - Set a configurable timer "
+    public static final String FEATURE_HELP_DESCRIPTION = "ft(Focus Timer) - Set a configurable timer "
             + "with work and rest cycles to keep yourself focused and productive!";
     public static final String FEATURE_NAME = "ft";
     private static final String START_COMMAND_KEYWORD = "start";
@@ -36,12 +36,14 @@ public class FocusManager extends Manager {
     private static final String STOP_COMMAND_KEYWORD = "stop";
     private static final String CHECK_COMMAND_KEYWORD = "check";
     private static final String HELP_COMMAND_KEYWORD = "help";
-    private static final String UNKNOWN_COMMAND_MESSAGE = "No such command in focus timer!";
+    private static final String UNKNOWN_COMMAND_MESSAGE = "Invalid command issued!";
     private static final String FOCUS_TIMER_GREET = "Welcome to Focus Timer.\n"
             + "Start a focus session with `start`, or `config` the session first!";
     private static final String COMMAND_KEYWORD_ASSERTION = "The key cannot be null"
             + ", check user-guide for valid commands";
     private static final String ERROR_SESSION_RUNNING = "Sorry, you cant `start` or `config` a ";
+    private static final String COMMAND_INVALID_COMMAND_NOTE = "Please try 'help' command to check the "
+            + "available commands and their usages!";
     private final TextUi textUi;
     private final Session session;
 
@@ -105,10 +107,9 @@ public class FocusManager extends Manager {
                 command.execute();
                 isExit = HomeCommand.isExit(command);
             } catch (BadCommandException exception) {
-                String noAdditionalMessage = "";
-                textUi.printErrorFor(exception, noAdditionalMessage);
+                textUi.printErrorFor(exception, COMMAND_INVALID_COMMAND_NOTE);
             } catch (WellNusException exception) {
-                textUi.printErrorFor(exception, "Check user guide for valid commands!");
+                textUi.printErrorFor(exception, COMMAND_INVALID_COMMAND_NOTE);
             }
         }
     }

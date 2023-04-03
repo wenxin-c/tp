@@ -19,11 +19,10 @@ public class HomeCommand extends Command {
     private static final int COMMAND_NUM_OF_ARGUMENTS = 1;
     private static final String COMMAND_INVALID_ARGUMENTS_MESSAGE = "That is not a valid home command for "
             + "focus timer!";
-    private static final String COMMAND_INVALID_COMMAND_MESSAGE = "Wrong command given for home!";
+    private static final String COMMAND_INVALID_COMMAND_MESSAGE = "Invalid command issued, expected 'home'!";
     private static final String HOME_MESSAGE = "Thank you for using focus timer. Keep up the productivity!";
-    private static final String NO_ADDITIONAL_MESSAGE = "";
-    private static final String WRONG_COMMAND_ARGUMENTS_MESSAGE = "'home' command shouldn't have additional '%s' "
-            + "argument";
+    private static final String WRONG_COMMAND_ARGUMENTS_MESSAGE = "Invalid arguments given, 'home' command shouldn't "
+            + "have additional '%s' argument";
     private final TextUi textUi;
     private final Session session;
 

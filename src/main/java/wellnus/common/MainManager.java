@@ -34,8 +34,9 @@ public class MainManager extends Manager {
     private static final String GREETING_MESSAGE = "Enter a command to start using WellNUS++! Try 'help' "
             + "if you're new, or just unsure.";
     private static final String HELP_COMMAND_KEYWORD = "help";
-    private static final String INVALID_COMMAND_MESSAGE = "Don't recognise that command?";
-    private static final String INVALID_COMMAND_ADDITIONAL_MESSAGE = "Try 'help' for some guidance";
+    private static final String INVALID_COMMAND_MESSAGE = "Invalid command issued!";
+    private static final String INVALID_COMMAND_ADDITIONAL_MESSAGE = "Please try 'help' command to check the "
+            + "available commands and their usages!";
     private static final String INVALID_FEATURE_KEYWORD_MESSAGE = "Feature keyword can't be empty dear";
     private static final String WELLNUS_FEATURE_NAME = "";
     private static final String NO_ADDITIONAL_MESSAGE = "";
@@ -83,7 +84,7 @@ public class MainManager extends Manager {
                     try {
                         manager.runEventDriver();
                     } catch (BadCommandException badCommandException) {
-                        this.getTextUi().printErrorFor(badCommandException, NO_ADDITIONAL_MESSAGE);
+                        this.getTextUi().printErrorFor(badCommandException, INVALID_COMMAND_ADDITIONAL_MESSAGE);
                     }
                 });
                 // User issued a main command, e.g. 'help'
@@ -93,7 +94,7 @@ public class MainManager extends Manager {
                     isExit = ExitCommand.isExit(mainCommand);
                 }
             } catch (WellNusException exception) {
-                this.getTextUi().printErrorFor(exception, NO_ADDITIONAL_MESSAGE);
+                this.getTextUi().printErrorFor(exception, INVALID_COMMAND_ADDITIONAL_MESSAGE);
             }
         }
     }

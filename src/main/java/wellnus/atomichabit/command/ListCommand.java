@@ -17,11 +17,12 @@ public class ListCommand extends Command {
     public static final String COMMAND_USAGE = "usage: list";
     public static final String COMMAND_KEYWORD = "list";
     private static final int COMMAND_NUM_OF_ARGUMENTS = 1;
-    private static final String COMMAND_INVALID_ARGUMENTS_MESSAGE = "Invalid command, expected 'list'";
+    private static final String COMMAND_INVALID_ARGUMENTS_MESSAGE = "Invalid command issued, expected 'list'!";
     private static final String LINE_SEPARATOR = System.lineSeparator();
-    private static final String NO_ADDITIONAL_MESSAGE = "";
     private static final String FIRST_STRING = "Here is the current accumulation of your atomic habits!"
             + LINE_SEPARATOR + "Keep up the good work and you will develop a helpful habit in no time";
+    private static final String COMMAND_INVALID_COMMAND_NOTE = "Please try 'help' command to check the "
+            + "available commands and their usage!";
     private final AtomicHabitList atomicHabits;
     private final TextUi textUi;
 
@@ -72,7 +73,7 @@ public class ListCommand extends Command {
         try {
             validateCommand(super.getArguments());
         } catch (BadCommandException badCommandException) {
-            this.getTextUi().printErrorFor(badCommandException, NO_ADDITIONAL_MESSAGE);
+            this.getTextUi().printErrorFor(badCommandException, COMMAND_INVALID_COMMAND_NOTE);
             return;
         }
         int taskNo = 1;

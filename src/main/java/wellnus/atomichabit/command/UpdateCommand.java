@@ -27,21 +27,23 @@ public class UpdateCommand extends Command {
     private static final String COMMAND_INDEX_ARGUMENT = "id";
     private static final int COMMAND_MIN_NUM_OF_ARGUMENTS = 2;
     private static final int COMMAND_MAX_NUM_OF_ARGUMENTS = 3;
-    private static final String COMMAND_INVALID_COMMAND_MESSAGE = "Wrong command issued, expected 'update'";
+    private static final String COMMAND_INVALID_COMMAND_MESSAGE = "Invalid command issued, expected 'update'!!";
+    private static final String COMMAND_INVALID_COMMAND_NOTE = "Please try 'help' command to check the "
+            + "available commands and their usages!";
     private static final String DOT = ".";
     private static final int DEFAULT_INCREMENT = 1;
     private static final String FEEDBACK_STRING = "The following habit has been incremented! Keep up the good work!";
     private static final String FEEDBACK_STRING_NO_INCREMENT = "The following habit has not been updated! "
             + "Enter a positive integer to update your habit!";
-    private static final String FEEDBACK_INDEX_NOT_INTEGER_ERROR = "Invalid input! Please enter an integer";
-    private static final String FEEDBACK_INDEX_OUT_OF_BOUNDS_ERROR = "Index out of Range! Please enter a valid index";
+    private static final String FEEDBACK_INDEX_NOT_INTEGER_ERROR = "Invalid index given, expected an integer!";
+    private static final String FEEDBACK_INDEX_OUT_OF_BOUNDS_ERROR = "Invalid index given, index is out of Range!";
     private static final int INDEX_OFFSET = 1;
     private static final String LINE_SEPARATOR = System.lineSeparator();
     private static final int MINIMUM_INCREMENT = 1;
-    private static final String UPDATE_INVALID_ARGUMENTS_MESSAGE = "Invalid arguments for updating, no update shall "
-            + "be performed.";
-    private static final String UPDATE_INVALID_INCREMENT_COUNT = "Increment with minimum of 1 is expected, no update "
-            + "shall be performed.";
+    private static final String UPDATE_INVALID_ARGUMENTS_MESSAGE = "Invalid arguments given for updating, an integer "
+            + "is expected!";
+    private static final String UPDATE_INVALID_INCREMENT_COUNT = "Invalid arguments given, increment with minimum "
+            + "of 1 is expected!";
     private static final String REGEX_INTEGER_ONLY_PATTERN = "\\s*-?\\d+\\s*";
     private static final Logger logger = Logger.getLogger("UpdateAtomicHabitLogger");
     private static final String LOG_STR_INPUT_NOT_INTEGER = "Input string is not an integer."
@@ -145,7 +147,7 @@ public class UpdateCommand extends Command {
         try {
             validateCommand(super.getArguments());
         } catch (BadCommandException badCommandException) {
-            getTextUi().printErrorFor(badCommandException, NO_ADDITIONAL_MESSAGE);
+            getTextUi().printErrorFor(badCommandException, COMMAND_INVALID_COMMAND_NOTE);
             return;
         }
         try {
@@ -172,7 +174,7 @@ public class UpdateCommand extends Command {
             logger.log(Level.INFO, LOG_INDEX_OUT_OF_BOUNDS);
             throw new AtomicHabitException(FEEDBACK_INDEX_OUT_OF_BOUNDS_ERROR);
         } catch (BadCommandException badCommandException) {
-            getTextUi().printErrorFor(badCommandException, NO_ADDITIONAL_MESSAGE);
+            getTextUi().printErrorFor(badCommandException, COMMAND_INVALID_COMMAND_NOTE);
         }
     }
 

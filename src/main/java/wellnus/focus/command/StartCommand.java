@@ -18,10 +18,12 @@ public class StartCommand extends Command {
     public static final String COMMAND_KEYWORD = "start";
     private static final int COMMAND_NUM_OF_ARGUMENTS = 1;
     private static final int FIRST_COUNTDOWN_INDEX = 0;
-    private static final String COMMAND_INVALID_ARGUMENTS_MESSAGE = "Invalid command, expected 'start'";
-    private static final String NO_ADDITIONAL_MESSAGE = "";
+    private static final String COMMAND_INVALID_COMMAND_MESSAGE = "Invalid command issued, expected 'start'!";
+    private static final String COMMAND_INVALID_ARGUMENTS_MESSAGE = "Invalid arguments given to 'start'!";
     private static final String START_MESSAGE = "Your session has started! Please focus on your task.";
     private static final String ERROR_NOT_READY = "Nothing to start - your session has started!";
+    private static final String COMMAND_INVALID_COMMAND_NOTE = "Please try 'help' command to check the "
+            + "available commands and their usages!";
     private final Session session;
     private final TextUi textUi;
 
@@ -70,7 +72,7 @@ public class StartCommand extends Command {
         try {
             validateCommand(super.getArguments());
         } catch (BadCommandException badCommandException) {
-            textUi.printErrorFor(badCommandException, NO_ADDITIONAL_MESSAGE);
+            textUi.printErrorFor(badCommandException, COMMAND_INVALID_COMMAND_NOTE);
             return;
         }
         if (!session.isSessionReady()) {
@@ -96,7 +98,7 @@ public class StartCommand extends Command {
             throw new BadCommandException(COMMAND_INVALID_ARGUMENTS_MESSAGE);
         }
         if (!arguments.containsKey(COMMAND_KEYWORD)) {
-            throw new BadCommandException(COMMAND_INVALID_ARGUMENTS_MESSAGE);
+            throw new BadCommandException(COMMAND_INVALID_COMMAND_MESSAGE);
         }
         if (!arguments.get(COMMAND_KEYWORD).equals("")) {
             throw new BadCommandException(COMMAND_INVALID_ARGUMENTS_MESSAGE);

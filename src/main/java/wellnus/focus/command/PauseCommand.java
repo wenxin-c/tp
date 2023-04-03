@@ -17,11 +17,13 @@ public class PauseCommand extends Command {
     public static final String COMMAND_USAGE = "usage: pause";
     public static final String COMMAND_KEYWORD = "pause";
     private static final int COMMAND_NUM_OF_ARGUMENTS = 1;
-    private static final String COMMAND_INVALID_ARGUMENTS_MESSAGE = "Invalid command, expected 'pause'";
-    private static final String NO_ADDITIONAL_MESSAGE = "";
+    private static final String COMMAND_INVALID_COMMAND_MESSAGE = "Invalid command issued, expected 'pause'!";
+    private static final String COMMAND_INVALID_ARGUMENTS_MESSAGE = "Invalid arguments given to 'pause'!";
     private static final String PAUSE_OUTPUT = "Timer paused at: ";
     private static final String ERROR_COUNTDOWN_NOT_RUNNING = "Nothing to pause - the timer has not started yet!";
     private static final String ERROR_IS_PAUSED = "Nothing to pause - you have already paused the timer!";
+    private static final String COMMAND_INVALID_COMMAND_NOTE = "Please try 'help' command to check the "
+            + "available commands and their usages!";
     private final Session session;
     private final TextUi textUi;
 
@@ -69,7 +71,7 @@ public class PauseCommand extends Command {
         try {
             validateCommand(super.getArguments());
         } catch (BadCommandException badCommandException) {
-            textUi.printErrorFor(badCommandException, NO_ADDITIONAL_MESSAGE);
+            textUi.printErrorFor(badCommandException, COMMAND_INVALID_COMMAND_NOTE);
             return;
         }
         // Only execute the pause logic if the countdown is not running
@@ -101,7 +103,7 @@ public class PauseCommand extends Command {
             throw new BadCommandException(COMMAND_INVALID_ARGUMENTS_MESSAGE);
         }
         if (!arguments.containsKey(COMMAND_KEYWORD)) {
-            throw new BadCommandException(COMMAND_INVALID_ARGUMENTS_MESSAGE);
+            throw new BadCommandException(COMMAND_INVALID_COMMAND_MESSAGE);
         }
         if (!arguments.get(COMMAND_KEYWORD).equals("")) {
             throw new BadCommandException(COMMAND_INVALID_ARGUMENTS_MESSAGE);

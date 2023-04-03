@@ -16,16 +16,17 @@ public class AddCommand extends Command {
     public static final String COMMAND_DESCRIPTION = "add - Add a habit to your habit tracker.";
     public static final String COMMAND_USAGE = "usage: add --name (your habit name)";
     public static final String COMMAND_KEYWORD = "add";
-    private static final String COMMAND_INVALID_ARGUMENTS_MESSAGE = "Wrong arguments given to 'add'!";
+    private static final String COMMAND_INVALID_ARGUMENTS_MESSAGE = "Invalid arguments given to 'add'!";
     private static final String COMMAND_NAME_ARGUMENT = "name";
     private static final String COMMAND_KEYWORD_ASSERTION = "The key should be add.";
     private static final String COMMAND_PAYLOAD_ASSERTION = "The payload should not be empty.";
 
     private static final int COMMAND_NUM_OF_ARGUMENTS = 2;
-    private static final String COMMAND_WRONG_KEYWORD_MESSAGE = "Wrong command issued by the user, expected 'add'?";
+    private static final String COMMAND_WRONG_KEYWORD_MESSAGE = "Invalid command issued, expected 'add'!";
     private static final String FEEDBACK_STRING_ONE = "Yay! You have added a new habit:";
     private static final String FEEDBACK_STRING_TWO = "was successfully added";
-    private static final String NO_ADDITIONAL_MESSAGE = "";
+    private static final String COMMAND_INVALID_COMMAND_NOTE = "Please try 'help' command to check the "
+            + "available commands and their usages!";
     private final AtomicHabitList atomicHabits;
     private final TextUi textUi;
 
@@ -82,7 +83,7 @@ public class AddCommand extends Command {
         try {
             validateCommand(super.getArguments());
         } catch (BadCommandException badCommandException) {
-            this.getTextUi().printErrorFor(badCommandException, NO_ADDITIONAL_MESSAGE);
+            this.getTextUi().printErrorFor(badCommandException, COMMAND_INVALID_COMMAND_NOTE);
             return;
         }
         assert super.getArguments().containsKey(COMMAND_KEYWORD) : COMMAND_KEYWORD_ASSERTION;

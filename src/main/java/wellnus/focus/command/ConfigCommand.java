@@ -51,13 +51,19 @@ public class ConfigCommand extends Command {
     private static final int MIN_CYCLES = 2;
     // Message constants
     private static final String ASSERT_STRING_INPUT_NOT_NULL = "String input should not be null!";
-    private static final String ERROR_NOT_A_NUMBER = "You didn't input a valid number!";
-    private static final String ERROR_LARGE_CYCLES = "Sorry, the max cycles you can set is " + MAX_CYCLES;
-    private static final String ERROR_LESS_EQUAL_MIN_CYCLES = "Sorry, the min cycles you can set is " + MIN_CYCLES;
-    private static final String ERROR_LARGE_MINUTES = "Sorry, the max time you can set is " + MAX_MINUTES;
-    private static final String ERROR_LESS_EQUAL_MIN_MINUTES = "Sorry, the min time you can set is " + MIN_MINUTES;
-    private static final String ERROR_TOO_MANY_ARGUMENTS = "Sorry, you seem to have added too many arguments!";
-    private static final String ERROR_TOO_FEW_ARGUMENTS = "Sorry, you seem to have not added in any arguments!";
+    private static final String ERROR_NOT_A_NUMBER = "Invalid arguments given, you didn't input a valid number!";
+    private static final String ERROR_LARGE_CYCLES = "Invalid arguments given, the max cycles you can set is "
+            + MAX_CYCLES;
+    private static final String ERROR_LESS_EQUAL_MIN_CYCLES = "Invalid arguments given, the min cycles you can set is "
+            + MIN_CYCLES;
+    private static final String ERROR_LARGE_MINUTES = "Invalid arguments given, the max time you can set is "
+            + MAX_MINUTES;
+    private static final String ERROR_LESS_EQUAL_MIN_MINUTES = "Invalid arguments given, the min time you can set is "
+            + MIN_MINUTES;
+    private static final String ERROR_TOO_MANY_ARGUMENTS = "Invalid arguments given, you seem to have added too "
+            + "many arguments!";
+    private static final String ERROR_TOO_FEW_ARGUMENTS = "Invalid arguments given, you seem to have not added "
+            + "in any arguments!";
     private static final Logger LOGGER = Logger.getLogger("ConfigCommandLogger");
     private static final String LOG_VALIDATION_ASSUMPTION_FAIL = "New cycle/break/work time is assumed to "
             + "have passed the validation bounds and type checking, but has"

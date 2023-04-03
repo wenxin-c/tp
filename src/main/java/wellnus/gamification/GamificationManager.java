@@ -18,7 +18,7 @@ import wellnus.ui.TextUi;
  */
 public class GamificationManager extends Manager {
     public static final String FEATURE_NAME = "gamif";
-    public static final String FEATURE_HELP_DESCRIPTION = "Gamification (gamif) - Gamification gives you the "
+    public static final String FEATURE_HELP_DESCRIPTION = "gamif(Gamification) - Gamification gives you the "
             + "motivation to continue improving your wellness by rewarding you for your efforts!";
     private static final String COMMAND_HELP = "help";
     private static final String COMMAND_HOME = "home";
