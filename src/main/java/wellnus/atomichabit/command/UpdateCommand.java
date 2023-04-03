@@ -21,14 +21,14 @@ import wellnus.ui.TextUi;
  */
 public class UpdateCommand extends Command {
     public static final String COMMAND_DESCRIPTION = "update - Update how many times you've done a habit.";
-    public static final String COMMAND_USAGE = "usage: update --id habit-index [--inc increment_number]";
+    public static final String COMMAND_USAGE = "usage: update --id habit-index [--by increment_number]";
     public static final String COMMAND_KEYWORD = "update";
-    private static final String COMMAND_INCREMENT_ARGUMENT = "inc";
+    private static final String COMMAND_INCREMENT_ARGUMENT = "by";
     private static final String COMMAND_INDEX_ARGUMENT = "id";
     private static final int COMMAND_MIN_NUM_OF_ARGUMENTS = 2;
     private static final int COMMAND_MAX_NUM_OF_ARGUMENTS = 3;
     private static final String COMMAND_INVALID_COMMAND_MESSAGE = "Wrong command issued, expected 'update'";
-    private static final String COMMAND_INVALID_ARGUMENT_MESSAGE = "Wrong argument issued, expected 'id' and 'inc'";
+    private static final String COMMAND_INVALID_ARGUMENT_MESSAGE = "Wrong argument issued, expected 'id' and 'by'";
     private static final String DOT = ".";
     private static final int DEFAULT_INCREMENT = 1;
     private static final String FEEDBACK_STRING = "The following habit has been incremented! Keep up the good work!";
@@ -96,7 +96,7 @@ public class UpdateCommand extends Command {
     private int getIncrementCountFrom(HashMap<String, String> arguments)
             throws BadCommandException, NumberFormatException {
         assert arguments.containsKey(UpdateCommand.COMMAND_INCREMENT_ARGUMENT)
-                : "--inc argument missing for 'hb update' command";
+                : "--by argument missing for 'hb update' command";
         String incrementCountString = arguments.get(UpdateCommand.COMMAND_INCREMENT_ARGUMENT);
         if (Integer.parseInt(incrementCountString) < MINIMUM_INCREMENT) {
             throw new BadCommandException(UpdateCommand.UPDATE_INVALID_INCREMENT_COUNT);
