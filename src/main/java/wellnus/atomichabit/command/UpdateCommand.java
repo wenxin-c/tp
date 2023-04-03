@@ -31,11 +31,13 @@ public class UpdateCommand extends Command {
     private static final String COMMAND_INVALID_ARGUMENT_MESSAGE = "Wrong argument issued, expected 'id' and 'by'";
     private static final String DOT = ".";
     private static final int DEFAULT_INCREMENT = 1;
+    private static final int ZERO = 0;
     private static final String FEEDBACK_STRING = "The following habit has been incremented! Keep up the good work!";
     private static final String FEEDBACK_STRING_NO_INCREMENT = "The following habit has not been updated! "
             + "Enter a positive integer to update your habit!";
     private static final String FEEDBACK_INDEX_NOT_INTEGER_ERROR = "Invalid input! Please enter an integer";
     private static final String FEEDBACK_INDEX_OUT_OF_BOUNDS_ERROR = "Index out of Range! Please enter a valid index";
+    private static final String FEEDBACK_DECREMENT_ERROR = "Decrement is too large! Please keep it within range";
     private static final int INDEX_OFFSET = 1;
     private static final String LINE_SEPARATOR = System.lineSeparator();
     private static final int MINIMUM_INCREMENT = 1;
@@ -98,7 +100,7 @@ public class UpdateCommand extends Command {
         assert arguments.containsKey(UpdateCommand.COMMAND_INCREMENT_ARGUMENT)
                 : "--by argument missing for 'hb update' command";
         String incrementCountString = arguments.get(UpdateCommand.COMMAND_INCREMENT_ARGUMENT);
-        if (Integer.parseInt(incrementCountString) < MINIMUM_INCREMENT) {
+        if (Integer.parseInt(incrementCountString) < MINIMUM_INCREMENT && isPositive(Integer.parseInt(incrementCountString))) {
             throw new BadCommandException(UpdateCommand.UPDATE_INVALID_INCREMENT_COUNT);
         }
         return Integer.parseInt(incrementCountString);
@@ -111,6 +113,18 @@ public class UpdateCommand extends Command {
         }
         String indexString = arguments.get(UpdateCommand.COMMAND_INDEX_ARGUMENT);
         return Integer.parseInt(indexString);
+    }
+
+    private int getPositive(int changeCount) {
+        if (changeCount < 0) {
+            return -changeCount;
+        } else {
+            return changeCount;
+        }
+    }
+
+    private boolean isPositive(int changeCount) {
+        return changeCount > 0;
     }
 
     /**
@@ -150,15 +164,22 @@ public class UpdateCommand extends Command {
             return;
         }
         try {
-            int incrementCount = DEFAULT_INCREMENT;
+            int changeCount = DEFAULT_INCREMENT;
             if (super.getArguments().containsKey(UpdateCommand.COMMAND_INCREMENT_ARGUMENT)) {
-                incrementCount = this.getIncrementCountFrom(super.getArguments());
+                changeCount = this.getIncrementCountFrom(super.getArguments());
             }
             int index = this.getIndexFrom(super.getArguments()) - INDEX_OFFSET;
             AtomicHabit habit = getAtomicHabits().getHabitByIndex(index);
-            habit.increaseCount(incrementCount);
+            if (changeCount > ZERO) {
+                habit.increaseCount(changeCount);
+            } else {
+                if (getPositive(changeCount) > habit.getCount()) {
+                    throw new AtomicHabitException(FEEDBACK_DECREMENT_ERROR);
+                }
+                habit.decreaseCount(getPositive(changeCount));
+            }
             boolean hasLevelUp = gamificationData.addXp(
-                    incrementCount * NUM_OF_XP_PER_INCREMENT);
+                    changeCount * NUM_OF_XP_PER_INCREMENT);
             String stringOfUpdatedHabit = (index + 1) + DOT + habit + " " + "[" + habit.getCount() + "]"
                     + LINE_SEPARATOR;
             getTextUi().printOutputMessage(FEEDBACK_STRING + LINE_SEPARATOR
