@@ -100,7 +100,8 @@ public class UpdateCommand extends Command {
         assert arguments.containsKey(UpdateCommand.COMMAND_INCREMENT_ARGUMENT)
                 : "--by argument missing for 'hb update' command";
         String incrementCountString = arguments.get(UpdateCommand.COMMAND_INCREMENT_ARGUMENT);
-        if (Integer.parseInt(incrementCountString) < MINIMUM_INCREMENT && isPositive(Integer.parseInt(incrementCountString))) {
+        if (Integer.parseInt(incrementCountString) < MINIMUM_INCREMENT
+                && isPositive(Integer.parseInt(incrementCountString))) {
             throw new BadCommandException(UpdateCommand.UPDATE_INVALID_INCREMENT_COUNT);
         }
         return Integer.parseInt(incrementCountString);
@@ -165,6 +166,7 @@ public class UpdateCommand extends Command {
         }
         try {
             int changeCount = DEFAULT_INCREMENT;
+            boolean hasLevelUp = false;
             if (super.getArguments().containsKey(UpdateCommand.COMMAND_INCREMENT_ARGUMENT)) {
                 changeCount = this.getIncrementCountFrom(super.getArguments());
             }
@@ -172,14 +174,14 @@ public class UpdateCommand extends Command {
             AtomicHabit habit = getAtomicHabits().getHabitByIndex(index);
             if (changeCount > ZERO) {
                 habit.increaseCount(changeCount);
+                hasLevelUp = gamificationData.addXp(
+                        changeCount * NUM_OF_XP_PER_INCREMENT);
             } else {
                 if (getPositive(changeCount) > habit.getCount()) {
                     throw new AtomicHabitException(FEEDBACK_DECREMENT_ERROR);
                 }
                 habit.decreaseCount(getPositive(changeCount));
             }
-            boolean hasLevelUp = gamificationData.addXp(
-                    changeCount * NUM_OF_XP_PER_INCREMENT);
             String stringOfUpdatedHabit = (index + 1) + DOT + habit + " " + "[" + habit.getCount() + "]"
                     + LINE_SEPARATOR;
             getTextUi().printOutputMessage(FEEDBACK_STRING + LINE_SEPARATOR
