@@ -22,6 +22,9 @@ public class ListCommand extends Command {
     private static final String NO_ADDITIONAL_MESSAGE = "";
     private static final String FIRST_STRING = "Here is the current accumulation of your atomic habits!"
             + LINE_SEPARATOR + "Keep up the good work and you will develop a helpful habit in no time";
+    private static final String EMPTY_LIST_MESSAGE = "You have no habits in your list!"
+            + LINE_SEPARATOR
+            + "Start adding some habits by using 'add'!";
     private final AtomicHabitList atomicHabits;
     private final TextUi textUi;
 
@@ -75,6 +78,10 @@ public class ListCommand extends Command {
             this.getTextUi().printErrorFor(badCommandException, NO_ADDITIONAL_MESSAGE);
             return;
         }
+        if (atomicHabits.getAllHabits().isEmpty()) {
+            getTextUi().printOutputMessage(EMPTY_LIST_MESSAGE);
+            return;
+        }
         int taskNo = 1;
         int firstChar = 0;
         StringBuilder stringOfHabitsBuilder = new StringBuilder(FIRST_STRING + LINE_SEPARATOR);
@@ -84,7 +91,6 @@ public class ListCommand extends Command {
             stringOfHabitsBuilder.append(currentHabitString).append(LINE_SEPARATOR);
             taskNo += 1;
         }
-
         String messageToUser = stringOfHabitsBuilder.substring(firstChar,
                 stringOfHabitsBuilder.length() - 1);
         getTextUi().printOutputMessage(messageToUser);

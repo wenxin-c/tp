@@ -91,6 +91,21 @@ public class AtomicHabitTest {
     }
 
     /**
+     * Test AddCommand to throw {@link AtomicHabitException} when a duplicate habit is added.
+     *
+     * @throws WellNusException
+     */
+    @Test
+    public void addHabit_duplicateHabit_atomicHabitExceptionThrown() throws WellNusException {
+        String payload = "junit test";
+        String testAddCommand = String.format("%s --name %s", ADD_HABIT_COMMAND, payload + System.lineSeparator());
+        HashMap<String, String> arguments = parser.parseUserInput(testAddCommand);
+        Command addCommand = new AddCommand(arguments, habitList);
+        addCommand.execute();
+        Assertions.assertThrows(AtomicHabitException.class, addCommand::execute);
+    }
+
+    /**
      * Test UpdateCommand with a standard payload and default increment to check output printed
      */
     @Test
@@ -170,7 +185,40 @@ public class AtomicHabitTest {
         Command updateCommandForNegativeIndex = new UpdateCommand(arguments, habitList, gamificationData);
         Assertions.assertThrows(AtomicHabitException.class, updateCommandForNegativeIndex::execute);
     }
+
+    /**
+     * Test UpdateCommand to successfully decrement a habit
+     *
+     * @throws WellNusException
+     */
+    @Test
+    public void updateHabit_decrement_success() throws WellNusException {
+        updateHabit_checkOutputUserInputIncrement_success();
+        String payload = "junit test";
+        String habitIndex = "1";
+        String decrement = "-3";
+        String testUpdateCommand = String.format("%s --id %s --by %s", UPDATE_HABIT_COMMAND, habitIndex, decrement)
+                + System.lineSeparator();
+        HashMap<String, String> arguments = parser.parseUserInput(testUpdateCommand);
+        Command updateCommand = new UpdateCommand(arguments, habitList, gamificationData);
+        String expectedUpdateHabitOutput = "The following habit has been incremented! Keep up the good work!"
+                + System.lineSeparator()
+                + habitIndex + "." + payload + " " + "[1]";
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outputStream));
+        updateCommand.execute();
+        Assertions.assertEquals(expectedUpdateHabitOutput, getMessageFrom(outputStream.toString()));
+    }
+
+    @Test
+    public void updateHabit_invalidDecrement_atomicHabitExceptionThrown() throws WellNusException {
+        updateHabit_checkOutputUserInputIncrement_success();
+        String habitIndex = "1";
+        String decrement = "-100000000";
+        String testUpdateCommand = String.format("%s --id %s --by %s", UPDATE_HABIT_COMMAND, habitIndex, decrement)
+                + System.lineSeparator();
+        HashMap<String, String> arguments = parser.parseUserInput(testUpdateCommand);
+        Command updateCommand = new UpdateCommand(arguments, habitList, gamificationData);
+        Assertions.assertThrows(AtomicHabitException.class, updateCommand::execute);
+    }
 }
-
-
-
