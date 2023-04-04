@@ -7,6 +7,7 @@ import java.util.logging.Logger;
 
 import wellnus.command.Command;
 import wellnus.exception.BadCommandException;
+import wellnus.exception.ReflectionException;
 import wellnus.exception.StorageException;
 import wellnus.exception.TokenizerException;
 import wellnus.reflection.feature.IndexMapper;
@@ -18,21 +19,19 @@ import wellnus.reflection.feature.ReflectUi;
  * Unlike command to remove reflection questions from favorite questions.
  */
 public class UnlikeCommand extends Command {
-    private static final String COMMAND_DESCRIPTION = "unlike (index) - Remove a particular question "
+    private static final String COMMAND_DESCRIPTION = "unlike - Remove a particular question "
             + "from favorite list.";
     private static final String COMMAND_USAGE = "usage: unlike (index)";
     private static final String COMMAND_KEYWORD = "unlike";
     private static final String FEATURE_NAME = "reflect";
-    private static final String INVALID_COMMAND_MSG = "Command is invalid.";
-    private static final String INVALID_COMMAND_NOTES = "Please check the available commands "
-            + "and the format of commands.";
-    private static final String WRONG_INDEX_MSG = "Please input the correct index of the question you "
-            + "remove from favorite list!";
+    private static final String INVALID_COMMAND_MSG = "Invalid command issued, expected 'unlike'!";
+    private static final String INVALID_COMMAND_NOTES = "Please try 'help' command to check the "
+            + "available commands and their usages!";
+    private static final String WRONG_INDEX_MSG = "Index is out of range!";
+    private static final String WRONG_INDEX_NOTE = "Please input the correct index of the question you want to "
+            + "remove from your favorite list!";
     private static final String COMMAND_KEYWORD_ASSERTION = "The key should be unlike.";
     private static final String EMPTY_FAV_LIST_MSG = "The favorite list is empty, there is nothing to be removed.";
-    private static final String MISSING_SET_QUESTIONS = "A set of questions has not been gotten";
-    private static final String MISSING_SET_QUESTIONS_NOTES = "Please get a set of questions before adding to"
-            + " favorite list!";
     private static final String TOKENIZER_ERROR = "The data cannot be tokenized for storage properly!!";
     private static final String STORAGE_ERROR = "The file data cannot be stored properly!!";
     private static final int INDEX_ZERO = 0;
@@ -116,19 +115,11 @@ public class UnlikeCommand extends Command {
      * @throws BadCommandException If an invalid command is given
      */
     @Override
-    public void validateCommand(HashMap<String, String> commandMap) throws BadCommandException, NumberFormatException {
+    public void validateCommand(HashMap<String, String> commandMap) throws BadCommandException {
         if (commandMap.size() != ARGUMENT_PAYLOAD_SIZE) {
             throw new BadCommandException(INVALID_COMMAND_MSG);
         } else if (!commandMap.containsKey(COMMAND_KEYWORD)) {
             throw new BadCommandException(INVALID_COMMAND_MSG);
-        } else {
-            int questionIndex = Integer.parseInt(commandMap.get(COMMAND_KEYWORD));
-            if (this.favQuestionIndexes.size() == EMPTY_LIST) {
-                throw new BadCommandException(EMPTY_FAV_LIST_MSG);
-            }
-            if (questionIndex > this.favQuestionIndexes.size() || questionIndex < LOWER_BOUND) {
-                throw new BadCommandException(WRONG_INDEX_MSG);
-            }
         }
         assert getArguments().containsKey(COMMAND_KEYWORD) : COMMAND_KEYWORD_ASSERTION;
     }
@@ -145,22 +136,23 @@ public class UnlikeCommand extends Command {
             LOGGER.log(Level.INFO, INVALID_COMMAND_MSG);
             UI.printErrorFor(badCommandException, INVALID_COMMAND_NOTES);
             return;
-        } catch (NumberFormatException numberFormatException) {
-            LOGGER.log(Level.INFO, WRONG_INDEX_MSG);
-            UI.printErrorFor(numberFormatException, WRONG_INDEX_MSG);
-            return;
         }
         try {
             removeFavQuestion(getArguments().get(COMMAND_KEYWORD));
-        } catch (BadCommandException badCommandException) {
-            LOGGER.log(Level.INFO, MISSING_SET_QUESTIONS);
-            UI.printErrorFor(badCommandException, MISSING_SET_QUESTIONS_NOTES);
         } catch (TokenizerException tokenizerException) {
             LOGGER.log(Level.WARNING, TOKENIZER_ERROR);
             UI.printErrorFor(tokenizerException, TOKENIZER_ERROR);
         } catch (StorageException storageException) {
             LOGGER.log(Level.WARNING, STORAGE_ERROR);
             UI.printErrorFor(storageException, STORAGE_ERROR);
+        } catch (NumberFormatException numberFormatException) {
+            LOGGER.log(Level.INFO, WRONG_INDEX_MSG);
+            UI.printErrorFor(numberFormatException, WRONG_INDEX_NOTE);
+        } catch (ReflectionException reflectionException) {
+            UI.printOutputMessage(reflectionException.getMessage());
+        } catch (BadCommandException badCommandException) {
+            LOGGER.log(Level.INFO, INVALID_COMMAND_MSG);
+            UI.printErrorFor(badCommandException, INVALID_COMMAND_NOTES);
         }
     }
 
@@ -170,13 +162,18 @@ public class UnlikeCommand extends Command {
      * A valid index will only be removed(i.e. passed validateCommand()) if the favorite list in not empty.
      *
      * @param questionIndex User input of the index of question to be removed from favorite list.
-     * @throws BadCommandException If there is not a set of question generated yet.
      * @throws TokenizerException If there is error in tokenization of index
      * @throws StorageException If there is error in storing the data
      */
-    public void removeFavQuestion(String questionIndex) throws BadCommandException, TokenizerException,
-            StorageException {
+    public void removeFavQuestion(String questionIndex) throws TokenizerException, StorageException,
+            NumberFormatException, ReflectionException, BadCommandException {
         int questionIndexInt = Integer.parseInt(questionIndex);
+        if (this.favQuestionIndexes.size() == EMPTY_LIST) {
+            throw new ReflectionException(EMPTY_FAV_LIST_MSG);
+        }
+        if (questionIndexInt > this.favQuestionIndexes.size() || questionIndexInt < LOWER_BOUND) {
+            throw new BadCommandException(WRONG_INDEX_MSG);
+        }
         IndexMapper indexMapper = new IndexMapper(this.favQuestionIndexes);
         HashMap<Integer, Integer> indexQuestionMap = indexMapper.mapIndex();
         int indexToRemove = indexQuestionMap.get(questionIndexInt);

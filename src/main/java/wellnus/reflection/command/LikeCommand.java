@@ -18,7 +18,7 @@ import wellnus.reflection.feature.ReflectUi;
  * Like command to add reflection questions into favorite list.
  */
 public class LikeCommand extends Command {
-    public static final String COMMAND_DESCRIPTION = "like (index) - Add a particular question to favorite list.";
+    public static final String COMMAND_DESCRIPTION = "like - Add a particular question to favorite list.";
     public static final String COMMAND_USAGE = "usage: like (index)";
     public static final String COMMAND_KEYWORD = "like";
     private static final String FEATURE_NAME = "reflect";
