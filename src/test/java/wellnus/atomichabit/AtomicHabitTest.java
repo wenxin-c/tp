@@ -184,4 +184,40 @@ public class AtomicHabitTest {
         Command updateCommandForNegativeIndex = new UpdateCommand(arguments, habitList, gamificationData);
         Assertions.assertThrows(AtomicHabitException.class, updateCommandForNegativeIndex::execute);
     }
+
+    /**
+     * Test UpdateCommand to successfully decrement a habit
+     *
+     * @throws WellNusException
+     */
+    @Test
+    public void updateHabit_decrement_success() throws WellNusException {
+        updateHabit_checkOutputUserInputIncrement_success();
+        String payload = "junit test";
+        String habitIndex = "1";
+        String decrement = "-3";
+        String testUpdateCommand = String.format("%s --id %s --by %s", UPDATE_HABIT_COMMAND, habitIndex, decrement)
+                + System.lineSeparator();
+        HashMap<String, String> arguments = parser.parseUserInput(testUpdateCommand);
+        Command updateCommand = new UpdateCommand(arguments, habitList, gamificationData);
+        String expectedUpdateHabitOutput = "The following habit has been incremented! Keep up the good work!"
+                + System.lineSeparator()
+                + habitIndex + "." + payload + " " + "[1]";
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outputStream));
+        updateCommand.execute();
+        Assertions.assertEquals(expectedUpdateHabitOutput, getMessageFrom(outputStream.toString()));
+    }
+
+    @Test
+    public void updateHabit_invalidDecrement_atomicHabitExceptionThrown() throws WellNusException {
+        updateHabit_checkOutputUserInputIncrement_success();
+        String habitIndex = "1";
+        String decrement = "-100000000";
+        String testUpdateCommand = String.format("%s --id %s --by %s", UPDATE_HABIT_COMMAND, habitIndex, decrement)
+                + System.lineSeparator();
+        HashMap<String, String> arguments = parser.parseUserInput(testUpdateCommand);
+        Command updateCommand = new UpdateCommand(arguments, habitList, gamificationData);
+        Assertions.assertThrows(AtomicHabitException.class, updateCommand::execute);
+    }
 }

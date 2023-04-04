@@ -19,7 +19,8 @@ public class AddCommand extends Command {
     public static final String COMMAND_USAGE = "usage: add --name (your habit name)";
     public static final String COMMAND_KEYWORD = "add";
     private static final String COMMAND_INVALID_ARGUMENTS_MESSAGE = "Wrong arguments given to 'add'!";
-    private static final String DUPLICATE_HABIT_MESSAGE = "You already have this habit in your list! Use 'update' instead.";
+    private static final String DUPLICATE_HABIT_MESSAGE = "You already have this habit in your list!"
+            + " Use 'update' instead.";
     private static final String COMMAND_NAME_ARGUMENT = "name";
     private static final String COMMAND_KEYWORD_ASSERTION = "The key should be add.";
     private static final String COMMAND_PAYLOAD_ASSERTION = "The payload should not be empty.";
