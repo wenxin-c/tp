@@ -50,7 +50,7 @@ public class AtomicHabitList {
     }
 
     /**
-     * Method to add atomicHabit to list containing all habits
+     * Method to add atomicHabit to list containing all habits.
      *
      * @param atomicHabit New atomic habit to add into the list that this class manages
      */
@@ -60,7 +60,7 @@ public class AtomicHabitList {
     }
 
     /**
-     * Method to delete atomicHabit from the list containing all habits
+     * Method to delete atomicHabit from the list containing all habits.
      *
      * @param atomicHabit Atomic habit to be deleted
      */
@@ -95,7 +95,7 @@ public class AtomicHabitList {
     }
 
     /**
-     * Method to get list containing all habits
+     * Method to get list containing all habits.
      *
      * @return allAtomicHabits which is an arraylist containing all habits
      */
