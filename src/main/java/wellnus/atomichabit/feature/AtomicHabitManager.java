@@ -26,10 +26,17 @@ public class AtomicHabitManager extends Manager {
             + "with our suite of tools to help you grow and nurture a better you!";
     public static final String FEATURE_NAME = "hb";
     private static final String ADD_COMMAND_KEYWORD = "add";
-    private static final String ATOMIC_HABIT_LOGO = "   _    _                _       _  _        _     _  _       \n"
-            + "  /_\\  | |_  ___  _ __  (_) __  | || | __ _ | |__ (_)| |_  ___\n"
-            + " / _ \\ |  _|/ _ \\| '  \\ | |/ _| | __ |/ _` || '_ \\| ||  _|(_-<\n"
-            + "/_/ \\_\\ \\__|\\___/|_|_|_||_|\\__| |_||_|\\__,_||_.__/|_| \\__|/__/\n";
+    private static final String ATOMIC_HABIT_LOGO = "\n"
+            +
+            "    _  _             _      _  _      _    _ _      \n"
+            +
+            "   /_\\| |_ ___ _ __ (_)__  | || |__ _| |__(_) |_ ___\n"
+            +
+            "  / _ \\  _/ _ \\ '  \\| / _| | __ / _` | '_ \\ |  _(_-<\n"
+            +
+            " /_/ \\_\\__\\___/_|_|_|_\\__| |_||_\\__,_|_.__/_|\\__/__/\n"
+            +
+            "                                                    \n";
     private static final String ATOMIC_HABIT_GREET = "Welcome to the atomic habits feature!";
     private static final String HOME_COMMAND_KEYWORD = "home";
     private static final String LIST_COMMAND_KEYWORD = "list";
@@ -50,6 +57,7 @@ public class AtomicHabitManager extends Manager {
         this.gamificationData = gamificationData;
         this.habitList = new AtomicHabitList();
         this.textUi = new TextUi();
+        this.textUi.setCursorName(FEATURE_NAME);
     }
 
     private static String getHelpDescription() {

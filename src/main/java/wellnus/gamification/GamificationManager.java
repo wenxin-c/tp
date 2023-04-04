@@ -18,7 +18,7 @@ import wellnus.ui.TextUi;
  */
 public class GamificationManager extends Manager {
     public static final String FEATURE_NAME = "gamif";
-    public static final String FEATURE_HELP_DESCRIPTION = "gamif: Gamification gives you the "
+    public static final String FEATURE_HELP_DESCRIPTION = "Gamification (gamif) - Gamification gives you the "
             + "motivation to continue improving your wellness by rewarding you for your efforts!";
     private static final String COMMAND_HELP = "help";
     private static final String COMMAND_HOME = "home";
@@ -34,6 +34,7 @@ public class GamificationManager extends Manager {
     public GamificationManager() {
         this.gamificationData = new GamificationData();
         this.textUi = new TextUi();
+        this.textUi.setCursorName(FEATURE_NAME);
     }
 
     private Command getCommandFor(String command) throws BadCommandException {
@@ -80,12 +81,9 @@ public class GamificationManager extends Manager {
      * <br>
      * It is calls the relevant methods to present the user with the gamification feature's interface
      * and manage the user's commands.
-     *
-     * @throws BadCommandException If an unrecognised command is given or invalid arguments are given for
-     *                             a recognised command
      */
     @Override
-    public void runEventDriver() throws BadCommandException {
+    public void runEventDriver() {
         GamificationUi.printLogo();
         boolean isExit = false;
         while (!isExit) {
