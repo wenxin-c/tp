@@ -22,6 +22,7 @@ import wellnus.ui.TextUi;
 public class AtomicHabitTest {
     private static final String ADD_HABIT_COMMAND = "add";
     private static final String UPDATE_HABIT_COMMAND = "update";
+    private static final String DELETE_HABIT_COMMAND = "delete";
     private final AtomicHabitList habitList;
     private final ByteArrayOutputStream outputStreamCaptor;
     private final CommandParser parser;

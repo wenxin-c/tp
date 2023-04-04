@@ -80,6 +80,11 @@ public class QuestionList {
             UI.printErrorFor(storageException, STORAGE_ERROR);
         }
         this.randomQuestionIndexes = new HashSet<>();
+        this.dataIndex = new ArrayList<>();
+        HashSet<Integer> setLike = new HashSet<>();
+        HashSet<Integer> setPrev = new HashSet<>();
+        this.dataIndex.add(setLike);
+        this.dataIndex.add(setPrev);
         try {
             this.loadQuestionData();
         } catch (StorageException storageException) {

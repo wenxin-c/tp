@@ -290,6 +290,43 @@ The following habit has been incremented! Keep up the good work!
 
 <!-- @@author BernardLesley -->
 
+### Delete an atomic habit: delete
+
+Delete an atomic habit that is not relevant anymore.
+
+Format:
+
+* Step 1: List the current habits using command
+* `list`
+* Step 2: Select the habit to delete by entering the index number of the habit HABIT_INDEX according to index of the
+  list output
+  * `delete --id HABIT-INDEX`
+
+Example of usage:
+
+* `list`
+* `delete --id 1`
+
+Expected outcome:
+
+```
+—---------------------------------------------------------------
+Here is the current accumulation of your atomic habits!
+Keep up the good work and you will develop a helpful habit in no time
+1. Make bed every morning [5]
+2. Read for at least 30 minutes every day [3] 
+—---------------------------------------------------------------
+```
+
+```
+—---------------------------------------------------------------
+The following habit has been deleted:
+Make bed every morning [5] has been successfully deleted
+—---------------------------------------------------------------
+```
+
+<!-- @@author BernardLesley -->
+
 ### Viewing Atomic Habit help: `help`
 
 Lists all commands available and provide a short description of Atomic Habit feature
