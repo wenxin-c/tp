@@ -18,7 +18,8 @@ public class StatsCommand extends Command {
     public static final String COMMAND_USAGE = "usage: stats";
     public static final String FEATURE_NAME = "gamif";
     private static final int NUM_OF_ARGUMENTS = 1;
-    private static final String TOO_MANY_ARGUMENTS = "Too many arguments given for 'stats' command";
+    private static final String TOO_MANY_ARGUMENTS = "Invalid arguments given, too many arguments given "
+            + "to 'stats' command!";
     private static final String WRONG_COMMAND_MESSAGE = "StatsCommand called for the wrong command keyword";
     private final GamificationData gamData;
 

@@ -21,14 +21,16 @@ public class LikeCommand extends Command {
     public static final String COMMAND_USAGE = "usage: like (index)";
     public static final String COMMAND_KEYWORD = "like";
     private static final String FEATURE_NAME = "reflect";
-    private static final String INVALID_COMMAND_MSG = "Command is invalid.";
+    private static final String INVALID_COMMAND_MSG = "Invalid command issued, expected 'like'!";
+    private static final String INVALID_ARGUMENT_MSG = "Invalid arguments given to 'like'!";
     private static final String INVALID_COMMAND_NOTES = "Please check the available commands "
             + "and the format of commands.";
-    private static final String WRONG_INDEX_MSG = "Please input the correct index of the question you like!";
+    private static final String WRONG_INDEX_MSG = "Index is out of range!";
+    private static final String WRONG_INDEX_NOTE = "Please input the correct index of the question you like!";
     private static final String COMMAND_KEYWORD_ASSERTION = "The key should be like.";
-    private static final String MISSING_SET_QUESTIONS = "A set of questions has not been gotten";
-    private static final String MISSING_SET_QUESTIONS_NOTES = "Please get a set of questions before adding to favorite "
-            + "list!";
+    private static final String MISSING_SET_QUESTIONS = "A set of questions has not been gotten!";
+    private static final String MISSING_SET_QUESTIONS_NOTES = "Please try 'get' command to generate a set of questions "
+            + "before adding to favorite list!";
     private static final String TOKENIZER_ERROR = "The data cannot be tokenized for storage properly!!";
     private static final String STORAGE_ERROR = "The file data cannot be stored properly!!";
     private static final int ARGUMENT_PAYLOAD_SIZE = 1;
@@ -114,7 +116,7 @@ public class LikeCommand extends Command {
     @Override
     public void validateCommand(HashMap<String, String> commandMap) throws BadCommandException, NumberFormatException {
         if (commandMap.size() != ARGUMENT_PAYLOAD_SIZE) {
-            throw new BadCommandException(INVALID_COMMAND_MSG);
+            throw new BadCommandException(INVALID_ARGUMENT_MSG);
         } else if (!commandMap.containsKey(COMMAND_KEYWORD)) {
             throw new BadCommandException(INVALID_COMMAND_MSG);
         } else {
@@ -140,7 +142,7 @@ public class LikeCommand extends Command {
             return;
         } catch (NumberFormatException numberFormatException) {
             LOGGER.log(Level.INFO, WRONG_INDEX_MSG);
-            UI.printErrorFor(numberFormatException, WRONG_INDEX_MSG);
+            UI.printErrorFor(numberFormatException, WRONG_INDEX_NOTE);
             return;
         }
         try {

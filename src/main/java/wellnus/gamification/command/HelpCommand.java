@@ -16,14 +16,16 @@ public class HelpCommand extends Command {
     public static final String COMMAND_DESCRIPTION = "help - Get help on what commands can be used "
             + "in WellNUS++ Gamification Feature";
     public static final String COMMAND_USAGE = "usage: help [command-to-check]";
-    private static final String BAD_COMMAND_MESSAGE = "help does not take in any arguments!";
+    private static final String BAD_COMMAND_MESSAGE = "Invalid arguments given, 'help' should not take "
+            + "in any arguments!";
     private static final String COMMAND_KEYWORD = "help";
     private static final String NO_FEATURE_KEYWORD = "";
     private static final String HELP_PREAMBLE = "Input `help` to see all available commands.\n"
             + "Input `help [command-to-check]` to get usage help for a specific command.\n"
             + "Here are all the commands available for you!";
-    private static final String ERROR_UNKNOWN_COMMAND = "Sorry, we couldn't find that command!\n"
-            + "To find a command accessible in this part of WellNUS++, try `help`!";
+    private static final String ERROR_UNKNOWN_COMMAND = "Invalid command issued!";
+    private static final String COMMAND_INVALID_COMMAND_NOTE = "Please try 'help' command to check the "
+            + "available commands and their usages!";
     private static final String PADDING = " ";
     private static final String DOT = ".";
     private static final int ONE_OFFSET = 1;
@@ -99,7 +101,8 @@ public class HelpCommand extends Command {
             printUsageMessage(StatsCommand.COMMAND_DESCRIPTION, StatsCommand.COMMAND_USAGE);
             break;
         default:
-            textUi.printOutputMessage(ERROR_UNKNOWN_COMMAND);
+            BadCommandException unknownCommand = new BadCommandException(ERROR_UNKNOWN_COMMAND);
+            textUi.printErrorFor(unknownCommand, COMMAND_INVALID_COMMAND_NOTE);
         }
     }
 
@@ -132,7 +135,7 @@ public class HelpCommand extends Command {
         try {
             validateCommand(getArguments());
         } catch (BadCommandException exception) {
-            getTextUi().printOutputMessage(exception.getMessage());
+            getTextUi().printErrorFor(exception, COMMAND_INVALID_COMMAND_NOTE);
             return;
         }
         this.printHelpMessage();

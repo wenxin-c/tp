@@ -23,8 +23,9 @@ public class GamificationManager extends Manager {
     private static final String COMMAND_HELP = "help";
     private static final String COMMAND_HOME = "home";
     private static final String COMMAND_STATS = "stats";
-    private static final String UNRECOGNISED_COMMAND_ERROR = "Unrecognised command %s, see 'help' on our available "
-            + "commands";
+    private static final String UNRECOGNISED_COMMAND_ERROR = "Invalid command %s issued!";
+    private static final String COMMAND_INVALID_COMMAND_NOTE = "Please try 'help' command to check the "
+            + "available commands and their usages!";
     private final GamificationData gamificationData;
     private final TextUi textUi;
 
@@ -93,8 +94,7 @@ public class GamificationManager extends Manager {
                 command.execute();
                 isExit = HomeCommand.isHome(command);
             } catch (WellNusException exception) {
-                String noAdditionalMsg = "";
-                textUi.printErrorFor(exception, noAdditionalMsg);
+                textUi.printErrorFor(exception, COMMAND_INVALID_COMMAND_NOTE);
             }
         }
     }

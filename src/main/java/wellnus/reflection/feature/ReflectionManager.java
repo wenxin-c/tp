@@ -29,10 +29,10 @@ public class ReflectionManager extends Manager {
     private static final String LIKE_COMMAND = "like";
     private static final String FAV_COMMAND = "fav";
     private static final String PREV_COMMAND = "prev";
-    private static final String NO_ELEMENT_MESSAGE = "There is no new line of input, please key in inputs.";
+    private static final String NO_ELEMENT_MESSAGE = "There is no new line of input, please key in inputs!";
     private static final String INVALID_COMMAND_MESSAGE = "The command is invalid!!";
-    private static final String INVALID_COMMAND_NOTES = "Please check the available commands using help command "
-            + "and enter a valid command.";
+    private static final String INVALID_COMMAND_NOTES = "Please try 'help' command to check the "
+            + "available commands and their usages!";
     private static final String COMMAND_TYPE_ASSERTION = "Command type should have length greater than 0";
     private static final String ARGUMENT_PAYLOAD_ASSERTION = "Argument-payload pairs cannot be empty";
     private static final String LOGO =

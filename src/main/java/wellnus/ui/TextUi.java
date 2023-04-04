@@ -23,10 +23,9 @@ public class TextUi {
     private static final String ERROR_MESSAGE_LABEL = "Error Message:";
     private static final String ERROR_EMPTY_STRING = "The string argument should not be empty!";
     private static final String EXTRA_MESSAGE_LABEL = "Note:";
-    private static final String NO_INPUT_ELEMENT_MSG = "There is no new line of element,"
-            + "please key in your input!!";
-    private static final String BUFFER_OVERFLOW_MSG = "Your input is too long,"
-            + "please shorten it!!";
+    private static final String NO_INPUT_ELEMENT_MSG = "There is no new line of element, "
+            + "please key in input!";
+    private static final String BUFFER_OVERFLOW_MSG = "Input is too long, please shorten your input!";
     private static final String CURSOR_CARET = "(%s):~$ ";
     private final Scanner scanner;
     private String separator = "-";

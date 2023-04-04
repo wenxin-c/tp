@@ -25,9 +25,10 @@ public class GetCommand extends Command {
     private static final String FEATURE_NAME = "reflect";
 
     private static final String PAYLOAD = "";
-    private static final String INVALID_COMMAND_MSG = "Command is invalid.";
-    private static final String INVALID_COMMAND_NOTES = "Please check the available commands "
-            + "and the format of commands.";
+    private static final String INVALID_COMMAND_MSG = "Invalid command issued, expected 'get'!";
+    private static final String INVALID_ARGUMENT_MSG = "Invalid arguments given to 'get'!";
+    private static final String INVALID_COMMAND_NOTES = "Please try 'help' command to check the "
+            + "available commands and their usages!";
     private static final String COMMAND_KEYWORD_ASSERTION = "The key should be get.";
     private static final String COMMAND_PAYLOAD_ASSERTION = "The payload should be empty.";
     private static final String NUM_SELECTED_QUESTIONS_ASSERTION = "The number of selected questions should be 5.";
@@ -136,11 +137,11 @@ public class GetCommand extends Command {
     @Override
     public void validateCommand(HashMap<String, String> commandMap) throws BadCommandException {
         if (commandMap.size() != ARGUMENT_PAYLOAD_SIZE) {
-            throw new BadCommandException(INVALID_COMMAND_MSG);
+            throw new BadCommandException(INVALID_ARGUMENT_MSG);
         } else if (!commandMap.containsKey(COMMAND_KEYWORD)) {
             throw new BadCommandException(INVALID_COMMAND_MSG);
         } else if (!commandMap.get(COMMAND_KEYWORD).equals(PAYLOAD)) {
-            throw new BadCommandException(INVALID_COMMAND_MSG);
+            throw new BadCommandException(INVALID_ARGUMENT_MSG);
         }
         assert getArguments().containsKey(COMMAND_KEYWORD) : COMMAND_KEYWORD_ASSERTION;
         assert getArguments().get(COMMAND_KEYWORD).equals(PAYLOAD) : COMMAND_PAYLOAD_ASSERTION;

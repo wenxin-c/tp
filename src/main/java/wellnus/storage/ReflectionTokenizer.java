@@ -20,7 +20,7 @@ public class ReflectionTokenizer implements Tokenizer<Set<Integer>> {
     private static final String COLON_CHARACTER = ":";
     private static final int NO_LIMIT = -1;
     private static final String DETOKENIZE_ERROR_MESSAGE = "Detokenization failed! "
-            + "The file might be corrupted";
+            + "The file might be corrupted!";
 
     private String getTokenizedIndexes(String key, Set<Integer> indexesToTokenize) {
         String tokenizedIndexes = key + COLON_CHARACTER;

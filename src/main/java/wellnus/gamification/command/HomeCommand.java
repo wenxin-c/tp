@@ -16,10 +16,12 @@ public class HomeCommand extends Command {
     public static final String COMMAND_USAGE = "usage: home";
     public static final String FEATURE_NAME = "gamif";
     private static final int NUM_OF_ARGUMENTS = 1;
-    private static final String TOO_MANY_ARGUMENTS_MESSAGE = "Too many arguments given";
+    private static final String TOO_MANY_ARGUMENTS_MESSAGE = "Invalid arguments given, too many arguments "
+            + "given to 'home'!";
     private static final String WRONG_COMMAND_KEYWORD_MESSAGE = "Gamification feature's HomeCommand called for the "
             + "wrong command";
-    private static final String WRONG_ARGUMENTS_MESSAGE = "'home' command shouldn't have an additional '%s' argument";
+    private static final String WRONG_ARGUMENTS_MESSAGE = "Invalid arguments given, 'home' command shouldn't "
+            + "have an additional '%s' argument";
 
     /**
      * Initialises a Command Object to handle the 'home' command from the user
