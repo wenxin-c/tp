@@ -19,10 +19,10 @@ import wellnus.reflection.feature.ReflectUi;
  * Unlike command to remove reflection questions from favorite questions.
  */
 public class UnlikeCommand extends Command {
-    private static final String COMMAND_DESCRIPTION = "unlike - Remove a particular question "
+    public static final String COMMAND_DESCRIPTION = "unlike - Remove a particular question "
             + "from favorite list.";
-    private static final String COMMAND_USAGE = "usage: unlike (index)";
-    private static final String COMMAND_KEYWORD = "unlike";
+    public static final String COMMAND_USAGE = "usage: unlike (index)";
+    public static final String COMMAND_KEYWORD = "unlike";
     private static final String FEATURE_NAME = "reflect";
     private static final String INVALID_COMMAND_MSG = "Invalid command issued, expected 'unlike'!";
     private static final String INVALID_COMMAND_NOTES = "Please try 'help' command to check the "
@@ -121,7 +121,6 @@ public class UnlikeCommand extends Command {
         } else if (!commandMap.containsKey(COMMAND_KEYWORD)) {
             throw new BadCommandException(INVALID_COMMAND_MSG);
         }
-        assert getArguments().containsKey(COMMAND_KEYWORD) : COMMAND_KEYWORD_ASSERTION;
     }
 
     /**

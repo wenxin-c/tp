@@ -9,9 +9,11 @@ import org.junit.jupiter.api.Test;
 
 import wellnus.command.CommandParser;
 import wellnus.exception.BadCommandException;
+import wellnus.exception.ReflectionException;
 import wellnus.reflection.feature.QuestionList;
 
 class UnlikeCommandTest {
+    private static final String UNLIKE_KEYWORD = "unlike";
     private static final String UNLIKE_COMMAND = "unlike 1";
     private static final String UNLIKE_CMD_OUT_BOUND_INDEX = "unlike -1";
     private static final String UNLIKE_CMD_WRONG_FORMAT = "unlike ab";
@@ -25,14 +27,21 @@ class UnlikeCommandTest {
         CommandParser commandParser = new CommandParser();
         HashMap<String, String> argumentsUnlikeCmdOutBound = commandParser.parseUserInput(UNLIKE_CMD_OUT_BOUND_INDEX);
         UnlikeCommand unlikeCmd = new UnlikeCommand(argumentsUnlikeCmdOutBound, questionList);
-        assertThrows(BadCommandException.class, (
-        ) -> {
-            unlikeCmd.validateCommand(argumentsUnlikeCmdOutBound);
-        });
+        if (!questionList.hasFavQuestions()) {
+            assertThrows(ReflectionException.class, (
+            ) -> {
+                unlikeCmd.removeFavQuestion(argumentsUnlikeCmdOutBound.get(UNLIKE_KEYWORD));
+            });
+        } else {
+            assertThrows(BadCommandException.class, (
+            ) -> {
+                unlikeCmd.removeFavQuestion(argumentsUnlikeCmdOutBound.get(UNLIKE_KEYWORD));
+            });
+        }
         HashMap<String, String> argumentsUnlikeCmdWrongFormat = commandParser.parseUserInput(UNLIKE_CMD_WRONG_FORMAT);
         assertThrows(NumberFormatException.class, (
         ) -> {
-            unlikeCmd.validateCommand(argumentsUnlikeCmdWrongFormat);
+            unlikeCmd.removeFavQuestion(argumentsUnlikeCmdWrongFormat.get(UNLIKE_KEYWORD));
         });
     }
 
