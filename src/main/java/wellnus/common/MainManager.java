@@ -30,6 +30,7 @@ public class MainManager extends Manager {
     public static final String FEATURE_HELP_DESCRIPTION = "WellNUS++ is a Command Line Interface (CLI)"
             + " app for you to keep track, manage and improve your physical and mental wellness.";
     private static final String EXIT_COMMAND_KEYWORD = "exit";
+    private static final String FEATURE_NAME = "main";
     private static final String GREETING_MESSAGE = "Enter a command to start using WellNUS++! Try 'help' "
             + "if you're new, or just unsure.";
     private static final String HELP_COMMAND_KEYWORD = "help";
@@ -50,6 +51,7 @@ public class MainManager extends Manager {
         super();
         this.featureManagers = new ArrayList<>();
         this.textUi = new TextUi();
+        this.textUi.setCursorName(FEATURE_NAME);
         this.setSupportedFeatureManagers();
     }
 

@@ -67,6 +67,7 @@ public class ReflectionManager extends Manager {
      */
     public ReflectionManager() {
         setIsExit(IS_EXIT_INITIAL);
+        this.UI.setCursorName(FEATURE_NAME);
     }
 
     public static void setIsExit(boolean status) {

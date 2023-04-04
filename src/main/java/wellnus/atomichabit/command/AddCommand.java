@@ -116,10 +116,6 @@ public class AddCommand extends Command {
         if (!arguments.containsKey(AddCommand.COMMAND_NAME_ARGUMENT)) {
             throw new BadCommandException(AddCommand.COMMAND_INVALID_ARGUMENTS_MESSAGE);
         }
-        String name = arguments.get(AddCommand.COMMAND_NAME_ARGUMENT);
-        if (name.isEmpty()) {
-            throw new BadCommandException(AddCommand.COMMAND_INVALID_ARGUMENTS_MESSAGE);
-        }
     }
 
     /**

@@ -15,42 +15,45 @@ mental wellness in various aspects. If you can type fast, WellNUS++ can update t
 traditional Graphical User Interface(GUI) apps.
 
 ## Table of Contents
+
 <!-- TOC -->
+
 * [WellNUS++ User Guide](#wellnus-user-guide)
-  * [Introduction](#introduction)
-  * [Table of Contents](#table-of-contents)
-  * [Quick Start](#quick-start)
-  * [Features](#features)
-    * [Command Format](#command-format)
-    * [Viewing WellNUS++ help: `help`](#viewing-wellnus-help--help)
-    * [Accessing feature: `FEATURE_NAME`](#accessing-feature--featurename)
-    * [Accessing atomic habit feature : `hb`](#accessing-atomic-habit-feature--hb)
-    * [Add new atomic habit: `add`](#add-new-atomic-habit--add)
-    * [List all atomic habit: `list`](#list-all-atomic-habit--list)
-    * [Update an atomic habit: `update`](#update-an-atomic-habit--update)
-    * [Viewing Atomic Habit help: `help`](#viewing-atomic-habit-help--help)
-    * [Accessing gamification feature: `gamif`](#accessing-gamification-feature--gamif)
-    * [Gamification statistics: `stats`](#gamification-statistics--stats)
-    * [Viewing Gamification help: `help`](#viewing-gamification-help--help)
-    * [Accessing self reflection feature: `reflect`](#accessing-self-reflection-feature--reflect)
-    * [Get reflection questions: `get`](#get-reflection-questions--get)
-    * [Add reflection question into favorite list: `like INDEX`](#add-reflection-question-into-favorite-list--like-index)
-    * [View favorite list: `fav`](#view-favorite-list--fav)
-    * [Get the previous set of reflection questions generated: `prev`](#get-the-previous-set-of-reflection-questions-generated--prev)
-    * [Viewing Reflection help: `help`](#viewing-reflection-help--help)
-    * [Accessing Focus Timer Feature: `ft`](#accessing-focus-timer-feature--ft)
-    * [Start Session: `start`](#start-session--start)
-    * [Pause session: `pause`](#pause-session--pause)
-    * [Resume session: `resume`](#resume-session--resume)
-    * [Check time: `check`](#check-time--check)
-    * [Next timer: `next`](#next-timer--next)
-    * [Stop session: `stop`](#stop-session--stop)
-    * [Viewing Focus Timer help: `help`](#viewing-focus-timer-help--help)
-    * [Configure the Timer: `config`](#configure-the-timer--config)
-    * [Return back main WellNUS++: `home`](#return-back-main-wellnus--home)
-    * [Exit WellNUS++: `exit`](#exit-wellnus--exit)
-  * [FAQ](#faq)
-  * [Command Summary](#command-summary)
+    * [Introduction](#introduction)
+    * [Table of Contents](#table-of-contents)
+    * [Quick Start](#quick-start)
+    * [Features](#features)
+        * [Command Format](#command-format)
+        * [Viewing WellNUS++ help: `help`](#viewing-wellnus-help--help)
+        * [Accessing feature: `FEATURE_NAME`](#accessing-feature--featurename)
+        * [Accessing atomic habit feature : `hb`](#accessing-atomic-habit-feature--hb)
+        * [Add new atomic habit: `add`](#add-new-atomic-habit--add)
+        * [List all atomic habit: `list`](#list-all-atomic-habit--list)
+        * [Update an atomic habit: `update`](#update-an-atomic-habit--update)
+        * [Viewing Atomic Habit help: `help`](#viewing-atomic-habit-help--help)
+        * [Accessing gamification feature: `gamif`](#accessing-gamification-feature--gamif)
+        * [Gamification statistics: `stats`](#gamification-statistics--stats)
+        * [Viewing Gamification help: `help`](#viewing-gamification-help--help)
+        * [Accessing self reflection feature: `reflect`](#accessing-self-reflection-feature--reflect)
+        * [Get reflection questions: `get`](#get-reflection-questions--get)
+        * [Add reflection question into favorite list: `like INDEX`](#add-reflection-question-into-favorite-list--like-index)
+        * [View favorite list: `fav`](#view-favorite-list--fav)
+        * [Get the previous set of reflection questions generated: `prev`](#get-the-previous-set-of-reflection-questions-generated--prev)
+        * [Viewing Reflection help: `help`](#viewing-reflection-help--help)
+        * [Accessing Focus Timer Feature: `ft`](#accessing-focus-timer-feature--ft)
+        * [Start Session: `start`](#start-session--start)
+        * [Pause session: `pause`](#pause-session--pause)
+        * [Resume session: `resume`](#resume-session--resume)
+        * [Check time: `check`](#check-time--check)
+        * [Next timer: `next`](#next-timer--next)
+        * [Stop session: `stop`](#stop-session--stop)
+        * [Viewing Focus Timer help: `help`](#viewing-focus-timer-help--help)
+        * [Configure the Timer: `config`](#configure-the-timer--config)
+        * [Return back main WellNUS++: `home`](#return-back-main-wellnus--home)
+        * [Exit WellNUS++: `exit`](#exit-wellnus--exit)
+    * [FAQ](#faq)
+    * [Command Summary](#command-summary)
+
 <!-- TOC -->
 
 ## Quick Start
@@ -99,6 +102,7 @@ WellNUS++ comes with a variety of features to help you enhance your overall well
   e.g. if the command specifies --name NAME --phone PHONE_NUMBER, --phone PHONE_NUMBER --name NAME is also acceptable.
 
 <!-- @@author BernardLesley -->
+
 ### Viewing WellNUS++ help: `help`
 
 Lists all commands available and provide a short description of the application
@@ -144,6 +148,7 @@ Expected outcome:
 ```
 
 <!-- @@author wenxin-c -->
+
 ### Accessing feature: `FEATURE_NAME`
 
 Access specific feature from main interface by inputting the feature_name
@@ -179,6 +184,7 @@ Expected outcome:
 ```
 
 <!-- @@author YongbinWang -->
+
 ### Accessing atomic habit feature : `hb`
 
 Atomic habit feature allows users to keep track of the daily habits they wish to develop for better self improvement.
@@ -257,12 +263,12 @@ Format:
   list output
   The user can specify the number of increments for the habit count via NUMBER_TO_INCREMENT
   The default behaviour is to increment the behaviour by 1
-* `update --id HABIT-INDEX [--inc NUMBER_TO_INCREMENT]`
+* `update --id HABIT-INDEX [--by NUMBER_TO_INCREMENT]`
 
 Example of usage:
 
 * `list`
-* `update --id 1 --inc 2`
+* `update --id 1 --by 2`
 
 Expected outcome:
 
@@ -283,6 +289,7 @@ The following habit has been incremented! Keep up the good work!
 ```
 
 <!-- @@author BernardLesley -->
+
 ### Viewing Atomic Habit help: `help`
 
 Lists all commands available and provide a short description of Atomic Habit feature
@@ -327,6 +334,7 @@ Expected outcome:
 ```
 
 <!-- @@author haoyangw -->
+
 ### Accessing gamification feature: `gamif`
 
 Format: `gamif`
@@ -355,6 +363,7 @@ Expected outcome:
 ```
 
 ### Gamification statistics: `stats`
+
 Displays the user's current XP points and level.
 
 Format: `stats`
@@ -373,6 +382,7 @@ Expected outcome:
 ```
 
 <!-- @@author BernardLesley -->
+
 ### Viewing Gamification help: `help`
 
 Lists all commands available and provide a short description of Gamification feature
@@ -415,6 +425,7 @@ Expected outcome:
 ```
 
 <!-- @@author wenxin-c -->
+
 ### Accessing self reflection feature: `reflect`
 
 Format: `reflect`
@@ -444,6 +455,7 @@ Expected outcome:
 ```
 
 <!-- @@author YongbinWang -->
+
 ### Get reflection questions: `get`
 
 Ask WellNUS++ to get a set of 5 random introspective questions for users to view and reflect on.
@@ -468,6 +480,7 @@ Expected outcome:
 ```
 
 <!-- @@author wenxin-c -->
+
 ### Add reflection question into favorite list: `like INDEX`
 
 Users can add the reflection question they like into favorite list and review afterwards.
@@ -534,6 +547,7 @@ Example output:
 ```
 
 <!-- @@author BernardLesley -->
+
 ### Viewing Reflection help: `help`
 
 Lists all commands available and provide a short description of Reflection feature
@@ -579,6 +593,7 @@ Expected outcome:
 ```
 
 <!--@@author nichyjt-->
+
 ### Accessing Focus Timer Feature: `ft`
 
 Our Focus Timer feature allows users to be productive by setting a configurable work-break timer, inspired by
@@ -602,6 +617,7 @@ Expected outcome:
 ```
 
 <!--@@author YongbinWang-->
+
 ### Start Session: `start`
 
 Ask WellNUS++ to start the focus session consisting of work and break cycles.
@@ -728,6 +744,7 @@ You can also configure the session to your liking with `config`!
 ```
 
 <!-- @@author BernardLesley -->
+
 ### Viewing Focus Timer help: `help`
 
 Lists all commands available and provide a short description of Focus Timer feature
@@ -785,6 +802,7 @@ Expected outcome:
 ```
 
 <!--@@author nichyjt-->
+
 ### Configure the Timer: `config`
 
 Configures the focus timer's settings.
@@ -837,6 +855,7 @@ Expected outcome:
 ```
 
 <!--@@ author BernardLesley-->
+
 ### Return back main WellNUS++: `home`
 
 To leave the current feature and return back to main interface. Each individual feature (i.e. atomic habit,
@@ -888,6 +907,7 @@ Expected outcome:
 ```
 
 <!--@@author haoyangw -->
+
 ## FAQ
 
 **Q**: Will my data be saved after every update?
@@ -908,28 +928,29 @@ explains all commands available within that feature.
 **A**: Each feature's data will be stored in a separate text file within the data folder(relative to the jar file).
 
 <!-- @@author nichyjt -->
+
 ## Command Summary
 
 * Help `help`
 * Access feature`hb`
-  * Add habit `add --name make bed`
-  * View habit `list`
-  * Update habit `list`
-    `update --id 1 [--inc 2]`
+    * Add habit `add --name make bed`
+    * View habit `list`
+    * Update habit `list`
+      `update --id 1 [--inc 2]`
 * Access feature `reflect`
-  * Get reflect question `get`
-  * Like reflect question `like INDEX`
-  * View favorite list `fav`
-  * View previous questions `prev`
+    * Get reflect question `get`
+    * Like reflect question `like INDEX`
+    * View favorite list `fav`
+    * View previous questions `prev`
 * Access feature `gamif`
-  * Display gamification statistics `stats`
+    * Display gamification statistics `stats`
 * Access feature `ft`
-  * Configure the timer `config [--cycle 2 --work 1 --break 1 --longBreak 1]`
-  * Start the timer `start`
-  * Pause the timer `pause`
-  * Resume the timer `resume`
-  * Check the time left `check`
-  * Go to the next countdown `next`
-  * Stop the timer `stop`
+    * Configure the timer `config [--cycle 2 --work 1 --break 1 --longBreak 1]`
+    * Start the timer `start`
+    * Pause the timer `pause`
+    * Resume the timer `resume`
+    * Check the time left `check`
+    * Go to the next countdown `next`
+    * Stop the timer `stop`
 * Return to main interface `home`
 * Exit program `exit`

@@ -34,6 +34,7 @@ public class GamificationManager extends Manager {
     public GamificationManager() {
         this.gamificationData = new GamificationData();
         this.textUi = new TextUi();
+        this.textUi.setCursorName(FEATURE_NAME);
     }
 
     private Command getCommandFor(String command) throws BadCommandException {
