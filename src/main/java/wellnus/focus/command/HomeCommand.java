@@ -82,6 +82,9 @@ public class HomeCommand extends Command {
         if (!session.isSessionReady()) {
             session.getCurrentCountdown().setStop();
         }
+        // Reset the state of the countdown timer
+        session.resetCurrentCountdownIndex();
+        session.initialiseSession();
         textUi.printOutputMessage(HOME_MESSAGE);
     }
 
