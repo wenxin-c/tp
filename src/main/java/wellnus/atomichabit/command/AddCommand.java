@@ -93,6 +93,8 @@ public class AddCommand extends Command {
      * Adds of the new atomic habit into our list of atomic habits.
      * <p>
      * After that, print a message telling the user what the new habit added is
+     *
+     * @throws AtomicHabitException If the habit already exists in the list
      */
     @Override
     public void execute() throws AtomicHabitException {
