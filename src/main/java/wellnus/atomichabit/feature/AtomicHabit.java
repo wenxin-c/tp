@@ -25,12 +25,13 @@ public class AtomicHabit {
      * Will initialise private description and count to the input parameter.
      *
      * @param description Description of atomic habit.
-     * @param count Number of habit to be initialized.
+     * @param count       Number of habit to be initialized.
      */
     public AtomicHabit(String description, int count) {
         this.description = description;
         this.count = count;
     }
+
     public String getDescription() {
         return description;
     }
@@ -41,6 +42,10 @@ public class AtomicHabit {
 
     public void increaseCount(int increment) {
         count += increment;
+    }
+
+    public void decreaseCount(int decrement) {
+        count -= decrement;
     }
 
     @Override
