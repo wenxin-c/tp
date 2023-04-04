@@ -290,6 +290,43 @@ The following habit has been incremented! Keep up the good work!
 
 <!-- @@author BernardLesley -->
 
+### Delete an atomic habit: delete
+
+Delete an atomic habit that is not relevant anymore.
+
+Format:
+
+* Step 1: List the current habits using command
+* `list`
+* Step 2: Select the habit to delete by entering the index number of the habit HABIT_INDEX according to index of the
+  list output
+  * `delete --id HABIT-INDEX`
+
+Example of usage:
+
+* `list`
+* `delete --id 1`
+
+Expected outcome:
+
+```
+—---------------------------------------------------------------
+Here is the current accumulation of your atomic habits!
+Keep up the good work and you will develop a helpful habit in no time
+1. Make bed every morning [5]
+2. Read for at least 30 minutes every day [3] 
+—---------------------------------------------------------------
+```
+
+```
+—---------------------------------------------------------------
+The following habit has been deleted:
+Make bed every morning [5] has been successfully deleted
+—---------------------------------------------------------------
+```
+
+<!-- @@author BernardLesley -->
+
 ### Viewing Atomic Habit help: `help`
 
 Lists all commands available and provide a short description of Atomic Habit feature
@@ -487,7 +524,8 @@ Users can add the reflection question they like into favorite list and review af
 
 Format: `like INDEX`
 
-Note that the users are supposed to at least `get` a set of questions before liking them.
+Note that the users are supposed to at least `get` a set of questions or use `prev` command to 
+review the previous set before liking them.
 Index parameter is limited to integer 1-5 as only 5 questions will be generated in every random set.
 
 Example of usage:
@@ -518,7 +556,42 @@ Example output:
 ============================================================
     1.What are three of my most cherished personal values?
     2.What is my purpose in life?
-    3.What matters to me most right now?
+    3.Am I making time for my social life?
+============================================================
+```
+
+### Remove questions from favorite list: `unlike INDEX`
+
+Users can remove reflection questions from the favorite list.
+
+Format: `unlike 1`
+
+Take note that it is **recommended** to use `fav` command to check the list of questions in the favorite list before
+unliking any of them, so that users are aware which questions they are removing.
+
+Example of usage step 1:
+
+`fav`
+
+Example output step 1: 
+
+```
+============================================================
+    1.What are three of my most cherished personal values?
+    2.What is my purpose in life?
+    3.Am I making time for my social life?
+============================================================
+```
+
+Example of usage step 2: 
+
+`unlike 1`
+
+Example output: 
+
+```
+============================================================
+    You have removed question: What are three of my most cherished personal values? from favorite list!!
 ============================================================
 ```
 

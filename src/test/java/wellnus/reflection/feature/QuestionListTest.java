@@ -1,12 +1,9 @@
-package wellnus.reflection;
+package wellnus.reflection.feature;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.ArrayList;
 
 import org.junit.jupiter.api.Test;
-
-import wellnus.reflection.feature.QuestionList;
-import wellnus.reflection.feature.ReflectionQuestion;
 
 // @@author wenxin-c
 class QuestionListTest {

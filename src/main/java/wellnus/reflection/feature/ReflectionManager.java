@@ -13,6 +13,7 @@ import wellnus.reflection.command.HelpCommand;
 import wellnus.reflection.command.HomeCommand;
 import wellnus.reflection.command.LikeCommand;
 import wellnus.reflection.command.PrevCommand;
+import wellnus.reflection.command.UnlikeCommand;
 
 /**
  * The manager for self reflection section.<br/>
@@ -27,6 +28,7 @@ public class ReflectionManager extends Manager {
     private static final String HOME_COMMAND = "home";
     private static final String HELP_COMMAND = "help";
     private static final String LIKE_COMMAND = "like";
+    private static final String UNLIKE_COMMAND = "unlike";
     private static final String FAV_COMMAND = "fav";
     private static final String PREV_COMMAND = "prev";
     private static final String NO_ELEMENT_MESSAGE = "There is no new line of input, please key in inputs!";
@@ -36,18 +38,13 @@ public class ReflectionManager extends Manager {
     private static final String COMMAND_TYPE_ASSERTION = "Command type should have length greater than 0";
     private static final String ARGUMENT_PAYLOAD_ASSERTION = "Argument-payload pairs cannot be empty";
     private static final String LOGO =
-            "  _____ ______ _      ______   _____  ______ ______ _      ______ _____ _______ _____ ____  _   _ \n"
-                    + " / ____|  ____| |    |  ____| |  __ \\|  ____|  ____| "
-                    + "|    |  ____/ ____|__   __|_   _/ __ \\| \\ | |\n"
-                    + "| (___ | |__  | |    | |__    | |__) | |__  | |__  | "
-                    + "|    | |__ | |       | |    | || |  | |  \\| |\n"
-                    + " \\___ \\|  __| | |    |  __|   |  _  /|  __| |  __| "
-                    + "| |    |  __|| |       | |    | || |  | | . ` |\n"
-                    + " ____) | |____| |____| |      | | \\ \\| |____| |    "
-                    + "| |____| |___| |____   | |   _| || |__| | |\\  |\n"
-                    + "|_____/|______|______|_|      |_|  \\_\\______|_|    "
-                    + "|______|______\\_____|  |_|  "
-                    + "|_____\\____/|_| \\_|\n";
+            "  #####                       ######                                           \n"
+                    + " #     # ###### #      ###### #     # ###### ###### #      ######  ####  ##### \n"
+                    + " #       #      #      #      #     # #      #      #      #      #    #   #   \n"
+                    + "  #####  #####  #      #####  ######  #####  #####  #      #####  #        #   \n"
+                    + "       # #      #      #      #   #   #      #      #      #      #        #   \n"
+                    + " #     # #      #      #      #    #  #      #      #      #      #    #   #   \n"
+                    + "  #####  ###### ###### #      #     # ###### #      ###### ######  ####    #   \n";
     private static final String GREETING_MESSAGE = "Welcome to WellNUS++ Self Reflection section :D"
             + System.lineSeparator() + "Feel very occupied and cannot find time to self reflect?"
             + System.lineSeparator() + "No worries, this section will give you the opportunity to reflect "
@@ -201,6 +198,10 @@ public class ReflectionManager extends Manager {
         case LIKE_COMMAND:
             LikeCommand likeCmd = new LikeCommand(argumentPayload, questionList);
             likeCmd.execute();
+            break;
+        case UNLIKE_COMMAND:
+            UnlikeCommand unlikeCmd = new UnlikeCommand(argumentPayload, questionList);
+            unlikeCmd.execute();
             break;
         case FAV_COMMAND:
             FavoriteCommand favCmd = new FavoriteCommand(argumentPayload, questionList);

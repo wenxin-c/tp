@@ -54,6 +54,7 @@ public class HelpCommand extends Command {
         commandDescriptions.add(HelpCommand.COMMAND_DESCRIPTION);
         commandDescriptions.add(HomeCommand.COMMAND_DESCRIPTION);
         commandDescriptions.add(LikeCommand.COMMAND_DESCRIPTION);
+        commandDescriptions.add(UnlikeCommand.COMMAND_DESCRIPTION);
         commandDescriptions.add(PrevCommand.COMMAND_DESCRIPTION);
         return commandDescriptions;
     }
@@ -109,6 +110,9 @@ public class HelpCommand extends Command {
             break;
         case LikeCommand.COMMAND_KEYWORD:
             printUsageMessage(LikeCommand.COMMAND_DESCRIPTION, LikeCommand.COMMAND_USAGE);
+            break;
+        case UnlikeCommand.COMMAND_KEYWORD:
+            printUsageMessage(UnlikeCommand.COMMAND_DESCRIPTION, UnlikeCommand.COMMAND_USAGE);
             break;
         case PrevCommand.COMMAND_KEYWORD:
             printUsageMessage(PrevCommand.COMMAND_DESCRIPTION, PrevCommand.COMMAND_USAGE);

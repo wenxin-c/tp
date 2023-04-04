@@ -147,7 +147,8 @@ public class PrevCommand extends Command {
      */
     public void getPrevSetQuestions() throws BadCommandException {
         if (!questionList.hasRandomQuestionIndexes()) {
-            throw new BadCommandException(MISSING_SET_QUESTIONS);
+            UI.printOutputMessage(MISSING_SET_QUESTIONS);
+            return;
         }
         String prevSetQuestions = this.questionList.getPrevSetQuestions();
         UI.printOutputMessage(prevSetQuestions);

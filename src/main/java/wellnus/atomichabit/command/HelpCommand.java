@@ -50,6 +50,7 @@ public class HelpCommand extends Command {
     private ArrayList<String> getCommandDescriptions() {
         ArrayList<String> commandDescriptions = new ArrayList<>();
         commandDescriptions.add(AddCommand.COMMAND_DESCRIPTION);
+        commandDescriptions.add(DeleteCommand.COMMAND_DESCRIPTION);
         commandDescriptions.add(HelpCommand.COMMAND_DESCRIPTION);
         commandDescriptions.add(HomeCommand.COMMAND_DESCRIPTION);
         commandDescriptions.add(ListCommand.COMMAND_DESCRIPTION);
@@ -96,6 +97,9 @@ public class HelpCommand extends Command {
         switch (commandToSearch) {
         case AddCommand.COMMAND_KEYWORD:
             printUsageMessage(AddCommand.COMMAND_DESCRIPTION, AddCommand.COMMAND_USAGE);
+            break;
+        case DeleteCommand.COMMAND_KEYWORD:
+            printUsageMessage(DeleteCommand.COMMAND_DESCRIPTION, DeleteCommand.COMMAND_USAGE);
             break;
         case HelpCommand.COMMAND_KEYWORD:
             printUsageMessage(HelpCommand.COMMAND_DESCRIPTION, HelpCommand.COMMAND_USAGE);

@@ -23,6 +23,9 @@ public class ListCommand extends Command {
             + LINE_SEPARATOR + "Keep up the good work and you will develop a helpful habit in no time";
     private static final String COMMAND_INVALID_COMMAND_NOTE = "Please try 'help' command to check the "
             + "available commands and their usage!";
+    private static final String EMPTY_LIST_MESSAGE = "You have no habits in your list!"
+            + LINE_SEPARATOR
+            + "Start adding some habits by using 'add'!";
     private final AtomicHabitList atomicHabits;
     private final TextUi textUi;
 
@@ -76,6 +79,10 @@ public class ListCommand extends Command {
             this.getTextUi().printErrorFor(badCommandException, COMMAND_INVALID_COMMAND_NOTE);
             return;
         }
+        if (atomicHabits.getAllHabits().isEmpty()) {
+            getTextUi().printOutputMessage(EMPTY_LIST_MESSAGE);
+            return;
+        }
         int taskNo = 1;
         int firstChar = 0;
         StringBuilder stringOfHabitsBuilder = new StringBuilder(FIRST_STRING + LINE_SEPARATOR);
@@ -85,7 +92,6 @@ public class ListCommand extends Command {
             stringOfHabitsBuilder.append(currentHabitString).append(LINE_SEPARATOR);
             taskNo += 1;
         }
-
         String messageToUser = stringOfHabitsBuilder.substring(firstChar,
                 stringOfHabitsBuilder.length() - 1);
         getTextUi().printOutputMessage(messageToUser);
