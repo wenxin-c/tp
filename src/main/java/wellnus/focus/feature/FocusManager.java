@@ -52,6 +52,7 @@ public class FocusManager extends Manager {
      */
     public FocusManager() {
         this.textUi = new TextUi();
+        this.textUi.setCursorName(FEATURE_NAME);
         this.session = new Session();
     }
 

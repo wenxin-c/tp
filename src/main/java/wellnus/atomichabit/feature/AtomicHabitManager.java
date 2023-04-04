@@ -55,6 +55,7 @@ public class AtomicHabitManager extends Manager {
         this.gamificationData = gamificationData;
         this.habitList = new AtomicHabitList();
         this.textUi = new TextUi();
+        this.textUi.setCursorName(FEATURE_NAME);
     }
 
     private static String getHelpDescription() {
