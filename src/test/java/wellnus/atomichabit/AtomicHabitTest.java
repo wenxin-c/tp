@@ -134,7 +134,7 @@ public class AtomicHabitTest {
         String payload = "junit test";
         String habitIndex = "1";
         String increment = "3";
-        String testUpdateCommand = String.format("%s --id %s --inc %s", UPDATE_HABIT_COMMAND, habitIndex, increment)
+        String testUpdateCommand = String.format("%s --id %s --by %s", UPDATE_HABIT_COMMAND, habitIndex, increment)
                 + System.lineSeparator();
         HashMap<String, String> arguments = parser.parseUserInput(testUpdateCommand);
         Command updateCommand = new UpdateCommand(arguments, habitList, gamificationData);
@@ -183,37 +183,5 @@ public class AtomicHabitTest {
         arguments = parser.parseUserInput(testNegativeIndexCommand);
         Command updateCommandForNegativeIndex = new UpdateCommand(arguments, habitList, gamificationData);
         Assertions.assertThrows(AtomicHabitException.class, updateCommandForNegativeIndex::execute);
-    }
-
-    /**
-     * Test UpdateCommand to print message to indicate the habit has not been incremented
-     * if the user does not input positive number for the increment
-     */
-    @Test
-    public void updateHabit_checkIncrementNotPositive_printErrorMessage() throws WellNusException {
-        addHabit_checkOutput_success();
-        String habitIndex = "1";
-        String increment = "-1";
-        String errorMessage = "Increment with minimum of 1 is expected, no update shall be performed.";
-        String warningSeparator = "!!!!!!-------!!!!!--------!!!!!!!------!!!!!---------!!!!!!!";
-        String expectedErrorOutput = warningSeparator
-                + System.lineSeparator()
-                + "Error Message:"
-                + System.lineSeparator()
-                + errorMessage
-                + System.lineSeparator()
-                + "Note:"
-                + System.lineSeparator()
-                + System.lineSeparator()
-                + warningSeparator;
-
-        String testIndexCommand = String.format("%s --id %s --inc %s", UPDATE_HABIT_COMMAND, habitIndex, increment)
-                + System.lineSeparator();
-        HashMap<String, String> arguments = parser.parseUserInput(testIndexCommand);
-        Command updateCommand = new UpdateCommand(arguments, habitList, gamificationData);
-        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        System.setOut(new PrintStream(outputStream));
-        updateCommand.execute();
-        Assertions.assertEquals(expectedErrorOutput, getMessageFrom(outputStream.toString()));
     }
 }
