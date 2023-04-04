@@ -163,6 +163,9 @@ public class UnlikeCommand extends Command {
      * @param questionIndex User input of the index of question to be removed from favorite list.
      * @throws TokenizerException If there is error in tokenization of index
      * @throws StorageException If there is error in storing the data
+     * @throws NumberFormatException If invalid input is given, expected a valid integer
+     * @throws ReflectionException If fav list is empty
+     * @throws BadCommandException If an invalid command is given
      */
     public void removeFavQuestion(String questionIndex) throws TokenizerException, StorageException,
             NumberFormatException, ReflectionException, BadCommandException {
