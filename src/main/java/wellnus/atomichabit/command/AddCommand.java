@@ -1,11 +1,13 @@
 package wellnus.atomichabit.command;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import wellnus.atomichabit.feature.AtomicHabit;
 import wellnus.atomichabit.feature.AtomicHabitList;
 import wellnus.atomichabit.feature.AtomicHabitManager;
 import wellnus.command.Command;
+import wellnus.exception.AtomicHabitException;
 import wellnus.exception.BadCommandException;
 import wellnus.ui.TextUi;
 
@@ -17,6 +19,8 @@ public class AddCommand extends Command {
     public static final String COMMAND_USAGE = "usage: add --name (your habit name)";
     public static final String COMMAND_KEYWORD = "add";
     private static final String COMMAND_INVALID_ARGUMENTS_MESSAGE = "Wrong arguments given to 'add'!";
+    private static final String DUPLICATE_HABIT_MESSAGE = "You already have this habit in your list!"
+            + " Use 'update' instead.";
     private static final String COMMAND_NAME_ARGUMENT = "name";
     private static final String COMMAND_KEYWORD_ASSERTION = "The key should be add.";
     private static final String COMMAND_PAYLOAD_ASSERTION = "The payload should not be empty.";
@@ -49,6 +53,19 @@ public class AddCommand extends Command {
         return textUi;
     }
 
+    private boolean hasDuplicate(String newHabit, ArrayList<AtomicHabit> habitList) {
+        for (AtomicHabit habit : habitList) {
+            if (convertToBase(habit.getDescription()).equals(convertToBase(newHabit))) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private String convertToBase(String habitName) {
+        return habitName.toLowerCase().replaceAll("\\s", "");
+    }
+
     /**
      * Identifies this Command's keyword. Override this in subclasses so
      * toString() returns the correct String representation.
@@ -76,9 +93,11 @@ public class AddCommand extends Command {
      * Adds of the new atomic habit into our list of atomic habits.
      * <p>
      * After that, print a message telling the user what the new habit added is
+     *
+     * @throws AtomicHabitException If the habit already exists in the list
      */
     @Override
-    public void execute() {
+    public void execute() throws AtomicHabitException {
         try {
             validateCommand(super.getArguments());
         } catch (BadCommandException badCommandException) {
@@ -87,6 +106,9 @@ public class AddCommand extends Command {
         }
         assert super.getArguments().containsKey(COMMAND_KEYWORD) : COMMAND_KEYWORD_ASSERTION;
         String name = super.getArguments().get(AddCommand.COMMAND_NAME_ARGUMENT);
+        if (hasDuplicate(name, atomicHabits.getAllHabits())) {
+            throw new AtomicHabitException(DUPLICATE_HABIT_MESSAGE);
+        }
         AtomicHabit habit = new AtomicHabit(name);
         this.getAtomicHabits().addAtomicHabit(habit);
         String messageToUser = FEEDBACK_STRING_ONE + System.lineSeparator();

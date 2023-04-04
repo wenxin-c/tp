@@ -1,4 +1,4 @@
-package wellnus.reflection;
+package wellnus.reflection.feature;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -7,8 +7,6 @@ import java.io.PrintStream;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import wellnus.reflection.feature.ReflectionQuestion;
 
 class ReflectionQuestionTest {
     private static final String QUESTION = "How's today?";

@@ -1,4 +1,4 @@
-package wellnus.reflection;
+package wellnus.reflection.feature;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -8,7 +8,6 @@ import java.util.HashMap;
 import org.junit.jupiter.api.Test;
 
 import wellnus.exception.BadCommandException;
-import wellnus.reflection.feature.ReflectionManager;
 
 class ReflectionManagerTest {
     private static final String EMPTY_STRING = "";

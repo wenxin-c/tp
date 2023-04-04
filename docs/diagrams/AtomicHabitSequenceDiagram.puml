@@ -63,6 +63,12 @@ activate AtomicHabitManager
                 activate AddCommand
                 AddCommand --> AtomicHabitManager : AddCommand(arguments, habitList)
                 deactivate AddCommand
+            else commandString = delete
+                create DeleteCommand
+                AtomicHabitManager -> DeleteCommand
+                activate DeleteCommand
+                DeleteCommand --> AtomicHabitManager : DeleteCommand(arguments, habitList)
+                deactivate DeleteCommand
             else commandString = home
                 create HomeCommand
                 AtomicHabitManager -> HomeCommand

@@ -1,4 +1,4 @@
-package wellnus.reflection;
+package wellnus.reflection.command;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -9,21 +9,18 @@ import org.junit.jupiter.api.Test;
 
 import wellnus.command.CommandParser;
 import wellnus.exception.BadCommandException;
-import wellnus.reflection.command.HomeCommand;
 import wellnus.reflection.feature.QuestionList;
 import wellnus.reflection.feature.ReflectionManager;
 
+//@@author wenxin-c
 /**
  * Class to test different tests for HomeCommand Class utilising JUnit tests
  * Test cases will involve expected outputs and correct exception handling
- *
- * @@author wenxin-c
  */
 class HomeCommandTest {
     private static final String HOME_COMMAND = "home";
     private static final String HOME_COMMAND_WRONG_FORMAT = "home back";
     private static final String HOME_COMMAND_WITH_SPACES = "   home   ";
-    private static final boolean IS_NOT_EXIT = false;
     private static final boolean IS_EXIT = true;
     private static final QuestionList questionList = new QuestionList();
 
