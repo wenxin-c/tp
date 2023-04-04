@@ -90,6 +90,21 @@ public class AtomicHabitTest {
     }
 
     /**
+     * Test AddCommand to throw {@link AtomicHabitException} when a duplicate habit is added.
+     *
+     * @throws WellNusException
+     */
+    @Test
+    public void addHabit_duplicateHabit_atomicHabitExceptionThrown() throws WellNusException {
+        String payload = "junit test";
+        String testAddCommand = String.format("%s --name %s", ADD_HABIT_COMMAND, payload + System.lineSeparator());
+        HashMap<String, String> arguments = parser.parseUserInput(testAddCommand);
+        Command addCommand = new AddCommand(arguments, habitList);
+        addCommand.execute();
+        Assertions.assertThrows(AtomicHabitException.class, addCommand::execute);
+    }
+
+    /**
      * Test UpdateCommand with a standard payload and default increment to check output printed
      */
     @Test
@@ -202,6 +217,3 @@ public class AtomicHabitTest {
         Assertions.assertEquals(expectedErrorOutput, getMessageFrom(outputStream.toString()));
     }
 }
-
-
-
