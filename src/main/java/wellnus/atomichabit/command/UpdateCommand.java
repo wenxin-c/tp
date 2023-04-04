@@ -21,22 +21,26 @@ import wellnus.ui.TextUi;
  */
 public class UpdateCommand extends Command {
     public static final String COMMAND_DESCRIPTION = "update - Update how many times you've done a habit.";
-    public static final String COMMAND_USAGE = "usage: update --id habit-index [--inc increment_number]";
+    public static final String COMMAND_USAGE = "usage: update --id habit-index [--by increment_number]";
     public static final String COMMAND_KEYWORD = "update";
-    private static final String COMMAND_INCREMENT_ARGUMENT = "inc";
+    private static final String COMMAND_INCREMENT_ARGUMENT = "by";
     private static final String COMMAND_INDEX_ARGUMENT = "id";
     private static final int COMMAND_MIN_NUM_OF_ARGUMENTS = 2;
     private static final int COMMAND_MAX_NUM_OF_ARGUMENTS = 3;
-    private static final String COMMAND_INVALID_COMMAND_MESSAGE = "Invalid command issued, expected 'update'!!";
+    private static final String COMMAND_INVALID_COMMAND_MESSAGE = "Invalid command issued, expected 'update'!";
     private static final String COMMAND_INVALID_COMMAND_NOTE = "Please try 'help' command to check the "
             + "available commands and their usages!";
+    private static final String COMMAND_INVALID_ARGUMENT_MESSAGE = "Invalid arguments given, expected 'id' and 'by'!";
     private static final String DOT = ".";
     private static final int DEFAULT_INCREMENT = 1;
+    private static final int ZERO = 0;
     private static final String FEEDBACK_STRING = "The following habit has been incremented! Keep up the good work!";
     private static final String FEEDBACK_STRING_NO_INCREMENT = "The following habit has not been updated! "
             + "Enter a positive integer to update your habit!";
     private static final String FEEDBACK_INDEX_NOT_INTEGER_ERROR = "Invalid index given, expected an integer!";
     private static final String FEEDBACK_INDEX_OUT_OF_BOUNDS_ERROR = "Invalid index given, index is out of Range!";
+    private static final String FEEDBACK_DECREMENT_ERROR = "Invalid decrement value given, decrement is too large! "
+            + "Please keep it within range";
     private static final int INDEX_OFFSET = 1;
     private static final String LINE_SEPARATOR = System.lineSeparator();
     private static final int MINIMUM_INCREMENT = 1;
@@ -97,9 +101,10 @@ public class UpdateCommand extends Command {
     private int getIncrementCountFrom(HashMap<String, String> arguments)
             throws BadCommandException, NumberFormatException {
         assert arguments.containsKey(UpdateCommand.COMMAND_INCREMENT_ARGUMENT)
-                : "--inc argument missing for 'hb update' command";
+                : "--by argument missing for 'hb update' command";
         String incrementCountString = arguments.get(UpdateCommand.COMMAND_INCREMENT_ARGUMENT);
-        if (Integer.parseInt(incrementCountString) < MINIMUM_INCREMENT) {
+        if (Integer.parseInt(incrementCountString) < MINIMUM_INCREMENT
+                && isPositive(Integer.parseInt(incrementCountString))) {
             throw new BadCommandException(UpdateCommand.UPDATE_INVALID_INCREMENT_COUNT);
         }
         return Integer.parseInt(incrementCountString);
@@ -112,6 +117,18 @@ public class UpdateCommand extends Command {
         }
         String indexString = arguments.get(UpdateCommand.COMMAND_INDEX_ARGUMENT);
         return Integer.parseInt(indexString);
+    }
+
+    private int getPositive(int changeCount) {
+        if (changeCount < 0) {
+            return -changeCount;
+        } else {
+            return changeCount;
+        }
+    }
+
+    private boolean isPositive(int changeCount) {
+        return changeCount > 0;
     }
 
     /**
@@ -151,15 +168,23 @@ public class UpdateCommand extends Command {
             return;
         }
         try {
-            int incrementCount = DEFAULT_INCREMENT;
+            int changeCount = DEFAULT_INCREMENT;
+            boolean hasLevelUp = false;
             if (super.getArguments().containsKey(UpdateCommand.COMMAND_INCREMENT_ARGUMENT)) {
-                incrementCount = this.getIncrementCountFrom(super.getArguments());
+                changeCount = this.getIncrementCountFrom(super.getArguments());
             }
             int index = this.getIndexFrom(super.getArguments()) - INDEX_OFFSET;
             AtomicHabit habit = getAtomicHabits().getHabitByIndex(index);
-            habit.increaseCount(incrementCount);
-            boolean hasLevelUp = gamificationData.addXp(
-                    incrementCount * NUM_OF_XP_PER_INCREMENT);
+            if (changeCount > ZERO) {
+                habit.increaseCount(changeCount);
+                hasLevelUp = gamificationData.addXp(
+                        changeCount * NUM_OF_XP_PER_INCREMENT);
+            } else {
+                if (getPositive(changeCount) > habit.getCount()) {
+                    throw new AtomicHabitException(FEEDBACK_DECREMENT_ERROR);
+                }
+                habit.decreaseCount(getPositive(changeCount));
+            }
             String stringOfUpdatedHabit = (index + 1) + DOT + habit + " " + "[" + habit.getCount() + "]"
                     + LINE_SEPARATOR;
             getTextUi().printOutputMessage(FEEDBACK_STRING + LINE_SEPARATOR
@@ -195,17 +220,17 @@ public class UpdateCommand extends Command {
             throw new BadCommandException(UpdateCommand.COMMAND_INVALID_COMMAND_MESSAGE);
         }
         if (arguments.size() < UpdateCommand.COMMAND_MIN_NUM_OF_ARGUMENTS) {
-            throw new BadCommandException(UpdateCommand.COMMAND_INVALID_COMMAND_MESSAGE);
+            throw new BadCommandException(UpdateCommand.COMMAND_INVALID_ARGUMENT_MESSAGE);
         }
         if (arguments.size() > UpdateCommand.COMMAND_MAX_NUM_OF_ARGUMENTS) {
-            throw new BadCommandException(UpdateCommand.COMMAND_INVALID_COMMAND_MESSAGE);
+            throw new BadCommandException(UpdateCommand.COMMAND_INVALID_ARGUMENT_MESSAGE);
         }
         if (!arguments.containsKey(UpdateCommand.COMMAND_INDEX_ARGUMENT)) {
-            throw new BadCommandException(UpdateCommand.COMMAND_INVALID_COMMAND_MESSAGE);
+            throw new BadCommandException(UpdateCommand.COMMAND_INVALID_ARGUMENT_MESSAGE);
         }
         if (arguments.size() == UpdateCommand.COMMAND_MAX_NUM_OF_ARGUMENTS
                 && !arguments.containsKey(UpdateCommand.COMMAND_INCREMENT_ARGUMENT)) {
-            throw new BadCommandException(UpdateCommand.COMMAND_INVALID_COMMAND_MESSAGE);
+            throw new BadCommandException(UpdateCommand.COMMAND_INVALID_ARGUMENT_MESSAGE);
         }
         if (arguments.containsKey(UpdateCommand.COMMAND_INCREMENT_ARGUMENT)) {
             String incrementString = arguments.get(COMMAND_INCREMENT_ARGUMENT);
