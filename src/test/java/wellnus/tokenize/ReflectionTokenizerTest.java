@@ -7,7 +7,6 @@ import java.util.Set;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import wellnus.exception.TokenizerException;
 import wellnus.storage.ReflectionTokenizer;
 
 public class ReflectionTokenizerTest {
@@ -20,16 +19,16 @@ public class ReflectionTokenizerTest {
         Set<Integer> likeTestIndexes = new HashSet<>();
         likeTestIndexes.add(1);
         likeTestIndexes.add(2);
-        Set<Integer> prefTestIndexes = new HashSet<>();
-        prefTestIndexes.add(3);
-        prefTestIndexes.add(4);
+        Set<Integer> prevTestIndexes = new HashSet<>();
+        prevTestIndexes.add(3);
+        prevTestIndexes.add(4);
         indexesToTokenize.add(likeTestIndexes);
-        indexesToTokenize.add(prefTestIndexes);
+        indexesToTokenize.add(prevTestIndexes);
         String expectedTokenizedLike = "like:1,2";
-        String expectedTokenizedPref = "pref:3,4";
+        String expectedTokenizedPrev = "prev:3,4";
         ArrayList<String> expectedTokenizedIndex = new ArrayList<>();
         expectedTokenizedIndex.add(expectedTokenizedLike);
-        expectedTokenizedIndex.add(expectedTokenizedPref);
+        expectedTokenizedIndex.add(expectedTokenizedPrev);
         ReflectionTokenizer reflectionTokenizer = new ReflectionTokenizer();
         ArrayList<String> actualTokenizedIndex = reflectionTokenizer.tokenize(indexesToTokenize);
         Assertions.assertEquals(expectedTokenizedIndex, actualTokenizedIndex);
@@ -39,46 +38,49 @@ public class ReflectionTokenizerTest {
     void tokenizeReflect_checkOutputEmptyIndex_success() {
         ArrayList<Set<Integer>> indexesToTokenize = new ArrayList<>();
         Set<Integer> likeTestIndexes = new HashSet<>();
-        Set<Integer> prefTestIndexes = new HashSet<>();
+        Set<Integer> prevTestIndexes = new HashSet<>();
         indexesToTokenize.add(likeTestIndexes);
-        indexesToTokenize.add(prefTestIndexes);
+        indexesToTokenize.add(prevTestIndexes);
         String expectedTokenizedLike = "like:";
-        String expectedTokenizedPref = "pref:";
+        String expectedTokenizedPrev = "prev:";
         ArrayList<String> expectedTokenizedIndex = new ArrayList<>();
         expectedTokenizedIndex.add(expectedTokenizedLike);
-        expectedTokenizedIndex.add(expectedTokenizedPref);
+        expectedTokenizedIndex.add(expectedTokenizedPrev);
         ReflectionTokenizer reflectionTokenizer = new ReflectionTokenizer();
         ArrayList<String> actualTokenizedIndex = reflectionTokenizer.tokenize(indexesToTokenize);
         Assertions.assertEquals(expectedTokenizedIndex, actualTokenizedIndex);
     }
 
     @Test
-    void detokenizeReflect_checkOutput_success() throws TokenizerException {
+    void detokenizeReflect_checkOutput_success() {
         Set<Integer> expectedDetokenizedLikes = new HashSet<>();
         expectedDetokenizedLikes.add(1);
         expectedDetokenizedLikes.add(2);
-        Set<Integer> expectedDetokenizedPrefs = new HashSet<>();
-        expectedDetokenizedPrefs.add(3);
-        expectedDetokenizedPrefs.add(4);
+        Set<Integer> expectedDetokenizedPrevs = new HashSet<>();
+        expectedDetokenizedPrevs.add(1);
+        expectedDetokenizedPrevs.add(2);
+        expectedDetokenizedPrevs.add(3);
+        expectedDetokenizedPrevs.add(4);
+        expectedDetokenizedPrevs.add(5);
         ArrayList<String> stringsToDetokenize = new ArrayList<>();
         String tokenizedLikeTest = "like:1,2";
-        String tokenizedPrefTest = "pref:3,4";
+        String tokenizedPrevTest = "prev:1,2,3,4,5";
         stringsToDetokenize.add(tokenizedLikeTest);
-        stringsToDetokenize.add(tokenizedPrefTest);
+        stringsToDetokenize.add(tokenizedPrevTest);
         ReflectionTokenizer reflectionTokenizer = new ReflectionTokenizer();
         ArrayList<Set<Integer>> actualDetokenizedIndex = reflectionTokenizer.detokenize(stringsToDetokenize);
         Assertions.assertEquals(expectedDetokenizedLikes, actualDetokenizedIndex.get(INDEX_ZERO));
-        Assertions.assertEquals(expectedDetokenizedPrefs, actualDetokenizedIndex.get(INDEX_ONE));
+        Assertions.assertEquals(expectedDetokenizedPrevs, actualDetokenizedIndex.get(INDEX_ONE));
     }
 
     @Test
-    void detokenizeReflect_checkOutputEmptyString_success() throws TokenizerException {
+    void detokenizeReflect_checkOutputEmptyString_success() {
         Set<Integer> expectedDetokenizedLikes = new HashSet<>();
-        Set<Integer> expectedDetokenizedPrefs = new HashSet<>();
+        Set<Integer> expectedDetokenizedPrevs = new HashSet<>();
         ArrayList<String> stringsToDetokenize = new ArrayList<>();
         ReflectionTokenizer reflectionTokenizer = new ReflectionTokenizer();
         ArrayList<Set<Integer>> actualDetokenizedIndex = reflectionTokenizer.detokenize(stringsToDetokenize);
         Assertions.assertEquals(expectedDetokenizedLikes, actualDetokenizedIndex.get(INDEX_ZERO));
-        Assertions.assertEquals(expectedDetokenizedPrefs, actualDetokenizedIndex.get(INDEX_ONE));
+        Assertions.assertEquals(expectedDetokenizedPrevs, actualDetokenizedIndex.get(INDEX_ONE));
     }
 }

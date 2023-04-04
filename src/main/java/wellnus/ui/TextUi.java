@@ -21,13 +21,16 @@ public class TextUi {
     private static final int DEFAULT_SEPARATOR_LENGTH = 60;
     private static final int EMPTY_MESSAGE = 0;
     private static final String ERROR_MESSAGE_LABEL = "Error Message:";
+    private static final String ERROR_EMPTY_STRING = "The string argument should not be empty!";
     private static final String EXTRA_MESSAGE_LABEL = "Note:";
     private static final String NO_INPUT_ELEMENT_MSG = "There is no new line of element,"
             + "please key in your input!!";
     private static final String BUFFER_OVERFLOW_MSG = "Your input is too long,"
             + "please shorten it!!";
+    private static final String CURSOR_CARET = "(%s):~$ ";
     private final Scanner scanner;
     private String separator = "-";
+    private String cursor = CURSOR_CARET;
 
     public TextUi() {
         this(System.in);
@@ -38,6 +41,7 @@ public class TextUi {
     }
 
     //@@author wenxin-c
+
     /**
      * Print spaces before output message for better formatting.
      */
@@ -51,6 +55,7 @@ public class TextUi {
      * @return User input command with leading/dangling whitespace being removed
      */
     public String getCommand() {
+        System.out.print(cursor);
         String userCommand = "";
         try {
             String inputLine = scanner.nextLine();
@@ -130,7 +135,7 @@ public class TextUi {
      * Can override to accommodate to other customised error messages.<br/>
      * Can improve on what will be printed for empty message in the future.
      *
-     * @param exception The exception being thrown in the program
+     * @param exception         The exception being thrown in the program
      * @param additionalMessage Suggestions or notes that help users figure out what causes error
      */
     public void printErrorFor(Exception exception, String additionalMessage) {
@@ -162,5 +167,17 @@ public class TextUi {
         printSeparator();
     }
     //@@author
+
+    /**
+     * Prints a user-friendly cursor with the name of the feature the user is currently in.
+     * <p>
+     * Cursor format: ([featureName]):~$
+     *
+     * @param cursorName name of the feature to be tagged to the cursor
+     */
+    public void setCursorName(String cursorName) {
+        assert cursorName != null && cursorName.length() > 0 : ERROR_EMPTY_STRING;
+        cursor = String.format(CURSOR_CARET, cursorName);
+    }
 }
 
