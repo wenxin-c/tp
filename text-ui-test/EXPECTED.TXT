@@ -12,9 +12,9 @@
 ------------------------------------------------------------
 (main):~$ !!!!!!-------!!!!!--------!!!!!!!------!!!!!---------!!!!!!!
 Error Message:
-    Don't recognise that command?
+    Invalid command issued!
 Note:
-    Try 'help' for some guidance
+    Please try 'help' command to check the available commands and their usages!
 !!!!!!-------!!!!!--------!!!!!!!------!!!!!---------!!!!!!!
 (main):~$ ------------------------------------------------------------
     Thank you for using WellNUS++! See you again soon Dx
