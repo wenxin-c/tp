@@ -12,8 +12,11 @@ import org.junit.jupiter.api.Test;
 
 import wellnus.command.CommandParser;
 import wellnus.exception.BadCommandException;
+import wellnus.exception.ReflectionException;
 import wellnus.reflection.feature.IndexMapper;
 import wellnus.reflection.feature.QuestionList;
+
+import javax.management.relation.RelationException;
 
 // @@author wenxin-c
 class LikeCommandTest {
@@ -42,24 +45,11 @@ class LikeCommandTest {
         HashMap<String, String> argumentPayloadOutBound = commandParser.parseUserInput(LIKE_COMMAND_OUT_OF_BOUND);
         LikeCommand likeCmdOutBound = new LikeCommand(argumentPayloadOutBound, questionList);
         assertThrows(NumberFormatException.class, (
-        ) -> likeCmdMissingParam.validateCommand(argumentPayloadMissingParam));
+        ) -> likeCmdMissingParam.addFavQuestion(argumentPayloadMissingParam.get(LIKE_COMMAND_KEYWORD)));
         assertThrows(NumberFormatException.class, (
-        ) -> likeCmdWrongParam.validateCommand(argumentPayloadWrongParam));
-        assertThrows(BadCommandException.class, (
-        ) -> likeCmdOutBound.validateCommand(argumentPayloadOutBound));
-    }
-
-    // Test whether exceptions are thrown when executing like command before getting a previous set of questions.
-    @Test
-    void addFavList_noPrevQuestions_expectException() throws BadCommandException {
-        QuestionList questionList = new QuestionList();
-        CommandParser commandParser = new CommandParser();
-        HashMap<String, String> argumentPayload = commandParser.parseUserInput(LIKE_COMMAND);
-        LikeCommand likeCmd = new LikeCommand(argumentPayload, questionList);
-        if (!questionList.hasRandomQuestionIndexes()) {
-            assertThrows(BadCommandException.class, (
-            ) -> likeCmd.addFavQuestion(argumentPayload.get(LIKE_COMMAND_KEYWORD)));
-        }
+        ) -> likeCmdWrongParam.addFavQuestion(argumentPayloadWrongParam.get(LIKE_COMMAND_KEYWORD)));
+        assertThrows(ReflectionException.class, (
+        ) -> likeCmdOutBound.addFavQuestion(argumentPayloadOutBound.get(LIKE_COMMAND_KEYWORD)));
     }
 
     // Test the mapping from user input to question index.
