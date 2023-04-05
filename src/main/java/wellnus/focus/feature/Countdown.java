@@ -5,7 +5,6 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-import wellnus.ui.TextUi;
 
 /**
  * Class to represent a timer counting down given a specific minutes.
@@ -18,13 +17,16 @@ public class Countdown {
     private static final int DEFAULT_STOP_TIME = 0;
     private static final int DEFAULT_SECONDS = 59;
     private static final int INITIAL_SECONDS = 0;
+    private static final int COUNTDOWN_PRINT_START_TIME = 10;
     private static final String MINUTES_INPUT_ASSERTION = "Minutes should be greater than 0";
     private static final String STOP_BEFORE_START_ASSERTION = "Timer should be started before trying to stop it";
     private static final String TIMER_NOT_RUNNING_ASSERTION = "Timer should not be running";
     private static final String TIMER_COMPLETE_MESSAGE = "Type 'next' to begin the next countdown";
-    private static final String TIMER_COMPLETE_MESSAGE_LAST = "Congrats! That's a session done and dusted!\n"
+    private static final String TIMER_COMPLETE_MESSAGE_LAST = "Congrats! That's a session done and dusted!"
+            + System.lineSeparator()
             + "Type `start` to start a new session, or `config` to change the session settings.";
-    private TextUi textUi;
+    private static final String FEATURE_NAME = "ft";
+    private FocusUi focusUi;
     private Timer timer;
     private int minutes;
     private int inputMinutes;
@@ -51,7 +53,8 @@ public class Countdown {
         this.isCompletedCountdown = new AtomicBoolean(false);
         this.isRunClock = new AtomicBoolean(false);
         this.description = description;
-        this.textUi = new TextUi();
+        this.focusUi = new FocusUi();
+        focusUi.setCursorName(FEATURE_NAME);
         this.isLast = isLast;
     }
 
@@ -64,15 +67,16 @@ public class Countdown {
         setStop();
         java.awt.Toolkit.getDefaultToolkit().beep();
         if (isLast) {
-            textUi.printOutputMessage(TIMER_COMPLETE_MESSAGE_LAST);
+            focusUi.printOutputMessage(TIMER_COMPLETE_MESSAGE_LAST);
         } else {
-            textUi.printOutputMessage(TIMER_COMPLETE_MESSAGE);
+            focusUi.printOutputMessage(TIMER_COMPLETE_MESSAGE);
         }
         this.minutes = inputMinutes;
         this.isCompletedCountdown.set(true);
         if (isLast) {
             setIsReady(true);
         }
+        focusUi.printCursor();
     }
 
     /**
@@ -104,8 +108,11 @@ public class Countdown {
                 if (!isRunClock.get()) {
                     return;
                 }
-                if (minutes == DEFAULT_STOP_TIME && seconds <= 10 && seconds != 0) {
-                    textUi.printOutputMessage(seconds + " seconds left");
+                if (minutes == DEFAULT_STOP_TIME && seconds == COUNTDOWN_PRINT_START_TIME) {
+                    focusUi.printNewline();
+                }
+                if (isCountdownPrinting()) {
+                    focusUi.printOutputMessage(seconds + " seconds left");
                 }
                 if (seconds == DEFAULT_STOP_TIME && minutes == DEFAULT_STOP_TIME) {
                     timerComplete();
@@ -118,6 +125,19 @@ public class Countdown {
             }
         };
         timer.scheduleAtFixedRate(countdownTask, DELAY_TIME, ONE_SECOND);
+    }
+
+    /**
+     * Utility method to check if the countdown is in its printing phase. <br>
+     * <p>
+     * Used to determine whether to print the seconds left and accept any user input.
+     *
+     * @return boolean Representing if the countdown timer is printing.
+     */
+    public boolean isCountdownPrinting() {
+        return (minutes == DEFAULT_STOP_TIME
+                && seconds <= COUNTDOWN_PRINT_START_TIME
+                && seconds != DEFAULT_STOP_TIME);
     }
 
     /**
