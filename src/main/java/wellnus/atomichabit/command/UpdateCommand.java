@@ -11,6 +11,7 @@ import wellnus.atomichabit.feature.AtomicHabitManager;
 import wellnus.command.Command;
 import wellnus.exception.AtomicHabitException;
 import wellnus.exception.BadCommandException;
+import wellnus.exception.StorageException;
 import wellnus.gamification.util.GamificationData;
 import wellnus.gamification.util.GamificationUi;
 import wellnus.ui.TextUi;
@@ -41,6 +42,8 @@ public class UpdateCommand extends Command {
     private static final int INDEX_OFFSET = 1;
     private static final String LINE_SEPARATOR = System.lineSeparator();
     private static final int MINIMUM_INCREMENT = 1;
+    private static final String STORE_GAMIF_DATA_FAILED_NOTE_MESSAGE = "Updated XP won't be restored when the app is "
+            + "next launched";
     private static final String UPDATE_INVALID_ARGUMENTS_MESSAGE = "Invalid arguments for updating, no update shall "
             + "be performed.";
     private static final String UPDATE_INVALID_INCREMENT_COUNT = "Increment with minimum of 1 is expected, no update "
@@ -174,6 +177,7 @@ public class UpdateCommand extends Command {
             AtomicHabit habit = getAtomicHabits().getHabitByIndex(index);
             if (changeCount > ZERO) {
                 habit.increaseCount(changeCount);
+                // Add XP for completing atomic habits as an incentive
                 hasLevelUp = gamificationData.addXp(
                         changeCount * NUM_OF_XP_PER_INCREMENT);
             } else {
@@ -187,6 +191,7 @@ public class UpdateCommand extends Command {
             getTextUi().printOutputMessage(FEEDBACK_STRING + LINE_SEPARATOR
                     + stringOfUpdatedHabit);
             if (hasLevelUp) {
+                // Congratulate the user about levelling up
                 GamificationUi.printCelebrateLevelUp();
             }
         } catch (NumberFormatException numberFormatException) {
@@ -197,6 +202,8 @@ public class UpdateCommand extends Command {
             throw new AtomicHabitException(FEEDBACK_INDEX_OUT_OF_BOUNDS_ERROR);
         } catch (BadCommandException badCommandException) {
             getTextUi().printErrorFor(badCommandException, NO_ADDITIONAL_MESSAGE);
+        } catch (StorageException storageException) {
+            getTextUi().printErrorFor(storageException, STORE_GAMIF_DATA_FAILED_NOTE_MESSAGE);
         }
     }
 
