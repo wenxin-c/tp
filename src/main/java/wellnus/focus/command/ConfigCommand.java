@@ -10,8 +10,8 @@ import wellnus.exception.BadCommandException;
 import wellnus.exception.FocusException;
 import wellnus.exception.WellNusException;
 import wellnus.focus.feature.FocusManager;
+import wellnus.focus.feature.FocusUi;
 import wellnus.focus.feature.Session;
-import wellnus.ui.TextUi;
 
 
 /**
@@ -74,7 +74,7 @@ public class ConfigCommand extends Command {
             + System.lineSeparator()
             + "If you want to reconfigure, `stop` the session and then `config`!";
 
-    private final TextUi textUi;
+    private final FocusUi focusUi;
     private final Session session;
     private int newCycle;
     private int newWork;
@@ -90,7 +90,7 @@ public class ConfigCommand extends Command {
      */
     public ConfigCommand(HashMap<String, String> arguments, Session session) {
         super(arguments);
-        this.textUi = new TextUi();
+        this.focusUi = new FocusUi();
         this.session = session;
         newCycle = session.getCycle();
         newWork = session.getWork();
@@ -130,7 +130,7 @@ public class ConfigCommand extends Command {
     @Override
     public void execute() throws WellNusException {
         if (!session.isSessionReady()) {
-            textUi.printOutputMessage(ERROR_SESSION_STARTED);
+            focusUi.printOutputMessage(ERROR_SESSION_STARTED);
             return;
         }
         HashMap<String, String> argumentPayloads = getArguments();
@@ -308,7 +308,7 @@ public class ConfigCommand extends Command {
         } else {
             message = message.concat(SINGLE_SPACE_PAD + PRINT_CONFIG_MINS);
         }
-        textUi.printOutputMessage(message);
+        focusUi.printOutputMessage(message);
     }
 
     /**

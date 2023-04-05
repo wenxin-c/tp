@@ -5,6 +5,7 @@ import java.util.HashMap;
 import wellnus.command.Command;
 import wellnus.exception.BadCommandException;
 import wellnus.focus.feature.FocusManager;
+import wellnus.focus.feature.FocusUi;
 import wellnus.focus.feature.Session;
 import wellnus.ui.TextUi;
 
@@ -23,7 +24,7 @@ public class PauseCommand extends Command {
     private static final String ERROR_COUNTDOWN_NOT_RUNNING = "Nothing to pause - the timer has not started yet!";
     private static final String ERROR_IS_PAUSED = "Nothing to pause - you have already paused the timer!";
     private final Session session;
-    private final TextUi textUi;
+    private final FocusUi focusUi;
 
     /**
      * Constructor for PauseCommand object.
@@ -35,7 +36,7 @@ public class PauseCommand extends Command {
     public PauseCommand(HashMap<String, String> arguments, Session session) {
         super(arguments);
         this.session = session;
-        this.textUi = new TextUi();
+        this.focusUi = new FocusUi();
     }
 
     /**
@@ -69,23 +70,23 @@ public class PauseCommand extends Command {
         try {
             validateCommand(super.getArguments());
         } catch (BadCommandException badCommandException) {
-            textUi.printErrorFor(badCommandException, NO_ADDITIONAL_MESSAGE);
+            focusUi.printErrorFor(badCommandException, NO_ADDITIONAL_MESSAGE);
             return;
         }
         // Only execute the pause logic if the countdown is not running
         if (session.isSessionPaused()) {
-            textUi.printOutputMessage(ERROR_IS_PAUSED);
+            focusUi.printOutputMessage(ERROR_IS_PAUSED);
             return;
         }
         if (!session.isSessionCounting()) {
             // Gently tell the user why pause did not execute
-            textUi.printOutputMessage(ERROR_COUNTDOWN_NOT_RUNNING);
+            focusUi.printOutputMessage(ERROR_COUNTDOWN_NOT_RUNNING);
             return;
         }
         session.getCurrentCountdown().setPause();
         int minutes = session.getCurrentCountdown().getMinutes();
         int seconds = session.getCurrentCountdown().getSeconds();
-        textUi.printOutputMessage(PAUSE_OUTPUT + String.format("%d:%d", minutes, seconds));
+        focusUi.printOutputMessage(PAUSE_OUTPUT + String.format("%d:%d", minutes, seconds));
     }
 
     /**

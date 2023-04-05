@@ -6,6 +6,7 @@ import java.util.HashMap;
 import wellnus.command.Command;
 import wellnus.exception.BadCommandException;
 import wellnus.focus.feature.FocusManager;
+import wellnus.focus.feature.FocusUi;
 import wellnus.ui.TextUi;
 
 /**
@@ -28,7 +29,7 @@ public class HelpCommand extends Command {
     private static final String DOT = ".";
     private static final int ONE_OFFSET = 1;
     private static final int EXPECTED_PAYLOAD_SIZE = 1;
-    private final TextUi textUi;
+    private final FocusUi focusUi;
 
     /**
      * Initialises a HelpCommand Object using the command arguments issued by the user.
@@ -37,11 +38,11 @@ public class HelpCommand extends Command {
      */
     public HelpCommand(HashMap<String, String> arguments) {
         super(arguments);
-        this.textUi = new TextUi();
+        this.focusUi = new FocusUi();
     }
 
-    private TextUi getTextUi() {
-        return this.textUi;
+    private TextUi getFocusUi() {
+        return this.focusUi;
     }
 
     private ArrayList<String> getCommandDescriptions() {
@@ -86,7 +87,7 @@ public class HelpCommand extends Command {
             outputMessage = outputMessage.concat(i + ONE_OFFSET + DOT + PADDING);
             outputMessage = outputMessage.concat(commandDescriptions.get(i) + System.lineSeparator());
         }
-        this.getTextUi().printOutputMessage(outputMessage);
+        this.getFocusUi().printOutputMessage(outputMessage);
     }
 
     /**
@@ -123,13 +124,13 @@ public class HelpCommand extends Command {
             printUsageMessage(StopCommand.COMMAND_DESCRIPTION, StopCommand.COMMAND_USAGE);
             break;
         default:
-            textUi.printOutputMessage(ERROR_UNKNOWN_COMMAND);
+            focusUi.printOutputMessage(ERROR_UNKNOWN_COMMAND);
         }
     }
 
     private void printUsageMessage(String commandDescription, String usageString) {
         String message = commandDescription + System.lineSeparator() + usageString;
-        textUi.printOutputMessage(message);
+        focusUi.printOutputMessage(message);
     }
 
     @Override
@@ -156,7 +157,7 @@ public class HelpCommand extends Command {
         try {
             validateCommand(getArguments());
         } catch (BadCommandException exception) {
-            getTextUi().printOutputMessage(exception.getMessage());
+            getFocusUi().printOutputMessage(exception.getMessage());
             return;
         }
         this.printHelpMessage();

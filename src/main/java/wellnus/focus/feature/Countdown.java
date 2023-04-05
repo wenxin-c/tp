@@ -27,7 +27,7 @@ public class Countdown {
             + System.lineSeparator()
             + "Type `start` to start a new session, or `config` to change the session settings.";
     private static final String FEATURE_NAME = "ft";
-    private TextUi textUi;
+    private FocusUi focusUi;
     private Timer timer;
     private int minutes;
     private int inputMinutes;
@@ -54,8 +54,8 @@ public class Countdown {
         this.isCompletedCountdown = new AtomicBoolean(false);
         this.isRunClock = new AtomicBoolean(false);
         this.description = description;
-        this.textUi = new TextUi();
-        textUi.setCursorName(FEATURE_NAME);
+        this.focusUi = new FocusUi();
+        focusUi.setCursorName(FEATURE_NAME);
         this.isLast = isLast;
     }
 
@@ -68,16 +68,16 @@ public class Countdown {
         setStop();
         java.awt.Toolkit.getDefaultToolkit().beep();
         if (isLast) {
-            textUi.printOutputMessage(TIMER_COMPLETE_MESSAGE_LAST);
+            focusUi.printOutputMessage(TIMER_COMPLETE_MESSAGE_LAST);
         } else {
-            textUi.printOutputMessage(TIMER_COMPLETE_MESSAGE);
+            focusUi.printOutputMessage(TIMER_COMPLETE_MESSAGE);
         }
         this.minutes = inputMinutes;
         this.isCompletedCountdown.set(true);
         if (isLast) {
             setIsReady(true);
         }
-        textUi.printCursor();
+        focusUi.printCursor();
     }
 
     /**
@@ -110,10 +110,10 @@ public class Countdown {
                     return;
                 }
                 if (minutes == DEFAULT_STOP_TIME && seconds == COUNTDOWN_PRINT_START_TIME) {
-                    textUi.printNewline();
+                    focusUi.printNewline();
                 }
                 if (isCountdownPrinting()) {
-                    textUi.printOutputMessage(seconds + " seconds left");
+                    focusUi.printOutputMessage(seconds + " seconds left");
                 }
                 if (seconds == DEFAULT_STOP_TIME && minutes == DEFAULT_STOP_TIME) {
                     timerComplete();

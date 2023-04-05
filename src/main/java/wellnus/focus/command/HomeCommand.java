@@ -6,8 +6,8 @@ import wellnus.command.Command;
 import wellnus.exception.BadCommandException;
 import wellnus.exception.WellNusException;
 import wellnus.focus.feature.FocusManager;
+import wellnus.focus.feature.FocusUi;
 import wellnus.focus.feature.Session;
-import wellnus.ui.TextUi;
 
 /**
  * The HomeCommand class is a command class that returns user back to the main WellNUS++ program.
@@ -24,7 +24,7 @@ public class HomeCommand extends Command {
     private static final String NO_ADDITIONAL_MESSAGE = "";
     private static final String WRONG_COMMAND_ARGUMENTS_MESSAGE = "'home' command shouldn't have additional '%s' "
             + "argument";
-    private final TextUi textUi;
+    private final FocusUi focusUi;
     private final Session session;
 
     /**
@@ -36,7 +36,7 @@ public class HomeCommand extends Command {
      */
     public HomeCommand(HashMap<String, String> arguments, Session session) {
         super(arguments);
-        this.textUi = new TextUi();
+        this.focusUi = new FocusUi();
         this.session = session;
     }
 
@@ -85,7 +85,7 @@ public class HomeCommand extends Command {
         // Reset the state of the countdown timer
         session.resetCurrentCountdownIndex();
         session.initialiseSession();
-        textUi.printOutputMessage(HOME_MESSAGE);
+        focusUi.printOutputMessage(HOME_MESSAGE);
     }
 
     /**
