@@ -21,8 +21,8 @@ public class CheckCommand extends Command {
     private static final String COMMAND_INVALID_ARGUMENTS_MESSAGE = "Invalid arguments given to 'check'!";
     private static final String CHECK_OUTPUT = "Time left: ";
     private static final String ERROR_COUNTDOWN_NOT_RUNNING = "Nothing to check - the countdown has not started yet!";
-    private static final String COMMAND_INVALID_COMMAND_NOTE = "Please try 'help' command to check the "
-            + "available commands and their usages!";
+    private static final String COMMAND_INVALID_COMMAND_NOTE = "check command " + COMMAND_USAGE;
+    private static final String COMMAND_INVALID_PAYLOAD = "Invalid payload given to 'check'!";
     private final Session session;
     private final TextUi textUi;
 
@@ -102,7 +102,7 @@ public class CheckCommand extends Command {
             throw new BadCommandException(COMMAND_INVALID_COMMAND_MESSAGE);
         }
         if (!arguments.get(COMMAND_KEYWORD).equals("")) {
-            throw new BadCommandException(COMMAND_INVALID_ARGUMENTS_MESSAGE);
+            throw new BadCommandException(COMMAND_INVALID_PAYLOAD);
         }
     }
 

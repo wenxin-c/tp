@@ -17,12 +17,10 @@ public class HomeCommand extends Command {
     public static final String COMMAND_USAGE = "usage: home";
     public static final String COMMAND_KEYWORD = "home";
     private static final int COMMAND_NUM_OF_ARGUMENTS = 1;
-    private static final String COMMAND_INVALID_ARGUMENTS_MESSAGE = "That is not a valid home command for "
-            + "focus timer!";
     private static final String COMMAND_INVALID_COMMAND_MESSAGE = "Invalid command issued, expected 'home'!";
+    private static final String COMMAND_INVALID_ARGUMENTS = "Invalid arguments given to 'home'!";
+    private static final String COMMAND_INVALID_PAYLOAD = "Invalid payload given to 'home'!";
     private static final String HOME_MESSAGE = "Thank you for using focus timer. Keep up the productivity!";
-    private static final String WRONG_COMMAND_ARGUMENTS_MESSAGE = "Invalid arguments given, 'home' command shouldn't "
-            + "have additional '%s' argument";
     private final TextUi textUi;
     private final Session session;
 
@@ -94,14 +92,14 @@ public class HomeCommand extends Command {
     @Override
     public void validateCommand(HashMap<String, String> arguments) throws BadCommandException {
         if (arguments.size() > HomeCommand.COMMAND_NUM_OF_ARGUMENTS) {
-            throw new BadCommandException(HomeCommand.COMMAND_INVALID_ARGUMENTS_MESSAGE);
+            throw new BadCommandException(HomeCommand.COMMAND_INVALID_ARGUMENTS);
         }
         if (!arguments.containsKey(HomeCommand.COMMAND_KEYWORD)) {
             throw new BadCommandException(HomeCommand.COMMAND_INVALID_COMMAND_MESSAGE);
         }
         String payload = arguments.get(getCommandKeyword());
         if (!payload.isBlank()) {
-            throw new BadCommandException(String.format(WRONG_COMMAND_ARGUMENTS_MESSAGE, payload));
+            throw new BadCommandException(COMMAND_INVALID_PAYLOAD);
         }
     }
 

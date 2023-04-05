@@ -5,6 +5,7 @@ import java.util.NoSuchElementException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import wellnus.command.ExitCommand;
 import wellnus.exception.BadCommandException;
 import wellnus.manager.Manager;
 import wellnus.reflection.command.FavoriteCommand;
@@ -32,9 +33,16 @@ public class ReflectionManager extends Manager {
     private static final String FAV_COMMAND = "fav";
     private static final String PREV_COMMAND = "prev";
     private static final String NO_ELEMENT_MESSAGE = "There is no new line of input, please key in inputs!";
-    private static final String INVALID_COMMAND_MESSAGE = "The command is invalid!!";
-    private static final String INVALID_COMMAND_NOTES = "Please try 'help' command to check the "
-            + "available commands and their usages!";
+    private static final String INVALID_COMMAND_MESSAGE = "Invalid command issued!";
+    private static final String LINE_SEPARATOR = System.lineSeparator();
+    private static final String INVALID_COMMAND_NOTES =
+            "get command " + GetCommand.COMMAND_USAGE + LINE_SEPARATOR
+            + "like command " + LikeCommand.COMMAND_USAGE + LINE_SEPARATOR
+            + "unlike command " + UnlikeCommand.COMMAND_USAGE + LINE_SEPARATOR
+            + "fav command " + FavoriteCommand.COMMAND_USAGE + LINE_SEPARATOR
+            + "prev command " + PrevCommand.COMMAND_USAGE + LINE_SEPARATOR
+            + "home command " + HomeCommand.COMMAND_USAGE + LINE_SEPARATOR
+            + "exit command " + ExitCommand.COMMAND_USAGE;
     private static final String COMMAND_TYPE_ASSERTION = "Command type should have length greater than 0";
     private static final String ARGUMENT_PAYLOAD_ASSERTION = "Argument-payload pairs cannot be empty";
     private static final String LOGO =

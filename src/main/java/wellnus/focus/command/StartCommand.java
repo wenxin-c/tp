@@ -20,10 +20,10 @@ public class StartCommand extends Command {
     private static final int FIRST_COUNTDOWN_INDEX = 0;
     private static final String COMMAND_INVALID_COMMAND_MESSAGE = "Invalid command issued, expected 'start'!";
     private static final String COMMAND_INVALID_ARGUMENTS_MESSAGE = "Invalid arguments given to 'start'!";
+    private static final String COMMAND_INVALID_PAYLOAD = "Invalid payload given to 'start'!";
     private static final String START_MESSAGE = "Your session has started! Please focus on your task.";
     private static final String ERROR_NOT_READY = "Nothing to start - your session has started!";
-    private static final String COMMAND_INVALID_COMMAND_NOTE = "Please try 'help' command to check the "
-            + "available commands and their usages!";
+    private static final String COMMAND_INVALID_COMMAND_NOTE = "start command " + COMMAND_USAGE;
     private final Session session;
     private final TextUi textUi;
 
@@ -101,7 +101,7 @@ public class StartCommand extends Command {
             throw new BadCommandException(COMMAND_INVALID_COMMAND_MESSAGE);
         }
         if (!arguments.get(COMMAND_KEYWORD).equals("")) {
-            throw new BadCommandException(COMMAND_INVALID_ARGUMENTS_MESSAGE);
+            throw new BadCommandException(COMMAND_INVALID_PAYLOAD);
         }
     }
 

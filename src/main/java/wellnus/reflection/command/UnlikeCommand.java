@@ -25,15 +25,14 @@ public class UnlikeCommand extends Command {
     public static final String COMMAND_KEYWORD = "unlike";
     private static final String FEATURE_NAME = "reflect";
     private static final String INVALID_COMMAND_MSG = "Invalid command issued, expected 'unlike'!";
-    private static final String INVALID_COMMAND_NOTES = "Please try 'help' command to check the "
-            + "available commands and their usages!";
-    private static final String WRONG_INDEX_MSG = "Index is out of range!";
-    private static final String WRONG_INDEX_NOTE = "Please input the correct index of the question you want to "
-            + "remove from your favorite list!";
+    private static final String INVALID_ARGUMENT_MSG = "Invalid arguments given to 'unlike'!";
+    private static final String INVALID_COMMAND_NOTES = "unlike command " + COMMAND_USAGE;
+    private static final String WRONG_INDEX_MSG = "Invalid index payload given to 'unlike', index is out of range!";
+    private static final String WRONG_INDEX_NOTE = "Please input the correct index of the question you like!";
     private static final String COMMAND_KEYWORD_ASSERTION = "The key should be unlike.";
     private static final String EMPTY_FAV_LIST_MSG = "The favorite list is empty, there is nothing to be removed.";
-    private static final String TOKENIZER_ERROR = "The data cannot be tokenized for storage properly!!";
-    private static final String STORAGE_ERROR = "The file data cannot be stored properly!!";
+    private static final String TOKENIZER_ERROR = "Error tokenizing data!";
+    private static final String STORAGE_ERROR = "Error saving to storage!";
     private static final int INDEX_ZERO = 0;
     private static final int ARGUMENT_PAYLOAD_SIZE = 1;
     private static final int LOWER_BOUND = 1;
@@ -117,7 +116,7 @@ public class UnlikeCommand extends Command {
     @Override
     public void validateCommand(HashMap<String, String> commandMap) throws BadCommandException {
         if (commandMap.size() != ARGUMENT_PAYLOAD_SIZE) {
-            throw new BadCommandException(INVALID_COMMAND_MSG);
+            throw new BadCommandException(INVALID_ARGUMENT_MSG);
         } else if (!commandMap.containsKey(COMMAND_KEYWORD)) {
             throw new BadCommandException(INVALID_COMMAND_MSG);
         }
@@ -148,7 +147,7 @@ public class UnlikeCommand extends Command {
             LOGGER.log(Level.INFO, WRONG_INDEX_MSG);
             UI.printErrorFor(numberFormatException, WRONG_INDEX_NOTE);
         } catch (ReflectionException reflectionException) {
-            UI.printOutputMessage(reflectionException.getMessage());
+            UI.printErrorFor(reflectionException, WRONG_INDEX_NOTE);
         } catch (BadCommandException badCommandException) {
             LOGGER.log(Level.INFO, INVALID_COMMAND_MSG);
             UI.printErrorFor(badCommandException, INVALID_COMMAND_NOTES);
@@ -171,10 +170,11 @@ public class UnlikeCommand extends Command {
             NumberFormatException, ReflectionException, BadCommandException {
         int questionIndexInt = Integer.parseInt(questionIndex);
         if (this.favQuestionIndexes.size() == EMPTY_LIST) {
-            throw new ReflectionException(EMPTY_FAV_LIST_MSG);
+            UI.printOutputMessage(EMPTY_FAV_LIST_MSG);
+            return;
         }
         if (questionIndexInt > this.favQuestionIndexes.size() || questionIndexInt < LOWER_BOUND) {
-            throw new BadCommandException(WRONG_INDEX_MSG);
+            throw new ReflectionException(WRONG_INDEX_MSG);
         }
         IndexMapper indexMapper = new IndexMapper(this.favQuestionIndexes);
         HashMap<Integer, Integer> indexQuestionMap = indexMapper.mapIndex();

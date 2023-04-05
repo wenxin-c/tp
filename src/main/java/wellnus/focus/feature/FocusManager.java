@@ -42,8 +42,17 @@ public class FocusManager extends Manager {
     private static final String COMMAND_KEYWORD_ASSERTION = "The key cannot be null"
             + ", check user-guide for valid commands";
     private static final String ERROR_SESSION_RUNNING = "Sorry, you cant `start` or `config` a ";
-    private static final String COMMAND_INVALID_COMMAND_NOTE = "Please try 'help' command to check the "
-            + "available commands and their usages!";
+    private static final String LINE_SEPARATOR = System.lineSeparator();
+    private static final String COMMAND_INVALID_COMMAND_NOTE =
+            "check command " + CheckCommand.COMMAND_USAGE + LINE_SEPARATOR
+            + "config command " + ConfigCommand.COMMAND_USAGE + LINE_SEPARATOR
+            + "next command " + NextCommand.COMMAND_USAGE + LINE_SEPARATOR
+            + "pause command " + PauseCommand.COMMAND_USAGE + LINE_SEPARATOR
+            + "resume command " + ResumeCommand.COMMAND_USAGE + LINE_SEPARATOR
+            + "start command " + StartCommand.COMMAND_USAGE + LINE_SEPARATOR
+            + "stop command " + StopCommand.COMMAND_USAGE + LINE_SEPARATOR
+            + "help command " + HelpCommand.COMMAND_USAGE + LINE_SEPARATOR
+            + "home command " + HomeCommand.COMMAND_USAGE;
     private final TextUi textUi;
     private final Session session;
 

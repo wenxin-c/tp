@@ -18,11 +18,11 @@ public class ListCommand extends Command {
     public static final String COMMAND_KEYWORD = "list";
     private static final int COMMAND_NUM_OF_ARGUMENTS = 1;
     private static final String COMMAND_INVALID_ARGUMENTS_MESSAGE = "Invalid command issued, expected 'list'!";
+    private static final String COMMAND_INVALID_PAYLOAD = "Invalid payload given to 'list'!";
     private static final String LINE_SEPARATOR = System.lineSeparator();
     private static final String FIRST_STRING = "Here is the current accumulation of your atomic habits!"
             + LINE_SEPARATOR + "Keep up the good work and you will develop a helpful habit in no time";
-    private static final String COMMAND_INVALID_COMMAND_NOTE = "Please try 'help' command to check the "
-            + "available commands and their usage!";
+    private static final String COMMAND_INVALID_COMMAND_NOTE = "list command " + COMMAND_USAGE;
     private static final String EMPTY_LIST_MESSAGE = "You have no habits in your list!"
             + LINE_SEPARATOR
             + "Start adding some habits by using 'add'!";
@@ -114,7 +114,7 @@ public class ListCommand extends Command {
             throw new BadCommandException(ListCommand.COMMAND_INVALID_ARGUMENTS_MESSAGE);
         }
         if (arguments.get(COMMAND_KEYWORD) != "") {
-            throw new BadCommandException(ListCommand.COMMAND_INVALID_ARGUMENTS_MESSAGE);
+            throw new BadCommandException(ListCommand.COMMAND_INVALID_PAYLOAD);
         }
     }
 

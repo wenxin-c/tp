@@ -40,13 +40,19 @@ public class AtomicHabitManager extends Manager {
     private static final String ATOMIC_HABIT_GREET = "Welcome to the atomic habits feature!";
     private static final String HOME_COMMAND_KEYWORD = "home";
     private static final String LIST_COMMAND_KEYWORD = "list";
-    private static final String UNKNOWN_COMMAND_MESSAGE = "No such command in atomic habits!";
+    private static final String UNKNOWN_COMMAND_MESSAGE = "Invalid command issued!";
     private static final String UPDATE_COMMAND_KEYWORD = "update";
     private static final String HELP_COMMAND_KEYWORD = "help";
     private static final String DELETE_COMMAND_KEYWORD = "delete";
     private static final String ERROR_STORAGE_MESSAGE = "Error saving to storage!";
-    private static final String COMMAND_INVALID_COMMAND_NOTE = "Please try 'help' command to check the "
-            + "available commands and their usages!";
+    private static final String LINE_SEPARATOR = System.lineSeparator();
+    private static final String COMMAND_INVALID_COMMAND_NOTE =
+            "add command " + AddCommand.COMMAND_USAGE + LINE_SEPARATOR
+            + "delete command " + DeleteCommand.COMMAND_USAGE + LINE_SEPARATOR
+            + "list command " + ListCommand.COMMAND_USAGE + LINE_SEPARATOR
+            + "update command " + UpdateCommand.COMMAND_USAGE + LINE_SEPARATOR
+            + "help command " + HelpCommand.COMMAND_USAGE + LINE_SEPARATOR
+            + "home command " + HomeCommand.COMMAND_USAGE;
     private static final String FEEDBACK_INDEX_EXCEPTION_NOTE = "Please input an appropriate integer for the "
             + "arguments!";
     private final TextUi textUi;

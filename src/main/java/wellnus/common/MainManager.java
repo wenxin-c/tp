@@ -35,11 +35,16 @@ public class MainManager extends Manager {
             + "if you're new, or just unsure.";
     private static final String HELP_COMMAND_KEYWORD = "help";
     private static final String INVALID_COMMAND_MESSAGE = "Invalid command issued!";
-    private static final String INVALID_COMMAND_ADDITIONAL_MESSAGE = "Please try 'help' command to check the "
-            + "available commands and their usages!";
+    private static final String LINE_SEPARATOR = System.lineSeparator();
+    private static final String INVALID_COMMAND_ADDITIONAL_MESSAGE =
+            "Access Atomic Habit: hb" + LINE_SEPARATOR
+            + "Access Self Reflection : reflect" + LINE_SEPARATOR
+            + "Access Focus Timer: ft" + LINE_SEPARATOR
+            + "Access Gamification: gamif" + LINE_SEPARATOR
+            + "Help command: help" + LINE_SEPARATOR
+            + "Exit program: exit";
     private static final String INVALID_FEATURE_KEYWORD_MESSAGE = "Feature keyword can't be empty dear";
     private static final String WELLNUS_FEATURE_NAME = "";
-    private static final String NO_ADDITIONAL_MESSAGE = "";
     private ArrayList<Manager> featureManagers;
     private final TextUi textUi;
 

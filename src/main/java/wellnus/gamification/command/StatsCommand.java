@@ -18,9 +18,8 @@ public class StatsCommand extends Command {
     public static final String COMMAND_USAGE = "usage: stats";
     public static final String FEATURE_NAME = "gamif";
     private static final int NUM_OF_ARGUMENTS = 1;
-    private static final String TOO_MANY_ARGUMENTS = "Invalid arguments given, too many arguments given "
-            + "to 'stats' command!";
-    private static final String WRONG_COMMAND_MESSAGE = "StatsCommand called for the wrong command keyword";
+    private static final String WRONG_ARGUMENTS_MESSAGE = "Invalid arguments given to 'stats'!";
+    private static final String WRONG_COMMAND_MESSAGE = "Invalid command issued, expected 'stats'!";
     private final GamificationData gamData;
 
     /**
@@ -74,7 +73,7 @@ public class StatsCommand extends Command {
     public void validateCommand(HashMap<String, String> arguments) throws BadCommandException {
         assert arguments.containsKey(getCommandKeyword()) : WRONG_COMMAND_MESSAGE;
         if (arguments.size() > NUM_OF_ARGUMENTS) {
-            throw new BadCommandException(TOO_MANY_ARGUMENTS);
+            throw new BadCommandException(WRONG_ARGUMENTS_MESSAGE);
         }
     }
 

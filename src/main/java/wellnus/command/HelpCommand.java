@@ -20,8 +20,9 @@ public class HelpCommand extends Command {
     public static final String COMMAND_DESCRIPTION = "help - Get help on what commands can be used in WellNUS++.";
     public static final String COMMAND_USAGE = "usage: help [command-to-check]";
     private static final String COMMAND_KEYWORD = "help";
-    private static final String BAD_COMMAND_MESSAGE = "Invalid arguments given, 'help' should not take "
-            + "in any arguments!";
+    private static final String BAD_ARGUMENTS_MESSAGE = "Invalid arguments given to 'help'!";
+    private static final String COMMAND_INVALID_PAYLOAD = "Invalid payload given to 'help'!";
+    private static final String COMMAND_INVALID_COMMAND_NOTE = "help command " + COMMAND_USAGE;
     private static final String NO_FEATURE_KEYWORD = "";
     private static final String HELP_PREAMBLE = "Input `help` to see all available commands.\n"
             + "Input `help [command-to-check]` to get usage help for a specific command.\n"
@@ -30,9 +31,6 @@ public class HelpCommand extends Command {
     private static final String USAGE_REFLECT = "\tusage: reflect";
     private static final String USAGE_FOCUS = "\tusage: ft";
     private static final String USAGE_GAMIFICATION = "\tusage: gamif";
-    private static final String ERROR_UNKNOWN_COMMAND = "Invalid command issued!";
-    private static final String COMMAND_INVALID_COMMAND_NOTE = "Please try 'help' command to check the "
-            + "available commands and their usages!";
     private static final String PADDING = " ";
     private static final String DOT = ".";
     private static final int ONE_OFFSET = 1;
@@ -121,7 +119,7 @@ public class HelpCommand extends Command {
             printUsageMessage(ExitCommand.COMMAND_DESCRIPTION, ExitCommand.COMMAND_USAGE);
             break;
         default:
-            BadCommandException unknownCommand = new BadCommandException(ERROR_UNKNOWN_COMMAND);
+            BadCommandException unknownCommand = new BadCommandException(COMMAND_INVALID_PAYLOAD);
             textUi.printErrorFor(unknownCommand, COMMAND_INVALID_COMMAND_NOTE);
         }
     }
@@ -172,7 +170,7 @@ public class HelpCommand extends Command {
         assert arguments.containsKey(COMMAND_KEYWORD) : "HelpCommand's payload map does not contain 'help'!";
         // Check if user put in unnecessary payload or arguments
         if (arguments.size() > EXPECTED_PAYLOAD_SIZE) {
-            throw new BadCommandException(BAD_COMMAND_MESSAGE);
+            throw new BadCommandException(BAD_ARGUMENTS_MESSAGE);
         }
     }
 

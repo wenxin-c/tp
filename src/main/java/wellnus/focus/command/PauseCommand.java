@@ -19,11 +19,11 @@ public class PauseCommand extends Command {
     private static final int COMMAND_NUM_OF_ARGUMENTS = 1;
     private static final String COMMAND_INVALID_COMMAND_MESSAGE = "Invalid command issued, expected 'pause'!";
     private static final String COMMAND_INVALID_ARGUMENTS_MESSAGE = "Invalid arguments given to 'pause'!";
+    private static final String COMMAND_INVALID_PAYLOAD = "Invalid payload given to 'pause'!";
     private static final String PAUSE_OUTPUT = "Timer paused at: ";
     private static final String ERROR_COUNTDOWN_NOT_RUNNING = "Nothing to pause - the timer has not started yet!";
     private static final String ERROR_IS_PAUSED = "Nothing to pause - you have already paused the timer!";
-    private static final String COMMAND_INVALID_COMMAND_NOTE = "Please try 'help' command to check the "
-            + "available commands and their usages!";
+    private static final String COMMAND_INVALID_COMMAND_NOTE = "pause command " + COMMAND_USAGE;
     private final Session session;
     private final TextUi textUi;
 
@@ -106,7 +106,7 @@ public class PauseCommand extends Command {
             throw new BadCommandException(COMMAND_INVALID_COMMAND_MESSAGE);
         }
         if (!arguments.get(COMMAND_KEYWORD).equals("")) {
-            throw new BadCommandException(COMMAND_INVALID_ARGUMENTS_MESSAGE);
+            throw new BadCommandException(COMMAND_INVALID_PAYLOAD);
         }
     }
 

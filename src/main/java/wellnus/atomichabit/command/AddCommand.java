@@ -19,18 +19,17 @@ public class AddCommand extends Command {
     public static final String COMMAND_USAGE = "usage: add --name (your habit name)";
     public static final String COMMAND_KEYWORD = "add";
     private static final String COMMAND_INVALID_ARGUMENTS_MESSAGE = "Invalid arguments given to 'add'!";
+    private static final String COMMAND_INVALID_PAYLOAD = "Invalid payload given to 'add'!";
     private static final String DUPLICATE_HABIT_MESSAGE = "You already have this habit in your list!"
             + " Use 'update' instead.";
     private static final String COMMAND_NAME_ARGUMENT = "name";
     private static final String COMMAND_KEYWORD_ASSERTION = "The key should be add.";
     private static final String COMMAND_PAYLOAD_ASSERTION = "The payload should not be empty.";
-
     private static final int COMMAND_NUM_OF_ARGUMENTS = 2;
     private static final String COMMAND_WRONG_KEYWORD_MESSAGE = "Invalid command issued, expected 'add'!";
     private static final String FEEDBACK_STRING_ONE = "Yay! You have added a new habit:";
     private static final String FEEDBACK_STRING_TWO = "was successfully added";
-    private static final String COMMAND_INVALID_COMMAND_NOTE = "Please try 'help' command to check the "
-            + "available commands and their usages!";
+    private static final String COMMAND_INVALID_COMMAND_NOTE = "add command " + COMMAND_USAGE;
     private final AtomicHabitList atomicHabits;
     private final TextUi textUi;
 
@@ -134,7 +133,7 @@ public class AddCommand extends Command {
             throw new BadCommandException(AddCommand.COMMAND_WRONG_KEYWORD_MESSAGE);
         }
         if (arguments.get(COMMAND_KEYWORD) != "") {
-            throw new BadCommandException(AddCommand.COMMAND_INVALID_ARGUMENTS_MESSAGE);
+            throw new BadCommandException(AddCommand.COMMAND_INVALID_PAYLOAD);
         }
         if (!arguments.containsKey(AddCommand.COMMAND_NAME_ARGUMENT)) {
             throw new BadCommandException(AddCommand.COMMAND_INVALID_ARGUMENTS_MESSAGE);

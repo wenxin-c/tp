@@ -19,11 +19,11 @@ public class ResumeCommand extends Command {
     private static final int COMMAND_NUM_OF_ARGUMENTS = 1;
     private static final String COMMAND_INVALID_COMMAND_MESSAGE = "Invalid command issued, expected 'resume'!";
     private static final String COMMAND_INVALID_ARGUMENTS_MESSAGE = "Invalid arguments given to 'resume'!";
+    private static final String COMMAND_INVALID_PAYLOAD = "Invalid payload given to 'resume'!";
     private static final String COMMAND_KEYWORD_ASSERTION = "The key should be resume.";
     private static final String RESUME_OUTPUT = "Timer resumed at: ";
     private static final String ERROR_NOT_PAUSED = "You don't seem to be paused. Ignoring the command!";
-    private static final String COMMAND_INVALID_COMMAND_NOTE = "Please try 'help' command to check the "
-            + "available commands and their usages!";
+    private static final String COMMAND_INVALID_COMMAND_NOTE = "resume command " + COMMAND_USAGE;
     private final Session session;
     private final TextUi textUi;
 
@@ -97,7 +97,7 @@ public class ResumeCommand extends Command {
             throw new BadCommandException(COMMAND_INVALID_COMMAND_MESSAGE);
         }
         if (!arguments.get(COMMAND_KEYWORD).equals("")) {
-            throw new BadCommandException(COMMAND_INVALID_ARGUMENTS_MESSAGE);
+            throw new BadCommandException(COMMAND_INVALID_PAYLOAD);
         }
     }
 

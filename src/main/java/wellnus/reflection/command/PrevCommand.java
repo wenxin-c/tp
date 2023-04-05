@@ -19,14 +19,14 @@ public class PrevCommand extends Command {
     private static final String FEATURE_NAME = "reflect";
     private static final String INVALID_COMMAND_MSG = "Invalid command issued, expected 'prev'!";
     private static final String INVALID_ARGUMENT_MSG = "Invalid arguments given to 'prev'!";
-    private static final String INVALID_COMMAND_NOTES = "Please try 'help' command to check the "
-            + "available commands and their usages!";
+    private static final String INVALID_PAYLOAD = "Invalid payload given to 'prev'!";
+    private static final String INVALID_COMMAND_NOTES = "prev command " + COMMAND_USAGE;
     private static final String COMMAND_KEYWORD_ASSERTION = "The key should be prev.";
     private static final String COMMAND_PAYLOAD_ASSERTION = "The payload should be empty.";
     private static final String MISSING_SET_QUESTIONS = "A set of questions has not been gotten";
     private static final String MISSING_SET_QUESTIONS_NOTES = "Please try 'get' command to generate a set of questions "
             + "before adding to favorite list!";
-    private static final String INDEX_OUT_OF_BOUND_MSG = "Index is out of bound!!";
+    private static final String INDEX_OUT_OF_BOUND_MSG = "Invalid index given, index is out of bound!!";
     private static final String INDEX_OUT_OF_BOUND_NOTES = "The index is out of range (e.g. negative integers, 0)!"
             + System.lineSeparator() + "Your data file might be corrupted!!";
     private static final String PAYLOAD = "";
@@ -112,7 +112,7 @@ public class PrevCommand extends Command {
         } else if (!commandMap.containsKey(COMMAND_KEYWORD)) {
             throw new BadCommandException(INVALID_COMMAND_MSG);
         } else if (!commandMap.get(COMMAND_KEYWORD).equals(PAYLOAD)) {
-            throw new BadCommandException(INVALID_ARGUMENT_MSG);
+            throw new BadCommandException(INVALID_PAYLOAD);
         }
         assert getArguments().containsKey(COMMAND_KEYWORD) : COMMAND_KEYWORD_ASSERTION;
         assert getArguments().get(COMMAND_KEYWORD).equals(PAYLOAD) : COMMAND_PAYLOAD_ASSERTION;

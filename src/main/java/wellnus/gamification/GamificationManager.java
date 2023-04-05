@@ -23,9 +23,12 @@ public class GamificationManager extends Manager {
     private static final String COMMAND_HELP = "help";
     private static final String COMMAND_HOME = "home";
     private static final String COMMAND_STATS = "stats";
-    private static final String UNRECOGNISED_COMMAND_ERROR = "Invalid command %s issued!";
-    private static final String COMMAND_INVALID_COMMAND_NOTE = "Please try 'help' command to check the "
-            + "available commands and their usages!";
+    private static final String LINE_SEPARATOR = System.lineSeparator();
+    private static final String UNRECOGNISED_COMMAND_ERROR = "Invalid command issued!";
+    private static final String COMMAND_INVALID_COMMAND_NOTE =
+            "stats command " + StatsCommand.COMMAND_USAGE + LINE_SEPARATOR
+            + "help command " + HelpCommand.COMMAND_USAGE + LINE_SEPARATOR
+            + "home command " + HomeCommand.COMMAND_USAGE;
     private final GamificationData gamificationData;
     private final TextUi textUi;
 

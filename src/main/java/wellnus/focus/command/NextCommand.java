@@ -19,11 +19,11 @@ public class NextCommand extends Command {
     private static final int COMMAND_NUM_OF_ARGUMENTS = 1;
     private static final String COMMAND_INVALID_COMMAND_MESSAGE = "Invalid command issued, expected 'next'!";
     private static final String COMMAND_INVALID_ARGUMENTS_MESSAGE = "Invalid arguments given to 'next'!";
+    private static final String COMMAND_INVALID_PAYLOAD = "Invalid payload given to 'next'!";
     private static final String ERROR_SESSION_NOT_STARTED = "A focus session has not started yet, "
             + "try `start`ing one first!";
     private static final String ERROR_COUNTDOWN_RUNNING = "Oops, your timer for this session is still ticking!";
-    private static final String COMMAND_INVALID_COMMAND_NOTE = "Please try 'help' command to check the "
-            + "available commands and their usages!";
+    private static final String COMMAND_INVALID_COMMAND_NOTE = "next command " + COMMAND_USAGE;
     private final Session session;
     private final TextUi textUi;
 
@@ -103,7 +103,7 @@ public class NextCommand extends Command {
             throw new BadCommandException(COMMAND_INVALID_COMMAND_MESSAGE);
         }
         if (!arguments.get(COMMAND_KEYWORD).equals("")) {
-            throw new BadCommandException(COMMAND_INVALID_ARGUMENTS_MESSAGE);
+            throw new BadCommandException(COMMAND_INVALID_PAYLOAD);
         }
     }
 

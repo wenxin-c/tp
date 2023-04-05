@@ -28,26 +28,27 @@ public class UpdateCommand extends Command {
     private static final int COMMAND_MIN_NUM_OF_ARGUMENTS = 2;
     private static final int COMMAND_MAX_NUM_OF_ARGUMENTS = 3;
     private static final String COMMAND_INVALID_COMMAND_MESSAGE = "Invalid command issued, expected 'update'!";
-    private static final String COMMAND_INVALID_COMMAND_NOTE = "Please try 'help' command to check the "
-            + "available commands and their usages!";
-    private static final String COMMAND_INVALID_ARGUMENT_MESSAGE = "Invalid arguments given, expected 'id' and 'by'!";
+    private static final String COMMAND_INVALID_COMMAND_NOTE = "update command " + COMMAND_USAGE;
+    private static final String COMMAND_INVALID_ARGUMENT_MESSAGE = "Invalid arguments given to 'update'!";
+    private static final String COMMAND_INVALID_PAYLOAD = "Invalid payload given to 'update'!";
+    private static final String COMMAND_INVALID_PAYLOAD_INCREMENT = "Invalid payload given to 'by' argument!";
     private static final String DOT = ".";
     private static final int DEFAULT_INCREMENT = 1;
     private static final int ZERO = 0;
     private static final String FEEDBACK_STRING = "The following habit has been incremented! Keep up the good work!";
     private static final String FEEDBACK_STRING_NO_INCREMENT = "The following habit has not been updated! "
             + "Enter a positive integer to update your habit!";
-    private static final String FEEDBACK_INDEX_NOT_INTEGER_ERROR = "Invalid index given, expected an integer!";
-    private static final String FEEDBACK_INDEX_OUT_OF_BOUNDS_ERROR = "Invalid index given, index is out of Range!";
-    private static final String FEEDBACK_DECREMENT_ERROR = "Invalid decrement value given, decrement is too large! "
-            + "Please keep it within range";
+    private static final String FEEDBACK_INDEX_NOT_INTEGER_ERROR = "Invalid index payload given, expected an integer!";
+    private static final String FEEDBACK_INDEX_OUT_OF_BOUNDS_ERROR = "Invalid index payload given, "
+            + "index is out of range!";
+    private static final String FEEDBACK_DECREMENT_ERROR = "Invalid decrement payload given, "
+            + "decrement value is out of range!";
     private static final int INDEX_OFFSET = 1;
     private static final String LINE_SEPARATOR = System.lineSeparator();
     private static final int MINIMUM_INCREMENT = 1;
-    private static final String UPDATE_INVALID_ARGUMENTS_MESSAGE = "Invalid arguments given for updating, an integer "
-            + "is expected!";
-    private static final String UPDATE_INVALID_INCREMENT_COUNT = "Invalid arguments given, increment with minimum "
-            + "of 1 is expected!";
+    private static final String UPDATE_INVALID_ARGUMENTS_MESSAGE = "Invalid arguments given to 'update'";
+    private static final String UPDATE_INVALID_INCREMENT_COUNT = "Invalid increment payload given, increment with "
+            + "minimum of 1 is expected!";
     private static final String REGEX_INTEGER_ONLY_PATTERN = "\\s*-?\\d+\\s*";
     private static final Logger logger = Logger.getLogger("UpdateAtomicHabitLogger");
     private static final String LOG_STR_INPUT_NOT_INTEGER = "Input string is not an integer."
@@ -217,7 +218,7 @@ public class UpdateCommand extends Command {
             throw new BadCommandException(UpdateCommand.COMMAND_INVALID_COMMAND_MESSAGE);
         }
         if (arguments.get(COMMAND_KEYWORD) != "") {
-            throw new BadCommandException(UpdateCommand.COMMAND_INVALID_COMMAND_MESSAGE);
+            throw new BadCommandException(UpdateCommand.COMMAND_INVALID_PAYLOAD);
         }
         if (arguments.size() < UpdateCommand.COMMAND_MIN_NUM_OF_ARGUMENTS) {
             throw new BadCommandException(UpdateCommand.COMMAND_INVALID_ARGUMENT_MESSAGE);
@@ -235,7 +236,7 @@ public class UpdateCommand extends Command {
         if (arguments.containsKey(UpdateCommand.COMMAND_INCREMENT_ARGUMENT)) {
             String incrementString = arguments.get(COMMAND_INCREMENT_ARGUMENT);
             if (incrementString.isBlank()) {
-                throw new BadCommandException(UpdateCommand.COMMAND_INVALID_COMMAND_MESSAGE);
+                throw new BadCommandException(UpdateCommand.COMMAND_INVALID_PAYLOAD_INCREMENT);
             }
         }
     }

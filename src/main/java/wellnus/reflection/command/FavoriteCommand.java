@@ -22,11 +22,11 @@ public class FavoriteCommand extends Command {
     private static final String FEATURE_NAME = "reflect";
     private static final String INVALID_COMMAND_MSG = "Invalid command issued, expected 'fav'!";
     private static final String INVALID_ARGUMENTS_MSG = "Invalid arguments given to 'fav'!";
-    private static final String INVALID_COMMAND_NOTES = "Please try 'help' command to check the "
-            + "available commands and their usages!";
+    private static final String INVALID_PAYLOAD = "Invalid payload given to 'fav'!";
+    private static final String INVALID_COMMAND_NOTES = "fav command " + COMMAND_USAGE;
     private static final String COMMAND_KEYWORD_ASSERTION = "The key should be fav.";
     private static final String COMMAND_PAYLOAD_ASSERTION = "The payload should be empty.";
-    private static final String INDEX_OUT_OF_BOUND_MSG = "Index is out of bound!!";
+    private static final String INDEX_OUT_OF_BOUND_MSG = "Invalid index given, index is out of bound!!";
     private static final String INDEX_OUT_OF_BOUND_NOTES = "The index is out of range(e.g. negative integers, 0)!"
             + System.lineSeparator() + "Your data file might be corrupted!";
     private static final String EMPTY_FAV_LIST = "There is nothing in favorite list, "
@@ -138,7 +138,7 @@ public class FavoriteCommand extends Command {
         } else if (!commandMap.containsKey(COMMAND_KEYWORD)) {
             throw new BadCommandException(INVALID_COMMAND_MSG);
         } else if (!commandMap.get(COMMAND_KEYWORD).equals(PAYLOAD)) {
-            throw new BadCommandException(INVALID_ARGUMENTS_MSG);
+            throw new BadCommandException(INVALID_PAYLOAD);
         }
         assert getArguments().containsKey(COMMAND_KEYWORD) : COMMAND_KEYWORD_ASSERTION;
         assert getArguments().get(COMMAND_KEYWORD).equals(PAYLOAD) : COMMAND_PAYLOAD_ASSERTION;

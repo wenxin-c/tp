@@ -51,15 +51,16 @@ public class ConfigCommand extends Command {
     private static final int MIN_CYCLES = 2;
     // Message constants
     private static final String ASSERT_STRING_INPUT_NOT_NULL = "String input should not be null!";
-    private static final String ERROR_NOT_A_NUMBER = "Invalid arguments given, you didn't input a valid number!";
-    private static final String ERROR_LARGE_CYCLES = "Invalid arguments given, the max cycles you can set is "
+    private static final String ERROR_NOT_A_NUMBER = "Invalid integer payload given!";
+    private static final String ERROR_LARGE_CYCLES = "Invalid cycle payload given, the max cycles you can set is "
             + MAX_CYCLES;
-    private static final String ERROR_LESS_EQUAL_MIN_CYCLES = "Invalid arguments given, the min cycles you can set is "
-            + MIN_CYCLES;
-    private static final String ERROR_LARGE_MINUTES = "Invalid arguments given, the max time you can set is "
+    private static final String ERROR_LESS_EQUAL_MIN_CYCLES = "Invalid cycle payload given, the min cycles you can set "
+            + "is " + MIN_CYCLES;
+    private static final String ERROR_LARGE_MINUTES = "Invalid minutes payload given, the max time you can set is "
             + MAX_MINUTES;
-    private static final String ERROR_LESS_EQUAL_MIN_MINUTES = "Invalid arguments given, the min time you can set is "
-            + MIN_MINUTES;
+    private static final String ERROR_LESS_EQUAL_MIN_MINUTES = "Invalid minutes payload given, the min time you can "
+            + "set is " + MIN_MINUTES;
+    private static final String COMMAND_INVALID_ARGUMENTS = "Invalid arguments given to 'config'!";
     private static final String ERROR_TOO_MANY_ARGUMENTS = "Invalid arguments given, you seem to have added too "
             + "many arguments!";
     private static final String ERROR_TOO_FEW_ARGUMENTS = "Invalid arguments given, you seem to have not added "
@@ -174,10 +175,10 @@ public class ConfigCommand extends Command {
     public void validateCommand(HashMap<String, String> arguments) throws BadCommandException {
         assert arguments.containsKey(COMMAND_KEYWORD) : "Missing command keyword";
         if (arguments.size() > COMMAND_MAX_NUM_ARGUMENTS) {
-            throw new BadCommandException(ERROR_TOO_MANY_ARGUMENTS);
+            throw new BadCommandException(COMMAND_INVALID_ARGUMENTS);
         }
         if (arguments.size() < COMMAND_MIN_NUM_ARGUMENTS) {
-            throw new BadCommandException(ERROR_TOO_FEW_ARGUMENTS);
+            throw new BadCommandException(COMMAND_INVALID_ARGUMENTS);
         }
         // Validate all the argument payload pairs
         for (Map.Entry<String, String> argumentPair : arguments.entrySet()) {
@@ -193,7 +194,7 @@ public class ConfigCommand extends Command {
                 validateTimes(argumentPair.getValue());
                 break;
             default:
-                throw new BadCommandException("Unknown argument!");
+                throw new BadCommandException(COMMAND_INVALID_ARGUMENTS);
             }
         }
     }

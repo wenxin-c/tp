@@ -23,13 +23,11 @@ public class HomeCommand extends Command {
     private static final String PAYLOAD = "";
     private static final String INVALID_COMMAND_MSG = "Invalid command issued, expected 'home'!";
     private static final String INVALID_ARGUMENT_MSG = "Invalid arguments given to 'home'!";
-    private static final String INVALID_COMMAND_NOTES = "Please try 'help' command to check the "
-            + "available commands and their usages!";
+    private static final String INVALID_PAYLOAD = "Invalid payload given to 'home'!";
+    private static final String INVALID_COMMAND_NOTES = "home command " + COMMAND_USAGE;
     private static final String COMMAND_PAYLOAD_ASSERTION = "The payload should be empty.";
     private static final String HOME_MESSAGE = "How do you feel after reflecting on yourself?"
             + System.lineSeparator() + "Hope you have gotten some takeaways from self reflection, see you again!!";
-    private static final String WRONG_COMMAND_ARGUMENTS_MESSAGE = "Invalid arguments given, 'home' command shouldn't "
-            + "have additional '%s' argument";
     private static final int ARGUMENT_PAYLOAD_SIZE = 1;
     private static final ReflectUi UI = new ReflectUi();
     private QuestionList questionList;
@@ -133,7 +131,7 @@ public class HomeCommand extends Command {
         }
         String payload = commandMap.get(getCommandKeyword());
         if (!payload.isBlank()) {
-            throw new BadCommandException(String.format(WRONG_COMMAND_ARGUMENTS_MESSAGE, payload));
+            throw new BadCommandException(INVALID_PAYLOAD);
         }
         assert getArguments().get(COMMAND_KEYWORD).equals(PAYLOAD) : COMMAND_PAYLOAD_ASSERTION;
     }
