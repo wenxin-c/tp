@@ -200,7 +200,7 @@ Expected outcome:
 ```
 ------------------------------------------------------------
     Welcome to the atomic habits feature!
-    _    _                _       _  _        _     _  _       
+   _    _                _       _  _        _     _  _       
   /_\  | |_  ___  _ __  (_) __  | || | __ _ | |__ (_)| |_  ___
  / _ \ |  _|/ _ \| '  \ | |/ _| | __ |/ _` || '_ \| ||  _|(_-<
 /_/ \_\ \__|\___/|_|_|_||_|\__| |_||_|\__,_||_.__/|_| \__|/__/
@@ -253,39 +253,64 @@ Keep up the good work and you will develop a helpful habit in no time
 
 ### Update an atomic habit: `update`
 
-Increment the number of times that an atomic habit has been carried out.
+Increment the number of times that an atomic habit has been carried out. <br>
+Decrement the atomic habits if you wrongly incremented.
 
 Format:
 
-* Step 1: List the current habits using command
+* Step 1: You are recommended to list the current habits using command
 * `list`
 * Step 2: Select the habit to update by entering the index number of the habit HABIT_INDEX according to index of the
-  list output
-  The user can specify the number of increments for the habit count via NUMBER_TO_INCREMENT
-  The default behaviour is to increment the behaviour by 1
-* `update --id HABIT-INDEX [--by NUMBER_TO_INCREMENT]`
+  list output <br>
+  The user can specify the number to change for the habit count via NUMBER_TO_CHANGE <br>
+  The default behaviour is to increment the behaviour by 1 <br> To decrement the habit count, enter a negative number
+  instead
+* `update --id HABIT-INDEX [--by NUMBER_TO_CHANGE]`
 
-Example of usage:
+Example of usage 1:
 
 * `list`
 * `update --id 1 --by 2`
 
-Expected outcome:
+Expected outcome 1:
 
 ```
 —---------------------------------------------------------------
-Here is the current accumulation of your atomic habits!
-Keep up the good work and you will develop a helpful habit in no time
-1. Make bed every morning [5]
-2. Read for at least 30 minutes every day [3] 
+    Here is the current accumulation of your atomic habits!
+    Keep up the good work and you will develop a helpful habit in no time
+    1. Make bed every morning [5]
+    2. Read for at least 30 minutes every day [3] 
 —---------------------------------------------------------------
 ```
 
 ```
 —---------------------------------------------------------------
-The following habit has been incremented! Keep up the good work!
-1. Make bed every morning [7]
+    The following habit has been incremented! Keep up the good work!
+    1. Make bed every morning [7]
 —---------------------------------------------------------------
+```
+
+Example of usage 2:
+
+* `list`
+* `update --id 1 --by -2`
+
+Expected outcome 2:
+
+```
+------------------------------------------------------------
+    Here is the current accumulation of your atomic habits!
+    Keep up the good work and you will develop a helpful habit in no time
+    1.Make bed every morning [7]
+    2.Read for at least 30 minutes every day [3]
+------------------------------------------------------------
+```
+
+```
+------------------------------------------------------------
+    The following habit has been incremented! Keep up the good work!
+    1.Make bed every morning [5]
+------------------------------------------------------------
 ```
 
 <!-- @@author BernardLesley -->
@@ -300,7 +325,7 @@ Format:
 * `list`
 * Step 2: Select the habit to delete by entering the index number of the habit HABIT_INDEX according to index of the
   list output
-  * `delete --id HABIT-INDEX`
+    * `delete --id HABIT-INDEX`
 
 Example of usage:
 
@@ -524,7 +549,7 @@ Users can add the reflection question they like into favorite list and review af
 
 Format: `like INDEX`
 
-Note that the users are supposed to at least `get` a set of questions or use `prev` command to 
+Note that the users are supposed to at least `get` a set of questions or use `prev` command to
 review the previous set before liking them.
 Index parameter is limited to integer 1-5 as only 5 questions will be generated in every random set.
 
@@ -573,7 +598,7 @@ Example of usage step 1:
 
 `fav`
 
-Example output step 1: 
+Example output step 1:
 
 ```
 ============================================================
@@ -583,11 +608,11 @@ Example output step 1:
 ============================================================
 ```
 
-Example of usage step 2: 
+Example of usage step 2:
 
 `unlike 1`
 
-Example output: 
+Example output:
 
 ```
 ============================================================
@@ -786,11 +811,19 @@ Example of usage:
 
 `next`
 
-Expected outcome:
+Expected outcome(if the next timer is a work timer):
 
 ```
 ------------------------------------------------------------
     Task
+------------------------------------------------------------
+```
+
+Expected outcome(if the next timer is a break timer):
+
+```
+------------------------------------------------------------
+    Break
 ------------------------------------------------------------
 ```
 
