@@ -5,8 +5,8 @@ import java.util.HashMap;
 import wellnus.command.Command;
 import wellnus.exception.BadCommandException;
 import wellnus.focus.feature.FocusManager;
+import wellnus.focus.feature.FocusUi;
 import wellnus.focus.feature.Session;
-import wellnus.ui.TextUi;
 
 /**
  * Represents a command to check the time left in the current session.
@@ -22,7 +22,7 @@ public class CheckCommand extends Command {
     private static final String CHECK_OUTPUT = "Time left: ";
     private static final String ERROR_COUNTDOWN_NOT_RUNNING = "Nothing to check - the countdown has not started yet!";
     private final Session session;
-    private final TextUi textUi;
+    private final FocusUi focusUi;
 
     /**
      * Constructs a CheckCommand object.
@@ -34,7 +34,7 @@ public class CheckCommand extends Command {
     public CheckCommand(HashMap<String, String> arguments, Session session) {
         super(arguments);
         this.session = session;
-        this.textUi = new TextUi();
+        this.focusUi = new FocusUi();
     }
 
     /**
@@ -68,20 +68,20 @@ public class CheckCommand extends Command {
         try {
             validateCommand(super.getArguments());
         } catch (BadCommandException badCommandException) {
-            textUi.printErrorFor(badCommandException, NO_ADDITIONAL_MESSAGE);
+            focusUi.printErrorFor(badCommandException, NO_ADDITIONAL_MESSAGE);
             return;
         }
         if (session.isSessionReady()) {
-            textUi.printOutputMessage(ERROR_COUNTDOWN_NOT_RUNNING);
+            focusUi.printOutputMessage(ERROR_COUNTDOWN_NOT_RUNNING);
             return;
         }
         if (session.isSessionWaiting()) {
-            textUi.printOutputMessage(ERROR_COUNTDOWN_NOT_RUNNING);
+            focusUi.printOutputMessage(ERROR_COUNTDOWN_NOT_RUNNING);
             return;
         }
         int minutes = session.getCurrentCountdown().getMinutes();
         int seconds = session.getCurrentCountdown().getSeconds();
-        textUi.printOutputMessage(CHECK_OUTPUT + String.format("%d:%d", minutes, seconds));
+        focusUi.printOutputMessage(CHECK_OUTPUT + String.format("%d:%d", minutes, seconds));
     }
 
     /**
