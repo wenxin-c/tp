@@ -13,6 +13,11 @@ import java.util.logging.SimpleFormatter;
 import wellnus.exception.StorageException;
 import wellnus.ui.TextUi;
 
+/**
+ * Wrapper class for <code>java.util.logging.Logger</code> that redirects logging
+ * to a specific log file instead of printing it on the user's screen.
+ * @see Logger
+ */
 public class WellNusLogger {
     private static final String CREATE_LOG_FILE_IO_EXCEPTION_MESSAGE = "Failed to create log file.";
     private static final String EXCEPTION_NOTE_MESSAGE = "Logging will not be performed during this app session.";
@@ -61,6 +66,12 @@ public class WellNusLogger {
         }
     }
 
+    /**
+     * Returns an instance of Java's Logger class that directs all logging to a specific
+     * log file instead of the user's screen.
+     * @param loggerName Name of the logger instance to create and return
+     * @return Instance of Logger that logs to a specific file
+     */
     public static Logger getLogger(String loggerName) {
         assert loggerName != null : LOGGER_NAME_NULL_MESSAGE;
         assert !loggerName.isBlank() : LOGGER_NAME_BLANK_MESSAGE;
