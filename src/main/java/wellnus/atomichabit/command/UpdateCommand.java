@@ -43,7 +43,7 @@ public class UpdateCommand extends Command {
     private static final String LINE_SEPARATOR = System.lineSeparator();
     private static final int MINIMUM_INCREMENT = 1;
     private static final String STORE_GAMIF_DATA_FAILED_NOTE_MESSAGE = "Updated XP won't be restored when the app is "
-            + "next launched";
+            + "next launched.";
     private static final String UPDATE_INVALID_ARGUMENTS_MESSAGE = "Invalid arguments for updating, no update shall "
             + "be performed.";
     private static final String UPDATE_INVALID_INCREMENT_COUNT = "Increment with minimum of 1 is expected, no update "

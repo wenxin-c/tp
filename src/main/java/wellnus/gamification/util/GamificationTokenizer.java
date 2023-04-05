@@ -11,7 +11,7 @@ import wellnus.storage.Tokenizer;
  */
 public class GamificationTokenizer implements Tokenizer<GamificationData> {
     private static final String INVALID_STORED_DATA_MESSAGE = "Invalid gamification data %s found in storage! "
-            + "Gamification data will not be restored";
+            + "Gamification data will not be restored.";
     /**
      * Converts the attributes of the <code>GamificationManager</code> into a String representation to be
      * saved to storage.

@@ -51,8 +51,8 @@ public class GamificationData {
         int newLevel = getLevelFor(xp);
         boolean hasLevelledUp = newLevel > level;
         level = newLevel;
-        GamificationStorage storage = new GamificationStorage();
-        storage.store(this);
+        GamificationStorage gamificationStorage = new GamificationStorage();
+        gamificationStorage.store(this);
         return hasLevelledUp;
     }
 
@@ -100,8 +100,8 @@ public class GamificationData {
         int newLevel = getLevelFor(xp);
         boolean hasLevelDropped = newLevel < level;
         level = newLevel;
-        GamificationStorage storage = new GamificationStorage();
-        storage.store(this);
+        GamificationStorage gamificationStorage = new GamificationStorage();
+        gamificationStorage.store(this);
         return hasLevelDropped;
     }
 }

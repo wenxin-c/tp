@@ -26,9 +26,9 @@ public class GamificationManager extends Manager {
     private static final String COMMAND_HELP = "help";
     private static final String COMMAND_HOME = "home";
     private static final String COMMAND_STATS = "stats";
-    private static final String LOAD_GAMIF_DATA_ERROR_MESSAGE = "XP reset to 0 points for now";
-    private static final String UNRECOGNISED_COMMAND_ERROR = "Unrecognised command %s, see 'help' on our "
-            + "available commands";
+    private static final String LOAD_GAMIF_DATA_ERROR_MESSAGE = "XP reset to 0 points for now.";
+    private static final String UNRECOGNISED_COMMAND_ERROR = "Unrecognised command %s, see 'help' for our "
+            + "available commands.";
     private GamificationData gamificationData;
     private final TextUi textUi;
 
