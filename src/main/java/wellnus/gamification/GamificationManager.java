@@ -4,11 +4,14 @@ import java.util.HashMap;
 
 import wellnus.command.Command;
 import wellnus.exception.BadCommandException;
+import wellnus.exception.StorageException;
+import wellnus.exception.TokenizerException;
 import wellnus.exception.WellNusException;
 import wellnus.gamification.command.HelpCommand;
 import wellnus.gamification.command.HomeCommand;
 import wellnus.gamification.command.StatsCommand;
 import wellnus.gamification.util.GamificationData;
+import wellnus.gamification.util.GamificationStorage;
 import wellnus.gamification.util.GamificationUi;
 import wellnus.manager.Manager;
 import wellnus.ui.TextUi;
@@ -23,18 +26,25 @@ public class GamificationManager extends Manager {
     private static final String COMMAND_HELP = "help";
     private static final String COMMAND_HOME = "home";
     private static final String COMMAND_STATS = "stats";
+    private static final String LOAD_GAMIF_DATA_ERROR_MESSAGE = "XP reset to 0 points for now";
     private static final String UNRECOGNISED_COMMAND_ERROR = "Unrecognised command %s, see 'help' on our "
             + "available commands";
-    private final GamificationData gamificationData;
+    private GamificationData gamificationData;
     private final TextUi textUi;
 
     /**
      * Returns an instance of the GamificationManager.
      */
     public GamificationManager() {
-        this.gamificationData = new GamificationData();
         this.textUi = new TextUi();
         this.textUi.setCursorName(FEATURE_NAME);
+        try {
+            GamificationStorage gamificationStorage = new GamificationStorage();
+            this.gamificationData = gamificationStorage.loadData();
+        } catch (StorageException | TokenizerException loadDataException) {
+            textUi.printErrorFor(loadDataException, LOAD_GAMIF_DATA_ERROR_MESSAGE);
+            this.gamificationData = new GamificationData();
+        }
     }
 
     private Command getCommandFor(String command) throws BadCommandException {
