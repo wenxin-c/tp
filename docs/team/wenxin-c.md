@@ -1,69 +1,194 @@
 ## Wenxin's Project Portfolio Page
 
 ### Project: WellNUS++
-WellNUS++ is a CLI application that aims to help NUS computing and engineering students improve their overall wellness and obtain
-better self achievements.
+WellNUS++ is a CLI application with a variety of features. Each feature focuses on a different aspect of wellness. 
+WellNUS++ aims to help NUS computing and engineering students improve their overall wellness and obtain better self 
+achievements.
 
 Given below are my contributions to the project:
 
 - **New Feature 1:** TextUi class to read user input and print output.
-  - What it does: Read user inputs from terminal, print line separators, output messages and error messages.
+  - What it does: Read user inputs from terminal and print output with a user-friendly layout (e.g. line separator,
+normal message and error message).
   - Justification: This feature is fundamental as it allows users to input commands and receive outputs from WellNUS++.
-Thus, this class is used throughout WellNUS++. 
+This class is used throughout WellNUS++. 
   - Highlights: Exclamation marks are used as separators for error messages to catch users' attention. 
-An error note section is designed to complement error messages to guide users on using WellNUS++. 
-- **New Feature 2:** Get a random set of reflection questions for Self Reflection feature.
-  - What it does: Allows users to get a **random set of 5** reflection questions, generated from p list of 10 questions.
-**questions** upon `get` command.
+An error note section is designed to complement error messages to guide users on using WellNUS++.
+- **New Feature 2:** Get a random set of self reflection questions.
+  - What it does: Allows users to get a **random set of 5 reflection questions**, generated from a list of 10 questions
+using `get` command.
   - Justification: This is the fundamental feature of Self Reflection section as it gives users an opportunity to think 
 and reflect on themselves. The set of questions is designed to be randomised so that users can reflect on different aspects
 of lives.
   - Highlights: Multiple data structures are used to get the randomised set of questions. An **arrayList** of 10 questions 
 will be loaded upon launching the program. A **set** of 5 randomised distinct integers ranging from 0-9 will be generated.
-This **set** of integers are the used as the index of questions in the **arrayList**.
+This **set** of integers are the used as the index of questions in the **arrayList** to select the corresponding questions.
 - **New Feature 3:** Like self reflection questions.
-  - What it does: Allows users to add the reflection questions they like into the favorite list.
+  - What it does: Allows users to add the reflection questions they resonate well into the favorite list.
   - Justification: Users might resonate well with some questions. They can use `like` command to add these questions into
 the favorite list for review in the future. `like` command can only be used when users have gotten **at least** one set of 
 questions previously.
-  - Highlights: The indexes of questions are used to determine the random set of questions generated. However, the displayed
-index should range from 1-5. To match the display indexes to questions real indexes, a **HashMap** is used with **display index** 
+  - Highlights: The indexes of questions are used to determine the random set of questions generated. However, the display
+index will range from 1 to 5. To match the display indexes to questions' real indexes, a **HashMap** is used with **display index** 
 being the **key** and **real question index** being the **value**. From the display index given by users, the real index of
 the question can be determined easily.
 - **New Feature 4:** List the reflection questions in the favorite list.
   - What it does: Allows users to list and review all reflection questions in the favorite list.
-  - Justification: Users should not only just add questions into the favorite list, but also review them.
+  - Justification: Users should not only add questions into the favorite list, but also review them.
 - **New Feature 5:** Get the previous set of reflection questions.
   - What it does: Allows users to review the previous set of questions generated.
-  - Justification: 
-- **New Feature 6:** Return from Self Reflection feature back main WellNUS++
+  - Justification: As users reflect on the generated questions, the previous questions may come into their mind. The `prev`
+command allows users to easily refer back to the previous questions.
+- **New Feature 6:** Return from Self Reflection feature back main WellNUS++.
   - What is does: Allows users to return from Self Reflection feature back to main WellNUS++.
-  - Justification: WellNUS++ is a multi-featured app and users can navigate to different features from the main WellNUS++.
-As such, it is essential to have this return feature.
-- **Enhancement 1**: Abstracted `QuestionList` class
-  - What it does: Self Reflection section relies heavily on the set of random integers generated(refer to feature 2) and
-this set will be shared across different classes. Based on the Single Responsibility Principle, a `QuestionList` class is
-used to store and manipulate lists of questions such as the random sets and favorite list of questions.
-  - Implementation: A common `QuestionList` object is constructed at the beginning and passed into different command objects
-as an argument. As such, information of lists of questions and their associated methods are centralised and shared among classes. 
+  - Justification: WellNUS++ has a variety of features and users can navigate to different features from the main WellNUS++.
+As such, it is essential to have this `home` feature.
+- **Enhancement 1**: Abstract `QuestionList` class
+  - What it does: Self Reflection section relies heavily on the set of random integers generated by `get` command(refer to feature 2)
+and this set will be shared across different classes(e.g. used to determine the question liked by users). Based on the 
+Single Responsibility Principle, a `QuestionList` class is used to store and manipulate lists of questions such as the 
+random sets and the favorite list of questions.
+  - Implementation: A common `QuestionList` object is constructed upon launching the program and passed into different command object
+constructors as an argument. As such, information of lists of questions and their associated methods are centralised and shared among classes.
 - **Enhancement 2**: Remove reflection questions from the favorite list.
   - What it does: Allows users to remove reflection questions from the favorite list.
   - Justification: As time passes, users might no longer resonate with some questions and wish to remove those questions from
-the favorite list. This feature is important without which the size of the favorite list to increment infinitely, making it 
+the favorite list. This feature is important without which the size of the favorite list will increment infinitely, making it 
 inconvenient for users to review all the questions.
 - **Enhancement 3:** Store Self Reflection data in data file.
-
-- **Enhancement 4:** Standardize error message across WellNUS++.
-
+  - What is does: Allows Self Reflection data to be stored in a data file.
+  - Justification: To ensure the sustainability of WellNUS++, user data should be stored for users to use in the long run.
+- **Enhancement 4:** Add tests to TextUi and Self Reflection
+  - Unit tests are added for all classes in the `reflection` package to make sure the code functions as expected before integration.
+- **Enhancement 5:** Standardize error message across WellNUS++.
+  - Implementation:A standardised format of error message is used across WellNUS++. The error message targets the specific 
+error made(e.g. wrong command keyword, extra payload) and the correct usage of the command is given as well to guide users 
+in using WellNUS++.
 - **Code Contributed:** [RepoSense Link](https://nus-cs2113-ay2223s2.github.io/tp-dashboard/?search=wenxin-c&breakdown=true)
 - **Project Management:**
-  - Set up the GitHub team organisation and repository
+  - Team Lead: Responsible for overall project coordination.
+  - Scheduling and tracking: In charge of defining, assigning, and tracking project tasks.
+  - Deliverables and deadlines: Ensure project deliverables are done on time and in the right format.
+  - Testing: Ensures the testing of the project is done properly and on time.
+  - In charge of the code on TextUi and Self Reflection section
+  - Set up the GitHub team organisation and repository.
   - Maintain issue tracker
-  - Maintain workflow and set agenda for weekly meeting
   - Set up developer guide skeleton [#144](https://github.com/AY2223S2-CS2113-T12-4/tp/pull/144)
 - **Documentations:**
-  - User Guide:
-  - Developer Guide: 
+- User Guide:
+- WellNUS++ structure overview:<br>
+<br>
+  WellNUS++ comes with a variety of features to help you enhance your overall wellness in NUS! The features are Atomic
+  Habit, Self Reflection, Focus Timer and Gamification. Each feature has its own set of commands for users to explore.
+  Users can navigate to different features from main WellNUS++ and return from each feature back to main
+  WellNUS++ using `home` command. Do note that users can only `exit` the program from main WellNUS++.
+  ![WellNUS++ Structure Overview](../diagrams/WellNusStructure.png)
+- Self Reflection section:<br>
+<br>
+  **Accessing self reflection feature: reflect**
+  
+  Format: `reflect`
+      
+  Self reflection feature allows users to get sets of random introspective questions to reflect on to improve overall
+  wellness and achieve better selves.
+      
+  Example of usage: `reflect`
+  Expected outcome:
+      
+  ```
+  ============================================================
+    #####                       ######                                           
+   #     # ###### #      ###### #     # ###### ###### #      ######  ####  ##### 
+   #       #      #      #      #     # #      #      #      #      #    #   #   
+    #####  #####  #      #####  ######  #####  #####  #      #####  #        #   
+         # #      #      #      #   #   #      #      #      #      #        #   
+   #     # #      #      #      #    #  #      #      #      #      #    #   #   
+    #####  ###### ###### #      #     # ###### #      ###### ######  ####    #   
+  ============================================================
+      Welcome to WellNUS++ Self Reflection section :D
+      Feel very occupied and cannot find time to self reflect?
+      No worries, this section will give you the opportunity to reflect and improve on yourself!!
+  ============================================================
+  ```
+  **Add reflection question into favorite list: like INDEX**
+
+  Users can add the reflection question they like into favorite list and review afterwards.
+          
+  Format: `like INDEX`
+          
+  Note that the users are supposed to at least `get` a set of questions or use `prev` command to
+  review the previous set before liking them, and use the displayed index to choose questions.
+  Index parameter is limited to integer 1-5 as only 5 questions will be generated in every random set.
+          
+  Example of usage:`like 1`
+  Expected output:
+          
+  ```
+  ============================================================
+      You have added question: What is my purpose in life? into favorite list!!
+  ============================================================
+  ```
+          
+  **View favorite list: fav**
+          
+  Users can review the list of reflection questions they liked.
+          
+  Format: `fav` 
+  Example of usage:`fav` 
+  Example output:
+          
+  ```
+  ============================================================
+      1.What are three of my most cherished personal values?
+      2.What is my purpose in life?
+      3.Am I making time for my social life?
+  ============================================================
+  ```
+          
+  **Remove questions from favorite list: unlike INDEX**
+          
+  Users can remove reflection questions from the favorite list.
+          
+  Format: `unlike INDEX`
+          
+  Take note that it is **recommended** to use `fav` command to check the list of questions in the favorite list before
+  unliking any of them, so that users are aware which question they are removing.
+          
+  Example of usage step 1: `fav`
+  Example output step 1: 
+  ```
+  ============================================================
+      1.What are three of my most cherished personal values?
+      2.What is my purpose in life?
+      3.Am I making time for my social life?
+  ============================================================
+  ``` 
+  Example of usage step 2: `unlike 1`
+  Example output step 2: 
+  ```
+  ============================================================
+      You have removed question: What are three of my most cherished personal values? from favorite list!!
+  ============================================================
+  ``` 
+  **Get the previous set of reflection questions generated: prev**
+          
+  Users can view the previous set of questions generated for review. Note that the users are supposed to at 
+least `get` a set of questions before viewing the previous set.
+          
+  Format: `prev`
+  Example of usage: `prev`
+  Example output:
+          
+  ```
+  ============================================================
+      1.What is my purpose in life?
+      2.What is my personality type?
+      3.Did I make time for myself this week?
+      4.Am I making time for my social life?
+      5.What is something I find inspiring?
+  ============================================================
+  ```
+- Developer Guide: 
 - **Community:**
   - PRs reviewed(with non-trivial review comments):
 [#31](https://github.com/AY2223S2-CS2113-T12-4/tp/pull/31)
@@ -83,6 +208,7 @@ inconvenient for users to review all the questions.
 [#202](https://github.com/AY2223S2-CS2113-T12-4/tp/pull/202)
 [#252](https://github.com/AY2223S2-CS2113-T12-4/tp/pull/252)
 [#254](https://github.com/AY2223S2-CS2113-T12-4/tp/pull/254)
+[#264](https://github.com/AY2223S2-CS2113-T12-4/tp/pull/264)
   - Reported bugs and suggestions to other teams:
 [#66](https://github.com/AY2223S2-CS2113-T15-4/tp/issues/66)
 [#72](https://github.com/AY2223S2-CS2113-T15-4/tp/issues/72)
