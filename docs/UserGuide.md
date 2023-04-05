@@ -24,35 +24,35 @@ traditional Graphical User Interface(GUI) apps.
   * [Overview of WellNUS++](#overview-of-wellnus)
   * [Features](#features)
     * [Command Format](#command-format)
-    * [Viewing WellNUS++ help: help](#viewing-wellnus-help--help)
+    * [help - Viewing WellNUS++ Help](#help---viewing-wellnus-help)
     * [Accessing feature: FEATURE_NAME](#accessing-feature--featurename)
-    * [hb: Accessing atomic habit feature](#hb--accessing-atomic-habit-feature)
-    * [add: Add new atomic habit](#add--add-new-atomic-habit)
-    * [list: List all atomic habit](#list--list-all-atomic-habit)
-    * [update:  Update an atomic habit](#update--update-an-atomic-habit)
-    * [delete: Delete an atomic habit](#delete--delete-an-atomic-habit)
-    * [help: Viewing Atomic Habit Help](#help--viewing-atomic-habit-help)
-    * [gamif: Accessing gamification feature](#gamif--accessing-gamification-feature)
-    * [stats: Gamification statistics](#stats--gamification-statistics)
-    * [help: Viewing Gamification Help](#help--viewing-gamification-help)
-    * [reflect: Accessing self reflection feature](#reflect--accessing-self-reflection-feature)
-    * [get: Get reflection questions](#get--get-reflection-questions)
-    * [like: Add reflection question into favorite list](#like--add-reflection-question-into-favorite-list)
-    * [fav: View favorite list](#fav--view-favorite-list)
-    * [unlike: Remove questions from favorite list](#unlike--remove-questions-from-favorite-list)
-    * [prev: Get the previous set of reflection questions generated](#prev--get-the-previous-set-of-reflection-questions-generated)
-    * [help: Viewing Reflection Help](#help--viewing-reflection-help)
-    * [ft: Accessing Focus Timer Feature](#ft--accessing-focus-timer-feature)
-    * [start: Start Session](#start--start-session)
-    * [pause: Pause session](#pause--pause-session)
-    * [resume: Resume session](#resume--resume-session)
-    * [check: Check time](#check--check-time)
-    * [next: Next timer](#next--next-timer)
-    * [stop: Stop session](#stop--stop-session)
-    * [help: Viewing Focus Timer help](#help--viewing-focus-timer-help)
-    * [config: Configure the Timer](#config--configure-the-timer)
-    * [home: Return back main WellNUS++](#home--return-back-main-wellnus)
-    * [exit: Exit WellNUS++](#exit--exit-wellnus)
+    * [hb - Accessing atomic habit feature](#hb---accessing-atomic-habit-feature)
+    * [add - Add new atomic habit](#add---add-new-atomic-habit)
+    * [list - List all atomic habit](#list---list-all-atomic-habit)
+    * [update - Update an atomic habit](#update---update-an-atomic-habit)
+    * [delete - Delete an atomic habit](#delete---delete-an-atomic-habit)
+    * [help - Viewing Atomic Habit Help](#help---viewing-atomic-habit-help)
+    * [gamif - Accessing gamification feature](#gamif---accessing-gamification-feature)
+    * [stats - Gamification statistics](#stats---gamification-statistics)
+    * [help - Viewing Gamification Help](#help---viewing-gamification-help)
+    * [reflect - Accessing self reflection feature](#reflect---accessing-self-reflection-feature)
+    * [get - Get reflection questions](#get---get-reflection-questions)
+    * [like - Add reflection question into favorite list](#like---add-reflection-question-into-favorite-list)
+    * [fav - View favorite list](#fav---view-favorite-list)
+    * [unlike - Remove questions from favorite list](#unlike---remove-questions-from-favorite-list)
+    * [prev - Get the previous set of reflection questions generated](#prev---get-the-previous-set-of-reflection-questions-generated)
+    * [help - Viewing Reflection Help](#help---viewing-reflection-help)
+    * [ft - Accessing Focus Timer Feature](#ft---accessing-focus-timer-feature)
+    * [start - Start Session](#start---start-session)
+    * [pause - Pause session](#pause---pause-session)
+    * [resume - Resume session](#resume---resume-session)
+    * [check - Check time](#check---check-time)
+    * [next - Next timer](#next---next-timer)
+    * [stop - Stop session](#stop---stop-session)
+    * [help -  Viewing Focus Timer help](#help---viewing-focus-timer-help)
+    * [config - Configure the Timer](#config---configure-the-timer)
+    * [home - Return back main WellNUS++](#home---return-back-main-wellnus)
+    * [`exit` - Exit WellNUS++](#exit---exit-wellnus)
   * [FAQ](#faq)
   * [Command Summary](#command-summary)
 <!-- TOC -->
@@ -111,7 +111,7 @@ WellNUS++ using `home` command. Do note that users can only `exit` the program f
 
 <!-- @@author BernardLesley -->
 
-### Viewing WellNUS++ help: help
+### help - Viewing WellNUS++ Help
 
 Lists all commands available and provide a short description of the application.
 
@@ -195,7 +195,7 @@ Expected outcome:
 
 <!-- @@author YongbinWang -->
 
-### hb: Accessing atomic habit feature
+### hb - Accessing atomic habit feature
 
 Atomic habit feature allows users to keep track of the daily habits they wish to develop for better self improvement.
 
@@ -217,7 +217,7 @@ Expected outcome:
 ------------------------------------------------------------
 ```
 
-### add: Add new atomic habit
+### add - Add new atomic habit
 
 Adds an atomic habit to be tracked by WellNUS++ when accessing atomic habit feature.
 
@@ -238,7 +238,7 @@ Expected outcome:
 ------------------------------------------------------------
 ```
 
-### list: List all atomic habit
+### list - List all atomic habit
 
 Shows a list of all atomic habits.
 
@@ -261,7 +261,7 @@ Keep up the good work and you will develop a helpful habit in no time
 —--------------------------------------------------------------- 
 ```
 
-### update:  Update an atomic habit
+### update - Update an atomic habit
 
 Increment the number of times that an atomic habit has been carried out. <br>
 Decrement the atomic habits if you wrongly incremented.
@@ -325,7 +325,7 @@ Expected outcome 2:
 
 <!-- @@author BernardLesley -->
 
-### delete: Delete an atomic habit
+### delete - Delete an atomic habit
 
 Delete an atomic habit that is not relevant anymore.
 
@@ -362,7 +362,7 @@ Make bed every morning [5] has been successfully deleted
 
 <!-- @@author BernardLesley -->
 
-### help: Viewing Atomic Habit Help
+### help - Viewing Atomic Habit Help
 
 Lists all commands available and provide a short description of Atomic Habit feature.
 
@@ -407,7 +407,7 @@ Expected outcome:
 
 <!-- @@author haoyangw -->
 
-### gamif: Accessing gamification feature
+### gamif - Accessing gamification feature
 
 Format: `gamif`
 
@@ -434,7 +434,7 @@ Expected outcome:
 ######################################################################
 ```
 
-### stats: Gamification statistics
+### stats - Gamification statistics
 
 Displays the user's current XP points and level.
 
@@ -455,7 +455,7 @@ Expected outcome:
 
 <!-- @@author BernardLesley -->
 
-### help: Viewing Gamification Help
+### help - Viewing Gamification Help
 
 Lists all commands available and provide a short description of Gamification feature.
 
@@ -498,7 +498,7 @@ Expected outcome:
 
 <!-- @@author wenxin-c -->
 
-### reflect: Accessing self reflection feature
+### reflect - Accessing self reflection feature
 
 Format: `reflect`
 
@@ -529,7 +529,7 @@ Expected outcome:
 
 <!-- @@author YongbinWang -->
 
-### get: Get reflection questions
+### get - Get reflection questions
 
 Ask WellNUS++ to get a set of 5 random introspective questions for users to view and reflect on.
 The questions are randomised for users to reflect on different aspects of life.
@@ -554,7 +554,7 @@ Expected outcome:
 
 <!-- @@author wenxin-c -->
 
-### like: Add reflection question into favorite list
+### like - Add reflection question into favorite list
 
 Users can add the reflection question they like into favorite list and review afterwards.
 
@@ -576,7 +576,7 @@ Expected output:
 ============================================================
 ```
 
-### fav: View favorite list
+### fav - View favorite list
 
 Users can review the list of reflection questions they liked.
 
@@ -596,7 +596,7 @@ Example output:
 ============================================================
 ```
 
-### unlike: Remove questions from favorite list
+### unlike - Remove questions from favorite list
 
 Users can remove reflection questions from the favorite list.
 
@@ -631,7 +631,7 @@ Example output:
 ============================================================
 ```
 
-### prev: Get the previous set of reflection questions generated
+### prev - Get the previous set of reflection questions generated
 
 Users can view the previous set of questions generated for review.
 
@@ -657,7 +657,7 @@ Example output:
 
 <!-- @@author BernardLesley -->
 
-### help: Viewing Reflection Help
+### help - Viewing Reflection Help
 
 Lists all commands available and provide a short description of Reflection feature.
 
@@ -704,7 +704,7 @@ Expected outcome:
 
 <!--@@author nichyjt-->
 
-### ft: Accessing Focus Timer Feature
+### ft - Accessing Focus Timer Feature
 
 Our Focus Timer feature allows users to be productive by setting a configurable work-break timer, inspired by
 the [Pomodoro technique](https://en.wikipedia.org/wiki/Pomodoro_Technique).
@@ -728,7 +728,7 @@ Expected outcome:
 
 <!--@@author YongbinWang-->
 
-### start: Start Session
+### start - Start Session
 
 Ask WellNUS++ to start the focus session consisting of work and break cycles.
 
@@ -751,7 +751,7 @@ Expected outcome:
 ************************************************************
 ```
 
-### pause: Pause session
+### pause - Pause session
 
 Ask WellNUS++ to pause the focus session which pauses the current countdown timer.
 
@@ -771,7 +771,7 @@ Expected outcome:
 ************************************************************
 ```
 
-### resume: Resume session
+### resume - Resume session
 
 Ask WellNUS++ to resume the focus session which continues the current countdown timer.
 
@@ -791,7 +791,7 @@ Expected outcome:
 ************************************************************
 ```
 
-### check: Check time
+### check - Check time
 
 Ask WellNUS++ to display the current time of the timer for users to check time remaining.
 
@@ -811,7 +811,7 @@ Expected outcome:
 ************************************************************
 ```
 
-### next: Next timer
+### next - Next timer
 
 Ask WellNUS++ to start the next work or break iteration of the focus session.
 
@@ -839,7 +839,7 @@ Expected outcome(if the next timer is a break timer):
 ************************************************************
 ```
 
-### stop: Stop session
+### stop - Stop session
 
 Ask WellNUS++ to stop the focus session.
 
@@ -863,7 +863,7 @@ You can also configure the session to your liking with `config`!
 
 <!-- @@author BernardLesley -->
 
-### help: Viewing Focus Timer help
+### help -  Viewing Focus Timer help
 
 Lists all commands available and provide a short description of Focus Timer feature.
 
@@ -921,7 +921,7 @@ Expected outcome:
 
 <!--@@author nichyjt-->
 
-### config: Configure the Timer
+### config - Configure the Timer
 
 Configures the focus timer's settings.
 The number of work-break cycles, work length and break length can be configured.
@@ -974,7 +974,7 @@ Expected outcome:
 
 <!--@@ author BernardLesley-->
 
-### home: Return back main WellNUS++
+### home - Return back main WellNUS++
 
 To leave the current feature and return back to main interface. Each individual feature (i.e. atomic habit,
 self reflection, focus timer and gamification) has this command with customised
@@ -1003,7 +1003,7 @@ Expected outcome for self reflection:
 ============================================================
 ```
 
-### exit: Exit WellNUS++
+### `exit` - Exit WellNUS++
 
 To exit the app, data of the current progress will be saved in data files.
 
