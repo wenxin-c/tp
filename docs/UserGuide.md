@@ -151,7 +151,8 @@ Expected outcome:
 
 ### Accessing feature: `FEATURE_NAME`
 
-Access specific feature from main interface by inputting the feature_name
+Access specific feature from main interface by inputting the feature_name. <br>
+
 Feature name can be referenced by calling the help command.
 
 Take note that users are only allowed to access features (i.e. atomic habit, self reflection,
@@ -261,10 +262,10 @@ Format:
 * Step 1: You are recommended to list the current habits using command
 * `list`
 * Step 2: Select the habit to update by entering the index number of the habit HABIT_INDEX according to index of the
-  list output <br>
-  The user can specify the number to change for the habit count via NUMBER_TO_CHANGE <br>
-  The default behaviour is to increment the behaviour by 1 <br> To decrement the habit count, enter a negative number
-  instead
+  list output. <br>
+  The user can specify the number to change for the habit count via NUMBER_TO_CHANGE. <br>
+  The default behaviour is to increment the behaviour by 1. <br> To decrement the habit count, enter a negative number
+  instead.
 * `update --id HABIT-INDEX [--by NUMBER_TO_CHANGE]`
 
 Example of usage 1:
