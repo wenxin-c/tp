@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import wellnus.common.WellNusLogger;
 import wellnus.exception.BadCommandException;
 
 /**
@@ -39,7 +40,7 @@ public class CommandParser {
     private static final String ERROR_EMPTY_COMMAND = "Command is empty!";
     private static final String ERROR_EMPTY_ARGUMENT = "Command is missing an argument!";
     private static final String ERROR_REPEATED_ARGUMENT = "Command has repeated arguments!";
-    private static final Logger logger = Logger.getLogger("CommandParserLogger");
+    private static final Logger logger = WellNusLogger.getLogger("CommandParserLogger");
     private static final String LOG_STR_EMPTY_INPUT = "Input string is empty. This should be properly handled";
     private static final String LOG_EMPTY_ARG = "Argument is empty. This should be properly handled";
 

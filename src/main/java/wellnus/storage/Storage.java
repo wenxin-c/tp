@@ -14,6 +14,7 @@ import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import wellnus.common.WellNusLogger;
 import wellnus.exception.StorageException;
 
 /**
@@ -58,7 +59,7 @@ public class Storage {
     private static final String ASSERT_LIST_NOT_NULL = "list input should not be null!";
     private static final String ASSERT_STRING_NOT_NULL = "string input should not be null!";
     private static final String ASSERT_FILE_NOT_NULL = "file input should not be null!";
-    private static final Logger LOGGER = Logger.getLogger("StorageLogger");
+    private static final Logger LOGGER = WellNusLogger.getLogger("StorageLogger");
     private static final String LOG_ACCESS_ERROR = "WellNUS++ has encountered a severe input/output error! \n"
             + "Check if file permissions and data directory are properly instantiated?";
     private static final String LOG_MISSING_FILE = "WellNUS++ could not find a file.\n"

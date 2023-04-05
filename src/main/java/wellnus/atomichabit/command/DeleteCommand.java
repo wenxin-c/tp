@@ -9,6 +9,7 @@ import wellnus.atomichabit.feature.AtomicHabit;
 import wellnus.atomichabit.feature.AtomicHabitList;
 import wellnus.atomichabit.feature.AtomicHabitManager;
 import wellnus.command.Command;
+import wellnus.common.WellNusLogger;
 import wellnus.exception.AtomicHabitException;
 import wellnus.exception.BadCommandException;
 import wellnus.ui.TextUi;
@@ -32,7 +33,7 @@ public class DeleteCommand extends Command {
     private static final String LINE_SEPARATOR = System.lineSeparator();
     private static final String DELETE_INVALID_ARGUMENTS_MESSAGE = "Invalid arguments for delete, no deletion shall "
             + "be performed.";
-    private static final Logger logger = Logger.getLogger("DeleteAtomicHabitLogger");
+    private static final Logger logger = WellNusLogger.getLogger("DeleteAtomicHabitLogger");
     private static final String LOG_STR_INPUT_NOT_INTEGER = "Input string is not an integer."
             + "This should be properly handled";
 

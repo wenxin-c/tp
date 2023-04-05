@@ -5,6 +5,7 @@ import java.util.NoSuchElementException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import wellnus.common.WellNusLogger;
 import wellnus.exception.BadCommandException;
 import wellnus.manager.Manager;
 import wellnus.reflection.command.FavoriteCommand;
@@ -23,7 +24,7 @@ public class ReflectionManager extends Manager {
     public static final String FEATURE_HELP_DESCRIPTION = "Reflection (reflect) - Take some time to pause and reflect "
             + "with our specially curated list of questions and reflection management tools.";
     public static final String FEATURE_NAME = "reflect";
-    private static final Logger LOGGER = Logger.getLogger("ReflectionManagerLogger");
+    private static final Logger LOGGER = WellNusLogger.getLogger("ReflectionManagerLogger");
     private static final String GET_COMMAND = "get";
     private static final String HOME_COMMAND = "home";
     private static final String HELP_COMMAND = "help";

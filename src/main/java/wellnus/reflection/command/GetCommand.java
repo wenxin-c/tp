@@ -7,6 +7,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import wellnus.command.Command;
+import wellnus.common.WellNusLogger;
 import wellnus.exception.BadCommandException;
 import wellnus.exception.StorageException;
 import wellnus.reflection.feature.QuestionList;
@@ -21,7 +22,7 @@ public class GetCommand extends Command {
     public static final String COMMAND_DESCRIPTION = "get - Get a list of questions to reflect on.";
     public static final String COMMAND_USAGE = "usage: get";
     public static final String COMMAND_KEYWORD = "get";
-    private static final Logger LOGGER = Logger.getLogger("ReflectGetCommandLogger");
+    private static final Logger LOGGER = WellNusLogger.getLogger("ReflectGetCommandLogger");
     private static final String FEATURE_NAME = "reflect";
 
     private static final String PAYLOAD = "";
