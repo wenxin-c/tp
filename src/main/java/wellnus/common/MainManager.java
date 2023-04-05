@@ -38,9 +38,9 @@ public class MainManager extends Manager {
     private static final String INVALID_COMMAND_ADDITIONAL_MESSAGE = "Try 'help' for some guidance";
     private static final String INVALID_FEATURE_KEYWORD_MESSAGE = "Feature keyword can't be empty dear";
     private static final int NUM_OF_ARGUMENTS = 1;
-    private static final String TOO_MANY_ARGUMENTS_MESSAGE = "Too many arguments given for '%s'";
+    private static final String TOO_MANY_ARGUMENTS_MESSAGE = "Too many arguments given for '%s'.";
     private static final String UNNECESSARY_PARAMETER_MESSAGE = "'%s' doesn't accept any parameters, drop the '%s' "
-            + "and try again";
+            + "and try again.";
     private static final String WELLNUS_FEATURE_NAME = "";
     private static final String NO_ADDITIONAL_MESSAGE = "";
     private final ArrayList<Manager> featureManagers;
