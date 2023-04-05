@@ -5,8 +5,8 @@ import java.util.HashMap;
 import wellnus.command.Command;
 import wellnus.exception.BadCommandException;
 import wellnus.focus.feature.FocusManager;
+import wellnus.focus.feature.FocusUi;
 import wellnus.focus.feature.Session;
-import wellnus.ui.TextUi;
 
 /**
  * Represents a command to start the current session.
@@ -21,11 +21,11 @@ public class StartCommand extends Command {
     private static final String COMMAND_INVALID_COMMAND_MESSAGE = "Invalid command issued, expected 'start'!";
     private static final String COMMAND_INVALID_ARGUMENTS_MESSAGE = "Invalid arguments given to 'start'!";
     private static final String COMMAND_INVALID_PAYLOAD = "Invalid payload given to 'start'!";
-    private static final String START_MESSAGE = "Your session has started! Please focus on your task.";
+    private static final String START_MESSAGE = "Your session has started. All the best!";
     private static final String ERROR_NOT_READY = "Nothing to start - your session has started!";
     private static final String COMMAND_INVALID_COMMAND_NOTE = "start command " + COMMAND_USAGE;
     private final Session session;
-    private final TextUi textUi;
+    private final FocusUi focusUi;
 
     /**
      * Constructor for StartCommand object.
@@ -37,7 +37,7 @@ public class StartCommand extends Command {
     public StartCommand(HashMap<String, String> arguments, Session session) {
         super(arguments);
         this.session = session;
-        this.textUi = new TextUi();
+        this.focusUi = new FocusUi();
     }
 
     /**
@@ -72,17 +72,17 @@ public class StartCommand extends Command {
         try {
             validateCommand(super.getArguments());
         } catch (BadCommandException badCommandException) {
-            textUi.printErrorFor(badCommandException, COMMAND_INVALID_COMMAND_NOTE);
+            focusUi.printErrorFor(badCommandException, COMMAND_INVALID_COMMAND_NOTE);
             return;
         }
         if (!session.isSessionReady()) {
-            textUi.printOutputMessage(ERROR_NOT_READY);
+            focusUi.printOutputMessage(ERROR_NOT_READY);
             return;
         }
         // Forcefully initialise the session again for repeated countdowns
-        textUi.printOutputMessage(START_MESSAGE);
+        focusUi.printOutputMessage(START_MESSAGE);
         session.startTimer();
-        textUi.printOutputMessage(session.getSession().get(FIRST_COUNTDOWN_INDEX).getDescription());
+        focusUi.printOutputMessage(session.getSession().get(FIRST_COUNTDOWN_INDEX).getDescription());
     }
 
     /**

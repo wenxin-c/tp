@@ -15,7 +15,6 @@ import wellnus.focus.command.ResumeCommand;
 import wellnus.focus.command.StartCommand;
 import wellnus.focus.command.StopCommand;
 import wellnus.manager.Manager;
-import wellnus.ui.TextUi;
 
 /**
  * Represents a class to run the event driver for the Focus Timer.
@@ -24,7 +23,7 @@ import wellnus.ui.TextUi;
  */
 //@@author YongbinWang
 public class FocusManager extends Manager {
-    public static final String FEATURE_HELP_DESCRIPTION = "ft(Focus Timer) - Set a configurable timer "
+    public static final String FEATURE_HELP_DESCRIPTION = "ft(Focus Timer) - Set a configurable 'Pomodoro' timer "
             + "with work and rest cycles to keep yourself focused and productive!";
     public static final String FEATURE_NAME = "ft";
     private static final String START_COMMAND_KEYWORD = "start";
@@ -37,7 +36,7 @@ public class FocusManager extends Manager {
     private static final String CHECK_COMMAND_KEYWORD = "check";
     private static final String HELP_COMMAND_KEYWORD = "help";
     private static final String UNKNOWN_COMMAND_MESSAGE = "Invalid command issued!";
-    private static final String FOCUS_TIMER_GREET = "Welcome to Focus Timer.\n"
+    private static final String FOCUS_TIMER_GREET = "Welcome to Focus Timer." + System.lineSeparator()
             + "Start a focus session with `start`, or `config` the session first!";
     private static final String COMMAND_KEYWORD_ASSERTION = "The key cannot be null"
             + ", check user-guide for valid commands";
@@ -53,7 +52,7 @@ public class FocusManager extends Manager {
             + "stop command " + StopCommand.COMMAND_USAGE + LINE_SEPARATOR
             + "help command " + HelpCommand.COMMAND_USAGE + LINE_SEPARATOR
             + "home command " + HomeCommand.COMMAND_USAGE;
-    private final TextUi textUi;
+    private final FocusUi focusUi;
     private final Session session;
 
     /**
@@ -62,8 +61,8 @@ public class FocusManager extends Manager {
      * Session will be passed into different commands to be utilised.
      */
     public FocusManager() {
-        this.textUi = new TextUi();
-        this.textUi.setCursorName(FEATURE_NAME);
+        this.focusUi = new FocusUi();
+        this.focusUi.setCursorName(FEATURE_NAME);
         this.session = new Session();
     }
 
@@ -104,21 +103,23 @@ public class FocusManager extends Manager {
     }
 
     private void greet() {
-        textUi.printOutputMessage(FOCUS_TIMER_GREET);
+        focusUi.printOutputMessage(FOCUS_TIMER_GREET);
     }
 
     private void runCommands() {
         boolean isExit = false;
         while (!isExit) {
+            // Ignore ALL user input if the command is in its printing phase
             try {
-                String commandString = textUi.getCommand();
+                String commandString = focusUi.getCommand(session);
+                // Edge case guard clause to ensure that
                 Command command = getCommandFor(commandString);
                 command.execute();
                 isExit = HomeCommand.isExit(command);
             } catch (BadCommandException exception) {
-                textUi.printErrorFor(exception, COMMAND_INVALID_COMMAND_NOTE);
+                focusUi.printErrorFor(exception, COMMAND_INVALID_COMMAND_NOTE);
             } catch (WellNusException exception) {
-                textUi.printErrorFor(exception, COMMAND_INVALID_COMMAND_NOTE);
+                focusUi.printErrorFor(exception, COMMAND_INVALID_COMMAND_NOTE);
             }
         }
     }

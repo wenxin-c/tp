@@ -27,7 +27,7 @@ public class TextUi {
             + "please key in input!";
     private static final String BUFFER_OVERFLOW_MSG = "Input is too long, please shorten your input!";
     private static final String CURSOR_CARET = "(%s):~$ ";
-    private final Scanner scanner;
+    private Scanner scanner;
     private String separator = "-";
     private String cursor = CURSOR_CARET;
 
@@ -54,7 +54,7 @@ public class TextUi {
      * @return User input command with leading/dangling whitespace being removed
      */
     public String getCommand() {
-        System.out.print(cursor);
+        printCursor();
         String userCommand = "";
         try {
             String inputLine = scanner.nextLine();
@@ -178,5 +178,29 @@ public class TextUi {
         assert cursorName != null && cursorName.length() > 0 : ERROR_EMPTY_STRING;
         cursor = String.format(CURSOR_CARET, cursorName);
     }
+
+    /**
+     * Utility function to print the cursor to screen
+     */
+    public void printCursor() {
+        System.out.print(cursor);
+    }
+
+    /**
+     * Utility function to print a newline
+     */
+    public void printNewline() {
+        System.out.println(System.lineSeparator());
+    }
+
+    /**
+     * Utility function to get the scanner belonging to TextUi.
+     *
+     * @return Scanner tagged to this instance of TextUi
+     */
+    public Scanner getScanner() {
+        return scanner;
+    }
+
 }
 

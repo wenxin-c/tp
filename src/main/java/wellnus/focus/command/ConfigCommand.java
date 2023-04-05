@@ -10,8 +10,8 @@ import wellnus.exception.BadCommandException;
 import wellnus.exception.FocusException;
 import wellnus.exception.WellNusException;
 import wellnus.focus.feature.FocusManager;
+import wellnus.focus.feature.FocusUi;
 import wellnus.focus.feature.Session;
-import wellnus.ui.TextUi;
 
 
 /**
@@ -22,11 +22,16 @@ import wellnus.ui.TextUi;
 //@@author nichyjt
 public class ConfigCommand extends Command {
     public static final String COMMAND_DESCRIPTION = "config - Change the number of cycles"
-            + " and the times of the work, break and long break of your session!\n"
-            + "Note that the minimum cycles is 2,\n"
-            + "the maximum number of cycles is 5,\n"
-            + "the maximum work/break times is 60 minutes,\n"
-            + "the minimum work/break times is 1 minute.\n"
+            + " and the times of the work, break and long break of your session!"
+            + System.lineSeparator()
+            + "Note that the minimum cycles is 2,"
+            + System.lineSeparator()
+            + "the maximum number of cycles is 5,"
+            + System.lineSeparator()
+            + "the maximum work/break times is 60 minutes,"
+            + System.lineSeparator()
+            + "the minimum work/break times is 1 minute."
+            + System.lineSeparator()
             + "This is to ensure your well-being, as higher values might be counter-productive!";
     public static final String COMMAND_USAGE = "usage: config ([--cycle number] [--work minutes]"
             + "[--break minutes] [--longbreak minutes])";
@@ -35,7 +40,8 @@ public class ConfigCommand extends Command {
     protected static final String ARGUMENT_WORK = "work";
     protected static final String ARGUMENT_BREAK = "break";
     protected static final String ARGUMENT_LONG_BREAK = "longbreak";
-    private static final String PRINT_CONFIG_MESSAGE = "Okay, here's your new session details!\n";
+    private static final String PRINT_CONFIG_MESSAGE = "Okay, here's your new session details!"
+            + System.lineSeparator();
     private static final String PRINT_CONFIG_CYCLES = "Cycles: ";
     private static final String PRINT_CONFIG_WORK = "Work: ";
     private static final String PRINT_CONFIG_BREAK = "Break: ";
@@ -65,14 +71,16 @@ public class ConfigCommand extends Command {
             + "many arguments!";
     private static final String ERROR_TOO_FEW_ARGUMENTS = "Invalid arguments given, you seem to have not added "
             + "in any arguments!";
+    private static final String ASSERT_MISSING_KEYWORD = "Missing command keyword";
     private static final Logger LOGGER = Logger.getLogger("ConfigCommandLogger");
     private static final String LOG_VALIDATION_ASSUMPTION_FAIL = "New cycle/break/work time is assumed to "
             + "have passed the validation bounds and type checking, but has"
             + "unexpectedly failed the second redundant check! This may be a developer error.";
-    private static final String ERROR_SESSION_STARTED = "Cannot config the session as it has already started.\n"
+    private static final String ERROR_SESSION_STARTED = "Cannot config the session as it has already started."
+            + System.lineSeparator()
             + "If you want to reconfigure, `stop` the session and then `config`!";
 
-    private final TextUi textUi;
+    private final FocusUi focusUi;
     private final Session session;
     private int newCycle;
     private int newWork;
@@ -88,7 +96,7 @@ public class ConfigCommand extends Command {
      */
     public ConfigCommand(HashMap<String, String> arguments, Session session) {
         super(arguments);
-        this.textUi = new TextUi();
+        this.focusUi = new FocusUi();
         this.session = session;
         newCycle = session.getCycle();
         newWork = session.getWork();
@@ -128,7 +136,7 @@ public class ConfigCommand extends Command {
     @Override
     public void execute() throws WellNusException {
         if (!session.isSessionReady()) {
-            textUi.printOutputMessage(ERROR_SESSION_STARTED);
+            focusUi.printOutputMessage(ERROR_SESSION_STARTED);
             return;
         }
         HashMap<String, String> argumentPayloads = getArguments();
@@ -173,7 +181,7 @@ public class ConfigCommand extends Command {
      */
     @Override
     public void validateCommand(HashMap<String, String> arguments) throws BadCommandException {
-        assert arguments.containsKey(COMMAND_KEYWORD) : "Missing command keyword";
+        assert arguments.containsKey(COMMAND_KEYWORD) : ASSERT_MISSING_KEYWORD;
         if (arguments.size() > COMMAND_MAX_NUM_ARGUMENTS) {
             throw new BadCommandException(COMMAND_INVALID_ARGUMENTS);
         }
@@ -301,12 +309,12 @@ public class ConfigCommand extends Command {
         }
         message = message.concat(System.lineSeparator());
         message = message.concat(PRINT_CONFIG_LONG_BREAK + this.newLongBreak);
-        if (this.newWork == MIN_MINUTES) {
+        if (this.newLongBreak == MIN_MINUTES) {
             message = message.concat(SINGLE_SPACE_PAD + PRINT_CONFIG_MIN);
         } else {
             message = message.concat(SINGLE_SPACE_PAD + PRINT_CONFIG_MINS);
         }
-        textUi.printOutputMessage(message);
+        focusUi.printOutputMessage(message);
     }
 
     /**

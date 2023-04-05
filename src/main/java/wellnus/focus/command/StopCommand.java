@@ -5,8 +5,8 @@ import java.util.HashMap;
 import wellnus.command.Command;
 import wellnus.exception.BadCommandException;
 import wellnus.focus.feature.FocusManager;
+import wellnus.focus.feature.FocusUi;
 import wellnus.focus.feature.Session;
-import wellnus.ui.TextUi;
 
 /**
  * Represents a command to stop the current session.
@@ -26,7 +26,7 @@ public class StopCommand extends Command {
     private static final String ERROR_NOT_STARTED = "Nothing to stop - the timer has not started yet!";
     private static final String COMMAND_INVALID_COMMAND_NOTE = "stop command " + COMMAND_USAGE;
     private final Session session;
-    private final TextUi textUi;
+    private final FocusUi focusUi;
 
     /**
      * Constructs a StopCommand object.
@@ -38,7 +38,7 @@ public class StopCommand extends Command {
     public StopCommand(HashMap<String, String> arguments, Session session) {
         super(arguments);
         this.session = session;
-        this.textUi = new TextUi();
+        this.focusUi = new FocusUi();
     }
 
     /**
@@ -73,14 +73,14 @@ public class StopCommand extends Command {
         try {
             validateCommand(super.getArguments());
         } catch (BadCommandException badCommandException) {
-            textUi.printErrorFor(badCommandException, COMMAND_INVALID_COMMAND_NOTE);
+            focusUi.printErrorFor(badCommandException, COMMAND_INVALID_COMMAND_NOTE);
             return;
         }
         if (!session.hasAnyCountdown() || session.isSessionReady()) {
-            textUi.printOutputMessage(ERROR_NOT_STARTED);
+            focusUi.printOutputMessage(ERROR_NOT_STARTED);
             return;
         }
-        textUi.printOutputMessage(STOP_MESSAGE);
+        focusUi.printOutputMessage(STOP_MESSAGE);
         session.getCurrentCountdown().setStop();
         session.initialiseSession();
         session.resetCurrentCountdownIndex();

@@ -5,8 +5,8 @@ import java.util.HashMap;
 import wellnus.command.Command;
 import wellnus.exception.BadCommandException;
 import wellnus.focus.feature.FocusManager;
+import wellnus.focus.feature.FocusUi;
 import wellnus.focus.feature.Session;
-import wellnus.ui.TextUi;
 
 /**
  * Represents a command to resume the countdown timer in the current session.
@@ -25,7 +25,7 @@ public class ResumeCommand extends Command {
     private static final String ERROR_NOT_PAUSED = "You don't seem to be paused. Ignoring the command!";
     private static final String COMMAND_INVALID_COMMAND_NOTE = "resume command " + COMMAND_USAGE;
     private final Session session;
-    private final TextUi textUi;
+    private final FocusUi focusUi;
 
     /**
      * Constructs a ResumeCommand object.
@@ -37,7 +37,7 @@ public class ResumeCommand extends Command {
     public ResumeCommand(HashMap<String, String> arguments, Session session) {
         super(arguments);
         this.session = session;
-        this.textUi = new TextUi();
+        this.focusUi = new FocusUi();
     }
 
     /**
@@ -71,17 +71,17 @@ public class ResumeCommand extends Command {
         try {
             validateCommand(super.getArguments());
         } catch (BadCommandException badCommandException) {
-            textUi.printErrorFor(badCommandException, COMMAND_INVALID_COMMAND_NOTE);
+            focusUi.printErrorFor(badCommandException, COMMAND_INVALID_COMMAND_NOTE);
             return;
         }
         assert super.getArguments().containsKey(COMMAND_KEYWORD) : COMMAND_KEYWORD_ASSERTION;
         if (!session.hasAnyCountdown() || !session.isSessionPaused()) {
-            textUi.printOutputMessage(ERROR_NOT_PAUSED);
+            focusUi.printOutputMessage(ERROR_NOT_PAUSED);
             return;
         }
         int minutes = session.getCurrentCountdown().getMinutes();
         int seconds = session.getCurrentCountdown().getSeconds();
-        textUi.printOutputMessage(RESUME_OUTPUT + String.format("%d:%d", minutes, seconds));
+        focusUi.printOutputMessage(RESUME_OUTPUT + String.format("%d:%d", minutes, seconds));
         session.getCurrentCountdown().setStart();
     }
 
