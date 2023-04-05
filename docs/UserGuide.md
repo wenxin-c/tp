@@ -974,7 +974,7 @@ Expected outcome:
 
 <!--@@ author BernardLesley-->
 
-### `home` - Return back main WellNUS++
+## `home` - Return back main WellNUS++
 
 To leave the current feature and return back to main interface. Each individual feature (i.e. atomic habit,
 self reflection, focus timer and gamification) has this command with customised
