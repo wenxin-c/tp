@@ -90,22 +90,22 @@ WellNUS++ comes with a variety of features to help you enhance your overall well
 
 ### Command Format
 
-* Words in UPPER_CASE are the parameters to be supplied by the user.
-  e.g. in add --name NAME is a parameter which can be used as add --name John Doe.
+* Words in UPPER_CASE are the parameters to be supplied by the user
+  e.g. in add --name NAME is a parameter which can be used as add --name John Doe
 * Items in square brackets are optional.
-  E.g --name NAME  [--tag TAG] can be used as --name John Doe --tag friend or as --name John Doe.
+  E.g --name NAME  [--tag TAG] can be used as --name John Doe --tag friend or as --name John Doe
 
 * Items with … after them can be used multiple times including zero times.
-  e.g. [--tag TAG]… can be used as   (i.e. 0 times), --tag friend, --tag friend, --tag family etc.
+  e.g. [--tag TAG]… can be used as   (i.e. 0 times), --tag friend, --tag friend, --tag family etc
 
 * Parameters can be in any order.
-  e.g. if the command specifies --name NAME --phone PHONE_NUMBER, --phone PHONE_NUMBER --name NAME is also acceptable.
+  e.g. if the command specifies --name NAME --phone PHONE_NUMBER, --phone PHONE_NUMBER --name NAME is also acceptable
 
 <!-- @@author BernardLesley -->
 
 ### Viewing WellNUS++ help: `help`
 
-Lists all commands available and provide a short description of the application
+Lists all commands available and provide a short description of the application.
 
 Format: `help [command-to-check]`
 
@@ -152,11 +152,11 @@ Expected outcome:
 ### Accessing feature: `FEATURE_NAME`
 
 Access specific feature from main interface by inputting the feature_name
-Feature name can be referenced by calling the help command
+Feature name can be referenced by calling the help command.
 
 Take note that users are only allowed to access features (i.e. atomic habit, self reflection,
-focus timer from the main WellNUS++, cross feature transition is not
-allowed!)
+focus timer from the main WellNUS++, cross feature transition is **not
+allowed**).
 
 Format: `FEATURE_NAME`
 
@@ -209,7 +209,7 @@ Expected outcome:
 
 ### Add new atomic habit: `add`
 
-Adds an atomic habit to be tracked by WellNUS++ when accessing atomic habit feature
+Adds an atomic habit to be tracked by WellNUS++ when accessing atomic habit feature.
 
 Format: `add --name ATOMIC_HABIT_NAME `
 
@@ -354,7 +354,7 @@ Make bed every morning [5] has been successfully deleted
 
 ### Viewing Atomic Habit help: `help`
 
-Lists all commands available and provide a short description of Atomic Habit feature
+Lists all commands available and provide a short description of Atomic Habit feature.
 
 Format: `help [command-to-check]`
 
@@ -447,7 +447,7 @@ Expected outcome:
 
 ### Viewing Gamification help: `help`
 
-Lists all commands available and provide a short description of Gamification feature
+Lists all commands available and provide a short description of Gamification feature.
 
 Format: `help [command-to-check]`
 
@@ -648,7 +648,7 @@ Example output:
 
 ### Viewing Reflection help: `help`
 
-Lists all commands available and provide a short description of Reflection feature
+Lists all commands available and provide a short description of Reflection feature.
 
 Format: `help [command-to-check]`
 
@@ -708,10 +708,10 @@ Example of usage:<br>
 Expected outcome:
 
 ```
-------------------------------------------------------------
+************************************************************
     Welcome to Focus Timer.
     Start a focus session with `start`, or `config` the session first!
-------------------------------------------------------------
+************************************************************
 ```
 
 <!--@@author YongbinWang-->
@@ -731,12 +731,12 @@ Example of usage:
 Expected outcome:
 
 ```
-------------------------------------------------------------
+************************************************************
     Your session has started! Please focus on your task.
-------------------------------------------------------------
-------------------------------------------------------------
+************************************************************
+************************************************************
     Task
-------------------------------------------------------------
+************************************************************
 ```
 
 ### Pause session: `pause`
@@ -754,9 +754,9 @@ Example of usage:
 Expected outcome:
 
 ```
-------------------------------------------------------------
+************************************************************
     Timer paused at: 0:54
-------------------------------------------------------------
+************************************************************
 ```
 
 ### Resume session: `resume`
@@ -774,9 +774,9 @@ Example of usage:
 Expected outcome:
 
 ```
-------------------------------------------------------------
+************************************************************
     Timer resumed at: 0:54
-------------------------------------------------------------
+************************************************************
 ```
 
 ### Check time: `check`
@@ -794,9 +794,9 @@ Example of usage:
 Expected outcome:
 
 ```
-------------------------------------------------------------
+************************************************************
     Time left: 0:57
-------------------------------------------------------------
+************************************************************
 ```
 
 ### Next timer: `next`
@@ -814,17 +814,17 @@ Example of usage:
 Expected outcome(if the next timer is a work timer):
 
 ```
-------------------------------------------------------------
+************************************************************
     Task
-------------------------------------------------------------
+************************************************************
 ```
 
 Expected outcome(if the next timer is a break timer):
 
 ```
-------------------------------------------------------------
+************************************************************
     Break
-------------------------------------------------------------
+************************************************************
 ```
 
 ### Stop session: `stop`
@@ -842,18 +842,18 @@ Example of usage:
 Expected outcome:
 
 ```
-------------------------------------------------------------
+************************************************************
     Your focus session has ended.
 To start a new session, `start` it up!
 You can also configure the session to your liking with `config`!
-------------------------------------------------------------
+************************************************************
 ```
 
 <!-- @@author BernardLesley -->
 
 ### Viewing Focus Timer help: `help`
 
-Lists all commands available and provide a short description of Focus Timer feature
+Lists all commands available and provide a short description of Focus Timer feature.
 
 Format: `help [command-to-check]`
 
@@ -867,7 +867,7 @@ Example of usage 1:
 Expected outcome:
 
 ```
-------------------------------------------------------------
+************************************************************
     Focus Timer (ft) - Set a configurable timer with work and rest cycles to keep yourself focused and productive!
     Input `help` to see all available commands.
 Input `help [command-to-check]` to get usage help for a specific command.
@@ -890,7 +890,7 @@ This can only be used when a countdown timer has ended!
 Can only be used when a countdown is paused.
     8. start - Start your focus session!
     9. stop - Stop the session. You will have to `start` your focus session again!
-------------------------------------------------------------
+************************************************************
 
 ```
 
@@ -901,10 +901,10 @@ Example of usage 2:
 Expected outcome:
 
 ```
-------------------------------------------------------------
+************************************************************
     stop - Stop the session. You will have to `start` your focus session again!
     usage: stop
-------------------------------------------------------------
+************************************************************
 ```
 
 <!--@@author nichyjt-->
@@ -935,13 +935,13 @@ Example of usage:
 Expected outcome:
 
 ```
-------------------------------------------------------------
+************************************************************
     Okay, here's your new session details!
     Cycles: 4
     Work: 1 minute
     Break: 1 minute
     Long break: 1 minute
-------------------------------------------------------------
+************************************************************
 ```
 
 Example of usage 2:
@@ -951,13 +951,13 @@ Example of usage 2:
 Expected outcome:
 
 ```
-------------------------------------------------------------
+************************************************************
     Okay, here's your new session details!
     Cycles: 4
     Work: 5 minutes
     Break: 1 minute
     Long break: 2 minutes
-------------------------------------------------------------
+************************************************************
 ```
 
 <!--@@ author BernardLesley-->
@@ -977,9 +977,9 @@ Example of usage:
 Expected outcome for atomic habit:
 
 ```
-—---------------------------------------------------------------
+—-----------------------------------------------------------
 Thank you for using atomic habits. Do not forget about me!
-—---------------------------------------------------------------
+—-----------------------------------------------------------
 ```
 
 Expected outcome for self reflection:
@@ -998,7 +998,7 @@ To exit the app, data of the current progress will be saved in data files.
 Format: `exit`
 
 Take note that users are only allowed to exit from main WellNUS++ (i.e. users cannot exit the program from other
-features like atomic habit.)
+features like atomic habit).
 
 Example of usage:
 
