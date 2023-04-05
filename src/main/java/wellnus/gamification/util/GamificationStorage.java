@@ -30,10 +30,13 @@ public class GamificationStorage {
      * @throws TokenizerException If tokenized data cannot be detokenized into a GamificationData object
      */
     public GamificationData loadData() throws StorageException, TokenizerException {
-        ArrayList<String> tokenizedObjects = storage.loadData(Storage.FILE_GAMIFICATION);
-        ArrayList<GamificationData> dataObjects = tokenizer.detokenize(tokenizedObjects);
-        int dataObjectIndex = 0;
-        return dataObjects.get(dataObjectIndex);
+        if (storage.checkFileExists(Storage.FILE_GAMIFICATION)) {
+            ArrayList<String> tokenizedObjects = storage.loadData(Storage.FILE_GAMIFICATION);
+            ArrayList<GamificationData> dataObjects = tokenizer.detokenize(tokenizedObjects);
+            int dataObjectIndex = 0;
+            return dataObjects.get(dataObjectIndex);
+        }
+        return new GamificationData();
     }
 
     /**
