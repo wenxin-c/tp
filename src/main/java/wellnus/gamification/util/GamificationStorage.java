@@ -1,10 +1,10 @@
 package wellnus.gamification.util;
 
+import java.util.ArrayList;
+
 import wellnus.exception.StorageException;
 import wellnus.exception.TokenizerException;
 import wellnus.storage.Storage;
-
-import java.util.ArrayList;
 
 /**
  * Manages the storage and retrieval of gamification data to and from storage.

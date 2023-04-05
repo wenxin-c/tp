@@ -1,9 +1,9 @@
 package wellnus.gamification.util;
 
+import java.util.ArrayList;
+
 import wellnus.exception.TokenizerException;
 import wellnus.storage.Tokenizer;
-
-import java.util.ArrayList;
 
 /**
  * Handles the conversion of GamificationData objects -> String and vice versa to allow
