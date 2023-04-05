@@ -33,6 +33,7 @@ public class Storage {
     // to allow any FeatureManager to call the (de)tokenize functions with the correct filename
     public static final String FILE_HABIT = "habit";
     public static final String FILE_REFLECT = "reflect";
+    public static final String FILE_GAMIFICATION = "gamif";
     protected static final String FILE_DEBUG = "debug";
     protected static final String DIRECTORY_DEBUG = "debug";
 
@@ -118,6 +119,7 @@ public class Storage {
     private boolean isValidFileName(String fileName) {
         assert fileName != null : ASSERT_STRING_NOT_NULL;
         switch (fileName) {
+        case FILE_GAMIFICATION:
         case FILE_HABIT:
         case FILE_REFLECT:
         case FILE_DEBUG:
