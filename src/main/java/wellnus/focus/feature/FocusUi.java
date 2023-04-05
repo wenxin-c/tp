@@ -20,6 +20,7 @@ public class FocusUi extends TextUi {
     private static final String BUFFER_OVERFLOW_MSG = "Your input is too long,"
             + "please shorten it!!";
     private static final String SEPARATOR = "*";
+    private static final int FLUSH_DELAY_TIMING = 1000;
     private static final boolean NO_PRINT_CURSOR = false;
     private static final boolean PRINT_CURSOR = true;
 
@@ -135,7 +136,7 @@ public class FocusUi extends TextUi {
         // Implement a timeout to avoid hanging
         long flushStartTime = System.currentTimeMillis();
         while (scanner.hasNextLine()
-                && System.currentTimeMillis() - flushStartTime < 2000) {
+                && System.currentTimeMillis() - flushStartTime < FLUSH_DELAY_TIMING) {
             // Discard extraneous input
             scanner.nextLine();
         }
