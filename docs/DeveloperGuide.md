@@ -412,9 +412,10 @@ need to type which is relatively clunky as the user will need to type far off to
 The `AtomicHabit` component is responsible for tracking the user's daily habits.
 It consists of the `feature` package and the `command` package.
 
-The `command` package consists of the `AddCommand`, `HomeCommand`, `ListCommand`, `UpdateCommand`.
+The `command` package consists of the `AddCommand`, `DeleteCommand`, `HomeCommand`, `ListCommand`, `UpdateCommand`.
 
 * `AddCommand` - Adds a new habit to the user's habit list.
+* `DeleteCommand` - Delete an atomic habit from the user's habit list.
 * `HomeCommand` - Returns the user back to main interface.
 * `ListCommand` - Lists all the user's habits.
 * `UpdateCommand` - Updates the user's habit count.
