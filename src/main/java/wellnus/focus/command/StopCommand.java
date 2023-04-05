@@ -7,6 +7,7 @@ import wellnus.exception.BadCommandException;
 import wellnus.focus.feature.FocusManager;
 import wellnus.focus.feature.FocusUi;
 import wellnus.focus.feature.Session;
+import wellnus.ui.TextUi;
 
 /**
  * Represents a command to stop the current session.

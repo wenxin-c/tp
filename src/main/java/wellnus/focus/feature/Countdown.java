@@ -5,6 +5,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.atomic.AtomicBoolean;
 
+import wellnus.ui.TextUi;
 
 /**
  * Class to represent a timer counting down given a specific minutes.
