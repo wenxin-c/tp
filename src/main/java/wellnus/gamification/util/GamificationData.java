@@ -1,5 +1,7 @@
 package wellnus.gamification.util;
 
+import wellnus.exception.StorageException;
+
 /**
  * Data structure for encapsulating WellNus++ gamification data such as experience
  * points and experience levels. See public methods to understand how to update the
@@ -21,8 +23,16 @@ public class GamificationData {
      * Returns an instance of the GamificationData class.
      */
     public GamificationData() {
-        this.xp = INITIAL_XP_POINTS;
-        this.level = getLevelFor(this.xp);
+        this(INITIAL_XP_POINTS);
+    }
+
+    /**
+     * Returns an instance of the GamificationData class with the given amount of XP.
+     * @param xp Amount of XP to start with
+     */
+    protected GamificationData(int xp) {
+        this.xp = xp;
+        this.level = getLevelFor(xp);
     }
 
     private static int getLevelFor(int xp) {
@@ -33,13 +43,16 @@ public class GamificationData {
      * Increases the user's XP points by the given amount.
      * @param pointsToAdd Number of XP points to increase
      * @return Whether the user just levelled up
+     * @throws StorageException If latest XP statistics cannot be saved to storage successfully
      */
-    public boolean addXp(int pointsToAdd) {
+    public boolean addXp(int pointsToAdd) throws StorageException {
         assert pointsToAdd > 0 : String.format(INVALID_EXP_POINTS_TO_ADD_ERROR, pointsToAdd);
         xp += pointsToAdd;
         int newLevel = getLevelFor(xp);
         boolean hasLevelledUp = newLevel > level;
         level = newLevel;
+        GamificationStorage storage = new GamificationStorage();
+        storage.store(this);
         return hasLevelledUp;
     }
 
@@ -79,13 +92,16 @@ public class GamificationData {
      * Decreases the user's total XP points by the given amount.
      * @param pointsToMinus Number of XP points to deduct from the user
      * @return Whether the user dropped by one level due to the XP deduction
+     * @throws StorageException If latest XP statistics cannot be saved to storage successfully
      */
-    public boolean minusXp(int pointsToMinus) {
+    public boolean minusXp(int pointsToMinus) throws StorageException {
         assert pointsToMinus > 0 : String.format(INVALID_EXP_POINTS_TO_MINUS_ERROR, pointsToMinus);
         xp -= pointsToMinus;
         int newLevel = getLevelFor(xp);
         boolean hasLevelDropped = newLevel < level;
         level = newLevel;
+        GamificationStorage storage = new GamificationStorage();
+        storage.store(this);
         return hasLevelDropped;
     }
 }
