@@ -29,6 +29,10 @@ import wellnus.ui.TextUi;
 public class MainManager extends Manager {
     public static final String FEATURE_HELP_DESCRIPTION = "WellNUS++ is a Command Line Interface (CLI)"
             + " app for you to keep track, manage and improve your physical and mental wellness.";
+    private static final String COMMAND_IS_BLANK_MESSAGE = "Command is blank - please check user input code for "
+            + "MainManager.";
+    private static final String COMMAND_IS_NULL_MESSAGE = "Command is null - please check user input code for "
+            + "MainManager.";
     private static final String EXIT_COMMAND_KEYWORD = "exit";
     private static final String FEATURE_NAME = "main";
     private static final String GREETING_MESSAGE = "Enter a command to start using WellNUS++! Try 'help' "
@@ -150,6 +154,8 @@ public class MainManager extends Manager {
     }
 
     private void validate(String command) throws BadCommandException {
+        assert command != null : MainManager.COMMAND_IS_NULL_MESSAGE;
+        assert !command.isBlank() : MainManager.COMMAND_IS_BLANK_MESSAGE;
         String featureKeyword = commandParser.getMainArgument(command);
         Optional<Manager> featureManager = this.getManagerFor(featureKeyword);
         // User gave a command that's not any feature's keyword nor a recognised main command
