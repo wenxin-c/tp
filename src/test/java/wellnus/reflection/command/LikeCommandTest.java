@@ -16,8 +16,6 @@ import wellnus.exception.ReflectionException;
 import wellnus.reflection.feature.IndexMapper;
 import wellnus.reflection.feature.QuestionList;
 
-import javax.management.relation.RelationException;
-
 // @@author wenxin-c
 class LikeCommandTest {
     private static final String LIKE_COMMAND_KEYWORD = "like";
