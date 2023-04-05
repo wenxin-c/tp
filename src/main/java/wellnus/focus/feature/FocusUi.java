@@ -19,6 +19,7 @@ public class FocusUi extends TextUi {
             + "please key in your input!!";
     private static final String BUFFER_OVERFLOW_MSG = "Your input is too long,"
             + "please shorten it!!";
+    private static final String SEPARATOR = "*";
     private static final boolean NO_PRINT_CURSOR = false;
     private static final boolean PRINT_CURSOR = true;
 
@@ -28,6 +29,7 @@ public class FocusUi extends TextUi {
      */
     public FocusUi() {
         super();
+        setSeparator(SEPARATOR);
     }
 
     /**
