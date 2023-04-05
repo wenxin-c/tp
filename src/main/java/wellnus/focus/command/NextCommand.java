@@ -5,8 +5,8 @@ import java.util.HashMap;
 import wellnus.command.Command;
 import wellnus.exception.BadCommandException;
 import wellnus.focus.feature.FocusManager;
+import wellnus.focus.feature.FocusUi;
 import wellnus.focus.feature.Session;
-import wellnus.ui.TextUi;
 
 /**
  * Represents a class to start the next countdown in the session.
@@ -23,7 +23,7 @@ public class NextCommand extends Command {
             + "try `start`ing one first!";
     private static final String ERROR_COUNTDOWN_RUNNING = "Oops, your timer for this session is still ticking!";
     private final Session session;
-    private final TextUi textUi;
+    private final FocusUi focusUi;
 
     /**
      * Constructor for NextCommand object.
@@ -35,7 +35,7 @@ public class NextCommand extends Command {
     public NextCommand(HashMap<String, String> arguments, Session session) {
         super(arguments);
         this.session = session;
-        this.textUi = new TextUi();
+        this.focusUi = new FocusUi();
     }
 
     /**
@@ -70,19 +70,19 @@ public class NextCommand extends Command {
         try {
             validateCommand(super.getArguments());
         } catch (BadCommandException badCommandException) {
-            textUi.printErrorFor(badCommandException, NO_ADDITIONAL_MESSAGE);
+            focusUi.printErrorFor(badCommandException, NO_ADDITIONAL_MESSAGE);
             return;
         }
         if (session.isSessionReady()) {
-            textUi.printOutputMessage(ERROR_SESSION_NOT_STARTED);
+            focusUi.printOutputMessage(ERROR_SESSION_NOT_STARTED);
             return;
         }
         if (session.isSessionCounting() || session.isSessionPaused()) {
-            textUi.printOutputMessage(ERROR_COUNTDOWN_RUNNING);
+            focusUi.printOutputMessage(ERROR_COUNTDOWN_RUNNING);
             return;
         }
         session.startTimer();
-        textUi.printOutputMessage(session.getCurrentCountdown().getDescription());
+        focusUi.printOutputMessage(session.getCurrentCountdown().getDescription());
     }
 
     /**
