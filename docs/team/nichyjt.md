@@ -4,28 +4,6 @@
 WellNUS++ is a Command Line Interface(CLI) app for NUS Computing students to keep track and improve their physical and
 mental wellness in various aspects.
 
-<!-- TOC -->
-* [Yek Jin Teck, Nicholas - Project Portfolio Page](#yek-jin-teck-nicholas---project-portfolio-page)
-* [Overview](#overview)
-* [Summary of Contributions](#summary-of-contributions)
-  * [Core Code Contributions](#core-code-contributions)
-    * [CommandParser](#commandparser)
-    * [Manager](#manager)
-    * [Storage](#storage)
-    * [Focus Timer: Config Command](#focus-timer--config-command)
-    * [MainManager: Help Command](#mainmanager--help-command)
-  * [Enhancements Implemented](#enhancements-implemented)
-    * [Terminal Caret](#terminal-caret)
-    * [Focus Timer: Streamlining state management](#focus-timer--streamlining-state-management)
-  * [User Guide Contributions](#user-guide-contributions)
-  * [Developer Guide Contributions](#developer-guide-contributions)
-  * [Team-Based Task Contributions](#team-based-task-contributions)
-  * [Reviewing/Mentoring Contributions](#reviewingmentoring-contributions)
-    * [PR Reviews](#pr-reviews)
-    * [Mentoring](#mentoring)
-  * [Community Contributions](#community-contributions)
-<!-- TOC -->
-
 # Summary of Contributions
 Nicholas was one of the main PR reviewers for the project, and was designated as one of the testers and
 Git/Github helper.
