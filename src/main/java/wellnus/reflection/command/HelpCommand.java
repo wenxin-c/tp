@@ -5,6 +5,7 @@ import java.util.HashMap;
 
 import wellnus.command.Command;
 import wellnus.exception.BadCommandException;
+import wellnus.reflection.feature.ReflectUi;
 import wellnus.reflection.feature.ReflectionManager;
 import wellnus.ui.TextUi;
 
@@ -30,7 +31,7 @@ public class HelpCommand extends Command {
     private static final String DOT = ".";
     private static final int ONE_OFFSET = 1;
     private static final int EXPECTED_PAYLOAD_SIZE = 1;
-    private final TextUi textUi;
+    private final ReflectUi reflectUi;
 
     /**
      * Initialises a HelpCommand Object using the command arguments issued by the user.
@@ -39,11 +40,11 @@ public class HelpCommand extends Command {
      */
     public HelpCommand(HashMap<String, String> arguments) {
         super(arguments);
-        this.textUi = new TextUi();
+        this.reflectUi = new ReflectUi();
     }
 
     private TextUi getTextUi() {
-        return this.textUi;
+        return this.reflectUi;
     }
 
     private ArrayList<String> getCommandDescriptions() {
@@ -119,13 +120,13 @@ public class HelpCommand extends Command {
             break;
         default:
             BadCommandException unknownCommand = new BadCommandException(COMMAND_INVALID_PAYLOAD);
-            textUi.printErrorFor(unknownCommand, COMMAND_INVALID_COMMAND_NOTE);
+            reflectUi.printErrorFor(unknownCommand, COMMAND_INVALID_COMMAND_NOTE);
         }
     }
 
     private void printUsageMessage(String commandDescription, String usageString) {
         String message = commandDescription + System.lineSeparator() + usageString;
-        textUi.printOutputMessage(message);
+        reflectUi.printOutputMessage(message);
     }
 
     @Override

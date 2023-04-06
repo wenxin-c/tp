@@ -1,25 +1,13 @@
 @startuml
 !include style.puml
+skinparam classAttributeIconSize 0
 skinparam arrowThickness 1.1
 skinparam arrowColor MODEL_COLOR
 skinparam classBackgroundColor MODEL_COLOR
 
 Package reflection <<Rectangle>>{
 Package command <<Rectangle>>{
-class GetCommand{
--reflectUi : ReflectUi
-+getRandomQuestions() : ArrayList<ReflectionQuestion>
-}
-class HomeCommand{
--reflectUi : ReflectUi
-}
-class LikeCommand{
--reflectUi : ReflectUi
-+addFavQuestion(questionIndex: String)
-+mapInputToQuestion() : HashMap<Integer, Integer>
-}
-class FavCommand{
--reflectUi : ReflectUi
+class ReflectionCommands{
 }
 }
 
@@ -38,9 +26,6 @@ class ReflectionQuestion{
 class QuestionList{
 -setUpQuestions() : void
 +getQuestions() : ArrayList<ReflectionQuestion>
-}
-class RandomNumberGenerator{
-+generateRandomNumbers() : Set<Integer>
 }
 }
 }
@@ -62,22 +47,12 @@ class Storage
 
 ReflectionManager --> "1" QuestionList : create >
 ReflectionManager --|> Manager
-ReflectionManager ..> GetCommand : execute >
-ReflectionManager ..> HomeCommand : execute >
-ReflectionManager ..> LikeCommand : execute >
-ReflectionManager ..> FavCommand : execute >
-GetCommand ..> QuestionList
-FavCommand ..> QuestionList
-LikeCommand ..> QuestionList
-HomeCommand ..> QuestionList
+ReflectionManager ..> ReflectionCommands : execute >
+ReflectionCommands --> "1" ReflectUi : uses >
+ReflectionCommands ..> QuestionList
 QuestionList --> "10" ReflectionQuestion : contains >
 QuestionList --> "1" ReflectUi : uses >
 QuestionList --> "1" Storage
-QuestionList --> "1" RandomNumberGenerator : uses >
 ReflectUi --|> TextUi
-GetCommand --|> Command
-HomeCommand --|> Command
-LikeCommand --|> Command
-FavCommand --|> Command
-HomeCommand ..> ReflectionManager : calls >
+ReflectionCommands --|> Command
 @enduml
