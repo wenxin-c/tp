@@ -1028,10 +1028,10 @@ Expected outcome:
 
 ## FAQ
 
-**Q**: Can I run `WellNUS++` on my computer?
+**Q**: What do I need to run `WellNUS++` on my computer?
 
-**A**: If your computer has **Java 11 and above** installed, it will be able to run `WellNUS++`. The operating 
-system(Windows, macOS, etc) doesn't matter.
+**A**: Your computer needs to have **Java 11 or above** installed. The operating system(Windows, macOS, etc) doesn't
+matter.
 
 **Q**: Would my data be saved after I close the `WellNUS++`?
 
@@ -1048,7 +1048,7 @@ without an Internet connection.
 **A**: Yes. Copy the `data` folder found in the same path as the `WellNUS++` jar file to another
 computer. All your data will be restored the next time you run `WellNUS++`.
 
-**Q**: How can I navigate the program?
+**Q**: How can I navigate through the program?
 
 **A**: In `WellNUS++`, type `help` to view the list of feature supported by our app. From within a feature, type `help`
 to learn about the commands available within that feature.
