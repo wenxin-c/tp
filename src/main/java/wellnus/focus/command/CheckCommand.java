@@ -5,8 +5,8 @@ import java.util.HashMap;
 import wellnus.command.Command;
 import wellnus.exception.BadCommandException;
 import wellnus.focus.feature.FocusManager;
+import wellnus.focus.feature.FocusUi;
 import wellnus.focus.feature.Session;
-import wellnus.ui.TextUi;
 
 /**
  * Represents a command to check the time left in the current session.
@@ -17,12 +17,14 @@ public class CheckCommand extends Command {
     public static final String COMMAND_USAGE = "usage: check";
     public static final String COMMAND_KEYWORD = "check";
     private static final int COMMAND_NUM_OF_ARGUMENTS = 1;
-    private static final String COMMAND_INVALID_ARGUMENTS_MESSAGE = "Invalid command, expected 'check'";
-    private static final String NO_ADDITIONAL_MESSAGE = "";
+    private static final String COMMAND_INVALID_COMMAND_MESSAGE = "Invalid command issued, expected 'check'";
+    private static final String COMMAND_INVALID_ARGUMENTS_MESSAGE = "Invalid arguments given to 'check'!";
     private static final String CHECK_OUTPUT = "Time left: ";
     private static final String ERROR_COUNTDOWN_NOT_RUNNING = "Nothing to check - the countdown has not started yet!";
+    private static final String COMMAND_INVALID_COMMAND_NOTE = "check command " + COMMAND_USAGE;
+    private static final String COMMAND_INVALID_PAYLOAD = "Invalid payload given to 'check'!";
     private final Session session;
-    private final TextUi textUi;
+    private final FocusUi focusUi;
 
     /**
      * Constructs a CheckCommand object.
@@ -34,7 +36,7 @@ public class CheckCommand extends Command {
     public CheckCommand(HashMap<String, String> arguments, Session session) {
         super(arguments);
         this.session = session;
-        this.textUi = new TextUi();
+        this.focusUi = new FocusUi();
     }
 
     /**
@@ -68,20 +70,20 @@ public class CheckCommand extends Command {
         try {
             validateCommand(super.getArguments());
         } catch (BadCommandException badCommandException) {
-            textUi.printErrorFor(badCommandException, NO_ADDITIONAL_MESSAGE);
+            focusUi.printErrorFor(badCommandException, COMMAND_INVALID_COMMAND_NOTE);
             return;
         }
         if (session.isSessionReady()) {
-            textUi.printOutputMessage(ERROR_COUNTDOWN_NOT_RUNNING);
+            focusUi.printOutputMessage(ERROR_COUNTDOWN_NOT_RUNNING);
             return;
         }
         if (session.isSessionWaiting()) {
-            textUi.printOutputMessage(ERROR_COUNTDOWN_NOT_RUNNING);
+            focusUi.printOutputMessage(ERROR_COUNTDOWN_NOT_RUNNING);
             return;
         }
         int minutes = session.getCurrentCountdown().getMinutes();
         int seconds = session.getCurrentCountdown().getSeconds();
-        textUi.printOutputMessage(CHECK_OUTPUT + String.format("%d:%d", minutes, seconds));
+        focusUi.printOutputMessage(CHECK_OUTPUT + String.format("%d:%d", minutes, seconds));
     }
 
     /**
@@ -97,10 +99,10 @@ public class CheckCommand extends Command {
             throw new BadCommandException(COMMAND_INVALID_ARGUMENTS_MESSAGE);
         }
         if (!arguments.containsKey(COMMAND_KEYWORD)) {
-            throw new BadCommandException(COMMAND_INVALID_ARGUMENTS_MESSAGE);
+            throw new BadCommandException(COMMAND_INVALID_COMMAND_MESSAGE);
         }
         if (!arguments.get(COMMAND_KEYWORD).equals("")) {
-            throw new BadCommandException(COMMAND_INVALID_ARGUMENTS_MESSAGE);
+            throw new BadCommandException(COMMAND_INVALID_PAYLOAD);
         }
     }
 

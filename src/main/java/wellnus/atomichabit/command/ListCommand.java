@@ -5,9 +5,10 @@ import java.util.HashMap;
 import wellnus.atomichabit.feature.AtomicHabit;
 import wellnus.atomichabit.feature.AtomicHabitList;
 import wellnus.atomichabit.feature.AtomicHabitManager;
+import wellnus.atomichabit.feature.AtomicHabitUi;
 import wellnus.command.Command;
 import wellnus.exception.BadCommandException;
-import wellnus.ui.TextUi;
+
 
 /**
  * The ListCommand class is a command class that lists all atomic habit in AtomicHabitList.<br>
@@ -17,16 +18,17 @@ public class ListCommand extends Command {
     public static final String COMMAND_USAGE = "usage: list";
     public static final String COMMAND_KEYWORD = "list";
     private static final int COMMAND_NUM_OF_ARGUMENTS = 1;
-    private static final String COMMAND_INVALID_ARGUMENTS_MESSAGE = "Invalid command, expected 'list'";
+    private static final String COMMAND_INVALID_ARGUMENTS_MESSAGE = "Invalid command issued, expected 'list'!";
+    private static final String COMMAND_INVALID_PAYLOAD = "Invalid payload given to 'list'!";
     private static final String LINE_SEPARATOR = System.lineSeparator();
-    private static final String NO_ADDITIONAL_MESSAGE = "";
     private static final String FIRST_STRING = "Here is the current accumulation of your atomic habits!"
             + LINE_SEPARATOR + "Keep up the good work and you will develop a helpful habit in no time";
+    private static final String COMMAND_INVALID_COMMAND_NOTE = "list command " + COMMAND_USAGE;
     private static final String EMPTY_LIST_MESSAGE = "You have no habits in your list!"
             + LINE_SEPARATOR
             + "Start adding some habits by using 'add'!";
     private final AtomicHabitList atomicHabits;
-    private final TextUi textUi;
+    private final AtomicHabitUi atomicHabitUi;
 
     /**
      * Constructs an ListCommand object.<br>
@@ -37,11 +39,11 @@ public class ListCommand extends Command {
     public ListCommand(HashMap<String, String> arguments, AtomicHabitList atomicHabits) {
         super(arguments);
         this.atomicHabits = atomicHabits;
-        this.textUi = new TextUi();
+        this.atomicHabitUi = new AtomicHabitUi();
     }
 
-    private TextUi getTextUi() {
-        return textUi;
+    private AtomicHabitUi getTextUi() {
+        return atomicHabitUi;
     }
 
     /**
@@ -75,7 +77,7 @@ public class ListCommand extends Command {
         try {
             validateCommand(super.getArguments());
         } catch (BadCommandException badCommandException) {
-            this.getTextUi().printErrorFor(badCommandException, NO_ADDITIONAL_MESSAGE);
+            this.getTextUi().printErrorFor(badCommandException, COMMAND_INVALID_COMMAND_NOTE);
             return;
         }
         if (atomicHabits.getAllHabits().isEmpty()) {
@@ -113,7 +115,7 @@ public class ListCommand extends Command {
             throw new BadCommandException(ListCommand.COMMAND_INVALID_ARGUMENTS_MESSAGE);
         }
         if (arguments.get(COMMAND_KEYWORD) != "") {
-            throw new BadCommandException(ListCommand.COMMAND_INVALID_ARGUMENTS_MESSAGE);
+            throw new BadCommandException(ListCommand.COMMAND_INVALID_PAYLOAD);
         }
     }
 

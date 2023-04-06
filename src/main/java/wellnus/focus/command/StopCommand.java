@@ -5,8 +5,8 @@ import java.util.HashMap;
 import wellnus.command.Command;
 import wellnus.exception.BadCommandException;
 import wellnus.focus.feature.FocusManager;
+import wellnus.focus.feature.FocusUi;
 import wellnus.focus.feature.Session;
-import wellnus.ui.TextUi;
 
 /**
  * Represents a command to stop the current session.
@@ -17,14 +17,16 @@ public class StopCommand extends Command {
     public static final String COMMAND_USAGE = "usage: stop";
     public static final String COMMAND_KEYWORD = "stop";
     private static final int COMMAND_NUM_OF_ARGUMENTS = 1;
-    private static final String COMMAND_INVALID_ARGUMENTS_MESSAGE = "Invalid command, expected 'stop'";
-    private static final String NO_ADDITIONAL_MESSAGE = "";
+    private static final String COMMAND_INVALID_COMMAND_MESSAGE = "Invalid command issued, expected 'stop'!";
+    private static final String COMMAND_INVALID_ARGUMENTS_MESSAGE = "Invalid arguments given to 'stop'!";
+    private static final String COMMAND_INVALID_PAYLOAD = "Invalid payload given to 'stop'!";
     private static final String STOP_MESSAGE = "Your focus session has ended.\n"
             + "To start a new session, `start` it up!\n"
             + "You can also configure the session to your liking with `config`!";
     private static final String ERROR_NOT_STARTED = "Nothing to stop - the timer has not started yet!";
+    private static final String COMMAND_INVALID_COMMAND_NOTE = "stop command " + COMMAND_USAGE;
     private final Session session;
-    private final TextUi textUi;
+    private final FocusUi focusUi;
 
     /**
      * Constructs a StopCommand object.
@@ -36,7 +38,7 @@ public class StopCommand extends Command {
     public StopCommand(HashMap<String, String> arguments, Session session) {
         super(arguments);
         this.session = session;
-        this.textUi = new TextUi();
+        this.focusUi = new FocusUi();
     }
 
     /**
@@ -71,14 +73,14 @@ public class StopCommand extends Command {
         try {
             validateCommand(super.getArguments());
         } catch (BadCommandException badCommandException) {
-            textUi.printErrorFor(badCommandException, NO_ADDITIONAL_MESSAGE);
+            focusUi.printErrorFor(badCommandException, COMMAND_INVALID_COMMAND_NOTE);
             return;
         }
         if (!session.hasAnyCountdown() || session.isSessionReady()) {
-            textUi.printOutputMessage(ERROR_NOT_STARTED);
+            focusUi.printOutputMessage(ERROR_NOT_STARTED);
             return;
         }
-        textUi.printOutputMessage(STOP_MESSAGE);
+        focusUi.printOutputMessage(STOP_MESSAGE);
         session.getCurrentCountdown().setStop();
         session.initialiseSession();
         session.resetCurrentCountdownIndex();
@@ -97,7 +99,7 @@ public class StopCommand extends Command {
             throw new BadCommandException(COMMAND_INVALID_ARGUMENTS_MESSAGE);
         }
         if (!arguments.containsKey(COMMAND_KEYWORD)) {
-            throw new BadCommandException(COMMAND_INVALID_ARGUMENTS_MESSAGE);
+            throw new BadCommandException(COMMAND_INVALID_COMMAND_MESSAGE);
         }
         if (!arguments.get(COMMAND_KEYWORD).equals("")) {
             throw new BadCommandException(COMMAND_INVALID_ARGUMENTS_MESSAGE);

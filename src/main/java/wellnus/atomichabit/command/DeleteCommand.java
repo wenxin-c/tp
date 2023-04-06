@@ -8,7 +8,9 @@ import java.util.logging.Logger;
 import wellnus.atomichabit.feature.AtomicHabit;
 import wellnus.atomichabit.feature.AtomicHabitList;
 import wellnus.atomichabit.feature.AtomicHabitManager;
+import wellnus.atomichabit.feature.AtomicHabitUi;
 import wellnus.command.Command;
+import wellnus.common.WellNusLogger;
 import wellnus.exception.AtomicHabitException;
 import wellnus.exception.BadCommandException;
 import wellnus.ui.TextUi;
@@ -23,24 +25,25 @@ public class DeleteCommand extends Command {
     public static final String COMMAND_KEYWORD = "delete";
     private static final String COMMAND_INDEX_ARGUMENT = "id";
     private static final int COMMAND_NUM_OF_ARGUMENTS = 2;
-    private static final String COMMAND_INVALID_COMMAND_MESSAGE = "Wrong command issued, expected 'delete'";
+    private static final String COMMAND_INVALID_COMMAND_MESSAGE = "Invalid command issued, expected 'delete'";
+    private static final String COMMAND_INVALID_PAYLOAD = "Invalid payload given to 'delete'!";
     private static final String FEEDBACK_STRING = "The following habit has been deleted:";
     private static final String FEEDBACK_STRING_TWO = "has been successfully deleted";
-    private static final String FEEDBACK_INDEX_NOT_INTEGER_ERROR = "Invalid input! Please enter an integer";
-    private static final String FEEDBACK_INDEX_OUT_OF_BOUNDS_ERROR = "Index out of Range! Please enter a valid index";
+    private static final String FEEDBACK_INDEX_NOT_INTEGER_ERROR = "Invalid index payload given, expected an integer";
+    private static final String FEEDBACK_INDEX_OUT_OF_BOUNDS_ERROR = "Invalid index payload given, "
+            + "index is out of range!";
     private static final int INDEX_OFFSET = 1;
     private static final String LINE_SEPARATOR = System.lineSeparator();
-    private static final String DELETE_INVALID_ARGUMENTS_MESSAGE = "Invalid arguments for delete, no deletion shall "
-            + "be performed.";
-    private static final Logger logger = Logger.getLogger("DeleteAtomicHabitLogger");
+    private static final String DELETE_INVALID_ARGUMENTS_MESSAGE = "Invalid arguments given to 'delete'";
+    private static final String COMMAND_INVALID_COMMAND_NOTE = "delete command " + COMMAND_USAGE;
+    private static final Logger LOGGER = WellNusLogger.getLogger("DeleteAtomicHabitLogger");
     private static final String LOG_STR_INPUT_NOT_INTEGER = "Input string is not an integer."
             + "This should be properly handled";
 
     private static final String LOG_INDEX_OUT_OF_BOUNDS = "Input index is out of bounds."
             + "This should be properly handled";
-    private static final String NO_ADDITIONAL_MESSAGE = "";
     private final AtomicHabitList atomicHabits;
-    private final TextUi textUi;
+    private final AtomicHabitUi atomicHabitUi;
 
     /**
      * Constructs an DeleteCommand object with the given arguments and AtomicHabitList.<br>
@@ -51,7 +54,7 @@ public class DeleteCommand extends Command {
     public DeleteCommand(HashMap<String, String> arguments, AtomicHabitList atomicHabits) {
         super(arguments);
         this.atomicHabits = atomicHabits;
-        this.textUi = new TextUi();
+        this.atomicHabitUi = new AtomicHabitUi();
     }
 
     /**
@@ -65,7 +68,7 @@ public class DeleteCommand extends Command {
                          AtomicHabitList atomicHabits) {
         super(arguments);
         this.atomicHabits = atomicHabits;
-        this.textUi = new TextUi(inputStream);
+        this.atomicHabitUi = new AtomicHabitUi(inputStream);
     }
 
     private AtomicHabitList getAtomicHabits() {
@@ -73,7 +76,7 @@ public class DeleteCommand extends Command {
     }
 
     private TextUi getTextUi() {
-        return this.textUi;
+        return this.atomicHabitUi;
     }
 
 
@@ -118,7 +121,7 @@ public class DeleteCommand extends Command {
         try {
             validateCommand(super.getArguments());
         } catch (BadCommandException badCommandException) {
-            getTextUi().printErrorFor(badCommandException, NO_ADDITIONAL_MESSAGE);
+            getTextUi().printErrorFor(badCommandException, COMMAND_INVALID_COMMAND_NOTE);
             return;
         }
         try {
@@ -131,13 +134,13 @@ public class DeleteCommand extends Command {
             getTextUi().printOutputMessage(FEEDBACK_STRING + LINE_SEPARATOR
                     + stringOfDeletedHabit);
         } catch (NumberFormatException numberFormatException) {
-            logger.log(Level.INFO, LOG_STR_INPUT_NOT_INTEGER);
+            LOGGER.log(Level.INFO, LOG_STR_INPUT_NOT_INTEGER);
             throw new AtomicHabitException(FEEDBACK_INDEX_NOT_INTEGER_ERROR);
         } catch (IndexOutOfBoundsException e) {
-            logger.log(Level.INFO, LOG_INDEX_OUT_OF_BOUNDS);
+            LOGGER.log(Level.INFO, LOG_INDEX_OUT_OF_BOUNDS);
             throw new AtomicHabitException(FEEDBACK_INDEX_OUT_OF_BOUNDS_ERROR);
         } catch (BadCommandException badCommandException) {
-            getTextUi().printErrorFor(badCommandException, NO_ADDITIONAL_MESSAGE);
+            getTextUi().printErrorFor(badCommandException, COMMAND_INVALID_COMMAND_NOTE);
         }
     }
 
@@ -155,13 +158,13 @@ public class DeleteCommand extends Command {
             throw new BadCommandException(COMMAND_INVALID_COMMAND_MESSAGE);
         }
         if (!arguments.get(COMMAND_KEYWORD).equals("")) {
-            throw new BadCommandException(COMMAND_INVALID_COMMAND_MESSAGE);
+            throw new BadCommandException(COMMAND_INVALID_PAYLOAD);
         }
         if (arguments.size() != COMMAND_NUM_OF_ARGUMENTS) {
-            throw new BadCommandException(COMMAND_INVALID_COMMAND_MESSAGE);
+            throw new BadCommandException(DELETE_INVALID_ARGUMENTS_MESSAGE);
         }
         if (!arguments.containsKey(COMMAND_INDEX_ARGUMENT)) {
-            throw new BadCommandException(COMMAND_INVALID_COMMAND_MESSAGE);
+            throw new BadCommandException(DELETE_INVALID_ARGUMENTS_MESSAGE);
         }
     }
 

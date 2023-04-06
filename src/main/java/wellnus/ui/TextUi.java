@@ -7,6 +7,8 @@ import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import wellnus.common.WellNusLogger;
+
 /**
  * TextUi class for reading user inputs and printing outputs.<br/>
  * <br/>
@@ -14,7 +16,7 @@ import java.util.logging.Logger;
  * This is to accommodate to the uniqueness of each feature.
  */
 public class TextUi {
-    private static final Logger LOGGER = Logger.getLogger("TextUiLogger");
+    private static final Logger LOGGER = WellNusLogger.getLogger("TextUiLogger");
     private static final String ALERT_SEPARATOR = "!!!!!!-------!!!!!--------!!!!!!!------!!!!!"
             + "---------!!!!!!!";
     private static final String INDENTATION_SPACES = "    ";
@@ -23,12 +25,11 @@ public class TextUi {
     private static final String ERROR_MESSAGE_LABEL = "Error Message:";
     private static final String ERROR_EMPTY_STRING = "The string argument should not be empty!";
     private static final String EXTRA_MESSAGE_LABEL = "Note:";
-    private static final String NO_INPUT_ELEMENT_MSG = "There is no new line of element,"
-            + "please key in your input!!";
-    private static final String BUFFER_OVERFLOW_MSG = "Your input is too long,"
-            + "please shorten it!!";
+    private static final String NO_INPUT_ELEMENT_MSG = "There is no new line of element, "
+            + "please key in input!";
+    private static final String BUFFER_OVERFLOW_MSG = "Input is too long, please shorten your input!";
     private static final String CURSOR_CARET = "(%s):~$ ";
-    private final Scanner scanner;
+    private Scanner scanner;
     private String separator = "-";
     private String cursor = CURSOR_CARET;
 
@@ -55,7 +56,7 @@ public class TextUi {
      * @return User input command with leading/dangling whitespace being removed
      */
     public String getCommand() {
-        System.out.print(cursor);
+        printCursor();
         String userCommand = "";
         try {
             String inputLine = scanner.nextLine();
@@ -179,5 +180,29 @@ public class TextUi {
         assert cursorName != null && cursorName.length() > 0 : ERROR_EMPTY_STRING;
         cursor = String.format(CURSOR_CARET, cursorName);
     }
+
+    /**
+     * Utility function to print the cursor to screen
+     */
+    public void printCursor() {
+        System.out.print(cursor);
+    }
+
+    /**
+     * Utility function to print a newline
+     */
+    public void printNewline() {
+        System.out.println(System.lineSeparator());
+    }
+
+    /**
+     * Utility function to get the scanner belonging to TextUi.
+     *
+     * @return Scanner tagged to this instance of TextUi
+     */
+    public Scanner getScanner() {
+        return scanner;
+    }
+
 }
 

@@ -5,8 +5,8 @@ import java.util.HashMap;
 import wellnus.command.Command;
 import wellnus.exception.BadCommandException;
 import wellnus.focus.feature.FocusManager;
+import wellnus.focus.feature.FocusUi;
 import wellnus.focus.feature.Session;
-import wellnus.ui.TextUi;
 
 /**
  * Represents a class to start the next countdown in the session.
@@ -17,13 +17,15 @@ public class NextCommand extends Command {
     public static final String COMMAND_USAGE = "usage: next";
     public static final String COMMAND_KEYWORD = "next";
     private static final int COMMAND_NUM_OF_ARGUMENTS = 1;
-    private static final String COMMAND_INVALID_ARGUMENTS_MESSAGE = "Invalid command, expected 'next'";
-    private static final String NO_ADDITIONAL_MESSAGE = "";
+    private static final String COMMAND_INVALID_COMMAND_MESSAGE = "Invalid command issued, expected 'next'!";
+    private static final String COMMAND_INVALID_ARGUMENTS_MESSAGE = "Invalid arguments given to 'next'!";
+    private static final String COMMAND_INVALID_PAYLOAD = "Invalid payload given to 'next'!";
     private static final String ERROR_SESSION_NOT_STARTED = "A focus session has not started yet, "
             + "try `start`ing one first!";
     private static final String ERROR_COUNTDOWN_RUNNING = "Oops, your timer for this session is still ticking!";
+    private static final String COMMAND_INVALID_COMMAND_NOTE = "next command " + COMMAND_USAGE;
     private final Session session;
-    private final TextUi textUi;
+    private final FocusUi focusUi;
 
     /**
      * Constructor for NextCommand object.
@@ -35,7 +37,7 @@ public class NextCommand extends Command {
     public NextCommand(HashMap<String, String> arguments, Session session) {
         super(arguments);
         this.session = session;
-        this.textUi = new TextUi();
+        this.focusUi = new FocusUi();
     }
 
     /**
@@ -70,19 +72,19 @@ public class NextCommand extends Command {
         try {
             validateCommand(super.getArguments());
         } catch (BadCommandException badCommandException) {
-            textUi.printErrorFor(badCommandException, NO_ADDITIONAL_MESSAGE);
+            focusUi.printErrorFor(badCommandException, COMMAND_INVALID_COMMAND_NOTE);
             return;
         }
         if (session.isSessionReady()) {
-            textUi.printOutputMessage(ERROR_SESSION_NOT_STARTED);
+            focusUi.printOutputMessage(ERROR_SESSION_NOT_STARTED);
             return;
         }
         if (session.isSessionCounting() || session.isSessionPaused()) {
-            textUi.printOutputMessage(ERROR_COUNTDOWN_RUNNING);
+            focusUi.printOutputMessage(ERROR_COUNTDOWN_RUNNING);
             return;
         }
         session.startTimer();
-        textUi.printOutputMessage(session.getCurrentCountdown().getDescription());
+        focusUi.printOutputMessage(session.getCurrentCountdown().getDescription());
     }
 
     /**
@@ -98,10 +100,10 @@ public class NextCommand extends Command {
             throw new BadCommandException(COMMAND_INVALID_ARGUMENTS_MESSAGE);
         }
         if (!arguments.containsKey(COMMAND_KEYWORD)) {
-            throw new BadCommandException(COMMAND_INVALID_ARGUMENTS_MESSAGE);
+            throw new BadCommandException(COMMAND_INVALID_COMMAND_MESSAGE);
         }
         if (!arguments.get(COMMAND_KEYWORD).equals("")) {
-            throw new BadCommandException(COMMAND_INVALID_ARGUMENTS_MESSAGE);
+            throw new BadCommandException(COMMAND_INVALID_PAYLOAD);
         }
     }
 

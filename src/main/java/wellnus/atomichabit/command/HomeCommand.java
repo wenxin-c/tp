@@ -3,10 +3,10 @@ package wellnus.atomichabit.command;
 import java.util.HashMap;
 
 import wellnus.atomichabit.feature.AtomicHabitManager;
+import wellnus.atomichabit.feature.AtomicHabitUi;
 import wellnus.command.Command;
 import wellnus.exception.BadCommandException;
 import wellnus.exception.WellNusException;
-import wellnus.ui.TextUi;
 
 /**
  * The HomeCommand class is a command class that returns user back to the main WellNUS++ program.<br>
@@ -16,14 +16,11 @@ public class HomeCommand extends Command {
     public static final String COMMAND_USAGE = "usage: home";
     public static final String COMMAND_KEYWORD = "home";
     private static final int COMMAND_NUM_OF_ARGUMENTS = 1;
-    private static final String COMMAND_INVALID_ARGUMENTS_MESSAGE = "That is not a valid home command for "
-            + "atomic habits!";
-    private static final String COMMAND_INVALID_COMMAND_MESSAGE = "Wrong command given for home!";
+    private static final String COMMAND_INVALID_COMMAND_MESSAGE = "Invalid command issued, expected 'home'!";
+    private static final String COMMAND_INVALID_ARGUMENTS = "Invalid arguments given to 'home'!";
+    private static final String COMMAND_INVALID_PAYLOAD = "Invalid payload given to 'home'!";
     private static final String HOME_MESSAGE = "Thank you for using atomic habits. Do not forget about me!";
-    private static final String NO_ADDITIONAL_MESSAGE = "";
-    private static final String WRONG_COMMAND_ARGUMENTS_MESSAGE = "'home' command shouldn't have additional '%s' "
-            + "argument";
-    private final TextUi textUi;
+    private final AtomicHabitUi atomicHabitUi;
 
     /**
      * Constructs an HomeCommand object.<br>
@@ -32,11 +29,11 @@ public class HomeCommand extends Command {
      */
     public HomeCommand(HashMap<String, String> arguments) {
         super(arguments);
-        this.textUi = new TextUi();
+        this.atomicHabitUi = new AtomicHabitUi();
     }
 
-    private TextUi getTextUi() {
-        return textUi;
+    private AtomicHabitUi getTextUi() {
+        return this.atomicHabitUi;
     }
 
     /**
@@ -100,14 +97,14 @@ public class HomeCommand extends Command {
     @Override
     public void validateCommand(HashMap<String, String> arguments) throws BadCommandException {
         if (arguments.size() != HomeCommand.COMMAND_NUM_OF_ARGUMENTS) {
-            throw new BadCommandException(HomeCommand.COMMAND_INVALID_ARGUMENTS_MESSAGE);
+            throw new BadCommandException(HomeCommand.COMMAND_INVALID_ARGUMENTS);
         }
         if (!arguments.containsKey(HomeCommand.COMMAND_KEYWORD)) {
             throw new BadCommandException(HomeCommand.COMMAND_INVALID_COMMAND_MESSAGE);
         }
         String payload = arguments.get(getCommandKeyword());
         if (!payload.isBlank()) {
-            throw new BadCommandException(String.format(WRONG_COMMAND_ARGUMENTS_MESSAGE, payload));
+            throw new BadCommandException(COMMAND_INVALID_PAYLOAD);
         }
     }
 

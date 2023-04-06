@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import wellnus.common.WellNusLogger;
 import wellnus.exception.StorageException;
 import wellnus.exception.TokenizerException;
 import wellnus.storage.AtomicHabitTokenizer;
@@ -18,7 +19,7 @@ public class AtomicHabitList {
     private static final String FILE_NAME = "habit";
     private static final String STORAGE_ERROR = "The file data cannot be stored properly!!";
     private static final String TOKENIZER_ERROR = "The data cannot be tokenized for storage properly!!";
-    private static final Logger LOGGER = Logger.getLogger("AtomicHabitListLogger");
+    private static final Logger LOGGER = WellNusLogger.getLogger("AtomicHabitListLogger");
     private static final AtomicHabitTokenizer atomicHabitTokenizer = new AtomicHabitTokenizer();
     private ArrayList<AtomicHabit> allAtomicHabits;
 
