@@ -96,7 +96,7 @@ public class HelpCommand extends Command {
 
     /**
      * Prints the help message for a given commandToSearch. <br/>
-     * If the commandToSearch does not exist, helpCommand will print an unknown command
+     * If the commandToSearch does not exist, help will print an unknown command
      * error message.
      */
     public void printSpecificHelpMessage(String commandToSearch) {
