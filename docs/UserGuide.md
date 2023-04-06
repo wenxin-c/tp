@@ -51,7 +51,7 @@ traditional Graphical User Interface(GUI) apps.
     * [`stop` - Stop session](#stop---stop-session)
     * [`help` - Viewing Focus Timer help](#help---viewing-focus-timer-help)
     * [`config` - Configure the Timer](#config---configure-the-timer)
-    * [`home` - Return back main WellNUS++](#home---return-back-main-wellnus)
+  * [`home` - Return back main WellNUS++](#home---return-back-main-wellnus)
   * [`exit` - Exit WellNUS++](#exit---exit-wellnus)
   * [FAQ](#faq)
   * [Command Summary](#command-summary)
