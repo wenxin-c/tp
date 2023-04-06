@@ -6,10 +6,11 @@ import java.util.HashMap;
 import wellnus.atomichabit.feature.AtomicHabit;
 import wellnus.atomichabit.feature.AtomicHabitList;
 import wellnus.atomichabit.feature.AtomicHabitManager;
+import wellnus.atomichabit.feature.AtomicHabitUi;
 import wellnus.command.Command;
 import wellnus.exception.AtomicHabitException;
 import wellnus.exception.BadCommandException;
-import wellnus.ui.TextUi;
+
 
 /**
  * The AddCommand class is a command class that adds a new atomic habit to an AtomicHabitList.<br>
@@ -31,7 +32,7 @@ public class AddCommand extends Command {
     private static final String FEEDBACK_STRING_TWO = "was successfully added";
     private static final String COMMAND_INVALID_COMMAND_NOTE = "add command " + COMMAND_USAGE;
     private final AtomicHabitList atomicHabits;
-    private final TextUi textUi;
+    private final AtomicHabitUi atomicHabitUi;
 
     /**
      * Constructs an AddCommand object.<br>
@@ -42,15 +43,15 @@ public class AddCommand extends Command {
     public AddCommand(HashMap<String, String> arguments, AtomicHabitList atomicHabits) {
         super(arguments);
         this.atomicHabits = atomicHabits;
-        this.textUi = new TextUi();
+        this.atomicHabitUi = new AtomicHabitUi();
     }
 
     private AtomicHabitList getAtomicHabits() {
         return atomicHabits;
     }
 
-    private TextUi getTextUi() {
-        return textUi;
+    private AtomicHabitUi getTextUi() {
+        return atomicHabitUi;
     }
 
     private boolean hasDuplicate(String newHabit, ArrayList<AtomicHabit> habitList) {

@@ -5,9 +5,10 @@ import java.util.HashMap;
 import wellnus.atomichabit.feature.AtomicHabit;
 import wellnus.atomichabit.feature.AtomicHabitList;
 import wellnus.atomichabit.feature.AtomicHabitManager;
+import wellnus.atomichabit.feature.AtomicHabitUi;
 import wellnus.command.Command;
 import wellnus.exception.BadCommandException;
-import wellnus.ui.TextUi;
+
 
 /**
  * The ListCommand class is a command class that lists all atomic habit in AtomicHabitList.<br>
@@ -27,7 +28,7 @@ public class ListCommand extends Command {
             + LINE_SEPARATOR
             + "Start adding some habits by using 'add'!";
     private final AtomicHabitList atomicHabits;
-    private final TextUi textUi;
+    private final AtomicHabitUi atomicHabitUi;
 
     /**
      * Constructs an ListCommand object.<br>
@@ -38,11 +39,11 @@ public class ListCommand extends Command {
     public ListCommand(HashMap<String, String> arguments, AtomicHabitList atomicHabits) {
         super(arguments);
         this.atomicHabits = atomicHabits;
-        this.textUi = new TextUi();
+        this.atomicHabitUi = new AtomicHabitUi();
     }
 
-    private TextUi getTextUi() {
-        return textUi;
+    private AtomicHabitUi getTextUi() {
+        return atomicHabitUi;
     }
 
     /**

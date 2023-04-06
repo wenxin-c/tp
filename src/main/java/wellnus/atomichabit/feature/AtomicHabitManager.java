@@ -15,7 +15,7 @@ import wellnus.exception.StorageException;
 import wellnus.exception.WellNusException;
 import wellnus.gamification.util.GamificationData;
 import wellnus.manager.Manager;
-import wellnus.ui.TextUi;
+
 
 /**
  * Class to represent the event driver of Atomic Habits feature
@@ -26,18 +26,16 @@ public class AtomicHabitManager extends Manager {
             + "with our suite of tools to help you grow and nurture a better you!";
     public static final String FEATURE_NAME = "hb";
     private static final String ADD_COMMAND_KEYWORD = "add";
-    private static final String ATOMIC_HABIT_LOGO = "\n"
+    private static final String ATOMIC_HABIT_LOGO = "    _  _             _      _  _      _    _ _      "
+            + System.lineSeparator()
             +
-            "    _  _             _      _  _      _    _ _      \n"
+            "   /_\\| |_ ___ _ __ (_)__  | || |__ _| |__(_) |_ ___" + System.lineSeparator()
             +
-            "   /_\\| |_ ___ _ __ (_)__  | || |__ _| |__(_) |_ ___\n"
+            "  / _ \\  _/ _ \\ '  \\| / _| | __ / _` | '_ \\ |  _(_-<" + System.lineSeparator()
             +
-            "  / _ \\  _/ _ \\ '  \\| / _| | __ / _` | '_ \\ |  _(_-<\n"
-            +
-            " /_/ \\_\\__\\___/_|_|_|_\\__| |_||_\\__,_|_.__/_|\\__/__/\n"
-            +
-            "                                                    \n";
-    private static final String ATOMIC_HABIT_GREET = "Welcome to the atomic habits feature!";
+            " /_/ \\_\\__\\___/_|_|_|_\\__| |_||_\\__,_|_.__/_|\\__/__/" + System.lineSeparator();
+    private static final String GREETING_MESSAGE = "Welcome to WellNUS++ Atomic Habits section!"
+            + System.lineSeparator() + "Track and inculcate good habits into your life with us!";
     private static final String HOME_COMMAND_KEYWORD = "home";
     private static final String LIST_COMMAND_KEYWORD = "list";
     private static final String UNKNOWN_COMMAND_MESSAGE = "Invalid command issued!";
@@ -48,15 +46,15 @@ public class AtomicHabitManager extends Manager {
     private static final String LINE_SEPARATOR = System.lineSeparator();
     private static final String COMMAND_INVALID_COMMAND_NOTE =
             "Supported commands in Atomic Habit: " + LINE_SEPARATOR
-            + "add command " + AddCommand.COMMAND_USAGE + LINE_SEPARATOR
-            + "delete command " + DeleteCommand.COMMAND_USAGE + LINE_SEPARATOR
-            + "list command " + ListCommand.COMMAND_USAGE + LINE_SEPARATOR
-            + "update command " + UpdateCommand.COMMAND_USAGE + LINE_SEPARATOR
-            + "help command " + HelpCommand.COMMAND_USAGE + LINE_SEPARATOR
-            + "home command " + HomeCommand.COMMAND_USAGE;
+                    + "add command " + AddCommand.COMMAND_USAGE + LINE_SEPARATOR
+                    + "delete command " + DeleteCommand.COMMAND_USAGE + LINE_SEPARATOR
+                    + "list command " + ListCommand.COMMAND_USAGE + LINE_SEPARATOR
+                    + "update command " + UpdateCommand.COMMAND_USAGE + LINE_SEPARATOR
+                    + "help command " + HelpCommand.COMMAND_USAGE + LINE_SEPARATOR
+                    + "home command " + HomeCommand.COMMAND_USAGE;
     private static final String FEEDBACK_INDEX_EXCEPTION_NOTE = "Please input an appropriate integer for the "
             + "arguments!";
-    private final TextUi textUi;
+    private final AtomicHabitUi atomicHabitUi;
     private final AtomicHabitList habitList;
     private final GamificationData gamificationData;
 
@@ -67,8 +65,8 @@ public class AtomicHabitManager extends Manager {
     public AtomicHabitManager(GamificationData gamificationData) {
         this.gamificationData = gamificationData;
         this.habitList = new AtomicHabitList();
-        this.textUi = new TextUi();
-        this.textUi.setCursorName(FEATURE_NAME);
+        this.atomicHabitUi = new AtomicHabitUi();
+        this.atomicHabitUi.setCursorName(FEATURE_NAME);
     }
 
     private static String getHelpDescription() {
@@ -108,12 +106,13 @@ public class AtomicHabitManager extends Manager {
         return this.habitList;
     }
 
-    private TextUi getTextUi() {
-        return this.textUi;
+    private AtomicHabitUi getTextUi() {
+        return this.atomicHabitUi;
     }
 
     private void greet() {
-        getTextUi().printOutputMessage(ATOMIC_HABIT_GREET + System.lineSeparator() + ATOMIC_HABIT_LOGO);
+        getTextUi().printLogoWithSeparator(ATOMIC_HABIT_LOGO);
+        getTextUi().printOutputMessage(GREETING_MESSAGE);
     }
 
     /**

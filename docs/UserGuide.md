@@ -51,7 +51,7 @@ traditional Graphical User Interface(GUI) apps.
     * [`stop` - Stop session](#stop---stop-session)
     * [`help` - Viewing Focus Timer help](#help---viewing-focus-timer-help)
     * [`config` - Configure the Timer](#config---configure-the-timer)
-    * [`home` - Return back main WellNUS++](#home---return-back-main-wellnus)
+  * [`home` - Return back main WellNUS++](#home---return-back-main-wellnus)
   * [`exit` - Exit WellNUS++](#exit---exit-wellnus)
   * [FAQ](#faq)
   * [Command Summary](#command-summary)
@@ -98,16 +98,18 @@ WellNUS++ using `home` command. Do note that users can only `exit` the program f
 
 ## Command Format
 
-* Words in UPPER_CASE are the parameters to be supplied by the user
-  e.g. in add --name NAME is a parameter which can be used as add --name John Doe
+* Words in UPPER_CASE are the parameters to be supplied by the user.
+  e.g. in `add --name NAME`, `NAME` is a parameter which can be used in this way: `add --name John Doe`
 * Items in square brackets are optional.
-  E.g --name NAME  [--tag TAG] can be used as --name John Doe --tag friend or as --name John Doe
+  e.g in `--name NAME  [--tag TAG]`, the command can be used in two ways: `--name John Doe --tag friend`, or
+  simply `--name John Doe`
 
-* Items with … after them can be used multiple times including zero times.
-  e.g. [--tag TAG]… can be used as   (i.e. 0 times), --tag friend, --tag friend, --tag family etc
+* Items with … after them can be used multiple times, including zero times.
+  e.g. in `[--tag TAG]…`, the command can be used in these ways : `--tag friend`, or even `--tag friend --tag family`
 
 * Parameters can be in any order.
-  e.g. if the command specifies --name NAME --phone PHONE_NUMBER, --phone PHONE_NUMBER --name NAME is also acceptable
+  e.g. if the command specifies `--name NAME --phone PHONE_NUMBER`, `--phone PHONE_NUMBER --name NAME` is also 
+  a valid set of parameters
 
 <!-- @@author BernardLesley -->
 
@@ -159,17 +161,18 @@ Expected outcome:
 
 ## Accessing feature using FEATURE_NAME
 
-Access specific feature from main interface by inputting the feature_name. <br>
+Access specific feature from main interface by inputting the `FEATURE_NAME`. <br>
 
 Feature name can be referenced by calling the help command.
 
-Take note that users are only allowed to access features (i.e. atomic habit, self reflection,
-focus timer from the main WellNUS++, cross feature transition is **not
-allowed**).
+Take note that users are only allowed to access features from the main session (i.e. `hb`, `reflect` and `ft` are
+only recognised in the main WellNUS++ session, cross feature transition is **not
+allowed**). Cross feature transition is banned to ensure that users are able to focus on their
+current feature for their own well-being.
 
 Format: `FEATURE_NAME`
 
-* Accesses unique features to utilise their respective actions
+* Accesses the feature `FEATURE_NAME` to utilise its respective actions
 
 Example of usage:
 
@@ -192,6 +195,8 @@ Expected outcome:
     No worries, this section will give you the opportunity to reflect and improve on yourself!!
 ============================================================
 ```
+
+The expected interface of the other feature's `FEATURE_NAME` commands can be found in their respective sections below.
 
 <!-- @@author YongbinWang -->
 
@@ -221,9 +226,11 @@ Expected outcome:
 
 Adds an atomic habit to be tracked by WellNUS++ when accessing atomic habit feature.
 
-Format: `add --name ATOMIC_HABIT_NAME `
+Format: `add --name ATOMIC_HABIT_NAME`
 
-* ATOMIC_HABIT_NAME is used to uniquely identify each habit(unique and not null)
+* `ATOMIC_HABIT_NAME` is used to uniquely identify each habit(unique and not null). This means habits with
+  the same `ATOMIC_HABIT_NAME` are not allowed, and a duplicate habit with the same `ATOMIC_HABIT_NAME`
+  cannot be added later.
 
 Example of usage:
 
@@ -266,20 +273,22 @@ Keep up the good work and you will develop a helpful habit in no time
 Increment the number of times that an atomic habit has been carried out. <br>
 Decrement the atomic habits if you wrongly incremented.
 
-Format:
+Format: `update --id HABIT_INDEX [--by NUMBER_TO_CHANGE]`
 
-* Step 1: You are recommended to list the current habits using command
-* `list`
-* Step 2: Select the habit to update by entering the index number of the habit HABIT_INDEX according to index of the
+* (**Optional**) Step 1: You are _recommended_ to list the current habits using the command `list`
+* Step 2: Select the habit to update by entering the index number of the habit `HABIT_INDEX` according to index of the
   list output. <br>
-  The user can specify the number to change for the habit count via NUMBER_TO_CHANGE. <br>
-  The default behaviour is to increment the behaviour by 1. <br> To decrement the habit count, enter a negative number
-  instead.
-* `update --id HABIT-INDEX [--by NUMBER_TO_CHANGE]`
+  The user can specify the number to change for the habit count via `NUMBER_TO_CHANGE`. <br>
+  The **default** behaviour is to increment the behaviour by 1. <br> To decrement the habit count, enter a negative number
+  instead(see 'Example of usage 2' below).
+
+Note: '+' in front of `NUMBER_TO_CHANGE` parameter is not necessary when incrementing.
+For example, to increment index 1 by 2 counts, issue `update --id 1 --by 2`,
+**_not_** `update --id 1 --by +2`. See 'Example of usage 1' below.
 
 Example of usage 1:
 
-* `list`
+* `list` (_Optional_, done here to show change in habit count)
 * `update --id 1 --by 2`
 
 Expected outcome 1:
@@ -302,7 +311,7 @@ Expected outcome 1:
 
 Example of usage 2:
 
-* `list`
+* `list` (_Optional_, done here to show change in habit count)
 * `update --id 1 --by -2`
 
 Expected outcome 2:
@@ -329,17 +338,15 @@ Expected outcome 2:
 
 Delete an atomic habit that is not relevant anymore.
 
-Format:
+Format: `delete --id HABIT_INDEX`
 
-* Step 1: List the current habits using command
-* `list`
-* Step 2: Select the habit to delete by entering the index number of the habit HABIT_INDEX according to index of the
-  list output
-    * `delete --id HABIT-INDEX`
+* (**Optional**) Step 1: List the current habits using command `list`
+* Step 2: Select the habit to delete by entering the index number of the habit, `HABIT_INDEX`, according to index of the
+  output from `list`
 
 Example of usage:
 
-* `list`
+* `list` (_Optional_)
 * `delete --id 1`
 
 Expected outcome:
@@ -369,7 +376,7 @@ Lists all commands available and provide a short description of Atomic Habit fea
 Format: `help [COMMAND_TO_CHECK]`
 
 * List all commands available in the Atomic Habit and a short description of the Atomic Habit
-* Give a detailed explanation of the parameters and subcommands for a given command
+* Give a detailed explanation of the parameters and subcommands for the given command `COMMAND_TO_CHECK` (if specified)
 
 Example of usage 1:
 
@@ -436,7 +443,7 @@ Expected outcome:
 
 ### `stats` - Gamification statistics
 
-Displays the user's current XP points and level.
+Displays the user's current XP level and the number of XP points to reach the next level.
 
 Format: `stats`
 
@@ -462,7 +469,7 @@ Lists all commands available and provide a short description of Gamification fea
 Format: `help [COMMAND_TO_CHECK]`
 
 * List all commands available in the Gamification and a short description of the Gamification
-* Give a detailed explanation of the parameters and subcommands for a given command
+* Give a detailed explanation of the parameters and subcommands for the given command `COMMAND_TO_CHECK`
 
 Example of usage 1:
 
@@ -559,6 +566,7 @@ Expected outcome:
 Users can add the reflection question they like into favorite list and review afterwards.
 
 Format: `like INDEX`
+* Adds the particular question with index `INDEX` to the user's favorite list
 
 Note that the users are supposed to at least `get` a set of questions or use `prev` command to
 review the previous set before liking them, and use the displayed index to choose questions.
@@ -600,14 +608,15 @@ Example output:
 
 Users can remove reflection questions from the favorite list.
 
-Format: `unlike 1`
+Format: `unlike INDEX`
+* Removes the particular question with index `INDEX from the user's favorite list
 
-Take note that it is **recommended** to use `fav` command to check the list of questions in the favorite list before
+Take note that it is **recommended** (but _optional_) to use `fav` command to check the list of questions in the favorite list before
 unliking any of them, so that users are aware which question they are removing.
 
 Example of usage step 1:
 
-`fav`
+`fav` (_Optional_)
 
 Example output step 1:
 
@@ -664,7 +673,7 @@ Lists all commands available and provide a short description of Reflection featu
 Format: `help [COMMAND_TO_CHECK]`
 
 * List all commands available in the Reflection and a short description of the Reflection
-* Give a detailed explanation of the parameters and subcommands for a given command
+* Give a detailed explanation of the parameters and subcommands for the given command `COMMAND_TO_CHECK`
 
 Example of usage 1:
 
@@ -870,7 +879,7 @@ Lists all commands available and provide a short description of Focus Timer feat
 Format: `help [COMMAND_TO_CHECK]`
 
 * List all commands available in the Focus Timer and a short description of the Focus Timer
-* Give a detailed explanation of the parameters and subcommands for a given command
+* Give a detailed explanation of the parameters and subcommands for the given command `COMMAND_TO_CHECK`
 
 Example of usage 1:
 
@@ -927,18 +936,18 @@ Configures the focus timer's settings.
 The number of work-break cycles, work length and break length can be configured.
 When leaving `ft`, the configuration will be reset to the default values.
 
-Format: `config [--cycle numCycle --work workTime --break breakTime --longbreak longBreakTime]`
+Format: `config [--cycle NUM_OF_CYCLE --work WORK_TIME --break BREAK_TIME --longbreak LONG_BREAK_TIME]`
 
 * At least one of the arguments, `cycle, work, break, longbreak` must be included along with the main `config` command
-* `numCycle` is an **integer** that is `>= 2`
-* `workTime, breakTime, longBreakTime` is an **integer** that is `>= 1`
+* `NUM_OF_CYCLE` is an **integer** that is `>= 2`
+* `WORK_TIME, BREAK_TIME, LONG_BREAK_TIME` are **integers** that are all `>= 1`
 
 The initial default values for Focus Timer:
 
-* `numCycles = 2`
-* `workTime = 1`
-* `breakTime = 1`
-* `longBreakTime = 1`
+* `NUM_OF_CYCLE = 2`
+* `WORK_TIME = 1`
+* `BREAK_TIME = 1`
+* `LONG_BREAK_TIME = 1`
 
 Example of usage:
 
@@ -982,7 +991,7 @@ output messages.
 
 Format: `home`
 
-Example of usage:
+Example of usage 1:
 
 `home`
 
@@ -994,6 +1003,10 @@ Thank you for using atomic habits. Do not forget about me!
 —-----------------------------------------------------------
 ```
 
+Example of usage 2:
+
+`home`
+
 Expected outcome for self reflection:
 
 ```
@@ -1003,14 +1016,18 @@ Expected outcome for self reflection:
 ============================================================
 ```
 
+**Note**: These are just particular examples taken from specific features, and are **_not representative_** of
+other features' `home` commands. Please try the `home` command inside our application to view the actual customised
+output for other features.
+
 ## `exit` - Exit WellNUS++
 
-To exit the app, data of the current progress will be saved in data files.
+Exits `WellNUS++`. Data of the current progress will be saved in data files and restored at the next launch of `WellNUS++`
 
 Format: `exit`
 
-Take note that users are only allowed to exit from main WellNUS++ (i.e. users cannot exit the program from other
-features like atomic habit).
+Take note that users are only allowed to exit from **main** WellNUS++ (i.e. users cannot exit the program from 
+individual features like atomic habit, and the `exit` command is not recognised inside feature sessions).
 
 Example of usage:
 
@@ -1051,24 +1068,24 @@ explains all commands available within that feature.
 
 * Help `help`
 * Access feature`hb`
-    * Add habit `add --name make bed`
+    * Add habit `add --name ATOMIC_HABIT_NAME`
     * View habit `list`
-    * Update habit `list`
-      `update --id 1 [--inc 2]`
+    * Update habit `update --id HABIT_INDEX [--by NUMBER_TO_CHANGE]`
 * Access feature `reflect`
     * Get reflect question `get`
     * Like reflect question `like INDEX`
     * View favorite list `fav`
+    * Unlike reflect question `unlike INDEX`
     * View previous questions `prev`
 * Access feature `gamif`
     * Display gamification statistics `stats`
 * Access feature `ft`
-    * Configure the timer `config [--cycle 2 --work 1 --break 1 --longBreak 1]`
     * Start the timer `start`
     * Pause the timer `pause`
     * Resume the timer `resume`
     * Check the time left `check`
     * Go to the next countdown `next`
     * Stop the timer `stop`
+    * Configure the timer `config [--cycle NUM_OF_CYCLE --work WORK_TIME --break BREAK_TIME --longbreak LONG_BREAK_TIME]`
 * Return to main interface `home`
 * Exit program `exit`

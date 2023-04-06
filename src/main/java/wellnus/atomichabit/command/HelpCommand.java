@@ -4,9 +4,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import wellnus.atomichabit.feature.AtomicHabitManager;
+import wellnus.atomichabit.feature.AtomicHabitUi;
 import wellnus.command.Command;
 import wellnus.exception.BadCommandException;
-import wellnus.ui.TextUi;
+
 
 /**
  * Implementation of Atomic Habit WellNus' <code>help</code> command. Explains to the user what commands are supported
@@ -29,7 +30,7 @@ public class HelpCommand extends Command {
     private static final String DOT = ".";
     private static final int ONE_OFFSET = 1;
     private static final int EXPECTED_PAYLOAD_SIZE = 1;
-    private final TextUi textUi;
+    private final AtomicHabitUi atomicHabitUi;
 
     /**
      * Initialises a HelpCommand Object using the command arguments issued by the user.
@@ -38,11 +39,11 @@ public class HelpCommand extends Command {
      */
     public HelpCommand(HashMap<String, String> arguments) {
         super(arguments);
-        this.textUi = new TextUi();
+        this.atomicHabitUi = new AtomicHabitUi();
     }
 
-    private TextUi getTextUi() {
-        return this.textUi;
+    private AtomicHabitUi getTextUi() {
+        return this.atomicHabitUi;
     }
 
     private ArrayList<String> getCommandDescriptions() {
@@ -114,14 +115,15 @@ public class HelpCommand extends Command {
             break;
         default:
             BadCommandException unknownCommand = new BadCommandException(COMMAND_INVALID_PAYLOAD);
-            textUi.printErrorFor(unknownCommand, COMMAND_INVALID_COMMAND_NOTE);
+            atomicHabitUi.printErrorFor(unknownCommand, COMMAND_INVALID_COMMAND_NOTE);
         }
     }
 
     private void printUsageMessage(String commandDescription, String usageString) {
         String message = commandDescription + System.lineSeparator() + usageString;
-        textUi.printOutputMessage(message);
+        atomicHabitUi.printOutputMessage(message);
     }
+
     @Override
     protected String getCommandKeyword() {
         return HelpCommand.COMMAND_KEYWORD;
