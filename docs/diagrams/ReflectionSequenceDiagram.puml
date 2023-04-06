@@ -6,29 +6,43 @@ skinparam arrowColor MODEL_COLOR
 skinparam classBackgroundColor MODEL_COLOR
 hide footbox
 
+participant ":MainManager" as MainManager MODEL_COLOR
+participant ":ReflectionManager" as ReflectionManager MODEL_COLOR
+participant ":ReflectUi" as ReflectUi MODEL_COLOR
+participant ":CommandParser" as CommandParser MODEL_COLOR
+participant ":QuestionList" as QuestionList MODEL_COLOR
+participant ":GetCommand" as GetCommand MODEL_COLOR
+participant ":LikeCommand" as LikeCommand MODEL_COLOR
+participant ":UnlikeCommand" as UnlikeCommand MODEL_COLOR
+participant ":PrevCommand" as PrevCommand MODEL_COLOR
+participant ":FavoriteCommand" as FavoriteCommand MODEL_COLOR
+participant ":HelpCommand" as HelpCommand MODEL_COLOR
+participant ":HomeCommand" as HomeCommand MODEL_COLOR
+participant ":BadCommandException" as BadCommandException MODEL_COLOR
+
 activate MainManager
 
 create ReflectionManager
-MainManager -> ReflectionManager
+MainManager -> ReflectionManager:
 activate ReflectionManager
 
 create ReflectUi
-ReflectionManager -> ReflectUi
+ReflectionManager -> ReflectUi:
 activate ReflectUi
 ReflectUi --> ReflectionManager
 deactivate ReflectUi
 
-create QuestionList
-ReflectionManager -> QuestionList
-activate QuestionList
-QuestionList --> ReflectionManager
-deactivate QuestionList
-
 create CommandParser
-ReflectionManager -> CommandParser
+ReflectionManager -> CommandParser:
 activate CommandParser
 CommandParser --> ReflectionManager
 deactivate CommandParser
+
+create QuestionList
+ReflectionManager -> QuestionList:
+activate QuestionList
+QuestionList --> ReflectionManager
+deactivate QuestionList
 
 ReflectionManager --> MainManager
 deactivate ReflectionManager
@@ -43,12 +57,7 @@ loop until isExit is true
     ReflectUi --> ReflectionManager : inputCommand: String
     deactivate ReflectUi
 
-    ReflectionManager -> CommandParser : setCommandType(inputCommand: String)
-    activate CommandParser
-    CommandParser --> ReflectionManager
-    deactivate CommandParser
-
-    ReflectionManager -> CommandParser : setCommandArgument(inputCommand: String)
+    ReflectionManager -> CommandParser : setCommand(inputCommand: String)
     activate CommandParser
     CommandParser --> ReflectionManager
     deactivate CommandParser
@@ -64,14 +73,10 @@ loop until isExit is true
 
             ReflectionManager -> GetCommand : execute()
             activate GetCommand
-            GetCommand -> GetCommand : validateCommand()
-            activate GetCommand
-            GetCommand --> GetCommand
-            deactivate GetCommand
-            GetCommand -> GetCommand : convertQuestionsToString()
-            activate GetCommand
-            GetCommand --> GetCommand
-            deactivate GetCommand
+            GetCommand -> QuestionList : getRandomIndexes()
+            activate QuestionList
+            QuestionList --> GetCommand
+            deactivate QuestionList
 
             GetCommand --> ReflectionManager
             deactivate GetCommand
@@ -86,18 +91,50 @@ loop until isExit is true
 
             ReflectionManager -> LikeCommand : execute()
             activate LikeCommand
-            LikeCommand -> LikeCommand : validateCommand()
-            activate LikeCommand
-            LikeCommand --> LikeCommand
-            deactivate LikeCommand
-            LikeCommand -> LikeCommand : addFavQuestion()
-            activate LikeCommand
-            LikeCommand --> LikeCommand
-            deactivate LikeCommand
+            LikeCommand -> QuestionList : addFavQuestion()
+            activate QuestionList
+            QuestionList --> LikeCommand
+            deactivate QuestionList
 
             LikeCommand --> ReflectionManager
             deactivate LikeCommand
             destroy LikeCommand
+
+        else commandType = unlike
+            create UnlikeCommand
+            ReflectionManager -> UnlikeCommand
+            activate UnlikeCommand
+            UnlikeCommand --> ReflectionManager
+            deactivate UnlikeCommand
+
+            ReflectionManager -> UnlikeCommand : execute()
+            activate UnlikeCommand
+
+            UnlikeCommand -> QuestionList : removeFavQuestion()
+            activate QuestionList
+            QuestionList --> UnlikeCommand
+            deactivate QuestionList
+            UnlikeCommand --> ReflectionManager
+            deactivate UnlikeCommand
+            destroy UnlikeCommand
+
+        else commandType = prev
+            create PrevCommand
+            ReflectionManager -> PrevCommand
+            activate PrevCommand
+            PrevCommand --> ReflectionManager
+            deactivate PrevCommand
+
+            ReflectionManager -> PrevCommand : execute()
+            activate PrevCommand
+
+            PrevCommand -> QuestionList : getRandomIndexes()
+            activate QuestionList
+            QuestionList --> PrevCommand
+            deactivate QuestionList
+            PrevCommand --> ReflectionManager
+            deactivate PrevCommand
+            destroy PrevCommand
 
         else commandType = fav
             create FavoriteCommand
@@ -108,10 +145,6 @@ loop until isExit is true
 
             ReflectionManager -> FavoriteCommand : execute()
             activate FavoriteCommand
-            FavoriteCommand -> FavoriteCommand : validateCommand()
-            activate FavoriteCommand
-            FavoriteCommand --> FavoriteCommand
-            deactivate FavoriteCommand
             FavoriteCommand -> QuestionList : getFavQuestions()
             activate QuestionList
             QuestionList --> FavoriteCommand
@@ -120,6 +153,24 @@ loop until isExit is true
             FavoriteCommand --> ReflectionManager
             deactivate FavoriteCommand
             destroy FavoriteCommand
+
+        else commandType = help
+            create HelpCommand
+            ReflectionManager -> HelpCommand
+            activate HelpCommand
+            HelpCommand --> ReflectionManager
+            deactivate HelpCommand
+
+            ReflectionManager -> HelpCommand : execute()
+            activate HelpCommand
+
+            HelpCommand -> HelpCommand : printHelpMessage()
+            activate HelpCommand
+            HelpCommand --> HelpCommand
+            deactivate HelpCommand
+            HelpCommand --> ReflectionManager
+            deactivate HelpCommand
+            destroy HelpCommand
 
         else commandType = home
             create HomeCommand
@@ -130,26 +181,25 @@ loop until isExit is true
 
             ReflectionManager -> HomeCommand : execute()
             activate HomeCommand
-            HomeCommand -> HomeCommand : validateCommand()
-            activate HomeCommand
-            HomeCommand --> HomeCommand
-            deactivate HomeCommand
 
             HomeCommand -> ReflectionManager : setIsExit()
             activate ReflectionManager
             ReflectionManager --> HomeCommand
             deactivate ReflectionManager
-
             HomeCommand --> ReflectionManager
             deactivate HomeCommand
             destroy HomeCommand
 
         else
             create BadCommandException
-            ReflectionManager -> BadCommandException : new()
+            ReflectionManager -> BadCommandException :
             activate BadCommandException
             BadCommandException --> ReflectionManager
             deactivate BadCommandException
         end
+        ReflectionManager --> ReflectionManager
+        deactivate ReflectionManager
 end
+ReflectionManager --> MainManager
+deactivate ReflectionManager
 @enduml

@@ -129,8 +129,7 @@ known to provide command handling functionality.
 
 ### Reflection Component
 
-![Reflection Component Class Diagram](diagrams/ReflectionSequenceDiagram.png)
-![Reflection Component Class Diagram](diagrams/ReflectionClassDiagram.png)
+![Reflection Component Sequence Diagram](diagrams/ReflectionSequenceDiagram.png)
 This `Reflection` component provides users with random sets of introspective questions for users to reflect on.<br>
 <br>
 The `reflection` package consists of two packages `command` and `feature` packages. There are also abstract classes
@@ -140,7 +139,7 @@ are not the focus of this section since they are outside of `reflection` package
 <br>
 
 #### Feature Package (`ReflectionManager`, `ReflectionQuestion`, `QuestionList`, `TextUi`, `RandomNumberGenerator` classes)
-
+![Reflection Component Class Diagram](diagrams/ReflectionClassDiagram.png)
 `ReflectionManager` class:<br>
 
 - It is charge of the overall execution of the **Self Reflection** feature.
@@ -205,6 +204,7 @@ are not the focus of this section since they are outside of `reflection` package
   of integers will be used as indexes to select the corresponding questions from the pool of 10 questions available.
 
 #### Command Package
+![Reflection Commands Class Diagram](diagrams/ReflectionCommandsUML.png)
 
 `GetCommand` class: <br>
 
