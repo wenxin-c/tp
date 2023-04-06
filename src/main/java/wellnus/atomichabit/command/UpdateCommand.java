@@ -9,6 +9,7 @@ import wellnus.atomichabit.feature.AtomicHabit;
 import wellnus.atomichabit.feature.AtomicHabitList;
 import wellnus.atomichabit.feature.AtomicHabitManager;
 import wellnus.command.Command;
+import wellnus.common.WellNusLogger;
 import wellnus.exception.AtomicHabitException;
 import wellnus.exception.BadCommandException;
 import wellnus.exception.StorageException;
@@ -49,7 +50,7 @@ public class UpdateCommand extends Command {
     private static final String UPDATE_INVALID_INCREMENT_COUNT = "Increment with minimum of 1 is expected, no update "
             + "shall be performed.";
     private static final String REGEX_INTEGER_ONLY_PATTERN = "\\s*-?\\d+\\s*";
-    private static final Logger logger = Logger.getLogger("UpdateAtomicHabitLogger");
+    private static final Logger LOGGER = WellNusLogger.getLogger("UpdateAtomicHabitLogger");
     private static final String LOG_STR_INPUT_NOT_INTEGER = "Input string is not an integer."
             + "This should be properly handled";
 
@@ -195,10 +196,10 @@ public class UpdateCommand extends Command {
                 GamificationUi.printCelebrateLevelUp();
             }
         } catch (NumberFormatException numberFormatException) {
-            logger.log(Level.INFO, LOG_STR_INPUT_NOT_INTEGER);
+            LOGGER.log(Level.INFO, LOG_STR_INPUT_NOT_INTEGER);
             throw new AtomicHabitException(FEEDBACK_INDEX_NOT_INTEGER_ERROR);
         } catch (IndexOutOfBoundsException e) {
-            logger.log(Level.INFO, LOG_INDEX_OUT_OF_BOUNDS);
+            LOGGER.log(Level.INFO, LOG_INDEX_OUT_OF_BOUNDS);
             throw new AtomicHabitException(FEEDBACK_INDEX_OUT_OF_BOUNDS_ERROR);
         } catch (BadCommandException badCommandException) {
             getTextUi().printErrorFor(badCommandException, NO_ADDITIONAL_MESSAGE);

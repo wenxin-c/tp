@@ -5,6 +5,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import wellnus.command.Command;
+import wellnus.common.WellNusLogger;
 import wellnus.exception.BadCommandException;
 import wellnus.reflection.feature.QuestionList;
 import wellnus.reflection.feature.ReflectUi;
@@ -29,7 +30,7 @@ public class PrevCommand extends Command {
             + "Your data file might be corrupted!!";
     private static final String PAYLOAD = "";
     private static final int ARGUMENT_PAYLOAD_SIZE = 1;
-    private static final Logger LOGGER = Logger.getLogger("ReflectPrevCommandLogger");
+    private static final Logger LOGGER = WellNusLogger.getLogger("ReflectPrevCommandLogger");
     private static final ReflectUi UI = new ReflectUi();
     private QuestionList questionList;
 

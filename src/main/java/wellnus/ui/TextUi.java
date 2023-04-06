@@ -7,6 +7,8 @@ import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import wellnus.common.WellNusLogger;
+
 /**
  * TextUi class for reading user inputs and printing outputs.<br/>
  * <br/>
@@ -14,7 +16,7 @@ import java.util.logging.Logger;
  * This is to accommodate to the uniqueness of each feature.
  */
 public class TextUi {
-    private static final Logger LOGGER = Logger.getLogger("TextUiLogger");
+    private static final Logger LOGGER = WellNusLogger.getLogger("TextUiLogger");
     private static final String ALERT_SEPARATOR = "!!!!!!-------!!!!!--------!!!!!!!------!!!!!"
             + "---------!!!!!!!";
     private static final String INDENTATION_SPACES = "    ";

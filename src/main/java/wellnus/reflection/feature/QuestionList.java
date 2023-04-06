@@ -6,6 +6,7 @@ import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import wellnus.common.WellNusLogger;
 import wellnus.exception.StorageException;
 import wellnus.exception.TokenizerException;
 import wellnus.storage.ReflectionTokenizer;
@@ -56,7 +57,7 @@ public class QuestionList {
     private static final String FILE_NAME = "reflect";
     private static final RandomNumberGenerator RANDOM_NUMBER_GENERATOR =
             new RandomNumberGenerator(RANDOM_NUMBER_UPPERBOUND);
-    private static final Logger LOGGER = Logger.getLogger("ReflectQuestionListLogger");
+    private static final Logger LOGGER = WellNusLogger.getLogger("ReflectQuestionListLogger");
     private static final ReflectionTokenizer reflectionTokenizer = new ReflectionTokenizer();
     private static final ReflectUi UI = new ReflectUi();
     private static final boolean HAS_RANDOM_QUESTIONS = true;

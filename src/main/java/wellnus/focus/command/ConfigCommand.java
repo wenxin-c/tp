@@ -6,6 +6,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import wellnus.command.Command;
+import wellnus.common.WellNusLogger;
 import wellnus.exception.BadCommandException;
 import wellnus.exception.FocusException;
 import wellnus.exception.WellNusException;
@@ -66,7 +67,7 @@ public class ConfigCommand extends Command {
     private static final String ERROR_TOO_MANY_ARGUMENTS = "Sorry, you seem to have added too many arguments!";
     private static final String ERROR_TOO_FEW_ARGUMENTS = "Sorry, you seem to have not added in any arguments!";
     private static final String ERROR_UNKNOWN_ARGUMENT = "Sorry, I don't seem to understand that argument!";
-    private static final Logger LOGGER = Logger.getLogger("ConfigCommandLogger");
+    private static final Logger LOGGER = WellNusLogger.getLogger("ConfigCommandLogger");
     private static final String LOG_VALIDATION_ASSUMPTION_FAIL = "New cycle/break/work time is assumed to "
             + "have passed the validation bounds and type checking, but has"
             + "unexpectedly failed the second redundant check! This may be a developer error.";

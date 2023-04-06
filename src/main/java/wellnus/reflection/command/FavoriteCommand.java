@@ -5,6 +5,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import wellnus.command.Command;
+import wellnus.common.WellNusLogger;
 import wellnus.exception.BadCommandException;
 import wellnus.reflection.feature.QuestionList;
 import wellnus.reflection.feature.ReflectUi;
@@ -31,7 +32,7 @@ public class FavoriteCommand extends Command {
     private static final String EMPTY_FAV_LIST = "There is nothing in favorite list, "
             + "please get reflection questions first!!";
     private static final int ARGUMENT_PAYLOAD_SIZE = 1;
-    private static final Logger LOGGER = Logger.getLogger("ReflectFavCommandLogger");
+    private static final Logger LOGGER = WellNusLogger.getLogger("ReflectFavCommandLogger");
     private static final ReflectUi UI = new ReflectUi();
     private QuestionList questionList;
 
