@@ -50,8 +50,8 @@ public class QuestionList {
     private static final String REMOVE_FAV_SUCCESS_ONE = "You have removed question: ";
     private static final String REMOVE_FAV_SUCCESS_TWO = " from favorite list!!";
     private static final String DUPLICATE_LIKE = " is already in the favorite list!";
-    private static final String STORAGE_ERROR = "The file data cannot be stored properly!!";
-    private static final String TOKENIZER_ERROR = "The data cannot be tokenized for storage properly!!";
+    private static final String TOKENIZER_ERROR = "Error tokenizing data!";
+    private static final String STORAGE_ERROR = "Error saving to storage!";
     private static final String DOT = ".";
     private static final String EMPTY_STRING = "";
     private static final String FILE_NAME = "reflect";
