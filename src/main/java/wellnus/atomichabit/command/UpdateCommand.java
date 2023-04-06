@@ -9,8 +9,10 @@ import wellnus.atomichabit.feature.AtomicHabit;
 import wellnus.atomichabit.feature.AtomicHabitList;
 import wellnus.atomichabit.feature.AtomicHabitManager;
 import wellnus.command.Command;
+import wellnus.common.WellNusLogger;
 import wellnus.exception.AtomicHabitException;
 import wellnus.exception.BadCommandException;
+import wellnus.exception.StorageException;
 import wellnus.gamification.util.GamificationData;
 import wellnus.gamification.util.GamificationUi;
 import wellnus.ui.TextUi;
@@ -36,8 +38,6 @@ public class UpdateCommand extends Command {
     private static final int DEFAULT_INCREMENT = 1;
     private static final int ZERO = 0;
     private static final String FEEDBACK_STRING = "The following habit has been incremented! Keep up the good work!";
-    private static final String FEEDBACK_STRING_NO_INCREMENT = "The following habit has not been updated! "
-            + "Enter a positive integer to update your habit!";
     private static final String FEEDBACK_INDEX_NOT_INTEGER_ERROR = "Invalid index payload given, expected an integer!";
     private static final String FEEDBACK_INDEX_OUT_OF_BOUNDS_ERROR = "Invalid index payload given, "
             + "index is out of range!";
@@ -49,11 +49,11 @@ public class UpdateCommand extends Command {
     private static final String UPDATE_INVALID_ARGUMENTS_MESSAGE = "Invalid arguments given to 'update'";
     private static final String UPDATE_INVALID_INCREMENT_COUNT = "Invalid increment payload given, increment with "
             + "minimum of 1 is expected!";
+    private static final String STORE_GAMIF_DATA_FAILED_NOTE_MESSAGE = "Error saving to storage!";
     private static final String REGEX_INTEGER_ONLY_PATTERN = "\\s*-?\\d+\\s*";
-    private static final Logger logger = Logger.getLogger("UpdateAtomicHabitLogger");
+    private static final Logger LOGGER = WellNusLogger.getLogger("UpdateAtomicHabitLogger");
     private static final String LOG_STR_INPUT_NOT_INTEGER = "Input string is not an integer."
             + "This should be properly handled";
-
     private static final String LOG_INDEX_OUT_OF_BOUNDS = "Input index is out of bounds."
             + "This should be properly handled";
     private static final String NO_ADDITIONAL_MESSAGE = "";
@@ -178,6 +178,7 @@ public class UpdateCommand extends Command {
             AtomicHabit habit = getAtomicHabits().getHabitByIndex(index);
             if (changeCount > ZERO) {
                 habit.increaseCount(changeCount);
+                // Add XP for completing atomic habits as an incentive
                 hasLevelUp = gamificationData.addXp(
                         changeCount * NUM_OF_XP_PER_INCREMENT);
             } else {
@@ -191,16 +192,19 @@ public class UpdateCommand extends Command {
             getTextUi().printOutputMessage(FEEDBACK_STRING + LINE_SEPARATOR
                     + stringOfUpdatedHabit);
             if (hasLevelUp) {
+                // Congratulate the user about levelling up
                 GamificationUi.printCelebrateLevelUp();
             }
         } catch (NumberFormatException numberFormatException) {
-            logger.log(Level.INFO, LOG_STR_INPUT_NOT_INTEGER);
+            LOGGER.log(Level.INFO, LOG_STR_INPUT_NOT_INTEGER);
             throw new AtomicHabitException(FEEDBACK_INDEX_NOT_INTEGER_ERROR);
         } catch (IndexOutOfBoundsException e) {
-            logger.log(Level.INFO, LOG_INDEX_OUT_OF_BOUNDS);
+            LOGGER.log(Level.INFO, LOG_INDEX_OUT_OF_BOUNDS);
             throw new AtomicHabitException(FEEDBACK_INDEX_OUT_OF_BOUNDS_ERROR);
         } catch (BadCommandException badCommandException) {
             getTextUi().printErrorFor(badCommandException, COMMAND_INVALID_COMMAND_NOTE);
+        } catch (StorageException storageException) {
+            getTextUi().printErrorFor(storageException, STORE_GAMIF_DATA_FAILED_NOTE_MESSAGE);
         }
     }
 

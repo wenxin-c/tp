@@ -47,7 +47,8 @@ public class AtomicHabitManager extends Manager {
     private static final String ERROR_STORAGE_MESSAGE = "Error saving to storage!";
     private static final String LINE_SEPARATOR = System.lineSeparator();
     private static final String COMMAND_INVALID_COMMAND_NOTE =
-            "add command " + AddCommand.COMMAND_USAGE + LINE_SEPARATOR
+            "Supported commands in Atomic Habit: " + LINE_SEPARATOR
+            + "add command " + AddCommand.COMMAND_USAGE + LINE_SEPARATOR
             + "delete command " + DeleteCommand.COMMAND_USAGE + LINE_SEPARATOR
             + "list command " + ListCommand.COMMAND_USAGE + LINE_SEPARATOR
             + "update command " + UpdateCommand.COMMAND_USAGE + LINE_SEPARATOR

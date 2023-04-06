@@ -6,6 +6,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import wellnus.command.Command;
+import wellnus.common.WellNusLogger;
 import wellnus.exception.BadCommandException;
 import wellnus.exception.ReflectionException;
 import wellnus.exception.StorageException;
@@ -28,7 +29,6 @@ public class LikeCommand extends Command {
     private static final String INVALID_COMMAND_NOTES = "like command " + COMMAND_USAGE;
     private static final String WRONG_INDEX_MSG = "Invalid index payload given to 'like', index is out of range!";
     private static final String WRONG_INDEX_NOTE = "Please input the correct index of the question you like!";
-    private static final String COMMAND_KEYWORD_ASSERTION = "The key should be like.";
     private static final String MISSING_SET_QUESTIONS = "A set of questions has not been gotten!";
     private static final String MISSING_SET_QUESTIONS_NOTES = "Please try 'get' command to generate a set of questions "
             + "before adding to favorite list!";
@@ -37,7 +37,7 @@ public class LikeCommand extends Command {
     private static final int ARGUMENT_PAYLOAD_SIZE = 1;
     private static final int UPPER_BOUND = 5;
     private static final int LOWER_BOUND = 1;
-    private static final Logger LOGGER = Logger.getLogger("ReflectLikeCommandLogger");
+    private static final Logger LOGGER = WellNusLogger.getLogger("ReflectLikeCommandLogger");
     private static final ReflectUi UI = new ReflectUi();
     private Set<Integer> randomQuestionIndexes;
     private QuestionList questionList;
@@ -120,7 +120,6 @@ public class LikeCommand extends Command {
         } else if (!commandMap.containsKey(COMMAND_KEYWORD)) {
             throw new BadCommandException(INVALID_COMMAND_MSG);
         }
-        assert getArguments().containsKey(COMMAND_KEYWORD) : COMMAND_KEYWORD_ASSERTION;
     }
 
     /**

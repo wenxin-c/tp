@@ -4,11 +4,14 @@ import java.util.HashMap;
 
 import wellnus.command.Command;
 import wellnus.exception.BadCommandException;
+import wellnus.exception.StorageException;
+import wellnus.exception.TokenizerException;
 import wellnus.exception.WellNusException;
 import wellnus.gamification.command.HelpCommand;
 import wellnus.gamification.command.HomeCommand;
 import wellnus.gamification.command.StatsCommand;
 import wellnus.gamification.util.GamificationData;
+import wellnus.gamification.util.GamificationStorage;
 import wellnus.gamification.util.GamificationUi;
 import wellnus.manager.Manager;
 import wellnus.ui.TextUi;
@@ -26,19 +29,27 @@ public class GamificationManager extends Manager {
     private static final String LINE_SEPARATOR = System.lineSeparator();
     private static final String UNRECOGNISED_COMMAND_ERROR = "Invalid command issued!";
     private static final String COMMAND_INVALID_COMMAND_NOTE =
-            "stats command " + StatsCommand.COMMAND_USAGE + LINE_SEPARATOR
+            "Supported commands in Gamification: " + LINE_SEPARATOR
+            + "stats command " + StatsCommand.COMMAND_USAGE + LINE_SEPARATOR
             + "help command " + HelpCommand.COMMAND_USAGE + LINE_SEPARATOR
             + "home command " + HomeCommand.COMMAND_USAGE;
-    private final GamificationData gamificationData;
+    private static final String LOAD_GAMIF_DATA_ERROR_MESSAGE = "Error saving to storage!";
+    private GamificationData gamificationData;
     private final TextUi textUi;
 
     /**
      * Returns an instance of the GamificationManager.
      */
     public GamificationManager() {
-        this.gamificationData = new GamificationData();
         this.textUi = new TextUi();
         this.textUi.setCursorName(FEATURE_NAME);
+        try {
+            GamificationStorage gamificationStorage = new GamificationStorage();
+            this.gamificationData = gamificationStorage.loadData();
+        } catch (StorageException | TokenizerException loadDataException) {
+            textUi.printErrorFor(loadDataException, LOAD_GAMIF_DATA_ERROR_MESSAGE);
+            this.gamificationData = new GamificationData();
+        }
     }
 
     private Command getCommandFor(String command) throws BadCommandException {
@@ -52,7 +63,7 @@ public class GamificationManager extends Manager {
         case COMMAND_STATS:
             return new StatsCommand(arguments, gamificationData);
         default:
-            throw new BadCommandException(String.format(UNRECOGNISED_COMMAND_ERROR, cmdKeyword));
+            throw new BadCommandException(UNRECOGNISED_COMMAND_ERROR);
         }
     }
 

@@ -5,6 +5,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import wellnus.command.Command;
+import wellnus.common.WellNusLogger;
 import wellnus.exception.BadCommandException;
 import wellnus.reflection.feature.QuestionList;
 import wellnus.reflection.feature.ReflectUi;
@@ -26,13 +27,13 @@ public class FavoriteCommand extends Command {
     private static final String INVALID_COMMAND_NOTES = "fav command " + COMMAND_USAGE;
     private static final String COMMAND_KEYWORD_ASSERTION = "The key should be fav.";
     private static final String COMMAND_PAYLOAD_ASSERTION = "The payload should be empty.";
-    private static final String INDEX_OUT_OF_BOUND_MSG = "Invalid index given, index is out of bound!!";
+    private static final String INDEX_OUT_OF_BOUND_MSG = "Invalid index given, index is out of bound!";
     private static final String INDEX_OUT_OF_BOUND_NOTES = "The index is out of range(e.g. negative integers, 0)!"
             + System.lineSeparator() + "Your data file might be corrupted!";
     private static final String EMPTY_FAV_LIST = "There is nothing in favorite list, "
-            + "please get reflection questions first!!";
+            + "please get reflection questions first!";
     private static final int ARGUMENT_PAYLOAD_SIZE = 1;
-    private static final Logger LOGGER = Logger.getLogger("ReflectFavCommandLogger");
+    private static final Logger LOGGER = WellNusLogger.getLogger("ReflectFavCommandLogger");
     private static final ReflectUi UI = new ReflectUi();
     private QuestionList questionList;
 

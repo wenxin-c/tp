@@ -6,6 +6,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import wellnus.command.Command;
+import wellnus.common.WellNusLogger;
 import wellnus.exception.BadCommandException;
 import wellnus.exception.ReflectionException;
 import wellnus.exception.StorageException;
@@ -37,7 +38,7 @@ public class UnlikeCommand extends Command {
     private static final int ARGUMENT_PAYLOAD_SIZE = 1;
     private static final int LOWER_BOUND = 1;
     private static final int EMPTY_LIST = 0;
-    private static final Logger LOGGER = Logger.getLogger("ReflectUnlikeCommandLogger");
+    private static final Logger LOGGER = WellNusLogger.getLogger("ReflectUnlikeCommandLogger");
     private static final ReflectUi UI = new ReflectUi();
     private Set<Integer> favQuestionIndexes;
     private QuestionList questionList;

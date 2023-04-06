@@ -43,7 +43,8 @@ public class FocusManager extends Manager {
     private static final String ERROR_SESSION_RUNNING = "Sorry, you cant `start` or `config` a ";
     private static final String LINE_SEPARATOR = System.lineSeparator();
     private static final String COMMAND_INVALID_COMMAND_NOTE =
-            "check command " + CheckCommand.COMMAND_USAGE + LINE_SEPARATOR
+            "Supported commands in Focus Timer: " + LINE_SEPARATOR
+            + "check command " + CheckCommand.COMMAND_USAGE + LINE_SEPARATOR
             + "config command " + ConfigCommand.COMMAND_USAGE + LINE_SEPARATOR
             + "next command " + NextCommand.COMMAND_USAGE + LINE_SEPARATOR
             + "pause command " + PauseCommand.COMMAND_USAGE + LINE_SEPARATOR

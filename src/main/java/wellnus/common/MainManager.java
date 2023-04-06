@@ -29,6 +29,10 @@ import wellnus.ui.TextUi;
 public class MainManager extends Manager {
     public static final String FEATURE_HELP_DESCRIPTION = "WellNUS++ is a Command Line Interface (CLI)"
             + " app for you to keep track, manage and improve your physical and mental wellness.";
+    private static final String COMMAND_IS_BLANK_MESSAGE = "Command is blank - please check user input code for "
+            + "MainManager.";
+    private static final String COMMAND_IS_NULL_MESSAGE = "Command is null - please check user input code for "
+            + "MainManager.";
     private static final String EXIT_COMMAND_KEYWORD = "exit";
     private static final String FEATURE_NAME = "main";
     private static final String GREETING_MESSAGE = "Enter a command to start using WellNUS++! Try 'help' "
@@ -37,15 +41,20 @@ public class MainManager extends Manager {
     private static final String INVALID_COMMAND_MESSAGE = "Invalid command issued!";
     private static final String LINE_SEPARATOR = System.lineSeparator();
     private static final String INVALID_COMMAND_ADDITIONAL_MESSAGE =
-            "Access Atomic Habit: hb" + LINE_SEPARATOR
+            "Supported features: " + LINE_SEPARATOR
+            + "Access Atomic Habit: hb" + LINE_SEPARATOR
             + "Access Self Reflection : reflect" + LINE_SEPARATOR
             + "Access Focus Timer: ft" + LINE_SEPARATOR
             + "Access Gamification: gamif" + LINE_SEPARATOR
             + "Help command: help" + LINE_SEPARATOR
             + "Exit program: exit";
     private static final String INVALID_FEATURE_KEYWORD_MESSAGE = "Feature keyword can't be empty dear";
+    private static final int NUM_OF_ARGUMENTS = 1;
+    private static final String INVALID_ARGUMENTS_MESSAGE = "Invalid arguments given to '%s'!";
+    private static final String UNNECESSARY_PAYLOAD_MESSAGE = "Invalid payload given to '%s', drop the '%s' "
+            + "and try again!";
     private static final String WELLNUS_FEATURE_NAME = "";
-    private ArrayList<Manager> featureManagers;
+    private final ArrayList<Manager> featureManagers;
     private final TextUi textUi;
 
     /**
@@ -73,16 +82,10 @@ public class MainManager extends Manager {
         while (!isExit) {
             try {
                 String nextCommand = this.getTextUi().getCommand();
+                validate(nextCommand);
+                // nextCommand now guaranteed to be a supported feature/main command
                 String featureKeyword = parser.getMainArgument(nextCommand);
                 Optional<Manager> featureManager = this.getManagerFor(featureKeyword);
-                // User gave a command that's not any feature's keyword nor a recognised main command
-                if (featureManager.isEmpty() && !this.isSupportedCommand(featureKeyword)) {
-                    BadCommandException badCommandException =
-                            new BadCommandException(MainManager.INVALID_COMMAND_MESSAGE);
-                    this.getTextUi().printErrorFor(badCommandException,
-                            MainManager.INVALID_COMMAND_ADDITIONAL_MESSAGE);
-                    continue;
-                }
                 // User issued a feature keyword, pass control to the corresponding feature's Manager
                 featureManager.ifPresent((manager) -> {
                     // TODO: Consider if there's a way to avoid this extra try-catch?
@@ -98,6 +101,8 @@ public class MainManager extends Manager {
                     mainCommand.execute();
                     isExit = ExitCommand.isExit(mainCommand);
                 }
+            } catch (BadCommandException badCommandException) {
+                this.getTextUi().printErrorFor(badCommandException, MainManager.INVALID_COMMAND_ADDITIONAL_MESSAGE);
             } catch (WellNusException exception) {
                 this.getTextUi().printErrorFor(exception, INVALID_COMMAND_ADDITIONAL_MESSAGE);
             }
@@ -153,6 +158,27 @@ public class MainManager extends Manager {
             }
         }
         return false;
+    }
+
+    private void validate(String command) throws BadCommandException {
+        assert command != null : MainManager.COMMAND_IS_NULL_MESSAGE;
+        assert !command.isBlank() : MainManager.COMMAND_IS_BLANK_MESSAGE;
+        String featureKeyword = commandParser.getMainArgument(command);
+        Optional<Manager> featureManager = this.getManagerFor(featureKeyword);
+        // User gave a command that's not any feature's keyword nor a recognised main command
+        if (featureManager.isEmpty() && !this.isSupportedCommand(featureKeyword)) {
+            throw new BadCommandException(MainManager.INVALID_COMMAND_MESSAGE);
+        }
+        HashMap<String, String> arguments = commandParser.parseUserInput(command);
+        if (arguments.size() > NUM_OF_ARGUMENTS) {
+            throw new BadCommandException(String.format(MainManager.INVALID_ARGUMENTS_MESSAGE,
+                    featureKeyword));
+        }
+        String argumentPayload = arguments.get(featureKeyword);
+        if (!featureKeyword.equals(HELP_COMMAND_KEYWORD) && !argumentPayload.isBlank()) {
+            throw new BadCommandException(String.format(MainManager.UNNECESSARY_PAYLOAD_MESSAGE,
+                    featureKeyword, argumentPayload));
+        }
     }
 
     /**

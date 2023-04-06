@@ -5,7 +5,7 @@ import java.util.NoSuchElementException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import wellnus.command.ExitCommand;
+import wellnus.common.WellNusLogger;
 import wellnus.exception.BadCommandException;
 import wellnus.manager.Manager;
 import wellnus.reflection.command.FavoriteCommand;
@@ -24,7 +24,7 @@ public class ReflectionManager extends Manager {
     public static final String FEATURE_HELP_DESCRIPTION = "reflect(Self Reflection) - Take some time to pause "
             + "and reflect with our specially curated list of questions and reflection management tools.";
     public static final String FEATURE_NAME = "reflect";
-    private static final Logger LOGGER = Logger.getLogger("ReflectionManagerLogger");
+    private static final Logger LOGGER = WellNusLogger.getLogger("ReflectionManagerLogger");
     private static final String GET_COMMAND = "get";
     private static final String HOME_COMMAND = "home";
     private static final String HELP_COMMAND = "help";
@@ -36,13 +36,14 @@ public class ReflectionManager extends Manager {
     private static final String INVALID_COMMAND_MESSAGE = "Invalid command issued!";
     private static final String LINE_SEPARATOR = System.lineSeparator();
     private static final String INVALID_COMMAND_NOTES =
-            "get command " + GetCommand.COMMAND_USAGE + LINE_SEPARATOR
+            "Supported commands in Self Reflection: " + LINE_SEPARATOR
+            + "get command " + GetCommand.COMMAND_USAGE + LINE_SEPARATOR
             + "like command " + LikeCommand.COMMAND_USAGE + LINE_SEPARATOR
             + "unlike command " + UnlikeCommand.COMMAND_USAGE + LINE_SEPARATOR
             + "fav command " + FavoriteCommand.COMMAND_USAGE + LINE_SEPARATOR
             + "prev command " + PrevCommand.COMMAND_USAGE + LINE_SEPARATOR
-            + "home command " + HomeCommand.COMMAND_USAGE + LINE_SEPARATOR
-            + "exit command " + ExitCommand.COMMAND_USAGE;
+            + "help command " + HelpCommand.COMMAND_USAGE + LINE_SEPARATOR
+            + "home command " + HomeCommand.COMMAND_USAGE;
     private static final String COMMAND_TYPE_ASSERTION = "Command type should have length greater than 0";
     private static final String ARGUMENT_PAYLOAD_ASSERTION = "Argument-payload pairs cannot be empty";
     private static final String LOGO =
@@ -172,7 +173,7 @@ public class ReflectionManager extends Manager {
                 LOGGER.log(Level.INFO, NO_ELEMENT_MESSAGE);
                 UI.printErrorFor(noSuchElement, NO_ELEMENT_MESSAGE);
             } catch (BadCommandException badCommand) {
-                LOGGER.log(Level.INFO, INVALID_COMMAND_NOTES);
+                LOGGER.log(Level.INFO, badCommand.getMessage());
                 UI.printErrorFor(badCommand, INVALID_COMMAND_NOTES);
             }
         }

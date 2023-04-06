@@ -6,6 +6,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import wellnus.command.Command;
+import wellnus.common.WellNusLogger;
 import wellnus.exception.BadCommandException;
 import wellnus.exception.FocusException;
 import wellnus.exception.WellNusException;
@@ -67,12 +68,8 @@ public class ConfigCommand extends Command {
     private static final String ERROR_LESS_EQUAL_MIN_MINUTES = "Invalid minutes payload given, the min time you can "
             + "set is " + MIN_MINUTES;
     private static final String COMMAND_INVALID_ARGUMENTS = "Invalid arguments given to 'config'!";
-    private static final String ERROR_TOO_MANY_ARGUMENTS = "Invalid arguments given, you seem to have added too "
-            + "many arguments!";
-    private static final String ERROR_TOO_FEW_ARGUMENTS = "Invalid arguments given, you seem to have not added "
-            + "in any arguments!";
     private static final String ASSERT_MISSING_KEYWORD = "Missing command keyword";
-    private static final Logger LOGGER = Logger.getLogger("ConfigCommandLogger");
+    private static final Logger LOGGER = WellNusLogger.getLogger("ConfigCommandLogger");
     private static final String LOG_VALIDATION_ASSUMPTION_FAIL = "New cycle/break/work time is assumed to "
             + "have passed the validation bounds and type checking, but has"
             + "unexpectedly failed the second redundant check! This may be a developer error.";

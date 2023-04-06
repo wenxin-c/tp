@@ -5,6 +5,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import wellnus.command.Command;
+import wellnus.common.WellNusLogger;
 import wellnus.exception.BadCommandException;
 import wellnus.reflection.feature.QuestionList;
 import wellnus.reflection.feature.ReflectUi;
@@ -23,15 +24,13 @@ public class PrevCommand extends Command {
     private static final String INVALID_COMMAND_NOTES = "prev command " + COMMAND_USAGE;
     private static final String COMMAND_KEYWORD_ASSERTION = "The key should be prev.";
     private static final String COMMAND_PAYLOAD_ASSERTION = "The payload should be empty.";
-    private static final String MISSING_SET_QUESTIONS = "A set of questions has not been gotten";
-    private static final String MISSING_SET_QUESTIONS_NOTES = "Please try 'get' command to generate a set of questions "
-            + "before adding to favorite list!";
-    private static final String INDEX_OUT_OF_BOUND_MSG = "Invalid index given, index is out of bound!!";
+    private static final String MISSING_SET_QUESTIONS = "A set of questions has not been gotten.";
+    private static final String INDEX_OUT_OF_BOUND_MSG = "Invalid index payload given, index is out of bound!";
     private static final String INDEX_OUT_OF_BOUND_NOTES = "The index is out of range (e.g. negative integers, 0)!"
-            + System.lineSeparator() + "Your data file might be corrupted!!";
+            + System.lineSeparator() + "Your data file might be corrupted!";
     private static final String PAYLOAD = "";
     private static final int ARGUMENT_PAYLOAD_SIZE = 1;
-    private static final Logger LOGGER = Logger.getLogger("ReflectPrevCommandLogger");
+    private static final Logger LOGGER = WellNusLogger.getLogger("ReflectPrevCommandLogger");
     private static final ReflectUi UI = new ReflectUi();
     private QuestionList questionList;
 
@@ -138,7 +137,7 @@ public class PrevCommand extends Command {
             UI.printErrorFor(indexOutOfBoundsException, INDEX_OUT_OF_BOUND_NOTES);
         } catch (BadCommandException badCommandException) {
             LOGGER.log(Level.WARNING, MISSING_SET_QUESTIONS);
-            UI.printErrorFor(badCommandException, MISSING_SET_QUESTIONS_NOTES);
+            UI.printErrorFor(badCommandException, INVALID_COMMAND_NOTES);
         }
     }
 

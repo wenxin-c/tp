@@ -14,6 +14,7 @@ import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import wellnus.common.WellNusLogger;
 import wellnus.exception.StorageException;
 
 /**
@@ -33,6 +34,7 @@ public class Storage {
     // to allow any FeatureManager to call the (de)tokenize functions with the correct filename
     public static final String FILE_HABIT = "habit";
     public static final String FILE_REFLECT = "reflect";
+    public static final String FILE_GAMIFICATION = "gamif";
     protected static final String FILE_DEBUG = "debug";
     protected static final String DIRECTORY_DEBUG = "debug";
 
@@ -58,7 +60,7 @@ public class Storage {
     private static final String ASSERT_LIST_NOT_NULL = "list input should not be null!";
     private static final String ASSERT_STRING_NOT_NULL = "string input should not be null!";
     private static final String ASSERT_FILE_NOT_NULL = "file input should not be null!";
-    private static final Logger LOGGER = Logger.getLogger("StorageLogger");
+    private static final Logger LOGGER = WellNusLogger.getLogger("StorageLogger");
     private static final String LOG_ACCESS_ERROR = "WellNUS++ has encountered a severe input/output error! \n"
             + "Check if file permissions and data directory are properly instantiated?";
     private static final String LOG_MISSING_FILE = "WellNUS++ could not find a file.\n"
@@ -118,6 +120,7 @@ public class Storage {
     private boolean isValidFileName(String fileName) {
         assert fileName != null : ASSERT_STRING_NOT_NULL;
         switch (fileName) {
+        case FILE_GAMIFICATION:
         case FILE_HABIT:
         case FILE_REFLECT:
         case FILE_DEBUG:

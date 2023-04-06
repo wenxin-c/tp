@@ -21,9 +21,6 @@ public class HomeCommand extends Command {
     private static final String COMMAND_INVALID_ARGUMENTS = "Invalid arguments given to 'home'!";
     private static final String COMMAND_INVALID_PAYLOAD = "Invalid payload given to 'home'!";
     private static final String HOME_MESSAGE = "Thank you for using focus timer. Keep up the productivity!";
-    private static final String NO_ADDITIONAL_MESSAGE = "";
-    private static final String WRONG_COMMAND_ARGUMENTS_MESSAGE = "'home' command shouldn't have additional '%s' "
-            + "argument";
     private final FocusUi focusUi;
     private final Session session;
 
