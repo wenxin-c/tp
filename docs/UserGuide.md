@@ -270,8 +270,7 @@ Decrement the atomic habits if you wrongly incremented.
 
 Format:
 
-* Step 1: You are recommended to list the current habits using command
-* `list`
+* (**Optional**) Step 1: You are _recommended_ to list the current habits using the command `list`
 * Step 2: Select the habit to update by entering the index number of the habit HABIT_INDEX according to index of the
   list output. <br>
   The user can specify the number to change for the habit count via NUMBER_TO_CHANGE. <br>
@@ -281,7 +280,7 @@ Format:
 
 Example of usage 1:
 
-* `list`
+* `list` (_Optional_, done here to show change in habit count)
 * `update --id 1 --by 2`
 
 Expected outcome 1:
@@ -304,7 +303,7 @@ Expected outcome 1:
 
 Example of usage 2:
 
-* `list`
+* `list` (_Optional_, done here to show change in habit count)
 * `update --id 1 --by -2`
 
 Expected outcome 2:
