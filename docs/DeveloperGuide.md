@@ -29,6 +29,9 @@
     * [Storage](#storage)
       * [Usage: `saveData()`](#usage--savedata)
       * [Design Considerations](#design-considerations-1)
+  * [Timer Component](#timer-component)
+    * [Design Consideration](#design-consideration)
+    * [Commands](#commands)
   * [Product scope](#product-scope)
     * [Target user profile](#target-user-profile)
     * [Value proposition](#value-proposition)
@@ -565,6 +568,21 @@ calling `Storage`'s `saveData` method.
   This was chosen due to the invariant property of `' --'` in the context of WellNUS++. Due to the way all user input
   is filtered by the `CommandParser`, the chosen delimiter should never show up in any data input, such as a habit name
   from `AtomicHabits`
+
+## Focus Timer Component
+The `Focus Timer` component is responsible for tracking the user's daily habits.
+It consists of the `feature` package and the `command` package.
+
+TODO: Add Class Diagram
+
+### Design Consideration
+
+TODO: Add state transition diagrams
+
+### Commands
+
+TODO: Add
+
 
 ## Product scope
 
