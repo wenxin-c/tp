@@ -110,7 +110,6 @@ error made(e.g. wrong command keyword, extra payload) and the correct usage of t
 - **Documentations:**
 - **User Guide:**
 - [WellNUS++ structure overview](https://ay2223s2-cs2113-t12-4.github.io/tp/UserGuide.html#overview-of-wellnus)<br>
-  ![WellNUS++ Structure Overview](../diagrams/WellNusStructure.png)
 - [Access Self Reflection section](https://ay2223s2-cs2113-t12-4.github.io/tp/UserGuide.html#reflect---accessing-self-reflection-feature)
 - [Self Reflection like feature](https://ay2223s2-cs2113-t12-4.github.io/tp/UserGuide.html#like---add-reflection-question-into-favorite-list)
 - [Self Reflection fav feature](https://ay2223s2-cs2113-t12-4.github.io/tp/UserGuide.html#fav---view-favorite-list)
@@ -124,3 +123,4 @@ error made(e.g. wrong command keyword, extra payload) and the correct usage of t
   ![Reflection Component Class Diagram](../diagrams/ReflectionClassDiagram.png)
 - Self Reflection commands class disgram
   ![Reflection Commands Class Diagram](../diagrams/ReflectionCommandsUML.png)
+- 
