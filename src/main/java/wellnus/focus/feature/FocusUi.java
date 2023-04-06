@@ -60,6 +60,15 @@ public class FocusUi extends TextUi {
         return userCommand;
     }
 
+    private void printLogo(String logo) {
+        System.out.print(logo);
+    }
+
+    protected void printLogoWithSeparator(String logo) {
+        printSeparator();
+        printLogo(logo);
+    }
+
     /**
      * User has entered a command whilst the countdown printing phase is ongoing.
      * <p>

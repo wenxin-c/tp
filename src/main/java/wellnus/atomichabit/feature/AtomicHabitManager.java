@@ -26,13 +26,13 @@ public class AtomicHabitManager extends Manager {
             + "with our suite of tools to help you grow and nurture a better you!";
     public static final String FEATURE_NAME = "hb";
     private static final String ADD_COMMAND_KEYWORD = "add";
-    private static final String ATOMIC_HABIT_LOGO = "    _  _             _      _  _      _    _ _      \n"
+    private static final String ATOMIC_HABIT_LOGO = "    _  _             _      _  _      _    _ _      " + System.lineSeparator()
             +
-            "   /_\\| |_ ___ _ __ (_)__  | || |__ _| |__(_) |_ ___\n"
+            "   /_\\| |_ ___ _ __ (_)__  | || |__ _| |__(_) |_ ___" + System.lineSeparator()
             +
-            "  / _ \\  _/ _ \\ '  \\| / _| | __ / _` | '_ \\ |  _(_-<\n"
+            "  / _ \\  _/ _ \\ '  \\| / _| | __ / _` | '_ \\ |  _(_-<" + System.lineSeparator()
             +
-            " /_/ \\_\\__\\___/_|_|_|_\\__| |_||_\\__,_|_.__/_|\\__/__/\n";
+            " /_/ \\_\\__\\___/_|_|_|_\\__| |_||_\\__,_|_.__/_|\\__/__/" + System.lineSeparator();
     private static final String GREETING_MESSAGE = "Welcome to WellNUS++ Atomic Habits section!"
             + System.lineSeparator() + "Track and inculcate good habits into your life with us!";
     private static final String HOME_COMMAND_KEYWORD = "home";
