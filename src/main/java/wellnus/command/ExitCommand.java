@@ -13,11 +13,11 @@ public class ExitCommand extends Command {
     public static final String COMMAND_DESCRIPTION = "exit - Close WellNUS++ and return to your terminal.";
     public static final String COMMAND_USAGE = "usage: exit";
     public static final String COMMAND_KEYWORD = "exit";
-    private static final String COMMAND_INVALID_COMMAND_MESSAGE = "Invalid exit command given!";
-    private static final String EXTRA_ARGUMENTS_MESSAGE = "'exit' command not supposed to have arguments at all";
+    private static final String COMMAND_INVALID_COMMAND_MESSAGE = "Invalid command issued, expected 'exit'!";
+    private static final String EXTRA_PAYLOAD_MESSAGE = "Invalid payload given to 'exit'!";
     private static final String FEATURE_KEYWORD = "";
     private static final int NUM_OF_ARGUMENTS = 1;
-    private static final String TOO_MANY_ARGUMENTS_MESSAGE = "Too many arguments given for 'exit'";
+    private static final String INVALID_ARGUMENTS_MESSAGE = "Invalid arguments given to 'exit'";
     private final TextUi textUi;
 
     /**
@@ -81,11 +81,11 @@ public class ExitCommand extends Command {
             throw new BadCommandException(ExitCommand.COMMAND_INVALID_COMMAND_MESSAGE);
         }
         if (arguments.size() > NUM_OF_ARGUMENTS) {
-            throw new BadCommandException(ExitCommand.TOO_MANY_ARGUMENTS_MESSAGE);
+            throw new BadCommandException(ExitCommand.INVALID_ARGUMENTS_MESSAGE);
         }
         String commandPayload = arguments.get(ExitCommand.COMMAND_KEYWORD);
         if (!commandPayload.isBlank()) {
-            throw new BadCommandException(EXTRA_ARGUMENTS_MESSAGE);
+            throw new BadCommandException(EXTRA_PAYLOAD_MESSAGE);
         }
     }
 

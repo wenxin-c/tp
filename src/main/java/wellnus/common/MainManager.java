@@ -38,15 +38,22 @@ public class MainManager extends Manager {
     private static final String GREETING_MESSAGE = "Enter a command to start using WellNUS++! Try 'help' "
             + "if you're new, or just unsure.";
     private static final String HELP_COMMAND_KEYWORD = "help";
-    private static final String INVALID_COMMAND_MESSAGE = "Don't recognise that command?";
-    private static final String INVALID_COMMAND_ADDITIONAL_MESSAGE = "Try 'help' for some guidance";
+    private static final String INVALID_COMMAND_MESSAGE = "Invalid command issued!";
+    private static final String LINE_SEPARATOR = System.lineSeparator();
+    private static final String INVALID_COMMAND_ADDITIONAL_MESSAGE =
+            "Supported features: " + LINE_SEPARATOR
+            + "Access Atomic Habit: hb" + LINE_SEPARATOR
+            + "Access Self Reflection : reflect" + LINE_SEPARATOR
+            + "Access Focus Timer: ft" + LINE_SEPARATOR
+            + "Access Gamification: gamif" + LINE_SEPARATOR
+            + "Help command: help" + LINE_SEPARATOR
+            + "Exit program: exit";
     private static final String INVALID_FEATURE_KEYWORD_MESSAGE = "Feature keyword can't be empty dear";
     private static final int NUM_OF_ARGUMENTS = 1;
-    private static final String TOO_MANY_ARGUMENTS_MESSAGE = "Too many arguments given for '%s'.";
-    private static final String UNNECESSARY_PARAMETER_MESSAGE = "'%s' doesn't accept any parameters, drop the '%s' "
-            + "and try again.";
+    private static final String INVALID_ARGUMENTS_MESSAGE = "Invalid arguments given to '%s'!";
+    private static final String UNNECESSARY_PAYLOAD_MESSAGE = "Invalid payload given to '%s', drop the '%s' "
+            + "and try again!";
     private static final String WELLNUS_FEATURE_NAME = "";
-    private static final String NO_ADDITIONAL_MESSAGE = "";
     private final ArrayList<Manager> featureManagers;
     private final TextUi textUi;
 
@@ -85,7 +92,7 @@ public class MainManager extends Manager {
                     try {
                         manager.runEventDriver();
                     } catch (BadCommandException badCommandException) {
-                        this.getTextUi().printErrorFor(badCommandException, MainManager.NO_ADDITIONAL_MESSAGE);
+                        this.getTextUi().printErrorFor(badCommandException, INVALID_COMMAND_ADDITIONAL_MESSAGE);
                     }
                 });
                 // User issued a main command, e.g. 'help'
@@ -97,7 +104,7 @@ public class MainManager extends Manager {
             } catch (BadCommandException badCommandException) {
                 this.getTextUi().printErrorFor(badCommandException, MainManager.INVALID_COMMAND_ADDITIONAL_MESSAGE);
             } catch (WellNusException exception) {
-                this.getTextUi().printErrorFor(exception, MainManager.NO_ADDITIONAL_MESSAGE);
+                this.getTextUi().printErrorFor(exception, INVALID_COMMAND_ADDITIONAL_MESSAGE);
             }
         }
     }
@@ -164,12 +171,12 @@ public class MainManager extends Manager {
         }
         HashMap<String, String> arguments = commandParser.parseUserInput(command);
         if (arguments.size() > NUM_OF_ARGUMENTS) {
-            throw new BadCommandException(String.format(MainManager.TOO_MANY_ARGUMENTS_MESSAGE,
+            throw new BadCommandException(String.format(MainManager.INVALID_ARGUMENTS_MESSAGE,
                     featureKeyword));
         }
         String argumentPayload = arguments.get(featureKeyword);
         if (!featureKeyword.equals(HELP_COMMAND_KEYWORD) && !argumentPayload.isBlank()) {
-            throw new BadCommandException(String.format(MainManager.UNNECESSARY_PARAMETER_MESSAGE,
+            throw new BadCommandException(String.format(MainManager.UNNECESSARY_PAYLOAD_MESSAGE,
                     featureKeyword, argumentPayload));
         }
     }

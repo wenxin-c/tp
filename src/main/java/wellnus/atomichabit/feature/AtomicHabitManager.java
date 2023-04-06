@@ -22,7 +22,7 @@ import wellnus.ui.TextUi;
  * This class will handle calling the different available commands for Atomic Habits according to user input
  */
 public class AtomicHabitManager extends Manager {
-    public static final String FEATURE_HELP_DESCRIPTION = "Atomic Habits (hb) - Track and manage your habits "
+    public static final String FEATURE_HELP_DESCRIPTION = "hb(Atomic Habits) - Track and manage your habits "
             + "with our suite of tools to help you grow and nurture a better you!";
     public static final String FEATURE_NAME = "hb";
     private static final String ADD_COMMAND_KEYWORD = "add";
@@ -40,11 +40,22 @@ public class AtomicHabitManager extends Manager {
     private static final String ATOMIC_HABIT_GREET = "Welcome to the atomic habits feature!";
     private static final String HOME_COMMAND_KEYWORD = "home";
     private static final String LIST_COMMAND_KEYWORD = "list";
-    private static final String UNKNOWN_COMMAND_MESSAGE = "No such command in atomic habits!";
+    private static final String UNKNOWN_COMMAND_MESSAGE = "Invalid command issued!";
     private static final String UPDATE_COMMAND_KEYWORD = "update";
     private static final String HELP_COMMAND_KEYWORD = "help";
     private static final String DELETE_COMMAND_KEYWORD = "delete";
     private static final String ERROR_STORAGE_MESSAGE = "Error saving to storage!";
+    private static final String LINE_SEPARATOR = System.lineSeparator();
+    private static final String COMMAND_INVALID_COMMAND_NOTE =
+            "Supported commands in Atomic Habit: " + LINE_SEPARATOR
+            + "add command " + AddCommand.COMMAND_USAGE + LINE_SEPARATOR
+            + "delete command " + DeleteCommand.COMMAND_USAGE + LINE_SEPARATOR
+            + "list command " + ListCommand.COMMAND_USAGE + LINE_SEPARATOR
+            + "update command " + UpdateCommand.COMMAND_USAGE + LINE_SEPARATOR
+            + "help command " + HelpCommand.COMMAND_USAGE + LINE_SEPARATOR
+            + "home command " + HomeCommand.COMMAND_USAGE;
+    private static final String FEEDBACK_INDEX_EXCEPTION_NOTE = "Please input an appropriate integer for the "
+            + "arguments!";
     private final TextUi textUi;
     private final AtomicHabitList habitList;
     private final GamificationData gamificationData;
@@ -123,10 +134,9 @@ public class AtomicHabitManager extends Manager {
                 }
                 isExit = HomeCommand.isExit(command);
             } catch (BadCommandException badCommandException) {
-                String additionalMessage = "";
-                getTextUi().printErrorFor(badCommandException, additionalMessage);
+                getTextUi().printErrorFor(badCommandException, COMMAND_INVALID_COMMAND_NOTE);
             } catch (WellNusException exception) {
-                getTextUi().printErrorFor(exception, "Check user guide for valid commands!");
+                getTextUi().printErrorFor(exception, FEEDBACK_INDEX_EXCEPTION_NOTE);
             }
         }
     }
@@ -180,7 +190,7 @@ public class AtomicHabitManager extends Manager {
         String exitCommand = "hb exit";
         String listCommand = "hb list";
         String indexTest = "1";
-        String invalidCommandErrorMessage = "Invalid command! Please enter a valid command";
+        String invalidCommandErrorMessage = "Invalid command issued!!";
         HashMap<String, String> arguments;
         try {
             switch (userCommand) {
@@ -203,8 +213,7 @@ public class AtomicHabitManager extends Manager {
                 throw new AtomicHabitException(invalidCommandErrorMessage);
             }
         } catch (BadCommandException badCommandException) {
-            String additionalMessage = "";
-            getTextUi().printErrorFor(badCommandException, additionalMessage);
+            getTextUi().printErrorFor(badCommandException, COMMAND_INVALID_COMMAND_NOTE);
             return null;
         }
     }

@@ -37,9 +37,10 @@ public class CommandParser {
     private static final String PAYLOAD_DELIMITER = " ";
 
     // Message string constants for errors and ui
-    private static final String ERROR_EMPTY_COMMAND = "Command is empty!";
-    private static final String ERROR_EMPTY_ARGUMENT = "Command is missing an argument!";
-    private static final String ERROR_REPEATED_ARGUMENT = "Command has repeated arguments!";
+    private static final String ERROR_EMPTY_COMMAND = "Invalid command issued, command cannot be empty!";
+    private static final String ERROR_EMPTY_ARGUMENT = "Invalid arguments given, command is missing an argument!";
+    private static final String ERROR_REPEATED_ARGUMENT = "Invalid arguments given, command cannot have "
+            + "repeated arguments!";
     private static final Logger LOGGER = WellNusLogger.getLogger("CommandParserLogger");
     private static final String LOG_STR_EMPTY_INPUT = "Input string is empty. This should be properly handled";
     private static final String LOG_EMPTY_ARG = "Argument is empty. This should be properly handled";

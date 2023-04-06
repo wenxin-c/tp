@@ -17,10 +17,12 @@ public class CheckCommand extends Command {
     public static final String COMMAND_USAGE = "usage: check";
     public static final String COMMAND_KEYWORD = "check";
     private static final int COMMAND_NUM_OF_ARGUMENTS = 1;
-    private static final String COMMAND_INVALID_ARGUMENTS_MESSAGE = "Invalid command, expected 'check'";
-    private static final String NO_ADDITIONAL_MESSAGE = "";
+    private static final String COMMAND_INVALID_COMMAND_MESSAGE = "Invalid command issued, expected 'check'";
+    private static final String COMMAND_INVALID_ARGUMENTS_MESSAGE = "Invalid arguments given to 'check'!";
     private static final String CHECK_OUTPUT = "Time left: ";
     private static final String ERROR_COUNTDOWN_NOT_RUNNING = "Nothing to check - the countdown has not started yet!";
+    private static final String COMMAND_INVALID_COMMAND_NOTE = "check command " + COMMAND_USAGE;
+    private static final String COMMAND_INVALID_PAYLOAD = "Invalid payload given to 'check'!";
     private final Session session;
     private final FocusUi focusUi;
 
@@ -68,7 +70,7 @@ public class CheckCommand extends Command {
         try {
             validateCommand(super.getArguments());
         } catch (BadCommandException badCommandException) {
-            focusUi.printErrorFor(badCommandException, NO_ADDITIONAL_MESSAGE);
+            focusUi.printErrorFor(badCommandException, COMMAND_INVALID_COMMAND_NOTE);
             return;
         }
         if (session.isSessionReady()) {
@@ -97,10 +99,10 @@ public class CheckCommand extends Command {
             throw new BadCommandException(COMMAND_INVALID_ARGUMENTS_MESSAGE);
         }
         if (!arguments.containsKey(COMMAND_KEYWORD)) {
-            throw new BadCommandException(COMMAND_INVALID_ARGUMENTS_MESSAGE);
+            throw new BadCommandException(COMMAND_INVALID_COMMAND_MESSAGE);
         }
         if (!arguments.get(COMMAND_KEYWORD).equals("")) {
-            throw new BadCommandException(COMMAND_INVALID_ARGUMENTS_MESSAGE);
+            throw new BadCommandException(COMMAND_INVALID_PAYLOAD);
         }
     }
 

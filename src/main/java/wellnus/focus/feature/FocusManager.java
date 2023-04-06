@@ -23,7 +23,7 @@ import wellnus.manager.Manager;
  */
 //@@author YongbinWang
 public class FocusManager extends Manager {
-    public static final String FEATURE_HELP_DESCRIPTION = "ft - Focus Timer: Set a configurable 'Pomodoro' timer "
+    public static final String FEATURE_HELP_DESCRIPTION = "ft(Focus Timer) - Set a configurable 'Pomodoro' timer "
             + "with work and rest cycles to keep yourself focused and productive!";
     public static final String FEATURE_NAME = "ft";
     private static final String START_COMMAND_KEYWORD = "start";
@@ -35,12 +35,24 @@ public class FocusManager extends Manager {
     private static final String STOP_COMMAND_KEYWORD = "stop";
     private static final String CHECK_COMMAND_KEYWORD = "check";
     private static final String HELP_COMMAND_KEYWORD = "help";
-    private static final String UNKNOWN_COMMAND_MESSAGE = "No such command in focus timer!";
+    private static final String UNKNOWN_COMMAND_MESSAGE = "Invalid command issued!";
     private static final String FOCUS_TIMER_GREET = "Welcome to Focus Timer." + System.lineSeparator()
             + "Start a focus session with `start`, or `config` the session first!";
     private static final String COMMAND_KEYWORD_ASSERTION = "The key cannot be null"
             + ", check user-guide for valid commands";
     private static final String ERROR_SESSION_RUNNING = "Sorry, you cant `start` or `config` a ";
+    private static final String LINE_SEPARATOR = System.lineSeparator();
+    private static final String COMMAND_INVALID_COMMAND_NOTE =
+            "Supported commands in Focus Timer: " + LINE_SEPARATOR
+            + "check command " + CheckCommand.COMMAND_USAGE + LINE_SEPARATOR
+            + "config command " + ConfigCommand.COMMAND_USAGE + LINE_SEPARATOR
+            + "next command " + NextCommand.COMMAND_USAGE + LINE_SEPARATOR
+            + "pause command " + PauseCommand.COMMAND_USAGE + LINE_SEPARATOR
+            + "resume command " + ResumeCommand.COMMAND_USAGE + LINE_SEPARATOR
+            + "start command " + StartCommand.COMMAND_USAGE + LINE_SEPARATOR
+            + "stop command " + StopCommand.COMMAND_USAGE + LINE_SEPARATOR
+            + "help command " + HelpCommand.COMMAND_USAGE + LINE_SEPARATOR
+            + "home command " + HomeCommand.COMMAND_USAGE;
     private final FocusUi focusUi;
     private final Session session;
 
@@ -106,10 +118,9 @@ public class FocusManager extends Manager {
                 command.execute();
                 isExit = HomeCommand.isExit(command);
             } catch (BadCommandException exception) {
-                String noAdditionalMessage = "";
-                focusUi.printErrorFor(exception, noAdditionalMessage);
+                focusUi.printErrorFor(exception, COMMAND_INVALID_COMMAND_NOTE);
             } catch (WellNusException exception) {
-                focusUi.printErrorFor(exception, "Check user guide for valid commands!");
+                focusUi.printErrorFor(exception, COMMAND_INVALID_COMMAND_NOTE);
             }
         }
     }
