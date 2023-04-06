@@ -8,6 +8,7 @@ import java.util.logging.Logger;
 import wellnus.atomichabit.feature.AtomicHabit;
 import wellnus.atomichabit.feature.AtomicHabitList;
 import wellnus.atomichabit.feature.AtomicHabitManager;
+import wellnus.atomichabit.feature.AtomicHabitUi;
 import wellnus.command.Command;
 import wellnus.exception.AtomicHabitException;
 import wellnus.exception.BadCommandException;
@@ -40,7 +41,7 @@ public class DeleteCommand extends Command {
             + "This should be properly handled";
     private static final String NO_ADDITIONAL_MESSAGE = "";
     private final AtomicHabitList atomicHabits;
-    private final TextUi textUi;
+    private final AtomicHabitUi atomicHabitUi;
 
     /**
      * Constructs an DeleteCommand object with the given arguments and AtomicHabitList.<br>
@@ -51,7 +52,7 @@ public class DeleteCommand extends Command {
     public DeleteCommand(HashMap<String, String> arguments, AtomicHabitList atomicHabits) {
         super(arguments);
         this.atomicHabits = atomicHabits;
-        this.textUi = new TextUi();
+        this.atomicHabitUi = new AtomicHabitUi();
     }
 
     /**
@@ -65,7 +66,7 @@ public class DeleteCommand extends Command {
                          AtomicHabitList atomicHabits) {
         super(arguments);
         this.atomicHabits = atomicHabits;
-        this.textUi = new TextUi(inputStream);
+        this.atomicHabitUi = new AtomicHabitUi(inputStream);
     }
 
     private AtomicHabitList getAtomicHabits() {
@@ -73,7 +74,7 @@ public class DeleteCommand extends Command {
     }
 
     private TextUi getTextUi() {
-        return this.textUi;
+        return this.atomicHabitUi;
     }
 
 

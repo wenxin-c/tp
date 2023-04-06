@@ -8,6 +8,7 @@ import java.util.logging.Logger;
 import wellnus.atomichabit.feature.AtomicHabit;
 import wellnus.atomichabit.feature.AtomicHabitList;
 import wellnus.atomichabit.feature.AtomicHabitManager;
+import wellnus.atomichabit.feature.AtomicHabitUi;
 import wellnus.command.Command;
 import wellnus.exception.AtomicHabitException;
 import wellnus.exception.BadCommandException;
@@ -59,7 +60,7 @@ public class UpdateCommand extends Command {
     private static final int NUM_OF_XP_PER_INCREMENT = 1;
     private final AtomicHabitList atomicHabits;
     private final GamificationData gamificationData;
-    private final TextUi textUi;
+    private final AtomicHabitUi atomicHabitUi;
 
     /**
      * Constructs an UpdateCommand object with the given arguments and AtomicHabitList.<br>
@@ -72,7 +73,7 @@ public class UpdateCommand extends Command {
         super(arguments);
         this.atomicHabits = atomicHabits;
         this.gamificationData = gamificationData;
-        this.textUi = new TextUi();
+        this.atomicHabitUi = new AtomicHabitUi();
     }
 
     /**
@@ -87,15 +88,15 @@ public class UpdateCommand extends Command {
         super(arguments);
         this.atomicHabits = atomicHabits;
         this.gamificationData = gamificationData;
-        this.textUi = new TextUi(inputStream);
+        this.atomicHabitUi = new AtomicHabitUi(inputStream);
     }
 
     private AtomicHabitList getAtomicHabits() {
         return this.atomicHabits;
     }
 
-    private TextUi getTextUi() {
-        return this.textUi;
+    private AtomicHabitUi getTextUi() {
+        return this.atomicHabitUi;
     }
 
     private int getIncrementCountFrom(HashMap<String, String> arguments)

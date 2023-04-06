@@ -3,10 +3,10 @@ package wellnus.atomichabit.command;
 import java.util.HashMap;
 
 import wellnus.atomichabit.feature.AtomicHabitManager;
+import wellnus.atomichabit.feature.AtomicHabitUi;
 import wellnus.command.Command;
 import wellnus.exception.BadCommandException;
 import wellnus.exception.WellNusException;
-import wellnus.ui.TextUi;
 
 /**
  * The HomeCommand class is a command class that returns user back to the main WellNUS++ program.<br>
@@ -23,7 +23,7 @@ public class HomeCommand extends Command {
     private static final String NO_ADDITIONAL_MESSAGE = "";
     private static final String WRONG_COMMAND_ARGUMENTS_MESSAGE = "'home' command shouldn't have additional '%s' "
             + "argument";
-    private final TextUi textUi;
+    private final AtomicHabitUi atomicHabitUi;
 
     /**
      * Constructs an HomeCommand object.<br>
@@ -32,11 +32,11 @@ public class HomeCommand extends Command {
      */
     public HomeCommand(HashMap<String, String> arguments) {
         super(arguments);
-        this.textUi = new TextUi();
+        this.atomicHabitUi = new AtomicHabitUi();
     }
 
-    private TextUi getTextUi() {
-        return textUi;
+    private AtomicHabitUi getTextUi() {
+        return this.atomicHabitUi;
     }
 
     /**
