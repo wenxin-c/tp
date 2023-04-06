@@ -23,9 +23,9 @@ import java.util.ArrayList;
 public class Session {
     private static final int INCREMENT = 1;
     private static final boolean IS_LAST_COUNTDOWN = true;
-    private String workDescription = "Task";
+    private String workDescription = "Task Cycle: Do your task now!";
     private final ArrayList<Countdown> session;
-    private String breakDescription = "Break";
+    private String breakDescription = "Break Cycle: Take a breather!";
     private String longBreakDescription = "Long Break";
     private int work = 1;
     private int brk = 1;

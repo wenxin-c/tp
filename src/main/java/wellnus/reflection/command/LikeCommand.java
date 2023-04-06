@@ -6,7 +6,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import wellnus.command.Command;
+import wellnus.common.WellNusLogger;
 import wellnus.exception.BadCommandException;
+import wellnus.exception.ReflectionException;
 import wellnus.exception.StorageException;
 import wellnus.exception.TokenizerException;
 import wellnus.reflection.feature.IndexMapper;
@@ -22,20 +24,20 @@ public class LikeCommand extends Command {
     public static final String COMMAND_USAGE = "usage: like (index)";
     public static final String COMMAND_KEYWORD = "like";
     private static final String FEATURE_NAME = "reflect";
-    private static final String INVALID_COMMAND_MSG = "Command is invalid.";
-    private static final String INVALID_COMMAND_NOTES = "Please check the available commands "
-            + "and the format of commands.";
-    private static final String WRONG_INDEX_MSG = "Please input the correct index of the question you like!";
-    private static final String COMMAND_KEYWORD_ASSERTION = "The key should be like.";
-    private static final String MISSING_SET_QUESTIONS = "A set of questions has not been gotten";
-    private static final String MISSING_SET_QUESTIONS_NOTES = "Please get a set of questions before adding to favorite "
-            + "list!";
-    private static final String TOKENIZER_ERROR = "The data cannot be tokenized for storage properly!!";
-    private static final String STORAGE_ERROR = "The file data cannot be stored properly!!";
+    private static final String INVALID_COMMAND_MSG = "Invalid command issued, expected 'like'!";
+    private static final String INVALID_ARGUMENT_MSG = "Invalid arguments given to 'like'!";
+    private static final String INVALID_COMMAND_NOTES = "like command " + COMMAND_USAGE;
+    private static final String WRONG_INDEX_MSG = "Invalid index payload given to 'like', index is out of range!";
+    private static final String WRONG_INDEX_NOTE = "Please input the correct index of the question you like!";
+    private static final String MISSING_SET_QUESTIONS = "A set of questions has not been gotten!";
+    private static final String MISSING_SET_QUESTIONS_NOTES = "Please try 'get' command to generate a set of questions "
+            + "before adding to favorite list!";
+    private static final String TOKENIZER_ERROR = "Error tokenizing data!";
+    private static final String STORAGE_ERROR = "Error saving to storage!";
     private static final int ARGUMENT_PAYLOAD_SIZE = 1;
     private static final int UPPER_BOUND = 5;
     private static final int LOWER_BOUND = 1;
-    private static final Logger LOGGER = Logger.getLogger("ReflectLikeCommandLogger");
+    private static final Logger LOGGER = WellNusLogger.getLogger("ReflectLikeCommandLogger");
     private static final ReflectUi UI = new ReflectUi();
     private Set<Integer> randomQuestionIndexes;
     private QuestionList questionList;
@@ -112,18 +114,12 @@ public class LikeCommand extends Command {
      * @throws BadCommandException If an invalid command is given
      */
     @Override
-    public void validateCommand(HashMap<String, String> commandMap) throws BadCommandException, NumberFormatException {
+    public void validateCommand(HashMap<String, String> commandMap) throws BadCommandException {
         if (commandMap.size() != ARGUMENT_PAYLOAD_SIZE) {
-            throw new BadCommandException(INVALID_COMMAND_MSG);
+            throw new BadCommandException(INVALID_ARGUMENT_MSG);
         } else if (!commandMap.containsKey(COMMAND_KEYWORD)) {
             throw new BadCommandException(INVALID_COMMAND_MSG);
-        } else {
-            int questionIndex = Integer.parseInt(commandMap.get(COMMAND_KEYWORD));
-            if (questionIndex > UPPER_BOUND || questionIndex < LOWER_BOUND) {
-                throw new BadCommandException(WRONG_INDEX_MSG);
-            }
         }
-        assert getArguments().containsKey(COMMAND_KEYWORD) : COMMAND_KEYWORD_ASSERTION;
     }
 
     /**
@@ -138,10 +134,6 @@ public class LikeCommand extends Command {
             LOGGER.log(Level.INFO, INVALID_COMMAND_MSG);
             UI.printErrorFor(badCommandException, INVALID_COMMAND_NOTES);
             return;
-        } catch (NumberFormatException numberFormatException) {
-            LOGGER.log(Level.INFO, WRONG_INDEX_MSG);
-            UI.printErrorFor(numberFormatException, WRONG_INDEX_MSG);
-            return;
         }
         try {
             addFavQuestion(getArguments().get(COMMAND_KEYWORD));
@@ -154,6 +146,11 @@ public class LikeCommand extends Command {
         } catch (StorageException storageException) {
             LOGGER.log(Level.WARNING, STORAGE_ERROR);
             UI.printErrorFor(storageException, STORAGE_ERROR);
+        } catch (NumberFormatException numberFormatException) {
+            LOGGER.log(Level.INFO, WRONG_INDEX_MSG);
+            UI.printErrorFor(numberFormatException, WRONG_INDEX_NOTE);
+        } catch (ReflectionException reflectionException) {
+            UI.printErrorFor(reflectionException, WRONG_INDEX_NOTE);
         }
     }
 
@@ -167,8 +164,12 @@ public class LikeCommand extends Command {
      * @throws TokenizerException If there is error in tokenization of index
      * @throws StorageException If there is error in storing the data
      */
-    public void addFavQuestion(String questionIndex) throws BadCommandException, TokenizerException, StorageException {
+    public void addFavQuestion(String questionIndex) throws BadCommandException, TokenizerException, StorageException,
+            NumberFormatException, ReflectionException {
         int questionIndexInt = Integer.parseInt(questionIndex);
+        if (questionIndexInt > UPPER_BOUND || questionIndexInt < LOWER_BOUND) {
+            throw new ReflectionException(WRONG_INDEX_MSG);
+        }
         if (!questionList.hasRandomQuestionIndexes()) {
             UI.printOutputMessage(MISSING_SET_QUESTIONS);
             return;
