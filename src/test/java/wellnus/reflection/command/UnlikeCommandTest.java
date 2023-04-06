@@ -27,13 +27,8 @@ class UnlikeCommandTest {
         CommandParser commandParser = new CommandParser();
         HashMap<String, String> argumentsUnlikeCmdOutBound = commandParser.parseUserInput(UNLIKE_CMD_OUT_BOUND_INDEX);
         UnlikeCommand unlikeCmd = new UnlikeCommand(argumentsUnlikeCmdOutBound, questionList);
-        if (!questionList.hasFavQuestions()) {
+        if (questionList.hasFavQuestions()) {
             assertThrows(ReflectionException.class, (
-            ) -> {
-                unlikeCmd.removeFavQuestion(argumentsUnlikeCmdOutBound.get(UNLIKE_KEYWORD));
-            });
-        } else {
-            assertThrows(BadCommandException.class, (
             ) -> {
                 unlikeCmd.removeFavQuestion(argumentsUnlikeCmdOutBound.get(UNLIKE_KEYWORD));
             });

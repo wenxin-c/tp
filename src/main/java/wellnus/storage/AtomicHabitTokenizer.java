@@ -14,8 +14,8 @@ public class AtomicHabitTokenizer implements Tokenizer<AtomicHabit> {
     private static final String DESCRIPTION_KEY = "description";
     private static final String COUNT_KEY = "count";
     private static final String PARAMETER_DELIMITER = "--";
-    private static final String DETOKENIZE_ERROR_MESSAGE = "Detokenization failed!"
-            + "The file might be corrupted";
+    private static final String DETOKENIZE_ERROR_MESSAGE = "Detokenization failed! "
+            + "The file might be corrupted!";
     private static final int INDEX_ZERO = 0;
     private static final int INDEX_FIRST = 1;
     private static final int NUM_ATOMIC_HABIT_PARAMETER = 2;

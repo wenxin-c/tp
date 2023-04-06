@@ -12,9 +12,15 @@
 ------------------------------------------------------------
 (main):~$ !!!!!!-------!!!!!--------!!!!!!!------!!!!!---------!!!!!!!
 Error Message:
-    Don't recognise that command?
+    Invalid command issued!
 Note:
-    Try 'help' for some guidance
+    Supported features:
+    Access Atomic Habit: hb
+    Access Self Reflection : reflect
+    Access Focus Timer: ft
+    Access Gamification: gamif
+    Help command: help
+    Exit program: exit
 !!!!!!-------!!!!!--------!!!!!!!------!!!!!---------!!!!!!!
 (main):~$ ------------------------------------------------------------
     Thank you for using WellNUS++! See you again soon Dx

@@ -16,10 +16,9 @@ public class HomeCommand extends Command {
     public static final String COMMAND_USAGE = "usage: home";
     public static final String FEATURE_NAME = "gamif";
     private static final int NUM_OF_ARGUMENTS = 1;
-    private static final String TOO_MANY_ARGUMENTS_MESSAGE = "Too many arguments given";
-    private static final String WRONG_COMMAND_KEYWORD_MESSAGE = "Gamification feature's HomeCommand called for the "
-            + "wrong command";
-    private static final String WRONG_ARGUMENTS_MESSAGE = "'home' command shouldn't have an additional '%s' argument";
+    private static final String WRONG_COMMAND_KEYWORD_MESSAGE = "Invalid command issued, expected 'home'!";
+    private static final String WRONG_ARGUMENTS_MESSAGE = "Invalid arguments given to 'home'!";
+    private static final String COMMAND_INVALID_PAYLOAD = "Invalid payload given to 'home'!";
 
     /**
      * Initialises a Command Object to handle the 'home' command from the user
@@ -77,11 +76,11 @@ public class HomeCommand extends Command {
     public void validateCommand(HashMap<String, String> arguments) throws BadCommandException {
         assert arguments.containsKey(getCommandKeyword()) : WRONG_COMMAND_KEYWORD_MESSAGE;
         if (arguments.size() > NUM_OF_ARGUMENTS) {
-            throw new BadCommandException(TOO_MANY_ARGUMENTS_MESSAGE);
+            throw new BadCommandException(WRONG_ARGUMENTS_MESSAGE);
         }
         String payload = arguments.get(getCommandKeyword());
         if (!payload.isBlank()) {
-            throw new BadCommandException(String.format(WRONG_ARGUMENTS_MESSAGE, payload));
+            throw new BadCommandException(COMMAND_INVALID_PAYLOAD);
         }
     }
 
