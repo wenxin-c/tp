@@ -938,18 +938,18 @@ Configures the focus timer's settings.
 The number of work-break cycles, work length and break length can be configured.
 When leaving `ft`, the configuration will be reset to the default values.
 
-Format: `config [--cycle numCycle --work workTime --break breakTime --longbreak longBreakTime]`
+Format: `config [--cycle NUM_OF_CYCLE --work WORK_TIME --break BREAK_TIME --longbreak LONG_BREAK_TIME]`
 
 * At least one of the arguments, `cycle, work, break, longbreak` must be included along with the main `config` command
-* `numCycle` is an **integer** that is `>= 2`
-* `workTime, breakTime, longBreakTime` is an **integer** that is `>= 1`
+* `NUM_OF_CYCLE` is an **integer** that is `>= 2`
+* `WORK_TIME, BREAK_TIME, LONG_BREAK_TIME` are **integers** that are all `>= 1`
 
 The initial default values for Focus Timer:
 
-* `numCycles = 2`
-* `workTime = 1`
-* `breakTime = 1`
-* `longBreakTime = 1`
+* `NUM_OF_CYCLE = 2`
+* `WORK_TIME = 1`
+* `BREAK_TIME = 1`
+* `LONG_BREAK_TIME = 1`
 
 Example of usage:
 
@@ -1088,6 +1088,6 @@ explains all commands available within that feature.
     * Check the time left `check`
     * Go to the next countdown `next`
     * Stop the timer `stop`
-    * Configure the timer `config [--cycle 2 --work 1 --break 1 --longBreak 1]`
+    * Configure the timer `config [--cycle NUM_OF_CYCLE --work WORK_TIME --break BREAK_TIME --longbreak LONG_BREAK_TIME]`
 * Return to main interface `home`
 * Exit program `exit`
