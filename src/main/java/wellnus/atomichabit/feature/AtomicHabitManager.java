@@ -15,7 +15,7 @@ import wellnus.exception.StorageException;
 import wellnus.exception.WellNusException;
 import wellnus.gamification.util.GamificationData;
 import wellnus.manager.Manager;
-import wellnus.ui.TextUi;
+
 
 /**
  * Class to represent the event driver of Atomic Habits feature
@@ -26,7 +26,8 @@ public class AtomicHabitManager extends Manager {
             + "with our suite of tools to help you grow and nurture a better you!";
     public static final String FEATURE_NAME = "hb";
     private static final String ADD_COMMAND_KEYWORD = "add";
-    private static final String ATOMIC_HABIT_LOGO = "    _  _             _      _  _      _    _ _      " + System.lineSeparator()
+    private static final String ATOMIC_HABIT_LOGO = "    _  _             _      _  _      _    _ _      "
+            + System.lineSeparator()
             +
             "   /_\\| |_ ___ _ __ (_)__  | || |__ _| |__(_) |_ ___" + System.lineSeparator()
             +

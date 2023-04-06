@@ -12,12 +12,12 @@ import wellnus.atomichabit.command.AddCommand;
 import wellnus.atomichabit.command.UpdateCommand;
 import wellnus.atomichabit.feature.AtomicHabitList;
 import wellnus.atomichabit.feature.AtomicHabitManager;
+import wellnus.atomichabit.feature.AtomicHabitUi;
 import wellnus.command.Command;
 import wellnus.command.CommandParser;
 import wellnus.exception.AtomicHabitException;
 import wellnus.exception.WellNusException;
 import wellnus.gamification.util.GamificationData;
-import wellnus.ui.TextUi;
 
 public class AtomicHabitTest {
     private static final String ADD_HABIT_COMMAND = "add";
@@ -36,10 +36,10 @@ public class AtomicHabitTest {
     }
 
     private String getMessageFrom(String uiOutput) {
-        TextUi textUi = new TextUi();
+        AtomicHabitUi atomicHabitUi = new AtomicHabitUi();
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outputStream));
-        textUi.printSeparator();
+        atomicHabitUi.printSeparator();
         String separator = outputStream.toString().trim();
         StringBuilder resultBuilder = new StringBuilder();
         String[] outputLines = uiOutput.split(System.lineSeparator());

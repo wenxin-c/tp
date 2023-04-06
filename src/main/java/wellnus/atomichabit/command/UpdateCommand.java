@@ -15,7 +15,6 @@ import wellnus.exception.BadCommandException;
 import wellnus.exception.StorageException;
 import wellnus.gamification.util.GamificationData;
 import wellnus.gamification.util.GamificationUi;
-import wellnus.ui.TextUi;
 
 /**
  * The UpdateCommand class is a command class that updates the number of times a habit

@@ -1,8 +1,8 @@
 package wellnus.atomichabit.feature;
 
-import wellnus.ui.TextUi;
-
 import java.io.InputStream;
+
+import wellnus.ui.TextUi;
 
 /**
  * This section is to be updated with main UI class
@@ -18,6 +18,11 @@ public class AtomicHabitUi extends TextUi {
         setSeparator(SEPARATOR);
     }
 
+    /**
+     * Constructor for AtomicHabitUi to include specified input stream for testing purposes.
+     *
+     * @param inputStream
+     */
     public AtomicHabitUi(InputStream inputStream) {
         super(inputStream);
         setSeparator(SEPARATOR);
