@@ -271,12 +271,16 @@ Decrement the atomic habits if you wrongly incremented.
 Format:
 
 * (**Optional**) Step 1: You are _recommended_ to list the current habits using the command `list`
-* Step 2: Select the habit to update by entering the index number of the habit HABIT_INDEX according to index of the
+* Step 2: Select the habit to update by entering the index number of the habit `HABIT_INDEX` according to index of the
   list output. <br>
-  The user can specify the number to change for the habit count via NUMBER_TO_CHANGE. <br>
+  The user can specify the number to change for the habit count via `NUMBER_TO_CHANGE`. <br>
   The default behaviour is to increment the behaviour by 1. <br> To decrement the habit count, enter a negative number
-  instead.
+  instead(see 'Example of usage 2' below).
 * `update --id HABIT-INDEX [--by NUMBER_TO_CHANGE]`
+
+Note: '+' in front of `NUMBER_TO_CHANGE` parameter  not necessary when incrementing.
+For example, to increment index 1 by 2 counts, issue `update --id 1 --by 2`,
+**_not_** `update --id 1 --by +2`. See 'Example of usage 1' below.
 
 Example of usage 1:
 
