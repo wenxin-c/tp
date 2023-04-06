@@ -7,6 +7,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import wellnus.command.Command;
+import wellnus.common.WellNusLogger;
 import wellnus.exception.BadCommandException;
 import wellnus.exception.StorageException;
 import wellnus.reflection.feature.QuestionList;
@@ -21,17 +22,17 @@ public class GetCommand extends Command {
     public static final String COMMAND_DESCRIPTION = "get - Get a list of questions to reflect on.";
     public static final String COMMAND_USAGE = "usage: get";
     public static final String COMMAND_KEYWORD = "get";
-    private static final Logger LOGGER = Logger.getLogger("ReflectGetCommandLogger");
+    private static final Logger LOGGER = WellNusLogger.getLogger("ReflectGetCommandLogger");
     private static final String FEATURE_NAME = "reflect";
-
     private static final String PAYLOAD = "";
-    private static final String INVALID_COMMAND_MSG = "Command is invalid.";
-    private static final String INVALID_COMMAND_NOTES = "Please check the available commands "
-            + "and the format of commands.";
+    private static final String INVALID_COMMAND_MSG = "Invalid command issued, expected 'get'!";
+    private static final String INVALID_ARGUMENT_MSG = "Invalid arguments given to 'get'!";
+    private static final String INVALID_PAYLOAD = "Invalid payload given to 'get'!";
+    private static final String INVALID_COMMAND_NOTES = "get command " + COMMAND_USAGE;
     private static final String COMMAND_KEYWORD_ASSERTION = "The key should be get.";
     private static final String COMMAND_PAYLOAD_ASSERTION = "The payload should be empty.";
     private static final String NUM_SELECTED_QUESTIONS_ASSERTION = "The number of selected questions should be 5.";
-    private static final String STORAGE_ERROR = "The file data cannot be stored properly!!";
+    private static final String STORAGE_ERROR = "Error saving to storage!";
     private static final String DOT = ".";
     private static final String EMPTY_STRING = "";
     private static final int NUM_OF_RANDOM_QUESTIONS = 5;
@@ -136,11 +137,11 @@ public class GetCommand extends Command {
     @Override
     public void validateCommand(HashMap<String, String> commandMap) throws BadCommandException {
         if (commandMap.size() != ARGUMENT_PAYLOAD_SIZE) {
-            throw new BadCommandException(INVALID_COMMAND_MSG);
+            throw new BadCommandException(INVALID_ARGUMENT_MSG);
         } else if (!commandMap.containsKey(COMMAND_KEYWORD)) {
             throw new BadCommandException(INVALID_COMMAND_MSG);
         } else if (!commandMap.get(COMMAND_KEYWORD).equals(PAYLOAD)) {
-            throw new BadCommandException(INVALID_COMMAND_MSG);
+            throw new BadCommandException(INVALID_PAYLOAD);
         }
         assert getArguments().containsKey(COMMAND_KEYWORD) : COMMAND_KEYWORD_ASSERTION;
         assert getArguments().get(COMMAND_KEYWORD).equals(PAYLOAD) : COMMAND_PAYLOAD_ASSERTION;

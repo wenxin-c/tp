@@ -21,14 +21,19 @@ import wellnus.ui.TextUi;
  */
 public class GamificationManager extends Manager {
     public static final String FEATURE_NAME = "gamif";
-    public static final String FEATURE_HELP_DESCRIPTION = "Gamification (gamif) - Gamification gives you the "
+    public static final String FEATURE_HELP_DESCRIPTION = "gamif(Gamification) - Gamification gives you the "
             + "motivation to continue improving your wellness by rewarding you for your efforts!";
     private static final String COMMAND_HELP = "help";
     private static final String COMMAND_HOME = "home";
     private static final String COMMAND_STATS = "stats";
-    private static final String LOAD_GAMIF_DATA_ERROR_MESSAGE = "XP reset to 0 points for now.";
-    private static final String UNRECOGNISED_COMMAND_ERROR = "Unrecognised command %s, see 'help' for our "
-            + "available commands.";
+    private static final String LINE_SEPARATOR = System.lineSeparator();
+    private static final String UNRECOGNISED_COMMAND_ERROR = "Invalid command issued!";
+    private static final String COMMAND_INVALID_COMMAND_NOTE =
+            "Supported commands in Gamification: " + LINE_SEPARATOR
+            + "stats command " + StatsCommand.COMMAND_USAGE + LINE_SEPARATOR
+            + "help command " + HelpCommand.COMMAND_USAGE + LINE_SEPARATOR
+            + "home command " + HomeCommand.COMMAND_USAGE;
+    private static final String LOAD_GAMIF_DATA_ERROR_MESSAGE = "Error saving to storage!";
     private GamificationData gamificationData;
     private final TextUi textUi;
 
@@ -58,7 +63,7 @@ public class GamificationManager extends Manager {
         case COMMAND_STATS:
             return new StatsCommand(arguments, gamificationData);
         default:
-            throw new BadCommandException(String.format(UNRECOGNISED_COMMAND_ERROR, cmdKeyword));
+            throw new BadCommandException(UNRECOGNISED_COMMAND_ERROR);
         }
     }
 
@@ -103,8 +108,7 @@ public class GamificationManager extends Manager {
                 command.execute();
                 isExit = HomeCommand.isHome(command);
             } catch (WellNusException exception) {
-                String noAdditionalMsg = "";
-                textUi.printErrorFor(exception, noAdditionalMsg);
+                textUi.printErrorFor(exception, COMMAND_INVALID_COMMAND_NOTE);
             }
         }
     }

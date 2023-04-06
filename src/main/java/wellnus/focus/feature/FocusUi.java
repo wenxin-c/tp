@@ -6,6 +6,7 @@ import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import wellnus.common.WellNusLogger;
 import wellnus.ui.TextUi;
 
 /**
@@ -14,7 +15,7 @@ import wellnus.ui.TextUi;
  * (10,9,...,1).
  */
 public class FocusUi extends TextUi {
-    private static final Logger LOGGER = Logger.getLogger("FocusUiLogger");
+    private static final Logger LOGGER = WellNusLogger.getLogger("FocusUiLogger");
     private static final String NO_INPUT_ELEMENT_MSG = "There is no new line of element,"
             + "please key in your input!!";
     private static final String BUFFER_OVERFLOW_MSG = "Your input is too long,"
