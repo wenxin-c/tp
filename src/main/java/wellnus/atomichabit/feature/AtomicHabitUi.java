@@ -5,7 +5,7 @@ import java.io.InputStream;
 import wellnus.ui.TextUi;
 
 /**
- * This section is to be updated with main UI class
+ * This class is to provide a customised interface and output message formatting for the atomic habit feature.
  */
 public class AtomicHabitUi extends TextUi {
     private static final String SEPARATOR = "~";
@@ -21,7 +21,7 @@ public class AtomicHabitUi extends TextUi {
     /**
      * Constructor for AtomicHabitUi to include specified input stream for testing purposes.
      *
-     * @param inputStream
+     * @param inputStream An InputStream object representing the input stream to be used
      */
     public AtomicHabitUi(InputStream inputStream) {
         super(inputStream);
