@@ -10,9 +10,9 @@
 
 # Introduction
 
-WellNUS++ is a Command Line Interface(CLI) app for NUS Computing students to keep track and improve their physical and
-mental wellness in various aspects. If you can type fast, WellNUS++ can update their wellness progress faster than
-traditional Graphical User Interface(GUI) apps.
+WellNUS++ is a **Command Line Interface(CLI) app** for **NUS Computing students** to keep track of and improve their
+**physical and mental wellness** in various aspects. If you can type fast, WellNUS++ can update your wellness progress
+faster than traditional Graphical User Interface(GUI) apps.
 
 # Table of Contents
 
@@ -1028,22 +1028,30 @@ Expected outcome:
 
 ## FAQ
 
-**Q**: Will my data be saved after every update?
+**Q**: Can I run `WellNUS++` on my computer?
 
-**A**: Yes, data will be saved upon updating and restored when the application is relaunched.
+**A**: If your computer has **Java 11 and above** installed, it will be able to run `WellNUS++`. The operating 
+system(Windows, macOS, etc) doesn't matter.
+
+**Q**: Would my data be saved after I close the `WellNUS++`?
+
+**A**: Yes. All ours features will store data inside a `data` folder relative to where you placed the `WellNUS++` jar.
+The next time you run `WellNUS++`, all your data will be restored.
+
+**Q**: Do I need to be connected to the Internet to run `WellNUS++`?
+
+**A**: No. `WellNUS++` runs offline to help you focus better. Your data is also saved locally, so it is preserved even 
+without an Internet connection.
+
+**Q**: Can I transfer my data to another computer?
+
+**A**: Yes. Copy the `data` folder found in the same path as the `WellNUS++` jar file to another
+computer. All your data will be restored the next time you run `WellNUS++`.
 
 **Q**: How can I navigate the program?
 
-**A**: In WellNUS++, type `help` to view the list of feature supported by our app. From within a feature, `help`
-explains all commands available within that feature.
-
-**Q**: How do I start the program?
-
-**A**: Please run the JAR file on your local machine. See the [Quick Start](#quick-start) section for details.
-
-**Q**: Where will my data be stored?
-
-**A**: Each feature's data will be stored in a separate text file within the data folder(relative to the jar file).
+**A**: In `WellNUS++`, type `help` to view the list of feature supported by our app. From within a feature, type `help`
+to learn about the commands available within that feature.
 
 <!-- @@author nichyjt -->
 
