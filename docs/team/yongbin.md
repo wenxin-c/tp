@@ -44,103 +44,70 @@ Yongbin built the main and initial implementation of the following features:
 
 * `FocusTimerManager` which is the main class that manages the `FocusTimer`
   feature.
-* `Sess`
+* `Session` which represents a sequence of `Countdown` objects using an arraylist.
+* `Check Command` to allow users to check the current time left in the timer.
+* `Pause Command` to allow users to pause the timer.
+* `Resume Command` to allow users to resume the timer.
+* `Next Command` to allow users to proceed to the next countdown in the session.
+* `Stop Command` to allow users to stop the session.
 
 #### Focus Timer: Countdown
 
-Nicholas built the `config` command under the `wellnus/focus/command` pakage in the focus timer `ft` feature.
-
-#### Focus Timer: Session
-
-Nicholas built the `help` command under the `wellnus/common` package
+Yongbin built the `Countdown` class to represent a countdown timer in command line.
+This feature required out of topic research on background threads through the use of `Timer` and `TimerTask` classes.
+Atomic data types were used to ensure thread safety. The implementation of `FocusTimer` was challenging as there was a
+need
+to ensure no bugs were introduced into the codebase while implementing a novel concept.
 
 ### Enhancements Implemented
 
-Nicholas also contributed to improving the quality of life and defensiveness `WellNUS++`.
+Yongbin also contributed to improving the quality of life and defensiveness `WellNUS++`.<br>
+Yongbin implemented the following enhancements:
 
-#### Terminal Caret
-
-To improve the user experience, Nicholas suggested and implemented an extensible "terminal caret" `:~$`, which
-is an intuitive, visual signifier for users to know when to type in a command and which feature
-they are in within `WellNUS++`. This was built with the target user in mind,
-where they would feel right as home with the caret mimicking a terminal shell which they
-are familiar with.
-
-It looks something like:
-
-```bash
-(feature_name):~$ your_command_here
-```
-
-#### Focus Timer: Preventing malicious user input
-
-Nicholas added in defensive logic to prevent malicious input.
-
-#### Focus Timer: Streamlining state management
-
-Nicholas helped to streamline how state is being managed and transitioned in the timer.
+* Improving user interface of the `AtomicHabit` and `FocusTimer` features.
+* Implementing duplicate checking for and list output clarity of `AtomicHabit` feature.
 
 ### User Guide Contributions
 
-Nicholas added documentation for the following sections of the user guide:
+Yongbin set up the initial structure of the user guide and added documentation for the following sections of the user
+guide:
 
-- [Command Format](https://ay2223s2-cs2113-t12-4.github.io/tp/UserGuide.html#command-format)
-- [Focus Timer Config](https://ay2223s2-cs2113-t12-4.github.io/tp/UserGuide.html#configure-the-timer-config)
-- [Command Summary](https://ay2223s2-cs2113-t12-4.github.io/tp/UserGuide.html#command-summary)
+- [Add new atomic habit](https://ay2223s2-cs2113-t12-4.github.io/tp/UserGuide.html#add---add-new-atomic-habit)
+- [List all atomic habit](https://ay2223s2-cs2113-t12-4.github.io/tp/UserGuide.html#list---list-all-atomic-habit)
+- [Start Session](https://ay2223s2-cs2113-t12-4.github.io/tp/UserGuide.html#start---start-session)
+- [Pause Session](https://ay2223s2-cs2113-t12-4.github.io/tp/UserGuide.html#pause---pause-session)
+- [Resume Session](https://ay2223s2-cs2113-t12-4.github.io/tp/UserGuide.html#resume---resume-session)
+- [Check Session](https://ay2223s2-cs2113-t12-4.github.io/tp/UserGuide.html#check---check-time)
 
 ### Developer Guide Contributions
 
-Nicholas added documentation for the following sections of the developer guide:
+Yongbin added documentation for the following sections of the developer guide:
 
-- [CommandParser](https://ay2223s2-cs2113-t12-4.github.io/tp/DeveloperGuide.html#commandparser-component)
-    - [Class diagram](https://ay2223s2-cs2113-t12-4.github.io/tp/diagrams/CommandParserClass.png)
-    - [Sequence diagram](https://ay2223s2-cs2113-t12-4.github.io/tp/diagrams/CommandParserSequence.png)
-- [Storage](https://ay2223s2-cs2113-t12-4.github.io/tp/DeveloperGuide.html#storage)
-    - [Sequence diagram](https://ay2223s2-cs2113-t12-4.github.io/tp/diagrams/StorageSequence-Saving_Data__Emphasis_on_Storage_Subroutine_.png)
-- [Glossary](https://ay2223s2-cs2113-t12-4.github.io/tp/DeveloperGuide.html#glossary)
+- [Atomic Habit](https://ay2223s2-cs2113-t12-4.github.io/tp/DeveloperGuide.html#atomichabit-component)
+    - [Class diagram](https://ay2223s2-cs2113-t12-4.github.io/tp/diagrams/AtomicHabit.png)
+    - [Sequence diagram](https://ay2223s2-cs2113-t12-4.github.io/tp/diagrams/AtomicHabitSequenceDiagram.png)
 
 ### Team-Based Task Contributions
 
-Nicholas also contributed in the following team tasks:
+Yongbin also contributed in the following team tasks:
 
-- Setting up of issue templates
-- Setting up of issue tags
-- Issue tracking and closing
 - PR reviews
-- Took meeting minutes for some meetings
-- Setting up of weekly meeting location
+- Clarifying certain misconceptions in group chat
+- Noting down important matters
 
 ### Reviewing/Mentoring Contributions
 
 #### PR Reviews
 
-Nicholas was very involved with the code review process, giving critical suggestions on
-how the logical structure of the code and focussing on the big-picture cohesiveness of
-the codebase. Some illustrative examples are listed below:
+Yongbin was involved in reviewing PRs pertaining to Focus Timer/Atomic Habit features. As well as key features for the
+application such as storage and manager.
 
-*Big Picture/Cohesiveness Reviews*
-
-- [Code style consistency](https://github.com/AY2223S2-CS2113-T12-4/tp/pull/65#discussion_r1134946097)
-- [Usage of assertions and try-catch](https://github.com/AY2223S2-CS2113-T12-4/tp/pull/76#discussion_r1136795952)
-- [Avoiding deep nesting](https://github.com/AY2223S2-CS2113-T12-4/tp/pull/155#discussion_r1144643398)
-
-*Critical Suggestions*
-
-- [Critical suggestions on code use](https://github.com/AY2223S2-CS2113-T12-4/tp/pull/27#discussion_r1131190083)
-- [Advising against dangerous use of static keyword](https://github.com/AY2223S2-CS2113-T12-4/tp/pull/35#discussion_r1133057443)
-- [Making logic simpler](https://github.com/AY2223S2-CS2113-T12-4/tp/pull/155#discussion_r1144648259)
-- [Discussion with team on static keyword](https://github.com/AY2223S2-CS2113-T12-4/tp/issues/85#issuecomment-1471569085)
+- [Add config and restart logic for FocusTimer](https://github.com/AY2223S2-CS2113-T12-4/tp/pull/169)
+- [Refactor atomic habits feature ](https://github.com/AY2223S2-CS2113-T12-4/tp/pull/72)
+- [Add Manager class](https://github.com/AY2223S2-CS2113-T12-4/tp/pull/33)
+- [Feature-Update Atomic Habit](https://github.com/AY2223S2-CS2113-T12-4/tp/pull/59)
 
 #### Mentoring
 
-- Taught the team informally through telegram to setup autoformat on save
--
+- Helped to clarify certain misconceptions on application architecture and integration of different features
 
-### Contributions Beyond Team Project
-
-Nicholas was also active in the CS2113 forum, contributing to discussions regarding:
-
-- [Object-oriented programming](https://github.com/nus-cs2113-AY2223S2/forum/issues/24#issuecomment-1417417500)
-  theory
-- [Code design](https://github.com/nus-cs2113-AY2223S2/forum/issues/34#issuecomment-1463563460)
-- [IDE help](https://github.com/nus-cs2113-AY2223S2/forum/issues/34#issuecomment-1463563460)
