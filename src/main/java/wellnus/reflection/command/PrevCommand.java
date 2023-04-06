@@ -5,6 +5,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import wellnus.command.Command;
+import wellnus.common.WellNusLogger;
 import wellnus.exception.BadCommandException;
 import wellnus.reflection.feature.QuestionList;
 import wellnus.reflection.feature.ReflectUi;
@@ -17,19 +18,19 @@ public class PrevCommand extends Command {
     public static final String COMMAND_USAGE = "usage: prev";
     public static final String COMMAND_KEYWORD = "prev";
     private static final String FEATURE_NAME = "reflect";
-    private static final String INVALID_COMMAND_MSG = "Command is invalid.";
-    private static final String INVALID_COMMAND_NOTES = "Please check the available commands "
-            + "and the format of commands.";
+    private static final String INVALID_COMMAND_MSG = "Invalid command issued, expected 'prev'!";
+    private static final String INVALID_ARGUMENT_MSG = "Invalid arguments given to 'prev'!";
+    private static final String INVALID_PAYLOAD = "Invalid payload given to 'prev'!";
+    private static final String INVALID_COMMAND_NOTES = "prev command " + COMMAND_USAGE;
     private static final String COMMAND_KEYWORD_ASSERTION = "The key should be prev.";
     private static final String COMMAND_PAYLOAD_ASSERTION = "The payload should be empty.";
-    private static final String MISSING_SET_QUESTIONS = "A set of questions has not been gotten";
-    private static final String MISSING_SET_QUESTIONS_NOTES = "Please get a set of questions before viewing them.";
-    private static final String INDEX_OUT_OF_BOUND_MSG = "Index is out of bound!!";
-    private static final String INDEX_OUT_OF_BOUND_NOTES = "Question index is out of bound (e.g. negative integers, 0)!"
-            + "Your data file might be corrupted!!";
+    private static final String MISSING_SET_QUESTIONS = "A set of questions has not been gotten.";
+    private static final String INDEX_OUT_OF_BOUND_MSG = "Invalid index payload given, index is out of bound!";
+    private static final String INDEX_OUT_OF_BOUND_NOTES = "The index is out of range (e.g. negative integers, 0)!"
+            + System.lineSeparator() + "Your data file might be corrupted!";
     private static final String PAYLOAD = "";
     private static final int ARGUMENT_PAYLOAD_SIZE = 1;
-    private static final Logger LOGGER = Logger.getLogger("ReflectPrevCommandLogger");
+    private static final Logger LOGGER = WellNusLogger.getLogger("ReflectPrevCommandLogger");
     private static final ReflectUi UI = new ReflectUi();
     private QuestionList questionList;
 
@@ -106,11 +107,11 @@ public class PrevCommand extends Command {
     @Override
     public void validateCommand(HashMap<String, String> commandMap) throws BadCommandException {
         if (commandMap.size() != ARGUMENT_PAYLOAD_SIZE) {
-            throw new BadCommandException(INVALID_COMMAND_MSG);
+            throw new BadCommandException(INVALID_ARGUMENT_MSG);
         } else if (!commandMap.containsKey(COMMAND_KEYWORD)) {
             throw new BadCommandException(INVALID_COMMAND_MSG);
         } else if (!commandMap.get(COMMAND_KEYWORD).equals(PAYLOAD)) {
-            throw new BadCommandException(INVALID_COMMAND_MSG);
+            throw new BadCommandException(INVALID_PAYLOAD);
         }
         assert getArguments().containsKey(COMMAND_KEYWORD) : COMMAND_KEYWORD_ASSERTION;
         assert getArguments().get(COMMAND_KEYWORD).equals(PAYLOAD) : COMMAND_PAYLOAD_ASSERTION;
@@ -136,7 +137,7 @@ public class PrevCommand extends Command {
             UI.printErrorFor(indexOutOfBoundsException, INDEX_OUT_OF_BOUND_NOTES);
         } catch (BadCommandException badCommandException) {
             LOGGER.log(Level.WARNING, MISSING_SET_QUESTIONS);
-            UI.printErrorFor(badCommandException, MISSING_SET_QUESTIONS_NOTES);
+            UI.printErrorFor(badCommandException, INVALID_COMMAND_NOTES);
         }
     }
 

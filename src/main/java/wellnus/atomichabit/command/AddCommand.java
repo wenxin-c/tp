@@ -6,10 +6,11 @@ import java.util.HashMap;
 import wellnus.atomichabit.feature.AtomicHabit;
 import wellnus.atomichabit.feature.AtomicHabitList;
 import wellnus.atomichabit.feature.AtomicHabitManager;
+import wellnus.atomichabit.feature.AtomicHabitUi;
 import wellnus.command.Command;
 import wellnus.exception.AtomicHabitException;
 import wellnus.exception.BadCommandException;
-import wellnus.ui.TextUi;
+
 
 /**
  * The AddCommand class is a command class that adds a new atomic habit to an AtomicHabitList.<br>
@@ -18,20 +19,20 @@ public class AddCommand extends Command {
     public static final String COMMAND_DESCRIPTION = "add - Add a habit to your habit tracker.";
     public static final String COMMAND_USAGE = "usage: add --name (your habit name)";
     public static final String COMMAND_KEYWORD = "add";
-    private static final String COMMAND_INVALID_ARGUMENTS_MESSAGE = "Wrong arguments given to 'add'!";
+    private static final String COMMAND_INVALID_ARGUMENTS_MESSAGE = "Invalid arguments given to 'add'!";
+    private static final String COMMAND_INVALID_PAYLOAD = "Invalid payload given to 'add'!";
     private static final String DUPLICATE_HABIT_MESSAGE = "You already have this habit in your list!"
             + " Use 'update' instead.";
     private static final String COMMAND_NAME_ARGUMENT = "name";
     private static final String COMMAND_KEYWORD_ASSERTION = "The key should be add.";
     private static final String COMMAND_PAYLOAD_ASSERTION = "The payload should not be empty.";
-
     private static final int COMMAND_NUM_OF_ARGUMENTS = 2;
-    private static final String COMMAND_WRONG_KEYWORD_MESSAGE = "Wrong command issued by the user, expected 'add'?";
+    private static final String COMMAND_WRONG_KEYWORD_MESSAGE = "Invalid command issued, expected 'add'!";
     private static final String FEEDBACK_STRING_ONE = "Yay! You have added a new habit:";
     private static final String FEEDBACK_STRING_TWO = "was successfully added";
-    private static final String NO_ADDITIONAL_MESSAGE = "";
+    private static final String COMMAND_INVALID_COMMAND_NOTE = "add command " + COMMAND_USAGE;
     private final AtomicHabitList atomicHabits;
-    private final TextUi textUi;
+    private final AtomicHabitUi atomicHabitUi;
 
     /**
      * Constructs an AddCommand object.<br>
@@ -42,15 +43,15 @@ public class AddCommand extends Command {
     public AddCommand(HashMap<String, String> arguments, AtomicHabitList atomicHabits) {
         super(arguments);
         this.atomicHabits = atomicHabits;
-        this.textUi = new TextUi();
+        this.atomicHabitUi = new AtomicHabitUi();
     }
 
     private AtomicHabitList getAtomicHabits() {
         return atomicHabits;
     }
 
-    private TextUi getTextUi() {
-        return textUi;
+    private AtomicHabitUi getTextUi() {
+        return atomicHabitUi;
     }
 
     private boolean hasDuplicate(String newHabit, ArrayList<AtomicHabit> habitList) {
@@ -101,7 +102,7 @@ public class AddCommand extends Command {
         try {
             validateCommand(super.getArguments());
         } catch (BadCommandException badCommandException) {
-            this.getTextUi().printErrorFor(badCommandException, NO_ADDITIONAL_MESSAGE);
+            this.getTextUi().printErrorFor(badCommandException, COMMAND_INVALID_COMMAND_NOTE);
             return;
         }
         assert super.getArguments().containsKey(COMMAND_KEYWORD) : COMMAND_KEYWORD_ASSERTION;
@@ -133,7 +134,7 @@ public class AddCommand extends Command {
             throw new BadCommandException(AddCommand.COMMAND_WRONG_KEYWORD_MESSAGE);
         }
         if (arguments.get(COMMAND_KEYWORD) != "") {
-            throw new BadCommandException(AddCommand.COMMAND_INVALID_ARGUMENTS_MESSAGE);
+            throw new BadCommandException(AddCommand.COMMAND_INVALID_PAYLOAD);
         }
         if (!arguments.containsKey(AddCommand.COMMAND_NAME_ARGUMENT)) {
             throw new BadCommandException(AddCommand.COMMAND_INVALID_ARGUMENTS_MESSAGE);
