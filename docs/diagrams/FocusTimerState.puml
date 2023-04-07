@@ -1,0 +1,20 @@
+@startuml
+'https://plantuml.com/state-diagram
+
+hide empty description
+
+[*] --> Ready
+
+Ready --> Ready: config
+Ready --> Counting : start
+Counting -up-> Ready : stop
+Counting -down-> Waiting
+Counting --> Counting: check
+Waiting --> Counting : next
+Waiting --> Ready: stop
+Paused -down-> Ready: stop
+Paused -up-> Counting: resume
+Paused -up-> Paused: check
+Counting --> Paused: pause
+
+@enduml

@@ -1,0 +1,68 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
+
+
+Class MainManager
+
+Class FocusManager {
++ runEventDriver()
+}
+
+Class Session {
+- currentCountdownIndex: int
+- cycle: int
+- work: int
+- brk: int
+- longBrk: int
++ startTimer()
++ getCurrentCountdown(): Countdown
++ isSessionReady(): boolean
++ isSessionCounting(): boolean
++ isSessionWaiting(): boolean
++ isSessionPaused(): boolean
+}
+
+Class Countdown {
+- timer: Timer
+- minutes: int
+- seconds: int
+- isCompletedCountdown: AtomicBoolean
+- isRunClock: AtomicBoolean
+- isReady: boolean
++ start()
++ setStop()
++ setStart()
++ setPause()
++ getMinutes(): int
++ getSeconds(): int
++ getIsRunning(): boolean
++ getIsCompletedCountdown(): boolean
++ isCountdownPrinting(): boolean
++ getIsReady(): boolean
+}
+
+Class FocusCommand {
++ execute()
+}
+
+Class "{abstract}\nCommand" as Command
+
+MainManager --> FocusManager : > Executes
+
+FocusManager --> "1   " Session : > Initializes
+
+FocusManager -down-> "9" FocusCommand : > Calls
+
+FocusCommand -right-> "1" Session: > Controls
+
+FocusCommand -up-|> Command
+
+Session -right-> "4..*" Countdown : > Manages
+
+
+@enduml
