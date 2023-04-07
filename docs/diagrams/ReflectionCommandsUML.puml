@@ -1,0 +1,32 @@
+@startuml
+!include style.puml
+skinparam classAttributeIconSize 0
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
+
+Package command <<Rectangle>>{
+class GetCommand{
++getRandomQuestions() : ArrayList<ReflectionQuestion>
+}
+class FavCommand{
+}
+class PrevCommand{
++getPrevSetQuestions() : void
+}
+class LikeCommand{
++addFavQuestion(questionIndex: String)
++mapInputToQuestion() : HashMap<Integer, Integer>
+}
+class UnlikeCommand{
++removeFavQuestion(questionIndex: String) : void
+}
+
+class HelpCommand{
++printHelpMessage() : void
+}
+class HomeCommand{
+}
+}
+
+@enduml
