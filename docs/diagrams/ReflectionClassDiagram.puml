@@ -41,13 +41,13 @@ class ReflectionTokenizer
 
 ReflectionManager --> "1" QuestionList : create >
 ReflectionManager --|> Manager
-ReflectionManager ..> ReflectionCommands : execute >
+ReflectionManager ..> ReflectionCommands
 ReflectionCommands --> "1" ReflectUi : uses >
 ReflectionCommands ..> QuestionList
 QuestionList --> "10" ReflectionQuestion : contains >
 QuestionList --> "1" ReflectUi : uses >
-QuestionList --> "1" Storage
-QuestionList --> "1" ReflectionTokenizer
+QuestionList --> "1" Storage : uses >
+QuestionList --> "1" ReflectionTokenizer : uses >
 ReflectUi --|> TextUi
 ReflectionCommands --|> Command
 @enduml

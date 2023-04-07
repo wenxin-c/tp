@@ -1,0 +1,38 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
+skinparam classAttributeIconSize 0
+
+class TextUi{
+- scanner: Scanner
+- separator: String
++ getCommands(): String
++ printOutMessage(): void
++ printErrorFor: void
+}
+
+class FocusUi{
+- separator: String
++ isBlocking(Session session): boolean
+}
+
+class AtomicHabitUi{
+- separator: String
++ printLogo(): void
+}
+
+class ReflectUi{
+- separator: String
++ printLogo(): void
+}
+
+FocusUi --|> TextUi
+AtomicHabitUi --|> TextUi
+ReflectUi --|> TextUi
+
+
+@enduml

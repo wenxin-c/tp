@@ -128,6 +128,22 @@ actual implementation details by delegating the task to a particular implementat
 known to provide command handling functionality.
 
 <!--@@author wenxin-c-->
+
+## UI Component
+UI component is in charge of reading in user input and printing output.
+
+### UI Implementation
+![UI Class Diagram](diagrams/UiComponent.png)
+The `TextUi` superclass is created for printing standard output and error messages. Each feature has its own UI subclass which 
+inherits from `TextUi` to support more customised I/O behaviours.<br>
+Main WellNUS++ uses TextUi<br>
+Atomic Habit uses AtomicHabitUi<br>
+Self Reflection uses ReflectUi<br>
+Focus Timer uses FocusUi<br>
+For example, the line separator for Self Reflection is `=` and for Atomic Habit is `~`.
+<!--@@author-->
+
+<!--@@author wenxin-c-->
 ## Self Reflection Component
 This `Reflection` component provides users with random sets of introspective questions to reflect on, achieving the goal
 of improving their wellness.<br>
@@ -163,6 +179,11 @@ indication.
   The displayed index of questions increments from 1 to 5, which might differ from their real indexes in the ArrayList. 
   A **HashMap** is then used with displayed index being the key and real question index being the value to ensure that the correct
   question will be mapped to from user input index (i.e. displayed index).
+* **User input validation**<br>
+  Checking mechanism is used to validate user input. The first validation happens at manager level and the `CommandKeyword` will be checked.
+  A correct type of command object will be created based on `CommandKeyword`. The second validation happens at command level
+  to validate arguments and payloads. This is done at command level instead of manager level as different commands might have 
+  different requirements for the inputs.
 
 ### Self Reflection Implementation
 ![Reflection Component Sequence Diagram](diagrams/ReflectionSequenceDiagram.png)
@@ -193,7 +214,8 @@ command type until a `HomeCommand`. A common `QuestionList`object is shared amon
 - By abstracting the above-mentioned attributes and methods as a separate class instead of putting them
   in `ReflectionManager`, the `ReflectionManager` class can solely focus command execution. All the data related to the 
   list of questions is taken care of by the `QuestionList` class. As such, Single responsibility can be better achieved.
-- A `QuestionList` object has exactly one `Storage` and `ReflectionTokenizer` class to store data into data file upon update.
+- A `QuestionList` object has exactly one `Storage` and `ReflectionTokenizer` class to store data into data file upon update
+  and load data from data file upon launching WellNUS++.
 
 `ReflectionQuestion` class:<br>
 - Each introspective question is a `ReflectionQuestion` object.
@@ -207,8 +229,7 @@ command type until a `HomeCommand`. A common `QuestionList`object is shared amon
 `ReflectionCommands` class: <br>
 - This represents a collection of all commands in Self Reflection feature, which will be explained in more detail at later section.
 - Each command class inherits from `Command` abstract class and override `validateComand()` abstract method to validate
-  command. This is done at command level instead of manager level as different commands might have different requirements
-  for the inputs.
+  command. 
 - Commands available in Self Reflection: <br>
   Get a random set of reflection questions: `get`<br>
   Add a particular question into favorite list: `like INDEX`<br>
@@ -232,14 +253,14 @@ and generate the set of indexes.
 - Users can add reflection question that is generated in the previous set into their favorite list. As there
   will only be 5 questions per random set, the indexes are restricted to integer 1~5.
 - The `QuestionList` class is used to as a dependency and `addFavQuestion()` method in called to add and store the data.
-- Users can only successfully add a question to favorite list if they have gotten a set of questions previously.
 - Every time a question is added into the favorite list, the indexes of this particular question will be stored in data
   file straightaway. It prevents data loss due to unforeseen computer shutdown.
+- Users can only successfully add a question to favorite list if they have gotten **at least** one set of questions previously.
 
 `UnlikeCommand` class: <br>
 - Command format: `unlike INDEX`
 - Users can remove reflection questions from their favorite list. 
-- The `addFavQuestion()` method in `QuestionList` class is used to remove data and store the updated data upon every removal.
+- The `removeFavQuestion()` method in `QuestionList` class is used to remove data and the mechanism is similar to `like` command.
 
 `FavoriteCommand` class: <br>
 - Command format: `fav`
@@ -247,10 +268,10 @@ and generate the set of indexes.
 - The `getFavQuestions()` method in `QuestionList` class is called to retrieve the questions based on the indexes in the 
 favorite list.
 
-`FavoriteCommand` class: <br>
-- Command format: `fav`
-- Users can review the questions in their favorite list.
-- The random sets of indexes created by the previous `get` command will be used to retrieve the questions. 
+`PrevCommand` class: <br>
+- Command format: `prev`
+- Users can review the set of questions generated by the previous `get` command. It only works if users have gotten
+  **at least** one set of questions.
 
 `HelpCommand` class: <br>
 - Command format: `help [COMMAND_TO_CHECK]`
@@ -260,7 +281,6 @@ favorite list.
 `HomeCommand` class: <br>
 - Command format: `home`
 - This command allows users to return back to the main WellNUS++ interface.
-- Similar to `GetCommand`, `validateCommand()` method will also be called to validate the command.
 
 <!--@@author-->
 
