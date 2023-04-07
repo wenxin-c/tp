@@ -5,13 +5,6 @@ skinparam arrowThickness 1.1
 skinparam arrowColor MODEL_COLOR
 skinparam classBackgroundColor MODEL_COLOR
 
-Package reflection <<Rectangle>>{
-Package command <<Rectangle>>{
-class ReflectionCommands{
-}
-}
-
-Package feature <<Rectangle>>{
 class ReflectionManager{
 -reflectUi : ReflectUi
 +executeCommands() : void
@@ -27,8 +20,8 @@ class QuestionList{
 -setUpQuestions() : void
 +getQuestions() : ArrayList<ReflectionQuestion>
 }
-}
-}
+
+class ReflectionCommands
 
 class TextUi{
 +printOutputMessage(message : String) : void
@@ -44,6 +37,7 @@ class "{abstract}\nCommand" as Command{
 #{abstract}validateCommand(commandMap: HashMap<String, String>) : void
 }
 class Storage
+class ReflectionTokenizer
 
 ReflectionManager --> "1" QuestionList : create >
 ReflectionManager --|> Manager
@@ -53,6 +47,7 @@ ReflectionCommands ..> QuestionList
 QuestionList --> "10" ReflectionQuestion : contains >
 QuestionList --> "1" ReflectUi : uses >
 QuestionList --> "1" Storage
+QuestionList --> "1" ReflectionTokenizer
 ReflectUi --|> TextUi
 ReflectionCommands --|> Command
 @enduml
