@@ -26,7 +26,7 @@ of lives.
   - What it does: Allows users to list and review all reflection questions in the favorite list for review.
 - **New Feature 6**: Self Reflection `home` command to return from Self Reflection feature back main WellNUS++. 
 [#35](https://github.com/AY2223S2-CS2113-T12-4/tp/pull/35) [#103](https://github.com/AY2223S2-CS2113-T12-4/tp/pull/103)
-- **New Feature 7**: Helped in Self Reflection `get` command implementation.
+- **New Feature 7**: Helped in Self Reflection `prev` command implementation.
 - **Enhancement 1**: Abstract `QuestionList` class. [#164](https://github.com/AY2223S2-CS2113-T12-4/tp/pull/164)
   - What it does: A `QuestionList` class is abstracted to store and modify user data (e.g. the random sets and favorite list).
   - Implementation: A common `QuestionList` object is constructed and passed into different command objects. Lists of questions 
