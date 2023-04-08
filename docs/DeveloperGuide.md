@@ -894,6 +894,37 @@ Note:
 4. Any commands that does not follow the format of `add --name ATOMIC_HABIT_NAME` is invalid
 <!-- @@author -->
 
+<!-- @@author haoyangw -->
 ### Saving data
-5 seconds
-To be implemented. 
+1. Dealing with missing data files
+* Ensure data files are created: Add a new atomic habit using the `add --name Test data file` command in the `hb`
+  session
+* Quit `WellNUS++`: Issue `home` command in the `hb` session followed by `exit` command in the `main` session
+* Delete data files: Delete the `data` folder created in the same folder as the `WellNUS++` jar file you just executed
+* Relaunch `WellNUS++`: Run the `WellNUS++` jar file, issue `hb` command and then issue `list` command. Verify that no
+  atomic habits are now recorded, i.e. `WellNUS++` should output:
+```
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    You have no habits in your list!
+    Start adding some habits by using 'add'!
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+```
+2. Dealing with corrupted data files
+* Quit `WellNUS++`
+* Open the `data/habit.txt` file located in the same directory as the `WellNUS++` jar file
+* Replace the contents of the `habit.txt` file with the following lines:
+```
+--description Valid atomic habit --count 1 --
+--corrupted Data --test to be ignored --
+```
+* Run the `WellNUS++` jar file
+* View the saved atomic habits: Issue `hb` followed by `list`. Expected output should be:
+```
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    You have no habits in your list!
+    Start adding some habits by using 'add'!
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+```
+* Explanation: Upon relaunch, `WellNUS++` detected the invalid line `--corrupted Data --test to be ignored --` and
+  cleaned the contents of the data file, leaving no atomic habits recorded
+<!-- @@author -->
