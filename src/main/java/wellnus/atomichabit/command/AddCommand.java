@@ -21,7 +21,10 @@ public class AddCommand extends Command {
     public static final String COMMAND_KEYWORD = "add";
     private static final String COMMAND_INVALID_ARGUMENTS_MESSAGE = "Invalid arguments given to 'add'!";
     private static final String COMMAND_INVALID_PAYLOAD = "Invalid payload given to 'add'!";
+    private static final String FEEDBACK_INDEX_NOT_INTEGER_ERROR = "Invalid index payload given, expected a valid integer!";
     private static final String COMMAND_EMPTY_NAME = "Invalid habit name given to 'add'!";
+
+    private static final String COMMAND_INT_NAME = "Invalid habit name given to 'add'! No integers allowed!";
     private static final String DUPLICATE_HABIT_MESSAGE = "You already have this habit in your list!"
             + " Use 'update' instead.";
     private static final String COMMAND_NAME_ARGUMENT = "name";
@@ -68,6 +71,15 @@ public class AddCommand extends Command {
         return habitName.toLowerCase().replaceAll("\\s", "");
     }
 
+    private boolean isInteger(String s) throws AtomicHabitException {
+        try {
+            Integer.parseInt(s);
+        } catch (NumberFormatException e) {
+            throw new AtomicHabitException(FEEDBACK_INDEX_NOT_INTEGER_ERROR);
+        }
+        return true;
+    }
+
     /**
      * Identifies this Command's keyword. Override this in subclasses so
      * toString() returns the correct String representation.
@@ -111,6 +123,9 @@ public class AddCommand extends Command {
         if (hasDuplicate(name, atomicHabits.getAllHabits())) {
             throw new AtomicHabitException(DUPLICATE_HABIT_MESSAGE);
         }
+        if (isInteger(name)) {
+            throw new AtomicHabitException(COMMAND_INT_NAME);
+        }
         AtomicHabit habit = new AtomicHabit(name);
         this.getAtomicHabits().addAtomicHabit(habit);
         String messageToUser = FEEDBACK_STRING_ONE + System.lineSeparator();
@@ -127,7 +142,7 @@ public class AddCommand extends Command {
      * @throws BadCommandException If the arguments have any issues
      */
     @Override
-    public void validateCommand(HashMap<String, String> arguments) throws BadCommandException {
+    public void validateCommand(HashMap<String, String> arguments) throws BadCommandException, NumberFormatException {
         if (arguments.size() != AddCommand.COMMAND_NUM_OF_ARGUMENTS) {
             throw new BadCommandException(AddCommand.COMMAND_INVALID_ARGUMENTS_MESSAGE);
         }
