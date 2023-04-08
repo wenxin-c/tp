@@ -1,9 +1,11 @@
 package wellnus.gamification.util;
 
+import wellnus.ui.TextUi;
+
 /**
  * Provides helper methods for printing to the user's screen with the gamification feature's unique style.
  */
-public class GamificationUi {
+public class GamificationUi extends TextUi {
     private static final int NUM_CHAR_IN_SEPARATOR = 70;
     private static final String CELEBRATE_LEVEL_UP_MESSAGE = "Congratulations! Level up";
     private static final String GOODBYE_MESSAGE = "Thank you for using the gamification feature! Return anytime";
@@ -20,7 +22,7 @@ public class GamificationUi {
     private static final String XP_BOX_RIGHT = "]";
     private static final String XP_TILL_NEXT_LVL_MESSAGE = "%d more XP to Level %d";
 
-    private static void printSeparator() {
+    private static void printGamificationSeparator() {
         for (int i = 0; i < NUM_CHAR_IN_SEPARATOR; i += 1) {
             System.out.print(SEPARATOR);
         }
@@ -31,35 +33,35 @@ public class GamificationUi {
      * Prints a congratulations message in the case where the user just levelled up.
      */
     public static void printCelebrateLevelUp() {
-        printSeparator();
-        printMsgWithSeparator(CELEBRATE_LEVEL_UP_MESSAGE);
-        printSeparator();
+        printGamificationSeparator();
+        printGamificationMessage(CELEBRATE_LEVEL_UP_MESSAGE);
+        printGamificationSeparator();
     }
 
     /**
      * Prints a goodbye message when the user exits from the gamification feature.
      */
     public static void printGoodbye() {
-        printSeparator();
-        printMsgWithSeparator(GOODBYE_MESSAGE);
-        printSeparator();
+        printGamificationSeparator();
+        printGamificationMessage(GOODBYE_MESSAGE);
+        printGamificationSeparator();
     }
 
     /**
      * Prints the gamification feature's unique logo.
      */
     public static void printLogo() {
-        printSeparator();
+        printGamificationSeparator();
         System.out.println("    Welcome to");
         System.out.println(LOGO);
-        printSeparator();
+        printGamificationSeparator();
     }
 
     /**
      * Prints the given message with the gamification feature's unique style.
      * @param msg Message to display on the user's screen
      */
-    public static void printMsgWithSeparator(String msg) {
+    public static void printGamificationMessage(String msg) {
         System.out.print(SEPARATOR);
         int howManySeparator = 2;
         int leftPadding = (NUM_CHAR_IN_SEPARATOR - msg.length() - howManySeparator) / 2;
@@ -86,13 +88,13 @@ public class GamificationUi {
         String xpBoxBuilder = XP_BOX_LEFT
                 + XP_BAR_CHAR.repeat(howManyXpBarSegments) + XP_BAR_HEAD
                 + padding + XP_BOX_RIGHT;
-        printSeparator();
-        printMsgWithSeparator(String.format("Current XP: Level %d %s", xpLevel, xpBoxBuilder));
+        printGamificationSeparator();
+        printGamificationMessage(String.format("Current XP: Level %d %s", xpLevel, xpBoxBuilder));
         if (shouldPrintXpRemaining) {
             int nextLevel = xpLevel + 1;
-            printMsgWithSeparator(String.format(XP_TILL_NEXT_LVL_MESSAGE,
+            printGamificationMessage(String.format(XP_TILL_NEXT_LVL_MESSAGE,
                     gamData.getXpToReachNextLevel(), nextLevel));
         }
-        printSeparator();
+        printGamificationSeparator();
     }
 }
