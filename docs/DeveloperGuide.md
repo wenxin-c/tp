@@ -5,7 +5,6 @@
 <!-- TOC -->
 * [Developer Guide](#developer-guide)
 * [Table of Contents](#table-of-contents)
-* [Product Name](#product-name)
 * [Acknowledgements](#acknowledgements)
 * [Setting up, getting started](#setting-up-getting-started)
   * [Setting up the project in your computer](#setting-up-the-project-in-your-computer)
@@ -48,24 +47,22 @@
     * [Focus Timer Implementation](#focus-timer-implementation)
       * [State Management](#state-management)
       * [Commands](#commands)
+* [Appendix: Requirements](#appendix--requirements)
   * [Product scope](#product-scope)
+    * [Product Name](#product-name)
     * [Target user profile](#target-user-profile)
     * [Value proposition](#value-proposition)
   * [User Stories](#user-stories)
   * [Non-Functional Requirements](#non-functional-requirements)
   * [Glossary](#glossary)
-  * [Instructions for manual testing](#instructions-for-manual-testing)
-    * [Launch](#launch)
-    * [Sample test cases](#sample-test-cases)
-      * [Help command](#help-command)
-      * [Get reflection questions](#get-reflection-questions)
-      * [Add atomic habits](#add-atomic-habits)
-    * [Saving data](#saving-data)
+* [Appendix: Instructions for manual testing](#appendix--instructions-for-manual-testing)
+  * [Launch](#launch)
+  * [Sample test cases](#sample-test-cases)
+    * [Help command](#help-command)
+    * [Get reflection questions](#get-reflection-questions)
+    * [Add atomic habits](#add-atomic-habits)
+  * [Saving data](#saving-data)
 <!-- TOC -->
-
-# Product Name
-
-**WellNUS++**
 
 # Acknowledgements
 
@@ -721,7 +718,11 @@ methods in `Session` to check which state the command is being called in.
 <!-- @@author YongbinWang -->
 #### Commands
 
+# Appendix: Requirements
 ## Product scope
+### Product Name
+
+**WellNUS++**
 
 ### Target user profile
 
@@ -778,16 +779,16 @@ WellNUS++ is a CLI app, primarily due to the following reasons:
 ## Glossary
 
 * *glossary item* - Definition
-* **Mainstream OS**: Windows, Linux, Unix, OS-X
+* **Mainstream OS**: Windows, Linux, Unix, macOS
 * **Main Command**: The first WORD that a user types in. `e.g. reflect, exit`
 * **Argument**: A word that is a parameter to a `Main Command` and is prefixed by ` --`. `e.g. --id, --name`
 * **Payload**: An (optional) arbitrary sequence of characters immediately following a main command or argument.
   The payload will terminate when the user clicks `enter` or separates the payload with another argument
   with the `--` delimiter.
 
-## Instructions for manual testing
+# Appendix: Instructions for manual testing
 
-### Launch
+## Launch
 
 1. Ensure you have Java 11 or above installed in your Computer.
 2. Download the latest `wellnus.jar` from here.
@@ -795,10 +796,10 @@ WellNUS++ is a CLI app, primarily due to the following reasons:
 4. Open a command terminal, cd into the folder you put the `wellnus.jar` file in, and use the `java -jar wellnus.jar`
    command to run the application. A CLI should appear in a few seconds.
 
-### Sample test cases
+## Sample test cases
 
 <!-- @@author wenxin-c -->
-#### Help command
+### Help command
 
 1. Make sure you are in the main interface, but individual features(i.e. hb, reflect and timer)
 2. Test case: `help`<br>
@@ -832,7 +833,7 @@ Here are all the commands available for you!
 
 4. To get a list of available commands, any command other than `help` is invalid
 
-#### Get reflection questions
+### Get reflection questions
 
 1. Make sure you are inside **Self Reflection** feature by enter `reflect` command after the launch of the program
 2. Test case: `get`<br>
@@ -864,7 +865,7 @@ Note:
 
 4. Any command other than `get` is invalid
 
-#### Add atomic habits
+### Add atomic habits
 
 1. Make sure you are inside **Atomic habit** feature by enter `hb` command after the launch of the program
 2. Test case: `add --name make bed every morning`<br>
@@ -895,7 +896,7 @@ Note:
 <!-- @@author -->
 
 <!-- @@author haoyangw -->
-### Saving data
+## Saving data
 1. Dealing with missing data files
 * Ensure data files are created: Add a new atomic habit using the `add --name Test data file` command in the `hb`
   session
