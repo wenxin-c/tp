@@ -31,12 +31,18 @@
     * [Implementation](#implementation)
       * [Integration with WellNUS++](#integration-with-wellnus)
       * [CommandParser API](#commandparser-api)
-    * [AtomicHabit Component](#atomichabit-component)
-    * [Managers](#managers)
-    * [Tokenizer](#tokenizer)
-    * [Storage](#storage)
-      * [Usage: `saveData()`](#usage--savedata)
-      * [Design Considerations](#design-considerations-2)
+  * [AtomicHabit Component](#atomichabit-component)
+    * [Package Layout](#package-layout)
+    * [Implementation of `AtomicHabitManager`](#implementation-of-atomichabitmanager)
+  * [Managers](#managers)
+    * [Implementation Rationale](#implementation-rationale)
+    * [`MainManager`: A Unique Implementation](#mainmanager--a-unique-implementation)
+  * [Tokenizer](#tokenizer)
+    * [Implementation Rationale](#implementation-rationale-1)
+    * [Individual Tokenizers](#individual-tokenizers)
+  * [Storage](#storage)
+    * [Usage: `saveData()`](#usage--savedata)
+    * [Design Considerations](#design-considerations-2)
   * [Focus Timer Component](#focus-timer-component)
     * [Design Considerations](#design-considerations-3)
     * [Focus Timer Implementation](#focus-timer-implementation)
@@ -482,12 +488,13 @@ is input as an argument.
 Internally, this just splits the string by whitespace and returns the first word in the array.
 
 <!-- @@author YongbinWang -->
-### AtomicHabit Component
+## AtomicHabit Component
 
 ![AtomicHabit Component](diagrams/AtomicHabit.png)
 The `AtomicHabit` component is responsible for tracking the user's daily habits.
 It consists of the `feature` package and the `command` package.
 
+### Package Layout
 The `command` package consists of the `AddCommand`, `DeleteCommand`, `HomeCommand`, `ListCommand`, `UpdateCommand`.
 
 * `AddCommand` - Adds a new habit to the user's habit list.
@@ -510,7 +517,7 @@ The `AtomicHabit` class has the following attributes:
 * `description` - the description of the habit
 * `count` - the number of times the habit is done
 
-Implementation of `AtomicHabitManager`:
+### Implementation of `AtomicHabitManager`
 ![AtomicHabitManager Implementation](diagrams/AtomicHabitSequenceDiagram.png)
 `AtomicHabitManager` is a subclass of `Manager` class. It is initialised by the `MainManager`.
 When the user enters 'hb' command, the `MainManager` will call the `runEventDriver()` method of `AtomicHabitManager`
@@ -522,11 +529,12 @@ object that stores all the user's habits.
 <!-- @@author -->
 
 <!-- @@author haoyangw -->
-### Managers
+## Managers
 
 ![Manager](diagrams/Manager.png)<br/>
 The `Manager` abstract class is the superclass for classes responsible for handling user interaction with the app.
 
+### Implementation Rationale
 Each `Manager` provides `runEventDriver()`, which takes over control of user interaction and provides a particular
 feature(along with all its commands). This fulfils the `Single Responsibility Principle` as every `Manager` is in charge
 of one particular feature and recognises its feature's commands, so it will only change when the feature
@@ -547,6 +555,7 @@ requested action. This ensures that changes in logic for individual commands or 
 any changes in a particular implementation of `Manager`, as should be expected. A `Manager` class will only change to
 recognise new commands for its feature.
 
+### `MainManager`: A Unique Implementation
 `MainManager` is a unique implementation of `Manager` in that it holds references to every feature's `Manager` instance.
 This is important as `MainManager` then acts as an abstraction barrier for the application: `WellNus` does not know
 what features or commands are supported by the application, and only knows that `MainManager` can recognise supported
@@ -560,12 +569,13 @@ feature.
 <!-- @@author -->
 
 <!-- @@author BernardLesley -->
-### Tokenizer
+## Tokenizer
 
 ![Tokenizer](diagrams/Tokenizer.png)<br/>
 The `Tokenizer` interface is the superclass for classes responsible for converting data stored temporarily in feature's
 Managers into Strings for storage and also convert Strings from storage back into data that can be restored by Managers.
 
+### Implementation Rationale
 Each `Tokenizer` provides `tokenize()` and `detokenize()`, which can then be adapted for each feature. This fulfills the
 `Single Responsibility Principle` as each `Tokenizer` are only responsible to tokenize and detokenize data from only one
 Feature. Furthermore, this design also fulfills `Open-Closed Principle` where `Tokenizer` interface are open for
@@ -579,6 +589,7 @@ method. Each feature's tokenizer are free to implement `tokenize()` and `detoken
 different
 kinds of data.
 
+### Individual Tokenizers
 `AtomicHabitTokenizer` class is responsible to tokenize and detokenize ArrayList of AtomicHabits that
 AtomicHabitManager will
 use or store. Each habit will be tokenized in the following
@@ -604,7 +615,7 @@ questions' index to restore its state.
 <!-- @@author -->
 
 <!-- @@author nichyjt -->
-### Storage
+## Storage
 
 Storage is a common API built to work completely decoupled from any `Tokenizer` implementation.
 
@@ -615,7 +626,7 @@ Loading: `loadData` will load all `WellNUS++` data into a common data type, `Arr
 
 The data transformation from `String` to the target data type by the managers is solely up to `Tokenizer`.
 
-#### Usage: `saveData()`
+### Usage: `saveData()`
 
 To illustrate the overall flow on how to save data, refer to the sequence diagram below.
 
@@ -624,7 +635,7 @@ calling `Storage`'s `saveData` method.
 
 ![](./diagrams/StorageSequence-Saving_Data__Emphasis_on_Storage_Subroutine_.png)
 
-#### Design Considerations
+### Design Considerations
 
 - Only filenames defined by public string constants in the `Storage` class.
   This is meant to prevent developer mis-use and control what exactly waht files WellNUS++ can create.
