@@ -103,6 +103,7 @@ If you plan to use Intellij IDEA (highly recommended): <br>
    code and the interaction among different classes.<br>
 
 # Design & implementation
+<!-- @@author haoyangw -->
 ## Application Lifecycle
 ### Overview
 The overall execution lifecycle of the WellNus application involves 4 main components, as shown in the diagram below.
@@ -154,8 +155,9 @@ commands do not require changes in any implementation of `Manager.runEventDriver
 abstraction of logic as `Manager.runEventDriver()` ensures that command handling is performed while avoiding the
 actual implementation details by delegating the task to a particular implementation of `Command.execute()`, which is
 known to provide command handling functionality.
+<!-- @@author -->
 
-<!--@@author wenxin-c-->
+<!-- @@author wenxin-c -->
 ## UI Component
 UI component is in charge of reading in user input and printing output.
 
@@ -169,9 +171,9 @@ Self Reflection uses ReflectUi<br>
 Focus Timer uses FocusUi<br>
 Gamification uses GamificationUi<br>
 For example, the line separator for Self Reflection is `=` and for Atomic Habit is `~`.
-<!--@@author-->
+<!-- @@author -->
 
-<!--@@author wenxin-c-->
+<!-- @@author wenxin-c -->
 ## Self Reflection Component
 This `Reflection` component provides users with random sets of introspective questions to reflect on, achieving the goal
 of improving their wellness.<br>
@@ -310,9 +312,9 @@ favorite list.
 - Command format: `home`
 - This command allows users to return back to the main WellNUS++ interface.
 
-<!--@@author-->
+<!-- @@author -->
 
-<!--@@author nichyjt -->
+<!-- @@author nichyjt -->
 ## CommandParser Component
 
 The CommandParser is a core feature of WellNUS++.
@@ -479,6 +481,7 @@ is input as an argument.
 
 Internally, this just splits the string by whitespace and returns the first word in the array.
 
+<!-- @@author YongbinWang -->
 ### AtomicHabit Component
 
 ![AtomicHabit Component](diagrams/AtomicHabit.png)
@@ -516,7 +519,9 @@ Then, it will call the `runCommands()` method to process the user input and exec
 The output of the `commands` will be printed by the `textUi` object which is an attribute of `AtomicHabitManager` class
 and is initialised in the constructor. `habitList` which was initialised in the constructor is the `AtomicHabitList`
 object that stores all the user's habits.
+<!-- @@author -->
 
+<!-- @@author haoyangw -->
 ### Managers
 
 ![Manager](diagrams/Manager.png)<br/>
@@ -552,7 +557,9 @@ application so that a previous session for a feature can be fully restored when 
 he/she never left. This makes sense conceptually for a class named `MainManager` and eliminates the need to restore a
 particular `Manager`'s state from storage if the application is still running and the user returns to a particular
 feature.
+<!-- @@author -->
 
+<!-- @@author BernardLesley -->
 ### Tokenizer
 
 ![Tokenizer](diagrams/Tokenizer.png)<br/>
@@ -572,7 +579,7 @@ method. Each feature's tokenizer are free to implement `tokenize()` and `detoken
 different
 kinds of data.
 
-`AtomicHabitTokernizer` class is responsible to tokenize and detokenize ArrayList of AtomicHabits that
+`AtomicHabitTokenizer` class is responsible to tokenize and detokenize ArrayList of AtomicHabits that
 AtomicHabitManager will
 use or store. Each habit will be tokenized in the following
 format `--description [description of habit] --count [count of
@@ -594,7 +601,9 @@ prev:[index of previous question]
 `detokenize()` then can be called by ReflectionManager to retrieve the ArrayList containing the Set of liked and
 previous
 questions' index to restore its state.
+<!-- @@author -->
 
+<!-- @@author nichyjt -->
 ### Storage
 
 Storage is a common API built to work completely decoupled from any `Tokenizer` implementation.
@@ -624,7 +633,7 @@ calling `Storage`'s `saveData` method.
   is filtered by the `CommandParser`, the chosen delimiter should never show up in any data input, such as a habit name
   from `AtomicHabits`
 
-<!--@@author nichyjt-->
+<!-- @@author nichyjt -->
 ## Focus Timer Component
 The `Focus Timer` component is responsible for tracking the user's daily habits.
 It consists of the `feature` package and the `command` package.
@@ -696,9 +705,9 @@ methods in `Session` to check which state the command is being called in.
 - `isSessionCounting()`
 - `isSessionWaiting()`
 - `isSessionPaused()`
+<!-- @@author -->
 
-
-<!--@@author YongbinWang-->
+<!-- @@author YongbinWang -->
 #### Commands
 
 ## Product scope
@@ -777,6 +786,7 @@ WellNUS++ is a CLI app, primarily due to the following reasons:
 
 ### Sample test cases
 
+<!-- @@author wenxin-c -->
 #### Help command
 
 1. Make sure you are in the main interface, but individual features(i.e. hb, reflect and timer)
@@ -871,6 +881,7 @@ Note:
 ```
 
 4. Any commands that does not follow the format of `add --name ATOMIC_HABIT_NAME` is invalid
+<!-- @@author -->
 
 ### Saving data
 5 seconds
