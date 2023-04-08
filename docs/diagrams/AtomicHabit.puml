@@ -1,48 +1,52 @@
 @startuml
+'https://plantuml.com/class-diagram
+
 !include style.puml
 skinparam arrowThickness 1.1
 skinparam arrowColor MODEL_COLOR
 skinparam classBackgroundColor MODEL_COLOR
 
 
-Package atomichabit <<Rectangle>>{
-Package command <<Rectangle>> {
-Class AddCommand
-Class DeleteCommand
-Class HomeCommand
-Class ListCommand
-Class UpdateCommand
-}
-Package feature <<Rectangle>> {
-Class AtomicHabit
-Class AtomicHabitManager
-Class AtomicHabitList
+Class MainManager
+
+Class AtomicHabitManager {
++ runEventDriver()
 }
 
+Class AtomicHabitList {
++ addAtomicHabit(AtomicHabit)
++ deleteAtomicHabit(AtomicHabit)
++ getAllHabits(): ArrayList<AtomicHabit>
++ getHabitByIndex(Integer): AtomicHabit
 }
-Class TextUi
+
+Class AtomicHabit {
+- description: String
+- count: int
++ increaseCount()
++ decreaseCount()
++ getDescription(): String
++ getCount(): int
++ toString(): String
+}
+
+Class AtomicHabitCommand {
++ execute()
+}
+
 Class "{abstract}\nCommand" as Command
-Class "{abstract}\nManager" as Manager
-Command <|-- AddCommand
-Command <|-- DeleteCommand
-Command <|-- HomeCommand
-Command <|-- ListCommand
-Command <|-- UpdateCommand
-Manager <|-- AtomicHabitManager
-AtomicHabitList -> "*" AtomicHabit : contains >
-AtomicHabitManager -right-> "1" AtomicHabitList : create >
-AtomicHabitManager --> AddCommand : execute >
-AtomicHabitManager --> DeleteCommand : execute >
-AtomicHabitManager --> HomeCommand : execute >
-AtomicHabitManager --> ListCommand : execute >
-AtomicHabitManager --> UpdateCommand : execute >
-AddCommand --> "1"AtomicHabitList
-DeleteCommand --> "1"AtomicHabitList
-ListCommand --> "1"AtomicHabitList
-UpdateCommand --> "1"AtomicHabitList
-AtomicHabitManager -down-> "1"TextUi
-AddCommand -right-> "1"TextUi
-DeleteCommand -right-> "1"TextUi
-ListCommand -right-> "1"TextUi
-UpdateCommand -right-> "1"TextUi
+
+MainManager --> AtomicHabitManager : > Executes
+
+AtomicHabitManager --> "1   " AtomicHabitList : > Initializes
+
+AtomicHabitManager -down-> "6" AtomicHabitCommand : > Calls
+
+AtomicHabitCommand -right-> "1" AtomicHabitList: > Controls
+
+AtomicHabitCommand -up-|> Command
+
+AtomicHabitList -right-> "0..*" AtomicHabit : > Manages
+
+
 @enduml
