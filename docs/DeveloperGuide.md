@@ -14,13 +14,18 @@
   * [Application Lifecycle](#application-lifecycle)
     * [Overview](#overview)
     * [Rationale](#rationale)
-  * [Reflection Component](#reflection-component)
-    * [Feature Package (`ReflectionManager`, `ReflectionQuestion`, `QuestionList`, `TextUi`, `RandomNumberGenerator` classes)](#feature-package--reflectionmanager--reflectionquestion--questionlist--textui--randomnumbergenerator-classes-)
-    * [Command Package](#command-package)
+  * [UI Component](#ui-component)
+    * [UI Implementation](#ui-implementation)
+  * [Self Reflection Component](#self-reflection-component)
+    * [Design considerations](#design-considerations)
+      * [User design considerations](#user-design-considerations)
+      * [Developer design considerations](#developer-design-considerations)
+    * [Self Reflection Implementation](#self-reflection-implementation)
+      * [Self Reflection commands implementation](#self-reflection-commands-implementation)
   * [CommandParser Component](#commandparser-component)
-    * [Design Considerations](#design-considerations)
-      * [User design Considerations](#user-design-considerations)
-      * [Developer Design Considerations](#developer-design-considerations)
+    * [Design Considerations](#design-considerations-1)
+      * [User design Considerations](#user-design-considerations-1)
+      * [Developer Design Considerations](#developer-design-considerations-1)
       * [Alternative Designs Considered](#alternative-designs-considered)
     * [CommandParser Syntax](#commandparser-syntax)
     * [Implementation](#implementation)
@@ -31,9 +36,9 @@
     * [Tokenizer](#tokenizer)
     * [Storage](#storage)
       * [Usage: `saveData()`](#usage--savedata)
-      * [Design Considerations](#design-considerations-1)
+      * [Design Considerations](#design-considerations-2)
   * [Focus Timer Component](#focus-timer-component)
-    * [Design Considerations](#design-considerations-2)
+    * [Design Considerations](#design-considerations-3)
     * [Focus Timer Implementation](#focus-timer-implementation)
       * [State Management](#state-management)
       * [Commands](#commands)
@@ -150,120 +155,162 @@ abstraction of logic as `Manager.runEventDriver()` ensures that command handling
 actual implementation details by delegating the task to a particular implementation of `Command.execute()`, which is
 known to provide command handling functionality.
 
-## Reflection Component
+<!--@@author wenxin-c-->
+## UI Component
+UI component is in charge of reading in user input and printing output.
 
+### UI Implementation
+![UI Class Diagram](diagrams/UiComponent.png)
+The `TextUi` superclass is created for printing standard output and error messages. Each feature has its own UI subclass which 
+inherits from `TextUi` to support more customised I/O behaviours.<br>
+Main WellNUS++ uses TextUi<br>
+Atomic Habit uses AtomicHabitUi<br>
+Self Reflection uses ReflectUi<br>
+Focus Timer uses FocusUi<br>
+Gamification uses GamificationUi<br>
+For example, the line separator for Self Reflection is `=` and for Atomic Habit is `~`.
+<!--@@author-->
+
+<!--@@author wenxin-c-->
+## Self Reflection Component
+This `Reflection` component provides users with random sets of introspective questions to reflect on, achieving the goal
+of improving their wellness.<br>
+
+### Design considerations
+#### User design considerations
+* The sets of questions generated everytime are designed to be randomised to allow users to reflect on different aspects
+of their lives.
+* Users can review the previous set of questions generated and add questions they resonate well into their favorite list 
+for review in the future. Similarly, they can also remove questions they no longer resonate from their favorite list to 
+ensure the relevancy of the list.
+* `help` command and prompting messages are available to guide users in using Self Reflection. For example, an alert will
+be given to users if they `unlike` a question when their favorite list is empty.
+```
+============================================================
+    The favorite list is empty, there is nothing to be removed.
+============================================================
+```
+* A unique line separator `=` is used to differentiate Self Reflection from other features and give users a better visual
+indication.
+#### Developer design considerations
+* **Abstracted `QuestionList` Class**<br>
+  Self Reflection section relies heavily on the set of random sets of questions generated and this set will be shared 
+  across different classes. A `QuestionList` class is used to store and manipulate the lists of questions such as the 
+  random sets and the favorite list. A common `QuestionList` object is constructed and passed into different command object
+  constructors as an argument. As such, information of lists of questions and their associated methods are centralised 
+  and shared among different objects.
+* **Generate random sets and match user input index to real question index**<br>
+  Multiple data structures are used randomise the sets of questions. An **ArrayList** of 10 questions
+  will be loaded upon launching the program. A **Set** of 5 randomised distinct integers ranging from 0-9 will be generated.
+  This **Set** of integers are the used as the index of questions in the **ArrayList** to select the corresponding questions
+  and stored for other usages (e.g. `like`, `unlike` commands).
+  The displayed index of questions increments from 1 to 5, which might differ from their real indexes in the ArrayList. 
+  A **HashMap** is then used with displayed index being the key and real question index being the value to ensure that the correct
+  question will be mapped to from user input index (i.e. displayed index).
+* **User input validation**<br>
+  Checking mechanism is used to validate user input. The first validation happens at manager level and the `CommandKeyword` will be checked.
+  A correct type of command object will be created based on `CommandKeyword`. The second validation happens at command level
+  to validate arguments and payloads. This is done at command level instead of manager level as different commands might have 
+  different requirements for the inputs.
+
+### Self Reflection Implementation
 ![Reflection Component Sequence Diagram](diagrams/ReflectionSequenceDiagram.png)
-This `Reflection` component provides users with random sets of introspective questions for users to reflect on.<br>
-<br>
-The `reflection` package consists of two packages `command` and `feature` packages. There are also abstract classes
-such as `Manager`, `Command`, `TextUi` that some classes in `reflection` package inherit from. But these abstract
-classes
-are not the focus of this section since they are outside of `reflection` package.<br>
-<br>
+A `ReflectionManager` object is created by the WellNUS++ `MainManager`. It uses a `ReflectUi` and `CommandParser` object 
+to constantly reads in and interprets user input and create the correct command for execution based on input 
+command type until a `HomeCommand`. A common `QuestionList`object is shared among command objects to retrieve and modify user data. 
 
-### Feature Package (`ReflectionManager`, `ReflectionQuestion`, `QuestionList`, `TextUi`, `RandomNumberGenerator` classes)
-
-
+![Reflection Component Class Diagram](diagrams/ReflectionClassDiagram.png)
 `ReflectionManager` class:<br>
-
-- It is charge of the overall execution of the **Self Reflection** feature.
-- It inherits from abstract class `Manager`
-- Each `ReflectionManager` object contains exactly one `ReflectUi` object as an attribute to get user inputs. This is to
+- The main event driver of **Self Reflection** feature.
+- It inherits from abstract `Manager` class to standardise behaviours. For example. `ReflectionManager` needs to override a 
+  standardised abstract method `runEventDriver()` as that this method can be better invoked by the `MainManager`.
+- Each `ReflectionManager` object contains exactly one `ReflectUi` object as an attribute to constantly get user inputs. This is to
   use a common `Scanner` object (created in the `ReflectUi` object) to read all the user inputs within Self Reflection
-  feature.
-  This can avoid potential unexpected behaviours from creating multiple `Scanner` objects.
+  feature. This can avoid potential unexpected behaviours from creating multiple `Scanner` objects.
 - The `runEventDriver()` method is the entry of the Self Reflection feature. It contains a **while loop** to
-  continuously
-  get user input commands as users are expected to continuously perform a series of actions within Self Reflection
-  feature
-  until they wish to return back to main WellNUS++ interface(input `home` command).
-- The termination condition of the while loop is controlled by a static attribute `isExit`. Whenever `runEventDriver()`
-  method is called, the `isExit` attribute will be initialised as `false`. This attribute can be accessed by other
-  objects
-  (more specifically `HomeCommand` object) through a static method `setIsExit()` to set to `true` and the while loop
-  will
-  be terminated. The `static` attribute allows other objects to modify `isExit` value.
-- The `runEventDriver()` method will call the `executeCommands()` method upon getting user commands. Based on the
-  input command type, the `executeCommands()` method will then create the correct type of command objects and
-  call `.execute()`
-  method to execute the command accordingly. Since the command objects are local variables, they are dependencies
-  for `ReflectionManager`
-  class.
-
-`ReflectionQuestion` class:<br>
-
-- Each introspective question is a `ReflectionQuestion` object.
-- It contains the basic description of the introspective question. Being modelled as an object instead of pure string,
-  each
-  question will be able to have more attributes which might be utilized for future features.
+  continuously get user input commands as users are expected to continuously perform a series of actions within Self Reflection
+  feature until they wish to return back to main WellNUS++ interface(input `home` command).
+- Based on the input command type, the `executeCommands()` method will create the correct command objects and
+  invoke the execution of these commands. Since the command objects are local variables, they are dependencies for `ReflectionManager` class.
 
 `QuestionList` class:<br>
-
-- This class stores the list of questions in Self Reflection feature.
-- It contains a `String` array of 10 introspective questions. These descriptions will be used to instantiate an
-  arrayList
-  of 10 ReflectionQuestion.
-- It also stores the indexes of the previous set of generated question and questions liked by users. As such data is
-  used
-  by all commands, a `QuestionList` object is passed by reference to construct command
-  objects(`LikeCommand`, `GetCommand`,
-  `HomeCommand`, `FavoriteCommand`). Hence, it is a dependency to all command objects in Self Reflection. This structure
-  allows
-  data to be centralised and well organised by one class.
+- This class stores the list of 10 `ReflectionQuestion` objects available in Self Reflection. It is in charge of retrieving and modifying
+  user data related to `ReflectionQuestion` such as the favorite list and the indexes of the previously generated set of questions.
+- A `ReflectionManager` object has exactly one `QuestionList` object which is then passed by reference to construct command
+  objects(`LikeCommand`, `GetCommand` etc). Hence, it is a dependency for all command objects in Self Reflection. This structure
+  allows data to be centralised and well organised by one class.
 - By abstracting the above-mentioned attributes and methods as a separate class instead of putting them
-  in `ReflectionManager`,
-  the `ReflectionManager` class can solely focus command execution. All the data related to the list of questions is
-  stored
-  in `QuestionList` class. As such, Single responsibility can be better achieved.
+  in `ReflectionManager`, the `ReflectionManager` class can solely focus command execution. All the data related to the 
+  list of questions is taken care of by the `QuestionList` class. As such, Single responsibility can be better achieved.
+- A `QuestionList` object has exactly one `Storage` and `ReflectionTokenizer` class to store data into data file upon update
+  and load data from data file upon launching WellNUS++.
+
+`ReflectionQuestion` class:<br>
+- Each introspective question is a `ReflectionQuestion` object.
+- It contains the basic description of the introspective question. Being modelled as an object instead of pure string,
+  each question will be able to have more attributes which might be utilized for future features.
 
 `ReflectUi` class: <br>
+- This subclass inherits from `TextUi` superclass. It allows Self Reflection feature to have more customised output 
+  behaviour(e.g. type of separators).
 
-- This subclass is created to allow Self Reflection feature to have more customised output behaviour(e.g. type of
-  separators)
-  other than those inherited from parent class `TextUi`.
+`ReflectionCommands` class: <br>
+- This represents a collection of all commands in Self Reflection feature, which will be explained in more detail at later section.
+- Each command class inherits from `Command` abstract class and override `validateComand()` abstract method to validate
+  command. 
+- Commands available in Self Reflection: <br>
+  Get a random set of reflection questions: `get`<br>
+  Add a particular question into favorite list: `like INDEX`<br>
+  Remove a particular question from favorite list: `unlike INDEX`<br>
+  View questions in the favorite list: `fav`<br>
+  Review the previous set of questions: `prev`<br>
+  Help command: `help`<br>
+  Return back to main WellNUS++: `home`
 
-`RandomNumberGenerator` class; <br>
-
-- It is used generate a set of 5 distinct integers(0 ~ num_of_questions-1), this set
-  of integers will be used as indexes to select the corresponding questions from the pool of 10 questions available.
-
-### Command Package
+#### Self Reflection commands implementation
+![Reflection Commands Class Diagram](diagrams/ReflectionCommandsUML.png)
 
 `GetCommand` class: <br>
-
 - Command format: `get`
-- This command allows users to get a list of 5 random introspective questions.
-- The commands are validated by the `validateCommand()` method and a `BadCommandException` will be thrown if the
-  commands are invalid.
-- A `QuestionList` object is passed in as a dependency to generate the set of indexes and provide the pool of 10
-  introspective questions available.
+- This command generates a set of 5 random introspective questions for users to reflect on.
+- A `QuestionList` object is passed in as a dependency to provide the pool of 10 introspective questions available 
+and generate the set of indexes.
 
 `LikeCommand` class: <br>
-
-- Command format: `like <index of question(1~5)>`
-- Users can add an introspective question that is generated in the previous set into their favorite list. Since there
-  will only
-  be 5 questions per set, the indexes are restricted to integer 1~5.
-- `addFavQuestion()` method in `QuestionList` class is used to add and store the data.
-- Users can only successfully add a question to favorite list if they have gotten a set of questions previously.
+- Command format: `like INDEX`
+- Users can add reflection question that is generated in the previous set into their favorite list. As there
+  will only be 5 questions per random set, the indexes are restricted to integer 1~5.
+- The `QuestionList` class is used to as a dependency and `addFavQuestion()` method in called to add and store the data.
 - Every time a question is added into the favorite list, the indexes of this particular question will be stored in data
   file straightaway. It prevents data loss due to unforeseen computer shutdown.
+- Users can only successfully add a question to favorite list if they have gotten **at least** one set of questions previously.
+
+`UnlikeCommand` class: <br>
+- Command format: `unlike INDEX`
+- Users can remove reflection questions from their favorite list. 
+- The `removeFavQuestion()` method in `QuestionList` class is used to remove data and the mechanism is similar to `like` command.
 
 `FavoriteCommand` class: <br>
-
 - Command format: `fav`
-- Users can get the questions in their favorite list.
-- `getFavQuestions()` method in `QuestionList` class matches the indexes to corresponding questions and return this set
-  of questions
-  back to `FavCommand` for output. As such, `QuestionList` is a dependency for `FavoriteCommand` as well.
+- Users can review the questions in their favorite list.
+- The `getFavQuestions()` method in `QuestionList` class is called to retrieve the questions based on the indexes in the 
+favorite list.
+
+`PrevCommand` class: <br>
+- Command format: `prev`
+- Users can review the set of questions generated by the previous `get` command. It only works if users have gotten
+  **at least** one set of questions.
+
+`HelpCommand` class: <br>
+- Command format: `help [COMMAND_TO_CHECK]`
+- Every command class has public attributes `COMMAND_DESCRIPTION` and `COMMAND_USAGE`.
+- `printHelpMessage()` method in `HelpCommand` will retrieve and print these attributes.
 
 `HomeCommand` class: <br>
-
 - Command format: `home`
 - This command allows users to return back to the main WellNUS++ interface.
-- Similar to `GetCommand`, `validateCommand()` method will also be called to validate the command.
-- It will then call the class-level method `ReflectionManager.setIsExit()` to terminate the while loop
-  in `Reflectionmanager`.
+
+<!--@@author-->
 
 <!--@@author nichyjt -->
 ## CommandParser Component
@@ -636,7 +683,7 @@ From this, we can easily check which state we are in and then allow exe
 Referring to the class diagram, this is implemented on `Session` with various methods helping identify the state:  
 
 Example implementation:
-```java
+```
 public boolean isSessionCounting(){
     Countdown countdown = getCurrentCountdown();
     return countdown.getIsRunning() && !countdown.getIsCompletedCountdown();
