@@ -22,6 +22,7 @@ skinparam ParticipantPadding 10
 skinparam DefaultTextAlignment center
 skinparam packageStyle Rectangle
 skinparam Shadowing false
+skinparam classAttributeIconSize 0
 
 skinparam Class {
     FontColor #FFFFFF

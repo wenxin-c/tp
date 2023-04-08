@@ -14,7 +14,6 @@ import wellnus.gamification.util.GamificationData;
 import wellnus.gamification.util.GamificationStorage;
 import wellnus.gamification.util.GamificationUi;
 import wellnus.manager.Manager;
-import wellnus.ui.TextUi;
 
 /**
  * Manager for the gamification feature. Entry point for this class is the runEventDriver() method.
@@ -35,19 +34,18 @@ public class GamificationManager extends Manager {
             + "home command " + HomeCommand.COMMAND_USAGE;
     private static final String LOAD_GAMIF_DATA_ERROR_MESSAGE = "Error saving to storage!";
     private GamificationData gamificationData;
-    private final TextUi textUi;
+    private final GamificationUi gamificationUi;
 
     /**
      * Returns an instance of the GamificationManager.
      */
     public GamificationManager() {
-        this.textUi = new TextUi();
-        this.textUi.setCursorName(FEATURE_NAME);
+        this.gamificationUi = new GamificationUi();
         try {
             GamificationStorage gamificationStorage = new GamificationStorage();
             this.gamificationData = gamificationStorage.loadData();
         } catch (StorageException | TokenizerException loadDataException) {
-            textUi.printErrorFor(loadDataException, LOAD_GAMIF_DATA_ERROR_MESSAGE);
+            gamificationUi.printErrorFor(loadDataException, LOAD_GAMIF_DATA_ERROR_MESSAGE);
             this.gamificationData = new GamificationData();
         }
     }
@@ -103,12 +101,12 @@ public class GamificationManager extends Manager {
         boolean isExit = false;
         while (!isExit) {
             try {
-                String commandString = textUi.getCommand();
+                String commandString = gamificationUi.getCommand();
                 Command command = getCommandFor(commandString);
                 command.execute();
                 isExit = HomeCommand.isHome(command);
             } catch (WellNusException exception) {
-                textUi.printErrorFor(exception, COMMAND_INVALID_COMMAND_NOTE);
+                gamificationUi.printErrorFor(exception, COMMAND_INVALID_COMMAND_NOTE);
             }
         }
     }

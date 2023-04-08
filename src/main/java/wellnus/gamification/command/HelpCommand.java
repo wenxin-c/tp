@@ -6,7 +6,7 @@ import java.util.HashMap;
 import wellnus.command.Command;
 import wellnus.exception.BadCommandException;
 import wellnus.gamification.GamificationManager;
-import wellnus.ui.TextUi;
+import wellnus.gamification.util.GamificationUi;
 
 /**
  * Implementation of Gamification WellNus' <code>help</code> command. Explains to the user what commands are supported
@@ -24,12 +24,11 @@ public class HelpCommand extends Command {
     private static final String HELP_PREAMBLE = "Input `help` to see all available commands.\n"
             + "Input `help [command-to-check]` to get usage help for a specific command.\n"
             + "Here are all the commands available for you!";
-    private static final String ERROR_UNKNOWN_COMMAND = "Invalid command issued!";
     private static final String PADDING = " ";
     private static final String DOT = ".";
     private static final int ONE_OFFSET = 1;
     private static final int EXPECTED_PAYLOAD_SIZE = 1;
-    private final TextUi textUi;
+    private final GamificationUi gamificationUi;
 
     /**
      * Initialises a HelpCommand Object using the command arguments issued by the user.
@@ -38,11 +37,7 @@ public class HelpCommand extends Command {
      */
     public HelpCommand(HashMap<String, String> arguments) {
         super(arguments);
-        this.textUi = new TextUi();
-    }
-
-    private TextUi getTextUi() {
-        return this.textUi;
+        this.gamificationUi = new GamificationUi();
     }
 
     private ArrayList<String> getCommandDescriptions() {
@@ -81,7 +76,7 @@ public class HelpCommand extends Command {
             outputMessage = outputMessage.concat(i + ONE_OFFSET + DOT + PADDING);
             outputMessage = outputMessage.concat(commandDescriptions.get(i) + System.lineSeparator());
         }
-        this.getTextUi().printOutputMessage(outputMessage);
+        gamificationUi.printOutputMessage(outputMessage);
     }
 
     /**
@@ -102,13 +97,13 @@ public class HelpCommand extends Command {
             break;
         default:
             BadCommandException unknownCommand = new BadCommandException(COMMAND_INVALID_PAYLOAD);
-            textUi.printErrorFor(unknownCommand, COMMAND_INVALID_COMMAND_NOTE);
+            gamificationUi.printErrorFor(unknownCommand, COMMAND_INVALID_COMMAND_NOTE);
         }
     }
 
     private void printUsageMessage(String commandDescription, String usageString) {
         String message = commandDescription + System.lineSeparator() + usageString;
-        textUi.printOutputMessage(message);
+        gamificationUi.printOutputMessage(message);
     }
 
     @Override
@@ -135,7 +130,7 @@ public class HelpCommand extends Command {
         try {
             validateCommand(getArguments());
         } catch (BadCommandException exception) {
-            getTextUi().printErrorFor(exception, COMMAND_INVALID_COMMAND_NOTE);
+            gamificationUi.printErrorFor(exception, COMMAND_INVALID_COMMAND_NOTE);
             return;
         }
         this.printHelpMessage();

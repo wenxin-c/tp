@@ -31,14 +31,25 @@ public class TextUi {
     private static final String CURSOR_CARET = "(%s):~$ ";
     private Scanner scanner;
     private String separator = "-";
+    private int separatorLength;
     private String cursor = CURSOR_CARET;
 
+    /**
+     * Returns a new instance of TextUi that reads user input from the default
+     * System.in InputStream.
+     */
     public TextUi() {
         this(System.in);
     }
 
+    /**
+     * Returns a new instance of TextUi that reads user input from the given
+     * InputStream.
+     * @param inputStream InputStream that WellNUS++ will read user input(commands) from
+     */
     public TextUi(InputStream inputStream) {
         this.scanner = new Scanner(inputStream);
+        this.separatorLength = DEFAULT_SEPARATOR_LENGTH;
     }
 
     //@@author wenxin-c
@@ -84,12 +95,22 @@ public class TextUi {
     }
 
     /**
+     * Customises the length of the separator as needed by a particular feature's
+     * unique style.
+     *
+     * @param separatorLength Number of characters to print in the feature's separator
+     */
+    public void setSeparatorLength(int separatorLength) {
+        this.separatorLength = separatorLength;
+    }
+
+    /**
      * Print line separators for output lines.<br/>
      * <br/>
      * Each subclass inherited from this class can override this method to vary the interface.
      */
     public void printSeparator() {
-        for (int i = 0; i < DEFAULT_SEPARATOR_LENGTH; i += 1) {
+        for (int i = 0; i < separatorLength; i += 1) {
             System.out.print(separator);
         }
         System.out.print(System.lineSeparator());
