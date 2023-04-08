@@ -33,6 +33,7 @@ public class GamificationUi extends TextUi {
         super();
         super.setCursorName(GamificationManager.FEATURE_NAME);
         super.setSeparator(SEPARATOR);
+        super.setSeparatorLength(NUM_CHAR_IN_SEPARATOR);
     }
 
     private static void printGamificationSeparator() {
