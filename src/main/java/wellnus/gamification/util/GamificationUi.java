@@ -6,6 +6,7 @@ import wellnus.ui.TextUi;
  * Provides helper methods for printing to the user's screen with the gamification feature's unique style.
  */
 public class GamificationUi extends TextUi {
+    public static final String SEPARATOR = "#";
     private static final int NUM_CHAR_IN_SEPARATOR = 70;
     private static final String CELEBRATE_LEVEL_UP_MESSAGE = "Congratulations! Level up";
     private static final String GOODBYE_MESSAGE = "Thank you for using the gamification feature! Return anytime";
@@ -15,7 +16,6 @@ public class GamificationUi extends TextUi {
             + "  / / __/ __ `/ __ `__ \\/ / /_/ / ___/ __ `/ __/ / __ \\/ __ \\" + System.lineSeparator()
             + " / /_/ / /_/ / / / / / / / __/ / /__/ /_/ / /_/ / /_/ / / / /" + System.lineSeparator()
             + " \\____/\\__,_/_/ /_/ /_/_/_/ /_/\\___/\\__,_/\\__/_/\\____/_/ /_/ ";
-    private static final String SEPARATOR = "#";
     private static final String XP_BAR_CHAR = "=";
     private static final String XP_BAR_HEAD = ">";
     private static final String XP_BOX_LEFT = "[";
