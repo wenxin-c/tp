@@ -6,23 +6,36 @@ skinparam arrowColor MODEL_COLOR
 skinparam classBackgroundColor MODEL_COLOR
 hide footbox
 
+participant ":MainManager" as MainManager MODEL_COLOR
+participant ":AtomicHabitManager" as AtomicHabitManager MODEL_COLOR
+participant ":AtomicUi" as AtomicUi MODEL_COLOR
+participant ":HabitList" as HabitList MODEL_COLOR
+participant ":AddCommand" as AddCommand MODEL_COLOR
+participant ":DeleteCommand" as DeleteCommand MODEL_COLOR
+participant ":ListCommand" as ListCommand MODEL_COLOR
+participant ":UpdateCommand" as UpdateCommand MODEL_COLOR
+participant ":AtomicHabitCommand" as AtomicHabitCommand MODEL_COLOR
+participant ":HelpCommand" as HelpCommand MODEL_COLOR
+participant ":HomeCommand" as HomeCommand MODEL_COLOR
+participant ":BadCommandException" as BadCommandException MODEL_COLOR
+
 activate MainManager
 
 create AtomicHabitManager
 MainManager -> AtomicHabitManager
 activate AtomicHabitManager
 
-create textUi
-AtomicHabitManager -> textUi
-activate textUi
-textUi --> AtomicHabitManager
-deactivate textUi
+create AtomicUi
+AtomicHabitManager -> AtomicUi
+activate AtomicUi
+AtomicUi --> AtomicHabitManager
+deactivate AtomicUi
 
-create habitList
-AtomicHabitManager -> habitList
-activate habitList
-habitList --> AtomicHabitManager
-deactivate habitList
+create HabitList
+AtomicHabitManager -> HabitList
+activate HabitList
+HabitList --> AtomicHabitManager
+deactivate HabitList
 
 AtomicHabitManager --> MainManager
 deactivate AtomicHabitManager
@@ -32,11 +45,11 @@ activate AtomicHabitManager
 
 AtomicHabitManager -> AtomicHabitManager : greet()
 activate AtomicHabitManager
-AtomicHabitManager -> textUi : getTextUi()
-activate textUi
-textUi --> AtomicHabitManager : textUi
-deactivate textUi
-AtomicHabitManager -> textUi : printOutputMessage()
+AtomicHabitManager -> AtomicUi : getTextUi()
+activate AtomicUi
+AtomicUi --> AtomicHabitManager : AtomicUi
+deactivate AtomicUi
+AtomicHabitManager -> AtomicUi : printOutputMessage()
 deactivate AtomicHabitManager
 
 AtomicHabitManager -> AtomicHabitManager : runCommands()
@@ -45,14 +58,14 @@ activate AtomicHabitManager
     loop until isExit is true
         AtomicHabitManager -> AtomicHabitManager : getCommand()
         activate AtomicHabitManager
-        AtomicHabitManager -> textUi : getTextUi()
-        activate textUi
-        textUi --> AtomicHabitManager : textUi
-        deactivate textUi
-        AtomicHabitManager -> textUi : getCommand()
-        activate textUi
-        textUi --> AtomicHabitManager : commandString
-        deactivate textUi
+        AtomicHabitManager -> AtomicUi : getTextUi()
+        activate AtomicUi
+        AtomicUi --> AtomicHabitManager : AtomicUi
+        deactivate AtomicUi
+        AtomicHabitManager -> AtomicUi : getCommand()
+        activate AtomicUi
+        AtomicUi --> AtomicHabitManager : commandString
+        deactivate AtomicUi
         deactivate AtomicHabitManager
 
         AtomicHabitManager -> AtomicHabitManager : getCommandFor(commandString)
@@ -61,38 +74,38 @@ activate AtomicHabitManager
                 create AddCommand
                 AtomicHabitManager -> AddCommand
                 activate AddCommand
-                AddCommand --> AtomicHabitManager : AddCommand(arguments, habitList)
+                AddCommand --> AtomicHabitManager : AddCommand(arguments, HabitList)
                 deactivate AddCommand
             else commandString = delete
                 create DeleteCommand
                 AtomicHabitManager -> DeleteCommand
                 activate DeleteCommand
-                DeleteCommand --> AtomicHabitManager : DeleteCommand(arguments, habitList)
+                DeleteCommand --> AtomicHabitManager : DeleteCommand(arguments, HabitList)
                 deactivate DeleteCommand
             else commandString = home
                 create HomeCommand
                 AtomicHabitManager -> HomeCommand
                 activate HomeCommand
-                HomeCommand --> AtomicHabitManager : HomeCommand(arguments, habitList)
+                HomeCommand --> AtomicHabitManager : HomeCommand(arguments, HabitList)
                 deactivate HomeCommand
             else commandString = list
                 create ListCommand
                 AtomicHabitManager -> ListCommand
                 activate ListCommand
-                ListCommand --> AtomicHabitManager : ListCommand(arguments, habitList)
+                ListCommand --> AtomicHabitManager : ListCommand(arguments, HabitList)
                 deactivate ListCommand
             else commandString = update
                 create UpdateCommand
                 AtomicHabitManager -> UpdateCommand
                 activate UpdateCommand
-                UpdateCommand --> AtomicHabitManager : UpdateCommand(arguments, habitList)
+                UpdateCommand --> AtomicHabitManager : UpdateCommand(arguments, HabitList)
                 deactivate UpdateCommand
             else commandString = help
                 create HelpCommand
                 AtomicHabitManager -> HelpCommand
                 activate HelpCommand
-                HelpCommand --> AtomicHabitManager : HelpCommand(arguments, habitList)
-                deactivate UpdateCommand
+                HelpCommand --> AtomicHabitManager : HelpCommand(arguments, HabitList)
+                deactivate HelpCommand
             else
                 create BadCommandException
                 AtomicHabitManager -> BadCommandException
@@ -101,7 +114,7 @@ activate AtomicHabitManager
                 deactivate BadCommandException
             end
         deactivate AtomicHabitManager
-        AtomicHabitManager -> AtomicHabitcommand : execute()
+        AtomicHabitManager -> AtomicHabitCommand : execute()
     end
 deactivate AtomicHabitManager
 
