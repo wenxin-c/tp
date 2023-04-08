@@ -3,65 +3,70 @@
 # Table of Contents
 
 <!-- TOC -->
-
 * [Developer Guide](#developer-guide)
 * [Table of Contents](#table-of-contents)
-* [Product Name](#product-name)
 * [Acknowledgements](#acknowledgements)
 * [Setting up, getting started](#setting-up-getting-started)
-    * [Setting up the project in your computer](#setting-up-the-project-in-your-computer)
-    * [Before writing code](#before-writing-code)
+  * [Setting up the project in your computer](#setting-up-the-project-in-your-computer)
+  * [Before writing code](#before-writing-code)
 * [Design & implementation](#design--implementation)
-    * [Application Lifecycle](#application-lifecycle)
-        * [Overview](#overview)
-        * [Rationale](#rationale)
-    * [UI Component](#ui-component)
-        * [UI Implementation](#ui-implementation)
-    * [Self Reflection Component](#self-reflection-component)
-        * [Design considerations](#design-considerations)
-            * [User design considerations](#user-design-considerations)
-            * [Developer design considerations](#developer-design-considerations)
-        * [Self Reflection Implementation](#self-reflection-implementation)
-            * [Self Reflection commands implementation](#self-reflection-commands-implementation)
-    * [CommandParser Component](#commandparser-component)
-        * [Design Considerations](#design-considerations-1)
-            * [User design Considerations](#user-design-considerations-1)
-            * [Developer Design Considerations](#developer-design-considerations-1)
-            * [Alternative Designs Considered](#alternative-designs-considered)
-        * [CommandParser Syntax](#commandparser-syntax)
-        * [Implementation](#implementation)
-            * [Integration with WellNUS++](#integration-with-wellnus)
-            * [CommandParser API](#commandparser-api)
-        * [AtomicHabit Component](#atomichabit-component)
-        * [Managers](#managers)
-        * [Tokenizer](#tokenizer)
-        * [Storage](#storage)
-            * [Usage: `saveData()`](#usage--savedata)
-            * [Design Considerations](#design-considerations-2)
-    * [Focus Timer Component](#focus-timer-component)
-        * [Design Considerations](#design-considerations-3)
-        * [Focus Timer Implementation](#focus-timer-implementation)
-            * [State Management](#state-management)
-            * [Commands](#commands)
-    * [Product scope](#product-scope)
-        * [Target user profile](#target-user-profile)
-        * [Value proposition](#value-proposition)
-    * [User Stories](#user-stories)
-    * [Non-Functional Requirements](#non-functional-requirements)
-    * [Glossary](#glossary)
-    * [Instructions for manual testing](#instructions-for-manual-testing)
-        * [Launch](#launch)
-        * [Sample test cases](#sample-test-cases)
-            * [Help command](#help-command)
-            * [Get reflection questions](#get-reflection-questions)
-            * [Add atomic habits](#add-atomic-habits)
-        * [Saving data](#saving-data)
-
+  * [Application Lifecycle](#application-lifecycle)
+    * [Overview](#overview)
+    * [Rationale](#rationale)
+  * [UI Component](#ui-component)
+    * [UI Implementation](#ui-implementation)
+  * [Self Reflection Component](#self-reflection-component)
+    * [Design considerations](#design-considerations)
+      * [User design considerations](#user-design-considerations)
+      * [Developer design considerations](#developer-design-considerations)
+    * [Self Reflection Implementation](#self-reflection-implementation)
+      * [Self Reflection commands implementation](#self-reflection-commands-implementation)
+  * [CommandParser Component](#commandparser-component)
+    * [Design Considerations](#design-considerations-1)
+      * [User design Considerations](#user-design-considerations-1)
+      * [Developer Design Considerations](#developer-design-considerations-1)
+      * [Alternative Designs Considered](#alternative-designs-considered)
+    * [CommandParser Syntax](#commandparser-syntax)
+    * [Implementation](#implementation)
+      * [Integration with WellNUS++](#integration-with-wellnus)
+      * [CommandParser API](#commandparser-api)
+      * [Alternative Designs Considered](#alternative-designs-considered-1)
+  * [AtomicHabit Component](#atomichabit-component)
+    * [Design Considerations](#design-considerations-2)
+      * [User design considerations](#user-design-considerations-2)
+      * [Developer design considerations](#developer-design-considerations-2)
+    * [AtomicHabit Implementation](#atomichabit-implementation)
+      * [AtomicHabit Commands](#atomichabit-commands)
+  * [Managers](#managers)
+    * [Design Considerations](#design-considerations-3)
+    * [`MainManager`: A Unique Implementation](#mainmanager--a-unique-implementation)
+  * [Tokenizer](#tokenizer)
+    * [Design Considerations](#design-considerations-4)
+    * [Individual Tokenizers](#individual-tokenizers)
+  * [Storage](#storage)
+    * [Usage: `saveData()`](#usage--savedata)
+    * [Design Considerations](#design-considerations-5)
+  * [Focus Timer Component](#focus-timer-component)
+    * [Design Considerations](#design-considerations-6)
+    * [Focus Timer Implementation](#focus-timer-implementation)
+      * [State Management](#state-management)
+      * [Commands](#commands)
+* [Appendix: Requirements](#appendix--requirements)
+  * [Product scope](#product-scope)
+    * [Product Name](#product-name)
+    * [Target user profile](#target-user-profile)
+    * [Value proposition](#value-proposition)
+  * [User Stories](#user-stories)
+  * [Non-Functional Requirements](#non-functional-requirements)
+  * [Glossary](#glossary)
+* [Appendix: Instructions for manual testing](#appendix--instructions-for-manual-testing)
+  * [Launch](#launch)
+  * [Sample test cases](#sample-test-cases)
+    * [Help command](#help-command)
+    * [Get reflection questions](#get-reflection-questions)
+    * [Add atomic habits](#add-atomic-habits)
+  * [Saving data](#saving-data)
 <!-- TOC -->
-
-# Product Name
-
-**WellNUS++**
 
 # Acknowledgements
 
@@ -106,6 +111,7 @@ If you plan to use Intellij IDEA (highly recommended): <br>
 
 # Design & implementation
 
+<!-- @@author haoyangw -->
 ## Application Lifecycle
 
 ### Overview
@@ -160,9 +166,9 @@ commands do not require changes in any implementation of `Manager.runEventDriver
 abstraction of logic as `Manager.runEventDriver()` ensures that command handling is performed while avoiding the
 actual implementation details by delegating the task to a particular implementation of `Command.execute()`, which is
 known to provide command handling functionality.
+<!-- @@author -->
 
-<!--@@author wenxin-c-->
-
+<!-- @@author wenxin-c -->
 ## UI Component
 
 UI component is in charge of reading in user input and printing output.
@@ -179,10 +185,9 @@ Self Reflection uses ReflectUi<br>
 Focus Timer uses FocusUi<br>
 Gamification uses GamificationUi<br>
 For example, the line separator for Self Reflection is `=` and for Atomic Habit is `~`.
-<!--@@author-->
+<!-- @@author -->
 
-<!--@@author wenxin-c-->
-
+<!-- @@author wenxin-c -->
 ## Self Reflection Component
 
 This `Reflection` component provides users with random sets of introspective questions to reflect on, achieving the goal
@@ -365,10 +370,9 @@ user data.
 - Command format: `home`
 - This command allows users to return back to the main WellNUS++ interface.
 
-<!--@@author-->
+<!-- @@author -->
 
-<!--@@author nichyjt -->
-
+<!-- @@author nichyjt -->
 ## CommandParser Component
 
 The CommandParser is a core feature of WellNUS++.
@@ -537,6 +541,7 @@ is input as an argument.
 
 Internally, this just splits the string by whitespace and returns the first word in the array.
 
+<!-- @@author YongbinWang -->
 #### Alternative Designs Considered
 
 We considered alternative command structures such as [AB3](https://se-education.org/addressbook-level3/UserGuide.html)
@@ -654,11 +659,13 @@ Note: For readability, AtomicHabitCommand is an abstraction of all the 6 differe
 - Every command class has public attributes `COMMAND_DESCRIPTION` and `COMMAND_USAGE`.
 - `printHelpMessage()` method in `HelpCommand` will retrieve and print these attributes.
 
-### Managers
+<!-- @@author haoyangw -->
+## Managers
 
 ![Manager](diagrams/Manager.png)<br/>
 The `Manager` abstract class is the superclass for classes responsible for handling user interaction with the app.
 
+### Design Considerations
 Each `Manager` provides `runEventDriver()`, which takes over control of user interaction and provides a particular
 feature(along with all its commands). This fulfils the `Single Responsibility Principle` as every `Manager` is in charge
 of one particular feature and recognises its feature's commands, so it will only change when the feature
@@ -679,6 +686,7 @@ requested action. This ensures that changes in logic for individual commands or 
 any changes in a particular implementation of `Manager`, as should be expected. A `Manager` class will only change to
 recognise new commands for its feature.
 
+### `MainManager`: A Unique Implementation
 `MainManager` is a unique implementation of `Manager` in that it holds references to every feature's `Manager` instance.
 This is important as `MainManager` then acts as an abstraction barrier for the application: `WellNus` does not know
 what features or commands are supported by the application, and only knows that `MainManager` can recognise supported
@@ -689,13 +697,16 @@ application so that a previous session for a feature can be fully restored when 
 he/she never left. This makes sense conceptually for a class named `MainManager` and eliminates the need to restore a
 particular `Manager`'s state from storage if the application is still running and the user returns to a particular
 feature.
+<!-- @@author -->
 
-### Tokenizer
+<!-- @@author BernardLesley -->
+## Tokenizer
 
 ![Tokenizer](diagrams/Tokenizer.png)<br/>
 The `Tokenizer` interface is the superclass for classes responsible for converting data stored temporarily in feature's
 Managers into Strings for storage and also convert Strings from storage back into data that can be restored by Managers.
 
+### Design Considerations
 Each `Tokenizer` provides `tokenize()` and `detokenize()`, which can then be adapted for each feature. This fulfills the
 `Single Responsibility Principle` as each `Tokenizer` are only responsible to tokenize and detokenize data from only one
 Feature. Furthermore, this design also fulfills `Open-Closed Principle` where `Tokenizer` interface are open for
@@ -709,7 +720,8 @@ method. Each feature's tokenizer are free to implement `tokenize()` and `detoken
 different
 kinds of data.
 
-`AtomicHabitTokernizer` class is responsible to tokenize and detokenize ArrayList of AtomicHabits that
+### Individual Tokenizers
+`AtomicHabitTokenizer` class is responsible to tokenize and detokenize ArrayList of AtomicHabits that
 AtomicHabitManager will
 use or store. Each habit will be tokenized in the following
 format `--description [description of habit] --count [count of
@@ -733,8 +745,10 @@ prev:[index of previous question]
 `detokenize()` then can be called by ReflectionManager to retrieve the ArrayList containing the Set of liked and
 previous
 questions' index to restore its state.
+<!-- @@author -->
 
-### Storage
+<!-- @@author nichyjt -->
+## Storage
 
 Storage is a common API built to work completely decoupled from any `Tokenizer` implementation.
 
@@ -745,7 +759,7 @@ Loading: `loadData` will load all `WellNUS++` data into a common data type, `Arr
 
 The data transformation from `String` to the target data type by the managers is solely up to `Tokenizer`.
 
-#### Usage: `saveData()`
+### Usage: `saveData()`
 
 To illustrate the overall flow on how to save data, refer to the sequence diagram below.
 
@@ -754,16 +768,16 @@ calling `Storage`'s `saveData` method.
 
 ![](./diagrams/StorageSequence-Saving_Data__Emphasis_on_Storage_Subroutine_.png)
 
-#### Design Considerations
+### Design Considerations
 
 - Only filenames defined by public string constants in the `Storage` class.
   This is meant to prevent developer mis-use and control what exactly waht files WellNUS++ can create.
 - Internally, each entry in `ArrayList<String>` will be delimited by ` --\n`, where \n is `System.LineSeparator()`.
   This was chosen due to the invariant property of `' --'` in the context of WellNUS++. Due to the way all user input
   is filtered by the `CommandParser`, the chosen delimiter should never show up in any data input, such as a habit name
-  from `AtomicHabits`
+  from `AtomicHabits`.
 
-<!--@@author nichyjt-->
+<!-- @@author nichyjt -->
 
 ## Focus Timer Component
 
@@ -836,9 +850,9 @@ methods in `Session` to check which state the command is being called in.
 - `isSessionCounting()`
 - `isSessionWaiting()`
 - `isSessionPaused()`
+<!-- @@author -->
 
-<!--@@author YongbinWang-->
-
+<!-- @@author YongbinWang -->
 #### Commands
 
 `StartCommand` class: <br>
@@ -898,7 +912,11 @@ methods in `Session` to check which state the command is being called in.
 - Command format: `home`
 - This command allows users to return back to the main WellNUS++ interface.
 
+# Appendix: Requirements
 ## Product scope
+### Product Name
+
+**WellNUS++**
 
 ### Target user profile
 
@@ -955,16 +973,16 @@ WellNUS++ is a CLI app, primarily due to the following reasons:
 ## Glossary
 
 * *glossary item* - Definition
-* **Mainstream OS**: Windows, Linux, Unix, OS-X
+* **Mainstream OS**: Windows, Linux, Unix, macOS
 * **Main Command**: The first WORD that a user types in. `e.g. reflect, exit`
 * **Argument**: A word that is a parameter to a `Main Command` and is prefixed by ` --`. `e.g. --id, --name`
 * **Payload**: An (optional) arbitrary sequence of characters immediately following a main command or argument.
   The payload will terminate when the user clicks `enter` or separates the payload with another argument
   with the `--` delimiter.
 
-## Instructions for manual testing
+# Appendix: Instructions for manual testing
 
-### Launch
+## Launch
 
 1. Ensure you have Java 11 or above installed in your Computer.
 2. Download the latest `wellnus.jar` from here.
@@ -972,9 +990,10 @@ WellNUS++ is a CLI app, primarily due to the following reasons:
 4. Open a command terminal, cd into the folder you put the `wellnus.jar` file in, and use the `java -jar wellnus.jar`
    command to run the application. A CLI should appear in a few seconds.
 
-### Sample test cases
+## Sample test cases
 
-#### Help command
+<!-- @@author wenxin-c -->
+### Help command
 
 1. Make sure you are in the main interface, but individual features(i.e. hb, reflect and timer)
 2. Test case: `help`<br>
@@ -1018,7 +1037,7 @@ Here are all the commands available for you!
 
 4. To get a list of available commands, any command other than `help` is invalid
 
-#### Get reflection questions
+### Get reflection questions
 
 1. Make sure you are inside **Self Reflection** feature by enter `reflect` command after the launch of the program
 2. Test case: `get`<br>
@@ -1054,7 +1073,7 @@ Please check the available commands and the format of commands.
 
 4. Any command other than `get` is invalid
 
-#### Add atomic habits
+### Add atomic habits
 
 1. Make sure you are inside **Atomic habit** feature by enter `hb` command after the launch of the program
 2. Test case: `add --name make bed every morning`<br>
@@ -1088,8 +1107,39 @@ Note:
 ```
 
 4. Any commands that does not follow the format of `add --name ATOMIC_HABIT_NAME` is invalid
+<!-- @@author -->
 
-### Saving data
-
-5 seconds
-To be implemented. 
+<!-- @@author haoyangw -->
+## Saving data
+1. Dealing with missing data files
+* Ensure data files are created: Add a new atomic habit using the `add --name Test data file` command in the `hb`
+  session
+* Quit `WellNUS++`: Issue `home` command in the `hb` session followed by `exit` command in the `main` session
+* Delete data files: Delete the `data` folder created in the same folder as the `WellNUS++` jar file you just executed
+* Relaunch `WellNUS++`: Run the `WellNUS++` jar file, issue `hb` command and then issue `list` command. Verify that no
+  atomic habits are now recorded, i.e. `WellNUS++` should output:
+```
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    You have no habits in your list!
+    Start adding some habits by using 'add'!
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+```
+2. Dealing with corrupted data files
+* Quit `WellNUS++`
+* Open the `data/habit.txt` file located in the same directory as the `WellNUS++` jar file
+* Replace the contents of the `habit.txt` file with the following lines:
+```
+--description Valid atomic habit --count 1 --
+--corrupted Data --test to be ignored --
+```
+* Run the `WellNUS++` jar file
+* View the saved atomic habits: Issue `hb` followed by `list`. Expected output should be:
+```
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    You have no habits in your list!
+    Start adding some habits by using 'add'!
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+```
+* Explanation: Upon relaunch, `WellNUS++` detected the invalid line `--corrupted Data --test to be ignored --` and
+  cleaned the contents of the data file, leaving no atomic habits recorded
+<!-- @@author -->
