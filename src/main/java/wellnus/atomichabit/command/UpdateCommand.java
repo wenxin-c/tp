@@ -41,6 +41,8 @@ public class UpdateCommand extends Command {
     private static final String FEEDBACK_INDEX_NOT_INTEGER_ERROR = "Invalid index payload given, expected a valid integer!";
     private static final String FEEDBACK_INDEX_OUT_OF_BOUNDS_ERROR = "Invalid index payload given, "
             + "index is out of range!";
+    private static final String FEEDBACK_EMPTY_LIST_UPDATE = "There are no habits to update! "
+            + "Please `add` a habit first!";
     private static final String FEEDBACK_DECREMENT_ERROR = "Invalid decrement payload given, "
             + "decrement value is out of range!";
     private static final int INDEX_OFFSET = 1;
@@ -169,6 +171,10 @@ public class UpdateCommand extends Command {
             return;
         }
         try {
+            if (getAtomicHabits().getAllHabits().isEmpty()) {
+                getTextUi().printOutputMessage(FEEDBACK_EMPTY_LIST_UPDATE);
+                return;
+            }
             int changeCount = DEFAULT_INCREMENT;
             boolean hasLevelUp = false;
             if (super.getArguments().containsKey(UpdateCommand.COMMAND_INCREMENT_ARGUMENT)) {
