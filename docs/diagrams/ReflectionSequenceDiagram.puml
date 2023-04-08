@@ -73,10 +73,6 @@ loop until isExit is true
 
             ReflectionManager -> GetCommand : execute()
             activate GetCommand
-            GetCommand -> QuestionList : getRandomIndexes()
-            activate QuestionList
-            QuestionList --> GetCommand
-            deactivate QuestionList
 
             GetCommand --> ReflectionManager
             deactivate GetCommand
@@ -91,10 +87,6 @@ loop until isExit is true
 
             ReflectionManager -> LikeCommand : execute()
             activate LikeCommand
-            LikeCommand -> QuestionList : addFavQuestion()
-            activate QuestionList
-            QuestionList --> LikeCommand
-            deactivate QuestionList
 
             LikeCommand --> ReflectionManager
             deactivate LikeCommand
@@ -110,10 +102,6 @@ loop until isExit is true
             ReflectionManager -> UnlikeCommand : execute()
             activate UnlikeCommand
 
-            UnlikeCommand -> QuestionList : removeFavQuestion()
-            activate QuestionList
-            QuestionList --> UnlikeCommand
-            deactivate QuestionList
             UnlikeCommand --> ReflectionManager
             deactivate UnlikeCommand
             destroy UnlikeCommand
@@ -128,10 +116,6 @@ loop until isExit is true
             ReflectionManager -> PrevCommand : execute()
             activate PrevCommand
 
-            PrevCommand -> QuestionList : getRandomIndexes()
-            activate QuestionList
-            QuestionList --> PrevCommand
-            deactivate QuestionList
             PrevCommand --> ReflectionManager
             deactivate PrevCommand
             destroy PrevCommand
@@ -145,10 +129,6 @@ loop until isExit is true
 
             ReflectionManager -> FavoriteCommand : execute()
             activate FavoriteCommand
-            FavoriteCommand -> QuestionList : getFavQuestions()
-            activate QuestionList
-            QuestionList --> FavoriteCommand
-            deactivate QuestionList
 
             FavoriteCommand --> ReflectionManager
             deactivate FavoriteCommand
@@ -164,10 +144,6 @@ loop until isExit is true
             ReflectionManager -> HelpCommand : execute()
             activate HelpCommand
 
-            HelpCommand -> HelpCommand : printHelpMessage()
-            activate HelpCommand
-            HelpCommand --> HelpCommand
-            deactivate HelpCommand
             HelpCommand --> ReflectionManager
             deactivate HelpCommand
             destroy HelpCommand
@@ -182,10 +158,6 @@ loop until isExit is true
             ReflectionManager -> HomeCommand : execute()
             activate HomeCommand
 
-            HomeCommand -> ReflectionManager : setIsExit()
-            activate ReflectionManager
-            ReflectionManager --> HomeCommand
-            deactivate ReflectionManager
             HomeCommand --> ReflectionManager
             deactivate HomeCommand
             destroy HomeCommand
