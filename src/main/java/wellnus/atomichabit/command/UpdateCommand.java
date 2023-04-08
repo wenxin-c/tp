@@ -37,12 +37,14 @@ public class UpdateCommand extends Command {
     private static final String DOT = ".";
     private static final int DEFAULT_INCREMENT = 1;
     private static final int ZERO = 0;
-    private static final String FEEDBACK_STRING = "The following habit has been incremented! Keep up the good work!";
+    private static final String FEEDBACK_STRING_INCREMENT = "The following habit has been incremented! Keep up the good work!";
+    private static final String FEEDBACK_STRING_DECREMENT = "The following habit has been decremented.";
     private static final String FEEDBACK_INDEX_NOT_INTEGER_ERROR = "Invalid index payload given, expected a valid integer!";
     private static final String FEEDBACK_INDEX_OUT_OF_BOUNDS_ERROR = "Invalid index payload given, "
             + "index is out of range!";
     private static final String FEEDBACK_EMPTY_LIST_UPDATE = "There are no habits to update! "
             + "Please `add` a habit first!";
+    private static final String FEEDBACK_CHANGE_COUNT_ZERO = "Invalid count integer, updating by 0 is not allowed!";
     private static final String FEEDBACK_DECREMENT_ERROR = "Invalid decrement payload given, "
             + "decrement value is out of range!";
     private static final int INDEX_OFFSET = 1;
@@ -134,6 +136,16 @@ public class UpdateCommand extends Command {
         return changeCount > 0;
     }
 
+    private void printFeedback(String updatedHabit, int changeCount) {
+        if (changeCount < 0) {
+            getTextUi().printOutputMessage(FEEDBACK_STRING_DECREMENT + LINE_SEPARATOR
+                    + updatedHabit);
+        } else {
+            getTextUi().printOutputMessage(FEEDBACK_STRING_INCREMENT + LINE_SEPARATOR
+                    + updatedHabit);
+        }
+    }
+
     /**
      * Identifies this Command's keyword. Override this in subclasses so
      * toString() returns the correct String representation.
@@ -182,6 +194,10 @@ public class UpdateCommand extends Command {
             }
             int index = this.getIndexFrom(super.getArguments()) - INDEX_OFFSET;
             AtomicHabit habit = getAtomicHabits().getHabitByIndex(index);
+            if (changeCount == 0) {
+                getTextUi().printOutputMessage(FEEDBACK_CHANGE_COUNT_ZERO);
+                return;
+            }
             if (changeCount > ZERO) {
                 habit.increaseCount(changeCount);
                 // Add XP for completing atomic habits as an incentive
@@ -195,8 +211,7 @@ public class UpdateCommand extends Command {
             }
             String stringOfUpdatedHabit = (index + 1) + DOT + habit + " " + "[" + habit.getCount() + "]"
                     + LINE_SEPARATOR;
-            getTextUi().printOutputMessage(FEEDBACK_STRING + LINE_SEPARATOR
-                    + stringOfUpdatedHabit);
+            printFeedback(stringOfUpdatedHabit, changeCount);
             if (hasLevelUp) {
                 // Congratulate the user about levelling up
                 GamificationUi.printCelebrateLevelUp();
