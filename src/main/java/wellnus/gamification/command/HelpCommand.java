@@ -25,7 +25,6 @@ public class HelpCommand extends Command {
     private static final String HELP_PREAMBLE = "Input `help` to see all available commands.\n"
             + "Input `help [command-to-check]` to get usage help for a specific command.\n"
             + "Here are all the commands available for you!";
-    private static final String ERROR_UNKNOWN_COMMAND = "Invalid command issued!";
     private static final String PADDING = " ";
     private static final String DOT = ".";
     private static final int ONE_OFFSET = 1;
