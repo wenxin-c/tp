@@ -841,6 +841,63 @@ methods in `Session` to check which state the command is being called in.
 
 #### Commands
 
+`StartCommand` class: <br>
+
+- Command format: `start`
+- Users can start the focus session and the first work countdown will begin.
+- `startTimer()` method in `Session` will begin the countdown.
+
+`CheckCommand` class: <br>
+
+- Command format: `check`
+- Users can check the time remaining in the current countdown.<br>
+- `getMinutes()` and `getSeconds()` method in `Countdown` is used to retrieve the current time remaining.
+
+`PauseCommand` class: <br>
+
+- Command format: `pause`
+- Users can pause the current timer if they wish to perform other tasks.<br>
+- `setPause()` method in `Countdown` is used to pause the current timer by setting the atomic boolean `isRunClock` to
+  false.
+
+`ResumeCommand` class: <br>
+
+- Command format: `resume`
+- Users can resume the current timer if they are ready to continue focusing.<br>
+- `setStart()` method in `Countdown` is used to resume the current timer by setting the atomic boolean `isRunClock` to
+  true.
+
+`NextCommand` class: <br>
+
+- Command format: `next`
+- Users can proceed to the next work or break countdown.<br>
+- `startTimer()` method in `Session` is used to start the next countdown.
+
+`StopCommand` class: <br>
+
+- Command format: `stop`
+- Users can add new habit to their habit list to track their progress.<br>
+- `addAtomicHabit()` method in `AtomicHabitList` will add the habit to the habit list.
+
+`ConfigCommand` class: <br>
+
+- Command format: `config [--cycle NUM_OF_CYCLE --work WORK_TIME --break BREAK_TIME --longbreak LONG_BREAK_TIME]`
+- Users can modify their session to their liking by setting
+  their own number of cycles, and length of the different timers.<br>
+- `setWork()`, `setBrk()`, `setLongBrk()`, and `setCycle()` method in `Session` is used to update the new values into
+  `work`, `brk`, `longBrk` and `cycle` attributes.
+
+`HelpCommand` class: <br>
+
+- Command format: `help [COMMAND_TO_CHECK]`
+- Every command class has public attributes `COMMAND_DESCRIPTION` and `COMMAND_USAGE`.
+- `printHelpMessage()` method in `HelpCommand` will retrieve and print these attributes.
+
+`HomeCommand` class: <br>
+
+- Command format: `home`
+- This command allows users to return back to the main WellNUS++ interface.
+
 ## Product scope
 
 ### Target user profile
