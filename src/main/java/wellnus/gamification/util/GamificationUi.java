@@ -25,6 +25,10 @@ public class GamificationUi extends TextUi {
     private static final String XP_BOX_RIGHT = "]";
     private static final String XP_TILL_NEXT_LVL_MESSAGE = "%d more XP to Level %d";
 
+    /**
+     * Returns a new instance of GamificationUi with custom cursorName and separator
+     * for our unique gamification style.
+     */
     public GamificationUi() {
         super();
         super.setCursorName(GamificationManager.FEATURE_NAME);
