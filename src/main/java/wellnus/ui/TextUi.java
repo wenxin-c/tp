@@ -34,10 +34,19 @@ public class TextUi {
     private int separatorLength;
     private String cursor = CURSOR_CARET;
 
+    /**
+     * Returns a new instance of TextUi that reads user input from the default
+     * System.in InputStream.
+     */
     public TextUi() {
         this(System.in);
     }
 
+    /**
+     * Returns a new instance of TextUi that reads user input from the given
+     * InputStream.
+     * @param inputStream InputStream that WellNUS++ will read user input(commands) from
+     */
     public TextUi(InputStream inputStream) {
         this.scanner = new Scanner(inputStream);
         this.separatorLength = DEFAULT_SEPARATOR_LENGTH;
