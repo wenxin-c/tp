@@ -22,8 +22,9 @@ public class HelpCommand extends Command {
     private static final String COMMAND_INVALID_COMMAND_NOTE = "help command " + COMMAND_USAGE;
     private static final String COMMAND_KEYWORD = "help";
     private static final String NO_FEATURE_KEYWORD = "";
-    private static final String HELP_PREAMBLE = "Input `help` to see all available commands.\n"
-            + "Input `help [command-to-check]` to get usage help for a specific command.\n"
+    private static final String LINE_SEPARATOR = System.lineSeparator();
+    private static final String HELP_PREAMBLE = "Input `help` to see all available commands." + LINE_SEPARATOR
+            + "Input `help [command-to-check]` to get usage help for a specific command." + LINE_SEPARATOR
             + "Here are all the commands available for you!";
     private static final String ERROR_UNKNOWN_COMMAND = "Invalid command issued!";
     private static final String PADDING = " ";
