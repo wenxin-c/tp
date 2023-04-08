@@ -10,21 +10,17 @@
   * [Setting up the project in your computer](#setting-up-the-project-in-your-computer)
   * [Before writing code](#before-writing-code)
 * [Design & implementation](#design--implementation)
-* [<!-- @@author haoyangw -->](#---author-haoyangw---)
   * [Application Lifecycle](#application-lifecycle)
     * [Overview](#overview)
     * [Rationale](#rationale)
-* [<!-- @@author wenxin-c -->](#---author-wenxin-c---)
   * [UI Component](#ui-component)
     * [UI Implementation](#ui-implementation)
-* [<!-- @@author wenxin-c -->](#---author-wenxin-c----1)
   * [Self Reflection Component](#self-reflection-component)
     * [Design considerations](#design-considerations)
       * [User design considerations](#user-design-considerations)
       * [Developer design considerations](#developer-design-considerations)
     * [Self Reflection Implementation](#self-reflection-implementation)
       * [Self Reflection commands implementation](#self-reflection-commands-implementation)
-* [<!-- @@author nichyjt -->](#---author-nichyjt---)
   * [CommandParser Component](#commandparser-component)
     * [Design Considerations](#design-considerations-1)
       * [User design Considerations](#user-design-considerations-1)
@@ -42,16 +38,16 @@
     * [AtomicHabit Implementation](#atomichabit-implementation)
       * [AtomicHabit Commands](#atomichabit-commands)
   * [Managers](#managers)
-    * [Implementation Rationale](#implementation-rationale)
+    * [Design Considerations](#design-considerations-3)
     * [`MainManager`: A Unique Implementation](#mainmanager--a-unique-implementation)
   * [Tokenizer](#tokenizer)
-    * [Implementation Rationale](#implementation-rationale-1)
+    * [Design Considerations](#design-considerations-4)
     * [Individual Tokenizers](#individual-tokenizers)
   * [Storage](#storage)
     * [Usage: `saveData()`](#usage--savedata)
-    * [Design Considerations](#design-considerations-3)
+    * [Design Considerations](#design-considerations-5)
   * [Focus Timer Component](#focus-timer-component)
-    * [Design Considerations](#design-considerations-4)
+    * [Design Considerations](#design-considerations-6)
     * [Focus Timer Implementation](#focus-timer-implementation)
       * [State Management](#state-management)
       * [Commands](#commands)
@@ -669,7 +665,7 @@ Note: For readability, AtomicHabitCommand is an abstraction of all the 6 differe
 ![Manager](diagrams/Manager.png)<br/>
 The `Manager` abstract class is the superclass for classes responsible for handling user interaction with the app.
 
-### Implementation Rationale
+### Design Considerations
 Each `Manager` provides `runEventDriver()`, which takes over control of user interaction and provides a particular
 feature(along with all its commands). This fulfils the `Single Responsibility Principle` as every `Manager` is in charge
 of one particular feature and recognises its feature's commands, so it will only change when the feature
@@ -710,7 +706,7 @@ feature.
 The `Tokenizer` interface is the superclass for classes responsible for converting data stored temporarily in feature's
 Managers into Strings for storage and also convert Strings from storage back into data that can be restored by Managers.
 
-### Implementation Rationale
+### Design Considerations
 Each `Tokenizer` provides `tokenize()` and `detokenize()`, which can then be adapted for each feature. This fulfills the
 `Single Responsibility Principle` as each `Tokenizer` are only responsible to tokenize and detokenize data from only one
 Feature. Furthermore, this design also fulfills `Open-Closed Principle` where `Tokenizer` interface are open for
