@@ -152,8 +152,7 @@ known to provide command handling functionality.
 
 ## Reflection Component
 
-![Reflection Component Class Diagram](diagrams/ReflectionSequenceDiagram.png)
-![Reflection Component Class Diagram](diagrams/ReflectionClassDiagram.png)
+![Reflection Component Sequence Diagram](diagrams/ReflectionSequenceDiagram.png)
 This `Reflection` component provides users with random sets of introspective questions for users to reflect on.<br>
 <br>
 The `reflection` package consists of two packages `command` and `feature` packages. There are also abstract classes
@@ -163,6 +162,7 @@ are not the focus of this section since they are outside of `reflection` package
 <br>
 
 ### Feature Package (`ReflectionManager`, `ReflectionQuestion`, `QuestionList`, `TextUi`, `RandomNumberGenerator` classes)
+
 
 `ReflectionManager` class:<br>
 
@@ -826,5 +826,5 @@ Note:
 4. Any commands that does not follow the format of `add --name ATOMIC_HABIT_NAME` is invalid
 
 ### Saving data
-
+5 seconds
 To be implemented. 

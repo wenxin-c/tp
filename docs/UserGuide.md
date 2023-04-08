@@ -10,9 +10,9 @@
 
 # Introduction
 
-WellNUS++ is a Command Line Interface(CLI) app for NUS Computing students to keep track and improve their physical and
-mental wellness in various aspects. If you can type fast, WellNUS++ can update their wellness progress faster than
-traditional Graphical User Interface(GUI) apps.
+WellNUS++ is a **Command Line Interface(CLI) app** for **NUS Computing students** to keep track of and improve their
+**physical and mental wellness** in various aspects. If you can type fast, WellNUS++ can update your wellness progress
+faster than traditional Graphical User Interface(GUI) apps.
 
 # Table of Contents
 
@@ -61,7 +61,7 @@ traditional Graphical User Interface(GUI) apps.
 
 1. Ensure you have Java 11 or above installed in your Computer.
 
-2. Download the latest CS2113_T12_4_WellNUS.jar
+2. Download the latest CS2113-T12-4-WellNUS.jar
    from [here](https://github.com/AY2223S2-CS2113-T12-4/tp/releases/latest).
 
 3. Copy the file to the folder you want to use as the home folder for your WellNUS++.
@@ -135,10 +135,10 @@ Expected outcome:
 Input `help [command-to-check]` to get usage help for a specific command.
 Here are all the commands available for you!
     
-    1. Atomic Habits (hb) - Track and manage your habits with our suite of tools to help you grow and nurture a better you!
-    2. Reflection (reflect) - Take some time to pause and reflect with our specially curated list of questions and reflection management tools.
-    3. Focus Timer (ft) - Set a configurable timer with work and rest cycles to keep yourself focused and productive!
-    4. Gamification (gamif) - Gamification gives you the motivation to continue improving your wellness by rewarding you for your efforts!
+    1. hb(Atomic Habits) - Track and manage your habits with our suite of tools to help you grow and nurture a better you!
+    2. reflect(Self Reflection) - Take some time to pause and reflect with our specially curated list of questions and reflection management tools.
+    3. ft(Focus Timer) - Set a configurable 'Pomodoro' timer with work and rest cycles to keep yourself focused and productive!
+    4. gamif(Gamification) - Gamification gives you the motivation to continue improving your wellness by rewarding you for your efforts!
     5. exit - Close WellNUS++ and return to your terminal.
     6. help - Get help on what commands can be used in WellNUS++.
 ------------------------------------------------------------
@@ -152,7 +152,7 @@ Expected outcome:
 
 ```
 ------------------------------------------------------------
-    Atomic Habits (hb) - Track and manage your habits with our suite of tools to help you grow and nurture a better you!
+    hb(Atomic Habits) - Track and manage your habits with our suite of tools to help you grow and nurture a better you!
     usage: hb
 ------------------------------------------------------------
 ```
@@ -165,7 +165,7 @@ Access specific feature from main interface by inputting the `FEATURE_NAME`. <br
 
 Feature name can be referenced by calling the help command.
 
-Take note that users are only allowed to access features from the main session (i.e. `hb`, `reflect` and `ft` are
+Take note that users are only allowed to access features from the main session (i.e. `hb`, `reflect`, `ft` and `gamif` are
 only recognised in the main WellNUS++ session, cross feature transition is **not
 allowed**). Cross feature transition is banned to ensure that users are able to focus on their
 current feature for their own well-being.
@@ -538,8 +538,8 @@ Expected outcome:
 
 ### `get` - Get reflection questions
 
-Ask WellNUS++ to get a set of 5 random introspective questions for users to view and reflect on.
-The questions are randomised for users to reflect on different aspects of life.
+Ask WellNUS++ to generate a set of 5 random introspective questions for users to view and reflect on.
+The questions are designed to be **randomised** for users to reflect on different aspects of life.
 
 Format: `get`
 
@@ -558,6 +558,7 @@ Expected outcome:
     5.When is the last time I gave back to others?
 ============================================================
 ```
+* Since questions are randomised, the questions users receive might differ from the example outcome above.
 
 <!-- @@author wenxin-c -->
 
@@ -566,7 +567,7 @@ Expected outcome:
 Users can add the reflection question they like into favorite list and review afterwards.
 
 Format: `like INDEX`
-* Adds the particular question with index `INDEX` to the user's favorite list
+* Adds the particular question generated in the previous set with index (`INDEX`) into the user's favorite list
 
 Note that the users are supposed to at least `get` a set of questions or use `prev` command to
 review the previous set before liking them, and use the displayed index to choose questions.
@@ -583,6 +584,7 @@ Expected output:
     You have added question: What is my purpose in life? into favorite list!!
 ============================================================
 ```
+* Since questions are randomised, a particular question might have different indexes in different random sets.
 
 ### `fav` - View favorite list
 
@@ -609,10 +611,10 @@ Example output:
 Users can remove reflection questions from the favorite list.
 
 Format: `unlike INDEX`
-* Removes the particular question with index `INDEX from the user's favorite list
+* Removes the particular question with index `INDEX` from the user's favorite list
 
 Take note that it is **recommended** (but _optional_) to use `fav` command to check the list of questions in the favorite list before
-unliking any of them, so that users are aware which question they are removing.
+unliking any of them, so that users are aware of which question they are removing.
 
 Example of usage step 1:
 
@@ -682,8 +684,8 @@ Example of usage 1:
 Expected outcome:
 
 ```
-------------------------------------------------------------
-    Reflection (reflect) - Take some time to pause and reflect with our specially curated list of questions and reflection management tools.
+============================================================
+    reflect(Self Reflection) - Take some time to pause and reflect with our specially curated list of questions and reflection management tools.
     Input `help` to see all available commands.
 Input `help [command-to-check] to get usage help for a specific command.
 Here are all the commands available for you!
@@ -695,7 +697,7 @@ Here are all the commands available for you!
     5. like - Add a particular question to favorite list.
     6. unlike - Remove a particular question from favorite list.
     7. prev - Get the previously generated set of questions.
-------------------------------------------------------------
+============================================================
 ```
 
 Example of usage 2:
@@ -705,10 +707,10 @@ Example of usage 2:
 Expected outcome:
 
 ```
-------------------------------------------------------------
+============================================================
     get - Get a list of questions to reflect on.
     usage: get
-------------------------------------------------------------
+============================================================
 ```
 
 <!--@@author nichyjt-->
@@ -998,9 +1000,9 @@ Example of usage 1:
 Expected outcome for atomic habit:
 
 ```
-—-----------------------------------------------------------
-Thank you for using atomic habits. Do not forget about me!
-—-----------------------------------------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    Thank you for using atomic habits. Do not forget about me!
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ```
 
 Example of usage 2:
@@ -1022,7 +1024,7 @@ output for other features.
 
 ## `exit` - Exit WellNUS++
 
-Exits `WellNUS++`. Data of the current progress will be saved in data files and restored at the next launch of `WellNUS++`
+Exits `WellNUS++`. Data of the current progress will be saved in data files and restored at the next launch of `WellNUS++`.
 
 Format: `exit`
 
@@ -1045,22 +1047,30 @@ Expected outcome:
 
 ## FAQ
 
-**Q**: Will my data be saved after every update?
+**Q**: What do I need to run `WellNUS++` on my computer?
 
-**A**: Yes, data will be saved upon updating and restored when the application is relaunched.
+**A**: Your computer needs to have **Java 11 or above** installed. The operating system(Windows, macOS, etc) doesn't
+matter.
 
-**Q**: How can I navigate the program?
+**Q**: Would my data be saved after I close the `WellNUS++`?
 
-**A**: In WellNUS++, type `help` to view the list of feature supported by our app. From within a feature, `help`
-explains all commands available within that feature.
+**A**: Yes. All ours features will store data inside a `data` folder relative to where you placed the `WellNUS++` jar.
+The next time you run `WellNUS++`, all your data will be restored.
 
-**Q**: How do I start the program?
+**Q**: Do I need to be connected to the Internet to run `WellNUS++`?
 
-**A**: Please run the JAR file on your local machine. See the [Quick Start](#quick-start) section for details.
+**A**: No. `WellNUS++` runs offline to help you focus better. Your data is also saved locally, so it is preserved even 
+without an Internet connection.
 
-**Q**: Where will my data be stored?
+**Q**: Can I transfer my data to another computer?
 
-**A**: Each feature's data will be stored in a separate text file within the data folder(relative to the jar file).
+**A**: Yes. Copy the `data` folder found in the same path as the `WellNUS++` jar file to another
+computer. All your data will be restored the next time you run `WellNUS++`.
+
+**Q**: How can I navigate through the program?
+
+**A**: In `WellNUS++`, type `help` to view the list of feature supported by our app. From within a feature, type `help`
+to learn about the commands available within that feature.
 
 <!-- @@author nichyjt -->
 
