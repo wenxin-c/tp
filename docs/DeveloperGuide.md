@@ -1,46 +1,74 @@
 # Developer Guide
 
-## Table of Content
+# Table of Contents
 
 <!-- TOC -->
-
 * [Developer Guide](#developer-guide)
-    * [Table of Content](#table-of-content)
-    * [Product Name](#product-name)
-    * [Acknowledgements](#acknowledgements)
-    * [Setting up, getting started](#setting-up-getting-started)
-        * [Setting up the project in your computer](#setting-up-the-project-in-your-computer)
-        * [Before writing code](#before-writing-code)
-    * [Design & implementation](#design--implementation)
-        * [Object Diagram](#object-diagram)
-    * [Product scope](#product-scope)
-        * [Target user profile](#target-user-profile)
-        * [Value proposition](#value-proposition)
-    * [User Stories](#user-stories)
-    * [Non-Functional Requirements](#non-functional-requirements)
-    * [Glossary](#glossary)
-    * [Instructions for manual testing](#instructions-for-manual-testing)
-        * [Launch](#launch)
-        * [Sample test cases](#sample-test-cases)
-            * [Help command](#help-command)
-            * [Get reflection questions](#get-reflection-questions)
-            * [Add atomic habits](#add-atomic-habits)
-        * [Saving data](#saving-data)
-
+* [Table of Contents](#table-of-contents)
+* [Product Name](#product-name)
+* [Acknowledgements](#acknowledgements)
+* [Setting up, getting started](#setting-up-getting-started)
+  * [Setting up the project in your computer](#setting-up-the-project-in-your-computer)
+  * [Before writing code](#before-writing-code)
+* [Design & implementation](#design--implementation)
+  * [Application Lifecycle](#application-lifecycle)
+    * [Overview](#overview)
+    * [Rationale](#rationale)
+  * [UI Component](#ui-component)
+    * [UI Implementation](#ui-implementation)
+  * [Self Reflection Component](#self-reflection-component)
+    * [Design considerations](#design-considerations)
+      * [User design considerations](#user-design-considerations)
+      * [Developer design considerations](#developer-design-considerations)
+    * [Self Reflection Implementation](#self-reflection-implementation)
+      * [Self Reflection commands implementation](#self-reflection-commands-implementation)
+  * [CommandParser Component](#commandparser-component)
+    * [Design Considerations](#design-considerations-1)
+      * [User design Considerations](#user-design-considerations-1)
+      * [Developer Design Considerations](#developer-design-considerations-1)
+      * [Alternative Designs Considered](#alternative-designs-considered)
+    * [CommandParser Syntax](#commandparser-syntax)
+    * [Implementation](#implementation)
+      * [Integration with WellNUS++](#integration-with-wellnus)
+      * [CommandParser API](#commandparser-api)
+    * [AtomicHabit Component](#atomichabit-component)
+    * [Managers](#managers)
+    * [Tokenizer](#tokenizer)
+    * [Storage](#storage)
+      * [Usage: `saveData()`](#usage--savedata)
+      * [Design Considerations](#design-considerations-2)
+  * [Focus Timer Component](#focus-timer-component)
+    * [Design Considerations](#design-considerations-3)
+    * [Focus Timer Implementation](#focus-timer-implementation)
+      * [State Management](#state-management)
+      * [Commands](#commands)
+  * [Product scope](#product-scope)
+    * [Target user profile](#target-user-profile)
+    * [Value proposition](#value-proposition)
+  * [User Stories](#user-stories)
+  * [Non-Functional Requirements](#non-functional-requirements)
+  * [Glossary](#glossary)
+  * [Instructions for manual testing](#instructions-for-manual-testing)
+    * [Launch](#launch)
+    * [Sample test cases](#sample-test-cases)
+      * [Help command](#help-command)
+      * [Get reflection questions](#get-reflection-questions)
+      * [Add atomic habits](#add-atomic-habits)
+    * [Saving data](#saving-data)
 <!-- TOC -->
 
-## Product Name
+# Product Name
 
 **WellNUS++**
 
-## Acknowledgements
+# Acknowledgements
 
 1. Reference to AB-3 Developer Guide: https://se-education.org/addressbook-level3/DeveloperGuide.html
 2. Reference to AB-3 diagrams code: https://github.com/se-edu/addressbook-level3/tree/master/docs/diagrams
 
-## Setting up, getting started
+# Setting up, getting started
 
-### Setting up the project in your computer
+## Setting up the project in your computer
 
 Firstly, **fork** this repo, and **clone** the fork into your computer. <br>
 <br>
@@ -57,7 +85,7 @@ If you plan to use Intellij IDEA (highly recommended): <br>
     1. Run the ```wellnus.WellNus``` and try a few commands.
     2. Run the tests to ensure they all pass.
 
-### Before writing code
+## Before writing code
 
 1. **Configure the coding style**<br>
    If using IDEA, follow the guide
@@ -74,9 +102,9 @@ If you plan to use Intellij IDEA (highly recommended): <br>
    the
    code and the interaction among different classes.<br>
 
-## Design & implementation
-### Application Lifecycle
-#### Overview
+# Design & implementation
+## Application Lifecycle
+### Overview
 The overall execution lifecycle of the WellNus application involves 4 main components, as shown in the diagram below.
 
 ![Application Lifecycle](diagrams/WellnusSequence.png)
@@ -98,7 +126,7 @@ handle any given command. In the case of supported commands besides 'home', the 
 will terminate the `FeatureManager.runEventDriver()` loop, returning the user to the main WellNus++ interface provided 
 by `MainManager.runEventDriver()`.
 
-#### Rationale
+### Rationale
 `WellNus` directly transfers control of user input to `MainManager.runEventDriver()` as managing user input is the
 expected functionality of the `runEventDriver()` method within a particular implementation of `Manager`, which means
 that conceptually, management of user input belongs in a subclass of `Manager` instead. Besides, this abstraction
@@ -128,7 +156,6 @@ actual implementation details by delegating the task to a particular implementat
 known to provide command handling functionality.
 
 <!--@@author wenxin-c-->
-
 ## UI Component
 UI component is in charge of reading in user input and printing output.
 
@@ -285,7 +312,8 @@ favorite list.
 
 <!--@@author-->
 
-### CommandParser Component
+<!--@@author nichyjt -->
+## CommandParser Component
 
 The CommandParser is a core feature of WellNUS++.
 It defines the following:
@@ -293,13 +321,13 @@ It defines the following:
 1. The syntax for users to input commands
 2. A common API for developers to **process** user input
 
-#### Design Considerations
+### Design Considerations
 
 The CommandParser is implicitly used by users 100% of the time.
 It is the abstraction through which the users will interact with WellNUS++'s features.
 Its ease of use is critical to ensure a good user experience.
 
-**User design Considerations**:  
+#### User design Considerations    
 Our [target user profile](#target-user-profile) are Computing and Engineering students.
 With that, we have done extensive research and laid out the following design considerations.
 
@@ -313,7 +341,7 @@ With that, we have done extensive research and laid out the following design con
    reduces the cognitive load on the user's end and allows for a
    more pleasant experience.
 
-**Developer Design Considerations**:  
+#### Developer Design Considerations  
 Virtually every feature in WellNUS++ will require user input to be processed. This means that all features
 will have to interact with `CommandParser`. Hence, the
 design for the `CommandParser` API must be understandable, unambiguous and easy to develop on.
@@ -325,7 +353,33 @@ design for the `CommandParser` API must be understandable, unambiguous and easy 
    There should also be built-in ways to easily validate components of user input for a command,
    such as checking length.
 
-#### CommandParser Syntax
+#### Alternative Designs Considered
+
+We considered alternative command structures such as [AB3](https://se-education.org/addressbook-level3/UserGuide.html)
+where input types are
+specified , `e.g. n/John Doe` which more 'secure' from the get go.
+However, due to the following issues, AB3 was not chosen as the alternative solution compared to the shell-like
+structure.
+
+**Steep learning curve**  
+For experienced and inexperienced users, it is a hassle to remember what letter corresponds to what argument.
+For AB3, the user needs to remember all the different `char` 'verbs' such as `e/` for email, `n/` for name.
+This violates design consideration (1).
+
+**Does not scale well**  
+AB3 structure runs the high risk of argument-space collision as well.  
+For example, consider a command that needs an "email" and "entry". What does `e/<payload>` correspond to?
+We could simply just put entry as *some other character* -- but that defeats the purpose of having the structure in the
+first place as the character is the argument's first character.
+This makes behaviour **unpredictable** and a **confusing** user experience.
+
+**Bad expert user experience**
+
+For expert users and CLI-masters, pedantic argument input like AB3 makes the typing experience MUCH slower due to the
+need to type which is relatively clunky as the user will need to type far off to the '/' key on the keyboard.
+
+
+### CommandParser Syntax
 
 The command parser defines any arbitrary user input to be valid
 if it follows the following structure.
@@ -337,7 +391,7 @@ mainCommand [payload] [--argument1 [payload1] --argument2 [payload2] ... ]
 This should be familiar to you. It is similar to how most CLI applications process arguments in the wild.
 
 ![Example](diagrams/git_command.png)
-<figcaption align="center">Example of CLI input syntax in the wild</figcaption>
+<figcaption align="center">Example of CLI input syntax, using git as an example</figcaption>
 
 This achieves design consideration (1). Why?  
 This syntax is intuitive at a glance to our target users,
@@ -370,9 +424,10 @@ Using a `HashMap` fulfils design considerations (2), (3) and (4).
   built-in `.size()`,
   argument existence can be queried with `.containsKey()`.
 
-#### Integration with WellNUS++
+### Implementation
 
-![Integration](diagrams/CommandParserClass.png)
+#### Integration with WellNUS++
+![Integration](diagrams/CommandParserClass.png)  
 
 `CommandParser` integrates into the boilerplate via the abstract Manager class.  
 All features are controlled by a manager subclass - hence the developers just need to call
@@ -423,31 +478,6 @@ The canonical way to do this is to use `getMainCommand`. This defeats adversaria
 is input as an argument.
 
 Internally, this just splits the string by whitespace and returns the first word in the array.
-
-#### Alternative Designs Considered
-
-We considered alternative command structures such as [AB3](https://se-education.org/addressbook-level3/UserGuide.html)
-where input types are
-specified , `e.g. n/John Doe` which more 'secure' from the get go.
-However, due to the following issues, AB3 was not chosen as the alternative solution compared to the shell-like
-structure.
-
-**Steep learning curve**  
-For experienced and inexperienced users, it is a hassle to remember what letter corresponds to what argument.
-For AB3, the user needs to remember all the different `char` 'verbs' such as `e/` for email, `n/` for name.
-This violates design consideration (1).
-
-**Does not scale well**  
-AB3 structure runs the high risk of argument-space collision as well.  
-For example, consider a command that needs an "email" and "entry". What does `e/<payload>` correspond to?
-We could simply just put entry as *some other character* -- but that defeats the purpose of having the structure in the
-first place as the character is the argument's first character.
-This makes behaviour **unpredictable** and a **confusing** user experience.
-
-**Bad expert user experience**
-
-For expert users and CLI-masters, pedantic argument input like AB3 makes the typing experience MUCH slower due to the
-need to type which is relatively clunky as the user will need to type far off to the '/' key on the keyboard.
 
 ### AtomicHabit Component
 
@@ -593,6 +623,83 @@ calling `Storage`'s `saveData` method.
   This was chosen due to the invariant property of `' --'` in the context of WellNUS++. Due to the way all user input
   is filtered by the `CommandParser`, the chosen delimiter should never show up in any data input, such as a habit name
   from `AtomicHabits`
+
+<!--@@author nichyjt-->
+## Focus Timer Component
+The `Focus Timer` component is responsible for tracking the user's daily habits.
+It consists of the `feature` package and the `command` package.
+
+It contains commands that you would expect from a timer, such as stopping,
+pausing, and more.
+
+### Design Considerations
+
+
+### Focus Timer Implementation
+
+The focus timer contains a `FocusManager`.
+The session is a wrapper for all the `Countdown` and contains utility logic to identify state and manage Countdown.
+`Countdown` houses the timer that actually does the counting and holds attributes that help
+identify the state of the FocusTimer.
+
+![FSM diagram](diagrams/FocusTimerClassDiagram.png)
+
+Note: For readability, FocusCommand is an abstraction of all the 9 different commands that exist in FocusTimer.
+
+#### State Management
+The timer is an inherently complex feature. There are many commands, and some commands
+logically cannot be executed in certain states. For example, if the timer is `Paused`,
+the user cannot go to the `next` Countdown.
+
+Problem: It is confusing to developers to check if the `command` that they are writing
+
+
+To help developers, we define the expected behaviour for focus timer
+in this **simplified** finite state machine (FSM) diagram.
+
+The black circle represents the entrypoint into FocusTimer, and
+the labels of the arrows are the valid `command`. 
+The command `home` has been left out to make the diagram simpler.
+It is a command that can be called in any state, and does not add value to it.
+
+
+![FSM diagram](diagrams/FocusTimerState.png)
+
+
+From the diagram and the class diagram, we can derive a truth table
+from the attributes of each Countdown and tag them to a state.
+
+
+| State/Flag | isRunClock | isCompletedCountDown | isReady |  
+|------------|------------|----------------------|---------|
+| Ready      | X          | X                    | T       |
+| Counting   | T          | F                    | F       |
+| Waiting    | F          | T                    | F       |
+| Paused     | F          | F                    | F       |
+Truth table, where X denotes a 'dont care' condition
+where the truth value does not matter.
+
+From this, we can easily check which state we are in and then allow exe
+Referring to the class diagram, this is implemented on `Session` with various methods helping identify the state:  
+
+Example implementation:
+```
+public boolean isSessionCounting(){
+    Countdown countdown = getCurrentCountdown();
+    return countdown.getIsRunning() && !countdown.getIsCompletedCountdown();
+}
+```
+
+Developers can easily check if a command is in a valid state to be executed by using these
+methods in `Session` to check which state the command is being called in. 
+- `isSessionReady()`
+- `isSessionCounting()`
+- `isSessionWaiting()`
+- `isSessionPaused()`
+
+
+<!--@@author YongbinWang-->
+#### Commands
 
 ## Product scope
 
@@ -766,5 +873,5 @@ Note:
 4. Any commands that does not follow the format of `add --name ATOMIC_HABIT_NAME` is invalid
 
 ### Saving data
-
+5 seconds
 To be implemented. 
