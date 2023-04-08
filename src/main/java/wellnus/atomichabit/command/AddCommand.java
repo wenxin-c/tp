@@ -21,6 +21,7 @@ public class AddCommand extends Command {
     public static final String COMMAND_KEYWORD = "add";
     private static final String COMMAND_INVALID_ARGUMENTS_MESSAGE = "Invalid arguments given to 'add'!";
     private static final String COMMAND_INVALID_PAYLOAD = "Invalid payload given to 'add'!";
+    private static final String COMMAND_EMPTY_NAME = "Invalid habit name given to 'add'!";
     private static final String DUPLICATE_HABIT_MESSAGE = "You already have this habit in your list!"
             + " Use 'update' instead.";
     private static final String COMMAND_NAME_ARGUMENT = "name";
@@ -138,6 +139,9 @@ public class AddCommand extends Command {
         }
         if (!arguments.containsKey(AddCommand.COMMAND_NAME_ARGUMENT)) {
             throw new BadCommandException(AddCommand.COMMAND_INVALID_ARGUMENTS_MESSAGE);
+        }
+        if (arguments.get(AddCommand.COMMAND_NAME_ARGUMENT).equals("")) {
+            throw new BadCommandException(AddCommand.COMMAND_EMPTY_NAME);
         }
     }
 
