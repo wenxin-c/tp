@@ -87,6 +87,12 @@ activate AtomicHabitManager
                 activate UpdateCommand
                 UpdateCommand --> AtomicHabitManager : UpdateCommand(arguments, habitList)
                 deactivate UpdateCommand
+            else commandString = help
+                create HelpCommand
+                AtomicHabitManager -> HelpCommand
+                activate HelpCommand
+                HelpCommand --> AtomicHabitManager : HelpCommand(arguments, habitList)
+                deactivate UpdateCommand
             else
                 create BadCommandException
                 AtomicHabitManager -> BadCommandException
@@ -95,7 +101,7 @@ activate AtomicHabitManager
                 deactivate BadCommandException
             end
         deactivate AtomicHabitManager
-        AtomicHabitManager -> command : execute()
+        AtomicHabitManager -> AtomicHabitcommand : execute()
     end
 deactivate AtomicHabitManager
 
