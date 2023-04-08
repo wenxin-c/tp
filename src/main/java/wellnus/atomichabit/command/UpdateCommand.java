@@ -46,7 +46,7 @@ public class UpdateCommand extends Command {
     private static final int INDEX_OFFSET = 1;
     private static final String LINE_SEPARATOR = System.lineSeparator();
     private static final int MINIMUM_INCREMENT = 1;
-    private static final String UPDATE_INVALID_ARGUMENTS_MESSAGE = "Invalid arguments given to 'update'";
+    private static final String UPDATE_INVALID_ARGUMENTS_MESSAGE = "Invalid arguments given to 'update'!";
     private static final String UPDATE_INVALID_INCREMENT_COUNT = "Invalid increment payload given, increment with "
             + "minimum of 1 is expected!";
     private static final String STORE_GAMIF_DATA_FAILED_NOTE_MESSAGE = "Error saving to storage!";

@@ -116,7 +116,7 @@ public class FavoriteCommand extends Command {
             UI.printOutputMessage(outputString);
         } catch (IndexOutOfBoundsException indexOutOfBoundsException) {
             LOGGER.log(Level.WARNING, INDEX_OUT_OF_BOUND_MSG);
-            UI.printErrorFor(indexOutOfBoundsException, INDEX_OUT_OF_BOUND_NOTES);
+            UI.printErrorFor(indexOutOfBoundsException, INVALID_COMMAND_NOTES);
         }
     }
 

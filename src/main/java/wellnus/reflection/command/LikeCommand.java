@@ -27,8 +27,8 @@ public class LikeCommand extends Command {
     private static final String INVALID_COMMAND_MSG = "Invalid command issued, expected 'like'!";
     private static final String INVALID_ARGUMENT_MSG = "Invalid arguments given to 'like'!";
     private static final String INVALID_COMMAND_NOTES = "like command " + COMMAND_USAGE;
-    private static final String WRONG_INDEX_MSG = "Invalid index payload given to 'like', index is out of range!";
-    private static final String WRONG_INDEX_NOTE = "Please input the correct index of the question you like!";
+    private static final String WRONG_INDEX_MSG = "Invalid index payload given to 'like', expected a valid integer!";
+    private static final String WRONG_INDEX_OUT_BOUND = "Invalid index payload given to 'like', index is out of range!";
     private static final String MISSING_SET_QUESTIONS = "A set of questions has not been gotten!";
     private static final String MISSING_SET_QUESTIONS_NOTES = "Please try 'get' command to generate a set of questions "
             + "before adding to favorite list!";
@@ -148,9 +148,10 @@ public class LikeCommand extends Command {
             UI.printErrorFor(storageException, STORAGE_ERROR);
         } catch (NumberFormatException numberFormatException) {
             LOGGER.log(Level.INFO, WRONG_INDEX_MSG);
-            UI.printErrorFor(numberFormatException, WRONG_INDEX_NOTE);
+            BadCommandException exception = new BadCommandException(WRONG_INDEX_MSG);
+            UI.printErrorFor(exception, INVALID_COMMAND_NOTES);
         } catch (ReflectionException reflectionException) {
-            UI.printErrorFor(reflectionException, WRONG_INDEX_NOTE);
+            UI.printErrorFor(reflectionException, INVALID_COMMAND_NOTES);
         }
     }
 
@@ -168,7 +169,7 @@ public class LikeCommand extends Command {
             NumberFormatException, ReflectionException {
         int questionIndexInt = Integer.parseInt(questionIndex);
         if (questionIndexInt > UPPER_BOUND || questionIndexInt < LOWER_BOUND) {
-            throw new ReflectionException(WRONG_INDEX_MSG);
+            throw new ReflectionException(WRONG_INDEX_OUT_BOUND);
         }
         if (!questionList.hasRandomQuestionIndexes()) {
             UI.printOutputMessage(MISSING_SET_QUESTIONS);

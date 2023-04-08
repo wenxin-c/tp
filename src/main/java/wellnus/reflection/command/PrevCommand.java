@@ -134,7 +134,7 @@ public class PrevCommand extends Command {
             getPrevSetQuestions();
         } catch (IndexOutOfBoundsException indexOutOfBoundsException) {
             LOGGER.log(Level.WARNING, INDEX_OUT_OF_BOUND_MSG);
-            UI.printErrorFor(indexOutOfBoundsException, INDEX_OUT_OF_BOUND_NOTES);
+            UI.printErrorFor(indexOutOfBoundsException, INVALID_COMMAND_NOTES);
         } catch (BadCommandException badCommandException) {
             LOGGER.log(Level.WARNING, MISSING_SET_QUESTIONS);
             UI.printErrorFor(badCommandException, INVALID_COMMAND_NOTES);
