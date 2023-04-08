@@ -7,6 +7,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import wellnus.common.WellNusLogger;
+import wellnus.exception.StorageException;
 import wellnus.exception.TokenizerException;
 
 /**
@@ -25,6 +26,7 @@ public class ReflectionTokenizer implements Tokenizer<Set<Integer>> {
     private static final String PREV_KEY = "prev";
     private static final String COLON_CHARACTER = ":";
     private static final int NO_LIMIT = -1;
+    private static final String FILE_NAME = "reflect";
     private static final String DETOKENIZE_ERROR_MESSAGE = "Detokenization failed! "
             + "The file might be corrupted!";
     private static final Logger LOGGER = WellNusLogger.getLogger("ReflectTokenizerLogger");
@@ -107,6 +109,12 @@ public class ReflectionTokenizer implements Tokenizer<Set<Integer>> {
         return outputIndexes;
     }
 
+    private void storeDetokenizedIndexes(ArrayList<Set<Integer>> detokenizedIndexes) throws StorageException {
+        Storage storage = new Storage();
+        ArrayList<String> tokenizedIndexes = tokenize(detokenizedIndexes);
+        storage.saveData(tokenizedIndexes, FILE_NAME);
+    }
+
     /**
      * Tokenize ArrayList of Set of Integers into strings that can be stored. <br>
      * ArrayList contains 2 Set of Integers, which corresponds for set of like indexes for the first entry
@@ -142,7 +150,7 @@ public class ReflectionTokenizer implements Tokenizer<Set<Integer>> {
      *      and set of prev indexes for the second entry <br>
      * @throws TokenizerException when the data can't be detokenized.
      */
-    public ArrayList<Set<Integer>> detokenize(ArrayList<String> tokenizedIndex) {
+    public ArrayList<Set<Integer>> detokenize(ArrayList<String> tokenizedIndex) throws TokenizerException {
         ArrayList<Set<Integer>> detokenizedIndexes = new ArrayList<>();
         Set<Integer> detokenizedLike = new HashSet<>();
         Set<Integer> detokenizedPrev = new HashSet<>();
@@ -152,6 +160,11 @@ public class ReflectionTokenizer implements Tokenizer<Set<Integer>> {
         }
         detokenizedIndexes.add(detokenizedLike);
         detokenizedIndexes.add(detokenizedPrev);
+        try {
+            storeDetokenizedIndexes(detokenizedIndexes);
+        } catch (StorageException storageException) {
+            throw new TokenizerException(DETOKENIZE_ERROR_MESSAGE);
+        }
         return detokenizedIndexes;
     }
 }

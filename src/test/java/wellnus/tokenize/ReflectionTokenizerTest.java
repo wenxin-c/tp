@@ -7,6 +7,7 @@ import java.util.Set;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import wellnus.exception.TokenizerException;
 import wellnus.storage.ReflectionTokenizer;
 
 public class ReflectionTokenizerTest {
@@ -52,7 +53,7 @@ public class ReflectionTokenizerTest {
     }
 
     @Test
-    void detokenizeReflect_checkOutput_success() {
+    void detokenizeReflect_checkOutput_success() throws TokenizerException {
         Set<Integer> expectedDetokenizedLikes = new HashSet<>();
         expectedDetokenizedLikes.add(1);
         expectedDetokenizedLikes.add(2);
@@ -74,7 +75,7 @@ public class ReflectionTokenizerTest {
     }
 
     @Test
-    void detokenizeReflect_checkOutputEmptyString_success() {
+    void detokenizeReflect_checkOutputEmptyString_success() throws TokenizerException {
         Set<Integer> expectedDetokenizedLikes = new HashSet<>();
         Set<Integer> expectedDetokenizedPrevs = new HashSet<>();
         ArrayList<String> stringsToDetokenize = new ArrayList<>();
