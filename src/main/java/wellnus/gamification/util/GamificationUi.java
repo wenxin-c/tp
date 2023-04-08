@@ -75,7 +75,7 @@ public class GamificationUi extends TextUi {
      * @param msg Message to display on the user's screen
      */
     public static void printGamificationMessage(String msg) {
-        assert NUM_CHAR_IN_SEPARATOR < (msg.length() + 2) : WRONG_NUM_CHAR_IN_SEPARATOR_MESSAGE;
+        assert NUM_CHAR_IN_SEPARATOR >= (msg.length() + 2) : WRONG_NUM_CHAR_IN_SEPARATOR_MESSAGE;
         System.out.print(SEPARATOR);
         int howManySeparator = 2;
         int minimalPadding = 1;
