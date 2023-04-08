@@ -41,8 +41,6 @@ public class GamificationManager extends Manager {
      */
     public GamificationManager() {
         this.gamificationUi = new GamificationUi();
-        this.gamificationUi.setCursorName(FEATURE_NAME);
-        this.gamificationUi.setSeparator(GamificationUi.SEPARATOR);
         try {
             GamificationStorage gamificationStorage = new GamificationStorage();
             this.gamificationData = gamificationStorage.loadData();

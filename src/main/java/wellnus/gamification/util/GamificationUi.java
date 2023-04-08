@@ -1,5 +1,6 @@
 package wellnus.gamification.util;
 
+import wellnus.gamification.GamificationManager;
 import wellnus.ui.TextUi;
 
 /**
@@ -23,6 +24,12 @@ public class GamificationUi extends TextUi {
     private static final String XP_BOX_LEFT = "[";
     private static final String XP_BOX_RIGHT = "]";
     private static final String XP_TILL_NEXT_LVL_MESSAGE = "%d more XP to Level %d";
+
+    public GamificationUi() {
+        super();
+        super.setCursorName(GamificationManager.FEATURE_NAME);
+        super.setSeparator(SEPARATOR);
+    }
 
     private static void printGamificationSeparator() {
         for (int i = 0; i < NUM_CHAR_IN_SEPARATOR; i += 1) {
