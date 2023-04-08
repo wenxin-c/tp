@@ -10,17 +10,21 @@
   * [Setting up the project in your computer](#setting-up-the-project-in-your-computer)
   * [Before writing code](#before-writing-code)
 * [Design & implementation](#design--implementation)
+* [<!-- @@author haoyangw -->](#---author-haoyangw---)
   * [Application Lifecycle](#application-lifecycle)
     * [Overview](#overview)
     * [Rationale](#rationale)
+* [<!-- @@author wenxin-c -->](#---author-wenxin-c---)
   * [UI Component](#ui-component)
     * [UI Implementation](#ui-implementation)
+* [<!-- @@author wenxin-c -->](#---author-wenxin-c----1)
   * [Self Reflection Component](#self-reflection-component)
     * [Design considerations](#design-considerations)
       * [User design considerations](#user-design-considerations)
       * [Developer design considerations](#developer-design-considerations)
     * [Self Reflection Implementation](#self-reflection-implementation)
       * [Self Reflection commands implementation](#self-reflection-commands-implementation)
+* [<!-- @@author nichyjt -->](#---author-nichyjt---)
   * [CommandParser Component](#commandparser-component)
     * [Design Considerations](#design-considerations-1)
       * [User design Considerations](#user-design-considerations-1)
@@ -30,9 +34,13 @@
     * [Implementation](#implementation)
       * [Integration with WellNUS++](#integration-with-wellnus)
       * [CommandParser API](#commandparser-api)
+      * [Alternative Designs Considered](#alternative-designs-considered-1)
   * [AtomicHabit Component](#atomichabit-component)
-    * [Package Layout](#package-layout)
-    * [Implementation of `AtomicHabitManager`](#implementation-of-atomichabitmanager)
+    * [Design Considerations](#design-considerations-2)
+      * [User design considerations](#user-design-considerations-2)
+      * [Developer design considerations](#developer-design-considerations-2)
+    * [AtomicHabit Implementation](#atomichabit-implementation)
+      * [AtomicHabit Commands](#atomichabit-commands)
   * [Managers](#managers)
     * [Implementation Rationale](#implementation-rationale)
     * [`MainManager`: A Unique Implementation](#mainmanager--a-unique-implementation)
@@ -41,9 +49,9 @@
     * [Individual Tokenizers](#individual-tokenizers)
   * [Storage](#storage)
     * [Usage: `saveData()`](#usage--savedata)
-    * [Design Considerations](#design-considerations-2)
-  * [Focus Timer Component](#focus-timer-component)
     * [Design Considerations](#design-considerations-3)
+  * [Focus Timer Component](#focus-timer-component)
+    * [Design Considerations](#design-considerations-4)
     * [Focus Timer Implementation](#focus-timer-implementation)
       * [State Management](#state-management)
       * [Commands](#commands)
@@ -106,31 +114,35 @@ If you plan to use Intellij IDEA (highly recommended): <br>
    code and the interaction among different classes.<br>
 
 # Design & implementation
+
 <!-- @@author haoyangw -->
 ## Application Lifecycle
+
 ### Overview
+
 The overall execution lifecycle of the WellNus application involves 4 main components, as shown in the diagram below.
 
 ![Application Lifecycle](diagrams/WellnusSequence.png)
 
-The application begins with a call to `WellNus.start()`, which initialises an instance of `MainManager` and calls the 
+The application begins with a call to `WellNus.start()`, which initialises an instance of `MainManager` and calls the
 `MainManager.runEventDriver()` method.
 
-`MainManager.runEventDriver()` will then take control of user input and provide a basic interface that parses commands 
+`MainManager.runEventDriver()` will then take control of user input and provide a basic interface that parses commands
 from the user. This basic interface only supports basic commands such as `help` and `exit` and recognises the keywords
-of all supported features in WellNUS++. When a recognised feature keyword is given, the corresponding `FeatureManager` 
+of all supported features in WellNUS++. When a recognised feature keyword is given, the corresponding `FeatureManager`
 will be activated through its `runEventDriver()` method, which gains control of user input from `MainManager`. On the
 other hand, `MainManager.runEventDriver()` terminates when the `exit` command is given, after which the user exits from
 the application.
 
 After control of user input is granted by `MainManager`, `FeatureManager.runEventDriver()` provides the user with a
-feature-specific user interface that continuously parses user commands to determine the suitable `Command` class to 
-handle any given command. In the case of supported commands besides 'home', the `execute()` method of the corresponding 
-`Command` class is called to perform a particular action requested by the user. On the other hand, the `home` command 
-will terminate the `FeatureManager.runEventDriver()` loop, returning the user to the main WellNus++ interface provided 
+feature-specific user interface that continuously parses user commands to determine the suitable `Command` class to
+handle any given command. In the case of supported commands besides 'home', the `execute()` method of the corresponding
+`Command` class is called to perform a particular action requested by the user. On the other hand, the `home` command
+will terminate the `FeatureManager.runEventDriver()` loop, returning the user to the main WellNus++ interface provided
 by `MainManager.runEventDriver()`.
 
 ### Rationale
+
 `WellNus` directly transfers control of user input to `MainManager.runEventDriver()` as managing user input is the
 expected functionality of the `runEventDriver()` method within a particular implementation of `Manager`, which means
 that conceptually, management of user input belongs in a subclass of `Manager` instead. Besides, this abstraction
@@ -139,9 +151,9 @@ to be a high-level class that delegates tasks to specialised classes that provid
 `WellNus` must not be responsible for concrete logic such as managing user input.
 
 Additionally, `MainManager.runEventDriver()` is intentionally restricted to only recognise basic commands and feature
-keywords to firstly, achieve the encapsulation and abstraction of feature-specific logic from `MainManager`. Moving 
+keywords to firstly, achieve the encapsulation and abstraction of feature-specific logic from `MainManager`. Moving
 feature-specific logic such as recognising feature-specific commands to corresponding feature `Managers` ensures that
-actual implementation details in feature-related subpackages are hidden from `MainManager`. This is necessary for 
+actual implementation details in feature-related subpackages are hidden from `MainManager`. This is necessary for
 the purpose of encapsulation since `MainManager` exists in a different subpackage. At the same time, by providing the
 public `runEventDriver()` in feature `Managers`, `MainManager` is only aware of the expected functionality of the
 `runEventDriver()`, which can be used to support feature-specific commands, without being involved in the implementation
@@ -162,11 +174,14 @@ known to provide command handling functionality.
 
 <!-- @@author wenxin-c -->
 ## UI Component
+
 UI component is in charge of reading in user input and printing output.
 
 ### UI Implementation
+
 ![UI Class Diagram](diagrams/UiComponent.png)
-The `TextUi` superclass is created for printing standard output and error messages. Each feature has its own UI subclass which 
+The `TextUi` superclass is created for printing standard output and error messages. Each feature has its own UI subclass
+which
 inherits from `TextUi` to support more customised I/O behaviours.<br>
 Main WellNUS++ uses TextUi<br>
 Atomic Habit uses AtomicHabitUi<br>
@@ -178,91 +193,125 @@ For example, the line separator for Self Reflection is `=` and for Atomic Habit 
 
 <!-- @@author wenxin-c -->
 ## Self Reflection Component
+
 This `Reflection` component provides users with random sets of introspective questions to reflect on, achieving the goal
 of improving their wellness.<br>
 
 ### Design considerations
+
 #### User design considerations
+
 * The sets of questions generated everytime are designed to be randomised to allow users to reflect on different aspects
-of their lives.
-* Users can review the previous set of questions generated and add questions they resonate well into their favorite list 
-for review in the future. Similarly, they can also remove questions they no longer resonate from their favorite list to 
-ensure the relevancy of the list.
-* `help` command and prompting messages are available to guide users in using Self Reflection. For example, an alert will
-be given to users if they `unlike` a question when their favorite list is empty.
+  of their lives.
+* Users can review the previous set of questions generated and add questions they resonate well into their favorite list
+  for review in the future. Similarly, they can also remove questions they no longer resonate from their favorite list
+  to
+  ensure the relevancy of the list.
+* `help` command and prompting messages are available to guide users in using Self Reflection. For example, an alert
+  will
+  be given to users if they `unlike` a question when their favorite list is empty.
+
 ```
 ============================================================
     The favorite list is empty, there is nothing to be removed.
 ============================================================
 ```
-* A unique line separator `=` is used to differentiate Self Reflection from other features and give users a better visual
-indication.
+
+* A unique line separator `=` is used to differentiate Self Reflection from other features and give users a better
+  visual
+  indication.
+
 #### Developer design considerations
+
 * **Abstracted `QuestionList` Class**<br>
-  Self Reflection section relies heavily on the set of random sets of questions generated and this set will be shared 
-  across different classes. A `QuestionList` class is used to store and manipulate the lists of questions such as the 
-  random sets and the favorite list. A common `QuestionList` object is constructed and passed into different command object
-  constructors as an argument. As such, information of lists of questions and their associated methods are centralised 
+  Self Reflection section relies heavily on the set of random sets of questions generated and this set will be shared
+  across different classes. A `QuestionList` class is used to store and manipulate the lists of questions such as the
+  random sets and the favorite list. A common `QuestionList` object is constructed and passed into different command
+  object
+  constructors as an argument. As such, information of lists of questions and their associated methods are centralised
   and shared among different objects.
 * **Generate random sets and match user input index to real question index**<br>
   Multiple data structures are used randomise the sets of questions. An **ArrayList** of 10 questions
-  will be loaded upon launching the program. A **Set** of 5 randomised distinct integers ranging from 0-9 will be generated.
-  This **Set** of integers are the used as the index of questions in the **ArrayList** to select the corresponding questions
+  will be loaded upon launching the program. A **Set** of 5 randomised distinct integers ranging from 0-9 will be
+  generated.
+  This **Set** of integers are the used as the index of questions in the **ArrayList** to select the corresponding
+  questions
   and stored for other usages (e.g. `like`, `unlike` commands).
-  The displayed index of questions increments from 1 to 5, which might differ from their real indexes in the ArrayList. 
-  A **HashMap** is then used with displayed index being the key and real question index being the value to ensure that the correct
+  The displayed index of questions increments from 1 to 5, which might differ from their real indexes in the ArrayList.
+  A **HashMap** is then used with displayed index being the key and real question index being the value to ensure that
+  the correct
   question will be mapped to from user input index (i.e. displayed index).
 * **User input validation**<br>
-  Checking mechanism is used to validate user input. The first validation happens at manager level and the `CommandKeyword` will be checked.
-  A correct type of command object will be created based on `CommandKeyword`. The second validation happens at command level
-  to validate arguments and payloads. This is done at command level instead of manager level as different commands might have 
+  Checking mechanism is used to validate user input. The first validation happens at manager level and
+  the `CommandKeyword` will be checked.
+  A correct type of command object will be created based on `CommandKeyword`. The second validation happens at command
+  level
+  to validate arguments and payloads. This is done at command level instead of manager level as different commands might
+  have
   different requirements for the inputs.
 
 ### Self Reflection Implementation
+
 ![Reflection Component Sequence Diagram](diagrams/ReflectionSequenceDiagram.png)
-A `ReflectionManager` object is created by the WellNUS++ `MainManager`. It uses a `ReflectUi` and `CommandParser` object 
-to constantly reads in and interprets user input and create the correct command for execution based on input 
-command type until a `HomeCommand`. A common `QuestionList`object is shared among command objects to retrieve and modify user data. 
+A `ReflectionManager` object is created by the WellNUS++ `MainManager`. It uses a `ReflectUi` and `CommandParser` object
+to constantly reads in and interprets user input and create the correct command for execution based on input
+command type until a `HomeCommand`. A common `QuestionList`object is shared among command objects to retrieve and modify
+user data.
 
 ![Reflection Component Class Diagram](diagrams/ReflectionClassDiagram.png)
 `ReflectionManager` class:<br>
+
 - The main event driver of **Self Reflection** feature.
-- It inherits from abstract `Manager` class to standardise behaviours. For example. `ReflectionManager` needs to override a 
+- It inherits from abstract `Manager` class to standardise behaviours. For example. `ReflectionManager` needs to
+  override a
   standardised abstract method `runEventDriver()` as that this method can be better invoked by the `MainManager`.
-- Each `ReflectionManager` object contains exactly one `ReflectUi` object as an attribute to constantly get user inputs. This is to
+- Each `ReflectionManager` object contains exactly one `ReflectUi` object as an attribute to constantly get user inputs.
+  This is to
   use a common `Scanner` object (created in the `ReflectUi` object) to read all the user inputs within Self Reflection
   feature. This can avoid potential unexpected behaviours from creating multiple `Scanner` objects.
 - The `runEventDriver()` method is the entry of the Self Reflection feature. It contains a **while loop** to
-  continuously get user input commands as users are expected to continuously perform a series of actions within Self Reflection
+  continuously get user input commands as users are expected to continuously perform a series of actions within Self
+  Reflection
   feature until they wish to return back to main WellNUS++ interface(input `home` command).
 - Based on the input command type, the `executeCommands()` method will create the correct command objects and
-  invoke the execution of these commands. Since the command objects are local variables, they are dependencies for `ReflectionManager` class.
+  invoke the execution of these commands. Since the command objects are local variables, they are dependencies
+  for `ReflectionManager` class.
 
 `QuestionList` class:<br>
-- This class stores the list of 10 `ReflectionQuestion` objects available in Self Reflection. It is in charge of retrieving and modifying
-  user data related to `ReflectionQuestion` such as the favorite list and the indexes of the previously generated set of questions.
-- A `ReflectionManager` object has exactly one `QuestionList` object which is then passed by reference to construct command
-  objects(`LikeCommand`, `GetCommand` etc). Hence, it is a dependency for all command objects in Self Reflection. This structure
+
+- This class stores the list of 10 `ReflectionQuestion` objects available in Self Reflection. It is in charge of
+  retrieving and modifying
+  user data related to `ReflectionQuestion` such as the favorite list and the indexes of the previously generated set of
+  questions.
+- A `ReflectionManager` object has exactly one `QuestionList` object which is then passed by reference to construct
+  command
+  objects(`LikeCommand`, `GetCommand` etc). Hence, it is a dependency for all command objects in Self Reflection. This
+  structure
   allows data to be centralised and well organised by one class.
 - By abstracting the above-mentioned attributes and methods as a separate class instead of putting them
-  in `ReflectionManager`, the `ReflectionManager` class can solely focus command execution. All the data related to the 
+  in `ReflectionManager`, the `ReflectionManager` class can solely focus command execution. All the data related to the
   list of questions is taken care of by the `QuestionList` class. As such, Single responsibility can be better achieved.
-- A `QuestionList` object has exactly one `Storage` and `ReflectionTokenizer` class to store data into data file upon update
+- A `QuestionList` object has exactly one `Storage` and `ReflectionTokenizer` class to store data into data file upon
+  update
   and load data from data file upon launching WellNUS++.
 
 `ReflectionQuestion` class:<br>
+
 - Each introspective question is a `ReflectionQuestion` object.
 - It contains the basic description of the introspective question. Being modelled as an object instead of pure string,
   each question will be able to have more attributes which might be utilized for future features.
 
 `ReflectUi` class: <br>
-- This subclass inherits from `TextUi` superclass. It allows Self Reflection feature to have more customised output 
+
+- This subclass inherits from `TextUi` superclass. It allows Self Reflection feature to have more customised output
   behaviour(e.g. type of separators).
 
 `ReflectionCommands` class: <br>
-- This represents a collection of all commands in Self Reflection feature, which will be explained in more detail at later section.
+
+- This represents a collection of all commands in Self Reflection feature, which will be explained in more detail at
+  later section.
 - Each command class inherits from `Command` abstract class and override `validateComand()` abstract method to validate
-  command. 
+  command.
 - Commands available in Self Reflection: <br>
   Get a random set of reflection questions: `get`<br>
   Add a particular question into favorite list: `like INDEX`<br>
@@ -273,45 +322,55 @@ command type until a `HomeCommand`. A common `QuestionList`object is shared amon
   Return back to main WellNUS++: `home`
 
 #### Self Reflection commands implementation
+
 ![Reflection Commands Class Diagram](diagrams/ReflectionCommandsUML.png)
 
 `GetCommand` class: <br>
+
 - Command format: `get`
 - This command generates a set of 5 random introspective questions for users to reflect on.
-- A `QuestionList` object is passed in as a dependency to provide the pool of 10 introspective questions available 
-and generate the set of indexes.
+- A `QuestionList` object is passed in as a dependency to provide the pool of 10 introspective questions available
+  and generate the set of indexes.
 
 `LikeCommand` class: <br>
+
 - Command format: `like INDEX`
 - Users can add reflection question that is generated in the previous set into their favorite list. As there
   will only be 5 questions per random set, the indexes are restricted to integer 1~5.
 - The `QuestionList` class is used to as a dependency and `addFavQuestion()` method in called to add and store the data.
 - Every time a question is added into the favorite list, the indexes of this particular question will be stored in data
   file straightaway. It prevents data loss due to unforeseen computer shutdown.
-- Users can only successfully add a question to favorite list if they have gotten **at least** one set of questions previously.
+- Users can only successfully add a question to favorite list if they have gotten **at least** one set of questions
+  previously.
 
 `UnlikeCommand` class: <br>
+
 - Command format: `unlike INDEX`
-- Users can remove reflection questions from their favorite list. 
-- The `removeFavQuestion()` method in `QuestionList` class is used to remove data and the mechanism is similar to `like` command.
+- Users can remove reflection questions from their favorite list.
+- The `removeFavQuestion()` method in `QuestionList` class is used to remove data and the mechanism is similar to `like`
+  command.
 
 `FavoriteCommand` class: <br>
+
 - Command format: `fav`
 - Users can review the questions in their favorite list.
-- The `getFavQuestions()` method in `QuestionList` class is called to retrieve the questions based on the indexes in the 
-favorite list.
+- The `getFavQuestions()` method in `QuestionList` class is called to retrieve the questions based on the indexes in the
+  favorite list.
 
 `PrevCommand` class: <br>
+
 - Command format: `prev`
 - Users can review the set of questions generated by the previous `get` command. It only works if users have gotten
   **at least** one set of questions.
 
 `HelpCommand` class: <br>
+
 - Command format: `help [COMMAND_TO_CHECK]`
 - Every command class has public attributes `COMMAND_DESCRIPTION` and `COMMAND_USAGE`.
 - `printHelpMessage()` method in `HelpCommand` will retrieve and print these attributes.
 
 `HomeCommand` class: <br>
+
 - Command format: `home`
 - This command allows users to return back to the main WellNUS++ interface.
 
@@ -332,7 +391,8 @@ The CommandParser is implicitly used by users 100% of the time.
 It is the abstraction through which the users will interact with WellNUS++'s features.
 Its ease of use is critical to ensure a good user experience.
 
-#### User design Considerations    
+#### User design Considerations
+
 Our [target user profile](#target-user-profile) are Computing and Engineering students.
 With that, we have done extensive research and laid out the following design considerations.
 
@@ -346,7 +406,8 @@ With that, we have done extensive research and laid out the following design con
    reduces the cognitive load on the user's end and allows for a
    more pleasant experience.
 
-#### Developer Design Considerations  
+#### Developer Design Considerations
+
 Virtually every feature in WellNUS++ will require user input to be processed. This means that all features
 will have to interact with `CommandParser`. Hence, the
 design for the `CommandParser` API must be understandable, unambiguous and easy to develop on.
@@ -382,7 +443,6 @@ This makes behaviour **unpredictable** and a **confusing** user experience.
 
 For expert users and CLI-masters, pedantic argument input like AB3 makes the typing experience MUCH slower due to the
 need to type which is relatively clunky as the user will need to type far off to the '/' key on the keyboard.
-
 
 ### CommandParser Syntax
 
@@ -432,7 +492,8 @@ Using a `HashMap` fulfils design considerations (2), (3) and (4).
 ### Implementation
 
 #### Integration with WellNUS++
-![Integration](diagrams/CommandParserClass.png)  
+
+![Integration](diagrams/CommandParserClass.png)
 
 `CommandParser` integrates into the boilerplate via the abstract Manager class.  
 All features are controlled by a manager subclass - hence the developers just need to call
@@ -485,45 +546,122 @@ is input as an argument.
 Internally, this just splits the string by whitespace and returns the first word in the array.
 
 <!-- @@author YongbinWang -->
+#### Alternative Designs Considered
+
+We considered alternative command structures such as [AB3](https://se-education.org/addressbook-level3/UserGuide.html)
+where input types are
+specified , `e.g. n/John Doe` which more 'secure' from the get go.
+However, due to the following issues, AB3 was not chosen as the alternative solution compared to the shell-like
+structure.
+
+**Steep learning curve**  
+For experienced and inexperienced users, it is a hassle to remember what letter corresponds to what argument.
+For AB3, the user needs to remember all the different `char` 'verbs' such as `e/` for email, `n/` for name.
+This violates design consideration (1).
+
+**Does not scale well**  
+AB3 structure runs the high risk of argument-space collision as well.  
+For example, consider a command that needs an "email" and "entry". What does `e/<payload>` correspond to?
+We could simply just put entry as *some other character* -- but that defeats the purpose of having the structure in the
+first place as the character is the argument's first character.
+This makes behaviour **unpredictable** and a **confusing** user experience.
+
+**Bad expert user experience**
+
+For expert users and CLI-masters, pedantic argument input like AB3 makes the typing experience MUCH slower due to the
+need to type which is relatively clunky as the user will need to type far off to the '/' key on the keyboard.
+
 ## AtomicHabit Component
 
-![AtomicHabit Component](diagrams/AtomicHabit.png)
-The `AtomicHabit` component is responsible for tracking the user's daily habits.
-It consists of the `feature` package and the `command` package.
+The `AtomicHabit` component is responsible for tracking the user's daily habits
+inorder to help users inculcate useful habits.
 
-### Package Layout
-The `command` package consists of the `AddCommand`, `DeleteCommand`, `HomeCommand`, `ListCommand`, `UpdateCommand`.
+It consists commands that allows the user keep track of their habits such as adding, updating and more.
 
-* `AddCommand` - Adds a new habit to the user's habit list.
-* `DeleteCommand` - Delete an atomic habit from the user's habit list.
-* `HomeCommand` - Returns the user back to main interface.
-* `ListCommand` - Lists all the user's habits.
-* `UpdateCommand` - Updates the user's habit count.
+### Design Considerations
 
-The `feature` package contains the `AtomicHabit` class, the `AtomicHabitList` class and the `AtomicHabitManager` class.
-The `AtomicHabit` class represents a single habit, while the `AtomicHabitList` class represents the list of all the
-user's habit and the `AtomicHabitManager` class is the class that manages the `AtomicHabitList` class and executes
-the `commands`.
+#### User design considerations
 
-The `AtomicHabitManager` class utilises `TextUi` class to process user inputs and execute the `commands` accordingly.
+* The output of the `AtomicHabit` component is designed to be simple and informative
+  as any changes to their habits will be printed out for the user.
+* A variety of commands are provided to allow the user to easily add, update and delete their habits.
+* `help` command and prompting messages are available to guide users in using AtomicHabit feature. For example, when
+  user
+  inputs `list` and there is no habit in the list, the following message will be printed out:
 
-The `AtomicHabitList` class is implemented as an ArrayList of `AtomicHabit` objects.
+```
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    You have no habits in your list!
+    Start adding some habits by using 'add'!
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+```
 
-The `AtomicHabit` class has the following attributes:
+* A unique line separator `~` is used to differentiate AtomicHabit from other features and give users a better
+  visual indication.
 
-* `description` - the description of the habit
-* `count` - the number of times the habit is done
+#### Developer design considerations
 
-### Implementation of `AtomicHabitManager`
+* **Abstracted `AtomicHabitList` Class**<br>
+  An abstracted `AtomicHabitList` class is created to store the list of habits. This centralised `AtomicHabitList`
+  object is
+  passed to other objects.This allows the `AtomicHabit` component to be easily extended to support more features in the
+  future.
+* **Duplicate Checking**<br>
+  Duplicate checking is done to prevent the user from accidentally adding the same habit twice. This is done by checking
+  if the habit
+  already exists in the `AtomicHabitList` object.
+* **User input validation**<br>
+  Checking mechanism is used to validate user input. User input is always extensively checked
+  using the `validateCommand()` method in `Command` class before attempting to prepare or execute any command.
+
+### AtomicHabit Implementation
+
 ![AtomicHabitManager Implementation](diagrams/AtomicHabitSequenceDiagram.png)
-`AtomicHabitManager` is a subclass of `Manager` class. It is initialised by the `MainManager`.
-When the user enters 'hb' command, the `MainManager` will call the `runEventDriver()` method of `AtomicHabitManager`
-object. The `runEventDriver()` method will call back the `greet()` method to print the welcome message.
-Then, it will call the `runCommands()` method to process the user input and execute the `commands` accordingly.
-The output of the `commands` will be printed by the `textUi` object which is an attribute of `AtomicHabitManager` class
-and is initialised in the constructor. `habitList` which was initialised in the constructor is the `AtomicHabitList`
-object that stores all the user's habits.
-<!-- @@author -->
+An `AtomicHabitManager` object is created by the WellNUS++ `MainManager`and takes over control of the application
+when user enters the `AtomicHabit` feature. It uses a `AtomicHabitUi` and `CommandParser` object
+to constantly read in and interpret user input and create the correct command for execution based on input
+command type until a `HomeCommand`. A common `AtomicHabitList`object is initialised by `AtomicHabitManager` and is
+shared among command objects to retrieve and modify user data.
+
+![AtomicHabit Component](diagrams/AtomicHabit.png)
+Note: For readability, AtomicHabitCommand is an abstraction of all the 6 different commands that exist in AtomicHabit.
+
+#### AtomicHabit Commands
+
+`AddCommand` class: <br>
+
+- Command format: `add --name ATOMIC_HABIT_NAME`
+- Users can add new habit to their habit list to track their progress.<br>
+- `addAtomicHabit()` method in `AtomicHabitList` will add the habit to the habit list.
+
+`DeleteCommand` class: <br>
+
+- Command format: `delete --id HABIT_INDEX`
+- Users can delete habit from their list once they have inculcated the habit.
+- `deleteAtomicHabit()` method in `AtomicHabitList` will delete the habit from the habit list.
+
+`HomeCommand` class: <br>
+
+- Command format: `home`
+- This command allows users to return back to the main WellNUS++ interface.
+
+`ListCommand` class: <br>
+
+- Command format: `list`
+- This command allows users to view all the habits they have added.
+- ArrayList of 'AtomicHabit' objects is iterated through and the attributes are printed out.
+
+`UpdateCommand` class: <br>
+
+- Command format: `update --id HABIT_INDEX [--by NUMBER_TO_CHANGE]`
+- This command allows users to increment or decrement number of times the habit is done.
+- `increaseCount()` and `decreaseCount()` methods in `AtomicHabit` will increment or decrement the habit accordingly.
+
+`HelpCommand` class: <br>
+
+- Command format: `help [COMMAND_TO_CHECK]`
+- Every command class has public attributes `COMMAND_DESCRIPTION` and `COMMAND_USAGE`.
+- `printHelpMessage()` method in `HelpCommand` will retrieve and print these attributes.
 
 <!-- @@author haoyangw -->
 ## Managers
@@ -602,8 +740,10 @@ data will
 be stored in the following format
 
 ```
+
 like:[index of liked question]
 prev:[index of previous question]
+
 ``` 
 
 `detokenize()` then can be called by ReflectionManager to retrieve the ArrayList containing the Set of liked and
@@ -639,10 +779,12 @@ calling `Storage`'s `saveData` method.
 - Internally, each entry in `ArrayList<String>` will be delimited by ` --\n`, where \n is `System.LineSeparator()`.
   This was chosen due to the invariant property of `' --'` in the context of WellNUS++. Due to the way all user input
   is filtered by the `CommandParser`, the chosen delimiter should never show up in any data input, such as a habit name
-  from `AtomicHabits`
+  from `AtomicHabits`.
 
 <!-- @@author nichyjt -->
+
 ## Focus Timer Component
+
 The `Focus Timer` component is responsible for tracking the user's daily habits.
 It consists of the `feature` package and the `command` package.
 
@@ -650,7 +792,6 @@ It contains commands that you would expect from a timer, such as stopping,
 pausing, and more.
 
 ### Design Considerations
-
 
 ### Focus Timer Implementation
 
@@ -664,28 +805,25 @@ identify the state of the FocusTimer.
 Note: For readability, FocusCommand is an abstraction of all the 9 different commands that exist in FocusTimer.
 
 #### State Management
+
 The timer is an inherently complex feature. There are many commands, and some commands
 logically cannot be executed in certain states. For example, if the timer is `Paused`,
 the user cannot go to the `next` Countdown.
 
 Problem: It is confusing to developers to check if the `command` that they are writing
 
-
 To help developers, we define the expected behaviour for focus timer
 in this **simplified** finite state machine (FSM) diagram.
 
 The black circle represents the entrypoint into FocusTimer, and
-the labels of the arrows are the valid `command`. 
+the labels of the arrows are the valid `command`.
 The command `home` has been left out to make the diagram simpler.
 It is a command that can be called in any state, and does not add value to it.
 
-
 ![FSM diagram](diagrams/FocusTimerState.png)
-
 
 From the diagram and the class diagram, we can derive a truth table
 from the attributes of each Countdown and tag them to a state.
-
 
 | State/Flag | isRunClock | isCompletedCountDown | isReady |  
 |------------|------------|----------------------|---------|
@@ -693,13 +831,15 @@ from the attributes of each Countdown and tag them to a state.
 | Counting   | T          | F                    | F       |
 | Waiting    | F          | T                    | F       |
 | Paused     | F          | F                    | F       |
+
 Truth table, where X denotes a 'dont care' condition
 where the truth value does not matter.
 
 From this, we can easily check which state we are in and then allow exe
-Referring to the class diagram, this is implemented on `Session` with various methods helping identify the state:  
+Referring to the class diagram, this is implemented on `Session` with various methods helping identify the state:
 
 Example implementation:
+
 ```
 public boolean isSessionCounting(){
     Countdown countdown = getCurrentCountdown();
@@ -708,7 +848,8 @@ public boolean isSessionCounting(){
 ```
 
 Developers can easily check if a command is in a valid state to be executed by using these
-methods in `Session` to check which state the command is being called in. 
+methods in `Session` to check which state the command is being called in.
+
 - `isSessionReady()`
 - `isSessionCounting()`
 - `isSessionWaiting()`
@@ -717,6 +858,63 @@ methods in `Session` to check which state the command is being called in.
 
 <!-- @@author YongbinWang -->
 #### Commands
+
+`StartCommand` class: <br>
+
+- Command format: `start`
+- Users can start the focus session and the first work countdown will begin.
+- `startTimer()` method in `Session` will begin the countdown.
+
+`CheckCommand` class: <br>
+
+- Command format: `check`
+- Users can check the time remaining in the current countdown.<br>
+- `getMinutes()` and `getSeconds()` method in `Countdown` is used to retrieve the current time remaining.
+
+`PauseCommand` class: <br>
+
+- Command format: `pause`
+- Users can pause the current timer if they wish to perform other tasks.<br>
+- `setPause()` method in `Countdown` is used to pause the current timer by setting the atomic boolean `isRunClock` to
+  false.
+
+`ResumeCommand` class: <br>
+
+- Command format: `resume`
+- Users can resume the current timer if they are ready to continue focusing.<br>
+- `setStart()` method in `Countdown` is used to resume the current timer by setting the atomic boolean `isRunClock` to
+  true.
+
+`NextCommand` class: <br>
+
+- Command format: `next`
+- Users can proceed to the next work or break countdown.<br>
+- `startTimer()` method in `Session` is used to start the next countdown.
+
+`StopCommand` class: <br>
+
+- Command format: `stop`
+- Users can add new habit to their habit list to track their progress.<br>
+- `addAtomicHabit()` method in `AtomicHabitList` will add the habit to the habit list.
+
+`ConfigCommand` class: <br>
+
+- Command format: `config [--cycle NUM_OF_CYCLE --work WORK_TIME --break BREAK_TIME --longbreak LONG_BREAK_TIME]`
+- Users can modify their session to their liking by setting
+  their own number of cycles, and length of the different timers.<br>
+- `setWork()`, `setBrk()`, `setLongBrk()`, and `setCycle()` method in `Session` is used to update the new values into
+  `work`, `brk`, `longBrk` and `cycle` attributes.
+
+`HelpCommand` class: <br>
+
+- Command format: `help [COMMAND_TO_CHECK]`
+- Every command class has public attributes `COMMAND_DESCRIPTION` and `COMMAND_USAGE`.
+- `printHelpMessage()` method in `HelpCommand` will retrieve and print these attributes.
+
+`HomeCommand` class: <br>
+
+- Command format: `home`
+- This command allows users to return back to the main WellNUS++ interface.
 
 # Appendix: Requirements
 ## Product scope
@@ -807,18 +1005,24 @@ WellNUS++ is a CLI app, primarily due to the following reasons:
    Example:
 
 ```
+
 ------------------------------------------------------------
+
     We are here to ensure your wellness is taken care of through WellNUS++
+
 Here are all the commands available for you!
 ------------------------------------------------------------
 ------------------------------------------------------------
+
     1. hb - Enter Atomic Habits: Track your small daily habits and nurture it to form a larger behaviour
     usage: hb
     2. reflect - Read through introspective questions for your reflection
     usage: reflect
     3. exit - Exit WellNUS++
     usage: exit
+
 ------------------------------------------------------------
+
 ```
 
 3. Test case: `help me`<br>
@@ -826,9 +1030,13 @@ Here are all the commands available for you!
    Example:
 
 ```
+
 ------------------------------------------------------------
+
     help does not take in any arguments!
+
 ------------------------------------------------------------
+
 ```
 
 4. To get a list of available commands, any command other than `help` is invalid
@@ -841,13 +1049,15 @@ Here are all the commands available for you!
    Example:
 
 ```
+
 ============================================================
-    1.What is my purpose in life?
-    2.What is my personality type?
-    3.Did I make time for myself this week?
-    4.What scares me the most right now?
-    5.When is the last time I gave back to others?
+1.What is my purpose in life?
+2.What is my personality type?
+3.Did I make time for myself this week?
+4.What scares me the most right now?
+5.When is the last time I gave back to others?
 ============================================================
+
 ```
 
 3. Test case: `get reflect`<br>
@@ -855,12 +1065,14 @@ Here are all the commands available for you!
    Example:
 
 ```
+
 !!!!!!-------!!!!!--------!!!!!!!------!!!!!---------!!!!!!!
 Error Message:
-    Command is invalid.
+Command is invalid.
 Note:
-    Please check the available commands and the format of commands.
+Please check the available commands and the format of commands.
 !!!!!!-------!!!!!--------!!!!!!!------!!!!!---------!!!!!!!
+
 ```
 
 4. Any command other than `get` is invalid
@@ -873,10 +1085,14 @@ Note:
    Example:
 
 ```
+
 ------------------------------------------------------------
+
     Yay! You have added a new habit:
     'make bed every morning' was successfully added
+
 ------------------------------------------------------------
+
 ```
 
 3. Test case: `add name make bed every morning`<br>
@@ -884,12 +1100,14 @@ Note:
    Example:
 
 ```
+
 !!!!!!-------!!!!!--------!!!!!!!------!!!!!---------!!!!!!!
 Error Message:
-    Wrong arguments given to 'add'!
+Wrong arguments given to 'add'!
 Note:
-    
+
 !!!!!!-------!!!!!--------!!!!!!!------!!!!!---------!!!!!!!
+
 ```
 
 4. Any commands that does not follow the format of `add --name ATOMIC_HABIT_NAME` is invalid
