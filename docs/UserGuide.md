@@ -132,13 +132,13 @@ Expected outcome:
 ------------------------------------------------------------
     WellNUS++ is a Command Line Interface (CLI) app for you to keep track, manage and improve your physical and mental wellness.
     Input `help` to see all available commands.
-Input `help [command-to-check]` to get usage help for a specific command.
-Here are all the commands available for you!
+    Input `help [command-to-check]` to get usage help for a specific command.
+    Here are all the commands available for you!
     
-    1. hb(Atomic Habits) - Track and manage your habits with our suite of tools to help you grow and nurture a better you!
-    2. reflect(Self Reflection) - Take some time to pause and reflect with our specially curated list of questions and reflection management tools.
-    3. ft(Focus Timer) - Set a configurable 'Pomodoro' timer with work and rest cycles to keep yourself focused and productive!
-    4. gamif(Gamification) - Gamification gives you the motivation to continue improving your wellness by rewarding you for your efforts!
+    1. hb - Atomic Habits - Track and manage your habits with our suite of tools to help you grow and nurture a better you!
+    2. reflect - Self Reflection - Take some time to pause and reflect with our specially curated list of questions and reflection management tools.
+    3. ft - Focus Timer - Set a configurable 'Pomodoro' timer with work and rest cycles to keep yourself focused and productive!
+    4. gamif - Gamification - Gamification gives you the motivation to continue improving your wellness by rewarding you for your efforts!
     5. exit - Close WellNUS++ and return to your terminal.
     6. help - Get help on what commands can be used in WellNUS++.
 ------------------------------------------------------------
@@ -152,7 +152,7 @@ Expected outcome:
 
 ```
 ------------------------------------------------------------
-    hb(Atomic Habits) - Track and manage your habits with our suite of tools to help you grow and nurture a better you!
+    hb - Atomic Habits - Track and manage your habits with our suite of tools to help you grow and nurture a better you!
     usage: hb
 ------------------------------------------------------------
 ```
@@ -385,18 +385,19 @@ Example of usage 1:
 Expected outcome:
 
 ```
-------------------------------------------------------------
-    Atomic Habits (hb) - Track and manage your habits with our suite of tools to help you grow and nurture a better you!
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    hb - Atomic Habits - Track and manage your habits with our suite of tools to help you grow and nurture a better you!
     Input `help` to see all available commands.
-Input `help [command-to-check] to get usage help for a specific command.
-Here are all the commands available for you!
+    Input `help [command-to-check] to get usage help for a specific command.
+    Here are all the commands available for you!
     
     1. add - Add a habit to your habit tracker.
-    2. help - Get help on what commands can be used in Atomic Habit WellNUS++
-    3. home - Return back to the main menu of WellNUS++.
-    4. list - Lists out all the habits in your tracker.
-    5. update - Update how many times you've done a habit.
-------------------------------------------------------------
+    2. delete - Delete the habit you don't want to continue.
+    3. help - Get help on what commands can be used in Atomic Habit WellNUS++
+    4. home - Return back to the main menu of WellNUS++.
+    5. list - Lists out all the habits in your tracker.
+    6. update - Update how many times you've done a habit.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ```
 
 Example of usage 2:
@@ -406,10 +407,10 @@ Example of usage 2:
 Expected outcome:
 
 ```
-------------------------------------------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     add - Add a habit to your habit tracker.
     usage: add --name (your habit name)
-------------------------------------------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ```
 
 <!-- @@author haoyangw -->
@@ -478,16 +479,16 @@ Example of usage 1:
 Expected outcome:
 
 ```
-------------------------------------------------------------
-    Gamification (gamif) - Gamification gives you the motivation to continue improving your wellness by rewarding you for your efforts!
+######################################################################
+    gamif - Gamification - Gamification gives you the motivation to continue improving your wellness by rewarding you for your efforts!
     Input `help` to see all available commands.
-Input `help [command-to-check]` to get usage help for a specific command.
-Here are all the commands available for you!
+    Input `help [command-to-check]` to get usage help for a specific command.
+    Here are all the commands available for you!
     
     1. help - Get help on what commands can be used in WellNUS++ Gamification Feature
     2. home - Returns the user to the main WellNus++ session
     3. stats - Displays the user's XP level and points
-------------------------------------------------------------
+######################################################################
 ```
 
 Example of usage 2:
@@ -497,10 +498,10 @@ Example of usage 2:
 Expected outcome:
 
 ```
-------------------------------------------------------------
+######################################################################
     stats - Displays the user's XP level and points
     usage: stats
-------------------------------------------------------------
+######################################################################
 ```
 
 <!-- @@author wenxin-c -->
@@ -685,10 +686,10 @@ Expected outcome:
 
 ```
 ============================================================
-    reflect(Self Reflection) - Take some time to pause and reflect with our specially curated list of questions and reflection management tools.
+    reflect - Self Reflection - Take some time to pause and reflect with our specially curated list of questions and reflection management tools.
     Input `help` to see all available commands.
-Input `help [command-to-check] to get usage help for a specific command.
-Here are all the commands available for you!
+    Input `help [command-to-check] to get usage help for a specific command.
+    Here are all the commands available for you!
     
     1. fav - Get the list of questions that have been added to the favorite list.
     2. get - Get a list of questions to reflect on.
@@ -891,30 +892,29 @@ Expected outcome:
 
 ```
 ************************************************************
-    Focus Timer (ft) - Set a configurable timer with work and rest cycles to keep yourself focused and productive!
+    ft - Focus Timer - Set a configurable 'Pomodoro' timer with work and rest cycles to keep yourself focused and productive!
     Input `help` to see all available commands.
-Input `help [command-to-check]` to get usage help for a specific command.
-Here are all the commands available for you!
+    Input `help [command-to-check]` to get usage help for a specific command.
+    Here are all the commands available for you!
     
     1. check - Check the time left in the current session.
-This can only be used when a countdown is underway!
+    This can only be used when a countdown is underway!
     2. config - Change the number of cycles and the times of the work, break and long break of your session!
-Note that the minimum cycles is 2,
-the maximum number of cycles is 5,
-the maximum work/break times is 60 minutes,
-the minimum work/break times is 1 minute.
-This is to ensure your well-being, as higher values might be counter-productive!
+    Note that the minimum cycles is 2,
+    the maximum number of cycles is 5,
+    the maximum work/break times is 60 minutes,
+    the minimum work/break times is 1 minute.
+    This is to ensure your well-being, as higher values might be counter-productive!
     3. help - Get help on what commands can be used in Focus Timer WellNUS++
     4. home - Stop the session and go back to WellNUS++.
     5. next - When a timer ends, move on to the next countdown!
-This can only be used when a countdown timer has ended!
+    This can only be used when a countdown timer has ended!
     6. pause - Pause the session!Can only be used when a countdown is ticking.
     7. resume - Continue the countdown.
-Can only be used when a countdown is paused.
+    Can only be used when a countdown is paused.
     8. start - Start your focus session!
     9. stop - Stop the session. You will have to `start` your focus session again!
 ************************************************************
-
 ```
 
 Example of usage 2:

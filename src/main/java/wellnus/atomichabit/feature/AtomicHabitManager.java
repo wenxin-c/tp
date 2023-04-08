@@ -22,7 +22,7 @@ import wellnus.manager.Manager;
  * This class will handle calling the different available commands for Atomic Habits according to user input
  */
 public class AtomicHabitManager extends Manager {
-    public static final String FEATURE_HELP_DESCRIPTION = "hb(Atomic Habits) - Track and manage your habits "
+    public static final String FEATURE_HELP_DESCRIPTION = "hb - Atomic Habits - Track and manage your habits "
             + "with our suite of tools to help you grow and nurture a better you!";
     public static final String FEATURE_NAME = "hb";
     private static final String ADD_COMMAND_KEYWORD = "add";

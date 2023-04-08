@@ -21,7 +21,7 @@ import wellnus.reflection.command.UnlikeCommand;
  * This class oversees the command execution for self reflection section.
  */
 public class ReflectionManager extends Manager {
-    public static final String FEATURE_HELP_DESCRIPTION = "reflect(Self Reflection) - Take some time to pause "
+    public static final String FEATURE_HELP_DESCRIPTION = "reflect - Self Reflection - Take some time to pause "
             + "and reflect with our specially curated list of questions and reflection management tools.";
     public static final String FEATURE_NAME = "reflect";
     private static final Logger LOGGER = WellNusLogger.getLogger("ReflectionManagerLogger");

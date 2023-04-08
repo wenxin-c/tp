@@ -23,7 +23,7 @@ import wellnus.manager.Manager;
  */
 //@@author YongbinWang
 public class FocusManager extends Manager {
-    public static final String FEATURE_HELP_DESCRIPTION = "ft(Focus Timer) - Set a configurable 'Pomodoro' timer "
+    public static final String FEATURE_HELP_DESCRIPTION = "ft - Focus Timer - Set a configurable 'Pomodoro' timer "
             + "with work and rest cycles to keep yourself focused and productive!";
     public static final String FEATURE_NAME = "ft";
     private static final String START_COMMAND_KEYWORD = "start";
