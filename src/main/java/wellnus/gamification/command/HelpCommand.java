@@ -7,7 +7,6 @@ import wellnus.command.Command;
 import wellnus.exception.BadCommandException;
 import wellnus.gamification.GamificationManager;
 import wellnus.gamification.util.GamificationUi;
-import wellnus.ui.TextUi;
 
 /**
  * Implementation of Gamification WellNus' <code>help</code> command. Explains to the user what commands are supported
