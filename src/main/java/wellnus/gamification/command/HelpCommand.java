@@ -38,6 +38,7 @@ public class HelpCommand extends Command {
     public HelpCommand(HashMap<String, String> arguments) {
         super(arguments);
         this.gamificationUi = new GamificationUi();
+        gamificationUi.setSeparator(GamificationUi.SEPARATOR);
     }
 
     private ArrayList<String> getCommandDescriptions() {
