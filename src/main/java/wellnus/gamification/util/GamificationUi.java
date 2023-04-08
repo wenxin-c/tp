@@ -16,6 +16,8 @@ public class GamificationUi extends TextUi {
             + "  / / __/ __ `/ __ `__ \\/ / /_/ / ___/ __ `/ __/ / __ \\/ __ \\" + System.lineSeparator()
             + " / /_/ / /_/ / / / / / / / __/ / /__/ /_/ / /_/ / /_/ / / / /" + System.lineSeparator()
             + " \\____/\\__,_/_/ /_/ /_/_/_/ /_/\\___/\\__,_/\\__/_/\\____/_/ /_/ ";
+    private static final String WRONG_NUM_CHAR_IN_SEPARATOR_MESSAGE = "Wrong NUM_CHAR_IN_SEPARATOR value in "
+            + "GamificationUi";
     private static final String XP_BAR_CHAR = "=";
     private static final String XP_BAR_HEAD = ">";
     private static final String XP_BOX_LEFT = "[";
@@ -62,12 +64,18 @@ public class GamificationUi extends TextUi {
      * @param msg Message to display on the user's screen
      */
     public static void printGamificationMessage(String msg) {
+        assert NUM_CHAR_IN_SEPARATOR < (msg.length() + 2) : WRONG_NUM_CHAR_IN_SEPARATOR_MESSAGE;
         System.out.print(SEPARATOR);
         int howManySeparator = 2;
-        int leftPadding = (NUM_CHAR_IN_SEPARATOR - msg.length() - howManySeparator) / 2;
+        int minimalPadding = 1;
+        // If assertion is not enabled in JVM, we still want to prevent crashing WellNUS++
+        int leftPadding = NUM_CHAR_IN_SEPARATOR < (msg.length() + 2) ? minimalPadding
+                : ((NUM_CHAR_IN_SEPARATOR - msg.length() - howManySeparator) / 2);
         System.out.print(" ".repeat(leftPadding));
         System.out.print(msg);
-        int rightPadding = NUM_CHAR_IN_SEPARATOR - msg.length() - howManySeparator - leftPadding;
+        // Likewise, if assertion is not enabled in JVM, we still want to prevent crashing WellNUS++
+        int rightPadding = NUM_CHAR_IN_SEPARATOR < (msg.length() + 2) ? minimalPadding
+                : (NUM_CHAR_IN_SEPARATOR - msg.length() - howManySeparator - leftPadding);
         System.out.print(" ".repeat(rightPadding));
         System.out.println(SEPARATOR);
     }
