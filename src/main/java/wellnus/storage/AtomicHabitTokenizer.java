@@ -34,6 +34,22 @@ public class AtomicHabitTokenizer implements Tokenizer<AtomicHabit> {
         return cleanString;
     }
 
+    private String convertToBase(String habitName) {
+        return habitName.toLowerCase().replaceAll("\\s", "");
+    }
+
+    private ArrayList<AtomicHabit> removeDuplicatedHabits(ArrayList<AtomicHabit> uncheckedAtomicHabits) {
+        HashMap<String, AtomicHabit> uniqueHabits = new HashMap<>();
+        for (AtomicHabit habit : uncheckedAtomicHabits) {
+            String description = convertToBase(habit.getDescription());
+            if (!uniqueHabits.containsKey(description)) {
+                uniqueHabits.put(description, habit);
+            }
+        }
+        ArrayList<AtomicHabit> cleanHabits = new ArrayList<>(uniqueHabits.values());
+        return cleanHabits;
+    }
+
     private AtomicHabit parseTokenizedHabit(String tokenizedHabit) throws TokenizerException {
         HashMap<String, String> parameterHashMap = new HashMap<>();
         String[] parameterStrings = splitTokenizedHabitIntoParameter(tokenizedHabit);
@@ -102,6 +118,7 @@ public class AtomicHabitTokenizer implements Tokenizer<AtomicHabit> {
                 detokenizedAtomicHabits.add(parsedHabit);
             }
         }
+        detokenizedAtomicHabits = removeDuplicatedHabits(detokenizedAtomicHabits);
         return detokenizedAtomicHabits;
     }
 }
