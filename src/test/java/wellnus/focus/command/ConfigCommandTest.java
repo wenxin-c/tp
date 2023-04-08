@@ -38,12 +38,40 @@ public class ConfigCommandTest {
             + "[--cycle number] [--work minutes] [--break minutes] [--longbreak minutes]"
             + System.lineSeparator()
             + "!!!!!!-------!!!!!--------!!!!!!!------!!!!!---------!!!!!!!";
+
+    private static final String EXPECTED_ERROR_MIN_MINS = ""
+            + "!!!!!!-------!!!!!--------!!!!!!!------!!!!!---------!!!!!!!"
+            + System.lineSeparator()
+            + "Error Message:"
+            + System.lineSeparator()
+            + "Invalid minutes payload given, the minimum time you can set is 1"
+            + System.lineSeparator()
+            + "Note:"
+            + System.lineSeparator()
+            + "config command usage: config "
+            + "[--cycle number] [--work minutes] [--break minutes] [--longbreak minutes]"
+            + System.lineSeparator()
+            + "!!!!!!-------!!!!!--------!!!!!!!------!!!!!---------!!!!!!!";
     private static final String EXPECTED_ERROR_MAX_CYCLE = ""
             + "!!!!!!-------!!!!!--------!!!!!!!------!!!!!---------!!!!!!!"
             + System.lineSeparator()
             + "Error Message:"
             + System.lineSeparator()
-            + "Invalid cycle payload given, the max cycles you can set is 5"
+            + "Invalid cycle payload given, the maximum cycles you can set is 5"
+            + System.lineSeparator()
+            + "Note:"
+            + System.lineSeparator()
+            + "config command usage: config "
+            + "[--cycle number] [--work minutes] [--break minutes] [--longbreak minutes]"
+            + System.lineSeparator()
+            + "!!!!!!-------!!!!!--------!!!!!!!------!!!!!---------!!!!!!!";
+
+    private static final String EXPECTED_ERROR_MIN_CYCLE = ""
+            + "!!!!!!-------!!!!!--------!!!!!!!------!!!!!---------!!!!!!!"
+            + System.lineSeparator()
+            + "Error Message:"
+            + System.lineSeparator()
+            + "Invalid cycle payload given, the minimum cycles you can set is 2"
             + System.lineSeparator()
             + "Note:"
             + System.lineSeparator()
@@ -189,12 +217,26 @@ public class ConfigCommandTest {
         // Test with negative time values
         HashMap<String, String> argumentPayload = generateArguments("5", "10", "-5", "20");
         command = new ConfigCommand(argumentPayload, session);
-        assertThrows(WellNusException.class, command::execute);
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outputStream));
+        try {
+            command.execute();
+        } catch (WellNusException exception) {
+            fail("No exception expected to throw!");
+        }
+        assertEquals(EXPECTED_ERROR_MIN_MINS, getMessageFrom(outputStream.toString()));
 
         // Test with negative cycle values
         argumentPayload = generateArguments("-5", "10", "10", "20");
         command = new ConfigCommand(argumentPayload, session);
-        assertThrows(WellNusException.class, command::execute);
+        outputStream = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outputStream));
+        try {
+            command.execute();
+        } catch (WellNusException exception) {
+            fail("No exception expected to throw!");
+        }
+        assertEquals(EXPECTED_ERROR_MIN_CYCLE, getMessageFrom(outputStream.toString()));
     }
 
     /**
@@ -208,7 +250,6 @@ public class ConfigCommandTest {
         // Test with large time values
         HashMap<String, String> argumentPayload = generateArguments("5", "61", "10", "20");
         command = new ConfigCommand(argumentPayload, session);
-
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outputStream));
         try {
@@ -220,9 +261,9 @@ public class ConfigCommandTest {
 
         // Test with large cycle values
         outputStream = new ByteArrayOutputStream();
-        System.setOut(new PrintStream(outputStream));
         argumentPayload = generateArguments("10", "10", "10", "20");
         command = new ConfigCommand(argumentPayload, session);
+        System.setOut(new PrintStream(outputStream));
         try {
             command.execute();
         } catch (WellNusException exception) {
