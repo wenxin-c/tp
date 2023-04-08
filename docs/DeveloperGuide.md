@@ -140,6 +140,7 @@ Main WellNUS++ uses TextUi<br>
 Atomic Habit uses AtomicHabitUi<br>
 Self Reflection uses ReflectUi<br>
 Focus Timer uses FocusUi<br>
+Gamification uses GamificationUi<br>
 For example, the line separator for Self Reflection is `=` and for Atomic Habit is `~`.
 <!--@@author-->
 

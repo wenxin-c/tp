@@ -16,23 +16,25 @@ class TextUi{
 }
 
 class FocusUi{
-- separator: String
 + isBlocking(Session session): boolean
 }
 
 class AtomicHabitUi{
-- separator: String
++ printLogo(): void
+}
+
+class GamificationUi{
 + printLogo(): void
 }
 
 class ReflectUi{
-- separator: String
-+ printLogo(): void
++ {static} printCelebrateLevelUp() : void
 }
 
 FocusUi --|> TextUi
 AtomicHabitUi --|> TextUi
 ReflectUi --|> TextUi
+GamificationUi --|> TextUi
 
 
 @enduml
