@@ -75,30 +75,34 @@ If you plan to use Intellij IDEA (highly recommended): <br>
    code and the interaction among different classes.<br>
 
 ## Design & implementation
+
 ### Application Lifecycle
+
 #### Overview
+
 The overall execution lifecycle of the WellNus application involves 4 main components, as shown in the diagram below.
 
 ![Application Lifecycle](diagrams/WellnusSequence.png)
 
-The application begins with a call to `WellNus.start()`, which initialises an instance of `MainManager` and calls the 
+The application begins with a call to `WellNus.start()`, which initialises an instance of `MainManager` and calls the
 `MainManager.runEventDriver()` method.
 
-`MainManager.runEventDriver()` will then take control of user input and provide a basic interface that parses commands 
+`MainManager.runEventDriver()` will then take control of user input and provide a basic interface that parses commands
 from the user. This basic interface only supports basic commands such as `help` and `exit` and recognises the keywords
-of all supported features in WellNUS++. When a recognised feature keyword is given, the corresponding `FeatureManager` 
+of all supported features in WellNUS++. When a recognised feature keyword is given, the corresponding `FeatureManager`
 will be activated through its `runEventDriver()` method, which gains control of user input from `MainManager`. On the
 other hand, `MainManager.runEventDriver()` terminates when the `exit` command is given, after which the user exits from
 the application.
 
 After control of user input is granted by `MainManager`, `FeatureManager.runEventDriver()` provides the user with a
-feature-specific user interface that continuously parses user commands to determine the suitable `Command` class to 
-handle any given command. In the case of supported commands besides 'home', the `execute()` method of the corresponding 
-`Command` class is called to perform a particular action requested by the user. On the other hand, the `home` command 
-will terminate the `FeatureManager.runEventDriver()` loop, returning the user to the main WellNus++ interface provided 
+feature-specific user interface that continuously parses user commands to determine the suitable `Command` class to
+handle any given command. In the case of supported commands besides 'home', the `execute()` method of the corresponding
+`Command` class is called to perform a particular action requested by the user. On the other hand, the `home` command
+will terminate the `FeatureManager.runEventDriver()` loop, returning the user to the main WellNus++ interface provided
 by `MainManager.runEventDriver()`.
 
 #### Rationale
+
 `WellNus` directly transfers control of user input to `MainManager.runEventDriver()` as managing user input is the
 expected functionality of the `runEventDriver()` method within a particular implementation of `Manager`, which means
 that conceptually, management of user input belongs in a subclass of `Manager` instead. Besides, this abstraction
@@ -107,9 +111,9 @@ to be a high-level class that delegates tasks to specialised classes that provid
 `WellNus` must not be responsible for concrete logic such as managing user input.
 
 Additionally, `MainManager.runEventDriver()` is intentionally restricted to only recognise basic commands and feature
-keywords to firstly, achieve the encapsulation and abstraction of feature-specific logic from `MainManager`. Moving 
+keywords to firstly, achieve the encapsulation and abstraction of feature-specific logic from `MainManager`. Moving
 feature-specific logic such as recognising feature-specific commands to corresponding feature `Managers` ensures that
-actual implementation details in feature-related subpackages are hidden from `MainManager`. This is necessary for 
+actual implementation details in feature-related subpackages are hidden from `MainManager`. This is necessary for
 the purpose of encapsulation since `MainManager` exists in a different subpackage. At the same time, by providing the
 public `runEventDriver()` in feature `Managers`, `MainManager` is only aware of the expected functionality of the
 `runEventDriver()`, which can be used to support feature-specific commands, without being involved in the implementation
@@ -139,6 +143,7 @@ are not the focus of this section since they are outside of `reflection` package
 <br>
 
 #### Feature Package (`ReflectionManager`, `ReflectionQuestion`, `QuestionList`, `TextUi`, `RandomNumberGenerator` classes)
+
 ![Reflection Component Class Diagram](diagrams/ReflectionClassDiagram.png)
 `ReflectionManager` class:<br>
 
@@ -204,6 +209,7 @@ are not the focus of this section since they are outside of `reflection` package
   of integers will be used as indexes to select the corresponding questions from the pool of 10 questions available.
 
 #### Command Package
+
 ![Reflection Commands Class Diagram](diagrams/ReflectionCommandsUML.png)
 
 `GetCommand` class: <br>
@@ -406,43 +412,97 @@ This makes behaviour **unpredictable** and a **confusing** user experience.
 For expert users and CLI-masters, pedantic argument input like AB3 makes the typing experience MUCH slower due to the
 need to type which is relatively clunky as the user will need to type far off to the '/' key on the keyboard.
 
-### AtomicHabit Component
+## AtomicHabit Component
+
+The `AtomicHabit` component is responsible for tracking the user's daily habits
+inorder to help users inculcate useful habits.
+
+It consists commands that allows the user keep track of their habits such as adding, updating and more.
+
+### Design Considerations
+
+#### User design considerations
+
+* The output of the `AtomicHabit` component is designed to be simple and informative
+  as any changes to their habits will be printed out for the user.
+* A variety of commands are provided to allow the user to easily add, update and delete their habits.
+* `help` command and prompting messages are available to guide users in using AtomicHabit feature. For example, when
+  user
+  inputs `list` and there is no habit in the list, the following message will be printed out:
+
+```
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    You have no habits in your list!
+    Start adding some habits by using 'add'!
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+```
+
+* A unique line separator `~` is used to differentiate AtomicHabit from other features and give users a better
+  visual indication.
+
+#### Developer design considerations
+
+* **Abstracted `AtomicHabitList` Class**<br>
+  An abstracted `AtomicHabitList` class is created to store the list of habits. This centralised `AtomicHabitList`
+  object is
+  passed to other objects.This allows the `AtomicHabit` component to be easily extended to support more features in the
+  future.
+* **Duplicate Checking**<br>
+  Duplicate checking is done to prevent the user from accidentally adding the same habit twice. This is done by checking
+  if the habit
+  already exists in the `AtomicHabitList` object.
+* **User input validation**<br>
+  Checking mechanism is used to validate user input. User input is always extensively checked
+  using the `validateCommand()` method in `Command` class before attempting to prepare or execute any command.
+
+### AtomicHabit Implementation
+
+![AtomicHabitManager Implementation](diagrams/AtomicHabitSequenceDiagram.png)
+An `AtomicHabitManager` object is created by the WellNUS++ `MainManager`and takes over control of the application
+when user enters the `AtomicHabit` feature. It uses a `AtomicHabitUi` and `CommandParser` object
+to constantly read in and interpret user input and create the correct command for execution based on input
+command type until a `HomeCommand`. A common `AtomicHabitList`object is initialised by `AtomicHabitManager` and is
+shared among command objects to retrieve and modify user data.
 
 ![AtomicHabit Component](diagrams/AtomicHabit.png)
-The `AtomicHabit` component is responsible for tracking the user's daily habits.
-It consists of the `feature` package and the `command` package.
+Note: For readability, AtomicHabitCommand is an abstraction of all the 6 different commands that exist in AtomicHabit.
 
-The `command` package consists of the `AddCommand`, `DeleteCommand`, `HomeCommand`, `ListCommand`, `UpdateCommand`.
+#### AtomicHabit Commands
 
-* `AddCommand` - Adds a new habit to the user's habit list.
-* `DeleteCommand` - Delete an atomic habit from the user's habit list.
-* `HomeCommand` - Returns the user back to main interface.
-* `ListCommand` - Lists all the user's habits.
-* `UpdateCommand` - Updates the user's habit count.
+`AddCommand` class: <br>
 
-The `feature` package contains the `AtomicHabit` class, the `AtomicHabitList` class and the `AtomicHabitManager` class.
-The `AtomicHabit` class represents a single habit, while the `AtomicHabitList` class represents the list of all the
-user's habit and the `AtomicHabitManager` class is the class that manages the `AtomicHabitList` class and executes
-the `commands`.
+- Command format: `add --name ATOMIC_HABIT_NAME`
+- Users can add new habit to their habit list to track their progress.<br>
+- `addAtomicHabit()` method in `AtomicHabitList` will add the habit to the habit list.
 
-The `AtomicHabitManager` class utilises `TextUi` class to process user inputs and execute the `commands` accordingly.
+`DeleteCommand` class: <br>
 
-The `AtomicHabitList` class is implemented as an ArrayList of `AtomicHabit` objects.
+- Command format: `delete --id HABIT_INDEX`
+- Users can delete habit from their list once they have inculcated the habit.
+- `deleteAtomicHabit()` method in `AtomicHabitList` will delete the habit from the habit list.
 
-The `AtomicHabit` class has the following attributes:
+`HomeCommand` class: <br>
 
-* `description` - the description of the habit
-* `count` - the number of times the habit is done
+- Command format: `home`
+- This command allows users to return back to the main WellNUS++ interface.
 
-Implementation of `AtomicHabitManager`:
-![AtomicHabitManager Implementation](diagrams/AtomicHabitSequenceDiagram.png)
-`AtomicHabitManager` is a subclass of `Manager` class. It is initialised by the `MainManager`.
-When the user enters 'hb' command, the `MainManager` will call the `runEventDriver()` method of `AtomicHabitManager`
-object. The `runEventDriver()` method will call back the `greet()` method to print the welcome message.
-Then, it will call the `runCommands()` method to process the user input and execute the `commands` accordingly.
-The output of the `commands` will be printed by the `textUi` object which is an attribute of `AtomicHabitManager` class
-and is initialised in the constructor. `habitList` which was initialised in the constructor is the `AtomicHabitList`
-object that stores all the user's habits.
+`ListCommand` class: <br>
+
+- Command format: `list`
+- This command allows users to view all the habits they have added.
+- ArrayList of 'AtomicHabit' objects is iterated through and the attributes are printed out.
+
+`UpdateCommand` class: <br>
+
+- Command format: `update --id HABIT_INDEX [--by NUMBER_TO_CHANGE]`
+- This command allows users to increment or decrement number of times the habit is done.
+- `increaseCount()` and `decreaseCount()` methods in `AtomicHabit` will increment or decrement the habit accordingly.
+
+`HelpCommand` class: <br>
+
+- Command format: `help [COMMAND_TO_CHECK]`
+- Every command class has public attributes `COMMAND_DESCRIPTION` and `COMMAND_USAGE`.
+- `printHelpMessage()` method in `HelpCommand` will retrieve and print these attributes.
 
 ### Managers
 
@@ -514,8 +574,10 @@ data will
 be stored in the following format
 
 ```
+
 like:[index of liked question]
 prev:[index of previous question]
+
 ``` 
 
 `detokenize()` then can be called by ReflectionManager to retrieve the ArrayList containing the Set of liked and
@@ -635,18 +697,24 @@ WellNUS++ is a CLI app, primarily due to the following reasons:
    Example:
 
 ```
+
 ------------------------------------------------------------
+
     We are here to ensure your wellness is taken care of through WellNUS++
+
 Here are all the commands available for you!
 ------------------------------------------------------------
 ------------------------------------------------------------
+
     1. hb - Enter Atomic Habits: Track your small daily habits and nurture it to form a larger behaviour
     usage: hb
     2. reflect - Read through introspective questions for your reflection
     usage: reflect
     3. exit - Exit WellNUS++
     usage: exit
+
 ------------------------------------------------------------
+
 ```
 
 3. Test case: `help me`<br>
@@ -654,9 +722,13 @@ Here are all the commands available for you!
    Example:
 
 ```
+
 ------------------------------------------------------------
+
     help does not take in any arguments!
+
 ------------------------------------------------------------
+
 ```
 
 4. To get a list of available commands, any command other than `help` is invalid
@@ -669,13 +741,15 @@ Here are all the commands available for you!
    Example:
 
 ```
+
 ============================================================
-    1.What is my purpose in life?
-    2.What is my personality type?
-    3.Did I make time for myself this week?
-    4.What scares me the most right now?
-    5.When is the last time I gave back to others?
+1.What is my purpose in life?
+2.What is my personality type?
+3.Did I make time for myself this week?
+4.What scares me the most right now?
+5.When is the last time I gave back to others?
 ============================================================
+
 ```
 
 3. Test case: `get reflect`<br>
@@ -683,12 +757,14 @@ Here are all the commands available for you!
    Example:
 
 ```
+
 !!!!!!-------!!!!!--------!!!!!!!------!!!!!---------!!!!!!!
 Error Message:
-    Command is invalid.
+Command is invalid.
 Note:
-    Please check the available commands and the format of commands.
+Please check the available commands and the format of commands.
 !!!!!!-------!!!!!--------!!!!!!!------!!!!!---------!!!!!!!
+
 ```
 
 4. Any command other than `get` is invalid
@@ -701,10 +777,14 @@ Note:
    Example:
 
 ```
+
 ------------------------------------------------------------
+
     Yay! You have added a new habit:
     'make bed every morning' was successfully added
+
 ------------------------------------------------------------
+
 ```
 
 3. Test case: `add name make bed every morning`<br>
@@ -712,12 +792,14 @@ Note:
    Example:
 
 ```
+
 !!!!!!-------!!!!!--------!!!!!!!------!!!!!---------!!!!!!!
 Error Message:
-    Wrong arguments given to 'add'!
+Wrong arguments given to 'add'!
 Note:
-    
+
 !!!!!!-------!!!!!--------!!!!!!!------!!!!!---------!!!!!!!
+
 ```
 
 4. Any commands that does not follow the format of `add --name ATOMIC_HABIT_NAME` is invalid
