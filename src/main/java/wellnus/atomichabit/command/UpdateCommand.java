@@ -37,9 +37,11 @@ public class UpdateCommand extends Command {
     private static final String DOT = ".";
     private static final int DEFAULT_INCREMENT = 1;
     private static final int ZERO = 0;
-    private static final String FEEDBACK_STRING_INCREMENT = "The following habit has been incremented! Keep up the good work!";
+    private static final String FEEDBACK_STRING_INCREMENT = "The following habit has been incremented! "
+            + "Keep up the good work!";
     private static final String FEEDBACK_STRING_DECREMENT = "The following habit has been decremented.";
-    private static final String FEEDBACK_INDEX_NOT_INTEGER_ERROR = "Invalid index payload given, expected a valid integer!";
+    private static final String FEEDBACK_INDEX_NOT_INTEGER_ERROR = "Invalid index payload given, "
+            + "expected a valid integer!";
     private static final String FEEDBACK_INDEX_OUT_OF_BOUNDS_ERROR = "Invalid index payload given, "
             + "index is out of range!";
     private static final String FEEDBACK_EMPTY_LIST_UPDATE = "There are no habits to update! "

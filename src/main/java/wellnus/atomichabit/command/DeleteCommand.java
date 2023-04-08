@@ -29,7 +29,8 @@ public class DeleteCommand extends Command {
     private static final String COMMAND_INVALID_PAYLOAD = "Invalid payload given to 'delete'!";
     private static final String FEEDBACK_STRING = "The following habit has been deleted:";
     private static final String FEEDBACK_STRING_TWO = "has been successfully deleted";
-    private static final String FEEDBACK_INDEX_NOT_INTEGER_ERROR = "Invalid index payload given, expected a valid integer";
+    private static final String FEEDBACK_INDEX_NOT_INTEGER_ERROR = "Invalid index payload given, "
+            + "expected a valid integer";
     private static final String FEEDBACK_INDEX_OUT_OF_BOUNDS_ERROR = "Invalid index payload given, "
             + "index is out of range!";
     private static final String FEEDBACK_EMPTY_LIST_UPDATE = "There are no habits to delete! "
