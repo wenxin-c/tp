@@ -12,7 +12,7 @@ import wellnus.focus.feature.Session;
  * Represents a class to pause the current countdown in the session.
  */
 public class PauseCommand extends Command {
-    public static final String COMMAND_DESCRIPTION = "pause - Pause the session!"
+    public static final String COMMAND_DESCRIPTION = "pause - Pause the session! "
             + "Can only be used when a countdown is ticking.";
     public static final String COMMAND_USAGE = "usage: pause";
     public static final String COMMAND_KEYWORD = "pause";
