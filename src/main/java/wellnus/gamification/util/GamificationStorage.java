@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import wellnus.exception.StorageException;
 import wellnus.exception.TokenizerException;
+import wellnus.storage.GamificationTokenizer;
 import wellnus.storage.Storage;
 
 /**

@@ -1,8 +1,9 @@
-package wellnus.gamification.util;
+package wellnus.storage;
 
 import java.util.ArrayList;
 
 import wellnus.exception.TokenizerException;
+import wellnus.gamification.util.GamificationData;
 import wellnus.storage.Tokenizer;
 
 /**
