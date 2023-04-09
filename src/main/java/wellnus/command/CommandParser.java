@@ -30,6 +30,7 @@ import wellnus.exception.BadCommandException;
  * <li>Has payloads ["work on CS2113", ["Sunday"]</li>
  * <br>
  */
+//@@author nichyjt
 public class CommandParser {
 
     private static final String ARGUMENT_DELIMITER = " --";
@@ -76,14 +77,12 @@ public class CommandParser {
      */
     private String[] splitIntoCommands(String fullCommandString) throws BadCommandException {
         assert fullCommandString != null : "fullCommandString should not be null";
-
         // Perform a string length sanity check
         fullCommandString = fullCommandString.strip();
         if (fullCommandString.length() == 0) {
             LOGGER.log(Level.INFO, LOG_STR_EMPTY_INPUT);
             throw new BadCommandException(ERROR_EMPTY_COMMAND);
         }
-
         int noLimit = -1;
         String[] rawCommands = fullCommandString.split(ARGUMENT_DELIMITER, noLimit);
         String[] cleanCommands = new String[rawCommands.length];
