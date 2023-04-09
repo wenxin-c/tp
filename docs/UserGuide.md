@@ -84,18 +84,26 @@ faster than traditional Graphical User Interface(GUI) apps.
     Enter a command to start using WellNUS++! Try 'help' if you're new, or just unsure.
 ------------------------------------------------------------
 ```
+5. You are now in the `main` session of `WellNUS+`. Access our features by issuing a feature command(described in later 
+sections). Issue the `help` command to see the list of feature commands available.
 
 # Overview of WellNUS++
 
 WellNUS++ comes with a variety of features to help you enhance your overall wellness in NUS! The features are Atomic
 Habit, Self Reflection, Focus Timer and Gamification.  
 
-Each feature has its own set of commands for users to explore.  
+![WellNUS++ Structure Overview](diagrams/WellNusStructure.png)<br/>
 
-Users can navigate to different features from main WellNUS++ and return from each feature back to main
-WellNUS++ using `home` command. Do note that users can only `exit` the program from main WellNUS++.
+Upon running our application jar, users first start in the `main` session. From here, users can navigate to different 
+features using the commands `hb`, `ft`, `reflect` and `gamif`, which takes them to the feature-specific session(see 
+later sections for details about each feature session).
 
-![WellNUS++ Structure Overview](diagrams/WellNusStructure.png)
+Each feature session provides its own set of commands for users to explore. Return to the `main` session
+using the `home` command. 
+
+Issue `help` in any session to find out what commands are available to you.
+
+Exit `WellNUS++` by issuing the `exit` command(**only** available in the `main` session).
 
 # Features
 
