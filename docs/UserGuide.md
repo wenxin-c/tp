@@ -756,7 +756,7 @@ Expected outcome:
 ```
 ************************************************************
     Your session has started! Please focus on your task.
-******************start******************************************
+************************************************************
 ************************************************************
     Task
 ************************************************************
@@ -834,7 +834,7 @@ Example of usage:
 
 `next`
 
-Expected outcome(if the next timer is a work timer):
+Expected outcome (if the next timer is a work timer):
 
 ```
 ************************************************************
@@ -842,7 +842,7 @@ Expected outcome(if the next timer is a work timer):
 ************************************************************
 ```
 
-Expected outcome(if the next timer is a break timer):
+Expected outcome (if the next timer is a break timer):
 
 ```
 ************************************************************
@@ -867,8 +867,8 @@ Expected outcome:
 ```
 ************************************************************
     Your focus session has ended.
-To start a new session, `start` it up!
-You can also configure the session to your liking with `config`!
+    To start a new session, `start` it up!
+    You can also configure the session to your liking with `config`!
 ************************************************************
 ```
 
@@ -891,26 +891,18 @@ Expected outcome:
 
 ```
 ************************************************************
-    Focus Timer (ft) - Set a configurable timer with work and rest cycles to keep yourself focused and productive!
+    ft - Focus Timer: Set a configurable 'Pomodoro' timer with work and rest cycles to keep yourself focused and productive!
     Input `help` to see all available commands.
-Input `help [command-to-check]` to get usage help for a specific command.
-Here are all the commands available for you!
+    Input `help [command-to-check]` to get usage help for a specific command.
+    Here are all the commands available for you!
     
-    1. check - Check the time left in the current session.
-This can only be used when a countdown is underway!
-    2. config - Change the number of cycles and the times of the work, break and long break of your session!
-Note that the minimum cycles is 2,
-the maximum number of cycles is 5,
-the maximum work/break times is 60 minutes,
-the minimum work/break times is 1 minute.
-This is to ensure your well-being, as higher values might be counter-productive!
+    1. check - Check the time left in the current countdown.Only usable when a countdown is not finished!
+    2. config - Change the number of cycles and length of your work, break and longbreak timings!
     3. help - Get help on what commands can be used in Focus Timer WellNUS++
     4. home - Stop the session and go back to WellNUS++.
-    5. next - When a timer ends, move on to the next countdown!
-This can only be used when a countdown timer has ended!
-    6. pause - Pause the session!Can only be used when a countdown is ticking.
-    7. resume - Continue the countdown.
-Can only be used when a countdown is paused.
+    5. next - Move on to the next countdown. Can only be used when a countdown timer has ended.
+    6. pause - Pause the session! Can only be used when a countdown is ticking.
+    7. resume - Continue the countdown. Can only be used when a countdown is paused.
     8. start - Start your focus session!
     9. stop - Stop the session. You will have to `start` your focus session again!
 ************************************************************
@@ -940,11 +932,21 @@ When leaving `ft`, the configuration will be reset to the default values.
 
 Format: `config [--cycle NUM_OF_CYCLE --work WORK_TIME --break BREAK_TIME --longbreak LONG_BREAK_TIME]`
 
-* At least one of the arguments, `cycle, work, break, longbreak` must be included along with the main `config` command
+* If no arguments are given, `config` prints out the current session settings
 * `NUM_OF_CYCLE` is an **integer** that is `>= 2`
 * `WORK_TIME, BREAK_TIME, LONG_BREAK_TIME` are **integers** that are all `>= 1`
 
-The initial default values for Focus Timer:
+**Configuation Limits**
+* `LONG_BREAK_TIME` should be greater or equal to `BREAK_TIME`
+* `WORK_TIME, BREAK_TIME, LONG_BREAK_TIME` have an upper limit of 60
+* `NUM_CYCLE` has an upper limit of 5 
+
+Why limit to 60 mins and 5 cycles?
+[Studies have shown](https://www.lib.sfu.ca/about/branches-depts/slc/learning/exam-prep/efficient-effective-study) 
+that an hour of studying/task at a time is the most optimal. 5 cycles has been set to prevent guard you against
+excessive working. Anything higher than the upper limits may be counterproductive!
+
+**Default values for Focus Timer**
 
 * `NUM_OF_CYCLE = 2`
 * `WORK_TIME = 1`
@@ -953,14 +955,14 @@ The initial default values for Focus Timer:
 
 Example of usage:
 
-`config --cycle 4`
+`config`
 
 Expected outcome:
 
 ```
 ************************************************************
     Okay, here's your new session details!
-    Cycles: 4
+    Cycles: 2
     Work: 1 minute
     Break: 1 minute
     Long break: 1 minute
@@ -969,7 +971,7 @@ Expected outcome:
 
 Example of usage 2:
 
-`config --longbreak 2 --cycle 4 --work 5`
+`config --longbreak 10 --cycle 4 --work 30 --break 5`
 
 Expected outcome:
 
@@ -977,9 +979,9 @@ Expected outcome:
 ************************************************************
     Okay, here's your new session details!
     Cycles: 4
-    Work: 5 minutes
-    Break: 1 minute
-    Long break: 2 minutes
+    Work: 30 minutes
+    Break: 5 minutes
+    Long break: 10 minutes
 ************************************************************
 ```
 

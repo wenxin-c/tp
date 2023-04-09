@@ -20,8 +20,10 @@ public class StopCommand extends Command {
     private static final String COMMAND_INVALID_COMMAND_MESSAGE = "Invalid command issued, expected 'stop'!";
     private static final String COMMAND_INVALID_ARGUMENTS_MESSAGE = "Invalid arguments given to 'stop'!";
     private static final String COMMAND_INVALID_PAYLOAD = "Invalid payload given to 'stop'!";
-    private static final String STOP_MESSAGE = "Your focus session has ended.\n"
-            + "To start a new session, `start` it up!\n"
+    private static final String STOP_MESSAGE = "Your focus session has ended."
+            + System.lineSeparator()
+            + "To start a new session, `start` it up!"
+            + System.lineSeparator()
             + "You can also configure the session to your liking with `config`!";
     private static final String ERROR_NOT_STARTED = "Nothing to stop - the timer has not started yet!";
     private static final String COMMAND_INVALID_COMMAND_NOTE = "stop command " + COMMAND_USAGE;
