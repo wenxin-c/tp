@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import wellnus.exception.TokenizerException;
 import wellnus.gamification.util.GamificationData;
-import wellnus.storage.Tokenizer;
 
 /**
  * Handles the conversion of GamificationData objects -> String and vice versa to allow
