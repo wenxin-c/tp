@@ -3,11 +3,7 @@ package wellnus.storage;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
-import wellnus.common.WellNusLogger;
-import wellnus.exception.StorageException;
 import wellnus.exception.TokenizerException;
 
 /**
@@ -26,10 +22,7 @@ public class ReflectionTokenizer implements Tokenizer<Set<Integer>> {
     private static final String PREV_KEY = "prev";
     private static final String COLON_CHARACTER = ":";
     private static final int NO_LIMIT = -1;
-    private static final String FILE_NAME = "reflect";
-    private static final String DETOKENIZE_ERROR_MESSAGE = "Detokenization failed! "
-            + "The file might be corrupted!";
-    private static final Logger LOGGER = WellNusLogger.getLogger("ReflectTokenizerLogger");
+    private static final String DETOKENIZE_ERROR_MESSAGE = "Invalid reflect %s data '%s' found in storage!";
     private String getTokenizedIndexes(String key, Set<Integer> indexesToTokenize) {
         String tokenizedIndexes = key + COLON_CHARACTER;
         for (int index : indexesToTokenize) {
@@ -41,18 +34,18 @@ public class ReflectionTokenizer implements Tokenizer<Set<Integer>> {
         return tokenizedIndexes;
     }
 
-    private String splitParameter(String tokenizedRawString, String parameterKey) throws TokenizerException {
+    private String splitParameter(String tokenizedRawString, String categoryKey) throws TokenizerException {
         int indexSplit = tokenizedRawString.indexOf(COLON_CHARACTER);
         String parameter;
         String tokenizedIndexes;
         try {
             parameter = tokenizedRawString.substring(INDEX_ZERO, indexSplit);
-            if (!parameter.equals(parameterKey)) {
-                throw new TokenizerException(DETOKENIZE_ERROR_MESSAGE);
+            if (!parameter.equals(categoryKey)) {
+                throw new TokenizerException(String.format(DETOKENIZE_ERROR_MESSAGE, categoryKey, tokenizedRawString));
             }
             tokenizedIndexes = tokenizedRawString.substring(indexSplit + INDEX_ONE).trim();
         } catch (StringIndexOutOfBoundsException stringIndexOutOfBoundsException) {
-            throw new TokenizerException(DETOKENIZE_ERROR_MESSAGE);
+            throw new TokenizerException(String.format(DETOKENIZE_ERROR_MESSAGE, categoryKey, tokenizedRawString));
         }
         return tokenizedIndexes;
     }
@@ -70,18 +63,12 @@ public class ReflectionTokenizer implements Tokenizer<Set<Integer>> {
     }
 
     private Set<Integer> validateTokenizedIndexFormat(ArrayList<String> tokenizedIndex,
-                                                      int categoryIndex, String categoryKey) {
+                                                      int categoryIndex, String categoryKey) throws TokenizerException {
         Set<Integer> validatedSet = new HashSet<>();
-        try {
-            String tokenizedIndexesByCategory = tokenizedIndex.get(categoryIndex);
-            if (!tokenizedIndexesByCategory.isBlank()) {
-                String rawIndex = splitParameter(tokenizedIndexesByCategory, categoryKey);
-                validatedSet = getSet(rawIndex, categoryKey);
-            }
-        } catch (TokenizerException tokenizerException) {
-            validatedSet = new HashSet<>();
-            LOGGER.log(Level.INFO, "Reflect " + categoryKey
-                   + ": " + DETOKENIZE_ERROR_MESSAGE);
+        String tokenizedIndexesByCategory = tokenizedIndex.get(categoryIndex);
+        if (!tokenizedIndexesByCategory.isBlank()) {
+            String rawIndex = splitParameter(tokenizedIndexesByCategory, categoryKey);
+            validatedSet = getSet(rawIndex, categoryKey);
         }
         return validatedSet;
     }
@@ -96,23 +83,17 @@ public class ReflectionTokenizer implements Tokenizer<Set<Integer>> {
             for (String indexString : splittedString) {
                 int index = Integer.parseInt(indexString);
                 if (index < INDEX_ZERO || index > INDEX_NINE) {
-                    throw new TokenizerException(DETOKENIZE_ERROR_MESSAGE);
+                    throw new TokenizerException(String.format(DETOKENIZE_ERROR_MESSAGE, categoryKey, indexToSplit));
                 }
                 outputIndexes.add(index);
             }
         } catch (NumberFormatException numberFormatException) {
-            throw new TokenizerException(DETOKENIZE_ERROR_MESSAGE);
+            throw new TokenizerException(String.format(DETOKENIZE_ERROR_MESSAGE, categoryKey, indexToSplit));
         }
         if (categoryKey.equals(PREV_KEY) && outputIndexes.size() != NUM_PREV_INDEX) {
-            throw new TokenizerException(DETOKENIZE_ERROR_MESSAGE);
+            throw new TokenizerException(String.format(DETOKENIZE_ERROR_MESSAGE, categoryKey, indexToSplit));
         }
         return outputIndexes;
-    }
-
-    private void storeDetokenizedIndexes(ArrayList<Set<Integer>> detokenizedIndexes) throws StorageException {
-        Storage storage = new Storage();
-        ArrayList<String> tokenizedIndexes = tokenize(detokenizedIndexes);
-        storage.saveData(tokenizedIndexes, FILE_NAME);
     }
 
     /**
@@ -160,11 +141,6 @@ public class ReflectionTokenizer implements Tokenizer<Set<Integer>> {
         }
         detokenizedIndexes.add(detokenizedLike);
         detokenizedIndexes.add(detokenizedPrev);
-        try {
-            storeDetokenizedIndexes(detokenizedIndexes);
-        } catch (StorageException storageException) {
-            throw new TokenizerException(DETOKENIZE_ERROR_MESSAGE);
-        }
         return detokenizedIndexes;
     }
 }

@@ -20,11 +20,16 @@ class TextUiTest {
             + "---------!!!!!!!";
     private static final String TEST_OUTPUT_MSG_ONE = "Hello ";
     private static final String TEST_OUTPUT_MSG_TWO = "World";
+    private static final String OUTPUT_MSG_ONE = "Hello";
     private static final String INDENTATION = "    ";
     private static final String ARITHMETIC_EXCEPTION_MSG_ONE = "Please check your arithmetic equation!!";
     private static final String ARITHMETIC_EXCEPTION_MSG_TWO = "E.g. Denominator is 0 in division.";
     private static final String ERROR_MESSAGE_LABEL = "Error Message:";
     private static final String EXTRA_MESSAGE_LABEL = "Note:";
+    private static final String GREET_MSG = "How are you?";
+    private static final String OPERATION = "/ by zero";
+    private static final String INPUT_WHITESPACE = " My string ";
+    private static final String INPUT_WITHOUT_WHITESPACE = "My string";
     private static final TextUi UI = new TextUi();
     private static final int TEST_NUMERATOR = 2;
     private static final int TEST_DENOMINATOR = 0;
@@ -52,12 +57,12 @@ class TextUiTest {
     @Test
     void getCommand_trimSpace_success() {
         InputStream sysInBackup = System.in;
-        ByteArrayInputStream in = new ByteArrayInputStream((" My string "
+        ByteArrayInputStream in = new ByteArrayInputStream((INPUT_WHITESPACE
                 + System.lineSeparator()).getBytes());
         System.setIn(in);
         Scanner readLine = new Scanner(System.in);
         String command = getCommand(readLine);
-        assertEquals("My string", command);
+        assertEquals(INPUT_WITHOUT_WHITESPACE, command);
         System.setIn(sysInBackup);
         readLine.close();
     }
@@ -79,7 +84,7 @@ class TextUiTest {
             UI.printErrorFor(exception, errorMsg);
         }
         assertEquals(ALERT_SEPARATOR + System.lineSeparator() + ERROR_MESSAGE_LABEL
-                + System.lineSeparator() + INDENTATION + "/ by zero" + System.lineSeparator()
+                + System.lineSeparator() + INDENTATION + OPERATION + System.lineSeparator()
                 + EXTRA_MESSAGE_LABEL + System.lineSeparator() + INDENTATION + ARITHMETIC_EXCEPTION_MSG_ONE
                 + System.lineSeparator() + INDENTATION + ARITHMETIC_EXCEPTION_MSG_TWO + System.lineSeparator()
                 + ALERT_SEPARATOR,
@@ -89,10 +94,9 @@ class TextUiTest {
     // Test whether messages will be properly printed with correct format
     @Test
     void printOutputMessage_greeting_success() {
-        String greeting = "How are you?";
-        UI.printOutputMessage(greeting);
+        UI.printOutputMessage(GREET_MSG);
         assertEquals(DEFAULT_SEPARATOR + System.lineSeparator()
-                + INDENTATION + "How are you?" + System.lineSeparator() + DEFAULT_SEPARATOR,
+                + INDENTATION + GREET_MSG + System.lineSeparator() + DEFAULT_SEPARATOR,
                 outputStreamCaptor.toString().trim());
     }
 
@@ -101,8 +105,8 @@ class TextUiTest {
     void printMultiLineMessage_twoLines_success() {
         String multiLineOutput = TEST_OUTPUT_MSG_ONE + System.lineSeparator() + TEST_OUTPUT_MSG_TWO;
         UI.printOutputMessage(multiLineOutput);
-        assertEquals((DEFAULT_SEPARATOR + System.lineSeparator() + INDENTATION + "Hello"
-                + System.lineSeparator() + INDENTATION + "World"
+        assertEquals((DEFAULT_SEPARATOR + System.lineSeparator() + INDENTATION + OUTPUT_MSG_ONE
+                + System.lineSeparator() + INDENTATION + TEST_OUTPUT_MSG_TWO
                 + System.lineSeparator() + DEFAULT_SEPARATOR),
                 outputStreamCaptor.toString().trim());
     }
