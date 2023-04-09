@@ -9,6 +9,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import wellnus.atomichabit.command.AddCommand;
+import wellnus.atomichabit.command.DeleteCommand;
+import wellnus.atomichabit.command.ListCommand;
 import wellnus.atomichabit.command.UpdateCommand;
 import wellnus.atomichabit.feature.AtomicHabitList;
 import wellnus.atomichabit.feature.AtomicHabitManager;
@@ -23,6 +25,7 @@ public class AtomicHabitTest {
     private static final String ADD_HABIT_COMMAND = "add";
     private static final String UPDATE_HABIT_COMMAND = "update";
     private static final String DELETE_HABIT_COMMAND = "delete";
+    private static final String LIST_HABIT_COMMAND = "list";
     private final AtomicHabitList habitList;
     private final ByteArrayOutputStream outputStreamCaptor;
     private final CommandParser parser;
@@ -58,7 +61,7 @@ public class AtomicHabitTest {
     }
 
     /**
-     * Test AddCommand with a standard payload to check output printed
+     * Test AddCommand with a standard payload to check output printed.
      */
     @Test
     public void addHabit_checkOutput_success() throws WellNusException {
@@ -77,7 +80,7 @@ public class AtomicHabitTest {
     }
 
     /**
-     * Test AddCommand to throw {@link AtomicHabitException} when an invalid command is given to the AtomicHabitManager
+     * Test AddCommand to throw {@link AtomicHabitException} when an invalid command is given to the AtomicHabitManager.
      */
     @Test
     public void addHabit_invalidCommand_atomicHabitExceptionThrown() {
@@ -106,7 +109,7 @@ public class AtomicHabitTest {
     }
 
     /**
-     * Test UpdateCommand with a standard payload and default increment to check output printed
+     * Test UpdateCommand with a standard payload and default increment to check output printed.
      */
     @Test
     public void updateHabit_checkOutputDefaultIncrement_success() throws WellNusException {
@@ -127,7 +130,7 @@ public class AtomicHabitTest {
     }
 
     /**
-     * Test UpdateCommand with a standard payload and user-inputted increment to check output printed
+     * Test UpdateCommand with a standard payload and user-inputted increment to check output printed.
      */
     @Test
     public void updateHabit_checkOutputUserInputIncrement_success() throws WellNusException {
@@ -149,7 +152,7 @@ public class AtomicHabitTest {
     }
 
     /**
-     * Test UpdateCommand to throw {@link AtomicHabitException} when a non-integer index is given to the UpdateCommand
+     * Test UpdateCommand to throw {@link AtomicHabitException} when a non-integer index is given to the UpdateCommand.
      */
     @Test
     public void updateHabit_indexNotInteger_atomicHabitExceptionThrown() throws WellNusException {
@@ -165,7 +168,7 @@ public class AtomicHabitTest {
 
     /**
      * Test UpdateCommand to throw {@link AtomicHabitException} when an out-of-bounds index is given
-     * to the UpdateCommand
+     * to the UpdateCommand.
      */
     @Test
     public void updateHabit_indexOutOfBounds_atomicHabitExceptionThrown() throws WellNusException {
@@ -187,7 +190,7 @@ public class AtomicHabitTest {
     }
 
     /**
-     * Test UpdateCommand to successfully decrement a habit
+     * Test UpdateCommand to successfully decrement a habit.
      *
      * @throws WellNusException
      */
@@ -210,6 +213,11 @@ public class AtomicHabitTest {
         Assertions.assertEquals(expectedUpdateHabitOutput, getMessageFrom(outputStream.toString()));
     }
 
+    /**
+     * Test UpdateCommand to throw {@link AtomicHabitException} when a non-integer decrement is given.
+     *
+     * @throws WellNusException
+     */
     @Test
     public void updateHabit_invalidDecrement_atomicHabitExceptionThrown() throws WellNusException {
         updateHabit_checkOutputUserInputIncrement_success();
@@ -221,4 +229,107 @@ public class AtomicHabitTest {
         Command updateCommand = new UpdateCommand(arguments, habitList, gamificationData);
         Assertions.assertThrows(AtomicHabitException.class, updateCommand::execute);
     }
+
+    /**
+     * Test UpdateCommand for correct output when list is empty.
+     *
+     * @throws WellNusException
+     */
+    @Test
+    public void updateHabit_emptyListUnsuccessful() throws WellNusException {
+        String habitIndex = "1";
+        String decrement = "1";
+        String testUpdateCommand = String.format("%s --id %s --by %s", UPDATE_HABIT_COMMAND, habitIndex, decrement)
+                + System.lineSeparator();
+        HashMap<String, String> arguments = parser.parseUserInput(testUpdateCommand);
+        Command updateCommand = new UpdateCommand(arguments, habitList, gamificationData);
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outputStream));
+        updateCommand.execute();
+        String expectedOutput = "There are no habits to update!"
+                + " Please `add` a habit first!";
+        Assertions.assertEquals(expectedOutput, getMessageFrom(outputStream.toString()));
+        Assertions.assertEquals(true, habitList.getAllHabits().isEmpty());
+    }
+
+    /**
+     * Test DeleteCommand to successfully delete a habit and check output is printed correctly.
+     *
+     * @throws WellNusException
+     */
+    @Test
+    public void delete_habitSuccess() throws WellNusException {
+        addHabit_checkOutput_success();
+        String habitIndex = "1";
+        String testDeleteCommand = String.format("%s --id %s", DELETE_HABIT_COMMAND, habitIndex)
+                + System.lineSeparator();
+        HashMap<String, String> arguments = parser.parseUserInput(testDeleteCommand);
+        Command deleteCommand = new DeleteCommand(arguments, habitList);
+        String expectedDeleteHabitOutput = "The following habit has been deleted:"
+                + System.lineSeparator()
+                + "junit test" + " " + "[0]" + " has been successfully deleted";
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outputStream));
+        deleteCommand.execute();
+        Assertions.assertEquals(true, habitList.getAllHabits().isEmpty());
+        Assertions.assertEquals(expectedDeleteHabitOutput, getMessageFrom(outputStream.toString()));
+    }
+
+    /**
+     * Test DeleteCommand to throw {@link AtomicHabitException} when a non-integer index is given.
+     *
+     * @throws WellNusException
+     */
+    @Test
+    public void delete_invalidIndex_atomicHabitExceptionThrown() throws WellNusException {
+        addHabit_checkOutput_success();
+        String habitIndex = "1000000000000";
+        String testDeleteCommand = String.format("%s --id %s", DELETE_HABIT_COMMAND, habitIndex)
+                + System.lineSeparator();
+        HashMap<String, String> arguments = parser.parseUserInput(testDeleteCommand);
+        Command deleteCommand = new DeleteCommand(arguments, habitList);
+        Assertions.assertThrows(AtomicHabitException.class, deleteCommand::execute);
+    }
+
+    /**
+     * Test DeleteCommand to throw correct output when list is empty.
+     *
+     * @throws WellNusException
+     */
+    @Test
+    public void delete_emptyList_unsuccessful() throws WellNusException {
+        String habitIndex = "1";
+        String testDeleteCommand = String.format("%s --id %s", DELETE_HABIT_COMMAND, habitIndex)
+                + System.lineSeparator();
+        HashMap<String, String> arguments = parser.parseUserInput(testDeleteCommand);
+        Command deleteCommand = new DeleteCommand(arguments, habitList);
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outputStream));
+        deleteCommand.execute();
+        String expectedOutput = "There are no habits to delete!"
+                + " Please `add` a habit first!";
+        Assertions.assertEquals(expectedOutput, getMessageFrom(outputStream.toString()));
+        Assertions.assertEquals(true, habitList.getAllHabits().isEmpty());
+    }
+
+    /**
+     * Test ListCommand to print correct output when list is empty.
+     *
+     * @throws WellNusException
+     */
+    @Test
+    public void listEmptyList_successful() throws WellNusException {
+        String testListCommand = String.format("%s", LIST_HABIT_COMMAND)
+                + System.lineSeparator();
+        HashMap<String, String> arguments = parser.parseUserInput(testListCommand);
+        Command listCommand = new ListCommand(arguments, habitList);
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outputStream));
+        listCommand.execute();
+        String expectedOutput = "You have no habits in your list!" + System.lineSeparator()
+                + "Start adding some habits by using 'add'!";
+        Assertions.assertEquals(expectedOutput, getMessageFrom(outputStream.toString()));
+    }
+
+
 }
