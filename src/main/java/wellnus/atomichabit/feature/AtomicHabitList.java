@@ -33,8 +33,8 @@ public class AtomicHabitList {
         try {
             this.storage = new Storage();
         } catch (StorageException storageException) {
-            LOGGER.log(Level.WARNING, TOKENIZER_ERROR);
-            textUi.printErrorFor(storageException, TOKENIZER_ERROR);
+            LOGGER.log(Level.WARNING, STORAGE_ERROR);
+            textUi.printErrorFor(storageException, STORAGE_ERROR);
         }
         textUi = new TextUi();
         allAtomicHabits = new ArrayList<>();

@@ -78,8 +78,8 @@ public class QuestionList {
         try {
             storage = new Storage();
         } catch (StorageException storageException) {
-            LOGGER.log(Level.WARNING, TOKENIZER_ERROR);
-            UI.printErrorFor(storageException, TOKENIZER_ERROR);
+            LOGGER.log(Level.WARNING, STORAGE_ERROR);
+            UI.printErrorFor(storageException, STORAGE_ERROR);
         }
         this.randomQuestionIndexes = new HashSet<>();
         this.dataIndex = new ArrayList<>();
