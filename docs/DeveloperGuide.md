@@ -417,10 +417,10 @@ Virtually every feature in WellNUS++ will require user input to be processed. Th
 will have to interact with `CommandParser`. Hence, the
 design for the `CommandParser` API must be understandable, unambiguous and easy to develop on.
 
-3. **Easy way to extract components of user input**  
+1. **Easy way to extract components of user input**  
    Each component of userInput (arguments, payload, etc) should be obtainable in predictable and non-arbitrary way.
    Arbitrary way (using index) is not preferred as it is prone to developer erros.
-4. **Easy way to validate user input**  
+2. **Easy way to validate user input**  
    There should also be built-in ways to easily validate components of user input for a command,
    such as checking length.
 
@@ -435,7 +435,7 @@ structure.
 **Steep learning curve**  
 For experienced and inexperienced users, it is a hassle to remember what letter corresponds to what argument.
 For AB3, the user needs to remember all the different `char` 'verbs' such as `e/` for email, `n/` for name.
-This violates design consideration (1).
+This violates user design consideration (1).
 
 **Does not scale well**  
 AB3 structure runs the high risk of argument-space collision as well.  
@@ -465,7 +465,7 @@ output is shown below.
 ![Example](diagrams/git_command.png)
 <figcaption align="center">Example of CLI input syntax, using git as an example</figcaption>
 
-This achieves design consideration (1). Why?  
+This achieves user design consideration (1). Why?  
 This syntax is intuitive at a glance to our target users,
 is predictable and easy to remember as the only thing they need to remember is the argument name and
 the '--' delimiter.
@@ -487,9 +487,9 @@ Will be mapped as:
 `
 where `""` represents an empty string (for visualization).
 
-Using a `HashMap` fulfils design considerations (2), (3) and (4).
+Using a `HashMap` fulfils user design considerations (2), both developer design considerations (3), (4).
 
-- (2): Order of arguments do not matter as
+- (2): Order of arguments do not matter in a HashMap 
 - (3): To get a `payload`, the developer simply needs to call `myHashMap.get("argument")`.  
   This syntatic sugar prevents developer errors compared to an index-based approach.
 - (4): Validating commands is much less difficult using `HashMap`. For example, size can be checked with
@@ -946,10 +946,10 @@ from the attributes of each Countdown (e.g. `isReady`) and tag them to a state.
 Truth table, where X denotes a 'dont care' condition
 where the truth value does not matter.
 
-From this, we can easily check which state we are in and then allow exe
-Referring to the class diagram, this is implemented on `Session` with various methods helping identify the state:
+From this, we can easily check which state we are in and execute/not execute commands as necessary.
+Referring to the class diagram, this is implemented on `Session` with 4 methods that help identify the state:
 
-Example implementation:
+Example implementation to check if Session is in `Counting` state:
 
 ```java
 public boolean isSessionCounting(){
@@ -958,14 +958,12 @@ public boolean isSessionCounting(){
 }
 ```
 
-**Easily Identify State**: Developers can trivially check if a command is in a valid state to be executed by using these
-methods in `Session` to check which state the command is being called in.
-
-- `isSessionReady()`
-- `isSessionCounting()`
-- `isSessionWaiting()`
-- `isSessionPaused()`
-<!-- @@author -->
+**Easily Identify State**: Developers can hence trivially check if a command is in a valid state to be executed
+by using these 4 methods in `Session` to check which state the it is in:
+1. `isSessionReady()`  
+2. `isSessionCounting()`  
+3. `isSessionWaiting()`   
+4. `isSessionPaused()`
 
 <!-- @@author YongbinWang -->
 #### Commands
