@@ -737,8 +737,13 @@ Expected outcome:
 ## `ft` - Accessing Focus Timer Feature
 
 Our Focus Timer feature allows users to be productive by setting a configurable work-break timer, inspired by
-the [Pomodoro technique](https://en.wikipedia.org/wiki/Pomodoro_Technique). When a timer completes, a beep is played
+the Pomodoro technique. When a timer completes, a beep is played
 to alert the user that the current cycle is complete.
+
+Summary of Pomodoro Technique: Repeated sessions of work followed by break to ensure maximum productivity during the
+work cycle and allow one to relax sufficiently during the break cycle before working again. Longer breaks are taken
+after a few consecutive sessions(**2** by default in our app). Find out more about the technique on the 
+[Wikipedia page](https://en.wikipedia.org/wiki/Pomodoro_Technique).
 
 **Command input is disabled when timer is counting down the last 10 seconds.**
 
