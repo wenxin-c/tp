@@ -22,14 +22,16 @@ public class AddCommand extends Command {
     private static final String COMMAND_INVALID_ARGUMENTS_MESSAGE = "Invalid arguments given to 'add'!";
     private static final String COMMAND_INVALID_PAYLOAD = "Invalid payload given to 'add'!";
     private static final String COMMAND_EMPTY_NAME = "Invalid habit name given to 'add'!";
-
-    private static final String COMMAND_INT_NAME = "Invalid habit name given to 'add'! No integers allowed!";
     private static final String DUPLICATE_HABIT_MESSAGE = "You already have this habit in your list!"
             + " Use 'update' instead.";
+    private static final String COMMAND_INVALID_HABIT_NAME_MESSAGE = "Invalid habit name given to 'add'!"
+            + System.lineSeparator()
+            + "Habit name should not contain only numbers and symbols!";
     private static final String COMMAND_NAME_ARGUMENT = "name";
     private static final String COMMAND_KEYWORD_ASSERTION = "The key should be add.";
     private static final String COMMAND_PAYLOAD_ASSERTION = "The payload should not be empty.";
     private static final int COMMAND_NUM_OF_ARGUMENTS = 2;
+    private static final String REGEX_NUMBER_AND_SYMBOL_ONLY_PATTERN = "^[\\d\\p{Punct}\\p{S}]*$";
     private static final String COMMAND_WRONG_KEYWORD_MESSAGE = "Invalid command issued, expected 'add'!";
     private static final String FEEDBACK_STRING_ONE = "Yay! You have added a new habit:";
     private static final String FEEDBACK_STRING_TWO = "was successfully added";
@@ -143,8 +145,12 @@ public class AddCommand extends Command {
         if (!arguments.containsKey(AddCommand.COMMAND_NAME_ARGUMENT)) {
             throw new BadCommandException(AddCommand.COMMAND_INVALID_ARGUMENTS_MESSAGE);
         }
-        if (arguments.get(AddCommand.COMMAND_NAME_ARGUMENT).equals("")) {
+        String nameArg = arguments.get(AddCommand.COMMAND_NAME_ARGUMENT);
+        if (nameArg.equals("")) {
             throw new BadCommandException(AddCommand.COMMAND_EMPTY_NAME);
+        }
+        if (nameArg.matches(REGEX_NUMBER_AND_SYMBOL_ONLY_PATTERN)) {
+            throw new BadCommandException(AddCommand.COMMAND_INVALID_HABIT_NAME_MESSAGE);
         }
     }
 
