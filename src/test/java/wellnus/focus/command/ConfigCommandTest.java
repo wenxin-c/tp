@@ -1,14 +1,17 @@
 package wellnus.focus.command;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 import java.util.HashMap;
 
 import org.junit.jupiter.api.Test;
 
 import wellnus.exception.WellNusException;
+import wellnus.focus.feature.FocusUi;
 import wellnus.focus.feature.Session;
 
 
@@ -20,6 +23,105 @@ import wellnus.focus.feature.Session;
  */
 //@@author nichyjt
 public class ConfigCommandTest {
+
+    private static final String EXPECTED_ERROR_MAX_MINS = ""
+            + "!!!!!!-------!!!!!--------!!!!!!!------!!!!!---------!!!!!!!"
+            + System.lineSeparator()
+            + "Error Message:"
+            + System.lineSeparator()
+            + "Invalid minutes payload given in 'config', the maximum time you can set is 60!"
+            + System.lineSeparator()
+            + "Note:"
+            + System.lineSeparator()
+            + "config command usage: config "
+            + "[--cycle number] [--work minutes] [--break minutes] [--longbreak minutes]"
+            + System.lineSeparator()
+            + "!!!!!!-------!!!!!--------!!!!!!!------!!!!!---------!!!!!!!";
+
+    private static final String EXPECTED_ERROR_MIN_MINS = ""
+            + "!!!!!!-------!!!!!--------!!!!!!!------!!!!!---------!!!!!!!"
+            + System.lineSeparator()
+            + "Error Message:"
+            + System.lineSeparator()
+            + "Invalid minutes payload given in 'config', the minimum time you can set is 1!"
+            + System.lineSeparator()
+            + "Note:"
+            + System.lineSeparator()
+            + "config command usage: config "
+            + "[--cycle number] [--work minutes] [--break minutes] [--longbreak minutes]"
+            + System.lineSeparator()
+            + "!!!!!!-------!!!!!--------!!!!!!!------!!!!!---------!!!!!!!";
+    private static final String EXPECTED_ERROR_MAX_CYCLE = ""
+            + "!!!!!!-------!!!!!--------!!!!!!!------!!!!!---------!!!!!!!"
+            + System.lineSeparator()
+            + "Error Message:"
+            + System.lineSeparator()
+            + "Invalid cycle payload given in 'config', the maximum cycles you can set is 5!"
+            + System.lineSeparator()
+            + "Note:"
+            + System.lineSeparator()
+            + "config command usage: config "
+            + "[--cycle number] [--work minutes] [--break minutes] [--longbreak minutes]"
+            + System.lineSeparator()
+            + "!!!!!!-------!!!!!--------!!!!!!!------!!!!!---------!!!!!!!";
+
+    private static final String EXPECTED_ERROR_MIN_CYCLE = ""
+            + "!!!!!!-------!!!!!--------!!!!!!!------!!!!!---------!!!!!!!"
+            + System.lineSeparator()
+            + "Error Message:"
+            + System.lineSeparator()
+            + "Invalid cycle payload given in 'config', the minimum cycles you can set is 2!"
+            + System.lineSeparator()
+            + "Note:"
+            + System.lineSeparator()
+            + "config command usage: config "
+            + "[--cycle number] [--work minutes] [--break minutes] [--longbreak minutes]"
+            + System.lineSeparator()
+            + "!!!!!!-------!!!!!--------!!!!!!!------!!!!!---------!!!!!!!";
+
+    private static final String EXPECTED_ERROR_INVALID_PAYLOAD = ""
+            + "!!!!!!-------!!!!!--------!!!!!!!------!!!!!---------!!!!!!!"
+            + System.lineSeparator()
+            + "Error Message:"
+            + System.lineSeparator()
+            + "Invalid payload given in 'config', expected a valid integer!"
+            + System.lineSeparator()
+            + "Note:"
+            + System.lineSeparator()
+            + "config command usage: config "
+            + "[--cycle number] [--work minutes] [--break minutes] [--longbreak minutes]"
+            + System.lineSeparator()
+            + "!!!!!!-------!!!!!--------!!!!!!!------!!!!!---------!!!!!!!";
+    private static final String EXPECTED_ERROR_INVALID_ARGS = ""
+            + "!!!!!!-------!!!!!--------!!!!!!!------!!!!!---------!!!!!!!"
+            + System.lineSeparator()
+            + "Error Message:"
+            + System.lineSeparator()
+            + "Invalid arguments given to 'config'!"
+            + System.lineSeparator()
+            + "Note:"
+            + System.lineSeparator()
+            + "config command usage: config [--cycle number] [--work minutes] [--break minutes] [--longbreak minutes]"
+            + System.lineSeparator()
+            + "!!!!!!-------!!!!!--------!!!!!!!------!!!!!---------!!!!!!!";
+
+    private String getMessageFrom(String uiOutput) {
+        FocusUi ui = new FocusUi();
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outputStream));
+        ui.printSeparator();
+        String separator = outputStream.toString().trim();
+        StringBuilder resultBuilder = new StringBuilder();
+        String[] outputLines = uiOutput.split(System.lineSeparator());
+        for (String outputLine : outputLines) {
+            String trimmedOutputLine = outputLine.trim();
+            if (!trimmedOutputLine.equals(separator)) {
+                resultBuilder.append(trimmedOutputLine).append(System.lineSeparator());
+            }
+        }
+        return resultBuilder.toString().trim();
+    }
+
     private boolean isSessionCorrectlyUpdated(Session session, int cycle, int work, int brk, int longbrk) {
         if (session.getWork() != work) {
             return false;
@@ -114,12 +216,26 @@ public class ConfigCommandTest {
         // Test with negative time values
         HashMap<String, String> argumentPayload = generateArguments("5", "10", "-5", "20");
         command = new ConfigCommand(argumentPayload, session);
-        assertThrows(WellNusException.class, command::execute);
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outputStream));
+        try {
+            command.execute();
+        } catch (WellNusException exception) {
+            fail("No exception expected to throw!");
+        }
+        assertEquals(EXPECTED_ERROR_MIN_MINS, getMessageFrom(outputStream.toString()));
 
         // Test with negative cycle values
         argumentPayload = generateArguments("-5", "10", "10", "20");
         command = new ConfigCommand(argumentPayload, session);
-        assertThrows(WellNusException.class, command::execute);
+        outputStream = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outputStream));
+        try {
+            command.execute();
+        } catch (WellNusException exception) {
+            fail("No exception expected to throw!");
+        }
+        assertEquals(EXPECTED_ERROR_MIN_CYCLE, getMessageFrom(outputStream.toString()));
     }
 
     /**
@@ -133,12 +249,26 @@ public class ConfigCommandTest {
         // Test with large time values
         HashMap<String, String> argumentPayload = generateArguments("5", "61", "10", "20");
         command = new ConfigCommand(argumentPayload, session);
-        assertThrows(WellNusException.class, command::execute);
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outputStream));
+        try {
+            command.execute();
+        } catch (WellNusException exception) {
+            fail("No exception expected to throw!");
+        }
+        assertEquals(EXPECTED_ERROR_MAX_MINS, getMessageFrom(outputStream.toString()));
 
         // Test with large cycle values
+        outputStream = new ByteArrayOutputStream();
         argumentPayload = generateArguments("10", "10", "10", "20");
         command = new ConfigCommand(argumentPayload, session);
-        assertThrows(WellNusException.class, command::execute);
+        System.setOut(new PrintStream(outputStream));
+        try {
+            command.execute();
+        } catch (WellNusException exception) {
+            fail("No exception expected to throw!");
+        }
+        assertEquals(EXPECTED_ERROR_MAX_CYCLE, getMessageFrom(outputStream.toString()));
     }
 
     /**
@@ -152,12 +282,27 @@ public class ConfigCommandTest {
         // Test with NaN time value
         HashMap<String, String> argumentPayload = generateArguments("5", "foo", "5", "20");
         command = new ConfigCommand(argumentPayload, session);
-        assertThrows(WellNusException.class, command::execute);
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outputStream));
+        try {
+            command.execute();
+        } catch (WellNusException exception) {
+            fail("No exception expected to throw!");
+        }
+        assertEquals(EXPECTED_ERROR_INVALID_PAYLOAD, getMessageFrom(outputStream.toString()));
 
         // Test with NaN cycle value
         argumentPayload = generateArguments("bar", "5", "10", "20");
         command = new ConfigCommand(argumentPayload, session);
-        assertThrows(WellNusException.class, command::execute);
+        outputStream = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outputStream));
+        try {
+            command.execute();
+        } catch (WellNusException exception) {
+            fail("No exception expected to throw!");
+        }
+        assertEquals(EXPECTED_ERROR_INVALID_PAYLOAD, getMessageFrom(outputStream.toString()));
+
     }
 
     /**
@@ -172,11 +317,14 @@ public class ConfigCommandTest {
         HashMap<String, String> argumentPayload = generateArguments("5", "10", "5", "20");
         argumentPayload.put("foo", "bar");
         command = new ConfigCommand(argumentPayload, session);
-        assertThrows(WellNusException.class, command::execute);
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outputStream));
+        try {
+            command.execute();
+        } catch (WellNusException exception) {
+            fail("No exception expected to throw!");
+        }
+        assertEquals(EXPECTED_ERROR_INVALID_ARGS, getMessageFrom(outputStream.toString()));
 
-        // Test with too few arguments
-        argumentPayload = generateArguments(null, null, null, null);
-        command = new ConfigCommand(argumentPayload, session);
-        assertThrows(WellNusException.class, command::execute);
     }
 }

@@ -22,26 +22,16 @@ import wellnus.focus.feature.Session;
  */
 //@@author nichyjt
 public class ConfigCommand extends Command {
-    public static final String COMMAND_DESCRIPTION = "config - Change the number of cycles"
-            + " and the times of the work, break and long break of your session!"
-            + System.lineSeparator()
-            + "Note that the minimum cycles is 2,"
-            + System.lineSeparator()
-            + "the maximum number of cycles is 5,"
-            + System.lineSeparator()
-            + "the maximum work/break times is 60 minutes,"
-            + System.lineSeparator()
-            + "the minimum work/break times is 1 minute."
-            + System.lineSeparator()
-            + "This is to ensure your well-being, as higher values might be counter-productive!";
-    public static final String COMMAND_USAGE = "usage: config ([--cycle number] [--work minutes]"
-            + "[--break minutes] [--longbreak minutes])";
+    public static final String COMMAND_DESCRIPTION = "config - Change the number of cycles "
+            + "and length of your work, break and longbreak timings!";
+    public static final String COMMAND_USAGE = "usage: config [--cycle number] [--work minutes] "
+            + "[--break minutes] [--longbreak minutes]";
     protected static final String COMMAND_KEYWORD = "config";
     protected static final String ARGUMENT_CYCLE = "cycle";
     protected static final String ARGUMENT_WORK = "work";
     protected static final String ARGUMENT_BREAK = "break";
     protected static final String ARGUMENT_LONG_BREAK = "longbreak";
-    private static final String PRINT_CONFIG_MESSAGE = "Okay, here's your new session details!"
+    private static final String PRINT_CONFIG_MESSAGE = "Okay, here's your configured session details!"
             + System.lineSeparator();
     private static final String PRINT_CONFIG_CYCLES = "Cycles: ";
     private static final String PRINT_CONFIG_WORK = "Work: ";
@@ -50,24 +40,30 @@ public class ConfigCommand extends Command {
     private static final String SINGLE_SPACE_PAD = " ";
     private static final String PRINT_CONFIG_MINS = "minutes";
     private static final String PRINT_CONFIG_MIN = "minute";
+    private static final String EMPTY_STRING = "";
     private static final int COMMAND_MAX_NUM_ARGUMENTS = 5;
-    private static final int COMMAND_MIN_NUM_ARGUMENTS = 2;
+    private static final int COMMAND_MIN_NUM_ARGUMENTS = 1;
     private static final int MAX_MINUTES = 60;
     private static final int MIN_MINUTES = 1;
     private static final int MAX_CYCLES = 5;
     private static final int MIN_CYCLES = 2;
     // Message constants
     private static final String ASSERT_STRING_INPUT_NOT_NULL = "String input should not be null!";
-    private static final String ERROR_NOT_A_NUMBER = "Invalid integer payload given!";
-    private static final String ERROR_LARGE_CYCLES = "Invalid cycle payload given, the max cycles you can set is "
-            + MAX_CYCLES;
-    private static final String ERROR_LESS_EQUAL_MIN_CYCLES = "Invalid cycle payload given, the min cycles you can set "
-            + "is " + MIN_CYCLES;
-    private static final String ERROR_LARGE_MINUTES = "Invalid minutes payload given, the max time you can set is "
-            + MAX_MINUTES;
-    private static final String ERROR_LESS_EQUAL_MIN_MINUTES = "Invalid minutes payload given, the min time you can "
-            + "set is " + MIN_MINUTES;
+    private static final String ERROR_NOT_A_NUMBER = "Invalid payload given in 'config', expected a valid integer!";
+    private static final String ERROR_LARGE_CYCLES = "Invalid cycle payload given in 'config', the maximum cycles you "
+            + "can set is " + MAX_CYCLES + "!";
+    private static final String ERROR_LESS_EQUAL_MIN_CYCLES = "Invalid cycle payload given in 'config', the minimum "
+            + "cycles you can set is " + MIN_CYCLES + "!";
+    private static final String ERROR_LARGE_MINUTES = "Invalid minutes payload given in 'config', the maximum time "
+            + "you can set is " + MAX_MINUTES + "!";
+    private static final String ERROR_LESS_EQUAL_MIN_MINUTES = "Invalid minutes payload given in 'config', the minimum "
+            + "time you can set is " + MIN_MINUTES + "!";
+    private static final String ERROR_LONGBREAK_LARGER = "Invalid new 'config'! Your break time, %s min "
+            + "should be greater or equal to your "
+            + "longbreak timing, %s min!";
     private static final String COMMAND_INVALID_ARGUMENTS = "Invalid arguments given to 'config'!";
+    private static final String COMMAND_INVALID_PAYLOAD = "Invalid payload given to 'config'!";
+    private static final String COMMAND_INVALID_COMMAND_NOTE = "config command " + COMMAND_USAGE;
     private static final String ASSERT_MISSING_KEYWORD = "Missing command keyword";
     private static final Logger LOGGER = WellNusLogger.getLogger("ConfigCommandLogger");
     private static final String LOG_VALIDATION_ASSUMPTION_FAIL = "New cycle/break/work time is assumed to "
@@ -140,7 +136,12 @@ public class ConfigCommand extends Command {
         try {
             validateCommand(argumentPayloads);
         } catch (BadCommandException exception) {
-            throw new WellNusException(exception.getMessage());
+            focusUi.printErrorFor(exception, COMMAND_INVALID_COMMAND_NOTE);
+            return;
+        }
+        if (argumentPayloads.size() == COMMAND_MIN_NUM_ARGUMENTS) {
+            printNewConfiguration();
+            return;
         }
         // Set all the session details as necessary
         if (argumentPayloads.containsKey(ARGUMENT_CYCLE)) {
@@ -185,6 +186,9 @@ public class ConfigCommand extends Command {
         if (arguments.size() < COMMAND_MIN_NUM_ARGUMENTS) {
             throw new BadCommandException(COMMAND_INVALID_ARGUMENTS);
         }
+        if (!arguments.get(COMMAND_KEYWORD).equals(EMPTY_STRING)) {
+            throw new BadCommandException(COMMAND_INVALID_PAYLOAD);
+        }
         // Validate all the argument payload pairs
         for (Map.Entry<String, String> argumentPair : arguments.entrySet()) {
             switch (argumentPair.getKey()) {
@@ -201,6 +205,22 @@ public class ConfigCommand extends Command {
             default:
                 throw new BadCommandException(COMMAND_INVALID_ARGUMENTS);
             }
+        }
+        validateLongBreak(arguments);
+    }
+
+    private void validateLongBreak(HashMap<String, String> arguments) throws BadCommandException {
+        int breakTime = this.newBreak;
+        int longBreakTime = this.newLongBreak;
+        if (arguments.containsKey(ARGUMENT_BREAK)) {
+            breakTime = validateTimes(arguments.get(ARGUMENT_BREAK));
+        }
+        if (arguments.containsKey(ARGUMENT_LONG_BREAK)) {
+            longBreakTime = validateTimes(arguments.get(ARGUMENT_LONG_BREAK));
+        }
+        if (breakTime > longBreakTime) {
+            String errorMessage = String.format(ERROR_LONGBREAK_LARGER, breakTime, longBreakTime);
+            throw new BadCommandException(errorMessage);
         }
     }
 
