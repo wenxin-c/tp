@@ -50,13 +50,13 @@ public class ConfigCommand extends Command {
     // Message constants
     private static final String ASSERT_STRING_INPUT_NOT_NULL = "String input should not be null!";
     private static final String ERROR_NOT_A_NUMBER = "Invalid payload given in 'config', expected a valid integer!";
-    private static final String ERROR_LARGE_CYCLES = "Invalid cycle payload given in 'config', the max cycles you "
+    private static final String ERROR_LARGE_CYCLES = "Invalid cycle payload given in 'config', the maximum cycles you "
             + "can set is " + MAX_CYCLES + "!";
-    private static final String ERROR_LESS_EQUAL_MIN_CYCLES = "Invalid cycle payload given in 'config', the min "
+    private static final String ERROR_LESS_EQUAL_MIN_CYCLES = "Invalid cycle payload given in 'config', the minimum "
             + "cycles you can set is " + MIN_CYCLES + "!";
-    private static final String ERROR_LARGE_MINUTES = "Invalid minutes payload given in 'config', the max time "
+    private static final String ERROR_LARGE_MINUTES = "Invalid minutes payload given in 'config', the maximum time "
             + "you can set is " + MAX_MINUTES + "!";
-    private static final String ERROR_LESS_EQUAL_MIN_MINUTES = "Invalid minutes payload given in 'config', the min "
+    private static final String ERROR_LESS_EQUAL_MIN_MINUTES = "Invalid minutes payload given in 'config', the minimum "
             + "time you can set is " + MIN_MINUTES + "!";
     private static final String ERROR_LONGBREAK_LARGER = "Invalid new 'config'! Your break time, %s min "
             + "should be greater or equal to your "

@@ -29,7 +29,7 @@ public class ConfigCommandTest {
             + System.lineSeparator()
             + "Error Message:"
             + System.lineSeparator()
-            + "Invalid minutes payload given, the maximum time you can set is 60"
+            + "Invalid minutes payload given in 'config', the maximum time you can set is 60!"
             + System.lineSeparator()
             + "Note:"
             + System.lineSeparator()
@@ -43,7 +43,7 @@ public class ConfigCommandTest {
             + System.lineSeparator()
             + "Error Message:"
             + System.lineSeparator()
-            + "Invalid minutes payload given, the minimum time you can set is 1"
+            + "Invalid minutes payload given in 'config', the minimum time you can set is 1!"
             + System.lineSeparator()
             + "Note:"
             + System.lineSeparator()
@@ -56,7 +56,7 @@ public class ConfigCommandTest {
             + System.lineSeparator()
             + "Error Message:"
             + System.lineSeparator()
-            + "Invalid cycle payload given, the maximum cycles you can set is 5"
+            + "Invalid cycle payload given in 'config', the maximum cycles you can set is 5!"
             + System.lineSeparator()
             + "Note:"
             + System.lineSeparator()
@@ -70,7 +70,7 @@ public class ConfigCommandTest {
             + System.lineSeparator()
             + "Error Message:"
             + System.lineSeparator()
-            + "Invalid cycle payload given, the minimum cycles you can set is 2"
+            + "Invalid cycle payload given in 'config', the minimum cycles you can set is 2!"
             + System.lineSeparator()
             + "Note:"
             + System.lineSeparator()
@@ -84,7 +84,7 @@ public class ConfigCommandTest {
             + System.lineSeparator()
             + "Error Message:"
             + System.lineSeparator()
-            + "Invalid integer payload given!"
+            + "Invalid payload given in 'config', expected a valid integer!"
             + System.lineSeparator()
             + "Note:"
             + System.lineSeparator()
