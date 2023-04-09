@@ -26,6 +26,17 @@ public class GamificationStorage {
     }
 
     /**
+     * Cleans the gamification data file, in cases such as when the data file is corrupted.
+     * @throws StorageException If data file cannot be overwritten successfully
+     */
+    public void cleanDataFile() throws StorageException {
+        String emptyData = "";
+        ArrayList<String> emptyDatas = new ArrayList<>();
+        emptyDatas.add(emptyData);
+        storage.saveData(emptyDatas, Storage.FILE_GAMIFICATION);
+    }
+
+    /**
      * Loads tokenized gamification data from storage and detokenizes them back into
      * a GamificationData object.
      * @return GamificationData object representing the previously saved gamification statistics
