@@ -37,7 +37,8 @@ To improve the user experience, Nicholas suggested and implemented an extensible
   - **What**: This enhancement added a descriptive caret to the start of the terminal screen,
   similar to what you'd see in any shell-based terminal like `zsh, cmd, bash`.
     For example: `(reflect):~$`.  
-  - **Justification**:  Feedback from the PE-D and peers showed that 
+  - **[Justification](https://github.com/AY2223S2-CS2113-T12-4/tp/issues/79)**:
+  Feedback from the PE-D and peers showed that 
   they were often lost within the features.
   After further consideration of our target user (Computing students & CLI-savvy users)
   showed that users were not entirely sure **when** to input commands
@@ -103,4 +104,4 @@ To improve the user experience, Nicholas suggested and implemented an extensible
   [DG #2](https://github.com/nus-cs2113-AY2223S2/tp/pull/14#discussion_r1152715587),
   [DG #3](https://github.com/nus-cs2113-AY2223S2/tp/pull/14#discussion_r1152717757),
   [DG #4](https://github.com/nus-cs2113-AY2223S2/tp/pull/14#discussion_r1152731276)
-  - **Reviewing other team's UG and Program**: [List of all issues filed for T15-3](https://github.com/nichyjt/ped/issues)
+  - **Reviewing other team's UG and Prog**: [List of all issues filed for T15-3](https://github.com/nichyjt/ped/issues)
