@@ -86,18 +86,26 @@ faster than traditional Graphical User Interface(GUI) apps.
     Enter a command to start using WellNUS++! Try 'help' if you're new, or just unsure.
 ------------------------------------------------------------
 ```
+5. You are now in the `main` session of `WellNUS+`. Access our features by issuing a feature command(described in later 
+sections). Issue the `help` command to see the list of feature commands available.
 
 # Overview of WellNUS++
 
 WellNUS++ comes with a variety of features to help you enhance your overall wellness in NUS! The features are Atomic
 Habit, Self Reflection, Focus Timer and Gamification.
 
-Each feature has its own set of commands for users to explore.
+![WellNUS++ Structure Overview](diagrams/WellNusStructure.png)<br/>
 
-Users can navigate to different features from main WellNUS++ and return from each feature back to main
-WellNUS++ using `home` command. Do note that users can only `exit` the program from main WellNUS++.
+Upon running our application jar, users first start in the `main` session. From here, users can navigate to different 
+features using the commands `hb`, `ft`, `reflect` and `gamif`, which takes them to the feature-specific session(see 
+later sections for details about each feature session).
 
-![WellNUS++ Structure Overview](diagrams/WellNusStructure.png)
+Each feature session provides its own set of commands for users to explore. Return to the `main` session
+using the `home` command. 
+
+Issue `help` in any session to find out what commands are available to you.
+
+Exit `WellNUS++` by issuing the `exit` command(**only** available in the `main` session).
 
 # Features
 
@@ -134,8 +142,8 @@ Lists all commands available and provide a short description of the application.
 
 Format: `help [COMMAND_TO_CHECK]`
 
-* List all commands available in the app and a short description of the app
-* Give a detailed explanation of the parameters and subcommands for a given command
+* List all commands available in the app and a short description of the app(`help` with no arguments given)
+* Give a detailed explanation of the parameters and subcommands for the given command `COMMAND_TO_CHECK`
 
 Example of usage 1:
 
@@ -171,7 +179,7 @@ Expected outcome:
     usage: hb
 ------------------------------------------------------------
 ```
-
+Other feature-specific `help` commands and their expected outputs can be found in the respective sections below.
 <!-- @@author wenxin-c -->
 
 ## Accessing feature using FEATURE_NAME
@@ -443,7 +451,8 @@ Gamification system integrated into WellNUS++ to incentivize users to improve
 their wellness.
 
 Users can accumulate XP points from working on their atomic habits and
-level up.
+level up. For example, do your recorded atomic habits and update the habit count
+with the `update` command of the atomic habits feature to gain XP points.
 
 Example of usage:
 
@@ -744,8 +753,13 @@ Expected outcome:
 ## `ft` - Accessing Focus Timer Feature
 
 Our Focus Timer feature allows users to be productive by setting a configurable work-break timer, inspired by
-the [Pomodoro technique](https://en.wikipedia.org/wiki/Pomodoro_Technique). After each timer ends, users will hear
-a `beep` sound generated to indicate that the timer has ended.
+the Pomodoro technique. When each timer ends, a `beep` is played to alert the user that the current timer countdown is 
+over.
+
+Summary of Pomodoro Technique: Repeated sessions of work followed by break to ensure maximum productivity during the
+work cycle and allow one to relax sufficiently during the break cycle before working again. Longer breaks are taken
+after a few consecutive sessions(**2** by default in our app). Find out more about the technique on the 
+[Wikipedia page](https://en.wikipedia.org/wiki/Pomodoro_Technique).
 
 **Command input is disabled when timer is counting down the last 10 seconds.**
 
