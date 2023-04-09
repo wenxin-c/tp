@@ -22,7 +22,9 @@ public class WellNusLogger {
     private static final String CREATE_LOG_FILE_IO_EXCEPTION_MESSAGE = "Failed to create log file.";
     private static final String EXCEPTION_NOTE_MESSAGE = "Logging will not be saved to a log file during this app "
             + "session.";
+    private static final int FIVE_MEGABYTES = 5 * 1024 * 1024;
     private static final String INVALID_LOG_PATH_MESSAGE = "Invalid log path, cannot create log file.";
+    private static final boolean IS_LOG_FILE_APPEND_MODE = true;
     private static final String LOG_DIR_PATH = "log/";
     private static final String LOG_FILE_NAME = "wellnus.log";
     private static final String LOG_PATH_BLANK_MESSAGE = "Blank log path passed to WellNusLogger.checkLogPath().";
@@ -33,6 +35,8 @@ public class WellNusLogger {
             + "be null";
     private static final String IO_EXCEPTION_MESSAGE = "Failed to load log file.";
     private static final int MAX_LOG_FILE_SIZE_MEGA_BYTES = 5;
+    private static final int MEGABYTE_DIVISOR = 1024 * 1024;
+    private static final int NUM_LOG_FILE = 1;
     private static final String SECURITY_EXCEPTION_MESSAGE = "Unable to create log file due to security policies.";
     private static final String UNKNOWN_ERROR_MESSAGE = "Unable to create log file due to unknown error.";
     private static Optional<FileHandler> logFileHandler = Optional.empty();
@@ -48,8 +52,7 @@ public class WellNusLogger {
             if (!logFile.exists()) {
                 logFile.createNewFile();
             } else {
-                int megabyteDivisor = 1024 * 1024;
-                long logFileSizeInMegaBytes = logFile.length() / megabyteDivisor;
+                long logFileSizeInMegaBytes = logFile.length() / MEGABYTE_DIVISOR;
                 if (logFileSizeInMegaBytes <= MAX_LOG_FILE_SIZE_MEGA_BYTES) {
                     return;
                 }
@@ -78,10 +81,7 @@ public class WellNusLogger {
         try {
             String logPath = LOG_DIR_PATH + LOG_FILE_NAME;
             checkLogPath(logPath);
-            int fiveMegaBytes = 5 * 1024 * 1024;
-            int oneLogFile = 1;
-            boolean appendToLogFile = true;
-            fileHandler = new FileHandler(logPath, fiveMegaBytes, oneLogFile, appendToLogFile);
+            fileHandler = new FileHandler(logPath, FIVE_MEGABYTES, NUM_LOG_FILE, IS_LOG_FILE_APPEND_MODE);
             SimpleFormatter simpleFormatter = new SimpleFormatter();
             fileHandler.setFormatter(simpleFormatter);
             logFileHandler = Optional.of(fileHandler);
