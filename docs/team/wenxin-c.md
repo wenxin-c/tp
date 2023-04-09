@@ -37,7 +37,7 @@ mental wellness in various aspects.
   - Justification: To ensure the usage of WellNUS++ in the long run.
 - **Enhancement 4**: Standardize error message across WellNUS++. [#260](https://github.com/AY2223S2-CS2113-T12-4/tp/pull/260)
   - Implementation: A standardised format of error message is used across WellNUS++. The messages pinpoint the specific 
-error made and give the correct command usage to guide users.
+error made and give the correct command usage for users.
 - **Code Contributed:** [RepoSense Link](https://nus-cs2113-ay2223s2.github.io/tp-dashboard/?search=wenxin-c&breakdown=true)
 - **Project Management:**
   - Set up the GitHub team organisation and repository.
