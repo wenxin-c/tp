@@ -6,7 +6,6 @@ import java.util.Set;
 import java.util.logging.Logger;
 
 import wellnus.common.WellNusLogger;
-import wellnus.exception.StorageException;
 import wellnus.exception.TokenizerException;
 
 /**
