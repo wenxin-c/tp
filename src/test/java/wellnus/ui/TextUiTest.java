@@ -11,8 +11,9 @@ import java.util.Scanner;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-
-// Test methods associated with TextUi class
+/**
+ * Test the functionality of methods associated with TextUi class.
+ */
 class TextUiTest {
     private static final String DEFAULT_SEPARATOR = "----------------------------------------"
             + "--------------------";
@@ -53,7 +54,10 @@ class TextUiTest {
         System.setOut(new PrintStream(outputStreamCaptor));
     }
 
-    // Test whether removal of leading/dangling space is successful
+    /**
+     * Test whether removal of command leading/dangling space is successful.<br/>
+     * Expect success.
+     */
     @Test
     void getCommand_trimSpace_success() {
         InputStream sysInBackup = System.in;
@@ -67,14 +71,20 @@ class TextUiTest {
         readLine.close();
     }
 
-    // Test whether default line separator is properly drawn
+    /**
+     * Test whether default line separator is properly drawn.<br/>
+     * Expect success.
+     */
     @Test
     void printSeparator_defaultVersion_success() {
         UI.printSeparator();
         assertEquals(DEFAULT_SEPARATOR, outputStreamCaptor.toString().trim());
     }
 
-    // Test whether exception message will properly printed with correct format
+    /**
+     * Test whether exception message will be printed properly with correct format.<br/>
+     * Expect both error message and error notes.
+     */
     @Test
     void printErrorFor_arithmeticException_success() {
         String errorMsg = ARITHMETIC_EXCEPTION_MSG_ONE + System.lineSeparator() + ARITHMETIC_EXCEPTION_MSG_TWO;
@@ -91,7 +101,9 @@ class TextUiTest {
                 outputStreamCaptor.toString().trim());
     }
 
-    // Test whether messages will be properly printed with correct format
+    /**
+     * Test whether messages will be properly printed with correct format.
+     */
     @Test
     void printOutputMessage_greeting_success() {
         UI.printOutputMessage(GREET_MSG);
@@ -100,7 +112,10 @@ class TextUiTest {
                 outputStreamCaptor.toString().trim());
     }
 
-    // Test whether multi-line message can be printed with correct indentation
+    /**
+     * Test whether multi-line message can be printed with correct indentation.<br/>
+     * Expect string split by lineSeparator() and indentation in front of each new line.
+     */
     @Test
     void printMultiLineMessage_twoLines_success() {
         String multiLineOutput = TEST_OUTPUT_MSG_ONE + System.lineSeparator() + TEST_OUTPUT_MSG_TWO;
