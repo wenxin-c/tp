@@ -202,7 +202,7 @@ public class ConfigCommandTest {
             fail(ERROR_EXPECTED_PASS);
         }
         assertTrue(isSessionCorrectlyUpdated(session, VALID_CYCLE_INT, VALID_TIME_2_INT,
-                VALID_TIME_INT, VALID_TIME_1_INT));
+                VALID_TIME_1_INT, VALID_TIME_2_INT));
     }
 
     /**
