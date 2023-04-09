@@ -8,12 +8,12 @@ import wellnus.exception.StorageException;
  * gamification data.
  */
 public class GamificationData {
+    protected static final int POINTS_PER_LEVEL = 10;
     private static final int INITIAL_XP_POINTS = 0;
     private static final String INVALID_EXP_POINTS_TO_ADD_ERROR = "Cannot add non-positive amount of "
             + "experience points: '%d'";
     private static final String INVALID_EXP_POINTS_TO_MINUS_ERROR = "Cannot minus non-positive amount of "
             + "experience points: '%d'";
-    private static final int POINTS_PER_LEVEL = 10;
     // Experience points accumulated so far
     private int xp;
     // Experience level based on the experience points
