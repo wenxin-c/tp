@@ -13,6 +13,10 @@ import org.junit.jupiter.api.Test;
 
 import wellnus.exception.StorageException;
 
+/**
+ * Test that Storage's public functions work as intended.
+ */
+//@@author nichyjt
 public class StorageTest {
 
     private static final String INVALID_FILENAME = "foobar";
@@ -26,7 +30,6 @@ public class StorageTest {
     private static final String ERROR_STORAGE_FAIL_SAVE = "Storage failed to save data!";
     private static final String ERROR_STORAGE_FAIL_DELETE = "Failed to delete file!";
     private static final String ERROR_STORAGE_FAIL_CREATE = "Failed to create and get new file!";
-
     private static final String DEBUG_PAYLOAD_0 = "attr0 p0";
     private static final String DEBUG_PAYLOAD_1 = "attr1 p1 --p2 p3";
     private static final String DEBUG_PAYLOAD_2 = "attr2 --p1 p2 --p3 --p4";
@@ -45,15 +48,11 @@ public class StorageTest {
     }
 
     private ArrayList<String> getDebugStringList() {
-        String entry0 = DEBUG_PAYLOAD_0;
-        String entry1 = DEBUG_PAYLOAD_1;
-        String entry2 = DEBUG_PAYLOAD_2;
-        String entry3 = DEBUG_PAYLOAD_3;
         ArrayList<String> stringList = new ArrayList<>();
-        stringList.add(entry0);
-        stringList.add(entry1);
-        stringList.add(entry2);
-        stringList.add(entry3);
+        stringList.add(DEBUG_PAYLOAD_0);
+        stringList.add(DEBUG_PAYLOAD_1);
+        stringList.add(DEBUG_PAYLOAD_2);
+        stringList.add(DEBUG_PAYLOAD_3);
         return stringList;
     }
 
@@ -68,6 +67,9 @@ public class StorageTest {
                 + Storage.DELIMITER;
     }
 
+    /**
+     * Test that creating and deleting a file works
+     */
     @Test
     @Order(1)
     public void createAndDeleteFile_test() {
@@ -93,6 +95,9 @@ public class StorageTest {
         assertFalse(debugFile.exists());
     }
 
+    /**
+     * Test that tokenizing a list data string works
+     */
     @Test
     @Order(2)
     public void tokenizeHashmap_test() {
@@ -106,6 +111,9 @@ public class StorageTest {
         assertEquals(expected, result);
     }
 
+    /**
+     * Test that detokenizing data string works for a valid string
+     */
     @Test
     @Order(3)
     public void detokenizeDataString_test() {
@@ -188,6 +196,9 @@ public class StorageTest {
         }
     }
 
+    /**
+     * Test that invalid file name throws an exception on getFile
+     */
     @Test
     @Order(7)
     public void getFile_invalidFileName_exceptionThrown() {
@@ -198,6 +209,9 @@ public class StorageTest {
         }, EXPECTED_EXCEPTION_FILENAME);
     }
 
+    /**
+     * Test that invalid file name throws an exception on saveData
+     */
     @Test
     @Order(8)
     public void saveData_invalidFileName_exceptionThrown() {
@@ -209,6 +223,9 @@ public class StorageTest {
         }, EXPECTED_EXCEPTION_FILENAME);
     }
 
+    /**
+     * Test that invalid file name throws an exception on loadData
+     */
     @Test
     @Order(9)
     public void loadData_invalidFileName_exceptionThrown() {
@@ -219,6 +236,9 @@ public class StorageTest {
         }, EXPECTED_EXCEPTION_FILENAME);
     }
 
+    /**
+     * Test that invalid file name throws an exception on deleteFile
+     */
     @Test
     @Order(10)
     public void deleteFile_invalidFileName_exceptionThrown() {

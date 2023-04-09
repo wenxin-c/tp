@@ -16,7 +16,7 @@ import wellnus.focus.feature.Session;
 
 
 /**
- * Test that ConfigCommand's public functions work as intended
+ * Test that ConfigCommand's public functions work as intended.
  * <p>
  * Only execute() is called for testing rather than the other public/protected method calls
  * as it covers almost all the main logic and branches.
@@ -124,15 +124,11 @@ public class ConfigCommandTest {
     private static final String VALID_TIME_MAX = "60";
     private static final int VALID_TIME_MAX_INT = 60;
     private static final String INVALID_TIME_NEGATIVE = "-5";
-    private static final int INVALID_TIME_NEGATIVE_INT = -5;
     private static final String INVALID_TIME_MAX = "61";
     private static final String INVALID_CYCLE_MAX = "10";
-    private static final int INVALID_CYCLE_MAX_INT = 10;
     private static final String INVALID_CYCLE_NEGATIVE = "-5";
-    private static final int INVALID_CYCLE_NEGATIVE_INT = -5;
     private static final String INVALID_PAYLOAD = "foo";
     private static final String INVALID_PAYLOAD_1 = "bar";
-
 
     private String getMessageFrom(String uiOutput) {
         FocusUi ui = new FocusUi();
@@ -186,7 +182,6 @@ public class ConfigCommandTest {
     public void executeTest_success() {
         ConfigCommand command;
         Session session = new Session();
-
         // Test with missing arguments
         HashMap<String, String> argumentPayload = generateArguments(VALID_CYCLE, VALID_TIME, null, null);
         command = new ConfigCommand(argumentPayload, session);
@@ -208,7 +203,6 @@ public class ConfigCommandTest {
         }
         assertTrue(isSessionCorrectlyUpdated(session, VALID_CYCLE_INT, VALID_TIME_2_INT,
                 VALID_TIME_INT, VALID_TIME_1_INT));
-
     }
 
     /**
@@ -262,7 +256,6 @@ public class ConfigCommandTest {
             fail(ERROR_UNEXPECTED_EXCEPTION);
         }
         assertEquals(EXPECTED_ERROR_MIN_MINS, getMessageFrom(outputStream.toString()));
-
         // Test with negative cycle values
         argumentPayload = generateArguments(INVALID_CYCLE_NEGATIVE, VALID_TIME,
                 VALID_TIME, VALID_TIME);
@@ -284,7 +277,6 @@ public class ConfigCommandTest {
     public void executeTest_largeNumbers_exceptionThrown() {
         ConfigCommand command;
         Session session = new Session();
-
         // Test with large time values
         HashMap<String, String> argumentPayload = generateArguments(MAX_CYCLE, INVALID_TIME_MAX,
                 VALID_TIME, VALID_TIME_2);
@@ -318,7 +310,6 @@ public class ConfigCommandTest {
     public void executeTest_notANumber_exceptionThrown() {
         ConfigCommand command;
         Session session = new Session();
-
         // Test with NaN time value
         HashMap<String, String> argumentPayload = generateArguments(MAX_CYCLE, INVALID_PAYLOAD,
                 VALID_TIME, VALID_TIME_2);
@@ -344,7 +335,6 @@ public class ConfigCommandTest {
             fail(ERROR_UNEXPECTED_EXCEPTION);
         }
         assertEquals(EXPECTED_ERROR_INVALID_PAYLOAD, getMessageFrom(outputStream.toString()));
-
     }
 
     /**
@@ -354,7 +344,6 @@ public class ConfigCommandTest {
     public void executeTest_invalidArguments_exceptionThrown() {
         ConfigCommand command;
         Session session = new Session();
-
         // Test with too many arguments
         HashMap<String, String> argumentPayload = generateArguments(MAX_CYCLE,
                 VALID_TIME, VALID_TIME, VALID_TIME_2);
@@ -368,6 +357,5 @@ public class ConfigCommandTest {
             fail(ERROR_UNEXPECTED_EXCEPTION);
         }
         assertEquals(EXPECTED_ERROR_INVALID_ARGS, getMessageFrom(outputStream.toString()));
-
     }
 }
