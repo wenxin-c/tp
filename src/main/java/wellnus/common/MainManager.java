@@ -107,6 +107,8 @@ public class MainManager extends Manager {
                 this.getTextUi().printErrorFor(exception, INVALID_COMMAND_ADDITIONAL_MESSAGE);
             }
         }
+        // We are about to quit WellNUS++. Close the log file used in this session
+        WellNusLogger.closeLogFile();
     }
 
     /**
