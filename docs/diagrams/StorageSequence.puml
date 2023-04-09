@@ -6,6 +6,10 @@ skinparam arrowThickness 1.1
 skinparam arrowColor MODEL_COLOR
 skinparam classBackgroundColor MODEL_COLOR
 
+Participant FooManager MODEL_COLOR
+Participant FooTokenizer MODEL_COLOR
+Participant Storage MODEL_COLOR
+
 hide footbox
 title Saving Data (Emphasis on Storage Subroutine)
 FooManager -> FooTokenizer : tokenize(ArrayList<T>)
