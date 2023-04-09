@@ -15,8 +15,7 @@ public class AtomicHabitTokenizer implements Tokenizer<AtomicHabit> {
     private static final String DESCRIPTION_KEY = "description";
     private static final String COUNT_KEY = "count";
     private static final String PARAMETER_DELIMITER = "--";
-    private static final String DETOKENIZE_ERROR_MESSAGE = "Detokenization failed! "
-            + "The file might be corrupted!";
+    private static final String DETOKENIZE_ERROR_MESSAGE = "Invalid habit data '%s' found in storage!";
     private static final int INDEX_ZERO = 0;
     private static final int INDEX_FIRST = 1;
     private static final int NUM_ATOMIC_HABIT_PARAMETER = 2;
@@ -40,13 +39,10 @@ public class AtomicHabitTokenizer implements Tokenizer<AtomicHabit> {
         return habitName.toLowerCase().replaceAll("\\s", "");
     }
 
-    private ArrayList<AtomicHabit> removeErroneousHabits(ArrayList<AtomicHabit> uncheckedAtomicHabits) {
+    private ArrayList<AtomicHabit> removeDuplicatedHabits(ArrayList<AtomicHabit> uncheckedAtomicHabits) {
         HashMap<String, AtomicHabit> uniqueHabits = new LinkedHashMap<>();
         for (AtomicHabit habit : uncheckedAtomicHabits) {
             String description = convertToBase(habit.getDescription());
-            if (description.matches(REGEX_NUMBER_AND_SYMBOL_ONLY_PATTERN)) {
-                continue;
-            }
             if (!uniqueHabits.containsKey(description)) {
                 uniqueHabits.put(description, habit);
             }
@@ -65,22 +61,25 @@ public class AtomicHabitTokenizer implements Tokenizer<AtomicHabit> {
                 parameterHashMap.put(parameterKey, parameterValue);
             }
         } catch (StringIndexOutOfBoundsException stringIndexOutOfBoundsException) {
-            throw new TokenizerException(DETOKENIZE_ERROR_MESSAGE);
+            throw new TokenizerException(String.format(DETOKENIZE_ERROR_MESSAGE, tokenizedHabit));
         }
         if ((!parameterHashMap.containsKey(DESCRIPTION_KEY) || !parameterHashMap.containsKey(COUNT_KEY))
                 && !parameterHashMap.isEmpty()) {
-            throw new TokenizerException(DETOKENIZE_ERROR_MESSAGE);
+            throw new TokenizerException(String.format(DETOKENIZE_ERROR_MESSAGE, tokenizedHabit));
         }
         if (parameterHashMap.size() != NUM_ATOMIC_HABIT_PARAMETER) {
-            throw new TokenizerException(DETOKENIZE_ERROR_MESSAGE);
+            throw new TokenizerException(String.format(DETOKENIZE_ERROR_MESSAGE, tokenizedHabit));
         }
         String description = parameterHashMap.get(DESCRIPTION_KEY);
         String countString = parameterHashMap.get(COUNT_KEY);
+        if (description.matches(REGEX_NUMBER_AND_SYMBOL_ONLY_PATTERN)) {
+            throw new TokenizerException(String.format(DETOKENIZE_ERROR_MESSAGE, tokenizedHabit));
+        }
         try {
             int count = Integer.parseInt(countString);
             return new AtomicHabit(description, count);
         } catch (NumberFormatException numberFormatException) {
-            throw new TokenizerException(DETOKENIZE_ERROR_MESSAGE);
+            throw new TokenizerException(String.format(DETOKENIZE_ERROR_MESSAGE, tokenizedHabit));
         }
     }
 
@@ -121,7 +120,7 @@ public class AtomicHabitTokenizer implements Tokenizer<AtomicHabit> {
                 detokenizedAtomicHabits.add(parsedHabit);
             }
         }
-        detokenizedAtomicHabits = removeErroneousHabits(detokenizedAtomicHabits);
+        detokenizedAtomicHabits = removeDuplicatedHabits(detokenizedAtomicHabits);
         return detokenizedAtomicHabits;
     }
 }
