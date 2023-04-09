@@ -68,7 +68,7 @@ mental wellness in various aspects.
   - Took meeting minutes for meetings & booking & setup of weekly meeting venue
 - **Reviewing/Mentoring Contributions**
   - [List of all reviewed PRs](https://github.com/AY2223S2-CS2113-T12-4/tp/pulls?q=is%3Apr+reviewed-by%3Anichyjt).
-    Nicholas focussed on giving critical suggestions and the quality of
+    Nicholas focussed on giving critical suggestions and on the quality of
     the codebase. Some illustrative examples:
     - [Avoiding deep nesting](https://github.com/AY2223S2-CS2113-T12-4/tp/pull/155#discussion_r1144643398)
     - [Usage of assertions and try-catch](https://github.com/AY2223S2-CS2113-T12-4/tp/pull/76#discussion_r1136795952)
