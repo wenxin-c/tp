@@ -3,6 +3,7 @@ package wellnus.storage;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 import wellnus.atomichabit.feature.AtomicHabit;
 import wellnus.exception.TokenizerException;
@@ -19,6 +20,7 @@ public class AtomicHabitTokenizer implements Tokenizer<AtomicHabit> {
     private static final int INDEX_ZERO = 0;
     private static final int INDEX_FIRST = 1;
     private static final int NUM_ATOMIC_HABIT_PARAMETER = 2;
+    private static final String REGEX_NUMBER_AND_SYMBOL_ONLY_PATTERN = "^[\\d\\p{Punct}\\p{S}]*$";
 
     private String[] splitTokenizedHabitIntoParameter(String tokenizedHabit) {
         tokenizedHabit = tokenizedHabit.strip();
@@ -38,16 +40,18 @@ public class AtomicHabitTokenizer implements Tokenizer<AtomicHabit> {
         return habitName.toLowerCase().replaceAll("\\s", "");
     }
 
-    private ArrayList<AtomicHabit> removeDuplicatedHabits(ArrayList<AtomicHabit> uncheckedAtomicHabits) {
-        HashMap<String, AtomicHabit> uniqueHabits = new HashMap<>();
+    private ArrayList<AtomicHabit> removeErroneousHabits(ArrayList<AtomicHabit> uncheckedAtomicHabits) {
+        HashMap<String, AtomicHabit> uniqueHabits = new LinkedHashMap<>();
         for (AtomicHabit habit : uncheckedAtomicHabits) {
             String description = convertToBase(habit.getDescription());
+            if (description.matches(REGEX_NUMBER_AND_SYMBOL_ONLY_PATTERN)) {
+                continue;
+            }
             if (!uniqueHabits.containsKey(description)) {
                 uniqueHabits.put(description, habit);
             }
         }
-        ArrayList<AtomicHabit> cleanHabits = new ArrayList<>(uniqueHabits.values());
-        return cleanHabits;
+        return new ArrayList<>(uniqueHabits.values());
     }
 
     private AtomicHabit parseTokenizedHabit(String tokenizedHabit) throws TokenizerException {
@@ -74,8 +78,7 @@ public class AtomicHabitTokenizer implements Tokenizer<AtomicHabit> {
         String countString = parameterHashMap.get(COUNT_KEY);
         try {
             int count = Integer.parseInt(countString);
-            AtomicHabit parsedHabit = new AtomicHabit(description, count);
-            return parsedHabit;
+            return new AtomicHabit(description, count);
         } catch (NumberFormatException numberFormatException) {
             throw new TokenizerException(DETOKENIZE_ERROR_MESSAGE);
         }
@@ -118,7 +121,7 @@ public class AtomicHabitTokenizer implements Tokenizer<AtomicHabit> {
                 detokenizedAtomicHabits.add(parsedHabit);
             }
         }
-        detokenizedAtomicHabits = removeDuplicatedHabits(detokenizedAtomicHabits);
+        detokenizedAtomicHabits = removeErroneousHabits(detokenizedAtomicHabits);
         return detokenizedAtomicHabits;
     }
 }
