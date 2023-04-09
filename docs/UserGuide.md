@@ -134,13 +134,13 @@ Expected outcome:
 ------------------------------------------------------------
     WellNUS++ is a Command Line Interface (CLI) app for you to keep track, manage and improve your physical and mental wellness.
     Input `help` to see all available commands.
-Input `help [command-to-check]` to get usage help for a specific command.
-Here are all the commands available for you!
+    Input `help [command-to-check]` to get usage help for a specific command.
+    Here are all the commands available for you!
     
-    1. hb(Atomic Habits) - Track and manage your habits with our suite of tools to help you grow and nurture a better you!
-    2. reflect(Self Reflection) - Take some time to pause and reflect with our specially curated list of questions and reflection management tools.
-    3. ft(Focus Timer) - Set a configurable 'Pomodoro' timer with work and rest cycles to keep yourself focused and productive!
-    4. gamif(Gamification) - Gamification gives you the motivation to continue improving your wellness by rewarding you for your efforts!
+    1. hb - Atomic Habits - Track and manage your habits with our suite of tools to help you grow and nurture a better you!
+    2. reflect - Self Reflection - Take some time to pause and reflect with our specially curated list of questions and reflection management tools.
+    3. ft - Focus Timer - Set a configurable 'Pomodoro' timer with work and rest cycles to keep yourself focused and productive!
+    4. gamif - Gamification - Gamification gives you the motivation to continue improving your wellness by rewarding you for your efforts!
     5. exit - Close WellNUS++ and return to your terminal.
     6. help - Get help on what commands can be used in WellNUS++.
 ------------------------------------------------------------
@@ -154,7 +154,7 @@ Expected outcome:
 
 ```
 ------------------------------------------------------------
-    hb(Atomic Habits) - Track and manage your habits with our suite of tools to help you grow and nurture a better you!
+    hb - Atomic Habits - Track and manage your habits with our suite of tools to help you grow and nurture a better you!
     usage: hb
 ------------------------------------------------------------
 ```
@@ -264,12 +264,12 @@ Expected outcome:
 
 ```
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Here is the current accumulation of your atomic habits!
-Keep up the good work and you will develop a helpful habit in no time
-1.Make Bed every morning [1]
-2.Read for at least 30 minutes every day [3]
-3.Avoid checking phone for the first hour after waking up [2]
-... 
+    Here is the current accumulation of your atomic habits!
+    Keep up the good work and you will develop a helpful habit in no time
+    1.Make Bed every morning [1]
+    2.Read for at least 30 minutes every day [3]
+    3.Avoid checking phone for the first hour after waking up [2]
+    ... 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ```
 
@@ -359,17 +359,17 @@ Expected outcome:
 
 ```
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Here is the current accumulation of your atomic habits!
-Keep up the good work and you will develop a helpful habit in no time
-1. Make bed every morning [5]
-2. Read for at least 30 minutes every day [3] 
+    Here is the current accumulation of your atomic habits!
+    Keep up the good work and you will develop a helpful habit in no time
+    1. Make bed every morning [5]
+    2. Read for at least 30 minutes every day [3] 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ```
 
 ```
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-The following habit has been deleted:
-Make bed every morning [5] has been successfully deleted
+    The following habit has been deleted:
+    Make bed every morning [5] has been successfully deleted
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ```
 
@@ -392,16 +392,17 @@ Expected outcome:
 
 ```
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    Atomic Habits (hb) - Track and manage your habits with our suite of tools to help you grow and nurture a better you!
+    hb - Atomic Habits - Track and manage your habits with our suite of tools to help you grow and nurture a better you!
     Input `help` to see all available commands.
-Input `help [command-to-check] to get usage help for a specific command.
-Here are all the commands available for you!
+    Input `help [command-to-check] to get usage help for a specific command.
+    Here are all the commands available for you!
     
     1. add - Add a habit to your habit tracker.
-    2. help - Get help on what commands can be used in Atomic Habit WellNUS++
-    3. home - Return back to the main menu of WellNUS++.
-    4. list - Lists out all the habits in your tracker.
-    5. update - Update how many times you've done a habit.
+    2. delete - Delete the habit you don't want to continue.
+    3. help - Get help on what commands can be used in Atomic Habit WellNUS++
+    4. home - Return back to the main menu of WellNUS++.
+    5. list - Lists out all the habits in your tracker.
+    6. update - Update how many times you've done a habit.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ```
 
@@ -484,16 +485,16 @@ Example of usage 1:
 Expected outcome:
 
 ```
-------------------------------------------------------------
-    Gamification (gamif) - Gamification gives you the motivation to continue improving your wellness by rewarding you for your efforts!
+######################################################################
+    gamif - Gamification - Gamification gives you the motivation to continue improving your wellness by rewarding you for your efforts!
     Input `help` to see all available commands.
-Input `help [command-to-check]` to get usage help for a specific command.
-Here are all the commands available for you!
+    Input `help [command-to-check]` to get usage help for a specific command.
+    Here are all the commands available for you!
     
     1. help - Get help on what commands can be used in WellNUS++ Gamification Feature
     2. home - Returns the user to the main WellNus++ session
     3. stats - Displays the user's XP level and points
-------------------------------------------------------------
+######################################################################
 ```
 
 Example of usage 2:
@@ -503,10 +504,10 @@ Example of usage 2:
 Expected outcome:
 
 ```
-------------------------------------------------------------
+######################################################################
     stats - Displays the user's XP level and points
     usage: stats
-------------------------------------------------------------
+######################################################################
 ```
 
 <!-- @@author wenxin-c -->
@@ -696,10 +697,10 @@ Expected outcome:
 
 ```
 ============================================================
-    reflect(Self Reflection) - Take some time to pause and reflect with our specially curated list of questions and reflection management tools.
+    reflect - Self Reflection - Take some time to pause and reflect with our specially curated list of questions and reflection management tools.
     Input `help` to see all available commands.
-Input `help [command-to-check] to get usage help for a specific command.
-Here are all the commands available for you!
+    Input `help [command-to-check] to get usage help for a specific command.
+    Here are all the commands available for you!
     
     1. fav - Get the list of questions that have been added to the favorite list.
     2. get - Get a list of questions to reflect on.
@@ -902,7 +903,7 @@ Expected outcome:
 
 ```
 ************************************************************
-    ft - Focus Timer: Set a configurable 'Pomodoro' timer with work and rest cycles to keep yourself focused and productive!
+    ft - Focus Timer - Set a configurable 'Pomodoro' timer with work and rest cycles to keep yourself focused and productive!
     Input `help` to see all available commands.
     Input `help [command-to-check]` to get usage help for a specific command.
     Here are all the commands available for you!
@@ -917,7 +918,6 @@ Expected outcome:
     8. start - Start your focus session!
     9. stop - Stop the session. You will have to `start` your focus session again!
 ************************************************************
-
 ```
 
 Example of usage 2:
@@ -1090,11 +1090,12 @@ to learn about the commands available within that feature.
 
 ## Command Summary
 
-* Help `help`
+* Help `help [COMMAND_TO_CHECK]`
 * Access feature`hb`
     * Add habit `add --name ATOMIC_HABIT_NAME`
     * View habit `list`
     * Update habit `update --id HABIT_INDEX [--by NUMBER_TO_CHANGE]`
+    * Delete habit `delete --id HABIT_INDEX`
 * Access feature `reflect`
     * Get reflect question `get`
     * Like reflect question `like INDEX`

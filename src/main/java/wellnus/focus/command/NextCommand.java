@@ -12,6 +12,7 @@ import wellnus.focus.feature.Session;
  * Represents a class to start the next countdown in the session.
  */
 public class NextCommand extends Command {
+
     public static final String COMMAND_DESCRIPTION = "next - Move on to the next countdown. "
             + "Can only be used when a countdown timer has ended.";
     public static final String COMMAND_USAGE = "usage: next";

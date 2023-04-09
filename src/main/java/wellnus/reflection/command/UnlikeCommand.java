@@ -28,9 +28,9 @@ public class UnlikeCommand extends Command {
     private static final String INVALID_COMMAND_MSG = "Invalid command issued, expected 'unlike'!";
     private static final String INVALID_ARGUMENT_MSG = "Invalid arguments given to 'unlike'!";
     private static final String INVALID_COMMAND_NOTES = "unlike command " + COMMAND_USAGE;
-    private static final String WRONG_INDEX_MSG = "Invalid index payload given to 'unlike', index is out of range!";
-    private static final String WRONG_INDEX_NOTE = "Please input the correct index of the question you like!";
-    private static final String COMMAND_KEYWORD_ASSERTION = "The key should be unlike.";
+    private static final String WRONG_INDEX_MSG = "Invalid index payload given to 'unlike', expected a valid integer!";
+    private static final String WRONG_INDEX_OUT_BOUND = "Invalid index payload given to 'unlike', "
+            + "index is out of range!";
     private static final String EMPTY_FAV_LIST_MSG = "The favorite list is empty, there is nothing to be removed.";
     private static final String TOKENIZER_ERROR = "Error tokenizing data!";
     private static final String STORAGE_ERROR = "Error saving to storage!";
@@ -146,9 +146,10 @@ public class UnlikeCommand extends Command {
             UI.printErrorFor(storageException, STORAGE_ERROR);
         } catch (NumberFormatException numberFormatException) {
             LOGGER.log(Level.INFO, WRONG_INDEX_MSG);
-            UI.printErrorFor(numberFormatException, WRONG_INDEX_NOTE);
+            BadCommandException exception = new BadCommandException(WRONG_INDEX_MSG);
+            UI.printErrorFor(exception, INVALID_COMMAND_NOTES);
         } catch (ReflectionException reflectionException) {
-            UI.printErrorFor(reflectionException, WRONG_INDEX_NOTE);
+            UI.printErrorFor(reflectionException, INVALID_COMMAND_NOTES);
         } catch (BadCommandException badCommandException) {
             LOGGER.log(Level.INFO, INVALID_COMMAND_MSG);
             UI.printErrorFor(badCommandException, INVALID_COMMAND_NOTES);
@@ -175,7 +176,7 @@ public class UnlikeCommand extends Command {
             return;
         }
         if (questionIndexInt > this.favQuestionIndexes.size() || questionIndexInt < LOWER_BOUND) {
-            throw new ReflectionException(WRONG_INDEX_MSG);
+            throw new ReflectionException(WRONG_INDEX_OUT_BOUND);
         }
         IndexMapper indexMapper = new IndexMapper(this.favQuestionIndexes);
         HashMap<Integer, Integer> indexQuestionMap = indexMapper.mapIndex();

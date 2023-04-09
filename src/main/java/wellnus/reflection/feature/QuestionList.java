@@ -46,15 +46,16 @@ public class QuestionList {
     private static final int INCREMENT_ONE = 1;
     private static final String TOTAL_NUM_QUESTION_ASSERTIONS = "The total number of questions is 10.";
     private static final String ADD_FAV_SUCCESS_ONE = "You have added question: ";
-    private static final String ADD_FAV_SUCCESS_TWO = " into favorite list!!";
+    private static final String ADD_FAV_SUCCESS_TWO = " Into favorite list!!";
     private static final String REMOVE_FAV_SUCCESS_ONE = "You have removed question: ";
-    private static final String REMOVE_FAV_SUCCESS_TWO = " from favorite list!!";
-    private static final String DUPLICATE_LIKE = " is already in the favorite list!";
+    private static final String REMOVE_FAV_SUCCESS_TWO = " From favorite list!!";
+    private static final String DUPLICATE_LIKE = " Is already in the favorite list!";
     private static final String TOKENIZER_ERROR = "Error tokenizing data!";
     private static final String STORAGE_ERROR = "Error saving to storage!";
     private static final String DOT = ".";
     private static final String EMPTY_STRING = "";
     private static final String FILE_NAME = "reflect";
+    private static final String QUOTE = "\"";
     private static final RandomNumberGenerator RANDOM_NUMBER_GENERATOR =
             new RandomNumberGenerator(RANDOM_NUMBER_UPPERBOUND);
     private static final Logger LOGGER = WellNusLogger.getLogger("ReflectQuestionListLogger");
@@ -192,12 +193,13 @@ public class QuestionList {
      */
     public void addFavListIndex(int indexToAdd) throws StorageException {
         if (this.dataIndex.get(INDEX_ZERO).contains(indexToAdd)) {
-            UI.printOutputMessage(questions.get(indexToAdd).toString() + DUPLICATE_LIKE);
+            UI.printOutputMessage(QUOTE + questions.get(indexToAdd).toString() + QUOTE + DUPLICATE_LIKE);
             return;
         }
         this.dataIndex.get(INDEX_ZERO).add(indexToAdd);
         this.storeQuestionData();
-        UI.printOutputMessage(ADD_FAV_SUCCESS_ONE + this.questions.get(indexToAdd).toString() + ADD_FAV_SUCCESS_TWO);
+        UI.printOutputMessage(ADD_FAV_SUCCESS_ONE + QUOTE + this.questions.get(indexToAdd).toString() + QUOTE
+                + ADD_FAV_SUCCESS_TWO);
     }
 
     /**
@@ -211,7 +213,7 @@ public class QuestionList {
     public void removeFavListIndex(int indexToRemove) throws StorageException {
         this.dataIndex.get(INDEX_ZERO).remove(indexToRemove);
         this.storeQuestionData();
-        UI.printOutputMessage(REMOVE_FAV_SUCCESS_ONE + this.questions.get(indexToRemove).toString()
+        UI.printOutputMessage(REMOVE_FAV_SUCCESS_ONE + QUOTE + this.questions.get(indexToRemove).toString() + QUOTE
                 + REMOVE_FAV_SUCCESS_TWO);
     }
 
