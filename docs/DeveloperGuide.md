@@ -57,7 +57,6 @@
     * [Usage - `loadData`](#usage---loaddata)
     * [Design Considerations](#design-considerations-6)
   * [Focus Timer Component](#focus-timer-component)
-    * [Design Considerations](#design-considerations-7)
     * [Focus Timer Implementation](#focus-timer-implementation)
       * [State Management](#state-management)
       * [Commands](#commands-1)
