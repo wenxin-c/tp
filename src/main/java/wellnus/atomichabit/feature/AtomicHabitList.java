@@ -16,8 +16,8 @@ import wellnus.ui.TextUi;
  */
 public class AtomicHabitList {
 
-    private static final String STORAGE_ERROR = "Previous atomic habit data will not be restored.";
-    private static final String TOKENIZER_ERROR = "The data cannot be tokenized for storage properly!!";
+    private static final String TOKENIZER_ERROR = "Previous atomic habit data will not be restored.";
+    private static final String STORAGE_ERROR = "The data cannot be stored properly!!";
     private static final Logger LOGGER = WellNusLogger.getLogger("AtomicHabitListLogger");
     private static final AtomicHabitTokenizer atomicHabitTokenizer = new AtomicHabitTokenizer();
     private ArrayList<AtomicHabit> allAtomicHabits;
@@ -33,20 +33,20 @@ public class AtomicHabitList {
         try {
             this.storage = new Storage();
         } catch (StorageException storageException) {
-            LOGGER.log(Level.WARNING, STORAGE_ERROR);
-            textUi.printErrorFor(storageException, STORAGE_ERROR);
+            LOGGER.log(Level.WARNING, TOKENIZER_ERROR);
+            textUi.printErrorFor(storageException, TOKENIZER_ERROR);
         }
         textUi = new TextUi();
         allAtomicHabits = new ArrayList<>();
         try {
             this.loadHabitData();
         } catch (StorageException storageException) {
-            LOGGER.log(Level.WARNING, TOKENIZER_ERROR);
-            textUi.printErrorFor(storageException, TOKENIZER_ERROR);
+            LOGGER.log(Level.WARNING, STORAGE_ERROR);
+            textUi.printErrorFor(storageException, STORAGE_ERROR);
         } catch (TokenizerException tokenizerException) {
             overrideErrorHabitData();
-            LOGGER.log(Level.WARNING, STORAGE_ERROR);
-            textUi.printErrorFor(tokenizerException, STORAGE_ERROR);
+            LOGGER.log(Level.WARNING, TOKENIZER_ERROR);
+            textUi.printErrorFor(tokenizerException, TOKENIZER_ERROR);
         }
     }
 
@@ -55,7 +55,7 @@ public class AtomicHabitList {
         try {
             storage.saveData(emptyTokenizedHabit, Storage.FILE_HABIT);
         } catch (StorageException storageException) {
-            LOGGER.log(Level.WARNING, TOKENIZER_ERROR);
+            LOGGER.log(Level.WARNING, STORAGE_ERROR);
         }
     }
 

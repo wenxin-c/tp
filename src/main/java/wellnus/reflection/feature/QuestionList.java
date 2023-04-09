@@ -50,8 +50,8 @@ public class QuestionList {
     private static final String REMOVE_FAV_SUCCESS_ONE = "You have removed question: ";
     private static final String REMOVE_FAV_SUCCESS_TWO = " From favorite list!!";
     private static final String DUPLICATE_LIKE = " Is already in the favorite list!";
-    private static final String TOKENIZER_ERROR = "Error tokenizing data!";
-    private static final String STORAGE_ERROR = "Error saving to storage!";
+    private static final String STORAGE_ERROR = "Error storing data!";
+    private static final String TOKENIZER_ERROR = "Previous reflect data will not be restored.";
     private static final String DOT = ".";
     private static final String EMPTY_STRING = "";
     private static final String FILE_NAME = "reflect";
@@ -78,8 +78,8 @@ public class QuestionList {
         try {
             storage = new Storage();
         } catch (StorageException storageException) {
-            LOGGER.log(Level.WARNING, STORAGE_ERROR);
-            UI.printErrorFor(storageException, STORAGE_ERROR);
+            LOGGER.log(Level.WARNING, TOKENIZER_ERROR);
+            UI.printErrorFor(storageException, TOKENIZER_ERROR);
         }
         this.randomQuestionIndexes = new HashSet<>();
         this.dataIndex = new ArrayList<>();
@@ -90,14 +90,24 @@ public class QuestionList {
         try {
             this.loadQuestionData();
         } catch (StorageException storageException) {
-            LOGGER.log(Level.WARNING, TOKENIZER_ERROR);
-            UI.printErrorFor(storageException, TOKENIZER_ERROR);
-        } catch (TokenizerException tokenizerException) {
             LOGGER.log(Level.WARNING, STORAGE_ERROR);
-            UI.printErrorFor(tokenizerException, STORAGE_ERROR);
+            UI.printErrorFor(storageException, STORAGE_ERROR);
+        } catch (TokenizerException tokenizerException) {
+            overrideErrorReflectData();
+            LOGGER.log(Level.WARNING, TOKENIZER_ERROR);
+            UI.printErrorFor(tokenizerException, TOKENIZER_ERROR);
         }
         setUpQuestions();
         assert questions.size() == TOTAL_NUM_QUESTIONS : TOTAL_NUM_QUESTION_ASSERTIONS;
+    }
+
+    private void overrideErrorReflectData() {
+        ArrayList<String> emptyTokenizedReflectIndexes = new ArrayList<>();
+        try {
+            storage.saveData(emptyTokenizedReflectIndexes , Storage.FILE_REFLECT);
+        } catch (StorageException storageException) {
+            LOGGER.log(Level.WARNING, STORAGE_ERROR);
+        }
     }
 
     /**

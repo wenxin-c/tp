@@ -3,13 +3,11 @@ package wellnus.storage;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import wellnus.common.WellNusLogger;
 import wellnus.exception.StorageException;
 import wellnus.exception.TokenizerException;
-import wellnus.ui.TextUi;
 
 /**
  * Class to tokenize and detokenize the Index for 'like' and 'prev' command in Reflection Feature. <br>
@@ -70,19 +68,12 @@ public class ReflectionTokenizer implements Tokenizer<Set<Integer>> {
     }
 
     private Set<Integer> validateTokenizedIndexFormat(ArrayList<String> tokenizedIndex,
-                                                      int categoryIndex, String categoryKey) {
+                                                      int categoryIndex, String categoryKey) throws TokenizerException {
         Set<Integer> validatedSet = new HashSet<>();
-        try {
-            String tokenizedIndexesByCategory = tokenizedIndex.get(categoryIndex);
-            if (!tokenizedIndexesByCategory.isBlank()) {
-                String rawIndex = splitParameter(tokenizedIndexesByCategory, categoryKey);
-                validatedSet = getSet(rawIndex, categoryKey);
-            }
-        } catch (TokenizerException tokenizerException) {
-            TextUi textUi = new TextUi();
-            textUi.printErrorFor(tokenizerException, String.format(STORAGE_ERROR, categoryKey));
-            validatedSet = new HashSet<>();
-            LOGGER.log(Level.INFO, DETOKENIZE_ERROR_MESSAGE);
+        String tokenizedIndexesByCategory = tokenizedIndex.get(categoryIndex);
+        if (!tokenizedIndexesByCategory.isBlank()) {
+            String rawIndex = splitParameter(tokenizedIndexesByCategory, categoryKey);
+            validatedSet = getSet(rawIndex, categoryKey);
         }
         return validatedSet;
     }
@@ -108,12 +99,6 @@ public class ReflectionTokenizer implements Tokenizer<Set<Integer>> {
             throw new TokenizerException(String.format(DETOKENIZE_ERROR_MESSAGE, categoryKey, indexToSplit));
         }
         return outputIndexes;
-    }
-
-    private void storeDetokenizedIndexes(ArrayList<Set<Integer>> detokenizedIndexes) throws StorageException {
-        Storage storage = new Storage();
-        ArrayList<String> tokenizedIndexes = tokenize(detokenizedIndexes);
-        storage.saveData(tokenizedIndexes, Storage.FILE_REFLECT);
     }
 
     /**
@@ -161,11 +146,6 @@ public class ReflectionTokenizer implements Tokenizer<Set<Integer>> {
         }
         detokenizedIndexes.add(detokenizedLike);
         detokenizedIndexes.add(detokenizedPrev);
-        try {
-            storeDetokenizedIndexes(detokenizedIndexes);
-        } catch (StorageException storageException) {
-            throw new TokenizerException(DETOKENIZE_ERROR_MESSAGE);
-        }
         return detokenizedIndexes;
     }
 }
