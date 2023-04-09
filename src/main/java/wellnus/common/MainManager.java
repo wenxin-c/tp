@@ -55,6 +55,7 @@ public class MainManager extends Manager {
             + "and try again!";
     private static final String WELLNUS_FEATURE_NAME = "";
     private final ArrayList<Manager> featureManagers;
+    private boolean hasExecutedCommands = false;
     private final TextUi textUi;
 
     /**
@@ -67,7 +68,6 @@ public class MainManager extends Manager {
         this.featureManagers = new ArrayList<>();
         this.textUi = new TextUi();
         this.textUi.setCursorName(FEATURE_NAME);
-        this.setSupportedFeatureManagers();
     }
 
     /**
@@ -77,6 +77,10 @@ public class MainManager extends Manager {
      * If an unrecognised command is given, a warning is printed on the user's screen.
      */
     private void executeCommands() {
+        if (!hasExecutedCommands) {
+            this.setSupportedFeatureManagers();
+            hasExecutedCommands = true;
+        }
         boolean isExit = false;
         CommandParser parser = new CommandParser();
         while (!isExit) {

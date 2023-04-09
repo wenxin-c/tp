@@ -34,7 +34,7 @@ public class GamificationManager extends Manager {
             + "home command " + HomeCommand.COMMAND_USAGE;
     private static final String STATS_USAGE = "stats command " + StatsCommand.COMMAND_USAGE;
     private static final String HOME_USAGE = "home command " + HomeCommand.COMMAND_USAGE;
-    private static final String LOAD_GAMIF_DATA_ERROR_MESSAGE = "Error saving to storage!";
+    private static final String LOAD_GAMIF_DATA_ERROR_MESSAGE = "Previous gamification data will not be restored.";
     private GamificationData gamificationData;
     private final GamificationUi gamificationUi;
 
