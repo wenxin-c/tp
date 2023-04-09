@@ -88,7 +88,10 @@ faster than traditional Graphical User Interface(GUI) apps.
 # Overview of WellNUS++
 
 WellNUS++ comes with a variety of features to help you enhance your overall wellness in NUS! The features are Atomic
-Habit, Self Reflection, Focus Timer and Gamification. Each feature has its own set of commands for users to explore.
+Habit, Self Reflection, Focus Timer and Gamification.  
+
+Each feature has its own set of commands for users to explore.  
+
 Users can navigate to different features from main WellNUS++ and return from each feature back to main
 WellNUS++ using `home` command. Do note that users can only `exit` the program from main WellNUS++.
 
@@ -96,20 +99,26 @@ WellNUS++ using `home` command. Do note that users can only `exit` the program f
 
 # Features
 
+<!-- @@author nichyjt -->
 ## Command Format
 
-* Words in UPPER_CASE are the parameters to be supplied by the user.
+A command has the general structure:
+```
+mainCommand PAYLOAD_0 --argument1 PAYLOAD_1 --argument2 PAYLOAD_2
+```
+Command syntax:
+* Words in **UPPER_CASE** are the payloads to be supplied by the user.  
   e.g. in `add --name NAME`, `NAME` is a parameter which can be used in this way: `add --name John Doe`
-* Items in square brackets are optional.
-  e.g in `--name NAME  [--tag TAG]`, the command can be used in two ways: `--name John Doe --tag friend`, or
-  simply `--name John Doe`
-
-* Items with … after them can be used multiple times, including zero times.
-  e.g. in `[--tag TAG]…`, the command can be used in these ways : `--tag friend`, or even `--tag friend --tag family`
-
-* Parameters can be in any order.
-  e.g. if the command specifies `--name NAME --phone PHONE_NUMBER`, `--phone PHONE_NUMBER --name NAME` is also 
-  a valid set of parameters
+* Items in square brackets are **optional**.  
+  e.g in `add --name NAME  [--tag TAG]`, the command can be used in two ways:  
+  * `add --name John Doe --tag friend`, or
+  * `add --name John Doe`
+  * Payloads may also be optional if they are wrapped in `[]`
+* Arguments can be in any order.  
+  e.g. Consider `--name NAME --phone PHONE_NUMBER`.  
+  `--phone PHONE_NUMBER --name NAME` is a valid set of arguments.
+* The `mainCommand` and `argument` are case insensitive.  
+  e.g. `aDD --nAmE NAME` is equivalent to `add --name NAME`
 
 <!-- @@author BernardLesley -->
 
@@ -713,14 +722,14 @@ Expected outcome:
 ============================================================
 ```
 
-<!--@@author nichyjt-->
+<!-- @@author nichyjt -->
 
 ## `ft` - Accessing Focus Timer Feature
 
 Our Focus Timer feature allows users to be productive by setting a configurable work-break timer, inspired by
 the [Pomodoro technique](https://en.wikipedia.org/wiki/Pomodoro_Technique).
 
-**Command input is not allowed when timer is counting down the last 10 seconds.**
+**Command input is disabled when timer is counting down the last 10 seconds.**
 
 Format: `ft`<br>
 
@@ -737,13 +746,13 @@ Expected outcome:
 ************************************************************
 ```
 
-<!--@@author YongbinWang-->
+<!-- @@author YongbinWang -->
 
 ### `start` - Start Session
 
 Ask WellNUS++ to start the focus session consisting of work and break cycles.
 
-`start` can only be used when you first enter Focus, after a session has ended or after a session has been stopped.
+`start` can only be used when you first enter Focus, after a session has ended or after a session has been `stop`.
 
 Format: `start`
 
@@ -806,7 +815,8 @@ Expected outcome:
 
 Ask WellNUS++ to display the current time of the timer for users to check time remaining.
 
-`check` can be used whenever during the ongoing session.
+`check` can be used whenever during the ongoing session. If the timer has not `start`, is `stop` or reached 0 and is
+waiting for the `next` command, check will not run. 
 
 Format: `check`
 
@@ -834,7 +844,7 @@ Example of usage:
 
 `next`
 
-Expected outcome(if the next timer is a work timer):
+Expected outcome (if the next timer is a work timer):
 
 ```
 ************************************************************
@@ -842,7 +852,7 @@ Expected outcome(if the next timer is a work timer):
 ************************************************************
 ```
 
-Expected outcome(if the next timer is a break timer):
+Expected outcome (if the next timer is a break timer):
 
 ```
 ************************************************************
@@ -854,7 +864,7 @@ Expected outcome(if the next timer is a break timer):
 
 Ask WellNUS++ to stop the focus session.
 
-`stop` can only be used when the session has started.
+`stop` can only be used after the session has started.
 
 Format: `stop`
 
