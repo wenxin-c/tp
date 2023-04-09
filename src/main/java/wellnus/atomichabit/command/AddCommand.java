@@ -130,7 +130,7 @@ public class AddCommand extends Command {
      * @throws BadCommandException If the arguments have any issues
      */
     @Override
-    public void validateCommand(HashMap<String, String> arguments) throws BadCommandException, NumberFormatException {
+    public void validateCommand(HashMap<String, String> arguments) throws BadCommandException {
         if (arguments.size() != AddCommand.COMMAND_NUM_OF_ARGUMENTS) {
             throw new BadCommandException(AddCommand.COMMAND_INVALID_ARGUMENTS_MESSAGE);
         }
