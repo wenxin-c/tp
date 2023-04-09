@@ -1,10 +1,11 @@
 package wellnus.gamification.util;
 
-import org.junit.jupiter.api.Test;
-import wellnus.exception.StorageException;
-
-import static org.junit.jupiter.api.Assertions.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
+
+import org.junit.jupiter.api.Test;
+
+import wellnus.exception.StorageException;
 
 public class GamificationDataTest {
     private static final int ADD_XP_SUCCESS_AMOUNT = 5;
