@@ -119,7 +119,7 @@ public class AtomicHabitTest {
         Command updateCommand = new UpdateCommand(arguments, habitList, gamificationData);
         String expectedUpdateHabitOutput = "The following habit has been incremented! Keep up the good work!"
                 + System.lineSeparator()
-                + habitIndex + "." + payload + " " + "[2]";
+                + habitIndex + "." + payload + " " + "[1]";
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outputStream));
         updateCommand.execute();
@@ -141,7 +141,7 @@ public class AtomicHabitTest {
         Command updateCommand = new UpdateCommand(arguments, habitList, gamificationData);
         String expectedUpdateHabitOutput = "The following habit has been incremented! Keep up the good work!"
                 + System.lineSeparator()
-                + habitIndex + "." + payload + " " + "[4]";
+                + habitIndex + "." + payload + " " + "[3]";
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outputStream));
         updateCommand.execute();
@@ -201,9 +201,9 @@ public class AtomicHabitTest {
                 + System.lineSeparator();
         HashMap<String, String> arguments = parser.parseUserInput(testUpdateCommand);
         Command updateCommand = new UpdateCommand(arguments, habitList, gamificationData);
-        String expectedUpdateHabitOutput = "The following habit has been incremented! Keep up the good work!"
+        String expectedUpdateHabitOutput = "The following habit has been decremented."
                 + System.lineSeparator()
-                + habitIndex + "." + payload + " " + "[1]";
+                + habitIndex + "." + payload + " " + "[0]";
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outputStream));
         updateCommand.execute();
