@@ -30,7 +30,7 @@ public class GamificationData {
      * Returns an instance of the GamificationData class with the given amount of XP.
      * @param xp Amount of XP to start with
      */
-    protected GamificationData(int xp) {
+    public GamificationData(int xp) {
         this.xp = xp;
         this.level = getLevelFor(xp);
     }
