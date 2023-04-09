@@ -33,6 +33,8 @@ public class DeleteCommand extends Command {
             + "a valid integer";
     private static final String FEEDBACK_INDEX_OUT_OF_BOUNDS_ERROR = "Invalid index payload given in 'delete', "
             + "index is out of range!";
+    private static final String FEEDBACK_EMPTY_LIST_UPDATE = "There are no habits to delete! "
+            + "Please `add` a habit first!";
     private static final int INDEX_OFFSET = 1;
     private static final String LINE_SEPARATOR = System.lineSeparator();
     private static final String DELETE_INVALID_ARGUMENTS_MESSAGE = "Invalid arguments given to 'delete'";
@@ -126,6 +128,10 @@ public class DeleteCommand extends Command {
             return;
         }
         try {
+            if (getAtomicHabits().getAllHabits().isEmpty()) {
+                getTextUi().printOutputMessage(FEEDBACK_EMPTY_LIST_UPDATE);
+                return;
+            }
             int index = this.getIndexFrom(super.getArguments()) - INDEX_OFFSET;
             AtomicHabit habitToDelete = getAtomicHabits().getHabitByIndex(index);
             atomicHabits.deleteAtomicHabit(habitToDelete);

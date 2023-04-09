@@ -13,8 +13,8 @@ import wellnus.focus.feature.Session;
  */
 public class CheckCommand extends Command {
 
-    public static final String COMMAND_DESCRIPTION = "check - Check the time left in the current session."
-            + System.lineSeparator() + "This can only be used when a countdown is underway!";
+    public static final String COMMAND_DESCRIPTION = "check - Check the time left in the current countdown."
+            + "Only usable when a countdown is not finished!";
     public static final String COMMAND_USAGE = "usage: check";
     public static final String COMMAND_KEYWORD = "check";
     private static final int COMMAND_NUM_OF_ARGUMENTS = 1;
