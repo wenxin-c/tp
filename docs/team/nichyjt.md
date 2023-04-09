@@ -73,7 +73,6 @@ To improve the user experience, Nicholas suggested and implemented an extensible
   - [Glossary](https://ay2223s2-cs2113-t12-4.github.io/tp/DeveloperGuide.html#glossary)
 - **Team-Based Task Contributions:**
   - Setting up of [issue templates, #4](https://github.com/AY2223S2-CS2113-T12-4/tp/pull/4)
-  - [PR authoring](https://github.com/AY2223S2-CS2113-T12-4/tp/pulls?q=author%3Anichyjt+).
   - [Issue creation, tracking and closing](https://github.com/AY2223S2-CS2113-T12-4/tp/issues?q=is%3Aissue+involves%3Anichyjt)
   - Setting up of issue tags
   - Took meeting minutes for meetings
@@ -97,8 +96,11 @@ To improve the user experience, Nicholas suggested and implemented an extensible
   - Taught the team informally through telegram to set up code auto-formatting on save
   - Informally debugged and acted as a rubber duck for teammates on technical issues via Telegram
 - **Community Contributions**  
-Nicholas was also active in the CS2113 forum, contributing to discussions regarding:  
-  - [Object-oriented programming](https://github.com/nus-cs2113-AY2223S2/forum/issues/24#issuecomment-1417417500)
-  theory
-  - [Code design](https://github.com/nus-cs2113-AY2223S2/forum/issues/34#issuecomment-1463563460)
-  - [IDE help](https://github.com/nus-cs2113-AY2223S2/forum/issues/34#issuecomment-1463563460)
+  - **Forum Contributions:** [Object-oriented programming](https://github.com/nus-cs2113-AY2223S2/forum/issues/24#issuecomment-1417417500)
+    theory, [Code design](https://github.com/nus-cs2113-AY2223S2/forum/issues/34#issuecomment-1463563460) and
+    [IDE help](https://github.com/nus-cs2113-AY2223S2/forum/issues/34#issuecomment-1463563460).
+  - **Reviewing other team's DG:** [DG #1](https://github.com/nus-cs2113-AY2223S2/tp/pull/14#discussion_r1152711554), 
+  [DG #2](https://github.com/nus-cs2113-AY2223S2/tp/pull/14#discussion_r1152715587),
+  [DG #3](https://github.com/nus-cs2113-AY2223S2/tp/pull/14#discussion_r1152717757),
+  [DG #4](https://github.com/nus-cs2113-AY2223S2/tp/pull/14#discussion_r1152731276)
+  - **Reviewing other team's UG and Program**: [List of all issues filed for T15-3](https://github.com/nichyjt/ped/issues)
