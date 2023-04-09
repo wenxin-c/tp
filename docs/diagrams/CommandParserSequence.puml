@@ -6,6 +6,9 @@ skinparam arrowColor MODEL_COLOR
 skinparam classBackgroundColor MODEL_COLOR
 hide footbox
 
+participant Manager MODEL_COLOR
+participant CommandParser MODEL_COLOR
+
 Manager -> CommandParser : parseUserInput(userInput)
 activate CommandParser
 CommandParser -> CommandParser : splitIntoCommands(userInput)

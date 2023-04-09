@@ -6,21 +6,18 @@ skinparam arrowColor MODEL_COLOR
 skinparam classBackgroundColor MODEL_COLOR
 
 
-Package command {
-    Class CommandParser {
-        + parseUserInput(String)
-        + getMainArgument(String)
-        - splitIntoCommands(String)
-        - getArgumentFromCommand(String)
-        - getPayloadFromCommand(String)
-    }
+Class CommandParser {
+    + parseUserInput(String)
+    + getMainArgument(String)
+    - splitIntoCommands(String)
+    - getArgumentFromCommand(String)
+    - getPayloadFromCommand(String)
 }
 
-Package manager{
-    Class "{abstract}\nManager" as Manager {
-        # commandParser : CommandParser
-        + getCommandParser()
-    }
+
+Class "{abstract}\nManager" as Manager {
+    # commandParser : CommandParser
+    + getCommandParser()
 }
 
 Class AtomicHabitManager {

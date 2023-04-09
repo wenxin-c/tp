@@ -1,0 +1,75 @@
+@startuml
+'https://plantuml.com/class-diagram
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
+
+class GamificationData {
+    - xp: int = 0
+    - level: int
+    + addXp(pointsToAdd: int): boolean
+    + getXpForCurrentLevelOnly(): int
+    + getTotalXp(): int
+    + getXpLevel(): int
+    + getXpToReachNextLevel(): int
+    + minusXp(pointsToMinus: int): boolean
+}
+class GamificationStorage {
+    + loadData(): GamificationData
+    + store(data: GamificationData)
+}
+class Storage {
+    + checkFileExists(fileName: String): boolean
+    + loadData(fileName: String): ArrayList<String>
+    + saveData(tokenizedManager: ArrayList<String>, fileName: String)
+}
+GamificationData <..> GamificationStorage
+GamificationStorage --> "1" Storage
+
+class "<<interface>>\nTokenizer" as Tokenizer {
+}
+class GamificationTokenizer {
+    + tokenize(dataObjects: ArrayList<GamificationData>): ArrayList<String>
+    + detokenize(tokenizedDataObjects: ArrayList<String>): ArrayList<GamificationData>
+}
+Tokenizer <|.. GamificationTokenizer
+GamificationStorage -> "1" GamificationTokenizer
+GamificationData <.. GamificationTokenizer
+
+class "{abstract}\nCommand" as Command
+class HelpCommand {
+}
+class HomeCommand {
+}
+class StatsCommand {
+}
+Command <|-- HelpCommand
+Command <|-- HomeCommand
+Command <|-- StatsCommand
+StatsCommand ---> "1" GamificationData
+
+class TextUi {
+}
+class GamificationUi {
+    + {static} printCelebrateLevelUp()
+    + {static} printGoodbye()
+    + {static} printLogo()
+    + {static} printGamificationMessage(msg: String)
+    + {static} printXpBar(gamData: GamificationData, shouldPrintXpRemaining: boolean)
+}
+TextUi <|-- GamificationUi
+GamificationData <. GamificationUi
+
+class "{abstract}\nManager" as Manager
+class GamificationManager {
+    + getGamificationData(): GamificationData
+}
+Manager <|-- GamificationManager
+GamificationManager --> "1" GamificationData
+GamificationManager --> "1" GamificationUi
+GamificationManager ..> HelpCommand
+GamificationManager ..> HomeCommand
+GamificationManager ..> StatsCommand
+
+@enduml
