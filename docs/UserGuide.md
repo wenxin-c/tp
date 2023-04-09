@@ -136,8 +136,8 @@ Lists all commands available and provide a short description of the application.
 
 Format: `help [COMMAND_TO_CHECK]`
 
-* List all commands available in the app and a short description of the app
-* Give a detailed explanation of the parameters and subcommands for a given command
+* List all commands available in the app and a short description of the app(`help` with no arguments given)
+* Give a detailed explanation of the parameters and subcommands for the given command `COMMAND_TO_CHECK`
 
 Example of usage 1:
 
@@ -173,7 +173,7 @@ Expected outcome:
     usage: hb
 ------------------------------------------------------------
 ```
-
+Other feature-specific `help` commands and their expected outputs can be found in the respective sections below.
 <!-- @@author wenxin-c -->
 
 ## Accessing feature using FEATURE_NAME
