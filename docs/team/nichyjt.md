@@ -38,7 +38,8 @@ To improve the user experience, Nicholas suggested and implemented an extensible
   similar to what you'd see in any shell-based terminal like `zsh, cmd, bash`.
     For example: `(reflect):~$`.  
   - **[Justification](https://github.com/AY2223S2-CS2113-T12-4/tp/issues/79)**:
-  Feedback from the PE-D and peers showed that 
+  [Feedback](https://github.com/AY2223S2-CS2113-T12-4/tp/issues/235)
+  from the PE-D and peers showed that 
   they were often lost within the features.
   After further consideration of our target user (Computing students & CLI-savvy users)
   showed that users were not entirely sure **when** to input commands
