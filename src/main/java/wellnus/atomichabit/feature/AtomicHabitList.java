@@ -16,9 +16,8 @@ import wellnus.ui.TextUi;
  */
 public class AtomicHabitList {
 
-    private static final String FILE_NAME = "habit";
-    private static final String STORAGE_ERROR = "The file data cannot be stored properly!!";
-    private static final String TOKENIZER_ERROR = "The data cannot be tokenized for storage properly!!";
+    private static final String TOKENIZER_ERROR = "Previous atomic habit data will not be restored.";
+    private static final String STORAGE_ERROR = "The data cannot be stored properly!!";
     private static final Logger LOGGER = WellNusLogger.getLogger("AtomicHabitListLogger");
     private static final AtomicHabitTokenizer atomicHabitTokenizer = new AtomicHabitTokenizer();
     private ArrayList<AtomicHabit> allAtomicHabits;
@@ -42,11 +41,21 @@ public class AtomicHabitList {
         try {
             this.loadHabitData();
         } catch (StorageException storageException) {
-            LOGGER.log(Level.WARNING, TOKENIZER_ERROR);
-            textUi.printErrorFor(storageException, TOKENIZER_ERROR);
-        } catch (TokenizerException tokenizerException) {
             LOGGER.log(Level.WARNING, STORAGE_ERROR);
-            textUi.printErrorFor(tokenizerException, STORAGE_ERROR);
+            textUi.printErrorFor(storageException, STORAGE_ERROR);
+        } catch (TokenizerException tokenizerException) {
+            overrideErrorHabitData();
+            LOGGER.log(Level.WARNING, TOKENIZER_ERROR);
+            textUi.printErrorFor(tokenizerException, TOKENIZER_ERROR);
+        }
+    }
+
+    private void overrideErrorHabitData() {
+        ArrayList<String> emptyTokenizedHabit = new ArrayList<>();
+        try {
+            storage.saveData(emptyTokenizedHabit, Storage.FILE_HABIT);
+        } catch (StorageException storageException) {
+            LOGGER.log(Level.WARNING, STORAGE_ERROR);
         }
     }
 
@@ -77,7 +86,7 @@ public class AtomicHabitList {
      */
     public void storeHabitData() throws StorageException {
         ArrayList<String> tokenizedHabitList = atomicHabitTokenizer.tokenize(allAtomicHabits);
-        storage.saveData(tokenizedHabitList, FILE_NAME);
+        storage.saveData(tokenizedHabitList, Storage.FILE_HABIT);
     }
 
     /**
@@ -87,8 +96,8 @@ public class AtomicHabitList {
      * @throws TokenizerException If there is error during detokenization
      */
     public void loadHabitData() throws StorageException, TokenizerException {
-        boolean fileExists = storage.checkFileExists(FILE_NAME);
-        ArrayList<String> loadedHabitList = storage.loadData(FILE_NAME);
+        boolean fileExists = storage.checkFileExists(Storage.FILE_HABIT);
+        ArrayList<String> loadedHabitList = storage.loadData(Storage.FILE_HABIT);
         if (fileExists) {
             ArrayList<AtomicHabit> detokenizedHabitList = atomicHabitTokenizer.detokenize(loadedHabitList);
             allAtomicHabits = detokenizedHabitList;
