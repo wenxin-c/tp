@@ -70,6 +70,7 @@ error made and give the correct command usage to guide users.
     - Added Self Reflection documentation for [like](https://ay2223s2-cs2113-t12-4.github.io/tp/UserGuide.html#like---add-reflection-question-into-favorite-list),
       [fav](https://ay2223s2-cs2113-t12-4.github.io/tp/UserGuide.html#fav---view-favorite-list) and
       [prev](https://ay2223s2-cs2113-t12-4.github.io/tp/UserGuide.html#prev---get-the-previous-set-of-reflection-questions-generated)
+      [#198](https://github.com/AY2223S2-CS2113-T12-4/tp/pull/198/)
     - Added Self Reflection documentation for [unlike](https://ay2223s2-cs2113-t12-4.github.io/tp/UserGuide.html#unlike---remove-questions-from-favorite-list) 
     command [#253](https://github.com/AY2223S2-CS2113-T12-4/tp/pull/253)
     - Adjusted cosmetic and errors [#206](https://github.com/AY2223S2-CS2113-T12-4/tp/pull/206) [#263](https://github.com/AY2223S2-CS2113-T12-4/tp/pull/263)
