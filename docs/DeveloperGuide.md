@@ -39,19 +39,20 @@
       * [AtomicHabit Commands](#atomichabit-commands)
   * [Managers](#managers)
     * [Design Considerations](#design-considerations-3)
-    * [`MainManager`: A Unique Implementation](#mainmanager--a-unique-implementation)
+    * [`MainManager` - A Unique Implementation](#mainmanager---a-unique-implementation)
   * [Tokenizer](#tokenizer)
     * [Design Considerations](#design-considerations-4)
     * [Individual Tokenizers](#individual-tokenizers)
   * [Storage](#storage)
-    * [Usage: `saveData()`](#usage--savedata)
+    * [Usage - `saveData`](#usage---savedata)
+    * [Usage - `loadData`](#usage---loaddata)
     * [Design Considerations](#design-considerations-5)
   * [Focus Timer Component](#focus-timer-component)
     * [Design Considerations](#design-considerations-6)
     * [Focus Timer Implementation](#focus-timer-implementation)
       * [State Management](#state-management)
       * [Commands](#commands)
-* [Appendix: Requirements](#appendix--requirements)
+* [Appendix - Requirements](#appendix---requirements)
   * [Product scope](#product-scope)
     * [Product Name](#product-name)
     * [Target user profile](#target-user-profile)
@@ -59,7 +60,7 @@
   * [User Stories](#user-stories)
   * [Non-Functional Requirements](#non-functional-requirements)
   * [Glossary](#glossary)
-* [Appendix: Instructions for manual testing](#appendix--instructions-for-manual-testing)
+* [Appendix - Instructions for manual testing](#appendix---instructions-for-manual-testing)
   * [Launch](#launch)
   * [Sample test cases](#sample-test-cases)
     * [Help command](#help-command)
@@ -449,7 +450,9 @@ if it follows the following structure.
 mainCommand [payload] [--argument1 [payload1] --argument2 [payload2] ... ]
 ```
 
-This should be familiar to you. It is similar to how most CLI applications process arguments in the wild.
+This should be familiar to you. It is similar to how most CLI applications process arguments.
+In particular, we adapt the structure from `unix` style CLI apps. For example, `git --help`'s
+output is shown below.
 
 ![Example](diagrams/git_command.png)
 <figcaption align="center">Example of CLI input syntax, using git as an example</figcaption>
@@ -686,7 +689,7 @@ requested action. This ensures that changes in logic for individual commands or 
 any changes in a particular implementation of `Manager`, as should be expected. A `Manager` class will only change to
 recognise new commands for its feature.
 
-### `MainManager`: A Unique Implementation
+### `MainManager` - A Unique Implementation
 `MainManager` is a unique implementation of `Manager` in that it holds references to every feature's `Manager` instance.
 This is important as `MainManager` then acts as an abstraction barrier for the application: `WellNus` does not know
 what features or commands are supported by the application, and only knows that `MainManager` can recognise supported
@@ -752,21 +755,35 @@ questions' index to restore its state.
 
 Storage is a common API built to work completely decoupled from any `Tokenizer` implementation.
 
-Saving: `saveData`, `Storage` allows for any tokenizing structure logic as long as the input data is in the form
-of an `ArrayList<String>`.
+It comes with two methods that developers need to be aware of to save and load data: 
+- `saveData(ArrayList<String> tokenizedManager, String fileName)`
+- `loadData(String fileName)`
 
-Loading: `loadData` will load all `WellNUS++` data into a common data type, `ArrayList<String>`.
-
-The data transformation from `String` to the target data type by the managers is solely up to `Tokenizer`.
-
-### Usage: `saveData()`
+### Usage - `saveData`
 
 To illustrate the overall flow on how to save data, refer to the sequence diagram below.
+Saving: `saveData`, `Storage` allows for any tokenizing structure logic as long as the input data is in the form
+of an `ArrayList<String>`.  
 
 The general idea is to `tokenize` it first into the `ArrayList<String>` format calling before
-calling `Storage`'s `saveData` method.
+calling `Storage`'s `saveData` method.  
+
+`FooTokenizer` and `FooManager` are named as such to generalize the features that use `Storage`. `<T>` is also used to generalize the data structure that is being
+passed into a feature-specific tokenizer, such as `AtomicHabit`. 
+
+The burden of data transformation from the target data type to `String` is up to `Tokenizer`'s `tokenize` method.
 
 ![](./diagrams/StorageSequence-Saving_Data__Emphasis_on_Storage_Subroutine_.png)
+
+
+### Usage - `loadData`
+
+`loadData` works similarly to `saveData`, but with the logic reversed.
+
+`loadData` will load all `WellNUS++` data into a common data type, `ArrayList<String>`.
+The string list can then be use wholesale or detokenized into an appropriate data structure.
+
+The burden of data transformation from `String` to the target data type to is up to `Tokenizer`'s `detokenize` method.
 
 ### Design Considerations
 
@@ -806,27 +823,27 @@ The timer is an inherently complex feature. There are many commands, and some co
 logically cannot be executed in certain states. For example, if the timer is `Paused`,
 the user cannot go to the `next` Countdown.
 
-Problem: It is confusing to developers to check if the `command` that they are writing
+**Problem**: It is confusing to developers to check if the `command` that they are writing
 
-To help developers, we define the expected behaviour for focus timer
+**Solution**: To help developers, we define the expected behaviour for focus timer
 in this **simplified** finite state machine (FSM) diagram.
 
 The black circle represents the entrypoint into FocusTimer, and
 the labels of the arrows are the valid `command`.
 The command `home` has been left out to make the diagram simpler.
-It is a command that can be called in any state, and does not add value to it.
+It is a command that can be called in any state, and therefore does not add value to it.
 
 ![FSM diagram](diagrams/FocusTimerState.png)
 
 From the diagram and the class diagram, we can derive a truth table
-from the attributes of each Countdown and tag them to a state.
+from the attributes of each Countdown (e.g. `isReady`) and tag them to a state.
 
-| State/Flag | isRunClock | isCompletedCountDown | isReady |  
-|------------|------------|----------------------|---------|
-| Ready      | X          | X                    | T       |
-| Counting   | T          | F                    | F       |
-| Waiting    | F          | T                    | F       |
-| Paused     | F          | F                    | F       |
+| &or; State / Attribute > | isRunClock | isCompletedCountDown | isReady |  
+|--------------------------|------------|----------------------|---------|
+| Ready                    | X          | X                    | T       |
+| Counting                 | T          | F                    | F       |
+| Waiting                  | F          | T                    | F       |
+| Paused                   | F          | F                    | F       |
 
 Truth table, where X denotes a 'dont care' condition
 where the truth value does not matter.
@@ -836,14 +853,14 @@ Referring to the class diagram, this is implemented on `Session` with various me
 
 Example implementation:
 
-```
+```java
 public boolean isSessionCounting(){
     Countdown countdown = getCurrentCountdown();
     return countdown.getIsRunning() && !countdown.getIsCompletedCountdown();
 }
 ```
 
-Developers can easily check if a command is in a valid state to be executed by using these
+**Easily Identify State**: Developers can trivially check if a command is in a valid state to be executed by using these
 methods in `Session` to check which state the command is being called in.
 
 - `isSessionReady()`
@@ -912,7 +929,9 @@ methods in `Session` to check which state the command is being called in.
 - Command format: `home`
 - This command allows users to return back to the main WellNUS++ interface.
 
-# Appendix: Requirements
+<!-- @@author -->
+
+# Appendix - Requirements
 ## Product scope
 ### Product Name
 
@@ -969,7 +988,9 @@ WellNUS++ is a CLI app, primarily due to the following reasons:
 1. Should work on any mainstream OS as long as it has Java 11 or above installed.
 2. A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should
    be able to accomplish most of the tasks faster using commands than using the mouse.
+3. A user 
 
+<!-- @@author nichyjt -->
 ## Glossary
 
 * *glossary item* - Definition
@@ -980,7 +1001,7 @@ WellNUS++ is a CLI app, primarily due to the following reasons:
   The payload will terminate when the user clicks `enter` or separates the payload with another argument
   with the `--` delimiter.
 
-# Appendix: Instructions for manual testing
+# Appendix - Instructions for manual testing
 
 ## Launch
 
