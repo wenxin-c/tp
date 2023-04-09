@@ -58,15 +58,15 @@ public class ConfigCommand extends Command {
     private static final int MIN_CYCLES = 2;
     // Message constants
     private static final String ASSERT_STRING_INPUT_NOT_NULL = "String input should not be null!";
-    private static final String ERROR_NOT_A_NUMBER = "Invalid integer payload given!";
-    private static final String ERROR_LARGE_CYCLES = "Invalid cycle payload given, the max cycles you can set is "
-            + MAX_CYCLES;
-    private static final String ERROR_LESS_EQUAL_MIN_CYCLES = "Invalid cycle payload given, the min cycles you can set "
-            + "is " + MIN_CYCLES;
-    private static final String ERROR_LARGE_MINUTES = "Invalid minutes payload given, the max time you can set is "
-            + MAX_MINUTES;
-    private static final String ERROR_LESS_EQUAL_MIN_MINUTES = "Invalid minutes payload given, the min time you can "
-            + "set is " + MIN_MINUTES;
+    private static final String ERROR_NOT_A_NUMBER = "Invalid payload given in 'config', expected a valid integer!";
+    private static final String ERROR_LARGE_CYCLES = "Invalid cycle payload given in 'config', the max cycles you "
+            + "can set is " + MAX_CYCLES + "!";
+    private static final String ERROR_LESS_EQUAL_MIN_CYCLES = "Invalid cycle payload given in 'config', the min "
+            + "cycles you can set is " + MIN_CYCLES + "!";
+    private static final String ERROR_LARGE_MINUTES = "Invalid minutes payload given in 'config', the max time "
+            + "you can set is " + MAX_MINUTES + "!";
+    private static final String ERROR_LESS_EQUAL_MIN_MINUTES = "Invalid minutes payload given in 'config', the min "
+            + "time you can set is " + MIN_MINUTES + "!";
     private static final String COMMAND_INVALID_ARGUMENTS = "Invalid arguments given to 'config'!";
     private static final String ASSERT_MISSING_KEYWORD = "Missing command keyword";
     private static final Logger LOGGER = WellNusLogger.getLogger("ConfigCommandLogger");

@@ -69,6 +69,8 @@ public class FocusManager extends Manager {
             + "stop command " + StopCommand.COMMAND_USAGE + LINE_SEPARATOR
             + "help command " + HelpCommand.COMMAND_USAGE + LINE_SEPARATOR
             + "home command " + HomeCommand.COMMAND_USAGE;
+    private static final String HOME_USAGE = "home command " + HomeCommand.COMMAND_USAGE;
+    private static final String CONFIG_USAGE = "config command " + ConfigCommand.COMMAND_USAGE;
     private final FocusUi focusUi;
     private final Session session;
 
@@ -135,9 +137,23 @@ public class FocusManager extends Manager {
                 command.execute();
                 isExit = HomeCommand.isExit(command);
             } catch (BadCommandException exception) {
-                focusUi.printErrorFor(exception, COMMAND_INVALID_COMMAND_NOTE);
+                String errorMessage = exception.getMessage();
+                if (errorMessage.contains(CONFIG_COMMAND_KEYWORD)) {
+                    focusUi.printErrorFor(exception, CONFIG_USAGE);
+                } else if (errorMessage.contains(HOME_COMMAND_KEYWORD)) {
+                    focusUi.printErrorFor(exception, HOME_USAGE);
+                } else {
+                    focusUi.printErrorFor(exception, COMMAND_INVALID_COMMAND_NOTE);
+                }
             } catch (WellNusException exception) {
-                focusUi.printErrorFor(exception, COMMAND_INVALID_COMMAND_NOTE);
+                String errorMessage = exception.getMessage();
+                if (errorMessage.contains(CONFIG_COMMAND_KEYWORD)) {
+                    focusUi.printErrorFor(exception, CONFIG_USAGE);
+                } else if (errorMessage.contains(HOME_COMMAND_KEYWORD)) {
+                    focusUi.printErrorFor(exception, HOME_USAGE);
+                } else {
+                    focusUi.printErrorFor(exception, COMMAND_INVALID_COMMAND_NOTE);
+                }
             }
         }
     }

@@ -32,6 +32,8 @@ public class GamificationManager extends Manager {
             + "stats command " + StatsCommand.COMMAND_USAGE + LINE_SEPARATOR
             + "help command " + HelpCommand.COMMAND_USAGE + LINE_SEPARATOR
             + "home command " + HomeCommand.COMMAND_USAGE;
+    private static final String STATS_USAGE = "stats command " + StatsCommand.COMMAND_USAGE;
+    private static final String HOME_USAGE = "home command " + HomeCommand.COMMAND_USAGE;
     private static final String LOAD_GAMIF_DATA_ERROR_MESSAGE = "Error saving to storage!";
     private GamificationData gamificationData;
     private final GamificationUi gamificationUi;
@@ -106,7 +108,14 @@ public class GamificationManager extends Manager {
                 command.execute();
                 isExit = HomeCommand.isHome(command);
             } catch (WellNusException exception) {
-                gamificationUi.printErrorFor(exception, COMMAND_INVALID_COMMAND_NOTE);
+                String errorMessage = exception.getMessage();
+                if (errorMessage.contains(COMMAND_STATS)) {
+                    gamificationUi.printErrorFor(exception, STATS_USAGE);
+                } else if (errorMessage.contains(COMMAND_HOME)) {
+                    gamificationUi.printErrorFor(exception, HOME_USAGE);
+                } else {
+                    gamificationUi.printErrorFor(exception, COMMAND_INVALID_COMMAND_NOTE);
+                }
             }
         }
     }

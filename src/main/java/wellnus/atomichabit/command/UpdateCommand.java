@@ -33,22 +33,24 @@ public class UpdateCommand extends Command {
     private static final String COMMAND_INVALID_COMMAND_NOTE = "update command " + COMMAND_USAGE;
     private static final String COMMAND_INVALID_ARGUMENT_MESSAGE = "Invalid arguments given to 'update'!";
     private static final String COMMAND_INVALID_PAYLOAD = "Invalid payload given to 'update'!";
-    private static final String COMMAND_INVALID_PAYLOAD_INCREMENT = "Invalid payload given to 'by' argument!";
+    private static final String COMMAND_INVALID_PAYLOAD_INCREMENT = "Invalid payload given in 'update' "
+            + "command!";
     private static final String DOT = ".";
     private static final int DEFAULT_INCREMENT = 1;
     private static final int ZERO = 0;
     private static final String FEEDBACK_STRING = "The following habit has been incremented! Keep up the good work!";
-    private static final String FEEDBACK_INDEX_NOT_INTEGER_ERROR = "Invalid index payload given, expected an integer!";
-    private static final String FEEDBACK_INDEX_OUT_OF_BOUNDS_ERROR = "Invalid index payload given, "
+    private static final String FEEDBACK_INDEX_NOT_INTEGER_ERROR = "Invalid payload given in 'update' command, "
+            + "expected a valid integer!";
+    private static final String FEEDBACK_INDEX_OUT_OF_BOUNDS_ERROR = "Invalid payload given in 'update' command, "
             + "index is out of range!";
-    private static final String FEEDBACK_DECREMENT_ERROR = "Invalid decrement payload given, "
+    private static final String FEEDBACK_DECREMENT_ERROR = "Invalid decrement payload given in 'update' command, "
             + "decrement value is out of range!";
     private static final int INDEX_OFFSET = 1;
     private static final String LINE_SEPARATOR = System.lineSeparator();
     private static final int MINIMUM_INCREMENT = 1;
     private static final String UPDATE_INVALID_ARGUMENTS_MESSAGE = "Invalid arguments given to 'update'!";
-    private static final String UPDATE_INVALID_INCREMENT_COUNT = "Invalid increment payload given, increment with "
-            + "minimum of 1 is expected!";
+    private static final String UPDATE_INVALID_INCREMENT_COUNT = "Invalid increment payload given in 'update' command, "
+            + "increment with minimum of 1 is expected!";
     private static final String STORE_GAMIF_DATA_FAILED_NOTE_MESSAGE = "Error saving to storage!";
     private static final String REGEX_INTEGER_ONLY_PATTERN = "\\s*-?\\d+\\s*";
     private static final Logger LOGGER = WellNusLogger.getLogger("UpdateAtomicHabitLogger");
@@ -56,7 +58,6 @@ public class UpdateCommand extends Command {
             + "This should be properly handled";
     private static final String LOG_INDEX_OUT_OF_BOUNDS = "Input index is out of bounds."
             + "This should be properly handled";
-    private static final String NO_ADDITIONAL_MESSAGE = "";
     private static final int NUM_OF_XP_PER_INCREMENT = 1;
     private final AtomicHabitList atomicHabits;
     private final GamificationData gamificationData;

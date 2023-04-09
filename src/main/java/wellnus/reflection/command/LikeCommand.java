@@ -29,8 +29,8 @@ public class LikeCommand extends Command {
     private static final String INVALID_COMMAND_NOTES = "like command " + COMMAND_USAGE;
     private static final String WRONG_INDEX_MSG = "Invalid index payload given to 'like', expected a valid integer!";
     private static final String WRONG_INDEX_OUT_BOUND = "Invalid index payload given to 'like', index is out of range!";
-    private static final String MISSING_SET_QUESTIONS = "A set of questions has not been gotten!";
-    private static final String MISSING_SET_QUESTIONS_NOTES = "Please try 'get' command to generate a set of questions "
+    private static final String MISSING_SET_QUESTIONS = "A set of questions has not been gotten!"
+            + System.lineSeparator() + "Please try 'get' command to generate a set of questions "
             + "before adding to favorite list!";
     private static final String TOKENIZER_ERROR = "Error tokenizing data!";
     private static final String STORAGE_ERROR = "Error saving to storage!";
@@ -139,7 +139,7 @@ public class LikeCommand extends Command {
             addFavQuestion(getArguments().get(COMMAND_KEYWORD));
         } catch (BadCommandException badCommandException) {
             LOGGER.log(Level.INFO, MISSING_SET_QUESTIONS);
-            UI.printErrorFor(badCommandException, MISSING_SET_QUESTIONS_NOTES);
+            UI.printErrorFor(badCommandException, INVALID_COMMAND_NOTES);
         } catch (TokenizerException tokenizerException) {
             LOGGER.log(Level.WARNING, TOKENIZER_ERROR);
             UI.printErrorFor(tokenizerException, TOKENIZER_ERROR);

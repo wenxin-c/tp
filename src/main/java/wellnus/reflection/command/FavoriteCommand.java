@@ -28,8 +28,6 @@ public class FavoriteCommand extends Command {
     private static final String COMMAND_KEYWORD_ASSERTION = "The key should be fav.";
     private static final String COMMAND_PAYLOAD_ASSERTION = "The payload should be empty.";
     private static final String INDEX_OUT_OF_BOUND_MSG = "Invalid index given, index is out of bound!";
-    private static final String INDEX_OUT_OF_BOUND_NOTES = "The index is out of range(e.g. negative integers, 0)!"
-            + System.lineSeparator() + "Your data file might be corrupted!";
     private static final String EMPTY_FAV_LIST = "There is nothing in favorite list, "
             + "please get reflection questions first!";
     private static final int ARGUMENT_PAYLOAD_SIZE = 1;

@@ -52,8 +52,10 @@ public class AtomicHabitManager extends Manager {
                     + "update command " + UpdateCommand.COMMAND_USAGE + LINE_SEPARATOR
                     + "help command " + HelpCommand.COMMAND_USAGE + LINE_SEPARATOR
                     + "home command " + HomeCommand.COMMAND_USAGE;
-    private static final String FEEDBACK_INDEX_EXCEPTION_NOTE = "Please input an appropriate integer for the "
-            + "arguments!";
+    private static final String ADD_USAGE = "add command " + AddCommand.COMMAND_USAGE;
+    private static final String DELETE_USAGE = "delete command " + DeleteCommand.COMMAND_USAGE;
+    private static final String HOME_USAGE = "home command " + HomeCommand.COMMAND_USAGE;
+    private static final String UPDATE_USAGE = "update command " + UpdateCommand.COMMAND_USAGE;
     private final AtomicHabitUi atomicHabitUi;
     private final AtomicHabitList habitList;
     private final GamificationData gamificationData;
@@ -133,9 +135,31 @@ public class AtomicHabitManager extends Manager {
                 }
                 isExit = HomeCommand.isExit(command);
             } catch (BadCommandException badCommandException) {
-                getTextUi().printErrorFor(badCommandException, COMMAND_INVALID_COMMAND_NOTE);
+                String errorMessage = badCommandException.getMessage();
+                if (errorMessage.contains(ADD_COMMAND_KEYWORD)) {
+                    getTextUi().printErrorFor(badCommandException, ADD_USAGE);
+                } else if (errorMessage.contains(DELETE_COMMAND_KEYWORD)) {
+                    getTextUi().printErrorFor(badCommandException, DELETE_USAGE);
+                } else if (errorMessage.contains(HOME_COMMAND_KEYWORD)) {
+                    getTextUi().printErrorFor(badCommandException, HOME_USAGE);
+                } else if (errorMessage.contains(UPDATE_COMMAND_KEYWORD)) {
+                    getTextUi().printErrorFor(badCommandException, UPDATE_USAGE);
+                } else {
+                    getTextUi().printErrorFor(badCommandException, COMMAND_INVALID_COMMAND_NOTE);
+                }
             } catch (WellNusException exception) {
-                getTextUi().printErrorFor(exception, FEEDBACK_INDEX_EXCEPTION_NOTE);
+                String errorMessage = exception.getMessage();
+                if (errorMessage.contains(ADD_COMMAND_KEYWORD)) {
+                    getTextUi().printErrorFor(exception, ADD_USAGE);
+                } else if (errorMessage.contains(DELETE_COMMAND_KEYWORD)) {
+                    getTextUi().printErrorFor(exception, DELETE_USAGE);
+                } else if (errorMessage.contains(HOME_COMMAND_KEYWORD)) {
+                    getTextUi().printErrorFor(exception, HOME_USAGE);
+                } else if (errorMessage.contains(UPDATE_COMMAND_KEYWORD)) {
+                    getTextUi().printErrorFor(exception, UPDATE_USAGE);
+                } else {
+                    getTextUi().printErrorFor(exception, COMMAND_INVALID_COMMAND_NOTE);
+                }
             }
         }
     }
