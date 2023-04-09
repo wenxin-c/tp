@@ -7,7 +7,7 @@ skinparam classBackgroundColor MODEL_COLOR
 Package common {
 Class MainManager {
 +greet()
-+executeCommands()
++runEventDriver()
 }
 }
 
@@ -19,28 +19,28 @@ Class WellNus {
 
 Package manager {
 Class "{abstract}\nManager" as Manager {
-+executeCommands()
++{abstract} runEventDriver()
 }
 }
 
 Package atomichabit {
 Class AtomicHabitManager {
-+executeCommands()
++runEventDriver()
 }
 }
 
 Package reflection {
 Class ReflectionManager {
-+executeCommands()
++runEventDriver()
 }
 }
 
 Manager <|-- MainManager
-Manager <|-- AtomicHabitManager
-Manager <|-- ReflectionManager
+Manager <|- AtomicHabitManager
+Manager <|- ReflectionManager
 
-WellNus --> "1"MainManager : executes >
-MainManager --> "1"AtomicHabitManager : calls >
-MainManager --> "1"ReflectionManager : calls >
+WellNus -> "1" MainManager : executes >
+MainManager --> "1" AtomicHabitManager : calls >
+MainManager --> "1" ReflectionManager : calls >
 
 @enduml

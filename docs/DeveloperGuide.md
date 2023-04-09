@@ -3,69 +3,80 @@
 # Table of Contents
 
 <!-- TOC -->
+
 * [Developer Guide](#developer-guide)
 * [Table of Contents](#table-of-contents)
 * [Acknowledgements](#acknowledgements)
 * [Setting up, getting started](#setting-up-getting-started)
-  * [Setting up the project in your computer](#setting-up-the-project-in-your-computer)
-  * [Before writing code](#before-writing-code)
+    * [Setting up the project in your computer](#setting-up-the-project-in-your-computer)
+    * [Before writing code](#before-writing-code)
 * [Design & implementation](#design--implementation)
-  * [Application Lifecycle](#application-lifecycle)
-    * [Overview](#overview)
-    * [Rationale](#rationale)
-  * [UI Component](#ui-component)
-    * [UI Implementation](#ui-implementation)
-  * [Self Reflection Component](#self-reflection-component)
-    * [Design considerations](#design-considerations)
-      * [User design considerations](#user-design-considerations)
-      * [Developer design considerations](#developer-design-considerations)
-    * [Self Reflection Implementation](#self-reflection-implementation)
-      * [Self Reflection commands implementation](#self-reflection-commands-implementation)
-  * [CommandParser Component](#commandparser-component)
-    * [Design Considerations](#design-considerations-1)
-      * [User design Considerations](#user-design-considerations-1)
-      * [Developer Design Considerations](#developer-design-considerations-1)
-      * [Alternative Designs Considered](#alternative-designs-considered)
-    * [CommandParser Syntax](#commandparser-syntax)
-    * [Implementation](#implementation)
-      * [Integration with WellNUS++](#integration-with-wellnus)
-      * [CommandParser API](#commandparser-api)
-      * [Alternative Designs Considered](#alternative-designs-considered-1)
-  * [AtomicHabit Component](#atomichabit-component)
-    * [Design Considerations](#design-considerations-2)
-      * [User design considerations](#user-design-considerations-2)
-      * [Developer design considerations](#developer-design-considerations-2)
-    * [AtomicHabit Implementation](#atomichabit-implementation)
-      * [AtomicHabit Commands](#atomichabit-commands)
-  * [Managers](#managers)
-    * [Design Considerations](#design-considerations-3)
-    * [`MainManager`: A Unique Implementation](#mainmanager--a-unique-implementation)
-  * [Tokenizer](#tokenizer)
-    * [Design Considerations](#design-considerations-4)
-    * [Individual Tokenizers](#individual-tokenizers)
-  * [Storage](#storage)
-    * [Usage: `saveData()`](#usage--savedata)
-    * [Design Considerations](#design-considerations-5)
-  * [Focus Timer Component](#focus-timer-component)
-    * [Design Considerations](#design-considerations-6)
-    * [Focus Timer Implementation](#focus-timer-implementation)
-      * [State Management](#state-management)
-      * [Commands](#commands)
-* [Appendix: Requirements](#appendix--requirements)
-  * [Product scope](#product-scope)
-    * [Product Name](#product-name)
-    * [Target user profile](#target-user-profile)
-    * [Value proposition](#value-proposition)
-  * [User Stories](#user-stories)
-  * [Non-Functional Requirements](#non-functional-requirements)
-  * [Glossary](#glossary)
-* [Appendix: Instructions for manual testing](#appendix--instructions-for-manual-testing)
-  * [Launch](#launch)
-  * [Sample test cases](#sample-test-cases)
-    * [Help command](#help-command)
-    * [Get reflection questions](#get-reflection-questions)
-    * [Add atomic habits](#add-atomic-habits)
-  * [Saving data](#saving-data)
+    * [Application Lifecycle](#application-lifecycle)
+        * [Overview](#overview)
+        * [Rationale](#rationale)
+    * [UI Component](#ui-component)
+        * [UI Implementation](#ui-implementation)
+    * [Self Reflection Component](#self-reflection-component)
+        * [Design considerations](#design-considerations)
+            * [User design considerations](#user-design-considerations)
+            * [Developer design considerations](#developer-design-considerations)
+        * [Self Reflection Implementation](#self-reflection-implementation)
+            * [Self Reflection commands implementation](#self-reflection-commands-implementation)
+    * [CommandParser Component](#commandparser-component)
+        * [Design Considerations](#design-considerations-1)
+            * [User design Considerations](#user-design-considerations-1)
+            * [Developer Design Considerations](#developer-design-considerations-1)
+            * [Alternative Designs Considered](#alternative-designs-considered)
+        * [CommandParser Syntax](#commandparser-syntax)
+        * [Implementation](#implementation)
+            * [Integration with WellNUS++](#integration-with-wellnus)
+            * [CommandParser API](#commandparser-api)
+            * [Alternative Designs Considered](#alternative-designs-considered-1)
+    * [AtomicHabit Component](#atomichabit-component)
+        * [Design Considerations](#design-considerations-2)
+            * [User design considerations](#user-design-considerations-2)
+            * [Developer design considerations](#developer-design-considerations-2)
+        * [AtomicHabit Implementation](#atomichabit-implementation)
+            * [AtomicHabit Commands](#atomichabit-commands)
+    * [Gamification Component](#gamification-component)
+        * [Design Considerations](#design-considerations-3)
+            * [GamificationData](#gamificationdata)
+            * [GamificationStorage](#gamificationstorage)
+            * [GamificationUi](#gamificationui)
+            * [Commands](#commands)
+        * [Alternative Designs Considered](#alternative-designs-considered-2)
+            * [Defining gamification statistics logic within `GamificationManager`](#defining-gamification-statistics-logic-within-gamificationmanager)
+            * [Integrating `GamificationStorage` logic within `GamificationData`](#integrating-gamificationstorage-logic-within-gamificationdata)
+    * [Managers](#managers)
+        * [Design Considerations](#design-considerations-4)
+        * [`MainManager` - A Unique Implementation](#mainmanager---a-unique-implementation)
+    * [Tokenizer](#tokenizer)
+        * [Design Considerations](#design-considerations-5)
+        * [Individual Tokenizers](#individual-tokenizers)
+    * [Storage](#storage)
+        * [Usage - `saveData`](#usage---savedata)
+        * [Usage - `loadData`](#usage---loaddata)
+        * [Design Considerations](#design-considerations-6)
+    * [Focus Timer Component](#focus-timer-component)
+        * [Focus Timer Implementation](#focus-timer-implementation)
+            * [State Management](#state-management)
+            * [Commands](#commands-1)
+* [Appendix - Requirements](#appendix---requirements)
+    * [Product scope](#product-scope)
+        * [Product Name](#product-name)
+        * [Target user profile](#target-user-profile)
+        * [Value proposition](#value-proposition)
+    * [User Stories](#user-stories)
+    * [Non-Functional Requirements](#non-functional-requirements)
+    * [Glossary](#glossary)
+* [Appendix - Instructions for manual testing](#appendix---instructions-for-manual-testing)
+    * [Launch](#launch)
+    * [Sample test cases](#sample-test-cases)
+        * [Help command](#help-command)
+        * [Get reflection questions](#get-reflection-questions)
+        * [Add atomic habits](#add-atomic-habits)
+    * [Saving data](#saving-data)
+
 <!-- TOC -->
 
 # Acknowledgements
@@ -112,6 +123,7 @@ If you plan to use Intellij IDEA (highly recommended): <br>
 # Design & implementation
 
 <!-- @@author haoyangw -->
+
 ## Application Lifecycle
 
 ### Overview
@@ -169,6 +181,7 @@ known to provide command handling functionality.
 <!-- @@author -->
 
 <!-- @@author wenxin-c -->
+
 ## UI Component
 
 UI component is in charge of reading in user input and printing output.
@@ -188,6 +201,7 @@ For example, the line separator for Self Reflection is `=` and for Atomic Habit 
 <!-- @@author -->
 
 <!-- @@author wenxin-c -->
+
 ## Self Reflection Component
 
 This `Reflection` component provides users with random sets of introspective questions to reflect on, achieving the goal
@@ -373,6 +387,7 @@ user data.
 <!-- @@author -->
 
 <!-- @@author nichyjt -->
+
 ## CommandParser Component
 
 The CommandParser is a core feature of WellNUS++.
@@ -408,10 +423,10 @@ Virtually every feature in WellNUS++ will require user input to be processed. Th
 will have to interact with `CommandParser`. Hence, the
 design for the `CommandParser` API must be understandable, unambiguous and easy to develop on.
 
-3. **Easy way to extract components of user input**  
+1. **Easy way to extract components of user input**  
    Each component of userInput (arguments, payload, etc) should be obtainable in predictable and non-arbitrary way.
    Arbitrary way (using index) is not preferred as it is prone to developer erros.
-4. **Easy way to validate user input**  
+2. **Easy way to validate user input**  
    There should also be built-in ways to easily validate components of user input for a command,
    such as checking length.
 
@@ -426,7 +441,7 @@ structure.
 **Steep learning curve**  
 For experienced and inexperienced users, it is a hassle to remember what letter corresponds to what argument.
 For AB3, the user needs to remember all the different `char` 'verbs' such as `e/` for email, `n/` for name.
-This violates design consideration (1).
+This violates user design consideration (1).
 
 **Does not scale well**  
 AB3 structure runs the high risk of argument-space collision as well.  
@@ -449,12 +464,14 @@ if it follows the following structure.
 mainCommand [payload] [--argument1 [payload1] --argument2 [payload2] ... ]
 ```
 
-This should be familiar to you. It is similar to how most CLI applications process arguments in the wild.
+This should be familiar to you. It is similar to how most CLI applications process arguments.
+In particular, we adapt the structure from `unix` style CLI apps. For example, `git --help`'s
+output is shown below.
 
 ![Example](diagrams/git_command.png)
 <figcaption align="center">Example of CLI input syntax, using git as an example</figcaption>
 
-This achieves design consideration (1). Why?  
+This achieves user design consideration (1). Why?  
 This syntax is intuitive at a glance to our target users,
 is predictable and easy to remember as the only thing they need to remember is the argument name and
 the '--' delimiter.
@@ -476,9 +493,9 @@ Will be mapped as:
 `
 where `""` represents an empty string (for visualization).
 
-Using a `HashMap` fulfils design considerations (2), (3) and (4).
+Using a `HashMap` fulfils user design considerations (2), both developer design considerations (3), (4).
 
-- (2): Order of arguments do not matter as
+- (2): Order of arguments do not matter in a HashMap 
 - (3): To get a `payload`, the developer simply needs to call `myHashMap.get("argument")`.  
   This syntatic sugar prevents developer errors compared to an index-based approach.
 - (4): Validating commands is much less difficult using `HashMap`. For example, size can be checked with
@@ -542,6 +559,7 @@ is input as an argument.
 Internally, this just splits the string by whitespace and returns the first word in the array.
 
 <!-- @@author YongbinWang -->
+
 #### Alternative Designs Considered
 
 We considered alternative command structures such as [AB3](https://se-education.org/addressbook-level3/UserGuide.html)
@@ -619,7 +637,7 @@ to constantly read in and interpret user input and create the correct command fo
 command type until a `HomeCommand`. A common `AtomicHabitList`object is initialised by `AtomicHabitManager` and is
 shared among command objects to retrieve and modify user data.
 
-![AtomicHabit Component](diagrams/AtomicHabit.png)
+![AtomicHabitClass](diagrams/AtomicHabit.png)
 Note: For readability, AtomicHabitCommand is an abstraction of all the 6 different commands that exist in AtomicHabit.
 
 #### AtomicHabit Commands
@@ -660,12 +678,118 @@ Note: For readability, AtomicHabitCommand is an abstraction of all the 6 differe
 - `printHelpMessage()` method in `HelpCommand` will retrieve and print these attributes.
 
 <!-- @@author haoyangw -->
-## Managers
 
-![Manager](diagrams/Manager.png)<br/>
-The `Manager` abstract class is the superclass for classes responsible for handling user interaction with the app.
+## Gamification Component
+
+The Gamification feature is supported by the `GamificationManager` class, which delegates specific application logic to
+4 main sets of classes: `Commands`, `GamificationData`, `GamificationStorage` and `GamificationUi`.
+
+![Gamification Classes](diagrams/GamificationClassDiagram.png)<br/>
 
 ### Design Considerations
+
+Logic related to specific tasks such as user commands, XP data, storage and user interface are delegated by
+`GamificationManager` to specialised classes to fulfil the `Single Responsibility Principle` since a `Manager` is only
+a high-level abstraction that ensures that a feature provides all the expected functionality. Hence,
+`GamificationManager` should change only when the overall specification of the gamification feature changes, not when a
+particular task changes(e.g. a change in the gamification feature's user interface style). The design considerations for
+each of the 4 sets of specialised classes are as follows.
+
+#### GamificationData
+
+`GamificationData` encapsulates all useful statistics for the gamification feature and exposes them using helper
+methods, thus acting as a compound data type. This is done to increase cohesion since all these useful statistics are
+computed from the total XP points data, and thus they are all logically related and can be grouped together in one
+class.
+
+Additionally, `GamificationData` provides a layer of abstraction between the individual statistics and classes
+that access them. This greatly simplifies the code of such classes, which only have to call `GamificationData`'s
+helper methods. It also fulfils the Object-Oriented Principles of `abstraction` and `encapsulation`. Firstly,
+abstraction of logic for computing the statistics makes classes that access the statistics easier to maintain since only
+one class, `GamificationData`, needs to be updated to modify the statistics logic. Secondly, abstraction reduces code
+duplication since the common logic for computing statistics can be shared between multiple classes through one single
+definition of `GamificationData`. Finally, encapsulation ensures that classes from other packages that access the
+statistics do not know the implementation details for computing any of the individual statistics, which is necessary
+since such classes are from a different package than `GamificationData`.
+
+#### GamificationStorage
+
+`GamificationStorage` implements logic for storing `GamificationData` into gamification's data file and provides them
+using helper methods. This reduces coupling between `GamificationData` and the actual `Storage` and
+`GamificationTokenizer` classes by adding a layer of abstraction. The rationale behind this is the fulfilment of the
+`Single Responsibility Principle`: changes in the `Storage` and `GamificationTokenizer` helper methods will not
+require updates to `GamificationData`, whose responsibility is to provide gamification statistics, not handle data
+storage and retrieval.
+
+#### GamificationUi
+
+`GamificationUi` is a child class of `TextUi` and thus provides all of `TextUi`'s functionality while adding
+gamification-specific logic such as the XP bar. This design is chosen because the gamification feature requires
+`TextUi`'s features, but also needs to customise the format of user messages and introduce additional UI elements.
+Extending `TextUi` enables `GamificationUi` to do exactly this, but more importantly, gamification-specific
+customisations and logic is abstracted from `TextUi` and put in the `gamification` subpackage. This provides 3
+benefits:
+
+1. Gamification's customisations will not affect other classes that call `TextUi`'s methods
+2. Other classes(from different subpackages) that access `TextUi` are unable to call on gamification-specific methods
+3. Fulfilment of the `Open Closed Principle`: The introduction of `GamificationUi` requires no modifications to
+   `TextUi`'s helper methods, but `GamificationUi` provides additional functionality like an XP bar.
+
+#### Commands
+
+The key command for the gamification feature is the `stats` command provided by the `StatsCommand` class. Due to the
+implementation of `GamificationData` and `GamificationUi`, `StatsCommand` is a high-level abstraction that delegates
+the printing of the XP bar to `GamificationUi`, which obtains the XP statistics to be displayed from the given
+`GamificationData`. This greatly simplifies the maintenance of the `StatsCommand` class, which can remain unchanged
+even when the logic for computing the XP statistics or the implementation of the XP bar changes. It also reduces
+coupling between the `StatsCommand` class and the statistics and UI logic of the gamification feature.
+
+### Alternative Designs Considered
+
+#### Defining gamification statistics logic within `GamificationManager`
+
+Instead of defining a separate `GamificationData` class that is initalised by `GamificationManager`, logic for
+computing statistics can be defined within `GamificationManager` itself. This design was discarded because firstly, it
+violates the `Single Responsibility Principle`. Implementations of `Manager` are supposed to be high-level abstractions
+that delegate tasks to specialised classes. By encapsulating statistics logic within `GamificationManager`, it has to
+be updated when the logic for computing the gamification statistics is changed, but the specialised task of computing
+statistics is not `GamificationManager`'s responsibility.
+
+Secondly, defining logic for computing statistics within `GamificationManager` requires passing a reference to
+`GamificationManager` to other packages such as atomic habits, which updates the user's total XP. This is unacceptable
+since `GamificationManager` has access to all of gamification's state, which other features shouldn't have, so it
+cannot be passed by reference to other packages.
+
+Finally, this design results in high coupling between `GamificationManager` and other classes such as `StatsCommand`
+that require access to gamification statistics. This is unideal since `GamificationManager` is intended to be a high
+level abstraction, which means it should be loosely coupled with other classes, and high coupling also makes the
+maintenance of `GamificationManager` more difficult.
+
+#### Integrating `GamificationStorage` logic within `GamificationData`
+
+Logic for calling `Storage` and `GamificationTokenizer` to perform data storage and retrieval can be integrated within
+`GamificationData`, eliminating the need for a separate class `GamificationStorage`. This design was rejected because
+firstly, it violates the `Single Responsibility Principle`. `GamificationData`'s responsibility is to compute
+gamification statistics, not perform data storage and retrieval of any kind. However, this design would necessitate
+updating the logic in `GamificationData` whenever the `storage` classes are modified, which contradicts the `Single
+Responsibility Principle`.
+
+Secondly, this design leads to high coupling between `GamificationData` and `storage` classes such as `Storage` and
+`GamificationTokenizer`. This makes maintenance more difficult, as changes in the `storage` classes can create a
+larger ripple effect as `GamificationData` also has to be updated.
+
+<!-- @@author -->
+
+<!-- @@author haoyangw -->
+
+## Managers
+
+The `Manager` abstract class is the superclass for classes responsible for handling user interaction with the app.
+
+![Manager Classes](diagrams/Manager.png)<br/>
+
+### Design Considerations
+
 Each `Manager` provides `runEventDriver()`, which takes over control of user interaction and provides a particular
 feature(along with all its commands). This fulfils the `Single Responsibility Principle` as every `Manager` is in charge
 of one particular feature and recognises its feature's commands, so it will only change when the feature
@@ -686,7 +810,8 @@ requested action. This ensures that changes in logic for individual commands or 
 any changes in a particular implementation of `Manager`, as should be expected. A `Manager` class will only change to
 recognise new commands for its feature.
 
-### `MainManager`: A Unique Implementation
+### `MainManager` - A Unique Implementation
+
 `MainManager` is a unique implementation of `Manager` in that it holds references to every feature's `Manager` instance.
 This is important as `MainManager` then acts as an abstraction barrier for the application: `WellNus` does not know
 what features or commands are supported by the application, and only knows that `MainManager` can recognise supported
@@ -700,6 +825,7 @@ feature.
 <!-- @@author -->
 
 <!-- @@author BernardLesley -->
+
 ## Tokenizer
 
 ![Tokenizer](diagrams/Tokenizer.png)<br/>
@@ -707,6 +833,7 @@ The `Tokenizer` interface is the superclass for classes responsible for converti
 Managers into Strings for storage and also convert Strings from storage back into data that can be restored by Managers.
 
 ### Design Considerations
+
 Each `Tokenizer` provides `tokenize()` and `detokenize()`, which can then be adapted for each feature. This fulfills the
 `Single Responsibility Principle` as each `Tokenizer` are only responsible to tokenize and detokenize data from only one
 Feature. Furthermore, this design also fulfills `Open-Closed Principle` where `Tokenizer` interface are open for
@@ -721,6 +848,7 @@ different
 kinds of data.
 
 ### Individual Tokenizers
+
 `AtomicHabitTokenizer` class is responsible to tokenize and detokenize ArrayList of AtomicHabits that
 AtomicHabitManager will
 use or store. Each habit will be tokenized in the following
@@ -748,25 +876,41 @@ questions' index to restore its state.
 <!-- @@author -->
 
 <!-- @@author nichyjt -->
+
 ## Storage
 
 Storage is a common API built to work completely decoupled from any `Tokenizer` implementation.
 
-Saving: `saveData`, `Storage` allows for any tokenizing structure logic as long as the input data is in the form
-of an `ArrayList<String>`.
+It comes with two methods that developers need to be aware of to save and load data:
 
-Loading: `loadData` will load all `WellNUS++` data into a common data type, `ArrayList<String>`.
+- `saveData(ArrayList<String> tokenizedManager, String fileName)`
+- `loadData(String fileName)`
 
-The data transformation from `String` to the target data type by the managers is solely up to `Tokenizer`.
-
-### Usage: `saveData()`
+### Usage - `saveData`
 
 To illustrate the overall flow on how to save data, refer to the sequence diagram below.
+Saving: `saveData`, `Storage` allows for any tokenizing structure logic as long as the input data is in the form
+of an `ArrayList<String>`.
 
 The general idea is to `tokenize` it first into the `ArrayList<String>` format calling before
 calling `Storage`'s `saveData` method.
 
+`FooTokenizer` and `FooManager` are named as such to generalize the features that use `Storage`. `<T>` is also used to
+generalize the data structure that is being
+passed into a feature-specific tokenizer, such as `AtomicHabit`.
+
+The burden of data transformation from the target data type to `String` is up to `Tokenizer`'s `tokenize` method.
+
 ![](./diagrams/StorageSequence-Saving_Data__Emphasis_on_Storage_Subroutine_.png)
+
+### Usage - `loadData`
+
+`loadData` works similarly to `saveData`, but with the logic reversed.
+
+`loadData` will load all `WellNUS++` data into a common data type, `ArrayList<String>`.
+The string list can then be use wholesale or detokenized into an appropriate data structure.
+
+The burden of data transformation from `String` to the target data type to is up to `Tokenizer`'s `detokenize` method.
 
 ### Design Considerations
 
@@ -787,8 +931,6 @@ It consists of the `feature` package and the `command` package.
 It contains commands that you would expect from a timer, such as stopping,
 pausing, and more.
 
-### Design Considerations
-
 ### Focus Timer Implementation
 
 The focus timer contains a `FocusManager`.
@@ -806,53 +948,52 @@ The timer is an inherently complex feature. There are many commands, and some co
 logically cannot be executed in certain states. For example, if the timer is `Paused`,
 the user cannot go to the `next` Countdown.
 
-Problem: It is confusing to developers to check if the `command` that they are writing
+**Problem**: It is confusing to developers to check if the `command` that they are writing
 
-To help developers, we define the expected behaviour for focus timer
+**Solution**: To help developers, we define the expected behaviour for focus timer
 in this **simplified** finite state machine (FSM) diagram.
 
 The black circle represents the entrypoint into FocusTimer, and
 the labels of the arrows are the valid `command`.
 The command `home` has been left out to make the diagram simpler.
-It is a command that can be called in any state, and does not add value to it.
+It is a command that can be called in any state, and therefore does not add value to it.
 
 ![FSM diagram](diagrams/FocusTimerState.png)
 
 From the diagram and the class diagram, we can derive a truth table
-from the attributes of each Countdown and tag them to a state.
+from the attributes of each Countdown (e.g. `isReady`) and tag them to a state.
 
-| State/Flag | isRunClock | isCompletedCountDown | isReady |  
-|------------|------------|----------------------|---------|
-| Ready      | X          | X                    | T       |
-| Counting   | T          | F                    | F       |
-| Waiting    | F          | T                    | F       |
-| Paused     | F          | F                    | F       |
+| &or; State / Attribute > | isRunClock | isCompletedCountDown | isReady |  
+|--------------------------|------------|----------------------|---------|
+| Ready                    | X          | X                    | T       |
+| Counting                 | T          | F                    | F       |
+| Waiting                  | F          | T                    | F       |
+| Paused                   | F          | F                    | F       |
 
 Truth table, where X denotes a 'dont care' condition
 where the truth value does not matter.
 
-From this, we can easily check which state we are in and then allow exe
-Referring to the class diagram, this is implemented on `Session` with various methods helping identify the state:
+From this, we can easily check which state we are in and execute/not execute commands as necessary.
+Referring to the class diagram, this is implemented on `Session` with 4 methods that help identify the state:
 
-Example implementation:
+Example implementation to check if Session is in `Counting` state:
 
-```
+```java
 public boolean isSessionCounting(){
-    Countdown countdown = getCurrentCountdown();
-    return countdown.getIsRunning() && !countdown.getIsCompletedCountdown();
-}
+        Countdown countdown=getCurrentCountdown();
+        return countdown.getIsRunning()&&!countdown.getIsCompletedCountdown();
+        }
 ```
 
-Developers can easily check if a command is in a valid state to be executed by using these
-methods in `Session` to check which state the command is being called in.
-
-- `isSessionReady()`
-- `isSessionCounting()`
-- `isSessionWaiting()`
-- `isSessionPaused()`
-<!-- @@author -->
+**Easily Identify State**: Developers can hence trivially check if a command is in a valid state to be executed
+by using these 4 methods in `Session` to check which state the it is in:
+1. `isSessionReady()`  
+2. `isSessionCounting()`  
+3. `isSessionWaiting()`   
+4. `isSessionPaused()`
 
 <!-- @@author YongbinWang -->
+
 #### Commands
 
 `StartCommand` class: <br>
@@ -912,8 +1053,12 @@ methods in `Session` to check which state the command is being called in.
 - Command format: `home`
 - This command allows users to return back to the main WellNUS++ interface.
 
-# Appendix: Requirements
+<!-- @@author -->
+
+# Appendix - Requirements
+
 ## Product scope
+
 ### Product Name
 
 **WellNUS++**
@@ -969,6 +1114,9 @@ WellNUS++ is a CLI app, primarily due to the following reasons:
 1. Should work on any mainstream OS as long as it has Java 11 or above installed.
 2. A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should
    be able to accomplish most of the tasks faster using commands than using the mouse.
+3. A user
+
+<!-- @@author nichyjt -->
 
 ## Glossary
 
@@ -980,7 +1128,7 @@ WellNUS++ is a CLI app, primarily due to the following reasons:
   The payload will terminate when the user clicks `enter` or separates the payload with another argument
   with the `--` delimiter.
 
-# Appendix: Instructions for manual testing
+# Appendix - Instructions for manual testing
 
 ## Launch
 
@@ -993,6 +1141,7 @@ WellNUS++ is a CLI app, primarily due to the following reasons:
 ## Sample test cases
 
 <!-- @@author wenxin-c -->
+
 ### Help command
 
 1. Make sure you are in the main interface, but individual features(i.e. hb, reflect and timer)
@@ -1107,39 +1256,51 @@ Note:
 ```
 
 4. Any commands that does not follow the format of `add --name ATOMIC_HABIT_NAME` is invalid
+
 <!-- @@author -->
 
 <!-- @@author haoyangw -->
+
 ## Saving data
+
 1. Dealing with missing data files
+
 * Ensure data files are created: Add a new atomic habit using the `add --name Test data file` command in the `hb`
   session
 * Quit `WellNUS++`: Issue `home` command in the `hb` session followed by `exit` command in the `main` session
 * Delete data files: Delete the `data` folder created in the same folder as the `WellNUS++` jar file you just executed
 * Relaunch `WellNUS++`: Run the `WellNUS++` jar file, issue `hb` command and then issue `list` command. Verify that no
   atomic habits are now recorded, i.e. `WellNUS++` should output:
+
 ```
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     You have no habits in your list!
     Start adding some habits by using 'add'!
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ```
+
 2. Dealing with corrupted data files
+
 * Quit `WellNUS++`
 * Open the `data/habit.txt` file located in the same directory as the `WellNUS++` jar file
 * Replace the contents of the `habit.txt` file with the following lines:
+
 ```
 --description Valid atomic habit --count 1 --
 --corrupted Data --test to be ignored --
 ```
+
 * Run the `WellNUS++` jar file
 * View the saved atomic habits: Issue `hb` followed by `list`. Expected output should be:
+
 ```
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     You have no habits in your list!
     Start adding some habits by using 'add'!
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ```
+
 * Explanation: Upon relaunch, `WellNUS++` detected the invalid line `--corrupted Data --test to be ignored --` and
   cleaned the contents of the data file, leaving no atomic habits recorded
+
 <!-- @@author -->
