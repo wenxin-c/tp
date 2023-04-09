@@ -37,11 +37,20 @@
       * [Developer design considerations](#developer-design-considerations-2)
     * [AtomicHabit Implementation](#atomichabit-implementation)
       * [AtomicHabit Commands](#atomichabit-commands)
-  * [Managers](#managers)
+  * [Gamification Component](#gamification-component)
     * [Design Considerations](#design-considerations-3)
+      * [GamificationData](#gamificationdata)
+      * [GamificationStorage](#gamificationstorage)
+      * [GamificationUi](#gamificationui)
+      * [Commands](#commands)
+    * [Alternative Designs Considered](#alternative-designs-considered-2)
+      * [Defining gamification statistics logic within `GamificationManager`](#defining-gamification-statistics-logic-within-gamificationmanager)
+      * [Integrating `GamificationStorage` logic within `GamificationData`](#integrating-gamificationstorage-logic-within-gamificationdata)
+  * [Managers](#managers)
+    * [Design Considerations](#design-considerations-4)
     * [`MainManager` - A Unique Implementation](#mainmanager---a-unique-implementation)
   * [Tokenizer](#tokenizer)
-    * [Design Considerations](#design-considerations-4)
+    * [Design Considerations](#design-considerations-5)
     * [Individual Tokenizers](#individual-tokenizers)
   * [Storage](#storage)
     * [Usage - `saveData`](#usage---savedata)
@@ -49,10 +58,12 @@
     * [Design Considerations](#design-considerations-5)
   * [Focus Timer Component](#focus-timer-component)
     * [Design Considerations](#design-considerations-6)
+  * [Focus Timer Component](#focus-timer-component)
+    * [Design Considerations](#design-considerations-7)
     * [Focus Timer Implementation](#focus-timer-implementation)
       * [State Management](#state-management)
-      * [Commands](#commands)
-* [Appendix - Requirements](#appendix---requirements)
+      * [Commands](#commands-1)
+* [Appendix: Requirements](#appendix--requirements)
   * [Product scope](#product-scope)
     * [Product Name](#product-name)
     * [Target user profile](#target-user-profile)
@@ -663,10 +674,102 @@ Note: For readability, AtomicHabitCommand is an abstraction of all the 6 differe
 - `printHelpMessage()` method in `HelpCommand` will retrieve and print these attributes.
 
 <!-- @@author haoyangw -->
-## Managers
+## Gamification Component
+The Gamification feature is supported by the `GamificationManager` class, which delegates specific application logic to
+4 main sets of classes: `Commands`, `GamificationData`, `GamificationStorage` and `GamificationUi`.
 
-![Manager](diagrams/Manager.png)<br/>
+![Gamification Classes](diagrams/GamificationClassDiagram.png)<br/>
+
+### Design Considerations
+Logic related to specific tasks such as user commands, XP data, storage and user interface are delegated by 
+`GamificationManager` to specialised classes to fulfil the `Single Responsibility Principle` since a `Manager` is only
+a high-level abstraction that ensures that a feature provides all the expected functionality. Hence, 
+`GamificationManager` should change only when the overall specification of the gamification feature changes, not when a 
+particular task changes(e.g. a change in the gamification feature's user interface style). The design considerations for 
+each of the 4 sets of specialised classes are as follows.
+
+#### GamificationData
+`GamificationData` encapsulates all useful statistics for the gamification feature and exposes them using helper
+methods, thus acting as a compound data type. This is done to increase cohesion since all these useful statistics are
+computed from the total XP points data, and thus they are all logically related and can be grouped together in one
+class. 
+
+Additionally, `GamificationData` provides a layer of abstraction between the individual statistics and classes
+that access them. This greatly simplifies the code of such classes, which only have to call `GamificationData`'s
+helper methods. It also fulfils the Object-Oriented Principles of `abstraction` and `encapsulation`. Firstly,
+abstraction of logic for computing the statistics makes classes that access the statistics easier to maintain since only
+one class, `GamificationData`, needs to be updated to modify the statistics logic. Secondly, abstraction reduces code
+duplication since the common logic for computing statistics can be shared between multiple classes through one single
+definition of `GamificationData`. Finally, encapsulation ensures that classes from other packages that access the
+statistics do not know the implementation details for computing any of the individual statistics, which is necessary
+since such classes are from a different package than `GamificationData`.
+
+#### GamificationStorage
+`GamificationStorage` implements logic for storing `GamificationData` into gamification's data file and provides them
+using helper methods. This reduces coupling between `GamificationData` and the actual `Storage` and 
+`GamificationTokenizer` classes by adding a layer of abstraction. The rationale behind this is the fulfilment of the
+`Single Responsibility Principle`: changes in the `Storage` and `GamificationTokenizer` helper methods will not
+require updates to `GamificationData`, whose responsibility is to provide gamification statistics, not handle data
+storage and retrieval.
+
+#### GamificationUi
+`GamificationUi` is a child class of `TextUi` and thus provides all of `TextUi`'s functionality while adding
+gamification-specific logic such as the XP bar. This design is chosen because the gamification feature requires 
+`TextUi`'s features, but also needs to customise the format of user messages and introduce additional UI elements.
+Extending `TextUi` enables `GamificationUi` to do exactly this, but more importantly, gamification-specific 
+customisations and logic is abstracted from `TextUi` and put in the `gamification` subpackage. This provides 3
+benefits:
+1. Gamification's customisations will not affect other classes that call `TextUi`'s methods
+2. Other classes(from different subpackages) that access `TextUi` are unable to call on gamification-specific methods
+3. Fulfilment of the `Open Closed Principle`: The introduction of `GamificationUi` requires no modifications to 
+`TextUi`'s helper methods, but `GamificationUi` provides additional functionality like an XP bar.
+
+#### Commands
+The key command for the gamification feature is the `stats` command provided by the `StatsCommand` class. Due to the
+implementation of `GamificationData` and `GamificationUi`, `StatsCommand` is a high-level abstraction that delegates
+the printing of the XP bar to `GamificationUi`, which obtains the XP statistics to be displayed from the given
+`GamificationData`. This greatly simplifies the maintenance of the `StatsCommand` class, which can remain unchanged
+even when the logic for computing the XP statistics or the implementation of the XP bar changes. It also reduces
+coupling between the `StatsCommand` class and the statistics and UI logic of the gamification feature.
+
+### Alternative Designs Considered
+#### Defining gamification statistics logic within `GamificationManager`
+Instead of defining a separate `GamificationData` class that is initalised by `GamificationManager`, logic for 
+computing statistics can be defined within `GamificationManager` itself. This design was discarded because firstly, it
+violates the `Single Responsibility Principle`. Implementations of `Manager` are supposed to be high-level abstractions
+that delegate tasks to specialised classes. By encapsulating statistics logic within `GamificationManager`, it has to
+be updated when the logic for computing the gamification statistics is changed, but the specialised task of computing
+statistics is not `GamificationManager`'s responsibility.
+
+Secondly, defining logic for computing statistics within `GamificationManager` requires passing a reference to
+`GamificationManager` to other packages such as atomic habits, which updates the user's total XP. This is unacceptable
+since `GamificationManager` has access to all of gamification's state, which other features shouldn't have, so it
+cannot be passed by reference to other packages.
+
+Finally, this design results in high coupling between `GamificationManager` and other classes such as `StatsCommand`
+that require access to gamification statistics. This is unideal since `GamificationManager` is intended to be a high
+level abstraction, which means it should be loosely coupled with other classes, and high coupling also makes the
+maintenance of `GamificationManager` more difficult.
+
+#### Integrating `GamificationStorage` logic within `GamificationData`
+Logic for calling `Storage` and `GamificationTokenizer` to perform data storage and retrieval can be integrated within
+`GamificationData`, eliminating the need for a separate class `GamificationStorage`. This design was rejected because
+firstly, it violates the `Single Responsibility Principle`. `GamificationData`'s responsibility is to compute
+gamification statistics, not perform data storage and retrieval of any kind. However, this design would necessitate
+updating the logic in `GamificationData` whenever the `storage` classes are modified, which contradicts the `Single
+Responsibility Principle`.
+
+Secondly, this design leads to high coupling between `GamificationData` and `storage` classes such as `Storage` and
+`GamificationTokenizer`. This makes maintenance more difficult, as changes in the `storage` classes can create a
+larger ripple effect as `GamificationData` also has to be updated.
+
+<!-- @@author -->
+
+<!-- @@author haoyangw -->
+## Managers
 The `Manager` abstract class is the superclass for classes responsible for handling user interaction with the app.
+
+![Manager Classes](diagrams/Manager.png)<br/>
 
 ### Design Considerations
 Each `Manager` provides `runEventDriver()`, which takes over control of user interaction and provides a particular
