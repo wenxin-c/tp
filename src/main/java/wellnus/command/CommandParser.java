@@ -115,7 +115,7 @@ public class CommandParser {
             LOGGER.log(Level.INFO, LOG_STR_EMPTY_INPUT);
             throw new BadCommandException(ERROR_EMPTY_ARGUMENT);
         }
-        return words[0].toLowerCase();
+        return words[0].toLowerCase().strip();
     }
 
     private String getPayloadFromCommand(String commandString) {
@@ -131,7 +131,7 @@ public class CommandParser {
             }
         }
         // No checks for payload length is done as payload CAN be empty
-        return payload;
+        return payload.strip();
     }
 
     /**
