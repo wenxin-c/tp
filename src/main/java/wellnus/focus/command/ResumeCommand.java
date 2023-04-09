@@ -12,7 +12,7 @@ import wellnus.focus.feature.Session;
  * Represents a command to resume the countdown timer in the current session.
  */
 public class ResumeCommand extends Command {
-    public static final String COMMAND_DESCRIPTION = "resume - Continue the countdown.\n"
+    public static final String COMMAND_DESCRIPTION = "resume - Continue the countdown. "
             + "Can only be used when a countdown is paused.";
     public static final String COMMAND_USAGE = "usage: home";
     public static final String COMMAND_KEYWORD = "resume";

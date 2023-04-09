@@ -23,7 +23,7 @@ import wellnus.manager.Manager;
  */
 //@@author YongbinWang
 public class FocusManager extends Manager {
-    public static final String FEATURE_HELP_DESCRIPTION = "ft(Focus Timer) - Set a configurable 'Pomodoro' timer "
+    public static final String FEATURE_HELP_DESCRIPTION = "ft - Focus Timer: Set a configurable 'Pomodoro' timer "
             + "with work and rest cycles to keep yourself focused and productive!";
     public static final String FEATURE_NAME = "ft";
     private static final String START_COMMAND_KEYWORD = "start";
@@ -58,8 +58,7 @@ public class FocusManager extends Manager {
             + ", check user-guide for valid commands";
     private static final String ERROR_SESSION_RUNNING = "Sorry, you cant `start` or `config` a ";
     private static final String LINE_SEPARATOR = System.lineSeparator();
-    private static final String COMMAND_INVALID_COMMAND_NOTE =
-            "Supported commands in Focus Timer: " + LINE_SEPARATOR
+    private static final String COMMAND_INVALID_COMMAND_NOTE = "Supported commands in Focus Timer: " + LINE_SEPARATOR
             + "check command " + CheckCommand.COMMAND_USAGE + LINE_SEPARATOR
             + "config command " + ConfigCommand.COMMAND_USAGE + LINE_SEPARATOR
             + "next command " + NextCommand.COMMAND_USAGE + LINE_SEPARATOR
