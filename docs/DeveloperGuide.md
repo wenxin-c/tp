@@ -55,15 +55,13 @@
   * [Storage](#storage)
     * [Usage - `saveData`](#usage---savedata)
     * [Usage - `loadData`](#usage---loaddata)
-    * [Design Considerations](#design-considerations-5)
-  * [Focus Timer Component](#focus-timer-component)
     * [Design Considerations](#design-considerations-6)
   * [Focus Timer Component](#focus-timer-component)
     * [Design Considerations](#design-considerations-7)
     * [Focus Timer Implementation](#focus-timer-implementation)
       * [State Management](#state-management)
       * [Commands](#commands-1)
-* [Appendix: Requirements](#appendix--requirements)
+* [Appendix - Requirements](#appendix---requirements)
   * [Product scope](#product-scope)
     * [Product Name](#product-name)
     * [Target user profile](#target-user-profile)
@@ -906,8 +904,6 @@ It consists of the `feature` package and the `command` package.
 
 It contains commands that you would expect from a timer, such as stopping,
 pausing, and more.
-
-### Design Considerations
 
 ### Focus Timer Implementation
 
