@@ -25,8 +25,6 @@ public class ReflectionTokenizer implements Tokenizer<Set<Integer>> {
     private static final String COLON_CHARACTER = ":";
     private static final int NO_LIMIT = -1;
     private static final String DETOKENIZE_ERROR_MESSAGE = "Invalid reflect %s data '%s' found in storage!";
-    private static final String STORAGE_ERROR = "Previous reflect %s data will not be restored.";
-    private static final Logger LOGGER = WellNusLogger.getLogger("ReflectTokenizerLogger");
     private String getTokenizedIndexes(String key, Set<Integer> indexesToTokenize) {
         String tokenizedIndexes = key + COLON_CHARACTER;
         for (int index : indexesToTokenize) {
