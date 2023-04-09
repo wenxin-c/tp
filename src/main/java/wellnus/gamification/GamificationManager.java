@@ -22,6 +22,7 @@ public class GamificationManager extends Manager {
     public static final String FEATURE_NAME = "gamif";
     public static final String FEATURE_HELP_DESCRIPTION = "gamif - Gamification - Gamification gives you the "
             + "motivation to continue improving your wellness by rewarding you for your efforts!";
+    private static final String CLEAN_DATA_FILE_ERROR_MESSAGE = "Gamification data file may remain corrupted.";
     private static final String COMMAND_HELP = "help";
     private static final String COMMAND_HOME = "home";
     private static final String COMMAND_STATS = "stats";
@@ -46,8 +47,17 @@ public class GamificationManager extends Manager {
         try {
             GamificationStorage gamificationStorage = new GamificationStorage();
             this.gamificationData = gamificationStorage.loadData();
-        } catch (StorageException | TokenizerException loadDataException) {
+        } catch (StorageException loadDataException) {
             gamificationUi.printErrorFor(loadDataException, LOAD_GAMIF_DATA_ERROR_MESSAGE);
+            this.gamificationData = new GamificationData();
+        } catch (TokenizerException loadDataException) {
+            gamificationUi.printErrorFor(loadDataException, LOAD_GAMIF_DATA_ERROR_MESSAGE);
+            try {
+                GamificationStorage gamificationStorage = new GamificationStorage();
+                gamificationStorage.cleanDataFile();
+            } catch (StorageException storageException) {
+                gamificationUi.printErrorFor(storageException, CLEAN_DATA_FILE_ERROR_MESSAGE);
+            }
             this.gamificationData = new GamificationData();
         }
     }

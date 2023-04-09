@@ -17,6 +17,7 @@ public class GamificationUi extends TextUi {
             + "  / / __/ __ `/ __ `__ \\/ / /_/ / ___/ __ `/ __/ / __ \\/ __ \\" + System.lineSeparator()
             + " / /_/ / /_/ / / / / / / / __/ / /__/ /_/ / /_/ / /_/ / / / /" + System.lineSeparator()
             + " \\____/\\__,_/_/ /_/ /_/_/_/ /_/\\___/\\__,_/\\__/_/\\____/_/ /_/ ";
+    private static final int SHIFT_ONE_DECIMAL_DIVISOR = 10;
     private static final String WRONG_NUM_CHAR_IN_SEPARATOR_MESSAGE = "Wrong NUM_CHAR_IN_SEPARATOR value in "
             + "GamificationUi";
     private static final String XP_BAR_CHAR = "=";
@@ -101,8 +102,7 @@ public class GamificationUi extends TextUi {
         int currentLevelXp = gamData.getXpForCurrentLevelOnly();
         int currentLevelTotalXp = currentLevelXp + gamData.getXpToReachNextLevel();
         int xpLevel = gamData.getXpLevel();
-        int shiftDecimalByOne = 10;
-        int howManyXpBarSegments = currentLevelXp * shiftDecimalByOne / currentLevelTotalXp;
+        int howManyXpBarSegments = currentLevelXp * SHIFT_ONE_DECIMAL_DIVISOR / currentLevelTotalXp;
         int numSpacesInXpBar = gamData.getXpToReachNextLevel() + 1;
         String padding = " ".repeat(numSpacesInXpBar);
         String xpBoxBuilder = XP_BOX_LEFT
