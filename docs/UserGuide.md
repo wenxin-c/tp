@@ -141,13 +141,13 @@ Expected outcome:
 ------------------------------------------------------------
     WellNUS++ is a Command Line Interface (CLI) app for you to keep track, manage and improve your physical and mental wellness.
     Input `help` to see all available commands.
-Input `help [command-to-check]` to get usage help for a specific command.
-Here are all the commands available for you!
+    Input `help [command-to-check]` to get usage help for a specific command.
+    Here are all the commands available for you!
     
-    1. hb(Atomic Habits) - Track and manage your habits with our suite of tools to help you grow and nurture a better you!
-    2. reflect(Self Reflection) - Take some time to pause and reflect with our specially curated list of questions and reflection management tools.
-    3. ft(Focus Timer) - Set a configurable 'Pomodoro' timer with work and rest cycles to keep yourself focused and productive!
-    4. gamif(Gamification) - Gamification gives you the motivation to continue improving your wellness by rewarding you for your efforts!
+    1. hb - Atomic Habits - Track and manage your habits with our suite of tools to help you grow and nurture a better you!
+    2. reflect - Self Reflection - Take some time to pause and reflect with our specially curated list of questions and reflection management tools.
+    3. ft - Focus Timer - Set a configurable 'Pomodoro' timer with work and rest cycles to keep yourself focused and productive!
+    4. gamif - Gamification - Gamification gives you the motivation to continue improving your wellness by rewarding you for your efforts!
     5. exit - Close WellNUS++ and return to your terminal.
     6. help - Get help on what commands can be used in WellNUS++.
 ------------------------------------------------------------
@@ -161,7 +161,7 @@ Expected outcome:
 
 ```
 ------------------------------------------------------------
-    hb(Atomic Habits) - Track and manage your habits with our suite of tools to help you grow and nurture a better you!
+    hb - Atomic Habits - Track and manage your habits with our suite of tools to help you grow and nurture a better you!
     usage: hb
 ------------------------------------------------------------
 ```
@@ -174,7 +174,8 @@ Access specific feature from main interface by inputting the `FEATURE_NAME`. <br
 
 Feature name can be referenced by calling the help command.
 
-Take note that users are only allowed to access features from the main session (i.e. `hb`, `reflect`, `ft` and `gamif` are
+Take note that users are only allowed to access features from the main session (i.e. `hb`, `reflect`, `ft` and `gamif`
+are
 only recognised in the main WellNUS++ session, cross feature transition is **not
 allowed**). Cross feature transition is banned to ensure that users are able to focus on their
 current feature for their own well-being.
@@ -222,13 +223,15 @@ Example of usage:<br>
 Expected outcome:
 
 ```
-------------------------------------------------------------
-    Welcome to the atomic habits feature!
-   _    _                _       _  _        _     _  _       
-  /_\  | |_  ___  _ __  (_) __  | || | __ _ | |__ (_)| |_  ___
- / _ \ |  _|/ _ \| '  \ | |/ _| | __ |/ _` || '_ \| ||  _|(_-<
-/_/ \_\ \__|\___/|_|_|_||_|\__| |_||_|\__,_||_.__/|_| \__|/__/
-------------------------------------------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    _  _             _      _  _      _    _ _      
+   /_\| |_ ___ _ __ (_)__  | || |__ _| |__(_) |_ ___
+  / _ \  _/ _ \ '  \| / _| | __ / _` | '_ \ |  _(_-<
+ /_/ \_\__\___/_|_|_|_\__| |_||_\__,_|_.__/_|\__/__/
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    Welcome to WellNUS++ Atomic Habits section!
+    Track and inculcate good habits into your life with us!
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ```
 
 ### `add` - Add new atomic habit
@@ -248,10 +251,10 @@ Example of usage:
 Expected outcome:
 
 ```
-------------------------------------------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     Yay! You have added a new habit:
     'make bed every morning' was successfully added
-------------------------------------------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ```
 
 ### `list` - List all atomic habit
@@ -267,14 +270,14 @@ Example of usage:
 Expected outcome:
 
 ```
-—-------------------------------------------------------------
-Here is the current accumulation of your atomic habits!
-Keep up the good work and you will develop a helpful habit in no time
-1.Make Bed every morning [1]
-2.Read for at least 30 minutes every day [3]
-3.Avoid checking phone for the first hour after waking up [2]
-... 
-—--------------------------------------------------------------- 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    Here is the current accumulation of your atomic habits!
+    Keep up the good work and you will develop a helpful habit in no time
+    1.Make Bed every morning [1]
+    2.Read for at least 30 minutes every day [3]
+    3.Avoid checking phone for the first hour after waking up [2]
+    ... 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ```
 
 ### `update` - Update an atomic habit
@@ -288,7 +291,8 @@ Format: `update --id HABIT_INDEX [--by NUMBER_TO_CHANGE]`
 * Step 2: Select the habit to update by entering the index number of the habit `HABIT_INDEX` according to index of the
   list output. <br>
   The user can specify the number to change for the habit count via `NUMBER_TO_CHANGE`. <br>
-  The **default** behaviour is to increment the behaviour by 1. <br> To decrement the habit count, enter a negative number
+  The **default** behaviour is to increment the behaviour by 1. <br> To decrement the habit count, enter a negative
+  number
   instead(see 'Example of usage 2' below).
 
 Note: '+' in front of `NUMBER_TO_CHANGE` parameter is not necessary when incrementing.
@@ -303,19 +307,19 @@ Example of usage 1:
 Expected outcome 1:
 
 ```
-—---------------------------------------------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     Here is the current accumulation of your atomic habits!
     Keep up the good work and you will develop a helpful habit in no time
     1. Make bed every morning [5]
     2. Read for at least 30 minutes every day [3] 
-—---------------------------------------------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ```
 
 ```
-—---------------------------------------------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     The following habit has been incremented! Keep up the good work!
     1. Make bed every morning [7]
-—---------------------------------------------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ```
 
 Example of usage 2:
@@ -326,19 +330,19 @@ Example of usage 2:
 Expected outcome 2:
 
 ```
-------------------------------------------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     Here is the current accumulation of your atomic habits!
     Keep up the good work and you will develop a helpful habit in no time
     1.Make bed every morning [7]
     2.Read for at least 30 minutes every day [3]
-------------------------------------------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ```
 
 ```
-------------------------------------------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     The following habit has been incremented! Keep up the good work!
     1.Make bed every morning [5]
-------------------------------------------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ```
 
 <!-- @@author BernardLesley -->
@@ -361,19 +365,19 @@ Example of usage:
 Expected outcome:
 
 ```
-—---------------------------------------------------------------
-Here is the current accumulation of your atomic habits!
-Keep up the good work and you will develop a helpful habit in no time
-1. Make bed every morning [5]
-2. Read for at least 30 minutes every day [3] 
-—---------------------------------------------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    Here is the current accumulation of your atomic habits!
+    Keep up the good work and you will develop a helpful habit in no time
+    1. Make bed every morning [5]
+    2. Read for at least 30 minutes every day [3] 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ```
 
 ```
-—---------------------------------------------------------------
-The following habit has been deleted:
-Make bed every morning [5] has been successfully deleted
-—---------------------------------------------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    The following habit has been deleted:
+    Make bed every morning [5] has been successfully deleted
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ```
 
 <!-- @@author BernardLesley -->
@@ -394,18 +398,19 @@ Example of usage 1:
 Expected outcome:
 
 ```
-------------------------------------------------------------
-    Atomic Habits (hb) - Track and manage your habits with our suite of tools to help you grow and nurture a better you!
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    hb - Atomic Habits - Track and manage your habits with our suite of tools to help you grow and nurture a better you!
     Input `help` to see all available commands.
-Input `help [command-to-check] to get usage help for a specific command.
-Here are all the commands available for you!
+    Input `help [command-to-check] to get usage help for a specific command.
+    Here are all the commands available for you!
     
     1. add - Add a habit to your habit tracker.
-    2. help - Get help on what commands can be used in Atomic Habit WellNUS++
-    3. home - Return back to the main menu of WellNUS++.
-    4. list - Lists out all the habits in your tracker.
-    5. update - Update how many times you've done a habit.
-------------------------------------------------------------
+    2. delete - Delete the habit you don't want to continue.
+    3. help - Get help on what commands can be used in Atomic Habit WellNUS++
+    4. home - Return back to the main menu of WellNUS++.
+    5. list - Lists out all the habits in your tracker.
+    6. update - Update how many times you've done a habit.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ```
 
 Example of usage 2:
@@ -415,10 +420,10 @@ Example of usage 2:
 Expected outcome:
 
 ```
-------------------------------------------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     add - Add a habit to your habit tracker.
     usage: add --name (your habit name)
-------------------------------------------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ```
 
 <!-- @@author haoyangw -->
@@ -487,16 +492,16 @@ Example of usage 1:
 Expected outcome:
 
 ```
-------------------------------------------------------------
-    Gamification (gamif) - Gamification gives you the motivation to continue improving your wellness by rewarding you for your efforts!
+######################################################################
+    gamif - Gamification - Gamification gives you the motivation to continue improving your wellness by rewarding you for your efforts!
     Input `help` to see all available commands.
-Input `help [command-to-check]` to get usage help for a specific command.
-Here are all the commands available for you!
+    Input `help [command-to-check]` to get usage help for a specific command.
+    Here are all the commands available for you!
     
     1. help - Get help on what commands can be used in WellNUS++ Gamification Feature
     2. home - Returns the user to the main WellNus++ session
     3. stats - Displays the user's XP level and points
-------------------------------------------------------------
+######################################################################
 ```
 
 Example of usage 2:
@@ -506,10 +511,10 @@ Example of usage 2:
 Expected outcome:
 
 ```
-------------------------------------------------------------
+######################################################################
     stats - Displays the user's XP level and points
     usage: stats
-------------------------------------------------------------
+######################################################################
 ```
 
 <!-- @@author wenxin-c -->
@@ -567,6 +572,7 @@ Expected outcome:
     5.When is the last time I gave back to others?
 ============================================================
 ```
+
 * Since questions are randomised, the questions users receive might differ from the example outcome above.
 
 <!-- @@author wenxin-c -->
@@ -576,6 +582,7 @@ Expected outcome:
 Users can add the reflection question they like into favorite list and review afterwards.
 
 Format: `like INDEX`
+
 * Adds the particular question generated in the previous set with index (`INDEX`) into the user's favorite list
 
 Note that the users are supposed to at least `get` a set of questions or use `prev` command to
@@ -593,6 +600,7 @@ Expected output:
     You have added question: What is my purpose in life? into favorite list!!
 ============================================================
 ```
+
 * Since questions are randomised, a particular question might have different indexes in different random sets.
 
 ### `fav` - View favorite list
@@ -620,9 +628,11 @@ Example output:
 Users can remove reflection questions from the favorite list.
 
 Format: `unlike INDEX`
+
 * Removes the particular question with index `INDEX` from the user's favorite list
 
-Take note that it is **recommended** (but _optional_) to use `fav` command to check the list of questions in the favorite list before
+Take note that it is **recommended** (but _optional_) to use `fav` command to check the list of questions in the
+favorite list before
 unliking any of them, so that users are aware of which question they are removing.
 
 Example of usage step 1:
@@ -694,10 +704,10 @@ Expected outcome:
 
 ```
 ============================================================
-    reflect(Self Reflection) - Take some time to pause and reflect with our specially curated list of questions and reflection management tools.
+    reflect - Self Reflection - Take some time to pause and reflect with our specially curated list of questions and reflection management tools.
     Input `help` to see all available commands.
-Input `help [command-to-check] to get usage help for a specific command.
-Here are all the commands available for you!
+    Input `help [command-to-check] to get usage help for a specific command.
+    Here are all the commands available for you!
     
     1. fav - Get the list of questions that have been added to the favorite list.
     2. get - Get a list of questions to reflect on.
@@ -746,7 +756,7 @@ Expected outcome:
 ************************************************************
 ```
 
-<!-- @@author YongbinWang -->
+<!--@@author YongbinWang-->
 
 ### `start` - Start Session
 
@@ -765,7 +775,7 @@ Expected outcome:
 ```
 ************************************************************
     Your session has started! Please focus on your task.
-******************start******************************************
+************************************************************
 ************************************************************
     Task
 ************************************************************
@@ -877,8 +887,8 @@ Expected outcome:
 ```
 ************************************************************
     Your focus session has ended.
-To start a new session, `start` it up!
-You can also configure the session to your liking with `config`!
+    To start a new session, `start` it up!
+    You can also configure the session to your liking with `config`!
 ************************************************************
 ```
 
@@ -901,26 +911,18 @@ Expected outcome:
 
 ```
 ************************************************************
-    Focus Timer (ft) - Set a configurable timer with work and rest cycles to keep yourself focused and productive!
+    ft - Focus Timer - Set a configurable 'Pomodoro' timer with work and rest cycles to keep yourself focused and productive!
     Input `help` to see all available commands.
-Input `help [command-to-check]` to get usage help for a specific command.
-Here are all the commands available for you!
+    Input `help [command-to-check]` to get usage help for a specific command.
+    Here are all the commands available for you!
     
-    1. check - Check the time left in the current session.
-This can only be used when a countdown is underway!
-    2. config - Change the number of cycles and the times of the work, break and long break of your session!
-Note that the minimum cycles is 2,
-the maximum number of cycles is 5,
-the maximum work/break times is 60 minutes,
-the minimum work/break times is 1 minute.
-This is to ensure your well-being, as higher values might be counter-productive!
+    1. check - Check the time left in the current countdown.Only usable when a countdown is not finished!
+    2. config - Change the number of cycles and length of your work, break and longbreak timings!
     3. help - Get help on what commands can be used in Focus Timer WellNUS++
     4. home - Stop the session and go back to WellNUS++.
-    5. next - When a timer ends, move on to the next countdown!
-This can only be used when a countdown timer has ended!
-    6. pause - Pause the session!Can only be used when a countdown is ticking.
-    7. resume - Continue the countdown.
-Can only be used when a countdown is paused.
+    5. next - Move on to the next countdown. Can only be used when a countdown timer has ended.
+    6. pause - Pause the session! Can only be used when a countdown is ticking.
+    7. resume - Continue the countdown. Can only be used when a countdown is paused.
     8. start - Start your focus session!
     9. stop - Stop the session. You will have to `start` your focus session again!
 ************************************************************
@@ -950,11 +952,21 @@ When leaving `ft`, the configuration will be reset to the default values.
 
 Format: `config [--cycle NUM_OF_CYCLE --work WORK_TIME --break BREAK_TIME --longbreak LONG_BREAK_TIME]`
 
-* At least one of the arguments, `cycle, work, break, longbreak` must be included along with the main `config` command
+* If no arguments are given, `config` prints out the current session settings
 * `NUM_OF_CYCLE` is an **integer** that is `>= 2`
 * `WORK_TIME, BREAK_TIME, LONG_BREAK_TIME` are **integers** that are all `>= 1`
 
-The initial default values for Focus Timer:
+**Configuation Limits**
+* `LONG_BREAK_TIME` should be greater or equal to `BREAK_TIME`
+* `WORK_TIME, BREAK_TIME, LONG_BREAK_TIME` have an upper limit of 60
+* `NUM_CYCLE` has an upper limit of 5 
+
+Why limit to 60 mins and 5 cycles?
+[Studies have shown](https://www.lib.sfu.ca/about/branches-depts/slc/learning/exam-prep/efficient-effective-study) 
+that an hour of studying/task at a time is the most optimal. 5 cycles has been set to prevent guard you against
+excessive working. Anything higher than the upper limits may be counterproductive!
+
+**Default values for Focus Timer**
 
 * `NUM_OF_CYCLE = 2`
 * `WORK_TIME = 1`
@@ -963,14 +975,14 @@ The initial default values for Focus Timer:
 
 Example of usage:
 
-`config --cycle 4`
+`config`
 
 Expected outcome:
 
 ```
 ************************************************************
     Okay, here's your new session details!
-    Cycles: 4
+    Cycles: 2
     Work: 1 minute
     Break: 1 minute
     Long break: 1 minute
@@ -979,7 +991,7 @@ Expected outcome:
 
 Example of usage 2:
 
-`config --longbreak 2 --cycle 4 --work 5`
+`config --longbreak 10 --cycle 4 --work 30 --break 5`
 
 Expected outcome:
 
@@ -987,9 +999,9 @@ Expected outcome:
 ************************************************************
     Okay, here's your new session details!
     Cycles: 4
-    Work: 5 minutes
-    Break: 1 minute
-    Long break: 2 minutes
+    Work: 30 minutes
+    Break: 5 minutes
+    Long break: 10 minutes
 ************************************************************
 ```
 
@@ -1034,11 +1046,12 @@ output for other features.
 
 ## `exit` - Exit WellNUS++
 
-Exits `WellNUS++`. Data of the current progress will be saved in data files and restored at the next launch of `WellNUS++`.
+Exits `WellNUS++`. Data of the current progress will be saved in data files and restored at the next launch
+of `WellNUS++`.
 
 Format: `exit`
 
-Take note that users are only allowed to exit from **main** WellNUS++ (i.e. users cannot exit the program from 
+Take note that users are only allowed to exit from **main** WellNUS++ (i.e. users cannot exit the program from
 individual features like atomic habit, and the `exit` command is not recognised inside feature sessions).
 
 Example of usage:
@@ -1069,7 +1082,7 @@ The next time you run `WellNUS++`, all your data will be restored.
 
 **Q**: Do I need to be connected to the Internet to run `WellNUS++`?
 
-**A**: No. `WellNUS++` runs offline to help you focus better. Your data is also saved locally, so it is preserved even 
+**A**: No. `WellNUS++` runs offline to help you focus better. Your data is also saved locally, so it is preserved even
 without an Internet connection.
 
 **Q**: Can I transfer my data to another computer?
@@ -1086,11 +1099,12 @@ to learn about the commands available within that feature.
 
 ## Command Summary
 
-* Help `help`
+* Help `help [COMMAND_TO_CHECK]`
 * Access feature`hb`
     * Add habit `add --name ATOMIC_HABIT_NAME`
     * View habit `list`
     * Update habit `update --id HABIT_INDEX [--by NUMBER_TO_CHANGE]`
+    * Delete habit `delete --id HABIT_INDEX`
 * Access feature `reflect`
     * Get reflect question `get`
     * Like reflect question `like INDEX`
@@ -1106,6 +1120,7 @@ to learn about the commands available within that feature.
     * Check the time left `check`
     * Go to the next countdown `next`
     * Stop the timer `stop`
-    * Configure the timer `config [--cycle NUM_OF_CYCLE --work WORK_TIME --break BREAK_TIME --longbreak LONG_BREAK_TIME]`
+    * Configure the
+      timer `config [--cycle NUM_OF_CYCLE --work WORK_TIME --break BREAK_TIME --longbreak LONG_BREAK_TIME]`
 * Return to main interface `home`
 * Exit program `exit`

@@ -17,7 +17,7 @@ public class AtomicHabit {
      */
     public AtomicHabit(String description) {
         this.description = description;
-        this.count = 1;
+        this.count = 0;
     }
 
     /**

@@ -17,8 +17,7 @@ public class StatsCommand extends Command {
     public static final String COMMAND_KEYWORD = "stats";
     public static final String COMMAND_USAGE = "usage: stats";
     public static final String FEATURE_NAME = "gamif";
-    private static final String EXTRA_ARGUMENTS_MESSAGE = "'%s' doesn't take in additional arguments, drop the '%s' "
-            + "and try again.";
+    private static final String INVALID_PAYLOAD = "Invalid payload given to 'stats'!";
     private static final int NUM_OF_ARGUMENTS = 1;
     private static final String WRONG_ARGUMENTS_MESSAGE = "Invalid arguments given to 'stats'!";
     private static final String WRONG_COMMAND_MESSAGE = "Invalid command issued, expected 'stats'!";
@@ -79,7 +78,7 @@ public class StatsCommand extends Command {
         }
         String payload = arguments.get(getCommandKeyword());
         if (!payload.isBlank()) {
-            throw new BadCommandException(String.format(EXTRA_ARGUMENTS_MESSAGE, getCommandKeyword(), payload));
+            throw new BadCommandException(INVALID_PAYLOAD);
         }
     }
 
