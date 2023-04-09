@@ -16,6 +16,7 @@ class GamificationData {
     + minusXp(pointsToMinus: int): boolean
 }
 class GamificationStorage {
+    + cleanDataFile()
     + loadData(): GamificationData
     + store(data: GamificationData)
 }
