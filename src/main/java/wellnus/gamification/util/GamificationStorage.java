@@ -4,12 +4,15 @@ import java.util.ArrayList;
 
 import wellnus.exception.StorageException;
 import wellnus.exception.TokenizerException;
+import wellnus.storage.GamificationTokenizer;
 import wellnus.storage.Storage;
 
 /**
  * Manages the storage and retrieval of gamification data to and from storage.
  */
 public class GamificationStorage {
+    private static final int EMPTY = 0;
+    private static final int FIRST_INDEX = 0;
     private final Storage storage;
     private final GamificationTokenizer tokenizer;
 
@@ -33,8 +36,10 @@ public class GamificationStorage {
         if (storage.checkFileExists(Storage.FILE_GAMIFICATION)) {
             ArrayList<String> tokenizedObjects = storage.loadData(Storage.FILE_GAMIFICATION);
             ArrayList<GamificationData> dataObjects = tokenizer.detokenize(tokenizedObjects);
-            int dataObjectIndex = 0;
-            return dataObjects.get(dataObjectIndex);
+            if (dataObjects.size() == EMPTY) {
+                return new GamificationData();
+            }
+            return dataObjects.get(FIRST_INDEX);
         }
         return new GamificationData();
     }

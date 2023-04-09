@@ -1,17 +1,16 @@
-package wellnus.gamification.util;
+package wellnus.storage;
 
 import java.util.ArrayList;
 
 import wellnus.exception.TokenizerException;
-import wellnus.storage.Tokenizer;
+import wellnus.gamification.util.GamificationData;
 
 /**
  * Handles the conversion of GamificationData objects -> String and vice versa to allow
  * storage and retrieval of gamification statistics.
  */
 public class GamificationTokenizer implements Tokenizer<GamificationData> {
-    private static final String INVALID_STORED_DATA_MESSAGE = "Invalid gamification data %s found in storage! "
-            + "Gamification data will not be restored.";
+    private static final String INVALID_STORED_DATA_MESSAGE = "Invalid gamification data '%s' found in storage!";
     /**
      * Converts the attributes of the <code>GamificationManager</code> into a String representation to be
      * saved to storage.
@@ -44,6 +43,11 @@ public class GamificationTokenizer implements Tokenizer<GamificationData> {
             throws TokenizerException {
         ArrayList<GamificationData> dataObjects = new ArrayList<>();
         for (String tokenizedDataObject : tokenizedDataObjects) {
+            // Data file contains blank lines
+            if (tokenizedDataObject.isBlank()) {
+                // Ignore the blank line and check other lines in the data file
+                continue;
+            }
             int totalXp;
             try {
                 totalXp = Integer.parseInt(tokenizedDataObject.trim());

@@ -17,44 +17,46 @@ faster than traditional Graphical User Interface(GUI) apps.
 # Table of Contents
 
 <!-- TOC -->
+
 * [WellNUS++ User Guide](#wellnus-user-guide)
 * [Introduction](#introduction)
 * [Table of Contents](#table-of-contents)
 * [Quick Start](#quick-start)
 * [Overview of WellNUS++](#overview-of-wellnus)
 * [Features](#features)
-  * [Command Format](#command-format)
-  * [`help` - Viewing WellNUS++ Help](#help---viewing-wellnus-help)
-  * [Accessing feature using FEATURE_NAME](#accessing-feature-using-featurename)
-  * [`hb` - Accessing atomic habit feature](#hb---accessing-atomic-habit-feature)
-    * [`add` - Add new atomic habit](#add---add-new-atomic-habit)
-    * [`list` - List all atomic habit](#list---list-all-atomic-habit)
-    * [`update` - Update an atomic habit](#update---update-an-atomic-habit)
-    * [`delete` - Delete an atomic habit](#delete---delete-an-atomic-habit)
-    * [`help` - Viewing Atomic Habit Help](#help---viewing-atomic-habit-help)
-  * [`gamif` - Accessing gamification feature](#gamif---accessing-gamification-feature)
-    * [`stats` - Gamification statistics](#stats---gamification-statistics)
-    * [`help` - Viewing Gamification Help](#help---viewing-gamification-help)
-  * [`reflect` - Accessing self reflection feature](#reflect---accessing-self-reflection-feature)
-    * [`get` - Get reflection questions](#get---get-reflection-questions)
-    * [`like` - Add reflection question into favorite list](#like---add-reflection-question-into-favorite-list)
-    * [`fav` - View favorite list](#fav---view-favorite-list)
-    * [`unlike` - Remove questions from favorite list](#unlike---remove-questions-from-favorite-list)
-    * [`prev` - Get the previous set of reflection questions generated](#prev---get-the-previous-set-of-reflection-questions-generated)
-    * [`help` - Viewing Reflection Help](#help---viewing-reflection-help)
-  * [`ft` - Accessing Focus Timer Feature](#ft---accessing-focus-timer-feature)
-    * [`start` - Start Session](#start---start-session)
-    * [`pause` - Pause session](#pause---pause-session)
-    * [`resume` - Resume session](#resume---resume-session)
-    * [`check` - Check time](#check---check-time)
-    * [`next` - Next timer](#next---next-timer)
-    * [`stop` - Stop session](#stop---stop-session)
-    * [`help` - Viewing Focus Timer help](#help---viewing-focus-timer-help)
-    * [`config` - Configure the Timer](#config---configure-the-timer)
-  * [`home` - Return back main WellNUS++](#home---return-back-main-wellnus)
-  * [`exit` - Exit WellNUS++](#exit---exit-wellnus)
-  * [FAQ](#faq)
-  * [Command Summary](#command-summary)
+    * [Command Format](#command-format)
+    * [`help` - Viewing WellNUS++ Help](#help---viewing-wellnus-help)
+    * [Accessing feature using FEATURE_NAME](#accessing-feature-using-featurename)
+    * [`hb` - Accessing atomic habit feature](#hb---accessing-atomic-habit-feature)
+        * [`add` - Add new atomic habit](#add---add-new-atomic-habit)
+        * [`list` - List all atomic habit](#list---list-all-atomic-habit)
+        * [`update` - Update an atomic habit](#update---update-an-atomic-habit)
+        * [`delete` - Delete an atomic habit](#delete---delete-an-atomic-habit)
+        * [`help` - Viewing Atomic Habit Help](#help---viewing-atomic-habit-help)
+    * [`gamif` - Accessing gamification feature](#gamif---accessing-gamification-feature)
+        * [`stats` - Gamification statistics](#stats---gamification-statistics)
+        * [`help` - Viewing Gamification Help](#help---viewing-gamification-help)
+    * [`reflect` - Accessing self reflection feature](#reflect---accessing-self-reflection-feature)
+        * [`get` - Get reflection questions](#get---get-reflection-questions)
+        * [`like` - Add reflection question into favorite list](#like---add-reflection-question-into-favorite-list)
+        * [`fav` - View favorite list](#fav---view-favorite-list)
+        * [`unlike` - Remove questions from favorite list](#unlike---remove-questions-from-favorite-list)
+        * [`prev` - Get the previous set of reflection questions generated](#prev---get-the-previous-set-of-reflection-questions-generated)
+        * [`help` - Viewing Reflection Help](#help---viewing-reflection-help)
+    * [`ft` - Accessing Focus Timer Feature](#ft---accessing-focus-timer-feature)
+        * [`start` - Start Session](#start---start-session)
+        * [`pause` - Pause session](#pause---pause-session)
+        * [`resume` - Resume session](#resume---resume-session)
+        * [`check` - Check time](#check---check-time)
+        * [`next` - Next timer](#next---next-timer)
+        * [`stop` - Stop session](#stop---stop-session)
+        * [`help` - Viewing Focus Timer help](#help---viewing-focus-timer-help)
+        * [`config` - Configure the Timer](#config---configure-the-timer)
+    * [`home` - Return back main WellNUS++](#home---return-back-main-wellnus)
+    * [`exit` - Exit WellNUS++](#exit---exit-wellnus)
+    * [FAQ](#faq)
+    * [Command Summary](#command-summary)
+
 <!-- TOC -->
 
 # Quick Start
@@ -90,7 +92,7 @@ sections). Issue the `help` command to see the list of feature commands availabl
 # Overview of WellNUS++
 
 WellNUS++ comes with a variety of features to help you enhance your overall wellness in NUS! The features are Atomic
-Habit, Self Reflection, Focus Timer and Gamification.  
+Habit, Self Reflection, Focus Timer and Gamification.
 
 ![WellNUS++ Structure Overview](diagrams/WellNusStructure.png)<br/>
 
@@ -108,20 +110,24 @@ Exit `WellNUS++` by issuing the `exit` command(**only** available in the `main` 
 # Features
 
 <!-- @@author nichyjt -->
+
 ## Command Format
 
 A command has the general structure:
+
 ```
 mainCommand PAYLOAD_0 --argument1 PAYLOAD_1 --argument2 PAYLOAD_2
 ```
+
 Command syntax:
+
 * Words in **UPPER_CASE** are the payloads to be supplied by the user.  
   e.g. in `add --name NAME`, `NAME` is a parameter which can be used in this way: `add --name John Doe`
 * Items in square brackets are **optional**.  
-  e.g in `add --name NAME  [--tag TAG]`, the command can be used in two ways:  
-  * `add --name John Doe --tag friend`, or
-  * `add --name John Doe`
-  * Payloads may also be optional if they are wrapped in `[]`
+  e.g in `add --name NAME  [--tag TAG]`, the command can be used in two ways:
+    * `add --name John Doe --tag friend`, or
+    * `add --name John Doe`
+    * Payloads may also be optional if they are wrapped in `[]`
 * Arguments can be in any order.  
   e.g. Consider `--name NAME --phone PHONE_NUMBER`.  
   `--phone PHONE_NUMBER --name NAME` is a valid set of arguments.
@@ -245,6 +251,7 @@ Expected outcome:
 ### `add` - Add new atomic habit
 
 Adds an atomic habit to be tracked by WellNUS++ when accessing atomic habit feature.
+Count of the habit will be initialised to 0.
 
 Format: `add --name ATOMIC_HABIT_NAME`
 
@@ -281,7 +288,7 @@ Expected outcome:
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     Here is the current accumulation of your atomic habits!
     Keep up the good work and you will develop a helpful habit in no time
-    1.Make Bed every morning [1]
+    1.Make Bed every morning [0]
     2.Read for at least 30 minutes every day [3]
     3.Avoid checking phone for the first hour after waking up [2]
     ... 
@@ -746,8 +753,8 @@ Expected outcome:
 ## `ft` - Accessing Focus Timer Feature
 
 Our Focus Timer feature allows users to be productive by setting a configurable work-break timer, inspired by
-the Pomodoro technique. When a timer completes, a beep is played
-to alert the user that the current cycle is complete.
+the Pomodoro technique. When each timer ends, a `beep` is played to alert the user that the current timer countdown is 
+over.
 
 Summary of Pomodoro Technique: Repeated sessions of work followed by break to ensure maximum productivity during the
 work cycle and allow one to relax sufficiently during the break cycle before working again. Longer breaks are taken
@@ -841,7 +848,7 @@ Expected outcome:
 Ask WellNUS++ to display the current time of the timer for users to check time remaining.
 
 `check` can be used whenever during the ongoing session. If the timer has not `start`, is `stop` or reached 0 and is
-waiting for the `next` command, check will not run. 
+waiting for the `next` command, check will not run.
 
 Format: `check`
 
@@ -972,12 +979,13 @@ Format: `config [--cycle NUM_OF_CYCLE --work WORK_TIME --break BREAK_TIME --long
 * `WORK_TIME, BREAK_TIME, LONG_BREAK_TIME` are **integers** that are all `>= 1`
 
 **Configuation Limits**
+
 * `LONG_BREAK_TIME` should be greater or equal to `BREAK_TIME`
 * `WORK_TIME, BREAK_TIME, LONG_BREAK_TIME` have an upper limit of 60
-* `NUM_CYCLE` has an upper limit of 5 
+* `NUM_CYCLE` has an upper limit of 5
 
 Why limit to 60 mins and 5 cycles?
-[Studies have shown](https://www.lib.sfu.ca/about/branches-depts/slc/learning/exam-prep/efficient-effective-study) 
+[Studies have shown](https://www.lib.sfu.ca/about/branches-depts/slc/learning/exam-prep/efficient-effective-study)
 that an hour of studying/task at a time is the most optimal. 5 cycles has been set to prevent guard you against
 excessive working. Anything higher than the upper limits may be counterproductive!
 
