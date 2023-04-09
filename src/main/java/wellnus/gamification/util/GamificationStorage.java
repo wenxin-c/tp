@@ -34,6 +34,10 @@ public class GamificationStorage {
         if (storage.checkFileExists(Storage.FILE_GAMIFICATION)) {
             ArrayList<String> tokenizedObjects = storage.loadData(Storage.FILE_GAMIFICATION);
             ArrayList<GamificationData> dataObjects = tokenizer.detokenize(tokenizedObjects);
+            int dataFileIsBlank = 0;
+            if (dataObjects.size() == dataFileIsBlank) {
+                return new GamificationData();
+            }
             int dataObjectIndex = 0;
             return dataObjects.get(dataObjectIndex);
         }

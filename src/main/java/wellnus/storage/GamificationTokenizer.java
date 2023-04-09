@@ -45,6 +45,11 @@ public class GamificationTokenizer implements Tokenizer<GamificationData> {
             throws TokenizerException {
         ArrayList<GamificationData> dataObjects = new ArrayList<>();
         for (String tokenizedDataObject : tokenizedDataObjects) {
+            // Data file contains blank lines
+            if (tokenizedDataObject.isBlank()) {
+                // Ignore the blank line and check other lines in the data file
+                continue;
+            }
             int totalXp;
             try {
                 totalXp = Integer.parseInt(tokenizedDataObject.trim());
