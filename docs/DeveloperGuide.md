@@ -1044,7 +1044,7 @@ WellNUS++ is a CLI app, primarily due to the following reasons:
 | v2.1    | A careless student                                 | I wish to decrement my habit counts                               | I can maintain the correctness of my habit data                    |
 | v2.1    | A careless student                                 | I wish to delete wrongly added atomic habits                      | I can keep the correct atomic habits in the list                   |
 | v2.1    | A careless student                                 | I wish to remove wrongly added questions in favorite list         | I can keep only questions I like in the favorite list              |                           
-| v2.1    | A Computing student used to CLI applications       | I wish to see a cursor on the screen                              | I can get a custom to the application                              |
+| v2.1    | A Computing student used to CLI applications       | I wish to see a cursor on the screen                              | I can get accustomed to the application                            |
 
 ## Non-Functional Requirements
 
