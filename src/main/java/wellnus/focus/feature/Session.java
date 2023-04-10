@@ -81,6 +81,7 @@ public class Session {
     /**
      * Method to increment the current countdown index if the current countdown is completed.
      */
+    //@@author nichyjt
     public void checkPrevCountdown() {
         if (getCurrentCountdown().getIsReady()) {
             initialiseSession();
@@ -88,7 +89,6 @@ public class Session {
             return;
         }
         currentCountdownIndex += INCREMENT;
-
     }
 
     /**
@@ -168,6 +168,12 @@ public class Session {
         session.get(lastIndex).setIsReady(true);
     }
 
+    /**
+     * Check if the session has any countdowns in its list
+     *
+     * @return boolean Representing if there is any countdown
+     */
+    //@@author YongbinWang
     public boolean hasAnyCountdown() {
         return session.size() > 0;
     }

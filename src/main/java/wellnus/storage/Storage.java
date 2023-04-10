@@ -89,7 +89,7 @@ public class Storage {
      *
      * @param fileName name of the file storing the feature data
      * @return boolean representing if the file exists
-     * @throws StorageException
+     * @throws StorageException When querying the fileName fails
      */
     public boolean checkFileExists(String fileName) throws StorageException {
         Path pathToFile;
@@ -106,8 +106,7 @@ public class Storage {
             errorMessage = errorMessage.concat(exception.getMessage());
             throw new StorageException(errorMessage);
         }
-        boolean fileExists = dataFile.exists();
-        return fileExists;
+        return dataFile.exists();
     }
 
     /**

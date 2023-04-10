@@ -47,7 +47,6 @@ public class ConfigCommand extends Command {
     private static final int MIN_MINUTES = 1;
     private static final int MAX_CYCLES = 5;
     private static final int MIN_CYCLES = 2;
-    // Message constants
     private static final String ASSERT_STRING_INPUT_NOT_NULL = "String input should not be null!";
     private static final String ERROR_NOT_A_NUMBER = "Invalid payload given in 'config', expected a valid integer!";
     private static final String ERROR_LARGE_CYCLES = "Invalid cycle payload given in 'config', the maximum cycles you "
