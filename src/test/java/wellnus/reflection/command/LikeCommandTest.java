@@ -17,6 +17,10 @@ import wellnus.reflection.feature.IndexMapper;
 import wellnus.reflection.feature.QuestionList;
 
 // @@author wenxin-c
+/**
+ * Class to test different tests for `LikeCommand` Class utilising JUnit tests.
+ * Test cases will involve expected outputs and correct exception handling.
+ */
 class LikeCommandTest {
     private static final String LIKE_COMMAND_KEYWORD = "like";
     private static final String LIKE_COMMAND = "like 1";
@@ -31,7 +35,12 @@ class LikeCommandTest {
     private static final Integer[] ARR_INDEXES = { 5, 6, 7, 8, 1};
     private static final HashSet<Integer> RANDOM_INDEXES = new HashSet<>(Arrays.asList(ARR_INDEXES));
 
-    // Test whether the wrong input format can be caught.
+    /**
+     * Test whether `like` command is properly validated.<br/>
+     * `like` keyword with a valid integer is expected, otherwise throw exception.
+     *
+     * @throws BadCommandException If an invalid command is given.
+     */
     @Test
     void validateLikeCommand_checkFormat_expectExceptions() throws BadCommandException {
         QuestionList questionList = new QuestionList();
@@ -50,9 +59,11 @@ class LikeCommandTest {
         ) -> likeCmdOutBound.addFavQuestion(argumentPayloadOutBound.get(LIKE_COMMAND_KEYWORD)));
     }
 
-    // Test the mapping from user input to question index.
+    /**
+     * Test the mapping from user input to question index using HashMap.<br/>
+     */
     @Test
-    void addFavList_checkIndex_success() throws BadCommandException {
+    void addFavList_checkIndex_success() {
         QuestionList questionList = new QuestionList();
         questionList.setRandomQuestionIndexes(RANDOM_INDEXES);
         IndexMapper indexMapper = new IndexMapper(questionList.getRandomQuestionIndexes());
@@ -70,7 +81,11 @@ class LikeCommandTest {
         assertEquals(finalIndex, questionIndex);
     }
 
-    // Test whether like question is successfully added into fav list
+    /**
+     * Test whether liked questions are successfully added into the favorite list.<br/>
+     *
+     * @throws BadCommandException
+     */
     @Test
     void addFavList_checkQuestionList_success() throws BadCommandException {
         QuestionList questionList = new QuestionList();

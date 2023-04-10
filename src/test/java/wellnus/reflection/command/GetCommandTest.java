@@ -18,18 +18,23 @@ import wellnus.reflection.feature.ReflectionQuestion;
 
 //@@author wenxin-c
 /**
- * Class to test different tests for GetCommand Class utilising JUnit tests
- * Test cases will involve expected outputs and correct exception handling
+ * Class to test different tests for `GetCommand` Class utilising JUnit tests.
+ * Test cases will involve expected outputs and correct exception handling.
  */
 class GetCommandTest {
     private static final int EXPECTED_ARRAY_LENGTH = 5;
     private static final int EXPECTED_ARGUMENT_PAYLOAD_SIZE = 1;
     private static final String GET_COMMAND = "get";
     private static final String EMPTY_PAYLOAD = "";
-    private static final String GET_COMMAND_WRONG_FORMAT = "get reflect";
-    private static final QuestionList questionList = new QuestionList();
+    private static final String GET_COMMAND_WRONG_PAYLOAD = "get test";
+    private static final String GET_COMMAND_WRONG_ARGUMENT = "get --test";
+    private static final QuestionList QUESTION_LIST = new QuestionList();
 
-    // Test whether the get command is properly generated
+    /**
+     * Test whether the ``get` command is properly parsed and generated.<br/>
+     *
+     * @throws BadCommandException If an invalid command is given.
+     */
     @Test
     void createGetObject_checkArgumentPayload_success() throws BadCommandException {
         ReflectionManager reflectManager = new ReflectionManager();
@@ -40,23 +45,36 @@ class GetCommandTest {
         assertEquals(EMPTY_PAYLOAD, argumentPayload.get(GET_COMMAND));
     }
 
-    // Test the number of questions being generated
+    /**
+     * Test the number of questions being generated.<br/>
+     *
+     * @throws BadCommandException If an invalid command is given.
+     * @throws StorageException If errors happen at storage.
+     */
     @Test
     void getRandomQuestions_checkLength_expectFive() throws BadCommandException, StorageException {
         CommandParser commandParser = new CommandParser();
         HashMap<String, String> getCmdArgumentPayload = commandParser.parseUserInput(GET_COMMAND);
-        GetCommand get = new GetCommand(getCmdArgumentPayload, questionList);
+        GetCommand get = new GetCommand(getCmdArgumentPayload, QUESTION_LIST);
         ArrayList<ReflectionQuestion> selectedQuestions = get.getRandomQuestions();
         assertEquals(EXPECTED_ARRAY_LENGTH, selectedQuestions.size());
     }
 
-    // Test whether command is validated properly.
+    /**
+     * Test whether `get` command is validated properly.<br/>
+     * 'get' without any payload and arguments, otherwise throw exception.
+     *
+     * @throws BadCommandException If an invalid command is given.
+     */
     @Test
     void validateCommand_getCommand_expectException() throws BadCommandException {
         CommandParser commandParser = new CommandParser();
-        HashMap<String, String> getCmdArgumentPayload = commandParser.parseUserInput(GET_COMMAND_WRONG_FORMAT);
-        GetCommand get = new GetCommand(getCmdArgumentPayload, questionList);
-        assertThrows(BadCommandException.class, () -> get.validateCommand(getCmdArgumentPayload));
+        HashMap<String, String> getCmdWrongPayload = commandParser.parseUserInput(GET_COMMAND_WRONG_PAYLOAD);
+        GetCommand getWrongPayload = new GetCommand(getCmdWrongPayload, QUESTION_LIST);
+        assertThrows(BadCommandException.class, () -> getWrongPayload.validateCommand(getCmdWrongPayload));
+        HashMap<String, String> getCmdWrongArgument = commandParser.parseUserInput(GET_COMMAND_WRONG_ARGUMENT);
+        GetCommand getWrongArgument = new GetCommand(getCmdWrongArgument, QUESTION_LIST);
+        assertThrows(BadCommandException.class, () -> getWrongArgument.validateCommand(getCmdWrongArgument));
     }
 }
 
