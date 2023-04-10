@@ -57,7 +57,7 @@ public class ConfigCommand extends Command {
             + "you can set is " + MAX_MINUTES + "!";
     private static final String ERROR_LESS_EQUAL_MIN_MINUTES = "Invalid minutes payload given in 'config', the minimum "
             + "time you can set is " + MIN_MINUTES + "!";
-    private static final String ERROR_LONGBREAK_LARGER = "Invalid new 'config'! Your break time, %s min "
+    private static final String ERROR_LONGBREAK_LARGER = "Invalid new 'config'! Your long break time, %s min "
             + "should be greater or equal to your "
             + "longbreak timing, %s min!";
     private static final String COMMAND_INVALID_ARGUMENTS = "Invalid arguments given to 'config'!";
@@ -218,7 +218,7 @@ public class ConfigCommand extends Command {
             longBreakTime = validateTimes(arguments.get(ARGUMENT_LONG_BREAK));
         }
         if (breakTime > longBreakTime) {
-            String errorMessage = String.format(ERROR_LONGBREAK_LARGER, breakTime, longBreakTime);
+            String errorMessage = String.format(ERROR_LONGBREAK_LARGER, longBreakTime, breakTime);
             throw new BadCommandException(errorMessage);
         }
     }
