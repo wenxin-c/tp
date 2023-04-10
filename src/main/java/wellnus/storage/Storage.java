@@ -158,6 +158,7 @@ public class Storage {
             LOGGER.log(Level.WARNING, LOG_INVALID_FILENAME);
             throw new StorageException(ERROR_INVALID_FILENAME);
         }
+        verifyDataDirectory();
         Path pathToFile;
         File dataFile;
         try {
