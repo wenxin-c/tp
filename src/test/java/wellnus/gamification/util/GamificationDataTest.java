@@ -1,17 +1,21 @@
 package wellnus.gamification.util;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import org.junit.jupiter.api.Test;
 
 import wellnus.exception.StorageException;
 
+
 public class GamificationDataTest {
     private static final int ADD_XP_SUCCESS_AMOUNT = 5;
+    private static final int ADD_XP_EXCEPTION_AMOUNT = -1;
     private static final int LEVEL_UP_HOW_MANY_LEVELS = 1;
     private static final int LEVEL_UP_SUCCESS_AMOUNT = GamificationData.POINTS_PER_LEVEL;
     private static final int MINUS_XP_SUCCESS_AMOUNT = 2;
+    private static final int MINUS_XP_EXCEPTION_AMOUNT = -1;
 
     @Test
     public void addXp_validIncrease_success() {
@@ -22,6 +26,12 @@ public class GamificationDataTest {
             fail();
         }
         assertEquals(gamificationData.getTotalXp(), ADD_XP_SUCCESS_AMOUNT);
+    }
+
+    @Test
+    public void addXp_negativeIncrement_exceptionThrown() {
+        GamificationData gamificationData = new GamificationData();
+        assertThrows(AssertionError.class, () -> gamificationData.addXp(ADD_XP_EXCEPTION_AMOUNT));
     }
 
     @Test
@@ -74,5 +84,11 @@ public class GamificationDataTest {
         }
         int expectedRemaining = ADD_XP_SUCCESS_AMOUNT - MINUS_XP_SUCCESS_AMOUNT;
         assertEquals(gamificationData.getTotalXp(), expectedRemaining);
+    }
+
+    @Test
+    public void minusXp_negativeDecrement_exceptionThrown() {
+        GamificationData gamificationData = new GamificationData();
+        assertThrows(AssertionError.class, () -> gamificationData.minusXp(MINUS_XP_EXCEPTION_AMOUNT));
     }
 }
