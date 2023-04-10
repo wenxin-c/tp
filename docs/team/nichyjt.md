@@ -53,7 +53,7 @@ mental wellness in various aspects.
   Apart from proofreading the document, Nicholas added documentation for the following sections of the user guide:
     - [Command Format](https://ay2223s2-cs2113-t12-4.github.io/tp/UserGuide.html#command-format)
     - [Focus Timer Access](https://ay2223s2-cs2113-t12-4.github.io/tp/UserGuide.html#ft---accessing-focus-timer-feature)
-    - [Focus Timer Config Command](https://ay2223s2-cs2113-t12-4.github.io/tp/UserGuide.html#configure-the-timer-config)
+    - [Focus Timer Config Command](https://ay2223s2-cs2113-t12-4.github.io/tp/UserGuide.html#config---configure-the-timer)
     - [Command Summary](https://ay2223s2-cs2113-t12-4.github.io/tp/UserGuide.html#command-summary)
 - **Developer Guide Contributions:**
   Nicholas added documentation and diagrams for the following sections of the developer guide, focussing on
