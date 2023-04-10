@@ -124,3 +124,4 @@ documentation. He has consistently enforced code style guidelines(based on the
   [W15-4 #147](https://github.com/AY2223S2-CS2113-W15-4/tp/issues/147),
   [W15-4 #149](https://github.com/AY2223S2-CS2113-W15-4/tp/issues/149),
   [W15-4 #151](https://github.com/AY2223S2-CS2113-W15-4/tp/issues/151)
+  * Summary/Proof of aforementioned UG/code reviews: [haoyangw/ped](https://github.com/haoyangw/ped/issues)
