@@ -139,7 +139,7 @@ public class ReflectionTokenizer implements Tokenizer<Set<Integer>> {
         if (tokenizedIndex.size() == TOKENIZER_INDEX_ARRAYLIST_SIZE) {
             detokenizedLike = validateTokenizedIndexFormat(tokenizedIndex, LIKE_INDEX, LIKE_KEY);
             detokenizedPrev = validateTokenizedIndexFormat(tokenizedIndex, PREV_INDEX, PREV_KEY);
-        } else if (!tokenizedIndex.get(INDEX_ZERO).isBlank()) {
+        } else if (tokenizedIndex.size() > INDEX_ZERO && !tokenizedIndex.get(INDEX_ZERO).isBlank()) {
             throw new TokenizerException(INVALID_NUM_OF_LINES_ERRROR);
         }
         detokenizedIndexes.add(detokenizedLike);
