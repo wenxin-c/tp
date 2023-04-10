@@ -61,13 +61,45 @@ public class MainManager extends Manager {
     /**
      * Constructs an instance of MainManager. <br>
      * Instantiates boilerplate utilities like TextUi
-     * and populates featureManagers with exactly one instance to be executed on user selection
+     * and populates featureManagers with exactly one instance to be executed on user selection.
      */
     public MainManager() {
         super();
         this.featureManagers = new ArrayList<>();
         this.textUi = new TextUi();
         this.textUi.setCursorName(FEATURE_NAME);
+    }
+
+    /**
+     * Parses the given command String issued by the user and returns the corresponding
+     * Command object that can execute it.
+     *
+     * @param command Command issued by the user
+     * @return Command object that can execute the user's command
+     * @throws BadCommandException If command issued is not supported or invalid
+     */
+    protected Command getMainCommandFor(String command) throws BadCommandException {
+        String commandKeyword = getCommandParser().getMainArgument(command);
+        HashMap<String, String> arguments = getCommandParser().parseUserInput(command);
+        switch (commandKeyword) {
+        case MainManager.HELP_COMMAND_KEYWORD:
+            return new HelpCommand(arguments);
+        case MainManager.EXIT_COMMAND_KEYWORD:
+            return new ExitCommand(arguments);
+        default:
+            throw new BadCommandException(MainManager.INVALID_COMMAND_MESSAGE);
+        }
+    }
+
+    protected Optional<Manager> getManagerFor(String featureKeyword) {
+        assert (featureKeyword != null && !featureKeyword.isBlank())
+                : MainManager.INVALID_FEATURE_KEYWORD_MESSAGE;
+        for (Manager featureManager : this.getSupportedFeatureManagers()) {
+            if (featureManager.getFeatureName().equals(featureKeyword)) {
+                return Optional.of(featureManager);
+            }
+        }
+        return Optional.empty();
     }
 
     /**
@@ -113,27 +145,6 @@ public class MainManager extends Manager {
         }
         // We are about to quit WellNUS++. Close the log file used in this session
         WellNusLogger.closeLogFile();
-    }
-
-    /**
-     * Parses the given command String issued by the user and returns the corresponding
-     * Command object that can execute it.
-     *
-     * @param command Command issued by the user
-     * @return Command object that can execute the user's command
-     * @throws BadCommandException If command issued is not supported or invalid
-     */
-    private Command getMainCommandFor(String command) throws BadCommandException {
-        String commandKeyword = getCommandParser().getMainArgument(command);
-        HashMap<String, String> arguments = getCommandParser().parseUserInput(command);
-        switch (commandKeyword) {
-        case MainManager.HELP_COMMAND_KEYWORD:
-            return new HelpCommand(arguments);
-        case MainManager.EXIT_COMMAND_KEYWORD:
-            return new ExitCommand(arguments);
-        default:
-            throw new BadCommandException(MainManager.INVALID_COMMAND_MESSAGE);
-        }
     }
 
     private List<String> getSupportedCommandKeywords() {
@@ -205,17 +216,6 @@ public class MainManager extends Manager {
     @Override
     public String getFeatureName() {
         return WELLNUS_FEATURE_NAME;
-    }
-
-    public Optional<Manager> getManagerFor(String featureKeyword) {
-        assert (featureKeyword != null && !featureKeyword.isBlank())
-                : MainManager.INVALID_FEATURE_KEYWORD_MESSAGE;
-        for (Manager featureManager : this.getSupportedFeatureManagers()) {
-            if (featureManager.getFeatureName().equals(featureKeyword)) {
-                return Optional.of(featureManager);
-            }
-        }
-        return Optional.empty();
     }
 
     /**
