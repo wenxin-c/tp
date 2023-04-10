@@ -907,7 +907,7 @@ Example implementation to check if Session is in `Counting` state:
 
 ```java
 public boolean isSessionCounting(){
-      Countdown countdown=getCurrentCountdown();
+      Countdown countdown = getCurrentCountdown();
       return countdown.getIsRunning()&&!countdown.getIsCompletedCountdown();
 }
 ```
