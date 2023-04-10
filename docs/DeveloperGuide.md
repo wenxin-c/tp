@@ -1024,19 +1024,27 @@ WellNUS++ is a CLI app, primarily due to the following reasons:
 
 ## User Stories
 
-| Version | As a ...                                           | I want to ...                                               | So that I can ...                                  |
-|---------|----------------------------------------------------|-------------------------------------------------------------|----------------------------------------------------|
-| v1.0    | Computing student who prefers typing over clicking | I can use keyboard instead of mouse                         | I can use the app efficiently                      |
-| v1.0    | Computing student who is too used to the Internet  | Reduce my browsing and information overload                 | I can improve my attention span                    |
-| v1.0    | Reflective student                                 | I can get one introspective question on-demand              | I can reflect and grow emotionally at my own pace  |
-| v1.0    | Computing student who wishes to improve lifestyle  | I can add an atomic habit to track                          | I can start the process of inculcating a new habit |
-| v1.0    | Computing student who wishes to improve lifestyle  | I can view all my atomic habits                             | I can keep track of my self-improvement progress   |
-| v1.0    | Computing student who wishes to improve lifestyle  | I can update my atomic habits                               | I can adjust the habits based on my progress       |
-| v2.0    | Reflective student                                 | I can mark introspective questions that I resonate with     | I can reflect using my favourite questions         |
-| v2.0    | Reflective student                                 | I can get the previous questions I viewed                   | I can re-view these questions                      |
-| v2.0    | Easily distracted computing student                | I want to start a timer to keep track of time spent on work | I can do timed-practice                            |
-| v2.0    | Easily distracted computing student                | I want to check the time                                    | I can keep track of my pace                        |
-| v2.0    | A regular WellNUS++ user                           | I wish to have my information stored in the app             | I can re-view my past data                         |
+| Version | As a ...                                           | I want to ...                                                     | So that I can ...                                                  |
+|---------|----------------------------------------------------|-------------------------------------------------------------------|--------------------------------------------------------------------|
+| v1.0    | Computing student who prefers typing over clicking | I can use keyboard instead of mouse                               | I can use the app efficiently                                      |
+| v1.0    | Computing student who is too used to the Internet  | Reduce my browsing and information overload                       | I can improve my attention span                                    |
+| v1.0    | Reflective student                                 | I can get one introspective question on-demand                    | I can reflect and grow emotionally at my own pace                  |
+| v1.0    | Computing student who wishes to improve lifestyle  | I can add an atomic habit to track                                | I can start the process of inculcating a new habit                 |
+| v1.0    | Computing student who wishes to improve lifestyle  | I can view all my atomic habits                                   | I can keep track of my self-improvement progress                   |
+| v1.0    | Computing student who wishes to improve lifestyle  | I can update my atomic habits count with a positive number        | I can adjust the habits based on my progress                       |
+| v1.0    | A new user                                         | I wish to get guidance on how to navigate through the application | I can use this application better                                  |
+| v2.0    | Reflective student                                 | I can like introspective questions and view them                  | I can reflect using my favourite questions                         |
+| v2.0    | Reflective student                                 | I can get the previous questions I viewed                         | I can re-view these questions                                      |
+| v2.0    | Easily distracted computing student                | I want to start a timer to keep track of time spent on work       | I can do timed-practice                                            |
+| v2.0    | Easily distracted computing student                | I want to check the time                                          | I can keep track of my pace                                        |
+| v2.0    | A regular WellNUS++ user                           | I wish to have my information stored in the application           | I can re-view my past data                                         |
+| v2.0    | A busy Computing student                           | I wish to be able to pause/stop the timer                         | I can attend to urgent matters during a study session              |
+| v2.0    | A student with a flexible studying timing          | I wish to be able to change my work-break duration                | I can use the timer that can fit my schedule well                  |
+| v2.0    | A unmotivated student                              | I wish to see my achievement and progress in my habits            | I can be more motivated in my task and have a goal to work towards |
+| v2.1    | A careless student                                 | I wish to decrement my habit counts                               | I can maintain the correctness of my habit data                    |
+| v2.1    | A careless student                                 | I wish to delete wrongly added atomic habits                      | I can keep the correct atomic habits in the list                   |
+| v2.1    | A careless student                                 | I wish to remove wrongly added questions in favorite list         | I can keep only questions I like in the favorite list              |                           
+| v2.1    | A Computing student used to CLI applications       | I wish to see a cursor on the screen                              | I can get a custom to the application                              |
 
 ## Non-Functional Requirements
 
