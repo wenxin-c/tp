@@ -17,6 +17,10 @@ public class GamificationDataTest {
     private static final int MINUS_XP_SUCCESS_AMOUNT = 2;
     private static final int MINUS_XP_EXCEPTION_AMOUNT = -1;
 
+    /**
+     * Check that addXp() increments XP by given amount of XP correctly.
+     * @see GamificationData#addXp(int)
+     */
     @Test
     public void addXp_validIncrease_success() {
         GamificationData gamificationData = new GamificationData();
@@ -28,12 +32,22 @@ public class GamificationDataTest {
         assertEquals(gamificationData.getTotalXp(), ADD_XP_SUCCESS_AMOUNT);
     }
 
+    /**
+     * Check that addXp() performs input validation and throws the correct
+     * assertion when given invalid input.
+     * @see GamificationData#addXp(int)
+     */
     @Test
     public void addXp_negativeIncrement_exceptionThrown() {
         GamificationData gamificationData = new GamificationData();
         assertThrows(AssertionError.class, () -> gamificationData.addXp(ADD_XP_EXCEPTION_AMOUNT));
     }
 
+    /**
+     * Check that addXp() correctly levels up when incremented by
+     * sufficient amount of XP points.
+     * @see GamificationData#addXp(int)
+     */
     @Test
     public void addXp_levelUp_success() {
         GamificationData gamificationData = new GamificationData();
@@ -48,6 +62,11 @@ public class GamificationDataTest {
         assertEquals(isLevelUp, levelledUp);
     }
 
+    /**
+     * Check that getXpForCurrentLevelOnly() calculates the correct amount
+     * of remaining XP for the current level.
+     * @see GamificationData#getXpForCurrentLevelOnly()
+     */
     @Test
     public void getXpForCurrentLevelOnly_remainingXp_success() {
         GamificationData gamificationData = new GamificationData();
@@ -60,6 +79,11 @@ public class GamificationDataTest {
         assertEquals(gamificationData.getXpForCurrentLevelOnly(), remainingXp);
     }
 
+    /**
+     * Check that getXpToReachNextLevel() calculates the correct amount of
+     * XP to level up when the total XP is less than one XP level.
+     * @see GamificationData#getXpToReachNextLevel()
+     */
     @Test
     public void getXpToReachNextLevel_lessThanOneLevel_success() {
         GamificationData gamificationData = new GamificationData();
@@ -73,6 +97,10 @@ public class GamificationDataTest {
         assertEquals(gamificationData.getXpToReachNextLevel(), xpToReachNextLevel);
     }
 
+    /**
+     * Check that minusXp() correctly decrements XP points by given amount.
+     * @see GamificationData#minusXp(int)
+     */
     @Test
     public void minusXp_validDecrease_success() {
         GamificationData gamificationData = new GamificationData();
@@ -86,6 +114,11 @@ public class GamificationDataTest {
         assertEquals(gamificationData.getTotalXp(), expectedRemaining);
     }
 
+    /**
+     * Check that minusXp() performs input validation and throws an
+     * assertion when given invalid input.
+     * @see GamificationData#minusXp(int)
+     */
     @Test
     public void minusXp_negativeDecrement_exceptionThrown() {
         GamificationData gamificationData = new GamificationData();
