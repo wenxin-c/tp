@@ -14,6 +14,7 @@ import wellnus.exception.WellNusException;
 import wellnus.focus.feature.FocusUi;
 import wellnus.focus.feature.Session;
 
+//@@author nichyjt
 
 /**
  * Test that ConfigCommand's public functions work as intended.
@@ -21,7 +22,6 @@ import wellnus.focus.feature.Session;
  * Only execute() is called for testing rather than the other public/protected method calls
  * as it covers almost all the main logic and branches.
  */
-//@@author nichyjt
 public class ConfigCommandTest {
     private static final String COMMAND_KEYWORD = "config";
     private static final String EMPTY_STRING = "";

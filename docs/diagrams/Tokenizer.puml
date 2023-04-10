@@ -12,18 +12,30 @@ package "Storage" {
 
   class AtomicHabitTokenizer {
     - splitTokenizedHabitIntoParameter(String)
+    - convertToBase(String)
+    - removeDuplicatedHabits(ArrayList<AtomicHabit>)
+    - parseTokenizedHabit(String)
     + tokenize(ArrayList<AtomicHabit>)
     + detokenize(ArrayList<String>)
   }
 
   class ReflectionTokenizer {
     - getTokenizedIndexes(String, Set<Integer>)
-    - getSet(String)
+    - splitParameter(String, String)
+    - splitTokenizedIndex(String)
+    - validateTokenizedIndexFormat(ArrayList<String>, int, String)
+    - getSet(String, String)
     + tokenize(ArrayList<Set<Integer>>)
+    + detokenize(ArrayList<String>)
+  }
+
+  class GamificationTokenizer {
+    + tokenize(ArrayList<GamificationData>)
     + detokenize(ArrayList<String>)
   }
 }
 
 Tokenizer <|-- AtomicHabitTokenizer
 Tokenizer <|-- ReflectionTokenizer
+Tokenizer <|-- GamificationTokenizer
 @enduml

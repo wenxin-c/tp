@@ -3,6 +3,8 @@ package wellnus.manager;
 import wellnus.command.CommandParser;
 import wellnus.exception.BadCommandException;
 
+//@@author nichyjt
+
 /**
  * Manager is the superclass for all WellNUS++ event drivers. <br>
  * <br>
@@ -22,7 +24,6 @@ import wellnus.exception.BadCommandException;
  * The manager should run an event driver (infinite loop) and is in charge
  * of a Feature's input, output, 'business' logic and graceful termination.
  */
-//@@author nichyjt
 public abstract class Manager {
 
     protected CommandParser commandParser;

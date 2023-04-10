@@ -11,6 +11,8 @@ import wellnus.gamification.util.GamificationData;
  */
 public class GamificationTokenizer implements Tokenizer<GamificationData> {
     private static final String INVALID_STORED_DATA_MESSAGE = "Invalid gamification data '%s' found in storage!";
+    private static final int MIN_XP = 0;
+
     /**
      * Converts the attributes of the <code>GamificationManager</code> into a String representation to be
      * saved to storage.
@@ -53,6 +55,9 @@ public class GamificationTokenizer implements Tokenizer<GamificationData> {
                 totalXp = Integer.parseInt(tokenizedDataObject.trim());
             } catch (NumberFormatException numberFormatException) {
                 throw new TokenizerException(String.format(INVALID_STORED_DATA_MESSAGE, tokenizedDataObject));
+            }
+            if (totalXp < MIN_XP) {
+                throw new TokenizerException(String.format(INVALID_STORED_DATA_MESSAGE, totalXp + ""));
             }
             GamificationData data = new GamificationData(totalXp);
             dataObjects.add(data);

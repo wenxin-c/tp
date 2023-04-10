@@ -17,19 +17,20 @@ mental wellness in various aspects.
   - Justification: It allows users to think and reflect on themselves. The set of questions is designed to be randomised 
   so that users can reflect on different aspects
   of lives.
-  - Highlights: Data structures **ArrayList** and **Set** are used to randomise the sets of questions. 
+  - Highlights: Multiple data structures such as **ArrayList** and **Set** are used to randomise the sets of questions. 
 - **New Feature 4**: Self Reflection `like` command implementation. [#164](https://github.com/AY2223S2-CS2113-T12-4/tp/pull/164)
-  - What it does: Allows users to add the reflection questions they resonate well into the favorite list for review in the future.
+  - What it does: Allows users to add reflection questions they resonate well into favorite list for review in the future.
   - Highlights: A **HashMap** is used with **display index** of questions being the **key** and **real question index** 
   being the **value** to match questions. 
 - **New Feature 5**: Self Reflection `fav` command implementation. [#164](https://github.com/AY2223S2-CS2113-T12-4/tp/pull/164)
-  - What it does: Allows users to list and review all reflection questions in the favorite list for review.
+  - What it does: Allows users to list all reflection questions in the favorite list.
 - **New Feature 6**: Self Reflection `home` command to return back main WellNUS++. 
 [#35](https://github.com/AY2223S2-CS2113-T12-4/tp/pull/35) [#103](https://github.com/AY2223S2-CS2113-T12-4/tp/pull/103)
 - **New Feature 7**: Helped in Self Reflection `prev` command implementation.
 - **Enhancement 1**: Abstract `QuestionList` class. [#164](https://github.com/AY2223S2-CS2113-T12-4/tp/pull/164)
   - What it does: A `QuestionList` class is abstracted to store and modify user data (e.g. the random sets and favorite list).
   - Implementation: To centralise and share data among classes, a common `QuestionList` object is passed into different command objects.
+  As such, the single responsibility principle can be better achieved.
 - **Enhancement 2**: Self Reflection `unlike` command implementation. [#253](https://github.com/AY2223S2-CS2113-T12-4/tp/pull/253)
   - What it does: Allows users to remove reflection questions they no longer resonate from the favorite list to maintain the relevancy 
   and size of the favorite list. 

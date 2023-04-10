@@ -17,6 +17,8 @@ import java.util.logging.Logger;
 import wellnus.common.WellNusLogger;
 import wellnus.exception.StorageException;
 
+//@@author nichyjt
+
 /**
  * Storage is the common interface for all Features to save and load data from. <br>
  * <p>
@@ -28,7 +30,6 @@ import wellnus.exception.StorageException;
  * the data to be loaded. The filename should be obtained from the public constant Storage.FILE_[name].
  * <p>
  */
-//@@author nichyjt
 public class Storage {
     // These constant strings are intentionally made public
     // to allow any FeatureManager to call the (de)tokenize functions with the correct filename
@@ -156,6 +157,7 @@ public class Storage {
             LOGGER.log(Level.WARNING, LOG_INVALID_FILENAME);
             throw new StorageException(ERROR_INVALID_FILENAME);
         }
+        verifyDataDirectory();
         Path pathToFile;
         File dataFile;
         try {

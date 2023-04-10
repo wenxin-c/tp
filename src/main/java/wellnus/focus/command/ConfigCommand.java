@@ -14,13 +14,13 @@ import wellnus.focus.feature.FocusManager;
 import wellnus.focus.feature.FocusUi;
 import wellnus.focus.feature.Session;
 
+//@@author nichyjt
 
 /**
  * ConfigCommand sets the configuration for a Session's parameters.
  * <p>
  * These parameters are: cycles, work time, break time, long break time.
  */
-//@@author nichyjt
 public class ConfigCommand extends Command {
     public static final String COMMAND_DESCRIPTION = "config - Change the number of cycles "
             + "and length of your work, break and longbreak timings!";

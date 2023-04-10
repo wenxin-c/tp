@@ -5,6 +5,9 @@ WellNUS++ is a Command Line Interface(CLI) app for NUS Computing students to kee
 mental wellness in various aspects. It is written in Java, and has about 10 kLoC.
 
 ### Summary of Contributions
+Haoyang's main roles are to peer review team code contributions, assist with bug fixing, and write quality 
+documentation. He has consistently enforced code style guidelines(based on the 
+[SE-EDU style guide](https://se-education.org/guides/conventions/java/basic.html)) in team code.
 * **Code contributed**: [RepoSense link](https://nus-cs2113-ay2223s2.github.io/tp-dashboard/?search=haoyangw&breakdown=true)
 * **New feature**: `gamification` feature  
   [#178](https://github.com/AY2223S2-CS2113-T12-4/tp/pull/178) [#265](https://github.com/AY2223S2-CS2113-T12-4/tp/pull/265)
@@ -15,6 +18,7 @@ mental wellness in various aspects. It is written in Java, and has about 10 kLoC
   data logic to be abstracted from other classes and encapsulated within one class.
 * **New feature**: `MainManager` implementation to provide the main CLI user interface
   [#65](https://github.com/AY2223S2-CS2113-T12-4/tp/pull/65)
+  * Highlights: Highly extensible(support new features simply by updating `setSupportedFeatureManagers`)
 * **New feature**: `help` command implementation and architecture for other commands to provide `help` description 
   [#30](https://github.com/AY2223S2-CS2113-T12-4/tp/pull/30)
 * **New feature**: `exit` command to quit the app [#30](https://github.com/AY2223S2-CS2113-T12-4/tp/pull/30)
@@ -24,13 +28,22 @@ mental wellness in various aspects. It is written in Java, and has about 10 kLoC
   [#137](https://github.com/AY2223S2-CS2113-T12-4/tp/pull/137) [#147](https://github.com/AY2223S2-CS2113-T12-4/tp/pull/147)
 * **Enhancements to existing features**:
   * Redirect all logging to a log file to clean up CLI [#272](https://github.com/AY2223S2-CS2113-T12-4/tp/pull/272)
+  [#344](https://github.com/AY2223S2-CS2113-T12-4/tp/pull/344)
+    * Highlights: `Singleton` paradigm to ensure one shared `FileHandler` in the entire app. Auto wipes log file when
+    file size > 5MB.
   * Refactor atomic habits feature to use `Command` and `Manager` abstract class and improve associated unit tests
   [#72](https://github.com/AY2223S2-CS2113-T12-4/tp/pull/72)
   * Fix app crash in `reflect` feature [#86](https://github.com/AY2223S2-CS2113-T12-4/tp/pull/86)
+  * JUnit Testing [#72](https://github.com/AY2223S2-CS2113-T12-4/tp/pull/72)
+  [#350](https://github.com/AY2223S2-CS2113-T12-4/tp/pull/350)
+  [#363](https://github.com/AY2223S2-CS2113-T12-4/tp/pull/363)
   * General bug fixing [#203](https://github.com/AY2223S2-CS2113-T12-4/tp/pull/203) 
   [#207](https://github.com/AY2223S2-CS2113-T12-4/tp/pull/207)
   [#267](https://github.com/AY2223S2-CS2113-T12-4/tp/pull/267)
   [#269](https://github.com/AY2223S2-CS2113-T12-4/tp/pull/269)
+  [#286](https://github.com/AY2223S2-CS2113-T12-4/tp/pull/286)
+  [#343](https://github.com/AY2223S2-CS2113-T12-4/tp/pull/343)
+  [#353](https://github.com/AY2223S2-CS2113-T12-4/tp/pull/353)
   * General debugging [#139](https://github.com/AY2223S2-CS2113-T12-4/tp/issues/139)
   [#155](https://github.com/AY2223S2-CS2113-T12-4/tp/pull/155#issuecomment-1479317735)
   [#157](https://github.com/AY2223S2-CS2113-T12-4/tp/issues/157)
@@ -42,12 +55,16 @@ mental wellness in various aspects. It is written in Java, and has about 10 kLoC
 * **Documentation**:
   * User Guide:
     * Added documentation for gamification feature [#200](https://github.com/AY2223S2-CS2113-T12-4/tp/pull/200)
-    * Make explanations clearer and fix inconsistent formatting [#280](https://github.com/AY2223S2-CS2113-T12-4/tp/pull/280)
+    * Make explanations clearer and fix inconsistent formatting 
+    [#280](https://github.com/AY2223S2-CS2113-T12-4/tp/pull/280)
+    [#348](https://github.com/AY2223S2-CS2113-T12-4/tp/pull/348)
     * Better FAQs [#283](https://github.com/AY2223S2-CS2113-T12-4/tp/pull/283)
-    * Fix RepoSense for some teammates [#209](https://github.com/AY2223S2-CS2113-T12-4/tp/pull/209)
   * Developer Guide:
-    * Added implementation and lifecycle details for `Manager` classes [#158](https://github.com/AY2223S2-CS2113-T12-4/tp/pull/158)
+    * Added design considerations and lifecycle details for `Manager` classes [#158](https://github.com/AY2223S2-CS2113-T12-4/tp/pull/158)
     [#184](https://github.com/AY2223S2-CS2113-T12-4/tp/pull/184)
+    * Added design considerations for `gamification` feature
+    [#340](https://github.com/AY2223S2-CS2113-T12-4/tp/pull/340)
+    * Provide test cases for `Saving Data` section [#293](https://github.com/AY2223S2-CS2113-T12-4/tp/pull/293)
 * **Contributions to team-based tasks**:
   * Setup checkstyle for the project [#90](https://github.com/AY2223S2-CS2113-T12-4/tp/pull/90)
   * Add new GitHub issue template for enhancements [#57](https://github.com/AY2223S2-CS2113-T12-4/tp/pull/57)

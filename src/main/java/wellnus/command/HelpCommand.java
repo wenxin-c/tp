@@ -11,11 +11,12 @@ import wellnus.gamification.GamificationManager;
 import wellnus.reflection.feature.ReflectionManager;
 import wellnus.ui.TextUi;
 
+//@@author nichyjt
+
 /**
  * Implementation of WellNus' <code>help</code> command. Explains to the user what commands are supported
  * by WellNus and how to use each command.
  */
-//@@author: nichyjt
 public class HelpCommand extends Command {
     public static final String COMMAND_DESCRIPTION = "help - Get help on what commands can be used in WellNUS++.";
     public static final String COMMAND_USAGE = "usage: help [command-to-check]";
