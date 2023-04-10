@@ -907,9 +907,9 @@ Example implementation to check if Session is in `Counting` state:
 
 ```java
 public boolean isSessionCounting(){
-        Countdown countdown=getCurrentCountdown();
-        return countdown.getIsRunning()&&!countdown.getIsCompletedCountdown();
-        }
+      Countdown countdown=getCurrentCountdown();
+      return countdown.getIsRunning()&&!countdown.getIsCompletedCountdown();
+}
 ```
 
 **Easily Identify State**: Developers can hence trivially check if a command is in a valid state to be executed
