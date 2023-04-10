@@ -13,6 +13,10 @@ import wellnus.exception.StorageException;
 import wellnus.exception.TokenizerException;
 import wellnus.gamification.util.GamificationData;
 
+/**
+ * Tests the important behaviours of the <code>GamificationTokenizer</code> class
+ * to ensure it functions as intended and expected.
+ */
 public class GamificationTokenizerTest {
     private static final int ADD_XP_AMOUNT = 5;
     private static final int FIRST_ELEMENT = 0;
