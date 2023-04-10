@@ -92,7 +92,6 @@ public class MainManager extends Manager {
                 Optional<Manager> featureManager = this.getManagerFor(featureKeyword);
                 // User issued a feature keyword, pass control to the corresponding feature's Manager
                 featureManager.ifPresent((manager) -> {
-                    // TODO: Consider if there's a way to avoid this extra try-catch?
                     try {
                         manager.runEventDriver();
                     } catch (BadCommandException badCommandException) {
@@ -138,7 +137,6 @@ public class MainManager extends Manager {
 
     private List<String> getSupportedCommandKeywords() {
         List<String> commandKeywords = new ArrayList<>();
-        // TODO: Consider if there's a better way than exposing a static variable(a helper method?)
         commandKeywords.add(MainManager.HELP_COMMAND_KEYWORD);
         commandKeywords.add(MainManager.EXIT_COMMAND_KEYWORD);
         return commandKeywords;
@@ -243,8 +241,6 @@ public class MainManager extends Manager {
                 new AtomicHabitManager(gamificationManager.getGamificationData()));
         this.getSupportedFeatureManagers().add(new ReflectionManager());
         this.getSupportedFeatureManagers().add(new FocusManager());
-        // TODO: Implement once all Managers are in
-        // e.g. this.getSupportedFeatureManagers().add(new AtomicHabitManager());
     }
 
 }

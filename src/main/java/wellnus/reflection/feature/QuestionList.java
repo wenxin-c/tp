@@ -38,7 +38,6 @@ public class QuestionList {
         "What matters to me most right now?"
     };
 
-    // TODO: To be changed/updated at later stages if question size increases
     private static final int TOTAL_NUM_QUESTIONS = 10;
     private static final int RANDOM_NUMBER_UPPERBOUND = 10;
     private static final int INDEX_ZERO = 0;
