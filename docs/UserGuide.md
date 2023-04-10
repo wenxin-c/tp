@@ -86,7 +86,7 @@ faster than traditional Graphical User Interface(GUI) apps.
     Enter a command to start using WellNUS++! Try 'help' if you're new, or just unsure.
 ------------------------------------------------------------
 ```
-5. You are now in the `main` session of `WellNUS+`. Access our features by issuing a feature command(described in later 
+You are now in the `main` session of `WellNUS+`. Access our features by issuing a feature command(described in later 
 sections). Issue the `help` command to see the list of feature commands available.
 
 # Overview of WellNUS++
