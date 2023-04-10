@@ -188,16 +188,6 @@ public class MainManager extends Manager {
     }
 
     /**
-     * Returns a help description of the WellNUS++ app.
-     *
-     * @return Help description of this app
-     */
-    @Override
-    public String getFeatureHelpDescription() {
-        return FEATURE_HELP_DESCRIPTION;
-    }
-
-    /**
      * Returns the name of this feature. In this case, it's just empty(not any particular feature).
      *
      * @return Empty String to imply that this Manager is not associated with any feature

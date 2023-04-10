@@ -101,22 +101,6 @@ public class ReflectionManager extends Manager {
     }
 
     /**
-     * Abstract function to ensure developers add in a getter for the feature's help description.
-     * <p>
-     * This description will be shown when the user types in the help command. <br>
-     * The description should be a brief overview of what the feature does. <br>
-     * For example: <br>
-     * "reflect: Reflect is your go-to tool to get, save and reflect on our specially
-     * curated list of questions to reflect on"
-     *
-     * @return String of the feature's help description
-     */
-    @Override
-    public String getFeatureHelpDescription() {
-        return FEATURE_HELP_DESCRIPTION;
-    }
-
-    /**
      * Set command argument and payload pairs from user inputs.<br/>
      * This is to be used to generate command.
      *
