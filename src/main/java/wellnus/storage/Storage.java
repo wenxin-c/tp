@@ -37,7 +37,6 @@ public class Storage {
     public static final String FILE_REFLECT = "reflect";
     public static final String FILE_GAMIFICATION = "gamif";
     protected static final String FILE_DEBUG = "debug";
-    protected static final String DIRECTORY_DEBUG = "debug";
 
     // Delimiter constants
     protected static final String DELIMITER = " --" + System.lineSeparator();

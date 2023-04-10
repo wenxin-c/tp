@@ -61,8 +61,6 @@ public class ReflectionManager extends Manager {
     private static final int EMPTY_COMMAND = 0;
     private static final boolean IS_EXIT_INITIAL = false;
     private static final ReflectUi UI = new ReflectUi();
-    // This attribute should be set as static to avoid confusion if a new object is created.
-    // It means exit from self reflection back to main interface
     private static boolean isExit;
     private String commandType;
     private HashMap<String, String> argumentPayload;
@@ -100,22 +98,6 @@ public class ReflectionManager extends Manager {
     @Override
     public String getFeatureName() {
         return FEATURE_NAME;
-    }
-
-    /**
-     * Abstract function to ensure developers add in a getter for the feature's help description.
-     * <p>
-     * This description will be shown when the user types in the help command. <br>
-     * The description should be a brief overview of what the feature does. <br>
-     * For example: <br>
-     * "reflect: Reflect is your go-to tool to get, save and reflect on our specially
-     * curated list of questions to reflect on"
-     *
-     * @return String of the feature's help description
-     */
-    @Override
-    public String getFeatureHelpDescription() {
-        return FEATURE_HELP_DESCRIPTION;
     }
 
     /**

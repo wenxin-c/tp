@@ -18,7 +18,7 @@ documentation. He has consistently enforced code style guidelines(based on the
   data logic to be abstracted from other classes and encapsulated within one class.
 * **New feature**: `MainManager` implementation to provide the main CLI user interface
   [#65](https://github.com/AY2223S2-CS2113-T12-4/tp/pull/65)
-  * Highlights: Highly extensible(support new features simply by updating `setSupportedFeatureManagers`)
+  * Highlights: Highly extensible(support new features simply by updating `setSupportedFeatureManagers()`)
 * **New feature**: `help` command implementation and architecture for other commands to provide `help` description 
   [#30](https://github.com/AY2223S2-CS2113-T12-4/tp/pull/30)
 * **New feature**: `exit` command to quit the app [#30](https://github.com/AY2223S2-CS2113-T12-4/tp/pull/30)
@@ -124,3 +124,4 @@ documentation. He has consistently enforced code style guidelines(based on the
   [W15-4 #147](https://github.com/AY2223S2-CS2113-W15-4/tp/issues/147),
   [W15-4 #149](https://github.com/AY2223S2-CS2113-W15-4/tp/issues/149),
   [W15-4 #151](https://github.com/AY2223S2-CS2113-W15-4/tp/issues/151)
+  * Summary/Proof of aforementioned UG/code reviews: [haoyangw/ped](https://github.com/haoyangw/ped/issues)
