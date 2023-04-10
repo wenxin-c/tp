@@ -7,6 +7,7 @@ mental wellness in various aspects.
 ### Summary of Contributions
 - **Code Contributions:** [Link to reposense contribution](https://nus-cs2113-ay2223s2.github.io/tp-dashboard/?search=&sort=groupTitle&sortWithin=title&timeframe=commit&mergegroup=&groupSelect=groupByRepos&breakdown=true&checkedFileTypes=docs~functional-code~test-code~other&since=2023-02-17&tabOpen=true&tabType=authorship&tabAuthor=nichyjt&tabRepo=AY2223S2-CS2113-T12-4%2Ftp%5Bmaster%5D&authorshipIsMergeGroup=false&authorshipFileTypes=docs~functional-code~test-code&authorshipIsBinaryFileTypeChecked=false&authorshipIsIgnoredFilesChecked=false).  
 - **Feature:** `CommandParser`
+  [#15](https://github.com/AY2223S2-CS2113-T12-4/tp/issues/15), 
   [#19](https://github.com/AY2223S2-CS2113-T12-4/tp/pull/19).   
   - **What:** Dictates the syntax of the commands 
   and how the program unpacks user inputs into its various components.  
@@ -15,27 +16,32 @@ mental wellness in various aspects.
   of different CLI syntax forms, the `unix`-like syntax was chosen as it was the most user-friendly and maintainable. 
 - **Boilerplate Feature:** `Manager`, the core boilerplate that
   all sub-features are built off.
+  [#22](https://github.com/AY2223S2-CS2113-T12-4/tp/issues/22),
   [ #33](https://github.com/AY2223S2-CS2113-T12-4/tp/pull/33).  
 - **Feature:** `Storage`, built the interface for developers to store and load data
+  [#134](https://github.com/AY2223S2-CS2113-T12-4/tp/issues/134),
   [#140](https://github.com/AY2223S2-CS2113-T12-4/tp/pull/140).  
   - **Highlights:** The design of storage ensures usability for any arbitrary feature
   that requires different data structures to be saved to file.
 - **Feature:** Focus Timer `config` command implementation,
-[#169](https://github.com/AY2223S2-CS2113-T12-4/tp/pull/169).
+  [#165](https://github.com/AY2223S2-CS2113-T12-4/tp/issues/165),
+  [#169](https://github.com/AY2223S2-CS2113-T12-4/tp/pull/169).
 - **Feature:** MainManager - `help` command implementation, [#104](https://github.com/AY2223S2-CS2113-T12-4/tp/pull/104).
 - **Enhancement:** Terminal Caret - an customizable & user-friendly caret,
-[#258](https://github.com/AY2223S2-CS2113-T12-4/tp/pull/258).  
+  [#79](https://github.com/AY2223S2-CS2113-T12-4/tp/issues/79),
+  [#258](https://github.com/AY2223S2-CS2113-T12-4/tp/pull/258).  
   - **What**: Adds a caret to the start of the terminal screen,
   similar to what you'd see in any shell-based terminal like `zsh, cmd, bash`.
     For example: `(reflect):~$`.  
   - **[Design Justification](https://github.com/AY2223S2-CS2113-T12-4/tp/issues/79)**:
   Feedback from the [PE-D](https://github.com/AY2223S2-CS2113-T12-4/tp/issues/235) and peers showed that 
-  they were often lost within the features.
+  they were often lost within the features. Further, the lack of a visual signifier made it ambiguous to users
+  to know when they should input commands.
   - **Highlights**: Terminal caret unambiguously shows where the user is, and allows users to feel
   comfortable as it mimics a terminal shell which they are familiar with.
 - **Enhancement:** Focus Timer - Streamlining state management,
   [#169](https://github.com/AY2223S2-CS2113-T12-4/tp/pull/169).  
-  Created state-management methods, enforcing SRP with only `Session`managing state.
+  Created state-management methods, enforcing SRP with only `Session` directly querying and handling timer state.
   - **What:** The first focus timer implementation lacked proper state management. 
   It was hard to figure out what commands can be run (e.g. `resume` cannot be run before `pause`).
   - **Highlights:** Without changing the core logic, a developer-friendly API was made to make state management easier.
