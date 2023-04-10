@@ -3,80 +3,74 @@
 # Table of Contents
 
 <!-- TOC -->
-
 * [Developer Guide](#developer-guide)
 * [Table of Contents](#table-of-contents)
 * [Acknowledgements](#acknowledgements)
 * [Setting up, getting started](#setting-up-getting-started)
-    * [Setting up the project in your computer](#setting-up-the-project-in-your-computer)
-    * [Before writing code](#before-writing-code)
+  * [Setting up the project in your computer](#setting-up-the-project-in-your-computer)
+  * [Before writing code](#before-writing-code)
 * [Design & implementation](#design--implementation)
-    * [Application Lifecycle](#application-lifecycle)
-        * [Overview](#overview)
-        * [Rationale](#rationale)
-    * [UI Component](#ui-component)
-        * [UI Implementation](#ui-implementation)
-    * [Self Reflection Component](#self-reflection-component)
-        * [Design considerations](#design-considerations)
-            * [User design considerations](#user-design-considerations)
-            * [Developer design considerations](#developer-design-considerations)
-        * [Self Reflection Implementation](#self-reflection-implementation)
-            * [Self Reflection commands implementation](#self-reflection-commands-implementation)
-    * [CommandParser Component](#commandparser-component)
-        * [Design Considerations](#design-considerations-1)
-            * [User design Considerations](#user-design-considerations-1)
-            * [Developer Design Considerations](#developer-design-considerations-1)
-            * [Alternative Designs Considered](#alternative-designs-considered)
-        * [CommandParser Syntax](#commandparser-syntax)
-        * [Implementation](#implementation)
-            * [Integration with WellNUS++](#integration-with-wellnus)
-            * [CommandParser API](#commandparser-api)
-            * [Alternative Designs Considered](#alternative-designs-considered-1)
-    * [AtomicHabit Component](#atomichabit-component)
-        * [Design Considerations](#design-considerations-2)
-            * [User design considerations](#user-design-considerations-2)
-            * [Developer design considerations](#developer-design-considerations-2)
-        * [AtomicHabit Implementation](#atomichabit-implementation)
-            * [AtomicHabit Commands](#atomichabit-commands)
-    * [Gamification Component](#gamification-component)
-        * [Design Considerations](#design-considerations-3)
-            * [GamificationData](#gamificationdata)
-            * [GamificationStorage](#gamificationstorage)
-            * [GamificationUi](#gamificationui)
-            * [Commands](#commands)
-        * [Alternative Designs Considered](#alternative-designs-considered-2)
-            * [Defining gamification statistics logic within `GamificationManager`](#defining-gamification-statistics-logic-within-gamificationmanager)
-            * [Integrating `GamificationStorage` logic within `GamificationData`](#integrating-gamificationstorage-logic-within-gamificationdata)
-    * [Managers](#managers)
-        * [Design Considerations](#design-considerations-4)
-        * [`MainManager` - A Unique Implementation](#mainmanager---a-unique-implementation)
-    * [Tokenizer](#tokenizer)
-        * [Design Considerations](#design-considerations-5)
-        * [Individual Tokenizers](#individual-tokenizers)
-    * [Storage](#storage)
-        * [Usage - `saveData`](#usage---savedata)
-        * [Usage - `loadData`](#usage---loaddata)
-        * [Design Considerations](#design-considerations-6)
-    * [Focus Timer Component](#focus-timer-component)
-        * [Focus Timer Implementation](#focus-timer-implementation)
-            * [State Management](#state-management)
-            * [Commands](#commands-1)
+  * [Application Lifecycle](#application-lifecycle)
+    * [Overview](#overview)
+    * [Rationale](#rationale)
+  * [UI Component](#ui-component)
+    * [UI Implementation](#ui-implementation)
+  * [Self Reflection Component](#self-reflection-component)
+    * [Design considerations](#design-considerations)
+      * [User design considerations](#user-design-considerations)
+      * [Developer design considerations](#developer-design-considerations)
+    * [Self Reflection Implementation](#self-reflection-implementation)
+      * [Self Reflection commands implementation](#self-reflection-commands-implementation)
+  * [CommandParser Component](#commandparser-component)
+    * [Design Considerations](#design-considerations-1)
+      * [User design Considerations](#user-design-considerations-1)
+      * [Developer Design Considerations](#developer-design-considerations-1)
+      * [Alternative Designs Considered](#alternative-designs-considered)
+    * [CommandParser Syntax](#commandparser-syntax)
+    * [Implementation](#implementation)
+      * [Integration with WellNUS++](#integration-with-wellnus)
+      * [CommandParser API](#commandparser-api)
+  * [AtomicHabit Component](#atomichabit-component)
+    * [Design Considerations](#design-considerations-2)
+      * [User design considerations](#user-design-considerations-2)
+      * [Developer design considerations](#developer-design-considerations-2)
+    * [AtomicHabit Implementation](#atomichabit-implementation)
+      * [AtomicHabit Commands](#atomichabit-commands)
+  * [Gamification Component](#gamification-component)
+    * [Design Considerations](#design-considerations-3)
+      * [GamificationData](#gamificationdata)
+      * [GamificationStorage](#gamificationstorage)
+      * [GamificationUi](#gamificationui)
+      * [Commands](#commands)
+    * [Alternative Designs Considered](#alternative-designs-considered-1)
+      * [Defining gamification statistics logic within `GamificationManager`](#defining-gamification-statistics-logic-within-gamificationmanager)
+      * [Integrating `GamificationStorage` logic within `GamificationData`](#integrating-gamificationstorage-logic-within-gamificationdata)
+  * [Tokenizer](#tokenizer)
+    * [Design Considerations](#design-considerations-4)
+    * [Individual Tokenizers](#individual-tokenizers)
+  * [Storage](#storage)
+    * [Usage - `saveData`](#usage---savedata)
+    * [Usage - `loadData`](#usage---loaddata)
+    * [Design Considerations](#design-considerations-5)
+  * [Focus Timer Component](#focus-timer-component)
+    * [Focus Timer Implementation](#focus-timer-implementation)
+      * [State Management](#state-management)
+      * [Commands](#commands-1)
 * [Appendix - Requirements](#appendix---requirements)
-    * [Product scope](#product-scope)
-        * [Product Name](#product-name)
-        * [Target user profile](#target-user-profile)
-        * [Value proposition](#value-proposition)
-    * [User Stories](#user-stories)
-    * [Non-Functional Requirements](#non-functional-requirements)
-    * [Glossary](#glossary)
+  * [Product scope](#product-scope)
+    * [Product Name](#product-name)
+    * [Target user profile](#target-user-profile)
+    * [Value proposition](#value-proposition)
+  * [User Stories](#user-stories)
+  * [Non-Functional Requirements](#non-functional-requirements)
+  * [Glossary](#glossary)
 * [Appendix - Instructions for manual testing](#appendix---instructions-for-manual-testing)
-    * [Launch](#launch)
-    * [Sample test cases](#sample-test-cases)
-        * [Help command](#help-command)
-        * [Get reflection questions](#get-reflection-questions)
-        * [Add atomic habits](#add-atomic-habits)
-    * [Saving data](#saving-data)
-
+  * [Launch](#launch)
+  * [Sample test cases](#sample-test-cases)
+    * [Help command](#help-command)
+    * [Get reflection questions](#get-reflection-questions)
+    * [Add atomic habits](#add-atomic-habits)
+  * [Saving data](#saving-data)
 <!-- TOC -->
 
 # Acknowledgements
@@ -560,31 +554,6 @@ Internally, this just splits the string by whitespace and returns the first word
 
 <!-- @@author YongbinWang -->
 
-#### Alternative Designs Considered
-
-We considered alternative command structures such as [AB3](https://se-education.org/addressbook-level3/UserGuide.html)
-where input types are
-specified , `e.g. n/John Doe` which more 'secure' from the get go.
-However, due to the following issues, AB3 was not chosen as the alternative solution compared to the shell-like
-structure.
-
-**Steep learning curve**  
-For experienced and inexperienced users, it is a hassle to remember what letter corresponds to what argument.
-For AB3, the user needs to remember all the different `char` 'verbs' such as `e/` for email, `n/` for name.
-This violates design consideration (1).
-
-**Does not scale well**  
-AB3 structure runs the high risk of argument-space collision as well.  
-For example, consider a command that needs an "email" and "entry". What does `e/<payload>` correspond to?
-We could simply just put entry as *some other character* -- but that defeats the purpose of having the structure in the
-first place as the character is the argument's first character.
-This makes behaviour **unpredictable** and a **confusing** user experience.
-
-**Bad expert user experience**
-
-For expert users and CLI-masters, pedantic argument input like AB3 makes the typing experience MUCH slower due to the
-need to type which is relatively clunky as the user will need to type far off to the '/' key on the keyboard.
-
 ## AtomicHabit Component
 
 The `AtomicHabit` component is responsible for tracking the user's daily habits
@@ -780,49 +749,6 @@ larger ripple effect as `GamificationData` also has to be updated.
 
 <!-- @@author -->
 
-<!-- @@author haoyangw -->
-
-## Managers
-
-The `Manager` abstract class is the superclass for classes responsible for handling user interaction with the app.
-
-![Manager Classes](diagrams/Manager.png)<br/>
-
-### Design Considerations
-
-Each `Manager` provides `runEventDriver()`, which takes over control of user interaction and provides a particular
-feature(along with all its commands). This fulfils the `Single Responsibility Principle` as every `Manager` is in charge
-of one particular feature and recognises its feature's commands, so it will only change when the feature
-and/or its commands change. This reduces coupling and increases cohesion as changes in one feature will not
-cascade and require amendments to other code(e.g. other `Manager`s), and one feature's commands and input are processed
-together in one class(a particular implementation of `Manager`). This design further fulfils the `Dependency Inversion
-Principle` as the main `WellNus` class doesn't depend on actual implementations of `Manager`, but on the abstract
-`Manager` class and its `runEventDriver()` method that all implementations of `Manager` shall provide(with the same
-expected functionality). Individual `Manager`s are free to provide additional functionality, but `WellNus` shall not
-expect any or depend on them so changes in individual features will not require updating the main `WellNus` class.
-
-In `runEventDriver()`, every `Manager` shall read and process user input using `TextUi` and `CommandParser` and delegate
-the issued command to the corresponding `Command` class. This fulfils the `Single Responsibility Principle`, as a
-particular implementation of `Manager` is not responsible for providing logic to read user input from the commandline,
-nor provide logic for any of the feature's supported commands. Its responsibility is abstract and singular: to recognise
-supported commands and call the corresponding `Command` implementation to execute the user's
-requested action. This ensures that changes in logic for individual commands or reading of user input will not require
-any changes in a particular implementation of `Manager`, as should be expected. A `Manager` class will only change to
-recognise new commands for its feature.
-
-### `MainManager` - A Unique Implementation
-
-`MainManager` is a unique implementation of `Manager` in that it holds references to every feature's `Manager` instance.
-This is important as `MainManager` then acts as an abstraction barrier for the application: `WellNus` does not know
-what features or commands are supported by the application, and only knows that `MainManager` can recognise supported
-features and commands within its `runEventDriver()` implementation. As such, the main `WellNus` class can be kept
-abstract and simple: call `MainManager.runEventDriver()` to handle user interaction and greet the user. Additionally,
-holding references to every feature's `Manager` allows `MainManager` to preserve the entire state of the running
-application so that a previous session for a feature can be fully restored when the user returns to it, as though
-he/she never left. This makes sense conceptually for a class named `MainManager` and eliminates the need to restore a
-particular `Manager`'s state from storage if the application is still running and the user returns to a particular
-feature.
-<!-- @@author -->
 
 <!-- @@author BernardLesley -->
 
