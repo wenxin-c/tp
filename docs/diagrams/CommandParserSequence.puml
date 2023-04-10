@@ -6,8 +6,28 @@ skinparam arrowColor MODEL_COLOR
 skinparam classBackgroundColor MODEL_COLOR
 hide footbox
 
-participant Manager MODEL_COLOR
-participant CommandParser MODEL_COLOR
+
+participant ":FooUi" as Ui MODEL_COLOR
+participant ":FooManager" as Manager MODEL_COLOR
+participant ":CommandParser" as CommandParser MODEL_COLOR
+participant ":FooCommand" as FooCommand MODEL_COLOR
+
+activate Manager
+
+
+Manager -> Ui: getCommand()
+
+note right of Manager
+For brevity, we ignore the
+inner workings of the
+subclass of TextUi (FooUi)
+on how it obtains user input
+end note
+
+activate Ui
+Ui --> Manager: userInput
+deactivate Ui
+
 
 Manager -> CommandParser : parseUserInput(userInput)
 activate CommandParser
@@ -27,4 +47,42 @@ deactivate CommandParser
     end
 CommandParser --> Manager: HashMap<String,String> argumentPayload
 deactivate CommandParser
+
+Manager -> CommandParser: getMainArgument(userInput)
+activate Manager
+activate CommandParser
+CommandParser --> Manager :mainArgument
+deactivate CommandParser
+deactivate Manager
+
+note left of Manager
+The following alt frame
+represents a long switch-case
+which matches <b>mainArgument</b>
+to the correct command to be
+constructed and executed.
+
+For readability, only two
+conditions are shown.
+1. The case where it matches,
+2. The case where it doesn't.
+end note
+
+alt mainArgument = FOO_COMMAND_KEYWORD
+    create FooCommand
+    Manager -> FooCommand : FooCommand(argumentPayload)
+    activate FooCommand
+    FooCommand --> Manager
+    deactivate FooCommand
+    Manager -> FooCommand: execute()
+    activate FooCommand
+    FooCommand --> Manager
+    deactivate FooCommand
+else default
+    Manager -> Manager: printErrorFor()
+    activate Manager
+    Manager --> Manager
+    deactivate Manager
+
+end
 @enduml

@@ -30,10 +30,21 @@ Class ReflectionManager {
     + getCommandParser()
 }
 
+Class FocusManager {
+    # commandParser : CommandParser
+    + getCommandParser()
+}
+
+Class GamificationManager {
+    # commandParser : CommandParser
+    + getCommandParser()
+}
+
+
 CommandParser "1" -- Manager : contains <
 Manager <|-- AtomicHabitManager
 Manager <|-- ReflectionManager
-
-
+Manager <|-- GamificationManager
+Manager <|-- FocusManager
 
 @enduml
