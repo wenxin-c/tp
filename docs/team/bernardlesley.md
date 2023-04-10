@@ -1,61 +1,57 @@
-# Bernard Lesley Efendy - Project Portfolio Page
+## Bernard Lesley Efendy - Project Portfolio Page
 
-## Overview
-`WellNUS++` is a Command Line Interface(CLI) app for NUS Computing students to keep track and improve their physical and
-mental wellness in various aspects. <br/>
-`WellNUS++` offers a wide variety of features, which focuses on many aspects of wellness.
+### Project: WellNUS++
+WellNUS++ is a Command Line Interface(CLI) app for NUS Computing students to keep track and improve their physical and
+mental wellness in various aspects.
 
-## Summary of Contributions
-Bernard contributed to `WellNUS++` by building the `tokenizer` feature and integrating `helpCommand` to various `WellNUS++` feature. 
-In addition, Bernard help to enhance `AtomicHabit` feature, such as `deleteCommand`
-
-## Core Code Contributions
-[Link to reposense contribution graph](
-https://nus-cs2113-ay2223s2.github.io/tp-dashboard/?search=BernardLesley&sort=groupTitle&sortWithin=title&timeframe=commit&mergegroup=&groupSelect=groupByRepos&breakdown=true&checkedFileTypes=docs~functional-code~test-code~other&since=2023-02-17
-)
-
-### Tokenizer
-Bernard built the `Tokenizer` feature that is responsible to connect `Feature Managers` and `Storage`. It converts Managers' data into Strings that can be stored as .txt file by `Storage`.<br/>
-`Tokenizer` mainly consist of 2 sub-features:<br/>
-1. `AtomicHabitTokenizer`
-2. `ReflectionTokenizer`
-
-In addition, this feature is also responsible to `Detokenize` the data back from the Storage, as well as handling corrupted data in case of the tampering of `Stroage` file.<br/>
-
-Justification: `Tokenizer` is fundamental as it allows the different object data, such as `AtomicHabit` and Integer from `LikeIndex` and `PrevIndex` to be converted and stored according to the needs of each Feature Manager. Therefore, allowing further extensions should there be a new feature introduced to the `WellNUS++` (Open Closed Principle).
-
-### HelpCommand
-Bernard is also responsible to integrate `helpCommand` to `AtomicHabit`, `Reflection`, `Focus Timer`, `Gamification`. This allows user to know the command available within each feature and how to use it.
-
-Justification: User might be confused with a plethora of feature that `WellNUS++` offered, therefore it is essential to have a command that can guide new user for each of the features.
-
-### AtomicHabit: deleteCommand
-Bernard also introduced a `deleteCommand` to allow user to delete a habit that they don't want to continue.
-
-Justification: As the user progresses to do their habit, they may feel that the habit is not relevant anymore. In addition, the users might simply mistype a habit, and they wish to delete it. Hence, `deleteCommand` is introduced in `WellNUS++ AtomicHabit`. 
-
-## User Guide Contribution
-- [Delete Atomic Habit](
-https://ay2223s2-cs2113-t12-4.github.io/tp/UserGuide.html#delete---delete-an-atomic-habit
-)
-- [Viewing Help Atomic Habit](
-https://ay2223s2-cs2113-t12-4.github.io/tp/UserGuide.html#help---viewing-atomic-habit-help
-)
-- [Viewing Help Reflection](
-https://ay2223s2-cs2113-t12-4.github.io/tp/UserGuide.html#help---viewing-reflection-help
-)
-- [Viewing Help Focus Timer](
-https://ay2223s2-cs2113-t12-4.github.io/tp/UserGuide.html#help---viewing-focus-timer-help
-)
-- [Viewing Help Gamification](
-https://ay2223s2-cs2113-t12-4.github.io/tp/UserGuide.html#help---viewing-gamification-help
-)
-## Developer Guide Contribution
-- [Tokenizer](
-https://ay2223s2-cs2113-t12-4.github.io/tp/DeveloperGuide.html#tokenizer
-)
-- [Tokenizer Class Diagram](
-  https://ay2223s2-cs2113-t12-4.github.io/tp/diagrams/Tokenizer.png
-)
-
+### Summary of Contributions
+- **Code Contributions:** [Link to reposense contribution](https://nus-cs2113-ay2223s2.github.io/tp-dashboard/?search=BernardLesley&sort=groupTitle&sortWithin=title&timeframe=commit&mergegroup=&groupSelect=groupByRepos&breakdown=true&checkedFileTypes=docs~functional-code~test-code~other&since=2023-02-17).
+- **Feature:** `AtomicHabitTokenizer`
+  [#151](https://github.com/AY2223S2-CS2113-T12-4/tp/pull/151).
+  - **What:** `AtomicHabitTokenizer` is responsible for the following function:
+    1. Tokenize list of `AtomicHabit` objects into Strings that can be stored.
+    2. Detokenize the Strings back into list of `AtomicHabit` objects to be used by `AtomicHabitManager`.
+    3. Check if the contents of `habit.txt` has been tampered/corrupted.
+  - **Justification:** Since `AtomicHabit` objects cannot be stored directly into the storage, there is a need for a class to tokenize and detokenize AtomicHabit objects.
+- **Feature:** `ReflectionTokenizer`
+  [#151](https://github.com/AY2223S2-CS2113-T12-4/tp/pull/151).
+  - **What:** `ReflectionTokenizer` is responsible for the following function:
+    1. Tokenize like and prev indexes into Strings that can be stored.
+    2. Detokenize the Strings back into like and prev indexes to be used by `ReflectionManager`.
+    3. Check if the contents of `reflect.txt` has been tampered/corrupted.
+  - **Justification:** Since `Reflection` feature needs to save 2 types of indexes (like and prev), there is a need for a class to tokenize and detokenize like and prev indexes.
+- **Feature:** WellNUS++ `Atomic Habit`, `Reflection`, `Focus Timer` and `Gamification` - `help` command implementation, [#175](https://github.com/AY2223S2-CS2113-T12-4/tp/pull/175).
+- **Feature:** Atomic Habit - `update` & `delete` command implementation, [#59](https://github.com/AY2223S2-CS2113-T12-4/tp/pull/59) [#196](https://github.com/AY2223S2-CS2113-T12-4/tp/pull/196).
+- **User Guide Contributions:**<br/>
+  Bernard added documentation for the following sections of the user guide:
+  - [Delete Atomic Habit](
+    https://ay2223s2-cs2113-t12-4.github.io/tp/UserGuide.html#delete---delete-an-atomic-habit
+    )
+  - [Viewing Help Atomic Habit](
+    https://ay2223s2-cs2113-t12-4.github.io/tp/UserGuide.html#help---viewing-atomic-habit-help
+    )
+  - [Viewing Help Reflection](
+    https://ay2223s2-cs2113-t12-4.github.io/tp/UserGuide.html#help---viewing-reflection-help
+    )
+  - [Viewing Help Focus Timer](
+    https://ay2223s2-cs2113-t12-4.github.io/tp/UserGuide.html#help---viewing-focus-timer-help
+    )
+  - [Viewing Help Gamification](
+    https://ay2223s2-cs2113-t12-4.github.io/tp/UserGuide.html#help---viewing-gamification-help
+    )
+- **Developer Guide Contributions:**<br/>
+Bernard added documentation for the following sections of the developer guide:
+  - [Tokenizer](
+    https://ay2223s2-cs2113-t12-4.github.io/tp/DeveloperGuide.html#tokenizer
+    )
+  - [Tokenizer Class Diagram](
+    https://ay2223s2-cs2113-t12-4.github.io/tp/diagrams/Tokenizer.png
+    )
+- **Team-Based Task and Review Contributions**<br/>
+Bernard also contributed in the following tasks:
+    - Attend weekly meetings to discuss the implementation of WellNUS++. 
+    - **Finding bugs for WellNUS++**: [#298](https://github.com/AY2223S2-CS2113-T12-4/tp/issues/298) [#317](https://github.com/AY2223S2-CS2113-T12-4/tp/issues/317) [#321](https://github.com/AY2223S2-CS2113-T12-4/tp/issues/321) [#323](https://github.com/AY2223S2-CS2113-T12-4/tp/issues/323)
+- **Community Contributions**<br/>
+Bernard also contributed to other teams by reviewing other team's UG and Program during PE-D and PE.
+  - **Reviewing other team's UG and Program**: [List of all 9 issues filed for T15-1](https://github.com/BernardLesley/ped/issues)
 
