@@ -477,14 +477,10 @@ Due to the unique one-to-one relationship between arguments and payloads, we can
 using this syntax using a `HashMap` mapping each `argument` to a `payload`.
 
 For example,
-`
-$ foo bar --arg1 payload1 payload1--1 --arg2 payload2 --arg3
-`
+`foo bar --arg1 payload1 payload1--1 --arg2 payload2 --arg3`
 
 Will be mapped as:
-`
-(foo, bar), (arg1 payload1 payload1--1), (arg2 payload2), (arg3, "")
-`
+`(foo, bar), (arg1 payload1 payload1--1), (arg2 payload2), (arg3, "")`
 where `""` represents an empty string (for visualization).
 
 Using a `HashMap` fulfils user design considerations (2), both developer design considerations (3), (4).
