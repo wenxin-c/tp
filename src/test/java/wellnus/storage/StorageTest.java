@@ -13,10 +13,11 @@ import org.junit.jupiter.api.Test;
 
 import wellnus.exception.StorageException;
 
+//@@author nichyjt
+
 /**
  * Test that Storage's public functions work as intended.
  */
-//@@author nichyjt
 public class StorageTest {
 
     private static final String INVALID_FILENAME = "foobar";

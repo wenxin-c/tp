@@ -11,11 +11,11 @@ import org.junit.jupiter.api.Test;
 
 import wellnus.exception.BadCommandException;
 
+//@@author nichyjt
 
 /**
  * Test that CommandParser's public functions work as intended.[
  */
-//@@author nichyjt
 public class CommandParserTest {
 
     private static final String VALID_COMMAND = "mainCommand";
