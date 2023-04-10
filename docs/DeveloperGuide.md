@@ -1064,10 +1064,10 @@ WellNUS++ is a CLI app, primarily due to the following reasons:
 ## Launch
 
 1. Ensure you have Java 11 or above installed in your Computer.
-2. Download the latest `wellnus.jar` from here.
+2. Download the latest `[CS2113-T12-4][WellNUS++].jar` from [here](https://github.com/AY2223S2-CS2113-T12-4/tp/releases/latest).
 3. Copy the file to the folder you want to use as the home folder for your WellNUS++.
-4. Open a command terminal, cd into the folder you put the `wellnus.jar` file in, and use the `java -jar wellnus.jar`
-   command to run the application. A CLI should appear in a few seconds.
+4. Open a command terminal, cd into the folder you put the `[CS2113-T12-4][WellNUS++].jar` file in, and use the 
+   `java -jar [CS2113-T12-4][WellNUS++].jar` command to run the application. A CLI should appear in a few seconds.
 
 ## Sample test cases
 
