@@ -22,6 +22,7 @@ import wellnus.exception.BadCommandException;
  * The manager should run an event driver (infinite loop) and is in charge
  * of a Feature's input, output, 'business' logic and graceful termination.
  */
+//@@author nichyjt
 public abstract class Manager {
 
     protected CommandParser commandParser;
