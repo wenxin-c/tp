@@ -49,11 +49,9 @@ CommandParser --> Manager: HashMap<String,String> argumentPayload
 deactivate CommandParser
 
 Manager -> CommandParser: getMainArgument(userInput)
-activate Manager
 activate CommandParser
 CommandParser --> Manager :mainArgument
 deactivate CommandParser
-deactivate Manager
 
 note left of Manager
 The following alt frame
