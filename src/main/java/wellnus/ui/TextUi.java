@@ -9,6 +9,8 @@ import java.util.logging.Logger;
 
 import wellnus.common.WellNusLogger;
 
+//@@author wenxin-c
+
 /**
  * TextUi class for reading user inputs and printing outputs.<br/>
  * <br/>
@@ -45,6 +47,7 @@ public class TextUi {
     /**
      * Returns a new instance of TextUi that reads user input from the given
      * InputStream.
+     *
      * @param inputStream InputStream that WellNUS++ will read user input(commands) from
      */
     public TextUi(InputStream inputStream) {
@@ -188,7 +191,8 @@ public class TextUi {
         }
         printSeparator();
     }
-    //@@author
+
+    //@@author nichyjt
 
     /**
      * Prints a user-friendly cursor with the name of the feature the user is currently in.
