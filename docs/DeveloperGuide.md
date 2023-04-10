@@ -576,10 +576,12 @@ It consists commands that allows the user keep track of their habits such as add
   inputs `list` and there is no habit in the list, the following message will be printed out:
 
 ```
+
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     You have no habits in your list!
     Start adding some habits by using 'add'!
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 ```
 
 * A unique line separator `~` is used to differentiate AtomicHabit from other features and give users a better
@@ -1083,20 +1085,17 @@ WellNUS++ is a CLI app, primarily due to the following reasons:
 ```
 
 ------------------------------------------------------------
-
-    We are here to ensure your wellness is taken care of through WellNUS++
-
-Here are all the commands available for you!
-------------------------------------------------------------
-------------------------------------------------------------
-
-    1. hb - Enter Atomic Habits: Track your small daily habits and nurture it to form a larger behaviour
-    usage: hb
-    2. reflect - Read through introspective questions for your reflection
-    usage: reflect
-    3. exit - Exit WellNUS++
-    usage: exit
-
+    WellNUS++ is a Command Line Interface (CLI) app for you to keep track, manage and improve your physical and mental wellness.
+    Input `help` to see all available commands.
+    Input `help [command-to-check]` to get usage help for a specific command.
+    Here are all the commands available for you!
+    
+    1. hb - Atomic Habits - Track and manage your habits with our suite of tools to help you grow and nurture a better you!
+    2. reflect - Self Reflection - Take some time to pause and reflect with our specially curated list of questions and reflection management tools.
+    3. ft - Focus Timer - Set a configurable 'Pomodoro' timer with work and rest cycles to keep yourself focused and productive!
+    4. gamif - Gamification - Gamification gives you the motivation to continue improving your wellness by rewarding you for your efforts!
+    5. exit - Close WellNUS++ and return to your terminal.
+    6. help - Get help on what commands can be used in WellNUS++.
 ------------------------------------------------------------
 
 ```
@@ -1107,11 +1106,12 @@ Here are all the commands available for you!
 
 ```
 
-------------------------------------------------------------
-
-    help does not take in any arguments!
-
-------------------------------------------------------------
+!!!!!!-------!!!!!--------!!!!!!!------!!!!!---------!!!!!!!
+Error Message:
+    Invalid payload given to 'help'!
+Note:
+    help command usage: help [command-to-check]
+!!!!!!-------!!!!!--------!!!!!!!------!!!!!---------!!!!!!!
 
 ```
 
@@ -1127,11 +1127,11 @@ Here are all the commands available for you!
 ```
 
 ============================================================
-1.What is my purpose in life?
-2.What is my personality type?
-3.Did I make time for myself this week?
-4.What scares me the most right now?
-5.When is the last time I gave back to others?
+    1.What is my personality type?
+    2.Did I make time for myself this week?
+    3.Am I making time for my social life?
+    4.What scares me the most right now?
+    5.What is something I find inspiring?
 ============================================================
 
 ```
@@ -1144,9 +1144,9 @@ Here are all the commands available for you!
 
 !!!!!!-------!!!!!--------!!!!!!!------!!!!!---------!!!!!!!
 Error Message:
-Command is invalid.
+    Invalid payload given to 'get'!
 Note:
-Please check the available commands and the format of commands.
+    get command usage: get
 !!!!!!-------!!!!!--------!!!!!!!------!!!!!---------!!!!!!!
 
 ```
@@ -1162,12 +1162,10 @@ Please check the available commands and the format of commands.
 
 ```
 
-------------------------------------------------------------
-
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     Yay! You have added a new habit:
     'make bed every morning' was successfully added
-
-------------------------------------------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ```
 
@@ -1179,9 +1177,9 @@ Please check the available commands and the format of commands.
 
 !!!!!!-------!!!!!--------!!!!!!!------!!!!!---------!!!!!!!
 Error Message:
-Wrong arguments given to 'add'!
+    Invalid arguments given to 'add'!
 Note:
-
+    add command usage: add --name (your habit name)
 !!!!!!-------!!!!!--------!!!!!!!------!!!!!---------!!!!!!!
 
 ```
@@ -1204,10 +1202,12 @@ Note:
   atomic habits are now recorded, i.e. `WellNUS++` should output:
 
 ```
+
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     You have no habits in your list!
     Start adding some habits by using 'add'!
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 ```
 
 2. Dealing with corrupted data files
@@ -1217,21 +1217,35 @@ Note:
 * Replace the contents of the `habit.txt` file with the following lines:
 
 ```
+
 --description Valid atomic habit --count 1 --
 --corrupted Data --test to be ignored --
+
 ```
 
-* Run the `WellNUS++` jar file
+* Run the `WellNUS++` jar file. You should see the warning below after the `WellNUS++` greeting logo and message:
+```
+
+!!!!!!-------!!!!!--------!!!!!!!------!!!!!---------!!!!!!!
+Error Message:
+    Invalid habit data '--corrupted Data --test to be ignored' found in storage!
+Note:
+    Previous atomic habit data will not be restored.
+!!!!!!-------!!!!!--------!!!!!!!------!!!!!---------!!!!!!!
+
+```
 * View the saved atomic habits: Issue `hb` followed by `list`. Expected output should be:
 
 ```
+
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     You have no habits in your list!
     Start adding some habits by using 'add'!
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 ```
 
-* Explanation: Upon relaunch, `WellNUS++` detected the invalid line `--corrupted Data --test to be ignored --` and
-  cleaned the contents of the data file, leaving no atomic habits recorded
+* Explanation: Upon relaunch, `WellNUS++` detected the invalid line `--corrupted Data --test to be ignored --`(hence
+  the warning message) and cleaned the contents of the data file, leaving no atomic habits recorded
 
 <!-- @@author -->
