@@ -29,15 +29,15 @@ import wellnus.ui.TextUi;
 public class MainManager extends Manager {
     public static final String FEATURE_HELP_DESCRIPTION = "WellNUS++ is a Command Line Interface (CLI)"
             + " app for you to keep track, manage and improve your physical and mental wellness.";
+    protected static final String EXIT_COMMAND_KEYWORD = "exit";
+    protected static final String HELP_COMMAND_KEYWORD = "help";
     private static final String COMMAND_IS_BLANK_MESSAGE = "Command is blank - please check user input code for "
             + "MainManager.";
     private static final String COMMAND_IS_NULL_MESSAGE = "Command is null - please check user input code for "
             + "MainManager.";
-    private static final String EXIT_COMMAND_KEYWORD = "exit";
     private static final String FEATURE_NAME = "main";
     private static final String GREETING_MESSAGE = "Enter a command to start using WellNUS++! Try 'help' "
             + "if you're new, or just unsure.";
-    private static final String HELP_COMMAND_KEYWORD = "help";
     private static final String INVALID_COMMAND_MESSAGE = "Invalid command issued!";
     private static final String LINE_SEPARATOR = System.lineSeparator();
     private static final String INVALID_COMMAND_ADDITIONAL_MESSAGE =

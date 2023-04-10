@@ -24,6 +24,10 @@ import wellnus.reflection.feature.ReflectionManager;
  * the class is functioning as intended and expected.
  */
 public class MainManagerTest {
+    private static final String FT_KEYWORD = "ft";
+    private static final String GAMIF_KEYWORD = "gamif";
+    private static final String HB_KEYWORD = "hb";
+    private static final String REFLECT_KEYWORD = "reflect";
 
     /**
      * Checks that the 'exit' command of <code>MainManager</code> is recognised
@@ -31,10 +35,9 @@ public class MainManagerTest {
      */
     @Test
     public void readCommand_exitWellNus_success() {
-        String exitKeyword = "exit";
         Command exitCommand = null;
         try {
-            exitCommand = new MainManager().getMainCommandFor(exitKeyword);
+            exitCommand = new MainManager().getMainCommandFor(MainManager.EXIT_COMMAND_KEYWORD);
         } catch (BadCommandException badCommandException) {
             fail();
         }
@@ -48,10 +51,9 @@ public class MainManagerTest {
      */
     @Test
     public void readCommand_helpWellnus_success() {
-        String helpKeyword = "help";
         Command helpCommand = null;
         try {
-            helpCommand = new MainManager().getMainCommandFor(helpKeyword);
+            helpCommand = new MainManager().getMainCommandFor(MainManager.HELP_COMMAND_KEYWORD);
         } catch (BadCommandException badCommandException) {
             fail();
         }
@@ -64,10 +66,9 @@ public class MainManagerTest {
      */
     @Test
     public void readCommand_hbCommand_success() {
-        String hbKeyword = "hb";
         MainManager mainManager = new MainManager();
         mainManager.setSupportedFeatureManagers();
-        Optional<Manager> hbManager = mainManager.getManagerFor(hbKeyword);
+        Optional<Manager> hbManager = mainManager.getManagerFor(HB_KEYWORD);
         if (hbManager.isEmpty()) {
             fail();
         }
@@ -81,10 +82,9 @@ public class MainManagerTest {
      */
     @Test
     public void readCommand_ftCommand_success() {
-        String ftKeyword = "ft";
         MainManager mainManager = new MainManager();
         mainManager.setSupportedFeatureManagers();
-        Optional<Manager> ftManager = mainManager.getManagerFor(ftKeyword);
+        Optional<Manager> ftManager = mainManager.getManagerFor(FT_KEYWORD);
         if (ftManager.isEmpty()) {
             fail();
         }
@@ -98,10 +98,9 @@ public class MainManagerTest {
      */
     @Test
     public void readCommand_gamifCommand_success() {
-        String gamifKeyword = "gamif";
         MainManager mainManager = new MainManager();
         mainManager.setSupportedFeatureManagers();
-        Optional<Manager> gamifManager = mainManager.getManagerFor(gamifKeyword);
+        Optional<Manager> gamifManager = mainManager.getManagerFor(GAMIF_KEYWORD);
         if (gamifManager.isEmpty()) {
             fail();
         }
@@ -115,10 +114,9 @@ public class MainManagerTest {
      */
     @Test
     public void readCommand_reflectCommand_success() {
-        String reflectKeyword = "reflect";
         MainManager mainManager = new MainManager();
         mainManager.setSupportedFeatureManagers();
-        Optional<Manager> reflectManager = mainManager.getManagerFor(reflectKeyword);
+        Optional<Manager> reflectManager = mainManager.getManagerFor(REFLECT_KEYWORD);
         if (reflectManager.isEmpty()) {
             fail();
         }
