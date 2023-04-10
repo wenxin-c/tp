@@ -220,7 +220,7 @@ public class UpdateCommand extends Command {
         } catch (NumberFormatException numberFormatException) {
             LOGGER.log(Level.INFO, LOG_STR_INPUT_NOT_INTEGER);
             throw new AtomicHabitException(FEEDBACK_INDEX_NOT_INTEGER_ERROR);
-        } catch (IndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException indexOutOfBoundsException) {
             LOGGER.log(Level.INFO, LOG_INDEX_OUT_OF_BOUNDS);
             throw new AtomicHabitException(FEEDBACK_INDEX_OUT_OF_BOUNDS_ERROR);
         } catch (BadCommandException badCommandException) {
