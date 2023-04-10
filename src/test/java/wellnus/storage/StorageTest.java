@@ -13,43 +13,64 @@ import org.junit.jupiter.api.Test;
 
 import wellnus.exception.StorageException;
 
+//@@author nichyjt
+
+/**
+ * Test that Storage's public functions work as intended.
+ */
 public class StorageTest {
 
+    private static final String INVALID_FILENAME = "foobar";
+    private static final String ERROR_FAIL_STORAGE_INSTANCE = "Failed to create instance of storage";
+    private static final String EXPECTED_EXCEPTION_FILENAME = "Expected exception to be thrown for invalid filename";
+    private static final String ERROR_CLEANUP_FILE_FAIL = "Failed to cleanup file!";
+    private static final String ERROR_LOAD_FAIL = "loadData failed when loading file that does not exist"
+            + " despite safety checks";
+    private static final String ERROR_DELETE_FILE_NOT_EXIST_FAIL = "deleteFile failed on file not exist!";
+    private static final String ERROR_STORAGE_FAIL_LOAD = "Storage failed to load data!";
+    private static final String ERROR_STORAGE_FAIL_SAVE = "Storage failed to save data!";
+    private static final String ERROR_STORAGE_FAIL_DELETE = "Failed to delete file!";
+    private static final String ERROR_STORAGE_FAIL_CREATE = "Failed to create and get new file!";
+    private static final String DEBUG_PAYLOAD_0 = "attr0 p0";
+    private static final String DEBUG_PAYLOAD_1 = "attr1 p1 --p2 p3";
+    private static final String DEBUG_PAYLOAD_2 = "attr2 --p1 p2 --p3 --p4";
+    private static final String DEBUG_PAYLOAD_3 = "attr3";
+
     private Storage getStorageInstance() {
+
         Storage storage;
         try {
             storage = new Storage();
         } catch (StorageException exception) {
-            fail("Failed to create instance of storage!");
+            fail(ERROR_FAIL_STORAGE_INSTANCE);
             return null;
         }
         return storage;
     }
 
     private ArrayList<String> getDebugStringList() {
-        String entry0 = "attr0 p0";
-        String entry1 = "attr1 p1 --p2 p3";
-        String entry2 = "attr2 --p1 p2 --p3 --p4";
-        String entry3 = "attr3";
         ArrayList<String> stringList = new ArrayList<>();
-        stringList.add(entry0);
-        stringList.add(entry1);
-        stringList.add(entry2);
-        stringList.add(entry3);
+        stringList.add(DEBUG_PAYLOAD_0);
+        stringList.add(DEBUG_PAYLOAD_1);
+        stringList.add(DEBUG_PAYLOAD_2);
+        stringList.add(DEBUG_PAYLOAD_3);
         return stringList;
     }
 
     private String getDebugTokenizedString() {
-        return "attr0 p0"
+        return DEBUG_PAYLOAD_0
                 + Storage.DELIMITER
-                + "attr1 p1 --p2 p3"
+                + DEBUG_PAYLOAD_1
                 + Storage.DELIMITER
-                + "attr2 --p1 p2 --p3 --p4"
+                + DEBUG_PAYLOAD_2
                 + Storage.DELIMITER
-                + "attr3"
+                + DEBUG_PAYLOAD_3
                 + Storage.DELIMITER;
     }
 
+    /**
+     * Test that creating and deleting a file works
+     */
     @Test
     @Order(1)
     public void createAndDeleteFile_test() {
@@ -61,20 +82,23 @@ public class StorageTest {
         try {
             debugFile = storage.getFile(debugFilename);
         } catch (StorageException exception) {
-            fail("Failed to create and get new file!");
+            fail(ERROR_STORAGE_FAIL_CREATE);
             return;
         }
         // Remove test
         try {
             storage.deleteFile(debugFilename);
         } catch (StorageException exception) {
-            fail("Failed to delete file!");
+            fail(ERROR_STORAGE_FAIL_DELETE);
             return;
         }
         // Sanity check that file actually is deleted
         assertFalse(debugFile.exists());
     }
 
+    /**
+     * Test that tokenizing a list data string works
+     */
     @Test
     @Order(2)
     public void tokenizeHashmap_test() {
@@ -88,6 +112,9 @@ public class StorageTest {
         assertEquals(expected, result);
     }
 
+    /**
+     * Test that detokenizing data string works for a valid string
+     */
     @Test
     @Order(3)
     public void detokenizeDataString_test() {
@@ -115,21 +142,21 @@ public class StorageTest {
         try {
             storage.saveData(getDebugStringList(), debugFilename);
         } catch (StorageException exception) {
-            fail("Storage failed to save data!");
+            fail(ERROR_STORAGE_FAIL_SAVE);
         }
         // Test loading logic
         ArrayList<String> result = new ArrayList<>();
         try {
             result = storage.loadData(debugFilename);
         } catch (StorageException exception) {
-            fail("Storage failed to load data!");
+            fail(ERROR_STORAGE_FAIL_LOAD);
         }
         assertEquals(debugList, result);
         // Cleanup file
         try {
             storage.deleteFile(debugFilename);
         } catch (StorageException exception) {
-            fail("Failed to cleanup file!");
+            fail(ERROR_CLEANUP_FILE_FAIL);
         }
     }
 
@@ -144,7 +171,7 @@ public class StorageTest {
         try {
             storage.deleteFile(Storage.FILE_DEBUG);
         } catch (StorageException exception) {
-            fail("deleteFile failed on file not exist!");
+            fail(ERROR_DELETE_FILE_NOT_EXIST_FAIL);
         }
     }
 
@@ -159,27 +186,33 @@ public class StorageTest {
         try {
             storage.loadData(Storage.FILE_DEBUG);
         } catch (StorageException exception) {
-            fail("loadData failed when loading file that does not exist despite safety checks");
+            fail(ERROR_LOAD_FAIL);
         }
         // Cleanup the debug file that was created as part of safety measures
         // deleteFile must work as the above tests on deleteFile have passed
         try {
             storage.deleteFile(Storage.FILE_DEBUG);
         } catch (StorageException exception) {
-            fail("Failed to cleanup file!");
+            fail(ERROR_CLEANUP_FILE_FAIL);
         }
     }
 
+    /**
+     * Test that invalid file name throws an exception on getFile
+     */
     @Test
     @Order(7)
     public void getFile_invalidFileName_exceptionThrown() {
         Storage storage = getStorageInstance();
         assert storage != null;
         assertThrows(StorageException.class, () -> {
-            storage.getFile("foobar");
-        }, "Expected exception to be thrown for invalid filename");
+            storage.getFile(INVALID_FILENAME);
+        }, EXPECTED_EXCEPTION_FILENAME);
     }
 
+    /**
+     * Test that invalid file name throws an exception on saveData
+     */
     @Test
     @Order(8)
     public void saveData_invalidFileName_exceptionThrown() {
@@ -187,28 +220,34 @@ public class StorageTest {
         assert storage != null;
         ArrayList<String> payload = getDebugStringList();
         assertThrows(StorageException.class, () -> {
-            storage.saveData(payload, "foobar");
-        }, "Expected exception to be thrown for invalid filename");
+            storage.saveData(payload, INVALID_FILENAME);
+        }, EXPECTED_EXCEPTION_FILENAME);
     }
 
+    /**
+     * Test that invalid file name throws an exception on loadData
+     */
     @Test
     @Order(9)
     public void loadData_invalidFileName_exceptionThrown() {
         Storage storage = getStorageInstance();
         assert storage != null;
         assertThrows(StorageException.class, () -> {
-            storage.loadData("foobar");
-        }, "Expected exception to be thrown for invalid filename");
+            storage.loadData(INVALID_FILENAME);
+        }, EXPECTED_EXCEPTION_FILENAME);
     }
 
+    /**
+     * Test that invalid file name throws an exception on deleteFile
+     */
     @Test
     @Order(10)
     public void deleteFile_invalidFileName_exceptionThrown() {
         Storage storage = getStorageInstance();
         assert storage != null;
         assertThrows(StorageException.class, () -> {
-            storage.deleteFile("foobar");
-        }, "Expected exception to be thrown for invalid filename");
+            storage.deleteFile(INVALID_FILENAME);
+        }, EXPECTED_EXCEPTION_FILENAME);
     }
 
 }

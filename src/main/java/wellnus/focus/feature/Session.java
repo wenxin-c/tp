@@ -1,7 +1,8 @@
 package wellnus.focus.feature;
 
-
 import java.util.ArrayList;
+
+//@@author YongbinWang
 
 /**
  * Represents a session of Countdown objects.
@@ -19,7 +20,6 @@ import java.util.ArrayList;
  * </ol>
  * The last timer holds a special `isReady` attribute to help Session determine if `start` and `config` is usable.
  */
-//@@author YongbinWang
 public class Session {
     private static final int INCREMENT = 1;
     private static final boolean IS_LAST_COUNTDOWN = true;
@@ -78,6 +78,8 @@ public class Session {
         return this.currentCountdownIndex;
     }
 
+    //@@author nichyjt
+
     /**
      * Method to increment the current countdown index if the current countdown is completed.
      */
@@ -88,7 +90,6 @@ public class Session {
             return;
         }
         currentCountdownIndex += INCREMENT;
-
     }
 
     /**
@@ -168,6 +169,13 @@ public class Session {
         session.get(lastIndex).setIsReady(true);
     }
 
+    //@@author YongbinWang
+
+    /**
+     * Check if the session has any countdowns in its list
+     *
+     * @return boolean Representing if there is any countdown
+     */
     public boolean hasAnyCountdown() {
         return session.size() > 0;
     }

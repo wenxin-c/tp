@@ -23,6 +23,7 @@ public class ReflectionTokenizer implements Tokenizer<Set<Integer>> {
     private static final String COLON_CHARACTER = ":";
     private static final int NO_LIMIT = -1;
     private static final String DETOKENIZE_ERROR_MESSAGE = "Invalid reflect %s data '%s' found in storage!";
+    private static final String INVALID_NUM_OF_LINES_ERRROR = "Invalid reflect data formatting found in storage!";
     private String getTokenizedIndexes(String key, Set<Integer> indexesToTokenize) {
         String tokenizedIndexes = key + COLON_CHARACTER;
         for (int index : indexesToTokenize) {
@@ -138,6 +139,8 @@ public class ReflectionTokenizer implements Tokenizer<Set<Integer>> {
         if (tokenizedIndex.size() == TOKENIZER_INDEX_ARRAYLIST_SIZE) {
             detokenizedLike = validateTokenizedIndexFormat(tokenizedIndex, LIKE_INDEX, LIKE_KEY);
             detokenizedPrev = validateTokenizedIndexFormat(tokenizedIndex, PREV_INDEX, PREV_KEY);
+        } else if (tokenizedIndex.size() > INDEX_ZERO && !tokenizedIndex.get(INDEX_ZERO).isBlank()) {
+            throw new TokenizerException(INVALID_NUM_OF_LINES_ERRROR);
         }
         detokenizedIndexes.add(detokenizedLike);
         detokenizedIndexes.add(detokenizedPrev);

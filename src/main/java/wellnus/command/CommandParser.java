@@ -7,6 +7,8 @@ import java.util.logging.Logger;
 import wellnus.common.WellNusLogger;
 import wellnus.exception.BadCommandException;
 
+//@@author nichyjt
+
 /**
  * A CommandParser processes user input from a defined format <p>
  * <p><br>
@@ -76,14 +78,12 @@ public class CommandParser {
      */
     private String[] splitIntoCommands(String fullCommandString) throws BadCommandException {
         assert fullCommandString != null : "fullCommandString should not be null";
-
         // Perform a string length sanity check
         fullCommandString = fullCommandString.strip();
         if (fullCommandString.length() == 0) {
             LOGGER.log(Level.INFO, LOG_STR_EMPTY_INPUT);
             throw new BadCommandException(ERROR_EMPTY_COMMAND);
         }
-
         int noLimit = -1;
         String[] rawCommands = fullCommandString.split(ARGUMENT_DELIMITER, noLimit);
         String[] cleanCommands = new String[rawCommands.length];
