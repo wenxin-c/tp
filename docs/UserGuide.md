@@ -613,7 +613,7 @@ Expected output:
 
 ```
 ============================================================
-    You have added question: What is my purpose in life? Into favorite list!!
+    You have added question: "What is my purpose in life?" Into favorite list!!
 ============================================================
 ```
 
