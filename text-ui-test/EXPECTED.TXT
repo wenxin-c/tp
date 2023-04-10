@@ -16,7 +16,7 @@ Error Message:
 Note:
     Supported features:
     Access Atomic Habit: hb
-    Access Self Reflection : reflect
+    Access Self Reflection: reflect
     Access Focus Timer: ft
     Access Gamification: gamif
     Help command: help
