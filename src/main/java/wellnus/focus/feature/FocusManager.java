@@ -57,7 +57,6 @@ public class FocusManager extends Manager {
             "|__/    \\______/  \\_______/ \\______/ |_______/" + System.lineSeparator();
     private static final String COMMAND_KEYWORD_ASSERTION = "The key cannot be null"
             + ", check user-guide for valid commands";
-    private static final String ERROR_SESSION_RUNNING = "Sorry, you cant `start` or `config` a ";
     private static final String LINE_SEPARATOR = System.lineSeparator();
     private static final String COMMAND_INVALID_COMMAND_NOTE = "Supported commands in Focus Timer: " + LINE_SEPARATOR
             + "check command " + CheckCommand.COMMAND_USAGE + LINE_SEPARATOR

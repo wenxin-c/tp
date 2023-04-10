@@ -61,8 +61,6 @@ public class ReflectionManager extends Manager {
     private static final int EMPTY_COMMAND = 0;
     private static final boolean IS_EXIT_INITIAL = false;
     private static final ReflectUi UI = new ReflectUi();
-    // This attribute should be set as static to avoid confusion if a new object is created.
-    // It means exit from self reflection back to main interface
     private static boolean isExit;
     private String commandType;
     private HashMap<String, String> argumentPayload;

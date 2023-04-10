@@ -35,10 +35,6 @@ public class ExitCommand extends Command {
         return command instanceof ExitCommand;
     }
 
-    private TextUi getTextUi() {
-        return this.textUi;
-    }
-
     /**
      * Identifies this Command's keyword. Override this in subclasses so
      * toString() returns the correct String representation.

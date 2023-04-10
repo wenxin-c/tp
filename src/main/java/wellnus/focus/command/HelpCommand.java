@@ -27,7 +27,6 @@ public class HelpCommand extends Command {
             + "Input `help [command-to-check]` to get usage help for a specific command."
             + System.lineSeparator()
             + "Here are all the commands available for you!";
-    private static final String ERROR_UNKNOWN_COMMAND = "Invalid command issued!";
     private static final String PADDING = " ";
     private static final String DOT = ".";
     private static final int ONE_OFFSET = 1;
