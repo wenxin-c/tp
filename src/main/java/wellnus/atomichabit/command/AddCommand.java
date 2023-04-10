@@ -29,7 +29,6 @@ public class AddCommand extends Command {
             + "Habit name should not contain only numbers and symbols!";
     private static final String COMMAND_NAME_ARGUMENT = "name";
     private static final String COMMAND_KEYWORD_ASSERTION = "The key should be add.";
-    private static final String COMMAND_PAYLOAD_ASSERTION = "The payload should not be empty.";
     private static final int COMMAND_NUM_OF_ARGUMENTS = 2;
     private static final String REGEX_NUMBER_AND_SYMBOL_ONLY_PATTERN = "^[\\d\\p{Punct}\\p{S}]*$";
     private static final String COMMAND_WRONG_KEYWORD_MESSAGE = "Invalid command issued, expected 'add'!";

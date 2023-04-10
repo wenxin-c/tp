@@ -38,7 +38,6 @@ public class UpdateCommand extends Command {
     private static final String DOT = ".";
     private static final int DEFAULT_INCREMENT = 1;
     private static final int ZERO = 0;
-    private static final String FEEDBACK_STRING = "The following habit has been incremented! Keep up the good work!";
     private static final String FEEDBACK_INDEX_NOT_INTEGER_ERROR = "Invalid payload given in 'update' command, "
             + "expected a valid integer!";
     private static final String FEEDBACK_INDEX_OUT_OF_BOUNDS_ERROR = "Invalid payload given in 'update' command, "
@@ -58,7 +57,6 @@ public class UpdateCommand extends Command {
     private static final String UPDATE_INVALID_INCREMENT_COUNT = "Invalid increment payload given in 'update' command, "
             + "increment with minimum of 1 is expected!";
     private static final String STORE_GAMIF_DATA_FAILED_NOTE_MESSAGE = "Error saving to storage!";
-    private static final String REGEX_INTEGER_ONLY_PATTERN = "\\s*-?\\d+\\s*";
     private static final Logger LOGGER = WellNusLogger.getLogger("UpdateAtomicHabitLogger");
     private static final String LOG_STR_INPUT_NOT_INTEGER = "Input string is not an integer."
             + "This should be properly handled";

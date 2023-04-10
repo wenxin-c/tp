@@ -87,16 +87,6 @@ public class GamificationManager extends Manager {
         return FEATURE_NAME;
     }
 
-    /**
-     * Returns a description of the gamification feature for the 'help' command.
-     *
-     * @return String of the feature's help description
-     */
-    @Override
-    public String getFeatureHelpDescription() {
-        return FEATURE_HELP_DESCRIPTION;
-    }
-
     public GamificationData getGamificationData() {
         return gamificationData;
     }

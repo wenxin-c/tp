@@ -37,7 +37,6 @@ public class QuestionList {
         "When is the last time I gave back to others?",
         "What matters to me most right now?"
     };
-
     private static final int TOTAL_NUM_QUESTIONS = 10;
     private static final int RANDOM_NUMBER_UPPERBOUND = 10;
     private static final int INDEX_ZERO = 0;

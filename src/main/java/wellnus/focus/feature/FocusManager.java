@@ -57,7 +57,6 @@ public class FocusManager extends Manager {
             "|__/    \\______/  \\_______/ \\______/ |_______/" + System.lineSeparator();
     private static final String COMMAND_KEYWORD_ASSERTION = "The key cannot be null"
             + ", check user-guide for valid commands";
-    private static final String ERROR_SESSION_RUNNING = "Sorry, you cant `start` or `config` a ";
     private static final String LINE_SEPARATOR = System.lineSeparator();
     private static final String COMMAND_INVALID_COMMAND_NOTE = "Supported commands in Focus Timer: " + LINE_SEPARATOR
             + "check command " + CheckCommand.COMMAND_USAGE + LINE_SEPARATOR
@@ -136,15 +135,6 @@ public class FocusManager extends Manager {
                 Command command = getCommandFor(commandString);
                 command.execute();
                 isExit = HomeCommand.isExit(command);
-            } catch (BadCommandException exception) {
-                String errorMessage = exception.getMessage();
-                if (errorMessage.contains(CONFIG_COMMAND_KEYWORD)) {
-                    focusUi.printErrorFor(exception, CONFIG_USAGE);
-                } else if (errorMessage.contains(HOME_COMMAND_KEYWORD)) {
-                    focusUi.printErrorFor(exception, HOME_USAGE);
-                } else {
-                    focusUi.printErrorFor(exception, COMMAND_INVALID_COMMAND_NOTE);
-                }
             } catch (WellNusException exception) {
                 String errorMessage = exception.getMessage();
                 if (errorMessage.contains(CONFIG_COMMAND_KEYWORD)) {
@@ -166,22 +156,6 @@ public class FocusManager extends Manager {
     @Override
     public String getFeatureName() {
         return FEATURE_NAME;
-    }
-
-    /**
-     * Abstract function to ensure developers add in a getter for the feature's help description.
-     * <p>
-     * This description will be shown when the user types in the help command. <br>
-     * The description should be a brief overview of what the feature does. <br>
-     * For example: <br>
-     * "reflect: Reflect is your go-to tool to get, save and reflect on our specially
-     * curated list of questions to reflect on"
-     *
-     * @return String of the feature's help description
-     */
-    @Override
-    public String getFeatureHelpDescription() {
-        return null;
     }
 
     /**
