@@ -16,6 +16,7 @@ public class GamificationDataTest {
     private static final int LEVEL_UP_SUCCESS_AMOUNT = GamificationData.POINTS_PER_LEVEL;
     private static final int MINUS_XP_SUCCESS_AMOUNT = 2;
     private static final int MINUS_XP_EXCEPTION_AMOUNT = -1;
+    private static final String UNEXPECTED_EXCEPTION_MESSAGE = "Not expecting '%s' when testing %s.";
 
     /**
      * Check that addXp() increments XP by given amount of XP correctly.
@@ -27,7 +28,9 @@ public class GamificationDataTest {
         try {
             gamificationData.addXp(ADD_XP_SUCCESS_AMOUNT);
         } catch (StorageException storageException) {
-            fail();
+            String exceptionName = "StorageException";
+            String testCase = "addXp() with valid input";
+            fail(String.format(UNEXPECTED_EXCEPTION_MESSAGE, exceptionName, testCase));
         }
         assertEquals(gamificationData.getTotalXp(), ADD_XP_SUCCESS_AMOUNT);
     }
@@ -55,7 +58,9 @@ public class GamificationDataTest {
         try {
             isLevelUp = gamificationData.addXp(LEVEL_UP_SUCCESS_AMOUNT);
         } catch (StorageException storageException) {
-            fail();
+            String exceptionName = "StorageException";
+            String testCase = "addXp() level up with valid input";
+            fail(String.format(UNEXPECTED_EXCEPTION_MESSAGE, exceptionName, testCase));
         }
         assertEquals(gamificationData.getXpLevel(), LEVEL_UP_HOW_MANY_LEVELS);
         boolean levelledUp = true;
@@ -74,7 +79,9 @@ public class GamificationDataTest {
         try {
             gamificationData.addXp(GamificationData.POINTS_PER_LEVEL + remainingXp);
         } catch (StorageException storageException) {
-            fail();
+            String exceptionName = "StorageException";
+            String testCase = "getXpForCurrentLevelOnly() with valid input";
+            fail(String.format(UNEXPECTED_EXCEPTION_MESSAGE, exceptionName, testCase));
         }
         assertEquals(gamificationData.getXpForCurrentLevelOnly(), remainingXp);
     }
@@ -91,7 +98,9 @@ public class GamificationDataTest {
         try {
             gamificationData.addXp(testXpPoints);
         } catch (StorageException storageException) {
-            fail();
+            String exceptionName = "StorageException";
+            String testCase = "getXpToReachNextLevel() with valid input";
+            fail(String.format(UNEXPECTED_EXCEPTION_MESSAGE, exceptionName, testCase));
         }
         int xpToReachNextLevel = GamificationData.POINTS_PER_LEVEL - testXpPoints;
         assertEquals(gamificationData.getXpToReachNextLevel(), xpToReachNextLevel);
@@ -108,7 +117,9 @@ public class GamificationDataTest {
             gamificationData.addXp(ADD_XP_SUCCESS_AMOUNT);
             gamificationData.minusXp(MINUS_XP_SUCCESS_AMOUNT);
         } catch (StorageException storageException) {
-            fail();
+            String exceptionName = "StorageException";
+            String testCase = "minusXp() level up with valid input";
+            fail(String.format(UNEXPECTED_EXCEPTION_MESSAGE, exceptionName, testCase));
         }
         int expectedRemaining = ADD_XP_SUCCESS_AMOUNT - MINUS_XP_SUCCESS_AMOUNT;
         assertEquals(gamificationData.getTotalXp(), expectedRemaining);

@@ -21,9 +21,9 @@ public class GamificationTokenizerTest {
     private static final int NO_LEVEL_XP = 5;
     private static final int LEVEL_UP_XP = 10;
     private static final String UNEXPECTED_EXCEPTION_MESSAGE = "TokenizerException not supposed to be thrown for valid "
-            + "input '%d'";
+            + "input '%d'.";
     private static final String WRONG_EXCEPTION_MESSAGE = "'%s' thrown when testing valid input '%d'. Not even the "
-            + "correct Exception type";
+            + "relevant Exception category.";
     private static final int XP_LEVEL_ZERO = 0;
     private static final int XP_LEVEL_ONE = 1;
 
@@ -54,8 +54,8 @@ public class GamificationTokenizerTest {
         try {
             gamificationData.addXp(ADD_XP_AMOUNT);
         } catch (StorageException storageException) {
-            String expectedException = "TokenizerException";
-            fail(String.format(WRONG_EXCEPTION_MESSAGE, expectedException, ADD_XP_AMOUNT));
+            String exceptionName = "StorageException";
+            fail(String.format(WRONG_EXCEPTION_MESSAGE, exceptionName, ADD_XP_AMOUNT));
         }
         ArrayList<GamificationData> testDatas = new ArrayList<>();
         testDatas.add(gamificationData);
