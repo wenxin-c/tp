@@ -355,7 +355,7 @@ Expected outcome 2:
 
 ```
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    The following habit has been incremented! Keep up the good work!
+    The following habit has been decremented.
     1.Make bed every morning [5]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ```
@@ -613,7 +613,7 @@ Expected output:
 
 ```
 ============================================================
-    You have added question: What is my purpose in life? into favorite list!!
+    You have added question: What is my purpose in life? Into favorite list!!
 ============================================================
 ```
 
@@ -673,7 +673,7 @@ Example output:
 
 ```
 ============================================================
-    You have removed question: What are three of my most cherished personal values? from favorite list!!
+    You have removed question: "What are three of my most cherished personal values?" From favorite list!!
 ============================================================
 ```
 
@@ -796,10 +796,10 @@ Expected outcome:
 
 ```
 ************************************************************
-    Your session has started! Please focus on your task.
+    Your session has started. All the best!
 ************************************************************
 ************************************************************
-    Task
+    Task Cycle: Do your task now!
 ************************************************************
 ```
 
@@ -880,7 +880,7 @@ Expected outcome (if the next timer is a work timer):
 
 ```
 ************************************************************
-    Task
+    Task Cycle: Do your task now!
 ************************************************************
 ```
 
@@ -888,7 +888,7 @@ Expected outcome (if the next timer is a break timer):
 
 ```
 ************************************************************
-    Break
+    Break Cycle: Take a breather!
 ************************************************************
 ```
 
@@ -1004,7 +1004,7 @@ Expected outcome:
 
 ```
 ************************************************************
-    Okay, here's your new session details!
+    Okay, here's your configured session details!
     Cycles: 2
     Work: 1 minute
     Break: 1 minute
@@ -1020,7 +1020,7 @@ Expected outcome:
 
 ```
 ************************************************************
-    Okay, here's your new session details!
+    Okay, here's your configured session details!
     Cycles: 4
     Work: 30 minutes
     Break: 5 minutes
