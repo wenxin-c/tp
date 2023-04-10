@@ -9,13 +9,22 @@ import org.junit.jupiter.api.Test;
 
 import wellnus.exception.BadCommandException;
 
+// @@author wenxin-c
+/**
+ * Class to test different tests for `ReflectionManager` Class utilising JUnit tests.
+ * Test cases will involve expected outputs and correct exception handling.
+ */
 class ReflectionManagerTest {
     private static final String EMPTY_STRING = "";
     private static final String GET_COMMAND = "get";
     private static final String INVALID_COMMAND = "test";
     private static final String SEPARATOR = " ";
 
-    // Test whether exceptions are thrown for invalid command
+    /**
+     * Test whether commands are validated correctly.<br/>
+     *
+     * @throws BadCommandException If unrecognised command is given.
+     */
     @Test
     void execution_invalidCommand_expectException() throws BadCommandException {
         ReflectionManager reflectionManager = new ReflectionManager();
@@ -24,7 +33,9 @@ class ReflectionManagerTest {
                 reflectionManager::executeCommands);
     }
 
-    // Test whether exceptions are thrown for empty string for commandType.
+    /**
+     * Test whether empty string input exception is properly thrown and caught.
+     */
     @Test
     void setCommandType_emptyString_expectException() {
         ReflectionManager reflectionManager = new ReflectionManager();
@@ -32,17 +43,15 @@ class ReflectionManagerTest {
         System.out.println(input.length);
         assertThrows(BadCommandException.class, (
         ) -> reflectionManager.setCommandType(EMPTY_STRING));
-    }
-
-    // Test whether exceptions are thrown for empty string for argument-payload pairs.
-    @Test
-    void setArgumentPayload_emptyCommand_expectException() {
-        ReflectionManager reflectionManager = new ReflectionManager();
         assertThrows(BadCommandException.class, (
         ) -> reflectionManager.setArgumentPayload(EMPTY_STRING));
     }
 
-    // Test whether argument_payload pair is properly generated.
+    /**
+     * Test whether command argument_payload pair is properly generated.<br/>
+     *
+     * @throws BadCommandException If an invalid command is given.
+     */
     @Test
     void setArgumentPayload_singleCommand_expectEmptyPayload() throws BadCommandException {
         ReflectionManager reflectionManager = new ReflectionManager();
