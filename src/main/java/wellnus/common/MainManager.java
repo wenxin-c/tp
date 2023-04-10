@@ -43,7 +43,7 @@ public class MainManager extends Manager {
     private static final String INVALID_COMMAND_ADDITIONAL_MESSAGE =
             "Supported features: " + LINE_SEPARATOR
             + "Access Atomic Habit: hb" + LINE_SEPARATOR
-            + "Access Self Reflection : reflect" + LINE_SEPARATOR
+            + "Access Self Reflection: reflect" + LINE_SEPARATOR
             + "Access Focus Timer: ft" + LINE_SEPARATOR
             + "Access Gamification: gamif" + LINE_SEPARATOR
             + "Help command: help" + LINE_SEPARATOR
