@@ -910,14 +910,14 @@ Referring to the class diagram, this is implemented on `Session` with 4 methods 
 Example implementation to check if Session is in `Counting` state:
 
 ```java
-public boolean isSessionCounting(){
-        Countdown countdown=getCurrentCountdown();
-        return countdown.getIsRunning()&&!countdown.getIsCompletedCountdown();
-        }
+public boolean isSessionCounting() {
+        Countdown countdown = getCurrentCountdown();
+        return countdown.getIsRunning() && !countdown.getIsCompletedCountdown();
+}
 ```
 
 **Easily Identify State**: Developers can hence trivially check if a command is in a valid state to be executed
-by using these 4 methods in `Session` to check which state the it is in:
+by using these 4 methods in `Session` to check which state that it is in:
 1. `isSessionReady()`  
 2. `isSessionCounting()`  
 3. `isSessionWaiting()`   
