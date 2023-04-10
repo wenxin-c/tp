@@ -523,6 +523,9 @@ Implementation of `parseUserInput`:
 
 ![CommandParser implementation](diagrams/CommandParserSequence.png)
 
+**Caveats**: For sake of generalization, `FooUi` and `FooManager` are aliases for the actual implemented `TextUi` and
+`Manager` subclasses. For example, `AtomicHabit` and `AtomicHabitManager`.
+
 `parseUserInput(String userInput)` is used to directly convert a string into their argument-payload pairs.
 It first calls `splitIntoCommand` to split input over the `' --'` delimiter to get a `String[] commands`.
 Each `command` in `commands[]` contain the argument and payload. Internally, it splits the
@@ -828,6 +831,8 @@ passed into a feature-specific tokenizer, such as `AtomicHabit`.
 The burden of data transformation from the target data type to `String` is up to `Tokenizer`'s `tokenize` method.
 
 ![](./diagrams/StorageSequence-Saving_Data__Emphasis_on_Storage_Subroutine_.png)
+**Caveats**: For sake of generalization, `FooManager` and `FooTokenizer` are aliases for the actual implemented
+`Manager` and `Tokenizer` subclasses. For example, `AtomicHabitManager` and `AtomicHabitTokenizer`.
 
 ### Usage - `loadData`
 
@@ -866,7 +871,7 @@ identify the state of the FocusTimer.
 
 ![FSM diagram](diagrams/FocusTimerClassDiagram.png)
 
-Note: For readability, FocusCommand is an abstraction of all the 9 different commands that exist in FocusTimer.
+**Caveats**: For readability, FocusCommand is an abstraction of all the 9 different commands that exist in FocusTimer.
 
 #### State Management
 
