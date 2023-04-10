@@ -57,19 +57,6 @@ public abstract class Manager {
     public abstract String getFeatureName();
 
     /**
-     * Abstract function to ensure developers add in a getter for the feature's help description.
-     * <p>
-     * This description will be shown when the user types in the help command. <br>
-     * The description should be a brief overview of what the feature does. <br>
-     * For example: <br>
-     * "reflect: Reflect is your go-to tool to get, save and reflect on our specially
-     * curated list of questions to reflect on"
-     *
-     * @return String of the feature's help description
-     */
-    public abstract String getFeatureHelpDescription();
-
-    /**
      * runEventDriver is the entry point into a feature's driver loop. <br>
      * <br>
      * This should be the part that contains the infinite loop and switch cases,

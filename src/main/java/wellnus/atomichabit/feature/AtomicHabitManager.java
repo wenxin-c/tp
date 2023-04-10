@@ -71,10 +71,6 @@ public class AtomicHabitManager extends Manager {
         this.atomicHabitUi.setCursorName(FEATURE_NAME);
     }
 
-    private static String getHelpDescription() {
-        return "Atomic Habits: ";
-    }
-
     /**
      * Parses the given command from the user and determines the correct Command
      * subclass that can handle its execution.
@@ -134,7 +130,7 @@ public class AtomicHabitManager extends Manager {
                     this.getTextUi().printErrorFor(exception, ERROR_STORAGE_MESSAGE);
                 }
                 isExit = HomeCommand.isExit(command);
-            } catch (BadCommandException badCommandException) {
+            } catch (WellNusException badCommandException) {
                 String errorMessage = badCommandException.getMessage();
                 if (errorMessage.contains(ADD_COMMAND_KEYWORD)) {
                     getTextUi().printErrorFor(badCommandException, ADD_USAGE);
@@ -146,19 +142,6 @@ public class AtomicHabitManager extends Manager {
                     getTextUi().printErrorFor(badCommandException, UPDATE_USAGE);
                 } else {
                     getTextUi().printErrorFor(badCommandException, COMMAND_INVALID_COMMAND_NOTE);
-                }
-            } catch (WellNusException exception) {
-                String errorMessage = exception.getMessage();
-                if (errorMessage.contains(ADD_COMMAND_KEYWORD)) {
-                    getTextUi().printErrorFor(exception, ADD_USAGE);
-                } else if (errorMessage.contains(DELETE_COMMAND_KEYWORD)) {
-                    getTextUi().printErrorFor(exception, DELETE_USAGE);
-                } else if (errorMessage.contains(HOME_COMMAND_KEYWORD)) {
-                    getTextUi().printErrorFor(exception, HOME_USAGE);
-                } else if (errorMessage.contains(UPDATE_COMMAND_KEYWORD)) {
-                    getTextUi().printErrorFor(exception, UPDATE_USAGE);
-                } else {
-                    getTextUi().printErrorFor(exception, COMMAND_INVALID_COMMAND_NOTE);
                 }
             }
         }
@@ -172,22 +155,6 @@ public class AtomicHabitManager extends Manager {
     @Override
     public String getFeatureName() {
         return FEATURE_NAME;
-    }
-
-    /**
-     * Abstract function to ensure developers add in a getter for the feature's help description.
-     * <p>
-     * This description will be shown when the user types in the help command. <br>
-     * The description should be a brief overview of what the feature does. <br>
-     * For example: <br>
-     * "reflect: Reflect is your go-to tool to get, save and reflect on our specially
-     * curated list of questions to reflect on"
-     *
-     * @return String of the feature's help description
-     */
-    @Override
-    public String getFeatureHelpDescription() {
-        return FEATURE_HELP_DESCRIPTION;
     }
 
     /**

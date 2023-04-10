@@ -19,8 +19,6 @@ import wellnus.ui.TextUi;
 
 public class FocusTest {
     private static final String START_COMMAND = "start";
-    private static final String CHECK_COMMAND = "check";
-    private static final String PAUSE_COMMAND = "pause";
     private final CommandParser parser;
     private final ByteArrayOutputStream outputStreamCaptor;
     private final Session session;

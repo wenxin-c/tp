@@ -29,15 +29,15 @@ import wellnus.ui.TextUi;
 public class MainManager extends Manager {
     public static final String FEATURE_HELP_DESCRIPTION = "WellNUS++ is a Command Line Interface (CLI)"
             + " app for you to keep track, manage and improve your physical and mental wellness.";
+    protected static final String EXIT_COMMAND_KEYWORD = "exit";
+    protected static final String HELP_COMMAND_KEYWORD = "help";
     private static final String COMMAND_IS_BLANK_MESSAGE = "Command is blank - please check user input code for "
             + "MainManager.";
     private static final String COMMAND_IS_NULL_MESSAGE = "Command is null - please check user input code for "
             + "MainManager.";
-    private static final String EXIT_COMMAND_KEYWORD = "exit";
     private static final String FEATURE_NAME = "main";
     private static final String GREETING_MESSAGE = "Enter a command to start using WellNUS++! Try 'help' "
             + "if you're new, or just unsure.";
-    private static final String HELP_COMMAND_KEYWORD = "help";
     private static final String INVALID_COMMAND_MESSAGE = "Invalid command issued!";
     private static final String LINE_SEPARATOR = System.lineSeparator();
     private static final String INVALID_COMMAND_ADDITIONAL_MESSAGE =
@@ -61,13 +61,45 @@ public class MainManager extends Manager {
     /**
      * Constructs an instance of MainManager. <br>
      * Instantiates boilerplate utilities like TextUi
-     * and populates featureManagers with exactly one instance to be executed on user selection
+     * and populates featureManagers with exactly one instance to be executed on user selection.
      */
     public MainManager() {
         super();
         this.featureManagers = new ArrayList<>();
         this.textUi = new TextUi();
         this.textUi.setCursorName(FEATURE_NAME);
+    }
+
+    /**
+     * Parses the given command String issued by the user and returns the corresponding
+     * Command object that can execute it.
+     *
+     * @param command Command issued by the user
+     * @return Command object that can execute the user's command
+     * @throws BadCommandException If command issued is not supported or invalid
+     */
+    protected Command getMainCommandFor(String command) throws BadCommandException {
+        String commandKeyword = getCommandParser().getMainArgument(command);
+        HashMap<String, String> arguments = getCommandParser().parseUserInput(command);
+        switch (commandKeyword) {
+        case MainManager.HELP_COMMAND_KEYWORD:
+            return new HelpCommand(arguments);
+        case MainManager.EXIT_COMMAND_KEYWORD:
+            return new ExitCommand(arguments);
+        default:
+            throw new BadCommandException(MainManager.INVALID_COMMAND_MESSAGE);
+        }
+    }
+
+    protected Optional<Manager> getManagerFor(String featureKeyword) {
+        assert (featureKeyword != null && !featureKeyword.isBlank())
+                : MainManager.INVALID_FEATURE_KEYWORD_MESSAGE;
+        for (Manager featureManager : this.getSupportedFeatureManagers()) {
+            if (featureManager.getFeatureName().equals(featureKeyword)) {
+                return Optional.of(featureManager);
+            }
+        }
+        return Optional.empty();
     }
 
     /**
@@ -112,27 +144,6 @@ public class MainManager extends Manager {
         }
         // We are about to quit WellNUS++. Close the log file used in this session
         WellNusLogger.closeLogFile();
-    }
-
-    /**
-     * Parses the given command String issued by the user and returns the corresponding
-     * Command object that can execute it.
-     *
-     * @param command Command issued by the user
-     * @return Command object that can execute the user's command
-     * @throws BadCommandException If command issued is not supported or invalid
-     */
-    private Command getMainCommandFor(String command) throws BadCommandException {
-        String commandKeyword = getCommandParser().getMainArgument(command);
-        HashMap<String, String> arguments = getCommandParser().parseUserInput(command);
-        switch (commandKeyword) {
-        case MainManager.HELP_COMMAND_KEYWORD:
-            return new HelpCommand(arguments);
-        case MainManager.EXIT_COMMAND_KEYWORD:
-            return new ExitCommand(arguments);
-        default:
-            throw new BadCommandException(MainManager.INVALID_COMMAND_MESSAGE);
-        }
     }
 
     private List<String> getSupportedCommandKeywords() {
@@ -186,16 +197,6 @@ public class MainManager extends Manager {
     }
 
     /**
-     * Returns a help description of the WellNUS++ app.
-     *
-     * @return Help description of this app
-     */
-    @Override
-    public String getFeatureHelpDescription() {
-        return FEATURE_HELP_DESCRIPTION;
-    }
-
-    /**
      * Returns the name of this feature. In this case, it's just empty(not any particular feature).
      *
      * @return Empty String to imply that this Manager is not associated with any feature
@@ -203,17 +204,6 @@ public class MainManager extends Manager {
     @Override
     public String getFeatureName() {
         return WELLNUS_FEATURE_NAME;
-    }
-
-    public Optional<Manager> getManagerFor(String featureKeyword) {
-        assert (featureKeyword != null && !featureKeyword.isBlank())
-                : MainManager.INVALID_FEATURE_KEYWORD_MESSAGE;
-        for (Manager featureManager : this.getSupportedFeatureManagers()) {
-            if (featureManager.getFeatureName().equals(featureKeyword)) {
-                return Optional.of(featureManager);
-            }
-        }
-        return Optional.empty();
     }
 
     /**

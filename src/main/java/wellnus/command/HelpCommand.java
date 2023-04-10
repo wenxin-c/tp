@@ -36,7 +36,6 @@ public class HelpCommand extends Command {
     private static final String PADDING = " ";
     private static final String DOT = ".";
     private static final int ONE_OFFSET = 1;
-    private static final int EMPTY_ARG_LENGTH = 0;
     private static final int EXPECTED_PAYLOAD_SIZE = 1;
     private final TextUi textUi;
 

@@ -63,13 +63,14 @@ faster than traditional Graphical User Interface(GUI) apps.
 
 1. Ensure you have Java 11 or above installed in your Computer.
 
-2. Download the latest CS2113-T12-4-WellNUS.jar
+2. Download the latest [CS2113-T12-4][WellNUS++].jar
    from [here](https://github.com/AY2223S2-CS2113-T12-4/tp/releases/latest).
 
 3. Copy the file to the folder you want to use as the home folder for your WellNUS++.
 
 4. Open a command terminal, cd into the folder you put the .jar file in, and use
-   the `java -jar CS2113-T12-4-WellNUS.jar`
+   the `java -jar "[CS2113-T12-4][WellNUS++].jar"`
+5. 
    command to run the application. A CLI should appear in a few seconds (shown below).
 
 ```
@@ -355,7 +356,7 @@ Expected outcome 2:
 
 ```
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    The following habit has been incremented! Keep up the good work!
+    The following habit has been decremented.
     1.Make bed every morning [5]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ```
@@ -613,7 +614,7 @@ Expected output:
 
 ```
 ============================================================
-    You have added question: What is my purpose in life? into favorite list!!
+    You have added question: "What is my purpose in life?" Into favorite list!!
 ============================================================
 ```
 
@@ -673,7 +674,7 @@ Example output:
 
 ```
 ============================================================
-    You have removed question: What are three of my most cherished personal values? from favorite list!!
+    You have removed question: "What are three of my most cherished personal values?" From favorite list!!
 ============================================================
 ```
 
@@ -796,10 +797,10 @@ Expected outcome:
 
 ```
 ************************************************************
-    Your session has started! Please focus on your task.
+    Your session has started. All the best!
 ************************************************************
 ************************************************************
-    Task
+    Task Cycle: Do your task now!
 ************************************************************
 ```
 
@@ -880,7 +881,7 @@ Expected outcome (if the next timer is a work timer):
 
 ```
 ************************************************************
-    Task
+    Task Cycle: Do your task now!
 ************************************************************
 ```
 
@@ -888,7 +889,7 @@ Expected outcome (if the next timer is a break timer):
 
 ```
 ************************************************************
-    Break
+    Break Cycle: Take a breather!
 ************************************************************
 ```
 
@@ -1004,7 +1005,7 @@ Expected outcome:
 
 ```
 ************************************************************
-    Okay, here's your new session details!
+    Okay, here's your configured session details!
     Cycles: 2
     Work: 1 minute
     Break: 1 minute
@@ -1020,7 +1021,7 @@ Expected outcome:
 
 ```
 ************************************************************
-    Okay, here's your new session details!
+    Okay, here's your configured session details!
     Cycles: 4
     Work: 30 minutes
     Break: 5 minutes
