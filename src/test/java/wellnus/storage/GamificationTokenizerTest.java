@@ -31,6 +31,7 @@ public class GamificationTokenizerTest {
     private static final int XP_LEVEL_ZERO = 0;
     private static final int XP_LEVEL_ONE = 1;
 
+    //@@author haoyangw
     /**
      * Check that <code>GamificationTokenizer</code> can tokenize a newly-initialised
      * <code>GamificationData</code> correctly.
