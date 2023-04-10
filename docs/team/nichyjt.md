@@ -30,12 +30,13 @@ mental wellness in various aspects.
     For example: `(reflect):~$`.  
   - **[Design Justification](https://github.com/AY2223S2-CS2113-T12-4/tp/issues/79)**:
   Feedback from the [PE-D](https://github.com/AY2223S2-CS2113-T12-4/tp/issues/235) and peers showed that 
-  they were often lost within the features.
+  they were often lost within the features. Further, the lack of a visual signifier made it ambiguous to users
+  to know when they should input commands.
   - **Highlights**: Terminal caret unambiguously shows where the user is, and allows users to feel
   comfortable as it mimics a terminal shell which they are familiar with.
 - **Enhancement:** Focus Timer - Streamlining state management,
   [#169](https://github.com/AY2223S2-CS2113-T12-4/tp/pull/169).  
-  Created state-management methods, enforcing SRP with only `Session`managing state.
+  Created state-management methods, enforcing SRP with only `Session` directly querying and handling timer state.
   - **What:** The first focus timer implementation lacked proper state management. 
   It was hard to figure out what commands can be run (e.g. `resume` cannot be run before `pause`).
   - **Highlights:** Without changing the core logic, a developer-friendly API was made to make state management easier.
