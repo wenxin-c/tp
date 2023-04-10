@@ -7,6 +7,8 @@ import java.util.logging.Logger;
 import wellnus.common.WellNusLogger;
 import wellnus.exception.BadCommandException;
 
+//@@author nichyjt
+
 /**
  * A CommandParser processes user input from a defined format <p>
  * <p><br>
@@ -30,7 +32,6 @@ import wellnus.exception.BadCommandException;
  * <li>Has payloads ["work on CS2113", ["Sunday"]</li>
  * <br>
  */
-//@@author nichyjt
 public class CommandParser {
 
     private static final String ARGUMENT_DELIMITER = " --";
